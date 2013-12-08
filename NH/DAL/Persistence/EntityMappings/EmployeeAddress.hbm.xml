@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="NH.Bencher.Model"
+                   namespace="NH.Bencher.EntityClasses">
+				   
+	<class name="EmployeeAddress" table="[HumanResources].[EmployeeAddress]" optimistic-lock="none" >
+		<composite-id>
+			<key-many-to-one name="Address" column="[AddressID]" access="field.camelcase-underscore"  />
+			<key-many-to-one name="Employee" column="[EmployeeID]" access="field.camelcase-underscore"  />
+		</composite-id>
+		<property name="ModifiedDate" column="[ModifiedDate]" access="field.camelcase-underscore" not-null="true"/>
+		<property name="Rowguid" column="[rowguid]" access="field.camelcase-underscore" not-null="true"/>
+	<!-- __LLBLGENPRO_USER_CODE_REGION_START EntityMappingCustomCode -->
+	<!-- __LLBLGENPRO_USER_CODE_REGION_END -->
+	</class>
+</hibernate-mapping>

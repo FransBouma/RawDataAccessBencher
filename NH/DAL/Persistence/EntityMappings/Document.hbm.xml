@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="NH.Bencher.Model"
+                   namespace="NH.Bencher.EntityClasses">
+				   
+	<class name="Document" table="[Production].[Document]" optimistic-lock="none" >
+		<id name="DocumentId" column="[DocumentID]" access="field.camelcase-underscore" >
+			<generator class="identity"/>
+		</id>
+		<property name="ChangeNumber" column="[ChangeNumber]" access="field.camelcase-underscore" not-null="true"/>
+		<property name="DocumentData" column="[Document]" access="field.camelcase-underscore" type="BinaryBlob"/>
+		<property name="DocumentSummary" column="[DocumentSummary]" access="field.camelcase-underscore" type="StringClob"/>
+		<property name="FileExtension" column="[FileExtension]" access="field.camelcase-underscore" not-null="true"/>
+		<property name="FileName" column="[FileName]" access="field.camelcase-underscore" not-null="true"/>
+		<property name="ModifiedDate" column="[ModifiedDate]" access="field.camelcase-underscore" not-null="true"/>
+		<property name="Revision" column="[Revision]" access="field.camelcase-underscore" not-null="true"/>
+		<property name="Status" column="[Status]" access="field.camelcase-underscore" not-null="true"/>
+		<property name="Title" column="[Title]" access="field.camelcase-underscore" not-null="true"/>
+		<set name="ProductDocuments" access="field.camelcase-underscore" cascade="all-delete-orphan" inverse="true" fetch="select">
+			<key>
+				<column name="[DocumentID]"/>
+			</key>
+			<one-to-many class="ProductDocument"/>
+		</set>
+	<!-- __LLBLGENPRO_USER_CODE_REGION_START EntityMappingCustomCode -->
+	<!-- __LLBLGENPRO_USER_CODE_REGION_END -->
+	</class>
+</hibernate-mapping>

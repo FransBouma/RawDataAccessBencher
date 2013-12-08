@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="NH.Bencher.Model"
+                   namespace="NH.Bencher.EntityClasses">
+				   
+	<class name="Customer" table="[Sales].[Customer]" optimistic-lock="none" >
+		<id name="CustomerId" column="[CustomerID]" access="field.camelcase-underscore" >
+			<generator class="identity"/>
+		</id>
+		<property name="AccountNumber" column="[AccountNumber]" access="field.camelcase-underscore" insert="false" update="false" not-null="true"/>
+		<property name="CustomerType" column="[CustomerType]" access="field.camelcase-underscore" not-null="true"/>
+		<property name="ModifiedDate" column="[ModifiedDate]" access="field.camelcase-underscore" not-null="true"/>
+		<property name="Rowguid" column="[rowguid]" access="field.camelcase-underscore" not-null="true"/>
+		<set name="CustomerAddresses" access="field.camelcase-underscore" cascade="all-delete-orphan" inverse="true" fetch="select">
+			<key>
+				<column name="[CustomerID]"/>
+			</key>
+			<one-to-many class="CustomerAddress"/>
+		</set>
+		<one-to-one name="Individual" access="field.camelcase-underscore" fetch="select" cascade="all"/>
+		<set name="SalesOrderHeaders" access="field.camelcase-underscore" cascade="all-delete-orphan" inverse="true" fetch="select">
+			<key>
+				<column name="[CustomerID]"/>
+			</key>
+			<one-to-many class="SalesOrderHeader"/>
+		</set>
+		<many-to-one name="SalesTerritory" access="field.camelcase-underscore" fetch="select" cascade="all">
+			<column name="[TerritoryID]"/>
+		</many-to-one>
+		<one-to-one name="Store" access="field.camelcase-underscore" fetch="select" cascade="all"/>
+	<!-- __LLBLGENPRO_USER_CODE_REGION_START EntityMappingCustomCode -->
+	<!-- __LLBLGENPRO_USER_CODE_REGION_END -->
+	</class>
+</hibernate-mapping>
