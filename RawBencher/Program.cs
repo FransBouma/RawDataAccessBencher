@@ -58,6 +58,10 @@ namespace RawBencher
 			}
 			for(int i = 0; i < loopAmount; i++)
 			{
+				FetchSalesOrderHeaderL2SNoTracking();
+			}
+			for(int i = 0; i < loopAmount; i++)
+			{
 				FetchSalesOrderHeaderEntities();
 			}
 			for(int i = 0; i < loopAmount; i++)
@@ -377,6 +381,29 @@ namespace RawBencher
 			sw.Start();
 			List<L2S.Bencher.EntityClasses.SalesOrderHeader> headers = null;
 			var ctx = new L2SBencherDataContext();
+			headers = ctx.SalesOrderHeaders.ToList();
+			sw.Stop();
+			ReportResult(frameworkName, sw.ElapsedMilliseconds, headers.Count);
+
+			foreach(var e in headers)
+			{
+				if(e.SalesOrderId <= 0)
+				{
+					Console.WriteLine("L2S: Data is empty");
+					break;
+				}
+			}
+		}
+
+
+		private static void FetchSalesOrderHeaderL2SNoTracking()
+		{
+			var frameworkName = CreateFrameworkName("Linq to Sql v{0} (v{1}), using no tracking", typeof(System.Data.Linq.DataContext));
+			var sw = new Stopwatch();
+			sw.Start();
+			List<L2S.Bencher.EntityClasses.SalesOrderHeader> headers = null;
+			var ctx = new L2SBencherDataContext();
+			ctx.ObjectTrackingEnabled = false;
 			headers = ctx.SalesOrderHeaders.ToList();
 			sw.Stop();
 			ReportResult(frameworkName, sw.ElapsedMilliseconds, headers.Count);
