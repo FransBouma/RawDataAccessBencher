@@ -7,202 +7,204 @@ using System.Collections.Generic;
 
 namespace RawBencher
 {
-	/// <summary>Class which represents the entity 'Sales.SalesOrderHeader'</summary>
-	public partial class SalesOrderHeader
-	{
-		#region Class Member Declarations
-		private System.String _accountNumber;
-		private System.String _comment;
-		private System.String _creditCardApprovalCode;
-		private System.DateTime _dueDate;
-		private System.Decimal _freight;
-		private System.DateTime _modifiedDate;
-		private System.Boolean _onlineOrderFlag;
-		private System.DateTime _orderDate;
-		private System.String _purchaseOrderNumber;
-		private System.Byte _revisionNumber;
-		private System.Guid _rowguid;
-		private System.Int32 _salesOrderId;
-		private System.String _salesOrderNumber;
-		private Nullable<System.DateTime> _shipDate;
-		private System.Byte _status;
-		private System.Decimal _subTotal;
-		private System.Decimal _taxAmt;
-		private System.Decimal _totalDue;
-		#endregion
+    /// <summary>Class which represents the entity 'Sales.SalesOrderHeader'</summary>
+    [ServiceStack.DataAnnotations.Schema("Sales")]
+    [ServiceStack.DataAnnotations.Alias("SalesOrderHeader")]
+    public partial class SalesOrderHeader
+    {
+        #region Class Member Declarations
+        private System.String _accountNumber;
+        private System.String _comment;
+        private System.String _creditCardApprovalCode;
+        private System.DateTime _dueDate;
+        private System.Decimal _freight;
+        private System.DateTime _modifiedDate;
+        private System.Boolean _onlineOrderFlag;
+        private System.DateTime _orderDate;
+        private System.String _purchaseOrderNumber;
+        private System.Byte _revisionNumber;
+        private System.Guid _rowguid;
+        private System.Int32 _salesOrderId;
+        private System.String _salesOrderNumber;
+        private Nullable<System.DateTime> _shipDate;
+        private System.Byte _status;
+        private System.Decimal _subTotal;
+        private System.Decimal _taxAmt;
+        private System.Decimal _totalDue;
+        #endregion
 
-		/// <summary>Initializes a new instance of the <see cref="SalesOrderHeader"/> class.</summary>
-		public SalesOrderHeader() : base()
-		{
-			_salesOrderId = default(System.Int32);
-			_salesOrderNumber = default(System.String);
-			_totalDue = default(System.Decimal);
-			OnCreated();
-		}
+        /// <summary>Initializes a new instance of the <see cref="SalesOrderHeader"/> class.</summary>
+        public SalesOrderHeader() : base()
+        {
+            _salesOrderId = default(System.Int32);
+            _salesOrderNumber = default(System.String);
+            _totalDue = default(System.Decimal);
+            OnCreated();
+        }
 
-		/// <summary>Method called from the constructor</summary>
-		partial void OnCreated();
+        /// <summary>Method called from the constructor</summary>
+        partial void OnCreated();
 
-		/// <summary>Returns a hash code for this instance.</summary>
-		/// <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. </returns>
-		public override int GetHashCode()
-		{
-			int toReturn = base.GetHashCode();
-			toReturn ^= this.SalesOrderId.GetHashCode();
-			return toReturn;
-		}
-	
-		/// <summary>Determines whether the specified object is equal to this instance.</summary>
-		/// <param name="obj">The <see cref="System.Object"/> to compare with this instance.</param>
-		/// <returns><c>true</c> if the specified <see cref="System.Object"/> is equal to this instance; otherwise, <c>false</c>.</returns>
-		public override bool Equals(object obj)
-		{
-			if(obj == null) 
-			{
-				return false;
-			}
-			SalesOrderHeader toCompareWith = obj as SalesOrderHeader;
-			return toCompareWith == null ? false : ((this.SalesOrderId == toCompareWith.SalesOrderId));
-		}
-		
+        /// <summary>Returns a hash code for this instance.</summary>
+        /// <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. </returns>
+        public override int GetHashCode()
+        {
+            int toReturn = base.GetHashCode();
+            toReturn ^= this.SalesOrderId.GetHashCode();
+            return toReturn;
+        }
+    
+        /// <summary>Determines whether the specified object is equal to this instance.</summary>
+        /// <param name="obj">The <see cref="System.Object"/> to compare with this instance.</param>
+        /// <returns><c>true</c> if the specified <see cref="System.Object"/> is equal to this instance; otherwise, <c>false</c>.</returns>
+        public override bool Equals(object obj)
+        {
+            if(obj == null) 
+            {
+                return false;
+            }
+            SalesOrderHeader toCompareWith = obj as SalesOrderHeader;
+            return toCompareWith == null ? false : ((this.SalesOrderId == toCompareWith.SalesOrderId));
+        }
+        
 
-		#region Class Property Declarations
-		/// <summary>Gets or sets the AccountNumber field. </summary>	
-		public virtual System.String AccountNumber
-		{ 
-			get { return _accountNumber; }
-			set { _accountNumber = value; }
-		}
+        #region Class Property Declarations
+        /// <summary>Gets or sets the AccountNumber field. </summary>	
+        public virtual System.String AccountNumber
+        { 
+            get { return _accountNumber; }
+            set { _accountNumber = value; }
+        }
 
-		/// <summary>Gets or sets the Comment field. </summary>	
-		public virtual System.String Comment
-		{ 
-			get { return _comment; }
-			set { _comment = value; }
-		}
+        /// <summary>Gets or sets the Comment field. </summary>	
+        public virtual System.String Comment
+        { 
+            get { return _comment; }
+            set { _comment = value; }
+        }
 
-		/// <summary>Gets or sets the CreditCardApprovalCode field. </summary>	
-		public virtual System.String CreditCardApprovalCode
-		{ 
-			get { return _creditCardApprovalCode; }
-			set { _creditCardApprovalCode = value; }
-		}
+        /// <summary>Gets or sets the CreditCardApprovalCode field. </summary>	
+        public virtual System.String CreditCardApprovalCode
+        { 
+            get { return _creditCardApprovalCode; }
+            set { _creditCardApprovalCode = value; }
+        }
 
-		/// <summary>Gets or sets the DueDate field. </summary>	
-		public virtual System.DateTime DueDate
-		{ 
-			get { return _dueDate; }
-			set { _dueDate = value; }
-		}
+        /// <summary>Gets or sets the DueDate field. </summary>	
+        public virtual System.DateTime DueDate
+        { 
+            get { return _dueDate; }
+            set { _dueDate = value; }
+        }
 
-		/// <summary>Gets or sets the Freight field. </summary>	
-		public virtual System.Decimal Freight
-		{ 
-			get { return _freight; }
-			set { _freight = value; }
-		}
+        /// <summary>Gets or sets the Freight field. </summary>	
+        public virtual System.Decimal Freight
+        { 
+            get { return _freight; }
+            set { _freight = value; }
+        }
 
-		/// <summary>Gets or sets the ModifiedDate field. </summary>	
-		public virtual System.DateTime ModifiedDate
-		{ 
-			get { return _modifiedDate; }
-			set { _modifiedDate = value; }
-		}
+        /// <summary>Gets or sets the ModifiedDate field. </summary>	
+        public virtual System.DateTime ModifiedDate
+        { 
+            get { return _modifiedDate; }
+            set { _modifiedDate = value; }
+        }
 
-		/// <summary>Gets or sets the OnlineOrderFlag field. </summary>	
-		public virtual System.Boolean OnlineOrderFlag
-		{ 
-			get { return _onlineOrderFlag; }
-			set { _onlineOrderFlag = value; }
-		}
+        /// <summary>Gets or sets the OnlineOrderFlag field. </summary>	
+        public virtual System.Boolean OnlineOrderFlag
+        { 
+            get { return _onlineOrderFlag; }
+            set { _onlineOrderFlag = value; }
+        }
 
-		/// <summary>Gets or sets the OrderDate field. </summary>	
-		public virtual System.DateTime OrderDate
-		{ 
-			get { return _orderDate; }
-			set { _orderDate = value; }
-		}
+        /// <summary>Gets or sets the OrderDate field. </summary>	
+        public virtual System.DateTime OrderDate
+        { 
+            get { return _orderDate; }
+            set { _orderDate = value; }
+        }
 
-		/// <summary>Gets or sets the PurchaseOrderNumber field. </summary>	
-		public virtual System.String PurchaseOrderNumber
-		{ 
-			get { return _purchaseOrderNumber; }
-			set { _purchaseOrderNumber = value; }
-		}
+        /// <summary>Gets or sets the PurchaseOrderNumber field. </summary>	
+        public virtual System.String PurchaseOrderNumber
+        { 
+            get { return _purchaseOrderNumber; }
+            set { _purchaseOrderNumber = value; }
+        }
 
-		/// <summary>Gets or sets the RevisionNumber field. </summary>	
-		public virtual System.Byte RevisionNumber
-		{ 
-			get { return _revisionNumber; }
-			set { _revisionNumber = value; }
-		}
+        /// <summary>Gets or sets the RevisionNumber field. </summary>	
+        public virtual System.Byte RevisionNumber
+        { 
+            get { return _revisionNumber; }
+            set { _revisionNumber = value; }
+        }
 
-		/// <summary>Gets or sets the Rowguid field. </summary>	
-		public virtual System.Guid Rowguid
-		{ 
-			get { return _rowguid; }
-			set { _rowguid = value; }
-		}
+        /// <summary>Gets or sets the Rowguid field. </summary>	
+        public virtual System.Guid Rowguid
+        { 
+            get { return _rowguid; }
+            set { _rowguid = value; }
+        }
 
-		/// <summary>Gets the SalesOrderId field. </summary>	
-		public virtual System.Int32 SalesOrderId
-		{ 
-			get { return _salesOrderId; }
-			set { _salesOrderId = value; }
-		}
+        /// <summary>Gets the SalesOrderId field. </summary>	
+        public virtual System.Int32 SalesOrderId
+        { 
+            get { return _salesOrderId; }
+            set { _salesOrderId = value; }
+        }
 
-		/// <summary>Gets the SalesOrderNumber field. </summary>	
-		public virtual System.String SalesOrderNumber
-		{ 
-			get { return _salesOrderNumber; }
-			set { _salesOrderNumber = value; }
-		}
+        /// <summary>Gets the SalesOrderNumber field. </summary>	
+        public virtual System.String SalesOrderNumber
+        { 
+            get { return _salesOrderNumber; }
+            set { _salesOrderNumber = value; }
+        }
 
-		/// <summary>Gets or sets the ShipDate field. </summary>	
-		public virtual Nullable<System.DateTime> ShipDate
-		{ 
-			get { return _shipDate; }
-			set { _shipDate = value; }
-		}
+        /// <summary>Gets or sets the ShipDate field. </summary>	
+        public virtual Nullable<System.DateTime> ShipDate
+        { 
+            get { return _shipDate; }
+            set { _shipDate = value; }
+        }
 
-		/// <summary>Gets or sets the Status field. </summary>	
-		public virtual System.Byte Status
-		{ 
-			get { return _status; }
-			set { _status = value; }
-		}
+        /// <summary>Gets or sets the Status field. </summary>	
+        public virtual System.Byte Status
+        { 
+            get { return _status; }
+            set { _status = value; }
+        }
 
-		/// <summary>Gets or sets the SubTotal field. </summary>	
-		public virtual System.Decimal SubTotal
-		{ 
-			get { return _subTotal; }
-			set { _subTotal = value; }
-		}
+        /// <summary>Gets or sets the SubTotal field. </summary>	
+        public virtual System.Decimal SubTotal
+        { 
+            get { return _subTotal; }
+            set { _subTotal = value; }
+        }
 
-		/// <summary>Gets or sets the TaxAmt field. </summary>	
-		public virtual System.Decimal TaxAmt
-		{ 
-			get { return _taxAmt; }
-			set { _taxAmt = value; }
-		}
+        /// <summary>Gets or sets the TaxAmt field. </summary>	
+        public virtual System.Decimal TaxAmt
+        { 
+            get { return _taxAmt; }
+            set { _taxAmt = value; }
+        }
 
-		/// <summary>Gets the TotalDue field. </summary>	
-		public virtual System.Decimal TotalDue
-		{ 
-			get { return _totalDue; }
-			set { _totalDue = value; }
-		}
+        /// <summary>Gets the TotalDue field. </summary>	
+        public virtual System.Decimal TotalDue
+        { 
+            get { return _totalDue; }
+            set { _totalDue = value; }
+        }
 
-		public int CustomerID { get; set; }
-		public int ContactID { get; set; }
-		public int? SalesPersonID { get; set; }
-		public int? TerritoryID { get; set; }
-		public int BillToAddressID { get; set; }
-		public int ShipToAddressID { get; set; }
-		public int ShipMethodID { get; set; }
-		public int? CreditCardID { get; set; }
-		public int? CurrencyRateID { get; set; }
+        public int CustomerID { get; set; }
+        public int ContactID { get; set; }
+        public int? SalesPersonID { get; set; }
+        public int? TerritoryID { get; set; }
+        public int BillToAddressID { get; set; }
+        public int ShipToAddressID { get; set; }
+        public int ShipMethodID { get; set; }
+        public int? CreditCardID { get; set; }
+        public int? CurrencyRateID { get; set; }
 
-		#endregion
-	}
+        #endregion
+    }
 }
