@@ -1,0 +1,880 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Configuration;
+using System.Data;
+using System.Data.Common;
+using System.Dynamic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using Oak;
+using System.Diagnostics;
+using Massive;
+using System.Threading;
+
+//thank you Rob Conery for this awesome file https://github.com/robconery/massive
+
+//THIS IS AN ALTERED VERSION OF MASSIVE, HOOKS HAVE BEEN ADDED TO WORK WITH OAK
+
+/*
+New BSD License
+http://www.opensource.org/licenses/bsd-license.php
+Copyright (c) 2009, Rob Conery (robconery@gmail.com)
+All rights reserved.    
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+Neither the name of the SubSonic nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+
+namespace Massive
+{
+    public static class MassiveObjectExtensions
+    {
+        /// <summary>
+        /// Extension method for adding in a bunch of parameters
+        /// </summary>
+        public static void AddParams(this DbCommand cmd, params object[] args)
+        {
+            foreach (var item in args)
+            {
+                AddParam(cmd, item);
+            }
+        }
+        /// <summary>
+        /// Extension for adding single parameter
+        /// </summary>
+        public static void AddParam(this DbCommand cmd, object item)
+        {
+            var p = cmd.CreateParameter();
+            p.ParameterName = string.Format("@{0}", cmd.Parameters.Count);
+            if (item == null)
+            {
+                p.Value = DBNull.Value;
+            }
+            else
+            {
+                if (item.GetType() == typeof(Guid))
+                {
+                    p.Value = item.ToString();
+                    p.DbType = DbType.String;
+                    p.Size = 4000;
+                }
+                else if (item.GetType() == typeof(Prototype))
+                {
+                    var d = (IDictionary<string, object>)item;
+                    p.Value = d.Values.FirstOrDefault();
+                }
+                else
+                {
+                    p.Value = item;
+                }
+                if (item.GetType() == typeof(string))
+                    p.Size = ((string)item).Length > 4000 ? -1 : 4000;
+            }
+            cmd.Parameters.Add(p);
+        }
+
+        /// <summary>
+        /// Turns an IDataReader to a Dynamic list of things
+        /// </summary>
+        public static List<dynamic> ToGeminiList(this IDataReader rdr, Func<dynamic, dynamic> projection)
+        {
+            var result = new List<dynamic>();
+            while (rdr.Read())
+            {
+                result.Add(rdr.RecordToGemini(projection));
+            }
+            return result;
+        }
+
+        public static dynamic RecordToGemini(this IDataReader rdr, Func<dynamic, dynamic> projection)
+        {
+            dynamic e = new Gemini();
+            var d = e.Prototype as IDictionary<string, object>;
+            for (int i = 0; i < rdr.FieldCount; i++)
+                d.Add(rdr.GetName(i), DBNull.Value.Equals(rdr[i]) ? null : rdr[i]);
+            return projection(e);
+        }
+    }
+
+    /// <summary>
+    /// A class that wrapsll your database table in Dynamic Funtime
+    /// </summary>
+
+    //when does a fork of a code base become so different that 
+    //it barely resembles its upstream?
+    public class DynamicRepository : Gemini
+    {
+        DbProviderFactory _factory;
+        public ConnectionProfile ConnectionProfile { get; set; }
+        public virtual Func<dynamic, dynamic> Projection { get; set; }
+        public static bool WriteDevLog { get; set; }
+
+        public DynamicRepository(string tableName = "", string primaryKeyField = "")
+            : this(null, tableName, primaryKeyField)
+        {
+        }
+
+        static DynamicRepository()
+        {
+            WriteDevLog = false;
+            LogSql = LogSqlDelegate;
+            Gemini.Extend<DynamicRepository, DynamicQuery>();
+        }
+
+        public DynamicRepository(ConnectionProfile connectionProfile, string tableName = "", string primaryKeyField = "")
+        {
+            TableName = tableName == "" ? this.GetType().Name : tableName;
+            PrimaryKeyField = string.IsNullOrEmpty(primaryKeyField) ? "Id" : primaryKeyField;
+            var _providerName = "System.Data.SqlClient";
+            _factory = DbProviderFactories.GetFactory(_providerName);
+
+            if (connectionProfile == null) connectionProfile = new ConnectionProfile();
+            ConnectionProfile = connectionProfile;
+            Projection = (d) => d;
+        }
+
+        /// <summary>
+        /// Gets a default value for the column
+        /// </summary>
+        public dynamic DefaultValue(dynamic column)
+        {
+            dynamic result = null;
+            string def = column.COLUMN_DEFAULT;
+            if (String.IsNullOrEmpty(def))
+            {
+                result = null;
+            }
+            else if (def == "getdate()" || def == "(getdate())")
+            {
+                result = DateTime.Now.ToShortDateString();
+            }
+            else if (def == "newid()")
+            {
+                result = Guid.NewGuid().ToString();
+            }
+            else
+            {
+                result = def.Replace("(", "").Replace(")", "");
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// List out all the schema bits for use with ... whatever
+        /// </summary>
+        public IEnumerable<dynamic> Schema
+        {
+            get
+            {
+                return Query("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = @0", TableName);
+            }
+        }
+
+        /// <summary>
+        /// Enumerates the reader yielding the result - thanks to Jeroen Haegebaert
+        /// </summary>
+        public virtual IEnumerable<dynamic> Query(string sql, params object[] args)
+        {
+            using (var conn = OpenConnection())
+            {
+                if (WriteDevLog) LogSql(this, sql, args);
+
+                var rdr = CreateCommand(sql, conn, args).ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    yield return rdr.RecordToGemini(Projection);
+                }
+            }
+        }
+
+        object[] ToParams(object[] args)
+        {
+            if (args.Length == 1 && args[0] is IEnumerable<object>)
+            {
+                return (args[0] as IEnumerable<object>).ToArray();
+            }
+
+            return args;
+        }
+
+        /// <summary>
+        /// Executes the reader using SQL async API - thanks to Damian Edwards
+        /// </summary>
+        public void QueryAsync(string sql, Action<List<dynamic>> callback, params object[] args)
+        {
+            using (var conn = new SqlConnection(ConnectionProfile.ConnectionString))
+            {
+                var cmd = new SqlCommand(sql, new SqlConnection(ConnectionProfile.ConnectionString));
+                cmd.AddParams(args);
+                cmd.Connection.Open();
+                var task = Task.Factory.FromAsync<IDataReader>(cmd.BeginExecuteReader, cmd.EndExecuteReader, null);
+                task.ContinueWith(x => callback.Invoke(x.Result.ToGeminiList(Projection)));
+                //make sure this is closed off.
+                conn.Close();
+            }
+        }
+
+        public virtual IEnumerable<dynamic> Query(string sql, DbConnection connection, params object[] args)
+        {
+            using (var rdr = CreateCommand(sql, connection, args).ExecuteReader())
+            {
+                if (WriteDevLog) LogSql(this, sql, args);
+
+                while (rdr.Read())
+                {
+                    yield return rdr.RecordToGemini(Projection); ;
+                }
+            }
+        }
+
+        public static Action<object, string, object[]> LogSql { get; set; }
+
+        public static object ConsoleLogLock = new object();
+        public static void LogSqlDelegate(object sender, string query, object[] args)
+        {
+            lock (ConsoleLogLock)
+            {
+                if (args == null) args = new object[0];
+
+                System.Console.Out.WriteLine(
+                    "\r\n==============\r\n\n" +
+                    "[" + sender.GetType().Name + "], Thread [" + Thread.CurrentThread.ManagedThreadId + "]\n\n" +
+                    query + "\r\n" + args.CollectionToString() +
+                    "\r\n==============\r\n");
+            }
+        }
+
+        private void LogSqlCommand(DbCommand cmd)
+        {
+            var args = new List<object>();
+
+            cmd.Parameters.ForEach<SqlParameter>(s => args.Add(s.Value));
+
+            LogSql(this, cmd.CommandText, args.ToArray());
+        }
+
+        /// <summary>
+        /// Returns a single result
+        /// </summary>
+        public virtual object Scalar(string sql, params object[] args)
+        {
+            object result = null;
+            using (var conn = OpenConnection())
+            {
+                result = CreateCommand(sql, conn, args).ExecuteScalar();
+            }
+            return result;
+        }
+        /// <summary>
+        /// Creates a DBCommand that you can use for loving your database.
+        /// </summary>
+        DbCommand CreateCommand(string sql, DbConnection conn, params object[] args)
+        {
+            var newArgs = ToParams(args);
+            var result = _factory.CreateCommand();
+            result.Connection = conn;
+            result.CommandText = sql;
+            if (args.Length > 0)
+                result.AddParams(newArgs);
+            return result;
+        }
+        /// <summary>
+        /// Returns and OpenConnection
+        /// </summary>
+        public virtual DbConnection OpenConnection()
+        {
+            var result = _factory.CreateConnection();
+            result.ConnectionString = ConnectionProfile.ConnectionString;
+            result.Open();
+            return result;
+        }
+        /// <summary>
+        /// Builds a set of Insert and Update commands based on the passed-on objects.
+        /// These objects can be POCOs, Anonymous, NameValueCollections, or Expandos. Objects
+        /// With a PK property (whatever PrimaryKeyField is set to) will be created at UPDATEs
+        /// </summary>
+        public virtual List<DbCommand> BuildCommands(params object[] things)
+        {
+            var commands = new List<DbCommand>();
+            foreach (var item in things)
+            {
+                if (HasPrimaryKey(item))
+                {
+                    commands.Add(CreateUpdateCommand(item, GetPrimaryKey(item)));
+                }
+                else
+                {
+                    commands.Add(CreateInsertCommand(item));
+                }
+            }
+            return commands;
+        }
+        /// <summary>
+        /// Executes a set of objects as Insert or Update commands based on their property settings, within a transaction.
+        /// These objects can be POCOs, Anonymous, NameValueCollections, or Expandos. Objects
+        /// With a PK property (whatever PrimaryKeyField is set to) will be created at UPDATEs
+        /// </summary>
+        public virtual void Save(params object[] things)
+        {
+            var commands = BuildCommands(things);
+
+            Execute(commands);
+        }
+
+        public virtual void Save(IEnumerable<dynamic> things)
+        {
+            Save(things.ToArray());
+        }
+
+        public virtual int Execute(DbCommand command)
+        {
+            return Execute(new DbCommand[] { command });
+        }
+
+        public virtual int Execute(string sql, params object[] args)
+        {
+            return Execute(CreateCommand(sql, null, args));
+        }
+        /// <summary>
+        /// Executes a series of DBCommands in a transaction
+        /// </summary>
+        public virtual int Execute(IEnumerable<DbCommand> commands)
+        {
+            var result = 0;
+            using (var conn = OpenConnection())
+            {
+                using (var tx = conn.BeginTransaction())
+                {
+                    foreach (var cmd in commands)
+                    {
+                        cmd.Connection = conn;
+                        cmd.Transaction = tx;
+                        try
+                        {
+                            result += cmd.ExecuteNonQuery();
+                        }
+                        catch (SqlException ex)
+                        {
+                            if (IsInvalidColumnException(ex)) throw TryExcludingColumn(ex);
+
+                            else throw;
+                        }
+
+                    }
+                    tx.Commit();
+                }
+            }
+            return result;
+        }
+        public virtual string PrimaryKeyField { get; set; }
+        /// <summary>
+        /// Conventionally introspects the object passed in for a field that 
+        /// looks like a PK. If you've named your PrimaryKeyField, this becomes easy
+        /// </summary>
+        public virtual bool HasPrimaryKey(object o)
+        {
+            return o.ToDictionary().ContainsKey(PrimaryKeyField);
+        }
+        /// <summary>
+        /// If the object passed in has a property with the same name as your PrimaryKeyField
+        /// it is returned here.
+        /// </summary>
+        public virtual object GetPrimaryKey(object o)
+        {
+            object result = null;
+            o.ToDictionary().TryGetValue(PrimaryKeyField, out result);
+            return result;
+        }
+        public virtual string TableName { get; set; }
+        /// <summary>
+        /// Creates a command for use with transactions - internal stuff mostly, but here for you to play with
+        /// </summary>
+        public virtual DbCommand CreateInsertCommand(object o)
+        {
+            DbCommand result = null;
+            var attributes = GetAttributesToSave(o);
+            var settings = (IDictionary<string, object>)attributes;
+            var sbKeys = new StringBuilder();
+            var sbVals = new StringBuilder();
+            var stub = "INSERT INTO {0} ({1}) \r\n VALUES ({2})";
+            result = CreateCommand(stub, null);
+            int counter = 0;
+            foreach (var item in settings)
+            {
+                sbKeys.AppendFormat("{0},", "[" + item.Key + "]");
+                sbVals.AppendFormat("@{0},", counter.ToString());
+                result.AddParam(item.Value);
+                counter++;
+            }
+            if (counter > 0)
+            {
+                var keys = sbKeys.ToString().Substring(0, sbKeys.Length - 1);
+                var vals = sbVals.ToString().Substring(0, sbVals.Length - 1);
+                var sql = string.Format(stub, TableName, keys, vals);
+                result.CommandText = sql;
+            }
+            else throw new InvalidOperationException("Can't parse this object to the database - there are no properties set");
+
+            if (WriteDevLog) LogSqlCommand(result);
+
+            return result;
+        }
+        /// <summary>
+        /// Creates a command for use with transactions - internal stuff mostly, but here for you to play with
+        /// </summary>
+        public virtual DbCommand CreateUpdateCommand(object o, object key)
+        {
+            var attributes = GetAttributesToSave(o);
+            var settings = (IDictionary<string, object>)attributes;
+            var sbKeys = new StringBuilder();
+            var stub = "UPDATE {0} SET {1} WHERE [{2}] = @{3}";
+            var args = new List<object>();
+            var result = CreateCommand(stub, null);
+            int counter = 0;
+            foreach (var item in settings)
+            {
+                var val = item.Value ?? DBNull.Value;
+                if (!item.Key.Equals(PrimaryKeyField, StringComparison.CurrentCultureIgnoreCase) && val != null)
+                {
+                    result.AddParam(val);
+                    sbKeys.AppendFormat("[{0}] = @{1}, \r\n", item.Key, counter.ToString());
+                    counter++;
+                }
+            }
+            if (counter > 0)
+            {
+                //add the key
+                result.AddParam(key);
+                //strip the last commas
+                var keys = sbKeys.ToString().Substring(0, sbKeys.Length - 4);
+                result.CommandText = string.Format(stub, TableName, keys, PrimaryKeyField, counter);
+            }
+            else throw new InvalidOperationException("No parsable object was sent in - could not divine any name/value pairs");
+
+            if (WriteDevLog) LogSqlCommand(result);
+
+            return result;
+        }
+
+        public virtual IDictionary<string, object> GetAttributesToSave(object o)
+        {
+            dynamic attributes = null;
+
+            if (o is DynamicModel || o is Gemini) attributes = ((Gemini)o).HashOfProperties();
+
+            else attributes = o.ToPrototype();
+
+            var keysToRemove = new List<string>();
+
+            foreach (var attr in attributes) if (!IsValueType(attr.Value)) keysToRemove.Add(attr.Key);
+
+            foreach (var key in keysToRemove) (attributes as IDictionary<string, object>).Remove(key);
+
+            return attributes;
+        }
+
+        public virtual bool IsValueType(object o)
+        {
+            if (o is string) return true;
+
+            if (o == null) return true;
+
+            if (o is byte[]) return true;
+
+            return o is ValueType;
+        }
+
+        /// <summary>
+        /// Removes one or more records from the DB according to the passed-in WHERE
+        /// </summary>
+        public virtual DbCommand CreateDeleteCommand(string where = "", object key = null, params object[] args)
+        {
+            var sql = string.Format("DELETE FROM {0} ", TableName);
+            if (key != null)
+            {
+                sql += string.Format("WHERE {0}=@0", PrimaryKeyField);
+                args = new object[] { key };
+            }
+            else if (!string.IsNullOrEmpty(where))
+            {
+                sql += where.Trim().StartsWith("where", StringComparison.CurrentCultureIgnoreCase) ? where : "WHERE " + where;
+            }
+
+            var result = CreateCommand(sql, null, args);
+
+            if (WriteDevLog) LogSqlCommand(result);
+
+            return result;
+        }
+        /// <summary>
+        /// Adds a record to the database. You can pass in an Anonymous object, an ExpandoObject,
+        /// A regular old POCO, or a NameValueColletion from a Request.Form or Request.QueryString
+        /// </summary>
+        public virtual object Insert(object o)
+        {
+            dynamic result = 0;
+            using (var conn = OpenConnection())
+            {
+                try
+                {
+                    var cmd = CreateInsertCommand(o);
+                    cmd.Connection = conn;
+                    cmd.ExecuteNonQuery();
+                    cmd.CommandText = "SELECT @@IDENTITY as newID";
+                    result = cmd.ExecuteScalar();
+                }
+                catch (SqlException ex)
+                {
+                    if (IsInvalidColumnException(ex)) throw TryExcludingColumn(ex);
+
+                    else if (IsIdentityInsertException(ex)) throw TryExcludingIdentity(ex);
+
+                    else throw;
+                }
+            }
+
+            int outInt = 0;
+
+            if (int.TryParse(result.ToString(), out outInt)) return outInt;
+
+            return result;
+        }
+
+        private bool IsIdentityInsertException(SqlException ex)
+        {
+            return ex.Message.Contains("Cannot insert explicit value for identity column in table");
+        }
+
+        private InvalidOperationException TryExcludingIdentity(SqlException ex)
+        {
+            return new InvalidOperationException(
+@"Looks like you are trying to save a property that is considered an Identity column.
+To exclude unwanted properties, override the IDictionary<string, object> GetAttributesToSave(object o) method on your repository.
+Here is an example of how to exclude unwanted properties: 
+
+public class " + this.GetType().Name + @" : " + this.GetType().BaseType.Name + @"
+{
+    public override IDictionary<string, object> GetAttributesToSave(object o)
+    {
+        return base.GetAttributesToSave(o).Exclude(""Id""); //this would be your identity column
+    }
+}
+
+Sql Exception: 
+" + ex.Message);
+        }
+
+        private bool IsInvalidColumnException(SqlException ex)
+        {
+            return ex.Message.Contains("Invalid column name");
+        }
+
+        private InvalidOperationException TryExcludingColumn(SqlException ex)
+        {
+            return new InvalidOperationException(
+@"Looks like you are trying to save a property that doesn't exist in your database.
+To exclude unwanted properties, override the IDictionary<string, object> GetAttributesToSave(object o) method on your repository.
+Here is an example of how to exclude unwanted properties: 
+
+public class " + this.GetType().Name + @" : " + this.GetType().BaseType.Name + @"
+{
+    public override IDictionary<string, object> GetAttributesToSave(object o)
+    {
+        return base.GetAttributesToSave(o).Exclude(""SomeProperty"", ""AnotherProperty"");
+    }
+}
+
+Sql Exception: 
+" + ex.Message);
+        }
+
+        /// <summary>
+        /// Updates a record in the database. You can pass in an Anonymous object, an ExpandoObject,
+        /// A regular old POCO, or a NameValueCollection from a Request.Form or Request.QueryString
+        /// </summary>
+        public virtual int Update(object o, object key)
+        {
+            return Execute(CreateUpdateCommand(o, key));
+        }
+        /// <summary>
+        /// Removes one or more records from the DB according to the passed-in WHERE
+        /// </summary>
+        public int Delete(object key = null, string where = "", params object[] args)
+        {
+            return Execute(CreateDeleteCommand(where: where, key: key, args: args));
+        }
+        /// <summary>
+        /// Returns all records complying with the passed-in WHERE clause and arguments, 
+        /// ordered as specified, limited (TOP) by limit.
+        /// </summary>
+        public virtual IEnumerable<dynamic> All()
+        {
+            string @where = "";
+            string orderBy = "";
+            int limit = 0;
+            string columns = "*";
+            return All(@where, orderBy, limit, columns);
+        }
+        /// <summary>
+        /// Returns all records complying with the passed-in WHERE clause and arguments, 
+        /// ordered as specified, limited (TOP) by limit.
+        /// </summary>
+        public virtual IEnumerable<dynamic> All(string where = "", string orderBy = "", int limit = 0, string columns = "*", params object[] args)
+        {
+            string sql = BuildSelect(where, orderBy, limit);
+            return new DynamicModels(Query(string.Format(sql, columns, TableName), args));
+        }
+        private static string BuildSelect(string where, string orderBy, int limit)
+        {
+            string sql = limit > 0 ? "SELECT TOP " + limit + " {0} FROM {1} " : "SELECT {0} FROM {1} ";
+            if (!string.IsNullOrEmpty(where))
+                sql += where.Trim().StartsWith("where", StringComparison.CurrentCultureIgnoreCase) ? where : "WHERE " + where;
+            if (!String.IsNullOrEmpty(orderBy))
+                sql += orderBy.Trim().StartsWith("order by", StringComparison.CurrentCultureIgnoreCase) ? orderBy : " ORDER BY " + orderBy;
+            return sql;
+        }
+        /// <summary>
+        /// Returns all records complying with the passed-in WHERE clause and arguments, 
+        /// ordered as specified, limited (TOP) by limit.
+        /// </summary>
+        public virtual void AllAsync(Action<List<dynamic>> callback, string where = "", string orderBy = "", int limit = 0, string columns = "*", params object[] args)
+        {
+            string sql = BuildSelect(where, orderBy, limit);
+            QueryAsync(string.Format(sql, columns, TableName), callback, args);
+        }
+        /// <summary>
+        /// Returns a dynamic PagedResult. Result properties are Items, TotalPages, and TotalRecords.
+        /// </summary>
+        public virtual dynamic Paged(string where = "", string orderBy = "", string columns = "*", int pageSize = 20, int currentPage = 1, params object[] args)
+        {
+            dynamic result = new Prototype();
+            var countSQL = string.Format("SELECT COUNT({0}) FROM {1}", PrimaryKeyField, TableName);
+            if (String.IsNullOrEmpty(orderBy))
+                orderBy = PrimaryKeyField;
+
+            if (!string.IsNullOrEmpty(where))
+            {
+                if (!where.Trim().StartsWith("where", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    where = " WHERE " + where;
+                }
+            }
+            var sql = string.Format("SELECT {0} FROM (SELECT ROW_NUMBER() OVER (ORDER BY {2}) AS Row, {0} FROM {3} {4}) AS Paged ", columns, pageSize, orderBy, TableName, where);
+            var pageStart = (currentPage - 1) * pageSize;
+            sql += string.Format(" WHERE Row > {0} AND Row <={1}", pageStart, (pageStart + pageSize));
+            countSQL += where;
+            result.TotalRecords = Scalar(countSQL, args);
+            result.TotalPages = result.TotalRecords / pageSize;
+            if (result.TotalRecords % pageSize > 0)
+                result.TotalPages += 1;
+            result.Items = new DynamicModels(Query(string.Format(sql, columns, TableName), args));
+            return result;
+        }
+
+        /// <summary>
+        /// Returns a dynamic PagedResult. Result properties are Items, TotalPages, and TotalRecords.
+        /// </summary>
+        public virtual dynamic PagedQuery(string sql, string where = "", string orderBy = "", string columns = "*", int pageSize = 20, int currentPage = 1, params object[] args)
+        {
+            dynamic result = new Prototype();
+            var countSQL = string.Format("SELECT COUNT({0}) FROM ({1}) as result", PrimaryKeyField, sql);
+            if (String.IsNullOrEmpty(orderBy))
+                orderBy = PrimaryKeyField;
+
+            if (!string.IsNullOrEmpty(where))
+            {
+                if (!where.Trim().StartsWith("where", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    where = " WHERE " + where;
+                }
+            }
+            var sql2 = string.Format("SELECT {0} FROM (SELECT ROW_NUMBER() OVER (ORDER BY {2}) AS Row, {0} FROM ({3}) as result {4}) AS Paged ", columns, pageSize, orderBy, sql, where);
+            var pageStart = (currentPage - 1) * pageSize;
+            sql2 += string.Format(" WHERE Row > {0} AND Row <={1}", pageStart, (pageStart + pageSize));
+            countSQL += where;
+            result.TotalRecords = Scalar(countSQL, args);
+            result.TotalPages = result.TotalRecords / pageSize;
+            if (result.TotalRecords % pageSize > 0)
+                result.TotalPages += 1;
+            result.Items = new DynamicModels(Query(string.Format(sql2, columns, TableName), args));
+            return result;
+        }
+
+        /// <summary>
+        /// Returns a single row from the database
+        /// </summary>
+        public virtual dynamic SingleWhere(string where, params object[] args)
+        {
+            if (args == null) return null;
+            var sql = string.Format("SELECT * FROM {0} WHERE {1}", TableName, where);
+            return Query(sql, args).FirstOrDefault();
+        }
+
+        /// <summary>
+        /// Returns a single row from the database
+        /// </summary>
+        public virtual dynamic Single(object key)
+        {
+            string columns = "*";
+            return Single(key, columns);
+        }
+        /// <summary>
+        /// Returns a single row from the database
+        /// </summary>
+        public virtual dynamic Single(object key, string columns = "*")
+        {
+            var sql = string.Format("SELECT {0} FROM {1} WHERE {2} = @0", columns, TableName, PrimaryKeyField);
+            return Query(sql, key).FirstOrDefault();
+        }
+    }
+}
+
+namespace Oak
+{
+    public static class DataAccessHelpers
+    {
+        public static object InsertInto(this object o, string table, ConnectionProfile connectionProfile = null)
+        {
+            if (connectionProfile == null) connectionProfile = new ConnectionProfile();
+
+            DynamicRepository dynamicModel = new DynamicRepository(connectionProfile, table, "Id");
+
+            return dynamicModel.Insert(o);
+        }
+    }
+
+    public class DynamicQuery
+    {
+        dynamic o;
+
+        public DynamicQuery(dynamic o)
+        {
+            this.o = o;
+
+            o.FindBy = Method(FindBy);
+
+            o.Last = Method(Last);
+
+            o.First = o.Select = o.Get = Method(First);
+
+            o.Count = Method(args => Aggregate("COUNT", args));
+            o.Sum = Method(args => Aggregate("SUM", args));
+            o.Max = Method(args => Aggregate("MAX", args));
+            o.Min = Method(args => Aggregate("MIN", args));
+            o.Avg = Method(args => Aggregate("AVG", args));
+        }
+
+        public DynamicFunctionWithParam Method(Func<dynamic, dynamic> method)
+        {
+            return new DynamicFunctionWithParam(method);
+        }
+
+        public dynamic Aggregate(string operation, dynamic args)
+        {
+            var constraints = Constraints(args);
+
+            return Scalar(operation + "(" + constraints.Columns + ")", constraints);
+        }
+
+        public dynamic Scalar(string select, dynamic constraints)
+        {
+            return o.Scalar(
+                "SELECT " + select + " FROM " + o.TableName + constraints.Where,
+                constraints.WhereArgs);
+        }
+
+        public dynamic Last(dynamic args)
+        {
+            var constraints = Constraints(args);
+
+            constraints.OrderBy = constraints.OrderBy + " DESC ";
+
+            return Top(constraints);
+        }
+       
+        public dynamic First(dynamic args)
+        {
+            return Top(Constraints(args));
+        }
+
+        public dynamic Top(dynamic constraints)
+        {
+            var sql = "SELECT TOP 1 " + 
+                constraints.Columns + 
+                " FROM " + o.TableName + 
+                constraints.Where + 
+                constraints.OrderBy;
+
+            return (o.Query(sql, constraints.WhereArgs) as IEnumerable<dynamic>).FirstOrDefault();   
+        }
+
+        public dynamic FindBy(dynamic args)
+        {
+            var constraints = Constraints(args);
+
+            var sql = "SELECT " + 
+                constraints.Columns + 
+                " FROM " + o.TableName + 
+                constraints.Where + 
+                constraints.OrderBy;
+
+            return new DynamicModels(o.Query(sql, constraints.WhereArgs));
+        }
+
+        public dynamic Constraints(dynamic args)
+        {
+            var constraints = new List<string>();
+            var counter = 0;
+            var columns = " * ";
+            string orderBy = string.Format(" ORDER BY {0}", o.PrimaryKeyField);
+            string where = "";
+            var whereArgs = new List<object>();
+
+            var props = (args ?? new Gemini()).HashOfProperties() as IDictionary<string, object>;
+
+            if (props.Count > 0)
+            {
+                foreach (var kvp in props)
+                {
+                    var name = kvp.Key.ToLower();
+
+                    switch (name)
+                    {
+                        case "orderby":
+                            orderBy = " ORDER BY " + kvp.Value;
+                            break;
+                        case "columns":
+                            columns = kvp.Value.ToString();
+                            break;
+                        default:
+                            constraints.Add(string.Format(" {0} = @{1}", name, counter));
+                            whereArgs.Add(kvp.Value);
+                            counter++;
+                            break;
+                    }
+                }
+            }
+
+            if (constraints.Any())
+            {
+                where = " WHERE " + string.Join(" AND ", constraints.ToArray());
+            }
+
+            return new Gemini(new
+            {
+                Where = where,
+                WhereArgs = whereArgs,
+                Columns = columns,
+                OrderBy = orderBy
+            });
+        }
+    }
+}
