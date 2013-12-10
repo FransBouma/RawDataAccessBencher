@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using AdventureWorks.Dal.Adapter.v41.DatabaseSpecific;
@@ -20,7 +22,8 @@ using Dapper;
 using SD.LLBLGen.Pro.QuerySpec;
 using SD.LLBLGen.Pro.QuerySpec.Adapter;
 using SD.LLBLGen.Pro.ORMSupportClasses;
-using System.Reflection;
+using ServiceStack.OrmLite;
+using ServiceStack.OrmLite.SqlServer;
 
 namespace RawBencher
 {
@@ -28,10 +31,15 @@ namespace RawBencher
 	{
 		private static Dictionary<string, List<long>> _rawResultsPerORM = new Dictionary<string, List<long>>();
 		private static string ConnectionString = @"data source=zeusVM\SQLSERVER2005;initial catalog=AdventureWorks;integrated security=SSPI;persist security info=False;packet size=4096";
+        private static string SqlSelectCommandText = @"SELECT [SalesOrderID],[RevisionNumber],[OrderDate],[DueDate],[ShipDate],[Status],[OnlineOrderFlag],[SalesOrderNumber],[PurchaseOrderNumber],[AccountNumber],[CustomerID],[ContactID],[SalesPersonID],[TerritoryID],[BillToAddressID],[ShipToAddressID],[ShipMethodID],[CreditCardID],[CreditCardApprovalCode],[CurrencyRateID],[SubTotal],[TaxAmt],[Freight],[TotalDue],[Comment],[rowguid],[ModifiedDate]  FROM [Sales].[SalesOrderHeader]";
 
 		static void Main(string[] args)
 		{
-			CacheController.RegisterCache(ConnectionString, new ResultsetCache());
+            // Use the connection string from app.config instead of the static variable if the connection string exists
+            var connectionStringFromConfig = ConfigurationManager.AppSettings[DataAccessAdapter.ConnectionStringKeyName];
+            ConnectionString = string.IsNullOrEmpty(connectionStringFromConfig) ? ConnectionString : connectionStringFromConfig;
+            
+            CacheController.RegisterCache(ConnectionString, new ResultsetCache());
 			int loopAmount = 10;
 
 			Console.WriteLine("\nWarming up DB, DB client code and CLR");
@@ -71,7 +79,11 @@ namespace RawBencher
 			for(int i = 0; i < loopAmount; i++)
 			{
 				FetchSalesOrderHeaderDapper();
-			}
+            }
+            for (int i = 0; i < loopAmount; i++)
+            {
+                FetchSalesOrderHeaderOrmLite();
+            }
 			for(int i = 0; i < loopAmount; i++)
 			{
 				FetchSalesOrderHeaderNH();
@@ -105,7 +117,7 @@ namespace RawBencher
 			using(var con = new SqlConnection(ConnectionString))
 			{
 				var cmd = con.CreateCommand();
-				cmd.CommandText = "select * from Sales.SalesOrderHeader";
+                cmd.CommandText = SqlSelectCommandText;
 				var adapter = new SqlDataAdapter(cmd);
 				adapter.Fill(headers);
 			}
@@ -133,7 +145,7 @@ namespace RawBencher
 			using(var con = new SqlConnection(ConnectionString))
 			{
 				var cmd = con.CreateCommand();
-				cmd.CommandText = "select * from Sales.SalesOrderHeader";
+                cmd.CommandText = SqlSelectCommandText;
 				con.Open();
 				var reader = cmd.ExecuteReader();
 				while(reader.Read())
@@ -204,7 +216,7 @@ namespace RawBencher
 			using(var con = new SqlConnection(ConnectionString))
 			{
 				con.Open();
-				headers = con.Query<SalesOrderHeader>("select * from Sales.SalesOrderHeader").ToList();
+                headers = con.Query<SalesOrderHeader>(SqlSelectCommandText).ToList();
 				con.Close();
 			}
 			sw.Stop();
@@ -219,6 +231,33 @@ namespace RawBencher
 				}
 			}
 		}
+
+
+        private static void FetchSalesOrderHeaderOrmLite()
+        {
+            var frameworkName = "ServiceStack OrmLite v4.0";
+
+            var sw = new Stopwatch();
+            sw.Start();
+            var headers = new List<SalesOrderHeader>();
+            var dbFactory = new OrmLiteConnectionFactory(ConnectionString, SqlServerOrmLiteDialectProvider.Instance);
+            using(var con = dbFactory.OpenDbConnection())
+            {
+                headers = con.Select<SalesOrderHeader>();
+                con.Close();
+            }
+            sw.Stop();
+            ReportResult(frameworkName, sw.ElapsedMilliseconds, headers.Count);
+
+            foreach (var e in headers)
+            {
+                if (e.SalesOrderId <= 0)
+                {
+                    Console.WriteLine("OrmLite: Data is empty");
+                    break;
+                }
+            }
+        }
 
 
 		private static void FetchSalesOrderHeaderEntitiesWithCaching()
