@@ -30,7 +30,7 @@ namespace RawBencher
 	class Program
 	{
 		private static Dictionary<string, List<long>> _rawResultsPerORM = new Dictionary<string, List<long>>();
-		private static string ConnectionString = @"data source=zeusVM\SQLSERVER2005;initial catalog=AdventureWorks;integrated security=SSPI;persist security info=False;packet size=4096";
+		private static string ConnectionString = @"data source=(local);initial catalog=AdventureWorks;integrated security=SSPI;persist security info=False;packet size=4096";
         private static string SqlSelectCommandText = @"SELECT [SalesOrderID],[RevisionNumber],[OrderDate],[DueDate],[ShipDate],[Status],[OnlineOrderFlag],[SalesOrderNumber],[PurchaseOrderNumber],[AccountNumber],[CustomerID],[ContactID],[SalesPersonID],[TerritoryID],[BillToAddressID],[ShipToAddressID],[ShipMethodID],[CreditCardID],[CreditCardApprovalCode],[CurrencyRateID],[SubTotal],[TaxAmt],[Freight],[TotalDue],[Comment],[rowguid],[ModifiedDate]  FROM [Sales].[SalesOrderHeader]";
 
 		static void Main(string[] args)
@@ -96,6 +96,10 @@ namespace RawBencher
 			{
 				FetchSalesOrderHeaderDataTable();
 			}
+            for (int i = 0; i < loopAmount; i++)
+            {
+                FetchSalesOrderHeaderOakDynamicDb();
+            }
 
 			Console.WriteLine("\nIndividual entity fetch benches");
 			Console.WriteLine("------------------------------------------");
@@ -105,6 +109,8 @@ namespace RawBencher
 			Console.WriteLine("\nAveraged total results per framework");
 			Console.WriteLine("------------------------------------------");
 			CalculateFinalResultAverages();
+            Console.WriteLine("\nComplete. Press enter to exit.");
+            Console.ReadLine();
 		}
 
 
@@ -480,6 +486,25 @@ namespace RawBencher
 			}
 		}
 
+        private static void FetchSalesOrderHeaderOakDynamicDb()
+        {
+            var frameworkName = "Oak.DynamicDb hydrating a dynamic type";
+            var sw = new Stopwatch();
+            sw.Start();
+            var db = new OakDynamicDb.Bencher.SalesOrderHeaders();
+            var headers = db.All();
+            sw.Stop();
+            ReportResult(frameworkName, sw.ElapsedMilliseconds, headers.Count());
+
+            foreach (var header in headers)
+            {
+                if (header.SalesOrderID <= 0)
+                {
+                    Console.WriteLine("Oak: Data is empty");
+                    break;
+                }
+            }
+        }
 
 		private static void GetVersionStrings(Assembly a, out string fileVersion, out string assemblyVersion)
 		{

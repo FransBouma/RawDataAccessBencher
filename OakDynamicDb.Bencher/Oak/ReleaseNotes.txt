@@ -1,0 +1,258 @@
+﻿============== FOR VERSIONS ==============
+gemini 1.3.1+
+oak 2.6.9+
+oak-edge 2.0.9+
+cambium 1.5.6+
+oak-json 1.1.5+
+==============
+Made Gemini's Property and Method caches thread safe:
+https://github.com/amirrajan/Oak/commit/9b489509878576572a8d7fdc6570e58baefbb756
+
+============== FOR VERSIONS ==============
+oak 2.6.8+
+oak-edge 2.0.8+
+cambium 1.5.5+
+=============== CHANGES ==================
+The Validations mixin/module will return true for IsValid if no validations is
+provided: https://github.com/amirrajan/Oak/commit/1749554966fcce2cde8346a91d72b106c53bdf7e
+
+============== FOR VERSIONS ==============
+oak 2.6.7+
+oak-edge 2.0.7+
+cambium 1.5.4+
+=============== CHANGES ==================
+DynamicDb __ConnectionString__ inner property changed to a method to ensure
+that it isn't in advertantly serialized (eg serializing to JSON).
+
+============== FOR VERSIONS ==============
+oak 2.6.6+
+oak-edge 2.0.6+
+cambium 1.5.3+
+seed 1.1.2+
+=============== CHANGES ==================
+DynamicDb can take in a connection string as a parameter which will override
+the default values supplied by ConnectionProfile.cs.
+
+
+============== FOR VERSIONS ==============
+oak 2.6.3+
+oak-edge 2.0.3+
+=============== CHANGES ==================
+DebugBootstrap.cs now catches all web exceptions and writes out a
+stacktrace.txt file.  This file can be used with Stack Trace Preview
+for nice stack trace visualization.
+More Info: https://github.com/amirrajan/Oak/wiki/Getting-Started#stack-trace-preview-requires-optional-steps
+
+============== FOR VERSIONS ==============
+oak 2.6.2+
+oak-edge 2.0.2+
+oak-json 1.1.3+
+cambium 1.5.1+
+gemini 1.2.9+
+=============== CHANGES ==================
+Gemini's Select method will now ignore properties passed to it that don't
+exist as opposed to throwing an exception.
+
+GeminiInfo (Gemini.ToString()) reported multiple null values as (circular),
+this has been fixed.
+
+Commit info:
+https://github.com/amirrajan/Oak/blob/9546f49dfd8b21a7195d7daed06820aed30216ec/Oak/Gemini.cs#L788
+https://github.com/amirrajan/Oak/blob/4047c3a9ab7c66a6d247f9569cee128c541861cc/Oak/GeminiInfo.cs#L32
+
+============== FOR VERSIONS ==============
+oak 2.6.0+
+oak-edge 2.0.0+
+cambium 1.4.9+
+
+=============== CHANGES ==================
+Validations module's FirstError() method will return null
+if there are no errors.  Errors() collection no longer returns
+List<KeyValuePair<string, string>> and instead returns a List of
+Geminis who's properties are Key, and Value.
+
+Commit info:
+https://github.com/amirrajan/Oak/commit/35454f81f88fbfcb95f610a67aa8b7298c33c504
+
+
+============== FOR VERSIONS ==============
+oak 2.5.8+
+oak-edge 1.9.7+
+=============== CHANGES ==================
+Added BaseController that you can inherit from. Redefines the Json
+base method to use Oak's DynamicJsonResult.
+
+
+============== FOR VERSIONS ==============
+oak 2.5.7+
+oak-edge 1.9.7+
+oak-json 1.1.2+
+=============== CHANGES ==================
+Json serialization does camel casing by default, use the NoCasingChange class
+in conjunction with the DynamicJsonResult to override this default behavior:
+
+return new DynamicJsonResult(someObject)
+{
+	Casing = new NoCasingChange()
+};
+
+
+============== FOR VERSIONS ==============
+oak 2.5.6+
+oak-edge 1.9.6+
+seed 1.1.0+
+=============== CHANGES ==================
+Added ability to declare tables with schemas:
+https://github.com/amirrajan/Oak/blob/e2b476be0e253e1715b5093d82f9ead931f47f08/Oak.Tests/describe_Seed/schemas.cs
+https://github.com/amirrajan/Oak/blob/e2b476be0e253e1715b5093d82f9ead931f47f08/Oak/Seed.cs
+https://github.com/amirrajan/Oak/commit/e2b476be0e253e1715b5093d82f9ead931f47f08
+
+============== FOR VERSIONS ==============
+oak 2.5.4+
+oak-edge 1.9.3+
+cambium 1.4.8+
+=============== CHANGES ==================
+Added FindBy to DynamicRepository
+https://github.com/amirrajan/Oak/blob/3ab0a010f46da59c6e0c779a3de40014f18ed43a/Oak/Massive.cs#L753
+https://github.com/amirrajan/Oak/blob/3ab0a010f46da59c6e0c779a3de40014f18ed43a/Oak.Tests/describe_DynamicRepository/dynamic_query.cs
+
+============== FOR VERSIONS ==============
+oak 2.4.9+
+oak-edge 1.8.9+
+oak-json 1.0.8+
+gemini 1.2.6+
+cambium 1.4.5+
+=============== CHANGES ==================
+- Json serialization schemes that allow for self referencing objects
+  https://github.com/amirrajan/Oak/blob/2bc8609e14cbf12d8c8a9765d86dfe81fe63dd27/Oak.Tests/describe_DynamicToJson.cs
+
+- Gemini.ToString/Gemini.__Info__() supports self reference objects
+  https://github.com/amirrajan/Oak/blob/6f102f7d46866fa74fc6371230b0e4ebd14a779b/Oak.Tests/describe_Gemini/describe_Info.cs
+  
+- Link back on BelongsTo relation will now return a collection as opposed
+  to just a reference to the last object (if multiple values are returned)
+  https://github.com/amirrajan/Oak/blob/3e6d2d86eaa3c31095bd1ba38509f0e63391983f/Oak.Tests/describe_DynamicModels/eager_loading_for_belongs_to_with_duplicates.cs
+
+- When seeding sample data, inefficient query detection is ignored:
+  https://github.com/amirrajan/Oak/commit/260737fda67730deb51a34e0eb004204dfa642f8
+
+
+============== FOR VERSIONS ==============
+oak 2.4.3+
+oak-edge 1.8.3+
+gemini 1.2.2+
+cambium 1.4.0+
+=============== CHANGES ==================
+- added the Memoize module, the memoize module will cache values of your
+  methods
+
+public class SlowPerson : Gemini
+{
+    static SlowPerson()
+    {
+        Gemini.Extend<SlowPerson, Memoize>();
+    }
+
+    IEnumerable<dynamic> Memoize()
+    {
+        //define a method called Memoize
+        //and state that you want to memoize the SayHello
+        //method
+        yield return (DynamicFunctionWithParam)SayHello;
+    }
+
+    //this function will be called the first time and 
+    //any subsequent call with the same parameters
+    //will return a cached value
+    dynamic SayHello(dynamic otherPerson)
+    {
+        System.Threading.Thread.Sleep(10000);
+
+        return "Hello " + otherPerson.Name;
+    }
+}
+
+============== FOR VERSIONS ==============
+oak 2.3.9+
+oak-edge 1.7.6+
+gemini 1.1.9+
+cambium 1.3.6+
+=============== CHANGES ==================
+- added overloads on all associations for legacy databases
+
+
+============== FOR VERSIONS ==============
+oak 2.3.1+
+oak-edge 1.5.7+
+gemini 1.1.7+
+cambium 1.3.0+
+=============== CHANGES ==================
+- oak, oak-edge, cambium:
+    - Bug fix on changes module to only look at writable properties as opposed to all properties
+    - Added Bullet.cs which can be used to find N+1 query and redundant Query issues
+
+If you are upgrading your version of oak, you'll have to add the following line to Global.asax to incorporate Bullet:
+Inside global.asax.cs:
+public class MvcApplication : System.Web.HttpApplication
+{
+    public MvcApplication()
+    {
+        DebugBootStrap.Init(this); /* <--- this line will incoporate N+1, redudant query, and exception notification in iisexpress */
+    }
+}
+
+- gemini: added and introspection method called HashOfWritableProperties()
+
+
+============== FOR VERSIONS ==============
+oak 2.2.9+
+oak-edge 1.4.7+
+gemini 1.1.4+
+cambium 1.2.9+
+=============== CHANGES ==================
+- Added StrongParameters module to protect against mass assignment via SetMembers, here is an example usage:
+    dynamic securedObject = new Gemini(new { FirstName = "Jane", LastName = "Doe" });
+
+    securedObject.Extend<StrongParameters>();
+
+    securedObject.Permit("FirstName", "LastName");
+
+    //this line would throw an error if set members are attempted on properties
+    //that weren't premitted
+    securedObject.SetMembers(new { FirstName = "First", LastName = "Last" });
+
+    (securedObject.FirstName as string).should_be("First");
+
+    (securedObject.LastName as string).should_be("Last");
+    
+
+
+
+============== FOR VERSIONS ==============
+oak 2.2.9+
+oak-edge 1.4.7+
+gemini 1.1.4+
+cambium 1.2.9+
+=============== CHANGES ==================
+- Eager loading for collections added.  Example is here: https://github.com/amirrajan/Oak/blob/master/Oak.Tests/describe_DynamicModels/eager_loading_for_has_many_and_belongs_to.cs#L95
+
+
+============== FOR VERSIONS ==============
+
+oak 2.2.5+
+oak-edge 1.3.3+
+gemini 1.1.4+
+cambium 1.2.3+
+=============== CHANGES ==================
+- Camibum and company now plays nice with auto properties.
+  If you get the Invalid column name Exception when saving a Gemini, 
+  you can remove properties from Gemini's using the Exclude() method.  
+  Override your repository's GetAttributesToSave()
+  these columns from being persisted.
+  Example: https://github.com/amirrajan/Oak/blob/master/Sample%20Apps/BorrowedGames/BorrowedGames/Repositories/WantedGames.cs
+- Added InitializeExtensions method. If you want to leverage mix-ins, 
+  this method need to be explicitly called in the constructor of classes
+  that use *static* auto properties. Invocation is automatically done
+  if you use dynamic properties.
+- The Expando property in Gemini is now named Prototype.
+- Case invariant dictionary is used now to store dynamic properties (ie Prototype).
