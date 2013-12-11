@@ -18,7 +18,6 @@ namespace EF6.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="Customer"/> class.</summary>
 		public Customer() : base()
 		{
-			this.CustomerAddresses = new HashSet<CustomerAddress>();
 			this.SalesOrderHeaders = new HashSet<SalesOrderHeader>();
 		}
 
@@ -29,28 +28,22 @@ namespace EF6.Bencher.EntityClasses
 		/// <summary>Gets or sets the CustomerId field. </summary>
 		[DataMember]
 		public System.Int32 CustomerId { get; set;}
-		/// <summary>Gets or sets the CustomerType field. </summary>
-		[DataMember]
-		public System.String CustomerType { get; set;}
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
 		[DataMember]
 		public System.DateTime ModifiedDate { get; set;}
 		/// <summary>Gets or sets the Rowguid field. </summary>
 		[DataMember]
 		public System.Guid Rowguid { get; set;}
-		/// <summary>Represents the navigator which is mapped onto the association 'CustomerAddress.Customer - Customer.CustomerAddresses (m:1)'</summary>
+		/// <summary>Represents the navigator which is mapped onto the association 'Customer.Person - Person.Person.Customers (m:1)'</summary>
 		[DataMember]
-		public virtual ICollection<CustomerAddress> CustomerAddresses { get; set;}
-		/// <summary>Represents the navigator which is mapped onto the association 'Individual.Customer - Customer.Individual (1:1)'</summary>
-		[DataMember]
-		public virtual Individual Individual { get; set;}
+		public virtual Person Person { get; set;}
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderHeader.Customer - Customer.SalesOrderHeaders (m:1)'</summary>
 		[DataMember]
 		public virtual ICollection<SalesOrderHeader> SalesOrderHeaders { get; set;}
 		/// <summary>Represents the navigator which is mapped onto the association 'Customer.SalesTerritory - SalesTerritory.Customers (m:1)'</summary>
 		[DataMember]
 		public virtual SalesTerritory SalesTerritory { get; set;}
-		/// <summary>Represents the navigator which is mapped onto the association 'Store.Customer - Customer.Store (1:1)'</summary>
+		/// <summary>Represents the navigator which is mapped onto the association 'Customer.Store - Store.Customers (m:1)'</summary>
 		[DataMember]
 		public virtual Store Store { get; set;}
 		#endregion

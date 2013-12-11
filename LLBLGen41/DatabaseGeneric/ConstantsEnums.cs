@@ -28,6 +28,8 @@ namespace AdventureWorks.Dal.Adapter.v41
 		PostalCode,
 		///<summary>Rowguid. </summary>
 		Rowguid,
+		///<summary>SpatialLocation. </summary>
+		SpatialLocation,
 		///<summary>StateProvinceId. </summary>
 		StateProvinceId,
 		/// <summary></summary>
@@ -71,39 +73,47 @@ namespace AdventureWorks.Dal.Adapter.v41
 		/// <summary></summary>
 		AmountOfFields
 	}
-	/// <summary>Index enum to fast-access EntityFields in the IEntityFields collection for the entity: Contact.</summary>
-	public enum ContactFieldIndex
+	/// <summary>Index enum to fast-access EntityFields in the IEntityFields collection for the entity: BusinessEntity.</summary>
+	public enum BusinessEntityFieldIndex
 	{
-		///<summary>AdditionalContactInfo. </summary>
-		AdditionalContactInfo,
-		///<summary>ContactId. </summary>
-		ContactId,
-		///<summary>EmailAddress. </summary>
-		EmailAddress,
-		///<summary>EmailPromotion. </summary>
-		EmailPromotion,
-		///<summary>FirstName. </summary>
-		FirstName,
-		///<summary>LastName. </summary>
-		LastName,
-		///<summary>MiddleName. </summary>
-		MiddleName,
+		///<summary>BusinessEntityId. </summary>
+		BusinessEntityId,
 		///<summary>ModifiedDate. </summary>
 		ModifiedDate,
-		///<summary>NameStyle. </summary>
-		NameStyle,
-		///<summary>PasswordHash. </summary>
-		PasswordHash,
-		///<summary>PasswordSalt. </summary>
-		PasswordSalt,
-		///<summary>Phone. </summary>
-		Phone,
 		///<summary>Rowguid. </summary>
 		Rowguid,
-		///<summary>Suffix. </summary>
-		Suffix,
-		///<summary>Title. </summary>
-		Title,
+		/// <summary></summary>
+		AmountOfFields
+	}
+	/// <summary>Index enum to fast-access EntityFields in the IEntityFields collection for the entity: BusinessEntityAddress.</summary>
+	public enum BusinessEntityAddressFieldIndex
+	{
+		///<summary>AddressId. </summary>
+		AddressId,
+		///<summary>AddressTypeId. </summary>
+		AddressTypeId,
+		///<summary>BusinessEntityId. </summary>
+		BusinessEntityId,
+		///<summary>ModifiedDate. </summary>
+		ModifiedDate,
+		///<summary>Rowguid. </summary>
+		Rowguid,
+		/// <summary></summary>
+		AmountOfFields
+	}
+	/// <summary>Index enum to fast-access EntityFields in the IEntityFields collection for the entity: BusinessEntityContact.</summary>
+	public enum BusinessEntityContactFieldIndex
+	{
+		///<summary>BusinessEntityId. </summary>
+		BusinessEntityId,
+		///<summary>ContactTypeId. </summary>
+		ContactTypeId,
+		///<summary>ModifiedDate. </summary>
+		ModifiedDate,
+		///<summary>PersonId. </summary>
+		PersonId,
+		///<summary>Rowguid. </summary>
+		Rowguid,
 		/// <summary></summary>
 		AmountOfFields
 	}
@@ -224,30 +234,16 @@ namespace AdventureWorks.Dal.Adapter.v41
 		AccountNumber,
 		///<summary>CustomerId. </summary>
 		CustomerId,
-		///<summary>CustomerType. </summary>
-		CustomerType,
 		///<summary>ModifiedDate. </summary>
 		ModifiedDate,
+		///<summary>PersonId. </summary>
+		PersonId,
 		///<summary>Rowguid. </summary>
 		Rowguid,
+		///<summary>StoreId. </summary>
+		StoreId,
 		///<summary>TerritoryId. </summary>
 		TerritoryId,
-		/// <summary></summary>
-		AmountOfFields
-	}
-	/// <summary>Index enum to fast-access EntityFields in the IEntityFields collection for the entity: CustomerAddress.</summary>
-	public enum CustomerAddressFieldIndex
-	{
-		///<summary>AddressId. </summary>
-		AddressId,
-		///<summary>AddressTypeId. </summary>
-		AddressTypeId,
-		///<summary>CustomerId. </summary>
-		CustomerId,
-		///<summary>ModifiedDate. </summary>
-		ModifiedDate,
-		///<summary>Rowguid. </summary>
-		Rowguid,
 		/// <summary></summary>
 		AmountOfFields
 	}
@@ -272,22 +268,46 @@ namespace AdventureWorks.Dal.Adapter.v41
 		ChangeNumber,
 		///<summary>Document. </summary>
 		Document,
-		///<summary>DocumentId. </summary>
-		DocumentId,
+		///<summary>DocumentLevel. </summary>
+		DocumentLevel,
+		///<summary>DocumentNode. </summary>
+		DocumentNode,
 		///<summary>DocumentSummary. </summary>
 		DocumentSummary,
 		///<summary>FileExtension. </summary>
 		FileExtension,
 		///<summary>FileName. </summary>
 		FileName,
+		///<summary>FolderFlag. </summary>
+		FolderFlag,
 		///<summary>ModifiedDate. </summary>
 		ModifiedDate,
+		///<summary>Owner. </summary>
+		Owner,
 		///<summary>Revision. </summary>
 		Revision,
+		///<summary>Rowguid. </summary>
+		Rowguid,
 		///<summary>Status. </summary>
 		Status,
 		///<summary>Title. </summary>
 		Title,
+		/// <summary></summary>
+		AmountOfFields
+	}
+	/// <summary>Index enum to fast-access EntityFields in the IEntityFields collection for the entity: EmailAddress.</summary>
+	public enum EmailAddressFieldIndex
+	{
+		///<summary>BusinessEntityId. </summary>
+		BusinessEntityId,
+		///<summary>EmailAddressId. </summary>
+		EmailAddressId,
+		///<summary>EmailAddressValue. </summary>
+		EmailAddressValue,
+		///<summary>ModifiedDate. </summary>
+		ModifiedDate,
+		///<summary>Rowguid. </summary>
+		Rowguid,
 		/// <summary></summary>
 		AmountOfFields
 	}
@@ -296,8 +316,6 @@ namespace AdventureWorks.Dal.Adapter.v41
 	{
 		///<summary>BirthDate. </summary>
 		BirthDate,
-		///<summary>ContactId. </summary>
-		ContactId,
 		///<summary>CurrentFlag. </summary>
 		CurrentFlag,
 		///<summary>EmployeeId. </summary>
@@ -308,14 +326,16 @@ namespace AdventureWorks.Dal.Adapter.v41
 		HireDate,
 		///<summary>LoginId. </summary>
 		LoginId,
-		///<summary>ManagerId. </summary>
-		ManagerId,
 		///<summary>MaritalStatus. </summary>
 		MaritalStatus,
 		///<summary>ModifiedDate. </summary>
 		ModifiedDate,
 		///<summary>NationalIdnumber. </summary>
 		NationalIdnumber,
+		///<summary>OrganizationLevel. </summary>
+		OrganizationLevel,
+		///<summary>OrganizationNode. </summary>
+		OrganizationNode,
 		///<summary>Rowguid. </summary>
 		Rowguid,
 		///<summary>SalariedFlag. </summary>
@@ -326,20 +346,6 @@ namespace AdventureWorks.Dal.Adapter.v41
 		Title,
 		///<summary>VacationHours. </summary>
 		VacationHours,
-		/// <summary></summary>
-		AmountOfFields
-	}
-	/// <summary>Index enum to fast-access EntityFields in the IEntityFields collection for the entity: EmployeeAddress.</summary>
-	public enum EmployeeAddressFieldIndex
-	{
-		///<summary>AddressId. </summary>
-		AddressId,
-		///<summary>EmployeeId. </summary>
-		EmployeeId,
-		///<summary>ModifiedDate. </summary>
-		ModifiedDate,
-		///<summary>Rowguid. </summary>
-		Rowguid,
 		/// <summary></summary>
 		AmountOfFields
 	}
@@ -389,20 +395,6 @@ namespace AdventureWorks.Dal.Adapter.v41
 		/// <summary></summary>
 		AmountOfFields
 	}
-	/// <summary>Index enum to fast-access EntityFields in the IEntityFields collection for the entity: Individual.</summary>
-	public enum IndividualFieldIndex
-	{
-		///<summary>ContactId. </summary>
-		ContactId,
-		///<summary>CustomerId. </summary>
-		CustomerId,
-		///<summary>Demographics. </summary>
-		Demographics,
-		///<summary>ModifiedDate. </summary>
-		ModifiedDate,
-		/// <summary></summary>
-		AmountOfFields
-	}
 	/// <summary>Index enum to fast-access EntityFields in the IEntityFields collection for the entity: JobCandidate.</summary>
 	public enum JobCandidateFieldIndex
 	{
@@ -430,6 +422,80 @@ namespace AdventureWorks.Dal.Adapter.v41
 		ModifiedDate,
 		///<summary>Name. </summary>
 		Name,
+		/// <summary></summary>
+		AmountOfFields
+	}
+	/// <summary>Index enum to fast-access EntityFields in the IEntityFields collection for the entity: Password.</summary>
+	public enum PasswordFieldIndex
+	{
+		///<summary>BusinessEntityId. </summary>
+		BusinessEntityId,
+		///<summary>ModifiedDate. </summary>
+		ModifiedDate,
+		///<summary>PasswordHash. </summary>
+		PasswordHash,
+		///<summary>PasswordSalt. </summary>
+		PasswordSalt,
+		///<summary>Rowguid. </summary>
+		Rowguid,
+		/// <summary></summary>
+		AmountOfFields
+	}
+	/// <summary>Index enum to fast-access EntityFields in the IEntityFields collection for the entity: Person.</summary>
+	public enum PersonFieldIndex
+	{
+		///<summary>AdditionalContactInfo. </summary>
+		AdditionalContactInfo,
+		///<summary>BusinessEntityId. </summary>
+		BusinessEntityId,
+		///<summary>Demographics. </summary>
+		Demographics,
+		///<summary>EmailPromotion. </summary>
+		EmailPromotion,
+		///<summary>FirstName. </summary>
+		FirstName,
+		///<summary>LastName. </summary>
+		LastName,
+		///<summary>MiddleName. </summary>
+		MiddleName,
+		///<summary>ModifiedDate. </summary>
+		ModifiedDate,
+		///<summary>NameStyle. </summary>
+		NameStyle,
+		///<summary>PersonType. </summary>
+		PersonType,
+		///<summary>Rowguid. </summary>
+		Rowguid,
+		///<summary>Suffix. </summary>
+		Suffix,
+		///<summary>Title. </summary>
+		Title,
+		/// <summary></summary>
+		AmountOfFields
+	}
+	/// <summary>Index enum to fast-access EntityFields in the IEntityFields collection for the entity: PersonPhone.</summary>
+	public enum PersonPhoneFieldIndex
+	{
+		///<summary>BusinessEntityId. </summary>
+		BusinessEntityId,
+		///<summary>ModifiedDate. </summary>
+		ModifiedDate,
+		///<summary>PhoneNumber. </summary>
+		PhoneNumber,
+		///<summary>PhoneNumberTypeId. </summary>
+		PhoneNumberTypeId,
+		/// <summary></summary>
+		AmountOfFields
+	}
+	/// <summary>Index enum to fast-access EntityFields in the IEntityFields collection for the entity: PhoneNumberType.</summary>
+	public enum PhoneNumberTypeFieldIndex
+	{
+		///<summary>ModifiedDate. </summary>
+		ModifiedDate,
+		///<summary>Name. </summary>
+		Name,
+		///<summary>PhoneNumberTypeId. </summary>
+		PhoneNumberTypeId,
 		/// <summary></summary>
 		AmountOfFields
 	}
@@ -536,8 +602,8 @@ namespace AdventureWorks.Dal.Adapter.v41
 	/// <summary>Index enum to fast-access EntityFields in the IEntityFields collection for the entity: ProductDocument.</summary>
 	public enum ProductDocumentFieldIndex
 	{
-		///<summary>DocumentId. </summary>
-		DocumentId,
+		///<summary>DocumentNode. </summary>
+		DocumentNode,
 		///<summary>ModifiedDate. </summary>
 		ModifiedDate,
 		///<summary>ProductId. </summary>
@@ -820,8 +886,6 @@ namespace AdventureWorks.Dal.Adapter.v41
 		BillToAddressId,
 		///<summary>Comment. </summary>
 		Comment,
-		///<summary>ContactId. </summary>
-		ContactId,
 		///<summary>CreditCardApprovalCode. </summary>
 		CreditCardApprovalCode,
 		///<summary>CreditCardId. </summary>
@@ -1147,22 +1211,6 @@ namespace AdventureWorks.Dal.Adapter.v41
 		/// <summary></summary>
 		AmountOfFields
 	}
-	/// <summary>Index enum to fast-access EntityFields in the IEntityFields collection for the entity: StoreContact.</summary>
-	public enum StoreContactFieldIndex
-	{
-		///<summary>ContactId. </summary>
-		ContactId,
-		///<summary>ContactTypeId. </summary>
-		ContactTypeId,
-		///<summary>CustomerId. </summary>
-		CustomerId,
-		///<summary>ModifiedDate. </summary>
-		ModifiedDate,
-		///<summary>Rowguid. </summary>
-		Rowguid,
-		/// <summary></summary>
-		AmountOfFields
-	}
 	/// <summary>Index enum to fast-access EntityFields in the IEntityFields collection for the entity: TransactionHistory.</summary>
 	public enum TransactionHistoryFieldIndex
 	{
@@ -1245,34 +1293,6 @@ namespace AdventureWorks.Dal.Adapter.v41
 		/// <summary></summary>
 		AmountOfFields
 	}
-	/// <summary>Index enum to fast-access EntityFields in the IEntityFields collection for the entity: VendorAddress.</summary>
-	public enum VendorAddressFieldIndex
-	{
-		///<summary>AddressId. </summary>
-		AddressId,
-		///<summary>AddressTypeId. </summary>
-		AddressTypeId,
-		///<summary>ModifiedDate. </summary>
-		ModifiedDate,
-		///<summary>VendorId. </summary>
-		VendorId,
-		/// <summary></summary>
-		AmountOfFields
-	}
-	/// <summary>Index enum to fast-access EntityFields in the IEntityFields collection for the entity: VendorContact.</summary>
-	public enum VendorContactFieldIndex
-	{
-		///<summary>ContactId. </summary>
-		ContactId,
-		///<summary>ContactTypeId. </summary>
-		ContactTypeId,
-		///<summary>ModifiedDate. </summary>
-		ModifiedDate,
-		///<summary>VendorId. </summary>
-		VendorId,
-		/// <summary></summary>
-		AmountOfFields
-	}
 	/// <summary>Index enum to fast-access EntityFields in the IEntityFields collection for the entity: WorkOrder.</summary>
 	public enum WorkOrderFieldIndex
 	{
@@ -1330,6 +1350,64 @@ namespace AdventureWorks.Dal.Adapter.v41
 		AmountOfFields
 	}
 
+	/// <summary>Index enum to fast-access Typed View EntityFields in the IEntityFields collection for the typed view : Soh.</summary>
+	public enum SohFieldIndex
+	{
+		///<summary>SalesOrderId</summary>
+		SalesOrderId,
+		///<summary>RevisionNumber</summary>
+		RevisionNumber,
+		///<summary>OrderDate</summary>
+		OrderDate,
+		///<summary>DueDate</summary>
+		DueDate,
+		///<summary>ShipDate</summary>
+		ShipDate,
+		///<summary>Status</summary>
+		Status,
+		///<summary>OnlineOrderFlag</summary>
+		OnlineOrderFlag,
+		///<summary>SalesOrderNumber</summary>
+		SalesOrderNumber,
+		///<summary>PurchaseOrderNumber</summary>
+		PurchaseOrderNumber,
+		///<summary>AccountNumber</summary>
+		AccountNumber,
+		///<summary>CustomerId</summary>
+		CustomerId,
+		///<summary>SalesPersonId</summary>
+		SalesPersonId,
+		///<summary>TerritoryId</summary>
+		TerritoryId,
+		///<summary>BillToAddressId</summary>
+		BillToAddressId,
+		///<summary>ShipToAddressId</summary>
+		ShipToAddressId,
+		///<summary>ShipMethodId</summary>
+		ShipMethodId,
+		///<summary>CreditCardId</summary>
+		CreditCardId,
+		///<summary>CreditCardApprovalCode</summary>
+		CreditCardApprovalCode,
+		///<summary>CurrencyRateId</summary>
+		CurrencyRateId,
+		///<summary>SubTotal</summary>
+		SubTotal,
+		///<summary>TaxAmt</summary>
+		TaxAmt,
+		///<summary>Freight</summary>
+		Freight,
+		///<summary>TotalDue</summary>
+		TotalDue,
+		///<summary>Comment</summary>
+		Comment,
+		///<summary>Rowguid</summary>
+		Rowguid,
+		///<summary>ModifiedDate</summary>
+		ModifiedDate,
+		/// <summary></summary>
+		AmountOfFields
+	}
 
 
 	/// <summary>Enum definition for all the entity types defined in this namespace. Used by the entityfields factory.</summary>
@@ -1341,8 +1419,12 @@ namespace AdventureWorks.Dal.Adapter.v41
 		AddressTypeEntity,
 		///<summary>BillOfMaterial</summary>
 		BillOfMaterialEntity,
-		///<summary>Contact</summary>
-		ContactEntity,
+		///<summary>BusinessEntity</summary>
+		BusinessEntityEntity,
+		///<summary>BusinessEntityAddress</summary>
+		BusinessEntityAddressEntity,
+		///<summary>BusinessEntityContact</summary>
+		BusinessEntityContactEntity,
 		///<summary>ContactCreditCard</summary>
 		ContactCreditCardEntity,
 		///<summary>ContactType</summary>
@@ -1361,28 +1443,32 @@ namespace AdventureWorks.Dal.Adapter.v41
 		CurrencyRateEntity,
 		///<summary>Customer</summary>
 		CustomerEntity,
-		///<summary>CustomerAddress</summary>
-		CustomerAddressEntity,
 		///<summary>Department</summary>
 		DepartmentEntity,
 		///<summary>Document</summary>
 		DocumentEntity,
+		///<summary>EmailAddress</summary>
+		EmailAddressEntity,
 		///<summary>Employee</summary>
 		EmployeeEntity,
-		///<summary>EmployeeAddress</summary>
-		EmployeeAddressEntity,
 		///<summary>EmployeeDepartmentHistory</summary>
 		EmployeeDepartmentHistoryEntity,
 		///<summary>EmployeePayHistory</summary>
 		EmployeePayHistoryEntity,
 		///<summary>Illustration</summary>
 		IllustrationEntity,
-		///<summary>Individual</summary>
-		IndividualEntity,
 		///<summary>JobCandidate</summary>
 		JobCandidateEntity,
 		///<summary>Location</summary>
 		LocationEntity,
+		///<summary>Password</summary>
+		PasswordEntity,
+		///<summary>Person</summary>
+		PersonEntity,
+		///<summary>PersonPhone</summary>
+		PersonPhoneEntity,
+		///<summary>PhoneNumberType</summary>
+		PhoneNumberTypeEntity,
 		///<summary>Product</summary>
 		ProductEntity,
 		///<summary>ProductCategory</summary>
@@ -1451,8 +1537,6 @@ namespace AdventureWorks.Dal.Adapter.v41
 		StateProvinceEntity,
 		///<summary>Store</summary>
 		StoreEntity,
-		///<summary>StoreContact</summary>
-		StoreContactEntity,
 		///<summary>TransactionHistory</summary>
 		TransactionHistoryEntity,
 		///<summary>TransactionHistoryArchive</summary>
@@ -1461,22 +1545,23 @@ namespace AdventureWorks.Dal.Adapter.v41
 		UnitMeasureEntity,
 		///<summary>Vendor</summary>
 		VendorEntity,
-		///<summary>VendorAddress</summary>
-		VendorAddressEntity,
-		///<summary>VendorContact</summary>
-		VendorContactEntity,
 		///<summary>WorkOrder</summary>
 		WorkOrderEntity,
 		///<summary>WorkOrderRouting</summary>
 		WorkOrderRoutingEntity
 	}
 
+	/// <summary>Enum definition for all the typed view types defined in this namespace. Used by the entityfields factory.</summary>
+	public enum TypedViewType
+	{
+		///<summary>Soh</summary>
+		SohTypedView
+	}
 
 	#region Custom ConstantsEnums Code
 	
 	// __LLBLGENPRO_USER_CODE_REGION_START CustomUserConstants
 	// __LLBLGENPRO_USER_CODE_REGION_END
-	
 	#endregion
 
 	#region Included code

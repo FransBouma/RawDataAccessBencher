@@ -21,8 +21,8 @@ namespace L2S.Bencher.EntityClasses
 		#endregion
 		
 		#region Class Member Declarations
+		private System.Int32	_businessEntityId;
 		private System.Int16	_departmentId;
-		private System.Int32	_employeeId;
 		private Nullable<System.DateTime>	_endDate;
 		private System.DateTime	_modifiedDate;
 		private System.Byte	_shiftId;
@@ -36,10 +36,10 @@ namespace L2S.Bencher.EntityClasses
 		partial void OnLoaded();
 		partial void OnValidate(System.Data.Linq.ChangeAction action);
 		partial void OnCreated();
+		partial void OnBusinessEntityIdChanging(System.Int32 value);
+		partial void OnBusinessEntityIdChanged();
 		partial void OnDepartmentIdChanging(System.Int16 value);
 		partial void OnDepartmentIdChanged();
-		partial void OnEmployeeIdChanging(System.Int32 value);
-		partial void OnEmployeeIdChanged();
 		partial void OnEndDateChanging(Nullable<System.DateTime> value);
 		partial void OnEndDateChanged();
 		partial void OnModifiedDateChanging(System.DateTime value);
@@ -81,6 +81,28 @@ namespace L2S.Bencher.EntityClasses
 		
 
 		#region Class Property Declarations
+		/// <summary>Gets or sets the BusinessEntityId field. Mapped on target field 'BusinessEntityID'. </summary>
+		[Column(Name="BusinessEntityID", Storage="_businessEntityId", CanBeNull=false, DbType="int NOT NULL", IsPrimaryKey=true)]
+		public System.Int32 BusinessEntityId
+		{
+			get	{ return _businessEntityId; }
+			set
+			{
+				if((_businessEntityId != value))
+				{
+					if(_employee.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					OnBusinessEntityIdChanging(value);
+					SendPropertyChanging("BusinessEntityId");
+					_businessEntityId = value;
+					SendPropertyChanged("BusinessEntityId");
+					OnBusinessEntityIdChanged();
+				}
+			}
+		}
+
 		/// <summary>Gets or sets the DepartmentId field. Mapped on target field 'DepartmentID'. </summary>
 		[Column(Name="DepartmentID", Storage="_departmentId", CanBeNull=false, DbType="smallint NOT NULL", IsPrimaryKey=true)]
 		public System.Int16 DepartmentId
@@ -103,30 +125,8 @@ namespace L2S.Bencher.EntityClasses
 			}
 		}
 
-		/// <summary>Gets or sets the EmployeeId field. Mapped on target field 'EmployeeID'. </summary>
-		[Column(Name="EmployeeID", Storage="_employeeId", CanBeNull=false, DbType="int NOT NULL", IsPrimaryKey=true)]
-		public System.Int32 EmployeeId
-		{
-			get	{ return _employeeId; }
-			set
-			{
-				if((_employeeId != value))
-				{
-					if(_employee.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					OnEmployeeIdChanging(value);
-					SendPropertyChanging("EmployeeId");
-					_employeeId = value;
-					SendPropertyChanged("EmployeeId");
-					OnEmployeeIdChanged();
-				}
-			}
-		}
-
 		/// <summary>Gets or sets the EndDate field. Mapped on target field 'EndDate'. </summary>
-		[Column(Name="EndDate", Storage="_endDate", DbType="datetime NULL")]
+		[Column(Name="EndDate", Storage="_endDate", DbType="date NULL")]
 		public Nullable<System.DateTime> EndDate
 		{
 			get	{ return _endDate; }
@@ -184,7 +184,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 
 		/// <summary>Gets or sets the StartDate field. Mapped on target field 'StartDate'. </summary>
-		[Column(Name="StartDate", Storage="_startDate", CanBeNull=false, DbType="datetime NOT NULL", IsPrimaryKey=true)]
+		[Column(Name="StartDate", Storage="_startDate", CanBeNull=false, DbType="date NOT NULL", IsPrimaryKey=true)]
 		public System.DateTime StartDate
 		{
 			get	{ return _startDate; }
@@ -202,7 +202,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'EmployeeDepartmentHistory.Department - Department.EmployeeDepartmentHistories (m:1)'</summary>
-		[Association(Name="EmployeeDepartmentHistory_Departmentc285ea9a209e4528979abf82e0f7d99c", Storage="_department", ThisKey="DepartmentId", IsForeignKey=true)] 
+		[Association(Name="EmployeeDepartmentHistory_Department80b9743b51654c6b973acf049e8d5735", Storage="_department", ThisKey="DepartmentId", IsForeignKey=true)] 
 		public Department Department
 		{
 			get { return _department.Entity; }
@@ -233,7 +233,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'EmployeeDepartmentHistory.Employee - Employee.EmployeeDepartmentHistories (m:1)'</summary>
-		[Association(Name="EmployeeDepartmentHistory_Employeed00739cbcdf24b1392b159504b57ec34", Storage="_employee", ThisKey="EmployeeId", IsForeignKey=true)] 
+		[Association(Name="EmployeeDepartmentHistory_Employeedc3758d181924a4aa72e67f8f5994ab8", Storage="_employee", ThisKey="BusinessEntityId", IsForeignKey=true)] 
 		public Employee Employee
 		{
 			get { return _employee.Entity; }
@@ -251,12 +251,12 @@ namespace L2S.Bencher.EntityClasses
 					_employee.Entity = value;
 					if(value == null)
 					{
-						_employeeId = default(System.Int32);
+						_businessEntityId = default(System.Int32);
 					}
 					else
 					{
 						value.EmployeeDepartmentHistories.Add(this);
-						_employeeId = value.EmployeeId;
+						_businessEntityId = value.BusinessEntityId;
 					}
 					this.SendPropertyChanged("Employee");
 				}
@@ -264,7 +264,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'EmployeeDepartmentHistory.Shift - Shift.EmployeeDepartmentHistories (m:1)'</summary>
-		[Association(Name="EmployeeDepartmentHistory_Shiftb93a61ff77474cbfa1ffc06971d2d6aa", Storage="_shift", ThisKey="ShiftId", IsForeignKey=true)] 
+		[Association(Name="EmployeeDepartmentHistory_Shift69689a92082d4e5fa4ee9c25fbffa5af", Storage="_shift", ThisKey="ShiftId", IsForeignKey=true)] 
 		public Shift Shift
 		{
 			get { return _shift.Entity; }

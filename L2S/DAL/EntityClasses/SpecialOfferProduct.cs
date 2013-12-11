@@ -172,7 +172,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'SpecialOfferProduct.Product - Product.SpecialOfferProducts (m:1)'</summary>
-		[Association(Name="SpecialOfferProduct_Product06e27bb5927546b8a2b03b7be93a5cf9", Storage="_product", ThisKey="ProductId", IsForeignKey=true)] 
+		[Association(Name="SpecialOfferProduct_Productaca41663409d44bab7ca96c0b6d2b89c", Storage="_product", ThisKey="ProductId", IsForeignKey=true)] 
 		public Product Product
 		{
 			get { return _product.Entity; }
@@ -203,7 +203,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderDetail.SpecialOfferProduct - SpecialOfferProduct.SalesOrderDetails (m:1)'</summary>
-		[Association(Name="SalesOrderDetail_SpecialOfferProduct5ab9a124ce484578bda46575364ae0a6", Storage="_salesOrderDetails", OtherKey="ProductId, SpecialOfferId")]
+		[Association(Name="SalesOrderDetail_SpecialOfferProductd7614968101b4c71a23957bf9eb1d931", Storage="_salesOrderDetails", OtherKey="ProductId, SpecialOfferId")]
 		public EntitySet<SalesOrderDetail> SalesOrderDetails
 		{
 			get { return this._salesOrderDetails; }
@@ -211,7 +211,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'SpecialOfferProduct.SpecialOffer - SpecialOffer.SpecialOfferProducts (m:1)'</summary>
-		[Association(Name="SpecialOfferProduct_SpecialOffer747caa5a54be47e3a5ef4d0bd2defd18", Storage="_specialOffer", ThisKey="SpecialOfferId", IsForeignKey=true)] 
+		[Association(Name="SpecialOfferProduct_SpecialOffer4d199cee46b947ed9fb12f6c0b4d5596", Storage="_specialOffer", ThisKey="SpecialOfferId", IsForeignKey=true)] 
 		public SpecialOffer SpecialOffer
 		{
 			get { return _specialOffer.Entity; }

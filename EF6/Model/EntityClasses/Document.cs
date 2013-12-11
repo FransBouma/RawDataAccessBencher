@@ -25,9 +25,12 @@ namespace EF6.Bencher.EntityClasses
 		/// <summary>Gets or sets the ChangeNumber field. </summary>
 		[DataMember]
 		public System.Int32 ChangeNumber { get; set;}
-		/// <summary>Gets or sets the DocumentId field. </summary>
+		/// <summary>Gets or sets the DocumentLevel field. </summary>
 		[DataMember]
-		public System.Int32 DocumentId { get; set;}
+		public Nullable<System.Int16> DocumentLevel { get; set;}
+		/// <summary>Gets or sets the DocumentNode field. </summary>
+		[DataMember]
+		public System.String DocumentNode { get; set;}
 		/// <summary>Gets or sets the DocumentSummary field. </summary>
 		[DataMember]
 		public System.String DocumentSummary { get; set;}
@@ -40,18 +43,27 @@ namespace EF6.Bencher.EntityClasses
 		/// <summary>Gets or sets the FileName field. </summary>
 		[DataMember]
 		public System.String FileName { get; set;}
+		/// <summary>Gets or sets the FolderFlag field. </summary>
+		[DataMember]
+		public System.Boolean FolderFlag { get; set;}
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
 		[DataMember]
 		public System.DateTime ModifiedDate { get; set;}
 		/// <summary>Gets or sets the Revision field. </summary>
 		[DataMember]
 		public System.String Revision { get; set;}
+		/// <summary>Gets or sets the Rowguid field. </summary>
+		[DataMember]
+		public System.Guid Rowguid { get; set;}
 		/// <summary>Gets or sets the Status field. </summary>
 		[DataMember]
 		public System.Byte Status { get; set;}
 		/// <summary>Gets or sets the Title field. </summary>
 		[DataMember]
 		public System.String Title { get; set;}
+		/// <summary>Represents the navigator which is mapped onto the association 'Document.Employee - Employee.Documents (m:1)'</summary>
+		[DataMember]
+		public virtual Employee Employee { get; set;}
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductDocument.Document - Document.ProductDocuments (m:1)'</summary>
 		[DataMember]
 		public virtual ICollection<ProductDocument> ProductDocuments { get; set;}

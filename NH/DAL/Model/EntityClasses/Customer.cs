@@ -11,14 +11,12 @@ namespace NH.Bencher.EntityClasses
 	public partial class Customer
 	{
 		#region Class Member Declarations
-		private Iesi.Collections.Generic.ISet<CustomerAddress> _customerAddresses;
-		private Individual _individual;
+		private Person _person;
 		private Iesi.Collections.Generic.ISet<SalesOrderHeader> _salesOrderHeaders;
 		private SalesTerritory _salesTerritory;
 		private Store _store;
 		private System.String _accountNumber;
 		private System.Int32 _customerId;
-		private System.String _customerType;
 		private System.DateTime _modifiedDate;
 		private System.Guid _rowguid;
 		#endregion
@@ -26,7 +24,6 @@ namespace NH.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="Customer"/> class.</summary>
 		public Customer() : base()
 		{
-			_customerAddresses = new Iesi.Collections.Generic.HashedSet<CustomerAddress>();
 			_salesOrderHeaders = new Iesi.Collections.Generic.HashedSet<SalesOrderHeader>();
 			_accountNumber = default(System.String);
 			_customerId = default(System.Int32);
@@ -72,13 +69,6 @@ namespace NH.Bencher.EntityClasses
 			get { return _customerId; }
 		}
 
-		/// <summary>Gets or sets the CustomerType field. </summary>	
-		public virtual System.String CustomerType
-		{ 
-			get { return _customerType; }
-			set { _customerType = value; }
-		}
-
 		/// <summary>Gets or sets the ModifiedDate field. </summary>	
 		public virtual System.DateTime ModifiedDate
 		{ 
@@ -93,18 +83,11 @@ namespace NH.Bencher.EntityClasses
 			set { _rowguid = value; }
 		}
 
-		/// <summary>Represents the navigator which is mapped onto the association 'CustomerAddress.Customer - Customer.CustomerAddresses (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<CustomerAddress> CustomerAddresses
+		/// <summary>Represents the navigator which is mapped onto the association 'Customer.Person - Person.Customers (m:1)'</summary>
+		public virtual Person Person
 		{
-			get { return _customerAddresses; }
-			set { _customerAddresses = value; }
-		}
-		
-		/// <summary>Represents the navigator which is mapped onto the association 'Individual.Customer - Customer.Individual (1:1)'</summary>
-		public virtual Individual Individual
-		{
-			get { return _individual; }
-			set { _individual = value; }
+			get { return _person; }
+			set { _person = value; }
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderHeader.Customer - Customer.SalesOrderHeaders (m:1)'</summary>
@@ -121,7 +104,7 @@ namespace NH.Bencher.EntityClasses
 			set { _salesTerritory = value; }
 		}
 		
-		/// <summary>Represents the navigator which is mapped onto the association 'Store.Customer - Customer.Store (1:1)'</summary>
+		/// <summary>Represents the navigator which is mapped onto the association 'Customer.Store - Store.Customers (m:1)'</summary>
 		public virtual Store Store
 		{
 			get { return _store; }

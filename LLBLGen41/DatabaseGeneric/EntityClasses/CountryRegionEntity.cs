@@ -25,21 +25,19 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 {
 	// __LLBLGENPRO_USER_CODE_REGION_START AdditionalNamespaces
 	// __LLBLGENPRO_USER_CODE_REGION_END
-	
 	/// <summary>Entity class which represents the entity 'CountryRegion'.<br/><br/></summary>
 	[Serializable]
 	public partial class CountryRegionEntity : CommonEntityBase
 		// __LLBLGENPRO_USER_CODE_REGION_START AdditionalInterfaces
-		// __LLBLGENPRO_USER_CODE_REGION_END
-			
+		// __LLBLGENPRO_USER_CODE_REGION_END	
 	{
 		#region Class Member Declarations
 		private EntityCollection<CountryRegionCurrencyEntity> _countryRegionCurrencies;
+		private EntityCollection<SalesTerritoryEntity> _salesTerritories;
 		private EntityCollection<StateProvinceEntity> _stateProvinces;
 
 		// __LLBLGENPRO_USER_CODE_REGION_START PrivateMembers
 		// __LLBLGENPRO_USER_CODE_REGION_END
-		
 		#endregion
 
 		#region Statics
@@ -51,6 +49,8 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		{
 			/// <summary>Member name CountryRegionCurrencies</summary>
 			public static readonly string CountryRegionCurrencies = "CountryRegionCurrencies";
+			/// <summary>Member name SalesTerritories</summary>
+			public static readonly string SalesTerritories = "SalesTerritories";
 			/// <summary>Member name StateProvinces</summary>
 			public static readonly string StateProvinces = "StateProvinces";
 		}
@@ -111,12 +111,12 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			if(SerializationHelper.Optimization != SerializationOptimization.Fast) 
 			{
 				_countryRegionCurrencies = (EntityCollection<CountryRegionCurrencyEntity>)info.GetValue("_countryRegionCurrencies", typeof(EntityCollection<CountryRegionCurrencyEntity>));
+				_salesTerritories = (EntityCollection<SalesTerritoryEntity>)info.GetValue("_salesTerritories", typeof(EntityCollection<SalesTerritoryEntity>));
 				_stateProvinces = (EntityCollection<StateProvinceEntity>)info.GetValue("_stateProvinces", typeof(EntityCollection<StateProvinceEntity>));
 				this.FixupDeserialization(FieldInfoProviderSingleton.GetInstance());
 			}
 			// __LLBLGENPRO_USER_CODE_REGION_START DeserializationConstructor
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 		}
 
 
@@ -130,6 +130,9 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			{
 				case "CountryRegionCurrencies":
 					this.CountryRegionCurrencies.Add((CountryRegionCurrencyEntity)entity);
+					break;
+				case "SalesTerritories":
+					this.SalesTerritories.Add((SalesTerritoryEntity)entity);
 					break;
 				case "StateProvinces":
 					this.StateProvinces.Add((StateProvinceEntity)entity);
@@ -158,6 +161,9 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			{
 				case "CountryRegionCurrencies":
 					toReturn.Add(Relations.CountryRegionCurrencyEntityUsingCountryRegionCode);
+					break;
+				case "SalesTerritories":
+					toReturn.Add(Relations.SalesTerritoryEntityUsingCountryRegionCode);
 					break;
 				case "StateProvinces":
 					toReturn.Add(Relations.StateProvinceEntityUsingCountryRegionCode);
@@ -193,6 +199,9 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 				case "CountryRegionCurrencies":
 					this.CountryRegionCurrencies.Add((CountryRegionCurrencyEntity)relatedEntity);
 					break;
+				case "SalesTerritories":
+					this.SalesTerritories.Add((SalesTerritoryEntity)relatedEntity);
+					break;
 				case "StateProvinces":
 					this.StateProvinces.Add((StateProvinceEntity)relatedEntity);
 					break;
@@ -211,6 +220,9 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			{
 				case "CountryRegionCurrencies":
 					this.PerformRelatedEntityRemoval(this.CountryRegionCurrencies, relatedEntity, signalRelatedEntityManyToOne);
+					break;
+				case "SalesTerritories":
+					this.PerformRelatedEntityRemoval(this.SalesTerritories, relatedEntity, signalRelatedEntityManyToOne);
 					break;
 				case "StateProvinces":
 					this.PerformRelatedEntityRemoval(this.StateProvinces, relatedEntity, signalRelatedEntityManyToOne);
@@ -243,6 +255,7 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		{
 			List<IEntityCollection2> toReturn = new List<IEntityCollection2>();
 			toReturn.Add(this.CountryRegionCurrencies);
+			toReturn.Add(this.SalesTerritories);
 			toReturn.Add(this.StateProvinces);
 			return toReturn;
 		}
@@ -256,11 +269,11 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			if (SerializationHelper.Optimization != SerializationOptimization.Fast) 
 			{
 				info.AddValue("_countryRegionCurrencies", ((_countryRegionCurrencies!=null) && (_countryRegionCurrencies.Count>0) && !this.MarkedForDeletion)?_countryRegionCurrencies:null);
+				info.AddValue("_salesTerritories", ((_salesTerritories!=null) && (_salesTerritories.Count>0) && !this.MarkedForDeletion)?_salesTerritories:null);
 				info.AddValue("_stateProvinces", ((_stateProvinces!=null) && (_stateProvinces.Count>0) && !this.MarkedForDeletion)?_stateProvinces:null);
 			}
 			// __LLBLGENPRO_USER_CODE_REGION_START GetObjectInfo
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			base.GetObjectData(info, context);
 		}
 
@@ -279,6 +292,15 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		{
 			IRelationPredicateBucket bucket = new RelationPredicateBucket();
 			bucket.PredicateExpression.Add(new FieldCompareValuePredicate(CountryRegionCurrencyFields.CountryRegionCode, null, ComparisonOperator.Equal, this.CountryRegionCode));
+			return bucket;
+		}
+
+		/// <summary> Creates a new IRelationPredicateBucket object which contains the predicate expression and relation collection to fetch the related entities of type 'SalesTerritory' to this entity.</summary>
+		/// <returns></returns>
+		public virtual IRelationPredicateBucket GetRelationInfoSalesTerritories()
+		{
+			IRelationPredicateBucket bucket = new RelationPredicateBucket();
+			bucket.PredicateExpression.Add(new FieldCompareValuePredicate(SalesTerritoryFields.CountryRegionCode, null, ComparisonOperator.Equal, this.CountryRegionCode));
 			return bucket;
 		}
 
@@ -304,6 +326,7 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		{
 			base.AddToMemberEntityCollectionsQueue(collectionsQueue);
 			collectionsQueue.Enqueue(this._countryRegionCurrencies);
+			collectionsQueue.Enqueue(this._salesTerritories);
 			collectionsQueue.Enqueue(this._stateProvinces);
 		}
 		
@@ -313,6 +336,7 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		{
 			base.GetFromMemberEntityCollectionsQueue(collectionsQueue);
 			this._countryRegionCurrencies = (EntityCollection<CountryRegionCurrencyEntity>) collectionsQueue.Dequeue();
+			this._salesTerritories = (EntityCollection<SalesTerritoryEntity>) collectionsQueue.Dequeue();
 			this._stateProvinces = (EntityCollection<StateProvinceEntity>) collectionsQueue.Dequeue();
 
 		}
@@ -323,6 +347,7 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		{
 			bool toReturn = false;
 			toReturn |=(this._countryRegionCurrencies != null);
+			toReturn |=(this._salesTerritories != null);
 			toReturn |=(this._stateProvinces != null);
 			return toReturn ? true : base.HasPopulatedMemberEntityCollections();
 		}
@@ -334,6 +359,7 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		{
 			base.CreateMemberEntityCollectionsQueue(collectionsQueue, requiredQueue);
 			collectionsQueue.Enqueue(requiredQueue.Dequeue() ? new EntityCollection<CountryRegionCurrencyEntity>(EntityFactoryCache2.GetEntityFactory(typeof(CountryRegionCurrencyEntityFactory))) : null);
+			collectionsQueue.Enqueue(requiredQueue.Dequeue() ? new EntityCollection<SalesTerritoryEntity>(EntityFactoryCache2.GetEntityFactory(typeof(SalesTerritoryEntityFactory))) : null);
 			collectionsQueue.Enqueue(requiredQueue.Dequeue() ? new EntityCollection<StateProvinceEntity>(EntityFactoryCache2.GetEntityFactory(typeof(StateProvinceEntityFactory))) : null);
 		}
 #endif
@@ -343,6 +369,7 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		{
 			Dictionary<string, object> toReturn = new Dictionary<string, object>();
 			toReturn.Add("CountryRegionCurrencies", _countryRegionCurrencies);
+			toReturn.Add("SalesTerritories", _salesTerritories);
 			toReturn.Add("StateProvinces", _stateProvinces);
 			return toReturn;
 		}
@@ -354,7 +381,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			
 			// __LLBLGENPRO_USER_CODE_REGION_START InitClassMembers
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			OnInitClassMembersComplete();
 		}
 
@@ -387,7 +413,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 
 			// __LLBLGENPRO_USER_CODE_REGION_START InitClassEmpty
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 
 			OnInitialized();
 
@@ -412,6 +437,13 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		public static IPrefetchPathElement2 PrefetchPathCountryRegionCurrencies
 		{
 			get	{ return new PrefetchPathElement2( new EntityCollection<CountryRegionCurrencyEntity>(EntityFactoryCache2.GetEntityFactory(typeof(CountryRegionCurrencyEntityFactory))), (IEntityRelation)GetRelationsForField("CountryRegionCurrencies")[0], (int)AdventureWorks.Dal.Adapter.v41.EntityType.CountryRegionEntity, (int)AdventureWorks.Dal.Adapter.v41.EntityType.CountryRegionCurrencyEntity, 0, null, null, null, null, "CountryRegionCurrencies", SD.LLBLGen.Pro.ORMSupportClasses.RelationType.OneToMany);	}
+		}
+
+		/// <summary> Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'SalesTerritory' for this entity.</summary>
+		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
+		public static IPrefetchPathElement2 PrefetchPathSalesTerritories
+		{
+			get	{ return new PrefetchPathElement2( new EntityCollection<SalesTerritoryEntity>(EntityFactoryCache2.GetEntityFactory(typeof(SalesTerritoryEntityFactory))), (IEntityRelation)GetRelationsForField("SalesTerritories")[0], (int)AdventureWorks.Dal.Adapter.v41.EntityType.CountryRegionEntity, (int)AdventureWorks.Dal.Adapter.v41.EntityType.SalesTerritoryEntity, 0, null, null, null, null, "SalesTerritories", SD.LLBLGen.Pro.ORMSupportClasses.RelationType.OneToMany);	}
 		}
 
 		/// <summary> Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'StateProvince' for this entity.</summary>
@@ -482,6 +514,13 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			get { return GetOrCreateEntityCollection<CountryRegionCurrencyEntity, CountryRegionCurrencyEntityFactory>("CountryRegion", true, false, ref _countryRegionCurrencies);	}
 		}
 
+		/// <summary> Gets the EntityCollection with the related entities of type 'SalesTerritoryEntity' which are related to this entity via a relation of type '1:n'. If the EntityCollection hasn't been fetched yet, the collection returned will be empty.<br/><br/></summary>
+		[TypeContainedAttribute(typeof(SalesTerritoryEntity))]
+		public virtual EntityCollection<SalesTerritoryEntity> SalesTerritories
+		{
+			get { return GetOrCreateEntityCollection<SalesTerritoryEntity, SalesTerritoryEntityFactory>("CountryRegion", true, false, ref _salesTerritories);	}
+		}
+
 		/// <summary> Gets the EntityCollection with the related entities of type 'StateProvinceEntity' which are related to this entity via a relation of type '1:n'. If the EntityCollection hasn't been fetched yet, the collection returned will be empty.<br/><br/></summary>
 		[TypeContainedAttribute(typeof(StateProvinceEntity))]
 		public virtual EntityCollection<StateProvinceEntity> StateProvinces
@@ -515,7 +554,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		
 		// __LLBLGENPRO_USER_CODE_REGION_START CustomEntityCode
 		// __LLBLGENPRO_USER_CODE_REGION_END
-		
 		#endregion
 
 		#region Included code

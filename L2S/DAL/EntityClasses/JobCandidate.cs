@@ -21,7 +21,7 @@ namespace L2S.Bencher.EntityClasses
 		#endregion
 		
 		#region Class Member Declarations
-		private Nullable<System.Int32>	_employeeId;
+		private Nullable<System.Int32>	_businessEntityId;
 		private System.Int32	_jobCandidateId;
 		private System.DateTime	_modifiedDate;
 		private System.String	_resume;
@@ -32,8 +32,8 @@ namespace L2S.Bencher.EntityClasses
 		partial void OnLoaded();
 		partial void OnValidate(System.Data.Linq.ChangeAction action);
 		partial void OnCreated();
-		partial void OnEmployeeIdChanging(Nullable<System.Int32> value);
-		partial void OnEmployeeIdChanged();
+		partial void OnBusinessEntityIdChanging(Nullable<System.Int32> value);
+		partial void OnBusinessEntityIdChanged();
 		partial void OnJobCandidateIdChanging(System.Int32 value);
 		partial void OnJobCandidateIdChanged();
 		partial void OnModifiedDateChanging(System.DateTime value);
@@ -71,24 +71,24 @@ namespace L2S.Bencher.EntityClasses
 		
 
 		#region Class Property Declarations
-		/// <summary>Gets or sets the EmployeeId field. Mapped on target field 'EmployeeID'. </summary>
-		[Column(Name="EmployeeID", Storage="_employeeId", DbType="int NULL")]
-		public Nullable<System.Int32> EmployeeId
+		/// <summary>Gets or sets the BusinessEntityId field. Mapped on target field 'BusinessEntityID'. </summary>
+		[Column(Name="BusinessEntityID", Storage="_businessEntityId", DbType="int NULL")]
+		public Nullable<System.Int32> BusinessEntityId
 		{
-			get	{ return _employeeId; }
+			get	{ return _businessEntityId; }
 			set
 			{
-				if((_employeeId != value))
+				if((_businessEntityId != value))
 				{
 					if(_employee.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
-					OnEmployeeIdChanging(value);
-					SendPropertyChanging("EmployeeId");
-					_employeeId = value;
-					SendPropertyChanged("EmployeeId");
-					OnEmployeeIdChanged();
+					OnBusinessEntityIdChanging(value);
+					SendPropertyChanging("BusinessEntityId");
+					_businessEntityId = value;
+					SendPropertyChanged("BusinessEntityId");
+					OnBusinessEntityIdChanged();
 				}
 			}
 		}
@@ -148,7 +148,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'JobCandidate.Employee - Employee.JobCandidates (m:1)'</summary>
-		[Association(Name="JobCandidate_Employee91809a205c6547bebcdcd7b7cd5d5cc9", Storage="_employee", ThisKey="EmployeeId", IsForeignKey=true)] 
+		[Association(Name="JobCandidate_Employee6a30e792c8c94bfdabdbae66d9583b57", Storage="_employee", ThisKey="BusinessEntityId", IsForeignKey=true)] 
 		public Employee Employee
 		{
 			get { return _employee.Entity; }
@@ -166,12 +166,12 @@ namespace L2S.Bencher.EntityClasses
 					_employee.Entity = value;
 					if(value == null)
 					{
-						_employeeId = default(Nullable<System.Int32>);
+						_businessEntityId = default(Nullable<System.Int32>);
 					}
 					else
 					{
 						value.JobCandidates.Add(this);
-						_employeeId = value.EmployeeId;
+						_businessEntityId = value.BusinessEntityId;
 					}
 					this.SendPropertyChanged("Employee");
 				}

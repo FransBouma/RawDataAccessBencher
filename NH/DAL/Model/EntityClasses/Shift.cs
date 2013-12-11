@@ -12,11 +12,11 @@ namespace NH.Bencher.EntityClasses
 	{
 		#region Class Member Declarations
 		private Iesi.Collections.Generic.ISet<EmployeeDepartmentHistory> _employeeDepartmentHistories;
-		private System.DateTime _endTime;
+		private System.TimeSpan _endTime;
 		private System.DateTime _modifiedDate;
 		private System.String _name;
 		private System.Byte _shiftId;
-		private System.DateTime _startTime;
+		private System.TimeSpan _startTime;
 		#endregion
 
 		/// <summary>Initializes a new instance of the <see cref="Shift"/> class.</summary>
@@ -55,7 +55,7 @@ namespace NH.Bencher.EntityClasses
 
 		#region Class Property Declarations
 		/// <summary>Gets or sets the EndTime field. </summary>	
-		public virtual System.DateTime EndTime
+		public virtual System.TimeSpan EndTime
 		{ 
 			get { return _endTime; }
 			set { _endTime = value; }
@@ -82,7 +82,7 @@ namespace NH.Bencher.EntityClasses
 		}
 
 		/// <summary>Gets or sets the StartTime field. </summary>	
-		public virtual System.DateTime StartTime
+		public virtual System.TimeSpan StartTime
 		{ 
 			get { return _startTime; }
 			set { _startTime = value; }

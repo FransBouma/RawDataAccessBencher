@@ -31,6 +31,7 @@ namespace AdventureWorks.Dal.Adapter.v41.RelationClasses
 		{
 			List<IEntityRelation> toReturn = new List<IEntityRelation>();
 			toReturn.Add(this.CountryRegionCurrencyEntityUsingCountryRegionCode);
+			toReturn.Add(this.SalesTerritoryEntityUsingCountryRegionCode);
 			toReturn.Add(this.StateProvinceEntityUsingCountryRegionCode);
 			return toReturn;
 		}
@@ -48,6 +49,21 @@ namespace AdventureWorks.Dal.Adapter.v41.RelationClasses
 				relation.AddEntityFieldPair(CountryRegionFields.CountryRegionCode, CountryRegionCurrencyFields.CountryRegionCode);
 				relation.InheritanceInfoPkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("CountryRegionEntity", true);
 				relation.InheritanceInfoFkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("CountryRegionCurrencyEntity", false);
+				return relation;
+			}
+		}
+
+		/// <summary>Returns a new IEntityRelation object, between CountryRegionEntity and SalesTerritoryEntity over the 1:n relation they have, using the relation between the fields:
+		/// CountryRegion.CountryRegionCode - SalesTerritory.CountryRegionCode
+		/// </summary>
+		public virtual IEntityRelation SalesTerritoryEntityUsingCountryRegionCode
+		{
+			get
+			{
+				IEntityRelation relation = new EntityRelation(SD.LLBLGen.Pro.ORMSupportClasses.RelationType.OneToMany, "SalesTerritories" , true);
+				relation.AddEntityFieldPair(CountryRegionFields.CountryRegionCode, SalesTerritoryFields.CountryRegionCode);
+				relation.InheritanceInfoPkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("CountryRegionEntity", true);
+				relation.InheritanceInfoFkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("SalesTerritoryEntity", false);
 				return relation;
 			}
 		}
@@ -83,6 +99,7 @@ namespace AdventureWorks.Dal.Adapter.v41.RelationClasses
 	internal static class StaticCountryRegionRelations
 	{
 		internal static readonly IEntityRelation CountryRegionCurrencyEntityUsingCountryRegionCodeStatic = new CountryRegionRelations().CountryRegionCurrencyEntityUsingCountryRegionCode;
+		internal static readonly IEntityRelation SalesTerritoryEntityUsingCountryRegionCodeStatic = new CountryRegionRelations().SalesTerritoryEntityUsingCountryRegionCode;
 		internal static readonly IEntityRelation StateProvinceEntityUsingCountryRegionCodeStatic = new CountryRegionRelations().StateProvinceEntityUsingCountryRegionCode;
 
 		/// <summary>CTor</summary>

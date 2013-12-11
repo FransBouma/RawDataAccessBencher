@@ -15,6 +15,12 @@
 			</key>
 			<one-to-many class="CountryRegionCurrency"/>
 		</set>
+		<set name="SalesTerritories" access="field.camelcase-underscore" cascade="all-delete-orphan" inverse="true" fetch="select">
+			<key>
+				<column name="[CountryRegionCode]"/>
+			</key>
+			<one-to-many class="SalesTerritory"/>
+		</set>
 		<set name="StateProvinces" access="field.camelcase-underscore" cascade="all-delete-orphan" inverse="true" fetch="select">
 			<key>
 				<column name="[CountryRegionCode]"/>

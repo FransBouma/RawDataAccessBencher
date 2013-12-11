@@ -24,8 +24,7 @@ namespace L2S.Bencher.EntityClasses
 		private System.Int32	_contactTypeId;
 		private System.DateTime	_modifiedDate;
 		private System.String	_name;
-		private EntitySet <StoreContact> _storeContacts;
-		private EntitySet <VendorContact> _vendorContacts;
+		private EntitySet <BusinessEntityContact> _businessEntityContacts;
 		#endregion
 		
 		#region Extensibility Method Definitions
@@ -43,8 +42,7 @@ namespace L2S.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="ContactType"/> class.</summary>
 		public ContactType()
 		{
-			_storeContacts = new EntitySet<StoreContact>(new Action<StoreContact>(this.Attach_StoreContacts), new Action<StoreContact>(this.Detach_StoreContacts) );
-			_vendorContacts = new EntitySet<VendorContact>(new Action<VendorContact>(this.Attach_VendorContacts), new Action<VendorContact>(this.Detach_VendorContacts) );
+			_businessEntityContacts = new EntitySet<BusinessEntityContact>(new Action<BusinessEntityContact>(this.Attach_BusinessEntityContacts), new Action<BusinessEntityContact>(this.Detach_BusinessEntityContacts) );
 			OnCreated();
 		}
 
@@ -70,33 +68,17 @@ namespace L2S.Bencher.EntityClasses
 		
 		/// <summary>Attaches this instance to the entity specified as an associated entity</summary>
 		/// <param name="entity">The related entity to attach to</param>
-		private void Attach_StoreContacts(StoreContact entity)
+		private void Attach_BusinessEntityContacts(BusinessEntityContact entity)
 		{
-			this.SendPropertyChanging("StoreContacts");
+			this.SendPropertyChanging("BusinessEntityContacts");
 			entity.ContactType = this;
 		}
 		
 		/// <summary>Detaches this instance from the entity specified so it's no longer an associated entity</summary>
 		/// <param name="entity">The related entity to detach from</param>
-		private void Detach_StoreContacts(StoreContact entity)
+		private void Detach_BusinessEntityContacts(BusinessEntityContact entity)
 		{
-			this.SendPropertyChanging("StoreContacts");
-			entity.ContactType = null;
-		}
-
-		/// <summary>Attaches this instance to the entity specified as an associated entity</summary>
-		/// <param name="entity">The related entity to attach to</param>
-		private void Attach_VendorContacts(VendorContact entity)
-		{
-			this.SendPropertyChanging("VendorContacts");
-			entity.ContactType = this;
-		}
-		
-		/// <summary>Detaches this instance from the entity specified so it's no longer an associated entity</summary>
-		/// <param name="entity">The related entity to detach from</param>
-		private void Detach_VendorContacts(VendorContact entity)
-		{
-			this.SendPropertyChanging("VendorContacts");
+			this.SendPropertyChanging("BusinessEntityContacts");
 			entity.ContactType = null;
 		}
 
@@ -156,20 +138,12 @@ namespace L2S.Bencher.EntityClasses
 			}
 		}
 
-		/// <summary>Represents the navigator which is mapped onto the association 'StoreContact.ContactType - ContactType.StoreContacts (m:1)'</summary>
-		[Association(Name="StoreContact_ContactTypeed8daa6c79c94377b5b2979fc323c732", Storage="_storeContacts", OtherKey="ContactTypeId")]
-		public EntitySet<StoreContact> StoreContacts
+		/// <summary>Represents the navigator which is mapped onto the association 'BusinessEntityContact.ContactType - ContactType.BusinessEntityContacts (m:1)'</summary>
+		[Association(Name="BusinessEntityContact_ContactType9e4dc4bf61a84ab4adc3b76ed46315bd", Storage="_businessEntityContacts", OtherKey="ContactTypeId")]
+		public EntitySet<BusinessEntityContact> BusinessEntityContacts
 		{
-			get { return this._storeContacts; }
-			set { this._storeContacts.Assign(value); }
-		}
-		
-		/// <summary>Represents the navigator which is mapped onto the association 'VendorContact.ContactType - ContactType.VendorContacts (m:1)'</summary>
-		[Association(Name="VendorContact_ContactType04e342c152cc494eb9ef14709eb700d1", Storage="_vendorContacts", OtherKey="ContactTypeId")]
-		public EntitySet<VendorContact> VendorContacts
-		{
-			get { return this._vendorContacts; }
-			set { this._vendorContacts.Assign(value); }
+			get { return this._businessEntityContacts; }
+			set { this._businessEntityContacts.Assign(value); }
 		}
 		
 		#endregion

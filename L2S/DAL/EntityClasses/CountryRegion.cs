@@ -25,6 +25,7 @@ namespace L2S.Bencher.EntityClasses
 		private System.DateTime	_modifiedDate;
 		private System.String	_name;
 		private EntitySet <CountryRegionCurrency> _countryRegionCurrencies;
+		private EntitySet <SalesTerritory> _salesTerritories;
 		private EntitySet <StateProvince> _stateProvinces;
 		#endregion
 		
@@ -44,6 +45,7 @@ namespace L2S.Bencher.EntityClasses
 		public CountryRegion()
 		{
 			_countryRegionCurrencies = new EntitySet<CountryRegionCurrency>(new Action<CountryRegionCurrency>(this.Attach_CountryRegionCurrencies), new Action<CountryRegionCurrency>(this.Detach_CountryRegionCurrencies) );
+			_salesTerritories = new EntitySet<SalesTerritory>(new Action<SalesTerritory>(this.Attach_SalesTerritories), new Action<SalesTerritory>(this.Detach_SalesTerritories) );
 			_stateProvinces = new EntitySet<StateProvince>(new Action<StateProvince>(this.Attach_StateProvinces), new Action<StateProvince>(this.Detach_StateProvinces) );
 			OnCreated();
 		}
@@ -81,6 +83,22 @@ namespace L2S.Bencher.EntityClasses
 		private void Detach_CountryRegionCurrencies(CountryRegionCurrency entity)
 		{
 			this.SendPropertyChanging("CountryRegionCurrencies");
+			entity.CountryRegion = null;
+		}
+
+		/// <summary>Attaches this instance to the entity specified as an associated entity</summary>
+		/// <param name="entity">The related entity to attach to</param>
+		private void Attach_SalesTerritories(SalesTerritory entity)
+		{
+			this.SendPropertyChanging("SalesTerritories");
+			entity.CountryRegion = this;
+		}
+		
+		/// <summary>Detaches this instance from the entity specified so it's no longer an associated entity</summary>
+		/// <param name="entity">The related entity to detach from</param>
+		private void Detach_SalesTerritories(SalesTerritory entity)
+		{
+			this.SendPropertyChanging("SalesTerritories");
 			entity.CountryRegion = null;
 		}
 
@@ -157,15 +175,23 @@ namespace L2S.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'CountryRegionCurrency.CountryRegion - CountryRegion.CountryRegionCurrencies (m:1)'</summary>
-		[Association(Name="CountryRegionCurrency_CountryRegion10abe569356442f1815b311b49a95309", Storage="_countryRegionCurrencies", OtherKey="CountryRegionCode")]
+		[Association(Name="CountryRegionCurrency_CountryRegionceaab744f6674d949785ab3cf64cc713", Storage="_countryRegionCurrencies", OtherKey="CountryRegionCode")]
 		public EntitySet<CountryRegionCurrency> CountryRegionCurrencies
 		{
 			get { return this._countryRegionCurrencies; }
 			set { this._countryRegionCurrencies.Assign(value); }
 		}
 		
+		/// <summary>Represents the navigator which is mapped onto the association 'SalesTerritory.CountryRegion - CountryRegion.SalesTerritories (m:1)'</summary>
+		[Association(Name="SalesTerritory_CountryRegiondf286c4ab92a488e9465ce0a50174ff1", Storage="_salesTerritories", OtherKey="CountryRegionCode")]
+		public EntitySet<SalesTerritory> SalesTerritories
+		{
+			get { return this._salesTerritories; }
+			set { this._salesTerritories.Assign(value); }
+		}
+		
 		/// <summary>Represents the navigator which is mapped onto the association 'StateProvince.CountryRegion - CountryRegion.StateProvinces (m:1)'</summary>
-		[Association(Name="StateProvince_CountryRegion119c07f7fb5248ce8cfe986ad9f32c08", Storage="_stateProvinces", OtherKey="CountryRegionCode")]
+		[Association(Name="StateProvince_CountryRegion760056c349644109a8ca7959b8008096", Storage="_stateProvinces", OtherKey="CountryRegionCode")]
 		public EntitySet<StateProvince> StateProvinces
 		{
 			get { return this._stateProvinces; }

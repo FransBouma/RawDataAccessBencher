@@ -19,6 +19,7 @@ namespace EF6.Bencher.EntityClasses
 		public CountryRegion() : base()
 		{
 			this.CountryRegionCurrencies = new HashSet<CountryRegionCurrency>();
+			this.SalesTerritories = new HashSet<SalesTerritory>();
 			this.StateProvinces = new HashSet<StateProvince>();
 		}
 
@@ -35,6 +36,9 @@ namespace EF6.Bencher.EntityClasses
 		/// <summary>Represents the navigator which is mapped onto the association 'CountryRegionCurrency.CountryRegion - CountryRegion.CountryRegionCurrencies (m:1)'</summary>
 		[DataMember]
 		public virtual ICollection<CountryRegionCurrency> CountryRegionCurrencies { get; set;}
+		/// <summary>Represents the navigator which is mapped onto the association 'SalesTerritory.CountryRegion - CountryRegion.SalesTerritories (m:1)'</summary>
+		[DataMember]
+		public virtual ICollection<SalesTerritory> SalesTerritories { get; set;}
 		/// <summary>Represents the navigator which is mapped onto the association 'StateProvince.CountryRegion - CountryRegion.StateProvinces (m:1)'</summary>
 		[DataMember]
 		public virtual ICollection<StateProvince> StateProvinces { get; set;}

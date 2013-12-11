@@ -31,6 +31,7 @@ namespace L2S.Bencher.EntityClasses
 		private System.Decimal	_salesLastYear;
 		private System.Decimal	_salesYtd;
 		private System.Int32	_territoryId;
+		private EntityRef <CountryRegion> _countryRegion;
 		private EntitySet <Customer> _customers;
 		private EntitySet <SalesOrderHeader> _salesOrderHeaders;
 		private EntitySet <SalesPerson> _salesPeople;
@@ -67,6 +68,7 @@ namespace L2S.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="SalesTerritory"/> class.</summary>
 		public SalesTerritory()
 		{
+			_countryRegion = default(EntityRef<CountryRegion>);
 			_customers = new EntitySet<Customer>(new Action<Customer>(this.Attach_Customers), new Action<Customer>(this.Detach_Customers) );
 			_salesOrderHeaders = new EntitySet<SalesOrderHeader>(new Action<SalesOrderHeader>(this.Attach_SalesOrderHeaders), new Action<SalesOrderHeader>(this.Detach_SalesOrderHeaders) );
 			_salesPeople = new EntitySet<SalesPerson>(new Action<SalesPerson>(this.Attach_SalesPeople), new Action<SalesPerson>(this.Detach_SalesPeople) );
@@ -222,6 +224,10 @@ namespace L2S.Bencher.EntityClasses
 			{
 				if((_countryRegionCode != value))
 				{
+					if(_countryRegion.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					OnCountryRegionCodeChanging(value);
 					SendPropertyChanging("CountryRegionCode");
 					_countryRegionCode = value;
@@ -357,8 +363,39 @@ namespace L2S.Bencher.EntityClasses
 			}
 		}
 
+		/// <summary>Represents the navigator which is mapped onto the association 'SalesTerritory.CountryRegion - CountryRegion.SalesTerritories (m:1)'</summary>
+		[Association(Name="SalesTerritory_CountryRegiondf286c4ab92a488e9465ce0a50174ff1", Storage="_countryRegion", ThisKey="CountryRegionCode", IsForeignKey=true)] 
+		public CountryRegion CountryRegion
+		{
+			get { return _countryRegion.Entity; }
+			set
+			{
+				CountryRegion previousValue = _countryRegion.Entity;
+				if((previousValue != value) || (_countryRegion.HasLoadedOrAssignedValue == false))
+				{
+					this.SendPropertyChanging("CountryRegion");
+					if(previousValue != null)
+					{
+						_countryRegion.Entity = null;
+						previousValue.SalesTerritories.Remove(this);
+					}
+					_countryRegion.Entity = value;
+					if(value == null)
+					{
+						_countryRegionCode = default(System.String);
+					}
+					else
+					{
+						value.SalesTerritories.Add(this);
+						_countryRegionCode = value.CountryRegionCode;
+					}
+					this.SendPropertyChanged("CountryRegion");
+				}
+			}
+		}
+		
 		/// <summary>Represents the navigator which is mapped onto the association 'Customer.SalesTerritory - SalesTerritory.Customers (m:1)'</summary>
-		[Association(Name="Customer_SalesTerritoryb4b69480649448039aaca02f2725fea7", Storage="_customers", OtherKey="TerritoryId")]
+		[Association(Name="Customer_SalesTerritory7ad6c6c625e543cfb6084e52c1b35dad", Storage="_customers", OtherKey="TerritoryId")]
 		public EntitySet<Customer> Customers
 		{
 			get { return this._customers; }
@@ -366,7 +403,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderHeader.SalesTerritory - SalesTerritory.SalesOrderHeaders (m:1)'</summary>
-		[Association(Name="SalesOrderHeader_SalesTerritory44b37e7be3f647bbaf0db7376144a05b", Storage="_salesOrderHeaders", OtherKey="TerritoryId")]
+		[Association(Name="SalesOrderHeader_SalesTerritory0068eba861094e89b405d0e61e7a6b57", Storage="_salesOrderHeaders", OtherKey="TerritoryId")]
 		public EntitySet<SalesOrderHeader> SalesOrderHeaders
 		{
 			get { return this._salesOrderHeaders; }
@@ -374,7 +411,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesPerson.SalesTerritory - SalesTerritory.SalesPeople (m:1)'</summary>
-		[Association(Name="SalesPerson_SalesTerritoryf8210c025654468ab822c2fc043a1cfc", Storage="_salesPeople", OtherKey="TerritoryId")]
+		[Association(Name="SalesPerson_SalesTerritory1fd576bbd39d4023a25f7753982e8454", Storage="_salesPeople", OtherKey="TerritoryId")]
 		public EntitySet<SalesPerson> SalesPeople
 		{
 			get { return this._salesPeople; }
@@ -382,7 +419,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesTerritoryHistory.SalesTerritory - SalesTerritory.SalesTerritoryHistories (m:1)'</summary>
-		[Association(Name="SalesTerritoryHistory_SalesTerritorye773e0f8bcbd41ce8572a8c1756f0e58", Storage="_salesTerritoryHistories", OtherKey="TerritoryId")]
+		[Association(Name="SalesTerritoryHistory_SalesTerritory4fd8c35d23c44152a5bf52634c3bd709", Storage="_salesTerritoryHistories", OtherKey="TerritoryId")]
 		public EntitySet<SalesTerritoryHistory> SalesTerritoryHistories
 		{
 			get { return this._salesTerritoryHistories; }
@@ -390,7 +427,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'StateProvince.SalesTerritory - SalesTerritory.StateProvinces (m:1)'</summary>
-		[Association(Name="StateProvince_SalesTerritoryd468d9b5492d4f3b85bb98550b684afd", Storage="_stateProvinces", OtherKey="TerritoryId")]
+		[Association(Name="StateProvince_SalesTerritory5bf3b76bcdd142949c1a450a550d83e9", Storage="_stateProvinces", OtherKey="TerritoryId")]
 		public EntitySet<StateProvince> StateProvinces
 		{
 			get { return this._stateProvinces; }

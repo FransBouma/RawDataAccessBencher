@@ -25,20 +25,17 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 {
 	// __LLBLGENPRO_USER_CODE_REGION_START AdditionalNamespaces
 	// __LLBLGENPRO_USER_CODE_REGION_END
-	
 	/// <summary>Entity class which represents the entity 'Shift'.<br/><br/></summary>
 	[Serializable]
 	public partial class ShiftEntity : CommonEntityBase
 		// __LLBLGENPRO_USER_CODE_REGION_START AdditionalInterfaces
-		// __LLBLGENPRO_USER_CODE_REGION_END
-			
+		// __LLBLGENPRO_USER_CODE_REGION_END	
 	{
 		#region Class Member Declarations
 		private EntityCollection<EmployeeDepartmentHistoryEntity> _employeeDepartmentHistories;
 
 		// __LLBLGENPRO_USER_CODE_REGION_START PrivateMembers
 		// __LLBLGENPRO_USER_CODE_REGION_END
-		
 		#endregion
 
 		#region Statics
@@ -112,7 +109,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			}
 			// __LLBLGENPRO_USER_CODE_REGION_START DeserializationConstructor
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 		}
 
 
@@ -242,7 +238,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			}
 			// __LLBLGENPRO_USER_CODE_REGION_START GetObjectInfo
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			base.GetObjectData(info, context);
 		}
 
@@ -322,7 +317,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			
 			// __LLBLGENPRO_USER_CODE_REGION_START InitClassMembers
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			OnInitClassMembersComplete();
 		}
 
@@ -359,7 +353,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 
 			// __LLBLGENPRO_USER_CODE_REGION_START InitClassEmpty
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 
 			OnInitialized();
 
@@ -412,11 +405,11 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 
 		/// <summary> The EndTime property of the Entity Shift<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "Shift"."EndTime"<br/>
-		/// Table field type characteristics (type, precision, scale, length): DateTime, 0, 0, 0<br/>
+		/// Table field type characteristics (type, precision, scale, length): Time, 0, 0, 0<br/>
 		/// Table field behavior characteristics (is nullable, is PK, is identity): false, false, false</remarks>
-		public virtual System.DateTime EndTime
+		public virtual System.TimeSpan EndTime
 		{
-			get { return (System.DateTime)GetValue((int)ShiftFieldIndex.EndTime, true); }
+			get { return (System.TimeSpan)GetValue((int)ShiftFieldIndex.EndTime, true); }
 			set	{ SetValue((int)ShiftFieldIndex.EndTime, value); }
 		}
 
@@ -452,11 +445,11 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 
 		/// <summary> The StartTime property of the Entity Shift<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "Shift"."StartTime"<br/>
-		/// Table field type characteristics (type, precision, scale, length): DateTime, 0, 0, 0<br/>
+		/// Table field type characteristics (type, precision, scale, length): Time, 0, 0, 0<br/>
 		/// Table field behavior characteristics (is nullable, is PK, is identity): false, false, false</remarks>
-		public virtual System.DateTime StartTime
+		public virtual System.TimeSpan StartTime
 		{
-			get { return (System.DateTime)GetValue((int)ShiftFieldIndex.StartTime, true); }
+			get { return (System.TimeSpan)GetValue((int)ShiftFieldIndex.StartTime, true); }
 			set	{ SetValue((int)ShiftFieldIndex.StartTime, value); }
 		}
 
@@ -493,7 +486,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		
 		// __LLBLGENPRO_USER_CODE_REGION_START CustomEntityCode
 		// __LLBLGENPRO_USER_CODE_REGION_END
-		
 		#endregion
 
 		#region Included code

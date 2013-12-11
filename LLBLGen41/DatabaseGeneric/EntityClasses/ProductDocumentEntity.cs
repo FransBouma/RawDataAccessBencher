@@ -25,13 +25,11 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 {
 	// __LLBLGENPRO_USER_CODE_REGION_START AdditionalNamespaces
 	// __LLBLGENPRO_USER_CODE_REGION_END
-	
 	/// <summary>Entity class which represents the entity 'ProductDocument'.<br/><br/></summary>
 	[Serializable]
 	public partial class ProductDocumentEntity : CommonEntityBase
 		// __LLBLGENPRO_USER_CODE_REGION_START AdditionalInterfaces
-		// __LLBLGENPRO_USER_CODE_REGION_END
-			
+		// __LLBLGENPRO_USER_CODE_REGION_END	
 	{
 		#region Class Member Declarations
 		private DocumentEntity _document;
@@ -39,7 +37,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 
 		// __LLBLGENPRO_USER_CODE_REGION_START PrivateMembers
 		// __LLBLGENPRO_USER_CODE_REGION_END
-		
 		#endregion
 
 		#region Statics
@@ -84,25 +81,25 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		}
 				
 		/// <summary> CTor</summary>
-		/// <param name="documentId">PK value for ProductDocument which data should be fetched into this ProductDocument object</param>
+		/// <param name="documentNode">PK value for ProductDocument which data should be fetched into this ProductDocument object</param>
 		/// <param name="productId">PK value for ProductDocument which data should be fetched into this ProductDocument object</param>
 		/// <remarks>The entity is not fetched by this constructor. Use a DataAccessAdapter for that.</remarks>
-		public ProductDocumentEntity(System.Int32 documentId, System.Int32 productId):base("ProductDocumentEntity")
+		public ProductDocumentEntity(System.String documentNode, System.Int32 productId):base("ProductDocumentEntity")
 		{
 			InitClassEmpty(null, null);
-			this.DocumentId = documentId;
+			this.DocumentNode = documentNode;
 			this.ProductId = productId;
 		}
 
 		/// <summary> CTor</summary>
-		/// <param name="documentId">PK value for ProductDocument which data should be fetched into this ProductDocument object</param>
+		/// <param name="documentNode">PK value for ProductDocument which data should be fetched into this ProductDocument object</param>
 		/// <param name="productId">PK value for ProductDocument which data should be fetched into this ProductDocument object</param>
 		/// <param name="validator">The custom validator object for this ProductDocumentEntity</param>
 		/// <remarks>The entity is not fetched by this constructor. Use a DataAccessAdapter for that.</remarks>
-		public ProductDocumentEntity(System.Int32 documentId, System.Int32 productId, IValidator validator):base("ProductDocumentEntity")
+		public ProductDocumentEntity(System.String documentNode, System.Int32 productId, IValidator validator):base("ProductDocumentEntity")
 		{
 			InitClassEmpty(validator, null);
-			this.DocumentId = documentId;
+			this.DocumentNode = documentNode;
 			this.ProductId = productId;
 		}
 
@@ -128,7 +125,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			}
 			// __LLBLGENPRO_USER_CODE_REGION_START DeserializationConstructor
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 		}
 
 		
@@ -138,7 +134,7 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		{
 			switch((ProductDocumentFieldIndex)fieldIndex)
 			{
-				case ProductDocumentFieldIndex.DocumentId:
+				case ProductDocumentFieldIndex.DocumentNode:
 					DesetupSyncDocument(true, false);
 					break;
 				case ProductDocumentFieldIndex.ProductId:
@@ -187,7 +183,7 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			switch(fieldName)
 			{
 				case "Document":
-					toReturn.Add(Relations.DocumentEntityUsingDocumentId);
+					toReturn.Add(Relations.DocumentEntityUsingDocumentNode);
 					break;
 				case "Product":
 					toReturn.Add(Relations.ProductEntityUsingProductId);
@@ -296,7 +292,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			}
 			// __LLBLGENPRO_USER_CODE_REGION_START GetObjectInfo
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			base.GetObjectData(info, context);
 		}
 
@@ -314,7 +309,7 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		public virtual IRelationPredicateBucket GetRelationInfoDocument()
 		{
 			IRelationPredicateBucket bucket = new RelationPredicateBucket();
-			bucket.PredicateExpression.Add(new FieldCompareValuePredicate(DocumentFields.DocumentId, null, ComparisonOperator.Equal, this.DocumentId));
+			bucket.PredicateExpression.Add(new FieldCompareValuePredicate(DocumentFields.DocumentNode, null, ComparisonOperator.Equal, this.DocumentNode));
 			return bucket;
 		}
 
@@ -382,7 +377,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			
 			// __LLBLGENPRO_USER_CODE_REGION_START InitClassMembers
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			OnInitClassMembersComplete();
 		}
 
@@ -395,7 +389,7 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			_fieldsCustomProperties = new Dictionary<string, Dictionary<string, string>>();
 			Dictionary<string, string> fieldHashtable;
 			fieldHashtable = new Dictionary<string, string>();
-			_fieldsCustomProperties.Add("DocumentId", fieldHashtable);
+			_fieldsCustomProperties.Add("DocumentNode", fieldHashtable);
 			fieldHashtable = new Dictionary<string, string>();
 			_fieldsCustomProperties.Add("ModifiedDate", fieldHashtable);
 			fieldHashtable = new Dictionary<string, string>();
@@ -408,7 +402,7 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		/// <param name="resetFKFields">if set to true it will also reset the FK fields pointing to the related entity</param>
 		private void DesetupSyncDocument(bool signalRelatedEntity, bool resetFKFields)
 		{
-			this.PerformDesetupSyncRelatedEntity( _document, new PropertyChangedEventHandler( OnDocumentPropertyChanged ), "Document", AdventureWorks.Dal.Adapter.v41.RelationClasses.StaticProductDocumentRelations.DocumentEntityUsingDocumentIdStatic, true, signalRelatedEntity, "ProductDocuments", resetFKFields, new int[] { (int)ProductDocumentFieldIndex.DocumentId } );
+			this.PerformDesetupSyncRelatedEntity( _document, new PropertyChangedEventHandler( OnDocumentPropertyChanged ), "Document", AdventureWorks.Dal.Adapter.v41.RelationClasses.StaticProductDocumentRelations.DocumentEntityUsingDocumentNodeStatic, true, signalRelatedEntity, "ProductDocuments", resetFKFields, new int[] { (int)ProductDocumentFieldIndex.DocumentNode } );
 			_document = null;
 		}
 
@@ -420,7 +414,7 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			{
 				DesetupSyncDocument(true, true);
 				_document = (DocumentEntity)relatedEntity;
-				this.PerformSetupSyncRelatedEntity( _document, new PropertyChangedEventHandler( OnDocumentPropertyChanged ), "Document", AdventureWorks.Dal.Adapter.v41.RelationClasses.StaticProductDocumentRelations.DocumentEntityUsingDocumentIdStatic, true, new string[] {  } );
+				this.PerformSetupSyncRelatedEntity( _document, new PropertyChangedEventHandler( OnDocumentPropertyChanged ), "Document", AdventureWorks.Dal.Adapter.v41.RelationClasses.StaticProductDocumentRelations.DocumentEntityUsingDocumentNodeStatic, true, new string[] {  } );
 			}
 		}
 		
@@ -481,7 +475,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 
 			// __LLBLGENPRO_USER_CODE_REGION_START InitClassEmpty
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 
 			OnInitialized();
 
@@ -539,14 +532,14 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			get { return FieldsCustomProperties;}
 		}
 
-		/// <summary> The DocumentId property of the Entity ProductDocument<br/><br/></summary>
-		/// <remarks>Mapped on  table field: "ProductDocument"."DocumentID"<br/>
-		/// Table field type characteristics (type, precision, scale, length): Int, 10, 0, 0<br/>
+		/// <summary> The DocumentNode property of the Entity ProductDocument<br/><br/></summary>
+		/// <remarks>Mapped on  table field: "ProductDocument"."DocumentNode"<br/>
+		/// Table field type characteristics (type, precision, scale, length): VarChar, 0, 0, 892<br/>
 		/// Table field behavior characteristics (is nullable, is PK, is identity): false, true, false</remarks>
-		public virtual System.Int32 DocumentId
+		public virtual System.String DocumentNode
 		{
-			get { return (System.Int32)GetValue((int)ProductDocumentFieldIndex.DocumentId, true); }
-			set	{ SetValue((int)ProductDocumentFieldIndex.DocumentId, value); }
+			get { return (System.String)GetValue((int)ProductDocumentFieldIndex.DocumentNode, true); }
+			set	{ SetValue((int)ProductDocumentFieldIndex.DocumentNode, value); }
 		}
 
 		/// <summary> The ModifiedDate property of the Entity ProductDocument<br/><br/></summary>
@@ -631,7 +624,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		
 		// __LLBLGENPRO_USER_CODE_REGION_START CustomEntityCode
 		// __LLBLGENPRO_USER_CODE_REGION_END
-		
 		#endregion
 
 		#region Included code

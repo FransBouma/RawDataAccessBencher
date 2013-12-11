@@ -25,20 +25,18 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 {
 	// __LLBLGENPRO_USER_CODE_REGION_START AdditionalNamespaces
 	// __LLBLGENPRO_USER_CODE_REGION_END
-	
 	/// <summary>Entity class which represents the entity 'Document'.<br/><br/></summary>
 	[Serializable]
 	public partial class DocumentEntity : CommonEntityBase
 		// __LLBLGENPRO_USER_CODE_REGION_START AdditionalInterfaces
-		// __LLBLGENPRO_USER_CODE_REGION_END
-			
+		// __LLBLGENPRO_USER_CODE_REGION_END	
 	{
 		#region Class Member Declarations
 		private EntityCollection<ProductDocumentEntity> _productDocuments;
+		private EmployeeEntity _employee;
 
 		// __LLBLGENPRO_USER_CODE_REGION_START PrivateMembers
 		// __LLBLGENPRO_USER_CODE_REGION_END
-		
 		#endregion
 
 		#region Statics
@@ -48,6 +46,8 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		/// <summary>All names of fields mapped onto a relation. Usable for in-memory filtering</summary>
 		public static partial class MemberNames
 		{
+			/// <summary>Member name Employee</summary>
+			public static readonly string Employee = "Employee";
 			/// <summary>Member name ProductDocuments</summary>
 			public static readonly string ProductDocuments = "ProductDocuments";
 		}
@@ -81,22 +81,22 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		}
 				
 		/// <summary> CTor</summary>
-		/// <param name="documentId">PK value for Document which data should be fetched into this Document object</param>
+		/// <param name="documentNode">PK value for Document which data should be fetched into this Document object</param>
 		/// <remarks>The entity is not fetched by this constructor. Use a DataAccessAdapter for that.</remarks>
-		public DocumentEntity(System.Int32 documentId):base("DocumentEntity")
+		public DocumentEntity(System.String documentNode):base("DocumentEntity")
 		{
 			InitClassEmpty(null, null);
-			this.DocumentId = documentId;
+			this.DocumentNode = documentNode;
 		}
 
 		/// <summary> CTor</summary>
-		/// <param name="documentId">PK value for Document which data should be fetched into this Document object</param>
+		/// <param name="documentNode">PK value for Document which data should be fetched into this Document object</param>
 		/// <param name="validator">The custom validator object for this DocumentEntity</param>
 		/// <remarks>The entity is not fetched by this constructor. Use a DataAccessAdapter for that.</remarks>
-		public DocumentEntity(System.Int32 documentId, IValidator validator):base("DocumentEntity")
+		public DocumentEntity(System.String documentNode, IValidator validator):base("DocumentEntity")
 		{
 			InitClassEmpty(validator, null);
-			this.DocumentId = documentId;
+			this.DocumentNode = documentNode;
 		}
 
 		/// <summary> Protected CTor for deserialization</summary>
@@ -108,13 +108,32 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			if(SerializationHelper.Optimization != SerializationOptimization.Fast) 
 			{
 				_productDocuments = (EntityCollection<ProductDocumentEntity>)info.GetValue("_productDocuments", typeof(EntityCollection<ProductDocumentEntity>));
+				_employee = (EmployeeEntity)info.GetValue("_employee", typeof(EmployeeEntity));
+				if(_employee!=null)
+				{
+					_employee.AfterSave+=new EventHandler(OnEntityAfterSave);
+				}
 				this.FixupDeserialization(FieldInfoProviderSingleton.GetInstance());
 			}
 			// __LLBLGENPRO_USER_CODE_REGION_START DeserializationConstructor
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 		}
 
+		
+		/// <summary>Performs the desync setup when an FK field has been changed. The entity referenced based on the FK field will be dereferenced and sync info will be removed.</summary>
+		/// <param name="fieldIndex">The fieldindex.</param>
+		protected override void PerformDesyncSetupFKFieldChange(int fieldIndex)
+		{
+			switch((DocumentFieldIndex)fieldIndex)
+			{
+				case DocumentFieldIndex.Owner:
+					DesetupSyncEmployee(true, false);
+					break;
+				default:
+					base.PerformDesyncSetupFKFieldChange(fieldIndex);
+					break;
+			}
+		}
 
 		/// <summary> Sets the related entity property to the entity specified. If the property is a collection, it will add the entity specified to that collection.</summary>
 		/// <param name="propertyName">Name of the property.</param>
@@ -124,6 +143,9 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		{
 			switch(propertyName)
 			{
+				case "Employee":
+					this.Employee = (EmployeeEntity)entity;
+					break;
 				case "ProductDocuments":
 					this.ProductDocuments.Add((ProductDocumentEntity)entity);
 					break;
@@ -149,8 +171,11 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			RelationCollection toReturn = new RelationCollection();
 			switch(fieldName)
 			{
+				case "Employee":
+					toReturn.Add(Relations.EmployeeEntityUsingOwner);
+					break;
 				case "ProductDocuments":
-					toReturn.Add(Relations.ProductDocumentEntityUsingDocumentId);
+					toReturn.Add(Relations.ProductDocumentEntityUsingDocumentNode);
 					break;
 				default:
 					break;				
@@ -180,6 +205,9 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		{
 			switch(fieldName)
 			{
+				case "Employee":
+					SetupSyncEmployee(relatedEntity);
+					break;
 				case "ProductDocuments":
 					this.ProductDocuments.Add((ProductDocumentEntity)relatedEntity);
 					break;
@@ -196,6 +224,9 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		{
 			switch(fieldName)
 			{
+				case "Employee":
+					DesetupSyncEmployee(false, true);
+					break;
 				case "ProductDocuments":
 					this.PerformRelatedEntityRemoval(this.ProductDocuments, relatedEntity, signalRelatedEntityManyToOne);
 					break;
@@ -218,6 +249,10 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		protected override List<IEntity2> GetDependentRelatedEntities()
 		{
 			List<IEntity2> toReturn = new List<IEntity2>();
+			if(_employee!=null)
+			{
+				toReturn.Add(_employee);
+			}
 			return toReturn;
 		}
 		
@@ -239,11 +274,21 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			if (SerializationHelper.Optimization != SerializationOptimization.Fast) 
 			{
 				info.AddValue("_productDocuments", ((_productDocuments!=null) && (_productDocuments.Count>0) && !this.MarkedForDeletion)?_productDocuments:null);
+				info.AddValue("_employee", (!this.MarkedForDeletion?_employee:null));
 			}
 			// __LLBLGENPRO_USER_CODE_REGION_START GetObjectInfo
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			base.GetObjectData(info, context);
+		}
+
+		/// <summary> Method which will construct a filter (predicate expression) for the unique constraint defined on the fields:
+		/// Rowguid .</summary>
+		/// <returns>true if succeeded and the contents is read, false otherwise</returns>
+		public IPredicateExpression ConstructFilterForUCRowguid()
+		{
+			IPredicateExpression filter = new PredicateExpression();
+			filter.Add(AdventureWorks.Dal.Adapter.v41.HelperClasses.DocumentFields.Rowguid == this.Fields.GetCurrentValue((int)DocumentFieldIndex.Rowguid));
+ 			return filter;
 		}
 
 
@@ -260,7 +305,16 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		public virtual IRelationPredicateBucket GetRelationInfoProductDocuments()
 		{
 			IRelationPredicateBucket bucket = new RelationPredicateBucket();
-			bucket.PredicateExpression.Add(new FieldCompareValuePredicate(ProductDocumentFields.DocumentId, null, ComparisonOperator.Equal, this.DocumentId));
+			bucket.PredicateExpression.Add(new FieldCompareValuePredicate(ProductDocumentFields.DocumentNode, null, ComparisonOperator.Equal, this.DocumentNode));
+			return bucket;
+		}
+
+		/// <summary> Creates a new IRelationPredicateBucket object which contains the predicate expression and relation collection to fetch the related entity of type 'Employee' to this entity.</summary>
+		/// <returns></returns>
+		public virtual IRelationPredicateBucket GetRelationInfoEmployee()
+		{
+			IRelationPredicateBucket bucket = new RelationPredicateBucket();
+			bucket.PredicateExpression.Add(new FieldCompareValuePredicate(EmployeeFields.EmployeeId, null, ComparisonOperator.Equal, this.Owner));
 			return bucket;
 		}
 		
@@ -311,6 +365,7 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		protected override Dictionary<string, object> GetRelatedData()
 		{
 			Dictionary<string, object> toReturn = new Dictionary<string, object>();
+			toReturn.Add("Employee", _employee);
 			toReturn.Add("ProductDocuments", _productDocuments);
 			return toReturn;
 		}
@@ -322,7 +377,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			
 			// __LLBLGENPRO_USER_CODE_REGION_START InitClassMembers
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			OnInitClassMembersComplete();
 		}
 
@@ -339,7 +393,9 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			fieldHashtable = new Dictionary<string, string>();
 			_fieldsCustomProperties.Add("Document", fieldHashtable);
 			fieldHashtable = new Dictionary<string, string>();
-			_fieldsCustomProperties.Add("DocumentId", fieldHashtable);
+			_fieldsCustomProperties.Add("DocumentLevel", fieldHashtable);
+			fieldHashtable = new Dictionary<string, string>();
+			_fieldsCustomProperties.Add("DocumentNode", fieldHashtable);
 			fieldHashtable = new Dictionary<string, string>();
 			_fieldsCustomProperties.Add("DocumentSummary", fieldHashtable);
 			fieldHashtable = new Dictionary<string, string>();
@@ -347,15 +403,54 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			fieldHashtable = new Dictionary<string, string>();
 			_fieldsCustomProperties.Add("FileName", fieldHashtable);
 			fieldHashtable = new Dictionary<string, string>();
+			_fieldsCustomProperties.Add("FolderFlag", fieldHashtable);
+			fieldHashtable = new Dictionary<string, string>();
 			_fieldsCustomProperties.Add("ModifiedDate", fieldHashtable);
 			fieldHashtable = new Dictionary<string, string>();
+			_fieldsCustomProperties.Add("Owner", fieldHashtable);
+			fieldHashtable = new Dictionary<string, string>();
 			_fieldsCustomProperties.Add("Revision", fieldHashtable);
+			fieldHashtable = new Dictionary<string, string>();
+			_fieldsCustomProperties.Add("Rowguid", fieldHashtable);
 			fieldHashtable = new Dictionary<string, string>();
 			_fieldsCustomProperties.Add("Status", fieldHashtable);
 			fieldHashtable = new Dictionary<string, string>();
 			_fieldsCustomProperties.Add("Title", fieldHashtable);
 		}
 		#endregion
+
+		/// <summary> Removes the sync logic for member _employee</summary>
+		/// <param name="signalRelatedEntity">If set to true, it will call the related entity's UnsetRelatedEntity method</param>
+		/// <param name="resetFKFields">if set to true it will also reset the FK fields pointing to the related entity</param>
+		private void DesetupSyncEmployee(bool signalRelatedEntity, bool resetFKFields)
+		{
+			this.PerformDesetupSyncRelatedEntity( _employee, new PropertyChangedEventHandler( OnEmployeePropertyChanged ), "Employee", AdventureWorks.Dal.Adapter.v41.RelationClasses.StaticDocumentRelations.EmployeeEntityUsingOwnerStatic, true, signalRelatedEntity, "Documents", resetFKFields, new int[] { (int)DocumentFieldIndex.Owner } );
+			_employee = null;
+		}
+
+		/// <summary> setups the sync logic for member _employee</summary>
+		/// <param name="relatedEntity">Instance to set as the related entity of type entityType</param>
+		private void SetupSyncEmployee(IEntityCore relatedEntity)
+		{
+			if(_employee!=relatedEntity)
+			{
+				DesetupSyncEmployee(true, true);
+				_employee = (EmployeeEntity)relatedEntity;
+				this.PerformSetupSyncRelatedEntity( _employee, new PropertyChangedEventHandler( OnEmployeePropertyChanged ), "Employee", AdventureWorks.Dal.Adapter.v41.RelationClasses.StaticDocumentRelations.EmployeeEntityUsingOwnerStatic, true, new string[] {  } );
+			}
+		}
+		
+		/// <summary>Handles property change events of properties in a related entity.</summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void OnEmployeePropertyChanged( object sender, PropertyChangedEventArgs e )
+		{
+			switch( e.PropertyName )
+			{
+				default:
+					break;
+			}
+		}
 
 		/// <summary> Initializes the class with empty data, as if it is a new Entity.</summary>
 		/// <param name="validator">The validator object for this DocumentEntity</param>
@@ -369,7 +464,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 
 			// __LLBLGENPRO_USER_CODE_REGION_START InitClassEmpty
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 
 			OnInitialized();
 
@@ -394,6 +488,13 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		public static IPrefetchPathElement2 PrefetchPathProductDocuments
 		{
 			get	{ return new PrefetchPathElement2( new EntityCollection<ProductDocumentEntity>(EntityFactoryCache2.GetEntityFactory(typeof(ProductDocumentEntityFactory))), (IEntityRelation)GetRelationsForField("ProductDocuments")[0], (int)AdventureWorks.Dal.Adapter.v41.EntityType.DocumentEntity, (int)AdventureWorks.Dal.Adapter.v41.EntityType.ProductDocumentEntity, 0, null, null, null, null, "ProductDocuments", SD.LLBLGen.Pro.ORMSupportClasses.RelationType.OneToMany);	}
+		}
+
+		/// <summary> Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'Employee' for this entity.</summary>
+		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
+		public static IPrefetchPathElement2 PrefetchPathEmployee
+		{
+			get	{ return new PrefetchPathElement2(new EntityCollection(EntityFactoryCache2.GetEntityFactory(typeof(EmployeeEntityFactory))),	(IEntityRelation)GetRelationsForField("Employee")[0], (int)AdventureWorks.Dal.Adapter.v41.EntityType.DocumentEntity, (int)AdventureWorks.Dal.Adapter.v41.EntityType.EmployeeEntity, 0, null, null, null, null, "Employee", SD.LLBLGen.Pro.ORMSupportClasses.RelationType.ManyToOne); }
 		}
 
 
@@ -440,14 +541,24 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			set	{ SetValue((int)DocumentFieldIndex.Document, value); }
 		}
 
-		/// <summary> The DocumentId property of the Entity Document<br/><br/></summary>
-		/// <remarks>Mapped on  table field: "Document"."DocumentID"<br/>
-		/// Table field type characteristics (type, precision, scale, length): Int, 10, 0, 0<br/>
-		/// Table field behavior characteristics (is nullable, is PK, is identity): false, true, true</remarks>
-		public virtual System.Int32 DocumentId
+		/// <summary> The DocumentLevel property of the Entity Document<br/><br/></summary>
+		/// <remarks>Mapped on  table field: "Document"."DocumentLevel"<br/>
+		/// Table field type characteristics (type, precision, scale, length): SmallInt, 5, 0, 0<br/>
+		/// Table field behavior characteristics (is nullable, is PK, is identity): true, false, false</remarks>
+		public virtual Nullable<System.Int16> DocumentLevel
 		{
-			get { return (System.Int32)GetValue((int)DocumentFieldIndex.DocumentId, true); }
-			set	{ SetValue((int)DocumentFieldIndex.DocumentId, value); }
+			get { return (Nullable<System.Int16>)GetValue((int)DocumentFieldIndex.DocumentLevel, false); }
+
+		}
+
+		/// <summary> The DocumentNode property of the Entity Document<br/><br/></summary>
+		/// <remarks>Mapped on  table field: "Document"."DocumentNode"<br/>
+		/// Table field type characteristics (type, precision, scale, length): VarChar, 0, 0, 892<br/>
+		/// Table field behavior characteristics (is nullable, is PK, is identity): false, true, false</remarks>
+		public virtual System.String DocumentNode
+		{
+			get { return (System.String)GetValue((int)DocumentFieldIndex.DocumentNode, true); }
+			set	{ SetValue((int)DocumentFieldIndex.DocumentNode, value); }
 		}
 
 		/// <summary> The DocumentSummary property of the Entity Document<br/><br/></summary>
@@ -480,6 +591,16 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			set	{ SetValue((int)DocumentFieldIndex.FileName, value); }
 		}
 
+		/// <summary> The FolderFlag property of the Entity Document<br/><br/></summary>
+		/// <remarks>Mapped on  table field: "Document"."FolderFlag"<br/>
+		/// Table field type characteristics (type, precision, scale, length): Bit, 0, 0, 0<br/>
+		/// Table field behavior characteristics (is nullable, is PK, is identity): false, false, false</remarks>
+		public virtual System.Boolean FolderFlag
+		{
+			get { return (System.Boolean)GetValue((int)DocumentFieldIndex.FolderFlag, true); }
+			set	{ SetValue((int)DocumentFieldIndex.FolderFlag, value); }
+		}
+
 		/// <summary> The ModifiedDate property of the Entity Document<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "Document"."ModifiedDate"<br/>
 		/// Table field type characteristics (type, precision, scale, length): DateTime, 0, 0, 0<br/>
@@ -490,6 +611,16 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			set	{ SetValue((int)DocumentFieldIndex.ModifiedDate, value); }
 		}
 
+		/// <summary> The Owner property of the Entity Document<br/><br/></summary>
+		/// <remarks>Mapped on  table field: "Document"."Owner"<br/>
+		/// Table field type characteristics (type, precision, scale, length): Int, 10, 0, 0<br/>
+		/// Table field behavior characteristics (is nullable, is PK, is identity): false, false, false</remarks>
+		public virtual System.Int32 Owner
+		{
+			get { return (System.Int32)GetValue((int)DocumentFieldIndex.Owner, true); }
+			set	{ SetValue((int)DocumentFieldIndex.Owner, value); }
+		}
+
 		/// <summary> The Revision property of the Entity Document<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "Document"."Revision"<br/>
 		/// Table field type characteristics (type, precision, scale, length): NChar, 0, 0, 5<br/>
@@ -498,6 +629,16 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		{
 			get { return (System.String)GetValue((int)DocumentFieldIndex.Revision, true); }
 			set	{ SetValue((int)DocumentFieldIndex.Revision, value); }
+		}
+
+		/// <summary> The Rowguid property of the Entity Document<br/><br/></summary>
+		/// <remarks>Mapped on  table field: "Document"."rowguid"<br/>
+		/// Table field type characteristics (type, precision, scale, length): UniqueIdentifier, 0, 0, 0<br/>
+		/// Table field behavior characteristics (is nullable, is PK, is identity): false, false, false</remarks>
+		public virtual System.Guid Rowguid
+		{
+			get { return (System.Guid)GetValue((int)DocumentFieldIndex.Rowguid, true); }
+			set	{ SetValue((int)DocumentFieldIndex.Rowguid, value); }
 		}
 
 		/// <summary> The Status property of the Entity Document<br/><br/></summary>
@@ -526,6 +667,24 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		{
 			get { return GetOrCreateEntityCollection<ProductDocumentEntity, ProductDocumentEntityFactory>("Document", true, false, ref _productDocuments);	}
 		}
+
+		/// <summary> Gets / sets related entity of type 'EmployeeEntity' which has to be set using a fetch action earlier. If no related entity is set for this property, null is returned..<br/><br/></summary>
+		[Browsable(false)]
+		public virtual EmployeeEntity Employee
+		{
+			get	{ return _employee; }
+			set
+			{
+				if(this.IsDeserializing)
+				{
+					SetupSyncEmployee(value);
+				}
+				else
+				{
+					SetSingleRelatedEntityNavigator(value, "Documents", "Employee", _employee, true); 
+				}
+			}
+		}
 	
 		/// <summary> Gets the type of the hierarchy this entity is in. </summary>
 		protected override InheritanceHierarchyType LLBLGenProIsInHierarchyOfType
@@ -553,7 +712,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		
 		// __LLBLGENPRO_USER_CODE_REGION_START CustomEntityCode
 		// __LLBLGENPRO_USER_CODE_REGION_END
-		
 		#endregion
 
 		#region Included code

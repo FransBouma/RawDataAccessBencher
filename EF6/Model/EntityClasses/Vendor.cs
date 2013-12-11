@@ -20,8 +20,6 @@ namespace EF6.Bencher.EntityClasses
 		{
 			this.ProductVendors = new HashSet<ProductVendor>();
 			this.PurchaseOrderHeaders = new HashSet<PurchaseOrderHeader>();
-			this.VendorAddresses = new HashSet<VendorAddress>();
-			this.VendorContacts = new HashSet<VendorContact>();
 		}
 
 		#region Class Property Declarations
@@ -49,18 +47,15 @@ namespace EF6.Bencher.EntityClasses
 		/// <summary>Gets or sets the VendorId field. </summary>
 		[DataMember]
 		public System.Int32 VendorId { get; set;}
+		/// <summary>Represents the navigator which is mapped onto the association 'Vendor.BusinessEntity - Person.BusinessEntity.Vendor (1:1)'</summary>
+		[DataMember]
+		public virtual BusinessEntity BusinessEntity { get; set;}
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductVendor.Vendor - Vendor.ProductVendors (m:1)'</summary>
 		[DataMember]
 		public virtual ICollection<ProductVendor> ProductVendors { get; set;}
 		/// <summary>Represents the navigator which is mapped onto the association 'PurchaseOrderHeader.Vendor - Vendor.PurchaseOrderHeaders (m:1)'</summary>
 		[DataMember]
 		public virtual ICollection<PurchaseOrderHeader> PurchaseOrderHeaders { get; set;}
-		/// <summary>Represents the navigator which is mapped onto the association 'VendorAddress.Vendor - Vendor.VendorAddresses (m:1)'</summary>
-		[DataMember]
-		public virtual ICollection<VendorAddress> VendorAddresses { get; set;}
-		/// <summary>Represents the navigator which is mapped onto the association 'VendorContact.Vendor - Vendor.VendorContacts (m:1)'</summary>
-		[DataMember]
-		public virtual ICollection<VendorContact> VendorContacts { get; set;}
 		#endregion
 	}
 }

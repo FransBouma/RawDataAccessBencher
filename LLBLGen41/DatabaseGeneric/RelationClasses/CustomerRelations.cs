@@ -30,30 +30,14 @@ namespace AdventureWorks.Dal.Adapter.v41.RelationClasses
 		public virtual List<IEntityRelation> GetAllRelations()
 		{
 			List<IEntityRelation> toReturn = new List<IEntityRelation>();
-			toReturn.Add(this.CustomerAddressEntityUsingCustomerId);
 			toReturn.Add(this.SalesOrderHeaderEntityUsingCustomerId);
-			toReturn.Add(this.IndividualEntityUsingCustomerId);
-			toReturn.Add(this.StoreEntityUsingCustomerId);
+			toReturn.Add(this.PersonEntityUsingPersonId);
 			toReturn.Add(this.SalesTerritoryEntityUsingTerritoryId);
+			toReturn.Add(this.StoreEntityUsingStoreId);
 			return toReturn;
 		}
 
 		#region Class Property Declarations
-
-		/// <summary>Returns a new IEntityRelation object, between CustomerEntity and CustomerAddressEntity over the 1:n relation they have, using the relation between the fields:
-		/// Customer.CustomerId - CustomerAddress.CustomerId
-		/// </summary>
-		public virtual IEntityRelation CustomerAddressEntityUsingCustomerId
-		{
-			get
-			{
-				IEntityRelation relation = new EntityRelation(SD.LLBLGen.Pro.ORMSupportClasses.RelationType.OneToMany, "CustomerAddresses" , true);
-				relation.AddEntityFieldPair(CustomerFields.CustomerId, CustomerAddressFields.CustomerId);
-				relation.InheritanceInfoPkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("CustomerEntity", true);
-				relation.InheritanceInfoFkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("CustomerAddressEntity", false);
-				return relation;
-			}
-		}
 
 		/// <summary>Returns a new IEntityRelation object, between CustomerEntity and SalesOrderHeaderEntity over the 1:n relation they have, using the relation between the fields:
 		/// Customer.CustomerId - SalesOrderHeader.CustomerId
@@ -70,44 +54,21 @@ namespace AdventureWorks.Dal.Adapter.v41.RelationClasses
 			}
 		}
 
-		/// <summary>Returns a new IEntityRelation object, between CustomerEntity and IndividualEntity over the 1:1 relation they have, using the relation between the fields:
-		/// Customer.CustomerId - Individual.CustomerId
+
+		/// <summary>Returns a new IEntityRelation object, between CustomerEntity and PersonEntity over the m:1 relation they have, using the relation between the fields:
+		/// Customer.PersonId - Person.BusinessEntityId
 		/// </summary>
-		public virtual IEntityRelation IndividualEntityUsingCustomerId
+		public virtual IEntityRelation PersonEntityUsingPersonId
 		{
 			get
 			{
-				IEntityRelation relation = new EntityRelation(SD.LLBLGen.Pro.ORMSupportClasses.RelationType.OneToOne, "Individual", true);
-
-				relation.AddEntityFieldPair(CustomerFields.CustomerId, IndividualFields.CustomerId);
-
-
-
-				relation.InheritanceInfoPkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("CustomerEntity", true);
-				relation.InheritanceInfoFkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("IndividualEntity", false);
+				IEntityRelation relation = new EntityRelation(SD.LLBLGen.Pro.ORMSupportClasses.RelationType.ManyToOne, "Person", false);
+				relation.AddEntityFieldPair(PersonFields.BusinessEntityId, CustomerFields.PersonId);
+				relation.InheritanceInfoPkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("PersonEntity", false);
+				relation.InheritanceInfoFkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("CustomerEntity", true);
 				return relation;
 			}
 		}
-
-		/// <summary>Returns a new IEntityRelation object, between CustomerEntity and StoreEntity over the 1:1 relation they have, using the relation between the fields:
-		/// Customer.CustomerId - Store.CustomerId
-		/// </summary>
-		public virtual IEntityRelation StoreEntityUsingCustomerId
-		{
-			get
-			{
-				IEntityRelation relation = new EntityRelation(SD.LLBLGen.Pro.ORMSupportClasses.RelationType.OneToOne, "Store", true);
-
-				relation.AddEntityFieldPair(CustomerFields.CustomerId, StoreFields.CustomerId);
-
-
-
-				relation.InheritanceInfoPkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("CustomerEntity", true);
-				relation.InheritanceInfoFkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("StoreEntity", false);
-				return relation;
-			}
-		}
-
 		/// <summary>Returns a new IEntityRelation object, between CustomerEntity and SalesTerritoryEntity over the m:1 relation they have, using the relation between the fields:
 		/// Customer.TerritoryId - SalesTerritory.TerritoryId
 		/// </summary>
@@ -118,6 +79,20 @@ namespace AdventureWorks.Dal.Adapter.v41.RelationClasses
 				IEntityRelation relation = new EntityRelation(SD.LLBLGen.Pro.ORMSupportClasses.RelationType.ManyToOne, "SalesTerritory", false);
 				relation.AddEntityFieldPair(SalesTerritoryFields.TerritoryId, CustomerFields.TerritoryId);
 				relation.InheritanceInfoPkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("SalesTerritoryEntity", false);
+				relation.InheritanceInfoFkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("CustomerEntity", true);
+				return relation;
+			}
+		}
+		/// <summary>Returns a new IEntityRelation object, between CustomerEntity and StoreEntity over the m:1 relation they have, using the relation between the fields:
+		/// Customer.StoreId - Store.CustomerId
+		/// </summary>
+		public virtual IEntityRelation StoreEntityUsingStoreId
+		{
+			get
+			{
+				IEntityRelation relation = new EntityRelation(SD.LLBLGen.Pro.ORMSupportClasses.RelationType.ManyToOne, "Store", false);
+				relation.AddEntityFieldPair(StoreFields.CustomerId, CustomerFields.StoreId);
+				relation.InheritanceInfoPkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("StoreEntity", false);
 				relation.InheritanceInfoFkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("CustomerEntity", true);
 				return relation;
 			}
@@ -136,11 +111,10 @@ namespace AdventureWorks.Dal.Adapter.v41.RelationClasses
 	/// <summary>Static class which is used for providing relationship instances which are re-used internally for syncing</summary>
 	internal static class StaticCustomerRelations
 	{
-		internal static readonly IEntityRelation CustomerAddressEntityUsingCustomerIdStatic = new CustomerRelations().CustomerAddressEntityUsingCustomerId;
 		internal static readonly IEntityRelation SalesOrderHeaderEntityUsingCustomerIdStatic = new CustomerRelations().SalesOrderHeaderEntityUsingCustomerId;
-		internal static readonly IEntityRelation IndividualEntityUsingCustomerIdStatic = new CustomerRelations().IndividualEntityUsingCustomerId;
-		internal static readonly IEntityRelation StoreEntityUsingCustomerIdStatic = new CustomerRelations().StoreEntityUsingCustomerId;
+		internal static readonly IEntityRelation PersonEntityUsingPersonIdStatic = new CustomerRelations().PersonEntityUsingPersonId;
 		internal static readonly IEntityRelation SalesTerritoryEntityUsingTerritoryIdStatic = new CustomerRelations().SalesTerritoryEntityUsingTerritoryId;
+		internal static readonly IEntityRelation StoreEntityUsingStoreIdStatic = new CustomerRelations().StoreEntityUsingStoreId;
 
 		/// <summary>CTor</summary>
 		static StaticCustomerRelations()

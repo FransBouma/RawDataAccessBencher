@@ -11,6 +11,7 @@ namespace NH.Bencher.EntityClasses
 	public partial class SalesTerritory
 	{
 		#region Class Member Declarations
+		private CountryRegion _countryRegion;
 		private Iesi.Collections.Generic.ISet<Customer> _customers;
 		private Iesi.Collections.Generic.ISet<SalesOrderHeader> _salesOrderHeaders;
 		private Iesi.Collections.Generic.ISet<SalesPerson> _salesPeople;
@@ -18,7 +19,6 @@ namespace NH.Bencher.EntityClasses
 		private Iesi.Collections.Generic.ISet<StateProvince> _stateProvinces;
 		private System.Decimal _costLastYear;
 		private System.Decimal _costYtd;
-		private System.String _countryRegionCode;
 		private System.String _group;
 		private System.DateTime _modifiedDate;
 		private System.String _name;
@@ -81,13 +81,6 @@ namespace NH.Bencher.EntityClasses
 			set { _costYtd = value; }
 		}
 
-		/// <summary>Gets or sets the CountryRegionCode field. </summary>	
-		public virtual System.String CountryRegionCode
-		{ 
-			get { return _countryRegionCode; }
-			set { _countryRegionCode = value; }
-		}
-
 		/// <summary>Gets or sets the Group field. </summary>	
 		public virtual System.String Group
 		{ 
@@ -136,6 +129,13 @@ namespace NH.Bencher.EntityClasses
 			get { return _territoryId; }
 		}
 
+		/// <summary>Represents the navigator which is mapped onto the association 'SalesTerritory.CountryRegion - CountryRegion.SalesTerritories (m:1)'</summary>
+		public virtual CountryRegion CountryRegion
+		{
+			get { return _countryRegion; }
+			set { _countryRegion = value; }
+		}
+		
 		/// <summary>Represents the navigator which is mapped onto the association 'Customer.SalesTerritory - SalesTerritory.Customers (m:1)'</summary>
 		public virtual Iesi.Collections.Generic.ISet<Customer> Customers
 		{

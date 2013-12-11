@@ -18,7 +18,7 @@ namespace EF6.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="Store"/> class.</summary>
 		public Store() : base()
 		{
-			this.StoreContacts = new HashSet<StoreContact>();
+			this.Customers = new HashSet<Customer>();
 		}
 
 		#region Class Property Declarations
@@ -37,15 +37,15 @@ namespace EF6.Bencher.EntityClasses
 		/// <summary>Gets or sets the Rowguid field. </summary>
 		[DataMember]
 		public System.Guid Rowguid { get; set;}
-		/// <summary>Represents the navigator which is mapped onto the association 'Store.Customer - Customer.Store (1:1)'</summary>
+		/// <summary>Represents the navigator which is mapped onto the association 'Customer.Store - Store.Customers (m:1)'</summary>
 		[DataMember]
-		public virtual Customer Customer { get; set;}
+		public virtual ICollection<Customer> Customers { get; set;}
+		/// <summary>Represents the navigator which is mapped onto the association 'Store.BusinessEntity - Person.BusinessEntity.Store (1:1)'</summary>
+		[DataMember]
+		public virtual BusinessEntity BusinessEntity { get; set;}
 		/// <summary>Represents the navigator which is mapped onto the association 'Store.SalesPerson - SalesPerson.Stores (m:1)'</summary>
 		[DataMember]
 		public virtual SalesPerson SalesPerson { get; set;}
-		/// <summary>Represents the navigator which is mapped onto the association 'StoreContact.Store - Store.StoreContacts (m:1)'</summary>
-		[DataMember]
-		public virtual ICollection<StoreContact> StoreContacts { get; set;}
 		#endregion
 	}
 }

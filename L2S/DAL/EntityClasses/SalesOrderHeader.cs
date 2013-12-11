@@ -24,7 +24,6 @@ namespace L2S.Bencher.EntityClasses
 		private System.String	_accountNumber;
 		private System.Int32	_billToAddressId;
 		private System.String	_comment;
-		private System.Int32	_contactId;
 		private System.String	_creditCardApprovalCode;
 		private Nullable<System.Int32>	_creditCardId;
 		private Nullable<System.Int32>	_currencyRateId;
@@ -50,7 +49,6 @@ namespace L2S.Bencher.EntityClasses
 		private System.Decimal	_totalDue;
 		private EntityRef <Address> _address;
 		private EntityRef <Address> _address1;
-		private EntityRef <Contact> _contact;
 		private EntityRef <CreditCard> _creditCard;
 		private EntityRef <CurrencyRate> _currencyRate;
 		private EntityRef <Customer> _customer;
@@ -71,8 +69,6 @@ namespace L2S.Bencher.EntityClasses
 		partial void OnBillToAddressIdChanged();
 		partial void OnCommentChanging(System.String value);
 		partial void OnCommentChanged();
-		partial void OnContactIdChanging(System.Int32 value);
-		partial void OnContactIdChanged();
 		partial void OnCreditCardApprovalCodeChanging(System.String value);
 		partial void OnCreditCardApprovalCodeChanged();
 		partial void OnCreditCardIdChanging(Nullable<System.Int32> value);
@@ -126,7 +122,6 @@ namespace L2S.Bencher.EntityClasses
 		{
 			_address = default(EntityRef<Address>);
 			_address1 = default(EntityRef<Address>);
-			_contact = default(EntityRef<Contact>);
 			_creditCard = default(EntityRef<CreditCard>);
 			_currencyRate = default(EntityRef<CurrencyRate>);
 			_customer = default(EntityRef<Customer>);
@@ -246,28 +241,6 @@ namespace L2S.Bencher.EntityClasses
 					_comment = value;
 					SendPropertyChanged("Comment");
 					OnCommentChanged();
-				}
-			}
-		}
-
-		/// <summary>Gets or sets the ContactId field. Mapped on target field 'ContactID'. </summary>
-		[Column(Name="ContactID", Storage="_contactId", CanBeNull=false, DbType="int NOT NULL")]
-		public System.Int32 ContactId
-		{
-			get	{ return _contactId; }
-			set
-			{
-				if((_contactId != value))
-				{
-					if(_contact.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					OnContactIdChanging(value);
-					SendPropertyChanging("ContactId");
-					_contactId = value;
-					SendPropertyChanged("ContactId");
-					OnContactIdChanged();
 				}
 			}
 		}
@@ -693,7 +666,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderHeader.Address - Address.SalesOrderHeaders (m:1)'</summary>
-		[Association(Name="SalesOrderHeader_Address947db26d776746528cad265631f42f16", Storage="_address", ThisKey="BillToAddressId", IsForeignKey=true)] 
+		[Association(Name="SalesOrderHeader_Address6c795917a4084a76a1164a4941f72861", Storage="_address", ThisKey="BillToAddressId", IsForeignKey=true)] 
 		public Address Address
 		{
 			get { return _address.Entity; }
@@ -724,7 +697,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderHeader.Address1 - Address.SalesOrderHeaders1 (m:1)'</summary>
-		[Association(Name="SalesOrderHeader_Addressc3a2cfc434b44655acce779f61874e83", Storage="_address1", ThisKey="ShipToAddressId", IsForeignKey=true)] 
+		[Association(Name="SalesOrderHeader_Address917c6c721ada44e78701718f945f01b0", Storage="_address1", ThisKey="ShipToAddressId", IsForeignKey=true)] 
 		public Address Address1
 		{
 			get { return _address1.Entity; }
@@ -754,39 +727,8 @@ namespace L2S.Bencher.EntityClasses
 			}
 		}
 		
-		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderHeader.Contact - Contact.SalesOrderHeaders (m:1)'</summary>
-		[Association(Name="SalesOrderHeader_Contact9fca4fd4d9b44d1d8c1a3b2278adcdfc", Storage="_contact", ThisKey="ContactId", IsForeignKey=true)] 
-		public Contact Contact
-		{
-			get { return _contact.Entity; }
-			set
-			{
-				Contact previousValue = _contact.Entity;
-				if((previousValue != value) || (_contact.HasLoadedOrAssignedValue == false))
-				{
-					this.SendPropertyChanging("Contact");
-					if(previousValue != null)
-					{
-						_contact.Entity = null;
-						previousValue.SalesOrderHeaders.Remove(this);
-					}
-					_contact.Entity = value;
-					if(value == null)
-					{
-						_contactId = default(System.Int32);
-					}
-					else
-					{
-						value.SalesOrderHeaders.Add(this);
-						_contactId = value.ContactId;
-					}
-					this.SendPropertyChanged("Contact");
-				}
-			}
-		}
-		
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderHeader.CreditCard - CreditCard.SalesOrderHeaders (m:1)'</summary>
-		[Association(Name="SalesOrderHeader_CreditCard62645e1acfea4062a44a173c3b728b48", Storage="_creditCard", ThisKey="CreditCardId", IsForeignKey=true)] 
+		[Association(Name="SalesOrderHeader_CreditCarde89dd2cedc704c93bcea7dd2781e40f0", Storage="_creditCard", ThisKey="CreditCardId", IsForeignKey=true)] 
 		public CreditCard CreditCard
 		{
 			get { return _creditCard.Entity; }
@@ -817,7 +759,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderHeader.CurrencyRate - CurrencyRate.SalesOrderHeaders (m:1)'</summary>
-		[Association(Name="SalesOrderHeader_CurrencyRate2a98408d9c8d4fdea0b97c67537cefe6", Storage="_currencyRate", ThisKey="CurrencyRateId", IsForeignKey=true)] 
+		[Association(Name="SalesOrderHeader_CurrencyRatef6394c93f84149f8b750f6dd6d2770ad", Storage="_currencyRate", ThisKey="CurrencyRateId", IsForeignKey=true)] 
 		public CurrencyRate CurrencyRate
 		{
 			get { return _currencyRate.Entity; }
@@ -848,7 +790,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderHeader.Customer - Customer.SalesOrderHeaders (m:1)'</summary>
-		[Association(Name="SalesOrderHeader_Customera533767fd56a4286a9472c3a224240b7", Storage="_customer", ThisKey="CustomerId", IsForeignKey=true)] 
+		[Association(Name="SalesOrderHeader_Customer67981023e90d4f4d9b32f4c63f7fceb4", Storage="_customer", ThisKey="CustomerId", IsForeignKey=true)] 
 		public Customer Customer
 		{
 			get { return _customer.Entity; }
@@ -879,7 +821,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderDetail.SalesOrderHeader - SalesOrderHeader.SalesOrderDetails (m:1)'</summary>
-		[Association(Name="SalesOrderDetail_SalesOrderHeader166045216bca4ff9b765c87f30cbd21b", Storage="_salesOrderDetails", OtherKey="SalesOrderId")]
+		[Association(Name="SalesOrderDetail_SalesOrderHeaderf84a782d89264798a902535a287299d3", Storage="_salesOrderDetails", OtherKey="SalesOrderId")]
 		public EntitySet<SalesOrderDetail> SalesOrderDetails
 		{
 			get { return this._salesOrderDetails; }
@@ -887,7 +829,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderHeaderSalesReason.SalesOrderHeader - SalesOrderHeader.SalesOrderHeaderSalesReasons (m:1)'</summary>
-		[Association(Name="SalesOrderHeaderSalesReason_SalesOrderHeader68f26056cadd4176ae24242152d55625", Storage="_salesOrderHeaderSalesReasons", OtherKey="SalesOrderId")]
+		[Association(Name="SalesOrderHeaderSalesReason_SalesOrderHeader2fa8a05329a7416daf549686a43d0d1f", Storage="_salesOrderHeaderSalesReasons", OtherKey="SalesOrderId")]
 		public EntitySet<SalesOrderHeaderSalesReason> SalesOrderHeaderSalesReasons
 		{
 			get { return this._salesOrderHeaderSalesReasons; }
@@ -895,7 +837,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderHeader.SalesPerson - SalesPerson.SalesOrderHeaders (m:1)'</summary>
-		[Association(Name="SalesOrderHeader_SalesPerson2b7ba8c290a147d1ae5168e33baab2d6", Storage="_salesPerson", ThisKey="SalesPersonId", IsForeignKey=true)] 
+		[Association(Name="SalesOrderHeader_SalesPerson118e3dd3d73442cfbcb22e44aa731ce8", Storage="_salesPerson", ThisKey="SalesPersonId", IsForeignKey=true)] 
 		public SalesPerson SalesPerson
 		{
 			get { return _salesPerson.Entity; }
@@ -918,7 +860,7 @@ namespace L2S.Bencher.EntityClasses
 					else
 					{
 						value.SalesOrderHeaders.Add(this);
-						_salesPersonId = value.SalesPersonId;
+						_salesPersonId = value.BusinessEntityId;
 					}
 					this.SendPropertyChanged("SalesPerson");
 				}
@@ -926,7 +868,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderHeader.SalesTerritory - SalesTerritory.SalesOrderHeaders (m:1)'</summary>
-		[Association(Name="SalesOrderHeader_SalesTerritory44b37e7be3f647bbaf0db7376144a05b", Storage="_salesTerritory", ThisKey="TerritoryId", IsForeignKey=true)] 
+		[Association(Name="SalesOrderHeader_SalesTerritory0068eba861094e89b405d0e61e7a6b57", Storage="_salesTerritory", ThisKey="TerritoryId", IsForeignKey=true)] 
 		public SalesTerritory SalesTerritory
 		{
 			get { return _salesTerritory.Entity; }
@@ -957,7 +899,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderHeader.ShipMethod - ShipMethod.SalesOrderHeaders (m:1)'</summary>
-		[Association(Name="SalesOrderHeader_ShipMethod0ce9292213f34021bfac3b45ea675e26", Storage="_shipMethod", ThisKey="ShipMethodId", IsForeignKey=true)] 
+		[Association(Name="SalesOrderHeader_ShipMethod3698e256d9ac40689a23b4a34da4fbba", Storage="_shipMethod", ThisKey="ShipMethodId", IsForeignKey=true)] 
 		public ShipMethod ShipMethod
 		{
 			get { return _shipMethod.Entity; }

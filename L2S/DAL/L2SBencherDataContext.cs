@@ -101,16 +101,22 @@ namespace L2S.Bencher
 			get { return this.GetTable<BillOfMaterial>(); }
 		}
 		
-		/// <summary>Gets the Contact Table definition. Mapped on table 'AdventureWorks.Person.Contact'.</summary>
-		public System.Data.Linq.Table<Contact> Contacts
+		/// <summary>Gets the BusinessEntity Table definition. Mapped on table 'AdventureWorks.Person.BusinessEntity'.</summary>
+		public System.Data.Linq.Table<BusinessEntity> BusinessEntities
 		{
-			get { return this.GetTable<Contact>(); }
+			get { return this.GetTable<BusinessEntity>(); }
 		}
 		
-		/// <summary>Gets the ContactCreditCard Table definition. Mapped on table 'AdventureWorks.Sales.ContactCreditCard'.</summary>
-		public System.Data.Linq.Table<ContactCreditCard> ContactCreditCards
+		/// <summary>Gets the BusinessEntityAddress Table definition. Mapped on table 'AdventureWorks.Person.BusinessEntityAddress'.</summary>
+		public System.Data.Linq.Table<BusinessEntityAddress> BusinessEntityAddresses
 		{
-			get { return this.GetTable<ContactCreditCard>(); }
+			get { return this.GetTable<BusinessEntityAddress>(); }
+		}
+		
+		/// <summary>Gets the BusinessEntityContact Table definition. Mapped on table 'AdventureWorks.Person.BusinessEntityContact'.</summary>
+		public System.Data.Linq.Table<BusinessEntityContact> BusinessEntityContacts
+		{
+			get { return this.GetTable<BusinessEntityContact>(); }
 		}
 		
 		/// <summary>Gets the ContactType Table definition. Mapped on table 'AdventureWorks.Person.ContactType'.</summary>
@@ -161,12 +167,6 @@ namespace L2S.Bencher
 			get { return this.GetTable<Customer>(); }
 		}
 		
-		/// <summary>Gets the CustomerAddress Table definition. Mapped on table 'AdventureWorks.Sales.CustomerAddress'.</summary>
-		public System.Data.Linq.Table<CustomerAddress> CustomerAddresses
-		{
-			get { return this.GetTable<CustomerAddress>(); }
-		}
-		
 		/// <summary>Gets the Department Table definition. Mapped on table 'AdventureWorks.HumanResources.Department'.</summary>
 		public System.Data.Linq.Table<Department> Departments
 		{
@@ -179,16 +179,16 @@ namespace L2S.Bencher
 			get { return this.GetTable<Document>(); }
 		}
 		
+		/// <summary>Gets the EmailAddress Table definition. Mapped on table 'AdventureWorks.Person.EmailAddress'.</summary>
+		public System.Data.Linq.Table<EmailAddress> EmailAddresses
+		{
+			get { return this.GetTable<EmailAddress>(); }
+		}
+		
 		/// <summary>Gets the Employee Table definition. Mapped on table 'AdventureWorks.HumanResources.Employee'.</summary>
 		public System.Data.Linq.Table<Employee> Employees
 		{
 			get { return this.GetTable<Employee>(); }
-		}
-		
-		/// <summary>Gets the EmployeeAddress Table definition. Mapped on table 'AdventureWorks.HumanResources.EmployeeAddress'.</summary>
-		public System.Data.Linq.Table<EmployeeAddress> EmployeeAddresses
-		{
-			get { return this.GetTable<EmployeeAddress>(); }
 		}
 		
 		/// <summary>Gets the EmployeeDepartmentHistory Table definition. Mapped on table 'AdventureWorks.HumanResources.EmployeeDepartmentHistory'.</summary>
@@ -209,12 +209,6 @@ namespace L2S.Bencher
 			get { return this.GetTable<Illustration>(); }
 		}
 		
-		/// <summary>Gets the Individual Table definition. Mapped on table 'AdventureWorks.Sales.Individual'.</summary>
-		public System.Data.Linq.Table<Individual> Individuals
-		{
-			get { return this.GetTable<Individual>(); }
-		}
-		
 		/// <summary>Gets the JobCandidate Table definition. Mapped on table 'AdventureWorks.HumanResources.JobCandidate'.</summary>
 		public System.Data.Linq.Table<JobCandidate> JobCandidates
 		{
@@ -225,6 +219,36 @@ namespace L2S.Bencher
 		public System.Data.Linq.Table<Location> Locations
 		{
 			get { return this.GetTable<Location>(); }
+		}
+		
+		/// <summary>Gets the Password Table definition. Mapped on table 'AdventureWorks.Person.Password'.</summary>
+		public System.Data.Linq.Table<Password> Passwords
+		{
+			get { return this.GetTable<Password>(); }
+		}
+		
+		/// <summary>Gets the Person Table definition. Mapped on table 'AdventureWorks.Person.Person'.</summary>
+		public System.Data.Linq.Table<Person> People
+		{
+			get { return this.GetTable<Person>(); }
+		}
+		
+		/// <summary>Gets the PersonCreditCard Table definition. Mapped on table 'AdventureWorks.Sales.PersonCreditCard'.</summary>
+		public System.Data.Linq.Table<PersonCreditCard> PersonCreditCards
+		{
+			get { return this.GetTable<PersonCreditCard>(); }
+		}
+		
+		/// <summary>Gets the PersonPhone Table definition. Mapped on table 'AdventureWorks.Person.PersonPhone'.</summary>
+		public System.Data.Linq.Table<PersonPhone> PersonPhones
+		{
+			get { return this.GetTable<PersonPhone>(); }
+		}
+		
+		/// <summary>Gets the PhoneNumberType Table definition. Mapped on table 'AdventureWorks.Person.PhoneNumberType'.</summary>
+		public System.Data.Linq.Table<PhoneNumberType> PhoneNumberTypes
+		{
+			get { return this.GetTable<PhoneNumberType>(); }
 		}
 		
 		/// <summary>Gets the Product Table definition. Mapped on table 'AdventureWorks.Production.Product'.</summary>
@@ -431,12 +455,6 @@ namespace L2S.Bencher
 			get { return this.GetTable<Store>(); }
 		}
 		
-		/// <summary>Gets the StoreContact Table definition. Mapped on table 'AdventureWorks.Sales.StoreContact'.</summary>
-		public System.Data.Linq.Table<StoreContact> StoreContacts
-		{
-			get { return this.GetTable<StoreContact>(); }
-		}
-		
 		/// <summary>Gets the TransactionHistory Table definition. Mapped on table 'AdventureWorks.Production.TransactionHistory'.</summary>
 		public System.Data.Linq.Table<TransactionHistory> TransactionHistories
 		{
@@ -459,18 +477,6 @@ namespace L2S.Bencher
 		public System.Data.Linq.Table<Vendor> Vendors
 		{
 			get { return this.GetTable<Vendor>(); }
-		}
-		
-		/// <summary>Gets the VendorAddress Table definition. Mapped on table 'AdventureWorks.Purchasing.VendorAddress'.</summary>
-		public System.Data.Linq.Table<VendorAddress> VendorAddresses
-		{
-			get { return this.GetTable<VendorAddress>(); }
-		}
-		
-		/// <summary>Gets the VendorContact Table definition. Mapped on table 'AdventureWorks.Purchasing.VendorContact'.</summary>
-		public System.Data.Linq.Table<VendorContact> VendorContacts
-		{
-			get { return this.GetTable<VendorContact>(); }
 		}
 		
 		/// <summary>Gets the WorkOrder Table definition. Mapped on table 'AdventureWorks.Production.WorkOrder'.</summary>

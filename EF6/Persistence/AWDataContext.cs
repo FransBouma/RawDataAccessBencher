@@ -51,8 +51,12 @@ namespace EF6.Bencher
 		public DbSet<AddressType> AddressTypes { get; set; } 
 		/// <summary>Gets an object query for the entity set 'BillOfMaterial', containing entity type 'BillOfMaterial'</summary>
 		public DbSet<BillOfMaterial> BillOfMaterials { get; set; } 
-		/// <summary>Gets an object query for the entity set 'Contact', containing entity type 'Contact'</summary>
-		public DbSet<Contact> Contacts { get; set; } 
+		/// <summary>Gets an object query for the entity set 'BusinessEntity', containing entity type 'BusinessEntity'</summary>
+		public DbSet<BusinessEntity> BusinessEntities { get; set; } 
+		/// <summary>Gets an object query for the entity set 'BusinessEntityAddress', containing entity type 'BusinessEntityAddress'</summary>
+		public DbSet<BusinessEntityAddress> BusinessEntityAddresses { get; set; } 
+		/// <summary>Gets an object query for the entity set 'BusinessEntityContact', containing entity type 'BusinessEntityContact'</summary>
+		public DbSet<BusinessEntityContact> BusinessEntityContacts { get; set; } 
 		/// <summary>Gets an object query for the entity set 'ContactCreditCard', containing entity type 'ContactCreditCard'</summary>
 		public DbSet<ContactCreditCard> ContactCreditCards { get; set; } 
 		/// <summary>Gets an object query for the entity set 'ContactType', containing entity type 'ContactType'</summary>
@@ -71,28 +75,32 @@ namespace EF6.Bencher
 		public DbSet<CurrencyRate> CurrencyRates { get; set; } 
 		/// <summary>Gets an object query for the entity set 'Customer', containing entity type 'Customer'</summary>
 		public DbSet<Customer> Customers { get; set; } 
-		/// <summary>Gets an object query for the entity set 'CustomerAddress', containing entity type 'CustomerAddress'</summary>
-		public DbSet<CustomerAddress> CustomerAddresses { get; set; } 
 		/// <summary>Gets an object query for the entity set 'Department', containing entity type 'Department'</summary>
 		public DbSet<Department> Departments { get; set; } 
 		/// <summary>Gets an object query for the entity set 'Document', containing entity type 'Document'</summary>
 		public DbSet<Document> Documents { get; set; } 
+		/// <summary>Gets an object query for the entity set 'EmailAddress', containing entity type 'EmailAddress'</summary>
+		public DbSet<EmailAddress> EmailAddresses { get; set; } 
 		/// <summary>Gets an object query for the entity set 'Employee', containing entity type 'Employee'</summary>
 		public DbSet<Employee> Employees { get; set; } 
-		/// <summary>Gets an object query for the entity set 'EmployeeAddress', containing entity type 'EmployeeAddress'</summary>
-		public DbSet<EmployeeAddress> EmployeeAddresses { get; set; } 
 		/// <summary>Gets an object query for the entity set 'EmployeeDepartmentHistory', containing entity type 'EmployeeDepartmentHistory'</summary>
 		public DbSet<EmployeeDepartmentHistory> EmployeeDepartmentHistories { get; set; } 
 		/// <summary>Gets an object query for the entity set 'EmployeePayHistory', containing entity type 'EmployeePayHistory'</summary>
 		public DbSet<EmployeePayHistory> EmployeePayHistories { get; set; } 
 		/// <summary>Gets an object query for the entity set 'Illustration', containing entity type 'Illustration'</summary>
 		public DbSet<Illustration> Illustrations { get; set; } 
-		/// <summary>Gets an object query for the entity set 'Individual', containing entity type 'Individual'</summary>
-		public DbSet<Individual> Individuals { get; set; } 
 		/// <summary>Gets an object query for the entity set 'JobCandidate', containing entity type 'JobCandidate'</summary>
 		public DbSet<JobCandidate> JobCandidates { get; set; } 
 		/// <summary>Gets an object query for the entity set 'Location', containing entity type 'Location'</summary>
 		public DbSet<Location> Locations { get; set; } 
+		/// <summary>Gets an object query for the entity set 'Password', containing entity type 'Password'</summary>
+		public DbSet<Password> Passwords { get; set; } 
+		/// <summary>Gets an object query for the entity set 'Person', containing entity type 'Person'</summary>
+		public DbSet<Person> People { get; set; } 
+		/// <summary>Gets an object query for the entity set 'PersonPhone', containing entity type 'PersonPhone'</summary>
+		public DbSet<PersonPhone> PersonPhones { get; set; } 
+		/// <summary>Gets an object query for the entity set 'PhoneNumberType', containing entity type 'PhoneNumberType'</summary>
+		public DbSet<PhoneNumberType> PhoneNumberTypes { get; set; } 
 		/// <summary>Gets an object query for the entity set 'Product', containing entity type 'Product'</summary>
 		public DbSet<Product> Products { get; set; } 
 		/// <summary>Gets an object query for the entity set 'ProductCategory', containing entity type 'ProductCategory'</summary>
@@ -161,8 +169,6 @@ namespace EF6.Bencher
 		public DbSet<StateProvince> StateProvinces { get; set; } 
 		/// <summary>Gets an object query for the entity set 'Store', containing entity type 'Store'</summary>
 		public DbSet<Store> Stores { get; set; } 
-		/// <summary>Gets an object query for the entity set 'StoreContact', containing entity type 'StoreContact'</summary>
-		public DbSet<StoreContact> StoreContacts { get; set; } 
 		/// <summary>Gets an object query for the entity set 'TransactionHistory', containing entity type 'TransactionHistory'</summary>
 		public DbSet<TransactionHistory> TransactionHistories { get; set; } 
 		/// <summary>Gets an object query for the entity set 'TransactionHistoryArchive', containing entity type 'TransactionHistoryArchive'</summary>
@@ -171,10 +177,6 @@ namespace EF6.Bencher
 		public DbSet<UnitMeasure> UnitMeasures { get; set; } 
 		/// <summary>Gets an object query for the entity set 'Vendor', containing entity type 'Vendor'</summary>
 		public DbSet<Vendor> Vendors { get; set; } 
-		/// <summary>Gets an object query for the entity set 'VendorAddress', containing entity type 'VendorAddress'</summary>
-		public DbSet<VendorAddress> VendorAddresses { get; set; } 
-		/// <summary>Gets an object query for the entity set 'VendorContact', containing entity type 'VendorContact'</summary>
-		public DbSet<VendorContact> VendorContacts { get; set; } 
 		/// <summary>Gets an object query for the entity set 'WorkOrder', containing entity type 'WorkOrder'</summary>
 		public DbSet<WorkOrder> WorkOrders { get; set; } 
 		/// <summary>Gets an object query for the entity set 'WorkOrderRouting', containing entity type 'WorkOrderRouting'</summary>

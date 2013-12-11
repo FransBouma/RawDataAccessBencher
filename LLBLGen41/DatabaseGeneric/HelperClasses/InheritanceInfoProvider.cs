@@ -17,7 +17,6 @@ namespace AdventureWorks.Dal.Adapter.v41.HelperClasses
 	// __LLBLGENPRO_USER_CODE_REGION_START AdditionalNamespaces
 	// __LLBLGENPRO_USER_CODE_REGION_END
 	
-	
 	/// <summary>Singleton implementation of the inheritanceInfoProvider. This class is the singleton wrapper through which the actual instance is retrieved.</summary>
 	/// <remarks>It uses a single instance of an internal class. The access isn't marked with locks as the InheritanceInfoProviderBase class is threadsafe.</remarks>
 	public static class InheritanceInfoProviderSingleton
@@ -40,7 +39,6 @@ namespace AdventureWorks.Dal.Adapter.v41.HelperClasses
 		
 		// __LLBLGENPRO_USER_CODE_REGION_START CustomInheritanceInfoProviderSingletonCode
 		// __LLBLGENPRO_USER_CODE_REGION_END
-		
 		#endregion
 	}
 

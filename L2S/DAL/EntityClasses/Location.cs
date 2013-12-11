@@ -199,7 +199,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductInventory.Location - Location.ProductInventories (m:1)'</summary>
-		[Association(Name="ProductInventory_Locationb1250509577d4680b3d6e0296ecbbd5c", Storage="_productInventories", OtherKey="LocationId")]
+		[Association(Name="ProductInventory_Location1bf37855d80e4df3a35fea08034a9603", Storage="_productInventories", OtherKey="LocationId")]
 		public EntitySet<ProductInventory> ProductInventories
 		{
 			get { return this._productInventories; }
@@ -207,7 +207,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'WorkOrderRouting.Location - Location.WorkOrderRoutings (m:1)'</summary>
-		[Association(Name="WorkOrderRouting_Location4dd785c8a4374a9083ec287daeaa0fb1", Storage="_workOrderRoutings", OtherKey="LocationId")]
+		[Association(Name="WorkOrderRouting_Location5ed5815792214945a02be8f88a1b7223", Storage="_workOrderRoutings", OtherKey="LocationId")]
 		public EntitySet<WorkOrderRouting> WorkOrderRoutings
 		{
 			get { return this._workOrderRoutings; }

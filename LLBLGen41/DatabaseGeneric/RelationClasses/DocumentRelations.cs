@@ -30,21 +30,22 @@ namespace AdventureWorks.Dal.Adapter.v41.RelationClasses
 		public virtual List<IEntityRelation> GetAllRelations()
 		{
 			List<IEntityRelation> toReturn = new List<IEntityRelation>();
-			toReturn.Add(this.ProductDocumentEntityUsingDocumentId);
+			toReturn.Add(this.ProductDocumentEntityUsingDocumentNode);
+			toReturn.Add(this.EmployeeEntityUsingOwner);
 			return toReturn;
 		}
 
 		#region Class Property Declarations
 
 		/// <summary>Returns a new IEntityRelation object, between DocumentEntity and ProductDocumentEntity over the 1:n relation they have, using the relation between the fields:
-		/// Document.DocumentId - ProductDocument.DocumentId
+		/// Document.DocumentNode - ProductDocument.DocumentNode
 		/// </summary>
-		public virtual IEntityRelation ProductDocumentEntityUsingDocumentId
+		public virtual IEntityRelation ProductDocumentEntityUsingDocumentNode
 		{
 			get
 			{
 				IEntityRelation relation = new EntityRelation(SD.LLBLGen.Pro.ORMSupportClasses.RelationType.OneToMany, "ProductDocuments" , true);
-				relation.AddEntityFieldPair(DocumentFields.DocumentId, ProductDocumentFields.DocumentId);
+				relation.AddEntityFieldPair(DocumentFields.DocumentNode, ProductDocumentFields.DocumentNode);
 				relation.InheritanceInfoPkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("DocumentEntity", true);
 				relation.InheritanceInfoFkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("ProductDocumentEntity", false);
 				return relation;
@@ -52,6 +53,20 @@ namespace AdventureWorks.Dal.Adapter.v41.RelationClasses
 		}
 
 
+		/// <summary>Returns a new IEntityRelation object, between DocumentEntity and EmployeeEntity over the m:1 relation they have, using the relation between the fields:
+		/// Document.Owner - Employee.EmployeeId
+		/// </summary>
+		public virtual IEntityRelation EmployeeEntityUsingOwner
+		{
+			get
+			{
+				IEntityRelation relation = new EntityRelation(SD.LLBLGen.Pro.ORMSupportClasses.RelationType.ManyToOne, "Employee", false);
+				relation.AddEntityFieldPair(EmployeeFields.EmployeeId, DocumentFields.Owner);
+				relation.InheritanceInfoPkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("EmployeeEntity", false);
+				relation.InheritanceInfoFkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("DocumentEntity", true);
+				return relation;
+			}
+		}
 		/// <summary>stub, not used in this entity, only for TargetPerEntity entities.</summary>
 		public virtual IEntityRelation GetSubTypeRelation(string subTypeEntityName) { return null; }
 		/// <summary>stub, not used in this entity, only for TargetPerEntity entities.</summary>
@@ -66,7 +81,8 @@ namespace AdventureWorks.Dal.Adapter.v41.RelationClasses
 	/// <summary>Static class which is used for providing relationship instances which are re-used internally for syncing</summary>
 	internal static class StaticDocumentRelations
 	{
-		internal static readonly IEntityRelation ProductDocumentEntityUsingDocumentIdStatic = new DocumentRelations().ProductDocumentEntityUsingDocumentId;
+		internal static readonly IEntityRelation ProductDocumentEntityUsingDocumentNodeStatic = new DocumentRelations().ProductDocumentEntityUsingDocumentNode;
+		internal static readonly IEntityRelation EmployeeEntityUsingOwnerStatic = new DocumentRelations().EmployeeEntityUsingOwner;
 
 		/// <summary>CTor</summary>
 		static StaticDocumentRelations()

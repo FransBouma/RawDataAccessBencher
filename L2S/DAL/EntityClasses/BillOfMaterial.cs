@@ -265,7 +265,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'BillOfMaterial.Product - Product.BillOfMaterials (m:1)'</summary>
-		[Association(Name="BillOfMaterial_Product3e30ffcf9c8549359b61d9b94497b093", Storage="_product", ThisKey="ComponentId", IsForeignKey=true)] 
+		[Association(Name="BillOfMaterial_Product30e78042efd74e5b9884d562b26e3fc9", Storage="_product", ThisKey="ComponentId", IsForeignKey=true)] 
 		public Product Product
 		{
 			get { return _product.Entity; }
@@ -296,7 +296,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'BillOfMaterial.Product1 - Product.BillOfMaterials1 (m:1)'</summary>
-		[Association(Name="BillOfMaterial_Product4737a890d3824bc481009ee8f2a4fd7d", Storage="_product1", ThisKey="ProductAssemblyId", IsForeignKey=true)] 
+		[Association(Name="BillOfMaterial_Product08ed1c5580994d11bd24a9914ee85c6d", Storage="_product1", ThisKey="ProductAssemblyId", IsForeignKey=true)] 
 		public Product Product1
 		{
 			get { return _product1.Entity; }
@@ -327,7 +327,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'BillOfMaterial.UnitMeasure - UnitMeasure.BillOfMaterials (m:1)'</summary>
-		[Association(Name="BillOfMaterial_UnitMeasure44a83cef990d418ab69cce9d5be522ae", Storage="_unitMeasure", ThisKey="UnitMeasureCode", IsForeignKey=true)] 
+		[Association(Name="BillOfMaterial_UnitMeasureb9a111c0fa984a84a117a37a269b6954", Storage="_unitMeasure", ThisKey="UnitMeasureCode", IsForeignKey=true)] 
 		public UnitMeasure UnitMeasure
 		{
 			get { return _unitMeasure.Entity; }

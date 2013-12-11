@@ -11,12 +11,10 @@ namespace NH.Bencher.EntityClasses
 	public partial class Address
 	{
 		#region Class Member Declarations
-		private Iesi.Collections.Generic.ISet<CustomerAddress> _customerAddresses;
-		private Iesi.Collections.Generic.ISet<EmployeeAddress> _employeeAddresses;
+		private Iesi.Collections.Generic.ISet<BusinessEntityAddress> _businessEntityAddresses;
 		private Iesi.Collections.Generic.ISet<SalesOrderHeader> _salesOrderHeaders;
 		private Iesi.Collections.Generic.ISet<SalesOrderHeader> _salesOrderHeaders1;
 		private StateProvince _stateProvince;
-		private Iesi.Collections.Generic.ISet<VendorAddress> _vendorAddresses;
 		private System.Int32 _addressId;
 		private System.String _addressLine1;
 		private System.String _addressLine2;
@@ -24,16 +22,15 @@ namespace NH.Bencher.EntityClasses
 		private System.DateTime _modifiedDate;
 		private System.String _postalCode;
 		private System.Guid _rowguid;
+		private Microsoft.SqlServer.Types.SqlGeography _spatialLocation;
 		#endregion
 
 		/// <summary>Initializes a new instance of the <see cref="Address"/> class.</summary>
 		public Address() : base()
 		{
-			_customerAddresses = new Iesi.Collections.Generic.HashedSet<CustomerAddress>();
-			_employeeAddresses = new Iesi.Collections.Generic.HashedSet<EmployeeAddress>();
+			_businessEntityAddresses = new Iesi.Collections.Generic.HashedSet<BusinessEntityAddress>();
 			_salesOrderHeaders = new Iesi.Collections.Generic.HashedSet<SalesOrderHeader>();
 			_salesOrderHeaders1 = new Iesi.Collections.Generic.HashedSet<SalesOrderHeader>();
-			_vendorAddresses = new Iesi.Collections.Generic.HashedSet<VendorAddress>();
 			_addressId = default(System.Int32);
 			OnCreated();
 		}
@@ -113,18 +110,18 @@ namespace NH.Bencher.EntityClasses
 			set { _rowguid = value; }
 		}
 
-		/// <summary>Represents the navigator which is mapped onto the association 'CustomerAddress.Address - Address.CustomerAddresses (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<CustomerAddress> CustomerAddresses
-		{
-			get { return _customerAddresses; }
-			set { _customerAddresses = value; }
+		/// <summary>Gets or sets the SpatialLocation field. </summary>	
+		public virtual Microsoft.SqlServer.Types.SqlGeography SpatialLocation
+		{ 
+			get { return _spatialLocation; }
+			set { _spatialLocation = value; }
 		}
-		
-		/// <summary>Represents the navigator which is mapped onto the association 'EmployeeAddress.Address - Address.EmployeeAddresses (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<EmployeeAddress> EmployeeAddresses
+
+		/// <summary>Represents the navigator which is mapped onto the association 'BusinessEntityAddress.Address - Address.BusinessEntityAddresses (m:1)'</summary>
+		public virtual Iesi.Collections.Generic.ISet<BusinessEntityAddress> BusinessEntityAddresses
 		{
-			get { return _employeeAddresses; }
-			set { _employeeAddresses = value; }
+			get { return _businessEntityAddresses; }
+			set { _businessEntityAddresses = value; }
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderHeader.Address - Address.SalesOrderHeaders (m:1)'</summary>
@@ -146,13 +143,6 @@ namespace NH.Bencher.EntityClasses
 		{
 			get { return _stateProvince; }
 			set { _stateProvince = value; }
-		}
-		
-		/// <summary>Represents the navigator which is mapped onto the association 'VendorAddress.Address - Address.VendorAddresses (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<VendorAddress> VendorAddresses
-		{
-			get { return _vendorAddresses; }
-			set { _vendorAddresses = value; }
 		}
 		
 		#endregion

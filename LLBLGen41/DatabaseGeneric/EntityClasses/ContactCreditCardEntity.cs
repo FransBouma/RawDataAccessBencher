@@ -25,21 +25,18 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 {
 	// __LLBLGENPRO_USER_CODE_REGION_START AdditionalNamespaces
 	// __LLBLGENPRO_USER_CODE_REGION_END
-	
 	/// <summary>Entity class which represents the entity 'ContactCreditCard'.<br/><br/></summary>
 	[Serializable]
 	public partial class ContactCreditCardEntity : CommonEntityBase
 		// __LLBLGENPRO_USER_CODE_REGION_START AdditionalInterfaces
-		// __LLBLGENPRO_USER_CODE_REGION_END
-			
+		// __LLBLGENPRO_USER_CODE_REGION_END	
 	{
 		#region Class Member Declarations
-		private ContactEntity _contact;
 		private CreditCardEntity _creditCard;
+		private PersonEntity _person;
 
 		// __LLBLGENPRO_USER_CODE_REGION_START PrivateMembers
 		// __LLBLGENPRO_USER_CODE_REGION_END
-		
 		#endregion
 
 		#region Statics
@@ -49,10 +46,10 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		/// <summary>All names of fields mapped onto a relation. Usable for in-memory filtering</summary>
 		public static partial class MemberNames
 		{
-			/// <summary>Member name Contact</summary>
-			public static readonly string Contact = "Contact";
 			/// <summary>Member name CreditCard</summary>
 			public static readonly string CreditCard = "CreditCard";
+			/// <summary>Member name Person</summary>
+			public static readonly string Person = "Person";
 		}
 		#endregion
 		
@@ -114,21 +111,20 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		{
 			if(SerializationHelper.Optimization != SerializationOptimization.Fast) 
 			{
-				_contact = (ContactEntity)info.GetValue("_contact", typeof(ContactEntity));
-				if(_contact!=null)
-				{
-					_contact.AfterSave+=new EventHandler(OnEntityAfterSave);
-				}
 				_creditCard = (CreditCardEntity)info.GetValue("_creditCard", typeof(CreditCardEntity));
 				if(_creditCard!=null)
 				{
 					_creditCard.AfterSave+=new EventHandler(OnEntityAfterSave);
 				}
+				_person = (PersonEntity)info.GetValue("_person", typeof(PersonEntity));
+				if(_person!=null)
+				{
+					_person.AfterSave+=new EventHandler(OnEntityAfterSave);
+				}
 				this.FixupDeserialization(FieldInfoProviderSingleton.GetInstance());
 			}
 			// __LLBLGENPRO_USER_CODE_REGION_START DeserializationConstructor
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 		}
 
 		
@@ -139,7 +135,7 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			switch((ContactCreditCardFieldIndex)fieldIndex)
 			{
 				case ContactCreditCardFieldIndex.ContactId:
-					DesetupSyncContact(true, false);
+					DesetupSyncPerson(true, false);
 					break;
 				case ContactCreditCardFieldIndex.CreditCardId:
 					DesetupSyncCreditCard(true, false);
@@ -158,11 +154,11 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		{
 			switch(propertyName)
 			{
-				case "Contact":
-					this.Contact = (ContactEntity)entity;
-					break;
 				case "CreditCard":
 					this.CreditCard = (CreditCardEntity)entity;
+					break;
+				case "Person":
+					this.Person = (PersonEntity)entity;
 					break;
 				default:
 					this.OnSetRelatedEntityProperty(propertyName, entity);
@@ -186,11 +182,11 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			RelationCollection toReturn = new RelationCollection();
 			switch(fieldName)
 			{
-				case "Contact":
-					toReturn.Add(Relations.ContactEntityUsingContactId);
-					break;
 				case "CreditCard":
 					toReturn.Add(Relations.CreditCardEntityUsingCreditCardId);
+					break;
+				case "Person":
+					toReturn.Add(Relations.PersonEntityUsingContactId);
 					break;
 				default:
 					break;				
@@ -220,11 +216,11 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		{
 			switch(fieldName)
 			{
-				case "Contact":
-					SetupSyncContact(relatedEntity);
-					break;
 				case "CreditCard":
 					SetupSyncCreditCard(relatedEntity);
+					break;
+				case "Person":
+					SetupSyncPerson(relatedEntity);
 					break;
 				default:
 					break;
@@ -239,11 +235,11 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		{
 			switch(fieldName)
 			{
-				case "Contact":
-					DesetupSyncContact(false, true);
-					break;
 				case "CreditCard":
 					DesetupSyncCreditCard(false, true);
+					break;
+				case "Person":
+					DesetupSyncPerson(false, true);
 					break;
 				default:
 					break;
@@ -264,13 +260,13 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		protected override List<IEntity2> GetDependentRelatedEntities()
 		{
 			List<IEntity2> toReturn = new List<IEntity2>();
-			if(_contact!=null)
-			{
-				toReturn.Add(_contact);
-			}
 			if(_creditCard!=null)
 			{
 				toReturn.Add(_creditCard);
+			}
+			if(_person!=null)
+			{
+				toReturn.Add(_person);
 			}
 			return toReturn;
 		}
@@ -291,12 +287,11 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		{
 			if (SerializationHelper.Optimization != SerializationOptimization.Fast) 
 			{
-				info.AddValue("_contact", (!this.MarkedForDeletion?_contact:null));
 				info.AddValue("_creditCard", (!this.MarkedForDeletion?_creditCard:null));
+				info.AddValue("_person", (!this.MarkedForDeletion?_person:null));
 			}
 			// __LLBLGENPRO_USER_CODE_REGION_START GetObjectInfo
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			base.GetObjectData(info, context);
 		}
 
@@ -309,21 +304,21 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			return new ContactCreditCardRelations().GetAllRelations();
 		}
 
-		/// <summary> Creates a new IRelationPredicateBucket object which contains the predicate expression and relation collection to fetch the related entity of type 'Contact' to this entity.</summary>
-		/// <returns></returns>
-		public virtual IRelationPredicateBucket GetRelationInfoContact()
-		{
-			IRelationPredicateBucket bucket = new RelationPredicateBucket();
-			bucket.PredicateExpression.Add(new FieldCompareValuePredicate(ContactFields.ContactId, null, ComparisonOperator.Equal, this.ContactId));
-			return bucket;
-		}
-
 		/// <summary> Creates a new IRelationPredicateBucket object which contains the predicate expression and relation collection to fetch the related entity of type 'CreditCard' to this entity.</summary>
 		/// <returns></returns>
 		public virtual IRelationPredicateBucket GetRelationInfoCreditCard()
 		{
 			IRelationPredicateBucket bucket = new RelationPredicateBucket();
 			bucket.PredicateExpression.Add(new FieldCompareValuePredicate(CreditCardFields.CreditCardId, null, ComparisonOperator.Equal, this.CreditCardId));
+			return bucket;
+		}
+
+		/// <summary> Creates a new IRelationPredicateBucket object which contains the predicate expression and relation collection to fetch the related entity of type 'Person' to this entity.</summary>
+		/// <returns></returns>
+		public virtual IRelationPredicateBucket GetRelationInfoPerson()
+		{
+			IRelationPredicateBucket bucket = new RelationPredicateBucket();
+			bucket.PredicateExpression.Add(new FieldCompareValuePredicate(PersonFields.BusinessEntityId, null, ComparisonOperator.Equal, this.ContactId));
 			return bucket;
 		}
 		
@@ -370,8 +365,8 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		protected override Dictionary<string, object> GetRelatedData()
 		{
 			Dictionary<string, object> toReturn = new Dictionary<string, object>();
-			toReturn.Add("Contact", _contact);
 			toReturn.Add("CreditCard", _creditCard);
+			toReturn.Add("Person", _person);
 			return toReturn;
 		}
 
@@ -382,7 +377,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			
 			// __LLBLGENPRO_USER_CODE_REGION_START InitClassMembers
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			OnInitClassMembersComplete();
 		}
 
@@ -402,39 +396,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			_fieldsCustomProperties.Add("ModifiedDate", fieldHashtable);
 		}
 		#endregion
-
-		/// <summary> Removes the sync logic for member _contact</summary>
-		/// <param name="signalRelatedEntity">If set to true, it will call the related entity's UnsetRelatedEntity method</param>
-		/// <param name="resetFKFields">if set to true it will also reset the FK fields pointing to the related entity</param>
-		private void DesetupSyncContact(bool signalRelatedEntity, bool resetFKFields)
-		{
-			this.PerformDesetupSyncRelatedEntity( _contact, new PropertyChangedEventHandler( OnContactPropertyChanged ), "Contact", AdventureWorks.Dal.Adapter.v41.RelationClasses.StaticContactCreditCardRelations.ContactEntityUsingContactIdStatic, true, signalRelatedEntity, "ContactCreditCards", resetFKFields, new int[] { (int)ContactCreditCardFieldIndex.ContactId } );
-			_contact = null;
-		}
-
-		/// <summary> setups the sync logic for member _contact</summary>
-		/// <param name="relatedEntity">Instance to set as the related entity of type entityType</param>
-		private void SetupSyncContact(IEntityCore relatedEntity)
-		{
-			if(_contact!=relatedEntity)
-			{
-				DesetupSyncContact(true, true);
-				_contact = (ContactEntity)relatedEntity;
-				this.PerformSetupSyncRelatedEntity( _contact, new PropertyChangedEventHandler( OnContactPropertyChanged ), "Contact", AdventureWorks.Dal.Adapter.v41.RelationClasses.StaticContactCreditCardRelations.ContactEntityUsingContactIdStatic, true, new string[] {  } );
-			}
-		}
-		
-		/// <summary>Handles property change events of properties in a related entity.</summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void OnContactPropertyChanged( object sender, PropertyChangedEventArgs e )
-		{
-			switch( e.PropertyName )
-			{
-				default:
-					break;
-			}
-		}
 
 		/// <summary> Removes the sync logic for member _creditCard</summary>
 		/// <param name="signalRelatedEntity">If set to true, it will call the related entity's UnsetRelatedEntity method</param>
@@ -469,6 +430,39 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			}
 		}
 
+		/// <summary> Removes the sync logic for member _person</summary>
+		/// <param name="signalRelatedEntity">If set to true, it will call the related entity's UnsetRelatedEntity method</param>
+		/// <param name="resetFKFields">if set to true it will also reset the FK fields pointing to the related entity</param>
+		private void DesetupSyncPerson(bool signalRelatedEntity, bool resetFKFields)
+		{
+			this.PerformDesetupSyncRelatedEntity( _person, new PropertyChangedEventHandler( OnPersonPropertyChanged ), "Person", AdventureWorks.Dal.Adapter.v41.RelationClasses.StaticContactCreditCardRelations.PersonEntityUsingContactIdStatic, true, signalRelatedEntity, "ContactCreditCards", resetFKFields, new int[] { (int)ContactCreditCardFieldIndex.ContactId } );
+			_person = null;
+		}
+
+		/// <summary> setups the sync logic for member _person</summary>
+		/// <param name="relatedEntity">Instance to set as the related entity of type entityType</param>
+		private void SetupSyncPerson(IEntityCore relatedEntity)
+		{
+			if(_person!=relatedEntity)
+			{
+				DesetupSyncPerson(true, true);
+				_person = (PersonEntity)relatedEntity;
+				this.PerformSetupSyncRelatedEntity( _person, new PropertyChangedEventHandler( OnPersonPropertyChanged ), "Person", AdventureWorks.Dal.Adapter.v41.RelationClasses.StaticContactCreditCardRelations.PersonEntityUsingContactIdStatic, true, new string[] {  } );
+			}
+		}
+		
+		/// <summary>Handles property change events of properties in a related entity.</summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void OnPersonPropertyChanged( object sender, PropertyChangedEventArgs e )
+		{
+			switch( e.PropertyName )
+			{
+				default:
+					break;
+			}
+		}
+
 		/// <summary> Initializes the class with empty data, as if it is a new Entity.</summary>
 		/// <param name="validator">The validator object for this ContactCreditCardEntity</param>
 		/// <param name="fields">Fields of this entity</param>
@@ -481,7 +475,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 
 			// __LLBLGENPRO_USER_CODE_REGION_START InitClassEmpty
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 
 			OnInitialized();
 
@@ -501,18 +494,18 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			get { return _customProperties;}
 		}
 
-		/// <summary> Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'Contact' for this entity.</summary>
-		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathContact
-		{
-			get	{ return new PrefetchPathElement2(new EntityCollection(EntityFactoryCache2.GetEntityFactory(typeof(ContactEntityFactory))),	(IEntityRelation)GetRelationsForField("Contact")[0], (int)AdventureWorks.Dal.Adapter.v41.EntityType.ContactCreditCardEntity, (int)AdventureWorks.Dal.Adapter.v41.EntityType.ContactEntity, 0, null, null, null, null, "Contact", SD.LLBLGen.Pro.ORMSupportClasses.RelationType.ManyToOne); }
-		}
-
 		/// <summary> Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'CreditCard' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
 		public static IPrefetchPathElement2 PrefetchPathCreditCard
 		{
 			get	{ return new PrefetchPathElement2(new EntityCollection(EntityFactoryCache2.GetEntityFactory(typeof(CreditCardEntityFactory))),	(IEntityRelation)GetRelationsForField("CreditCard")[0], (int)AdventureWorks.Dal.Adapter.v41.EntityType.ContactCreditCardEntity, (int)AdventureWorks.Dal.Adapter.v41.EntityType.CreditCardEntity, 0, null, null, null, null, "CreditCard", SD.LLBLGen.Pro.ORMSupportClasses.RelationType.ManyToOne); }
+		}
+
+		/// <summary> Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'Person' for this entity.</summary>
+		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
+		public static IPrefetchPathElement2 PrefetchPathPerson
+		{
+			get	{ return new PrefetchPathElement2(new EntityCollection(EntityFactoryCache2.GetEntityFactory(typeof(PersonEntityFactory))),	(IEntityRelation)GetRelationsForField("Person")[0], (int)AdventureWorks.Dal.Adapter.v41.EntityType.ContactCreditCardEntity, (int)AdventureWorks.Dal.Adapter.v41.EntityType.PersonEntity, 0, null, null, null, null, "Person", SD.LLBLGen.Pro.ORMSupportClasses.RelationType.ManyToOne); }
 		}
 
 
@@ -540,7 +533,7 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		}
 
 		/// <summary> The ContactId property of the Entity ContactCreditCard<br/><br/></summary>
-		/// <remarks>Mapped on  table field: "ContactCreditCard"."ContactID"<br/>
+		/// <remarks>Mapped on  table field: "PersonCreditCard"."BusinessEntityID"<br/>
 		/// Table field type characteristics (type, precision, scale, length): Int, 10, 0, 0<br/>
 		/// Table field behavior characteristics (is nullable, is PK, is identity): false, true, false</remarks>
 		public virtual System.Int32 ContactId
@@ -550,7 +543,7 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		}
 
 		/// <summary> The CreditCardId property of the Entity ContactCreditCard<br/><br/></summary>
-		/// <remarks>Mapped on  table field: "ContactCreditCard"."CreditCardID"<br/>
+		/// <remarks>Mapped on  table field: "PersonCreditCard"."CreditCardID"<br/>
 		/// Table field type characteristics (type, precision, scale, length): Int, 10, 0, 0<br/>
 		/// Table field behavior characteristics (is nullable, is PK, is identity): false, true, false</remarks>
 		public virtual System.Int32 CreditCardId
@@ -560,31 +553,13 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		}
 
 		/// <summary> The ModifiedDate property of the Entity ContactCreditCard<br/><br/></summary>
-		/// <remarks>Mapped on  table field: "ContactCreditCard"."ModifiedDate"<br/>
+		/// <remarks>Mapped on  table field: "PersonCreditCard"."ModifiedDate"<br/>
 		/// Table field type characteristics (type, precision, scale, length): DateTime, 0, 0, 0<br/>
 		/// Table field behavior characteristics (is nullable, is PK, is identity): false, false, false</remarks>
 		public virtual System.DateTime ModifiedDate
 		{
 			get { return (System.DateTime)GetValue((int)ContactCreditCardFieldIndex.ModifiedDate, true); }
 			set	{ SetValue((int)ContactCreditCardFieldIndex.ModifiedDate, value); }
-		}
-
-		/// <summary> Gets / sets related entity of type 'ContactEntity' which has to be set using a fetch action earlier. If no related entity is set for this property, null is returned..<br/><br/></summary>
-		[Browsable(false)]
-		public virtual ContactEntity Contact
-		{
-			get	{ return _contact; }
-			set
-			{
-				if(this.IsDeserializing)
-				{
-					SetupSyncContact(value);
-				}
-				else
-				{
-					SetSingleRelatedEntityNavigator(value, "ContactCreditCards", "Contact", _contact, true); 
-				}
-			}
 		}
 
 		/// <summary> Gets / sets related entity of type 'CreditCardEntity' which has to be set using a fetch action earlier. If no related entity is set for this property, null is returned..<br/><br/></summary>
@@ -601,6 +576,24 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 				else
 				{
 					SetSingleRelatedEntityNavigator(value, "ContactCreditCards", "CreditCard", _creditCard, true); 
+				}
+			}
+		}
+
+		/// <summary> Gets / sets related entity of type 'PersonEntity' which has to be set using a fetch action earlier. If no related entity is set for this property, null is returned..<br/><br/></summary>
+		[Browsable(false)]
+		public virtual PersonEntity Person
+		{
+			get	{ return _person; }
+			set
+			{
+				if(this.IsDeserializing)
+				{
+					SetupSyncPerson(value);
+				}
+				else
+				{
+					SetSingleRelatedEntityNavigator(value, "ContactCreditCards", "Person", _person, true); 
 				}
 			}
 		}
@@ -631,7 +624,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		
 		// __LLBLGENPRO_USER_CODE_REGION_START CustomEntityCode
 		// __LLBLGENPRO_USER_CODE_REGION_END
-		
 		#endregion
 
 		#region Included code

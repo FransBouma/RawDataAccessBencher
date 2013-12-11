@@ -30,8 +30,10 @@ namespace RawBencher
 	class Program
 	{
 		private static Dictionary<string, List<long>> _rawResultsPerORM = new Dictionary<string, List<long>>();
-		private static string ConnectionString = @"data source=(local);initial catalog=AdventureWorks;integrated security=SSPI;persist security info=False;packet size=4096";
-        private static string SqlSelectCommandText = @"SELECT [SalesOrderID],[RevisionNumber],[OrderDate],[DueDate],[ShipDate],[Status],[OnlineOrderFlag],[SalesOrderNumber],[PurchaseOrderNumber],[AccountNumber],[CustomerID],[ContactID],[SalesPersonID],[TerritoryID],[BillToAddressID],[ShipToAddressID],[ShipMethodID],[CreditCardID],[CreditCardApprovalCode],[CurrencyRateID],[SubTotal],[TaxAmt],[Freight],[TotalDue],[Comment],[rowguid],[ModifiedDate]  FROM [Sales].[SalesOrderHeader]";
+		private static string ConnectionString = @"data source=WIN2008SQL2012\SQLEXPRESS;initial catalog=AdventureWorks;integrated security=SSPI;persist security info=False;packet size=4096";
+        private static string SqlSelectCommandText = @"SELECT [SalesOrderID],[RevisionNumber],[OrderDate],[DueDate],[ShipDate],[Status],[OnlineOrderFlag],[SalesOrderNumber],[PurchaseOrderNumber],[AccountNumber],[CustomerID],[SalesPersonID],[TerritoryID],[BillToAddressID],[ShipToAddressID],[ShipMethodID],[CreditCardID],[CreditCardApprovalCode],[CurrencyRateID],[SubTotal],[TaxAmt],[Freight],[TotalDue],[Comment],[rowguid],[ModifiedDate]  FROM [Sales].[SalesOrderHeader]";
+
+		private static bool PrintEnumerationTimings = false;	// if true, it will show the time it took to enumerate the resultset.
 
 		static void Main(string[] args)
 		{
@@ -41,7 +43,7 @@ namespace RawBencher
             
             CacheController.RegisterCache(ConnectionString, new ResultsetCache());
 			int loopAmount = 10;
-
+			
 			Console.WriteLine("\nWarming up DB, DB client code and CLR");
 			Console.WriteLine("------------------------------------------");
 			for(int i = 0; i < loopAmount; i++)
@@ -52,6 +54,7 @@ namespace RawBencher
 			Console.WriteLine("\nStarting benchmarks");
 			Console.WriteLine("------------------------------------------");
 			_rawResultsPerORM.Clear();
+
 			for(int i = 0; i < loopAmount; i++)
 			{
 				FetchSalesOrderHeaderEF();
@@ -96,10 +99,10 @@ namespace RawBencher
 			{
 				FetchSalesOrderHeaderDataTable();
 			}
-            for (int i = 0; i < loopAmount; i++)
-            {
-                FetchSalesOrderHeaderOakDynamicDb();
-            }
+			for(int i = 0; i < loopAmount; i++)
+			{
+				FetchSalesOrderHeaderOakDynamicDb();
+			}
 
 			Console.WriteLine("\nIndividual entity fetch benches");
 			Console.WriteLine("------------------------------------------");
@@ -129,15 +132,7 @@ namespace RawBencher
 			}
 			sw.Stop();
 			ReportResult(frameworkName, sw.ElapsedMilliseconds, headers.Rows.Count);
-
-			for(int i = 0; i < headers.Rows.Count;i++ )
-			{
-				if(Convert.ToInt32(headers.Rows[i]["SalesOrderID"]) <= 0)
-				{
-					Console.WriteLine("Data table: Data is empty");
-					break;
-				}
-			}
+			VerifyData(headers.AsEnumerable(), r =>Convert.ToInt32(r["SalesOrderID"]), frameworkName);
 		}
 
 
@@ -172,28 +167,27 @@ namespace RawBencher
 					fieldValue = reader.GetValue(9);
 					soh.AccountNumber = (string)(fieldValue == DBNull.Value ? null : fieldValue);
 					soh.CustomerID = (int)reader.GetValue(10);
-					soh.ContactID = (int)reader.GetValue(11);
-					fieldValue = reader.GetValue(12);
+					fieldValue = reader.GetValue(11);
 					soh.SalesPersonID = (int?)(fieldValue == DBNull.Value ? null : fieldValue);
-					fieldValue = reader.GetValue(13);
+					fieldValue = reader.GetValue(12);
 					soh.TerritoryID = (int?)(fieldValue == DBNull.Value ? null : fieldValue);
-					soh.BillToAddressID = (int)reader.GetValue(14);
-					soh.ShipToAddressID = (int)reader.GetValue(15);
-					soh.ShipMethodID = (int)reader.GetValue(16);
-					fieldValue = reader.GetValue(17);
+					soh.BillToAddressID = (int)reader.GetValue(13);
+					soh.ShipToAddressID = (int)reader.GetValue(14);
+					soh.ShipMethodID = (int)reader.GetValue(15);
+					fieldValue = reader.GetValue(16);
 					soh.CreditCardID = (int?)(fieldValue == DBNull.Value ? null : fieldValue);
-					fieldValue = reader.GetValue(18);
+					fieldValue = reader.GetValue(17);
 					soh.CreditCardApprovalCode = (string)(fieldValue == DBNull.Value ? null : fieldValue);
-					fieldValue = reader.GetValue(19);
+					fieldValue = reader.GetValue(18);
 					soh.CurrencyRateID = (int?)(fieldValue == DBNull.Value?null : fieldValue);
-					soh.SubTotal = (decimal)reader.GetValue(20);
-					soh.TaxAmt = (decimal)reader.GetValue(21);
-					soh.Freight = (decimal)reader.GetValue(22);
-					soh.TotalDue = (decimal)reader.GetValue(23);
-					fieldValue = reader.GetValue(24);
+					soh.SubTotal = (decimal)reader.GetValue(19);
+					soh.TaxAmt = (decimal)reader.GetValue(20);
+					soh.Freight = (decimal)reader.GetValue(21);
+					soh.TotalDue = (decimal)reader.GetValue(22);
+					fieldValue = reader.GetValue(23);
 					soh.Comment = (string)(fieldValue==DBNull.Value ? null : fieldValue);
-					soh.Rowguid = (Guid)reader.GetValue(25);
-					soh.ModifiedDate = (DateTime)reader.GetValue(26);
+					soh.Rowguid = (Guid)reader.GetValue(24);
+					soh.ModifiedDate = (DateTime)reader.GetValue(25);
 					headers.Add(soh);
 				}
 				reader.Close();
@@ -201,14 +195,7 @@ namespace RawBencher
 			}
 			sw.Stop();
 			ReportResult(frameworkName, sw.ElapsedMilliseconds, headers.Count);
-			foreach(var e in headers)
-			{
-				if(e.SalesOrderId <= 0)
-				{
-					Console.WriteLine("Hand written: Data is empty");
-					break;
-				}
-			}
+			VerifyData(headers, v => v.SalesOrderId, frameworkName);
 		}
 
 
@@ -227,15 +214,7 @@ namespace RawBencher
 			}
 			sw.Stop();
 			ReportResult(frameworkName, sw.ElapsedMilliseconds, headers.Count);
-
-			foreach(var e in headers)
-			{
-				if(e.SalesOrderId <= 0)
-				{
-					Console.WriteLine("Dapper: Data is empty");
-					break;
-				}
-			}
+			VerifyData(headers, v => v.SalesOrderId, frameworkName);
 		}
 
 
@@ -254,16 +233,8 @@ namespace RawBencher
             }
             sw.Stop();
             ReportResult(frameworkName, sw.ElapsedMilliseconds, headers.Count);
-
-            foreach (var e in headers)
-            {
-                if (e.SalesOrderId <= 0)
-                {
-                    Console.WriteLine("OrmLite: Data is empty");
-                    break;
-                }
-            }
-        }
+			VerifyData(headers, v => v.SalesOrderId, frameworkName);
+		}
 
 
 		private static void FetchSalesOrderHeaderEntitiesWithCaching()
@@ -280,14 +251,7 @@ namespace RawBencher
 			}
 			sw.Stop();
 			ReportResult(frameworkName, sw.ElapsedMilliseconds, headers.Count);
-			foreach(var e in headers)
-			{
-				if(e.SalesOrderId <= 0)
-				{
-					Console.WriteLine("LLBL41 with cache: Data is empty");
-					break;
-				}
-			}
+			VerifyData(headers, v => v.SalesOrderId, frameworkName);
 		}
 
 
@@ -334,14 +298,7 @@ namespace RawBencher
 			}
 			sw.Stop();
 			ReportResult(frameworkName, sw.ElapsedMilliseconds, headers.Count);
-			foreach(var e in headers)
-			{
-				if(e.SalesOrderId <= 0)
-				{
-					Console.WriteLine("LLBL41: Data is empty");
-					break;
-				}
-			}
+			VerifyData(headers, v => v.SalesOrderId, frameworkName);
 			return headers;
 		}
 
@@ -358,14 +315,7 @@ namespace RawBencher
 			}
 			sw.Stop();
 			ReportResult(frameworkName, sw.ElapsedMilliseconds, headers.Count);
-			foreach(var e in headers)
-			{
-				if(e.SalesOrderId <= 0)
-				{
-					Console.WriteLine("EF: Data is empty");
-					break;
-				}
-			}
+			VerifyData(headers, v => v.SalesOrderId, frameworkName);
 			return headers;
 		}
 
@@ -382,14 +332,7 @@ namespace RawBencher
 			}
 			sw.Stop();
 			ReportResult(frameworkName, sw.ElapsedMilliseconds, headers.Count);
-			foreach(var e in headers)
-			{
-				if(e.SalesOrderId <= 0)
-				{
-					Console.WriteLine("EF: Data is empty");
-					break;
-				}
-			}
+			VerifyData(headers, v => v.SalesOrderId, frameworkName);
 			return headers;
 		}
 
@@ -429,15 +372,7 @@ namespace RawBencher
 			headers = ctx.SalesOrderHeaders.ToList();
 			sw.Stop();
 			ReportResult(frameworkName, sw.ElapsedMilliseconds, headers.Count);
-
-			foreach(var e in headers)
-			{
-				if(e.SalesOrderId <= 0)
-				{
-					Console.WriteLine("L2S: Data is empty");
-					break;
-				}
-			}
+			VerifyData(headers, v => v.SalesOrderId, frameworkName);
 		}
 
 
@@ -452,15 +387,7 @@ namespace RawBencher
 			headers = ctx.SalesOrderHeaders.ToList();
 			sw.Stop();
 			ReportResult(frameworkName, sw.ElapsedMilliseconds, headers.Count);
-
-			foreach(var e in headers)
-			{
-				if(e.SalesOrderId <= 0)
-				{
-					Console.WriteLine("L2S: Data is empty");
-					break;
-				}
-			}
+			VerifyData(headers, v => v.SalesOrderId, frameworkName);
 		}
 
 
@@ -476,15 +403,9 @@ namespace RawBencher
 			}
 			sw.Stop();
 			ReportResult(frameworkName, sw.ElapsedMilliseconds, headers.Count);
-			foreach(var e in headers)
-			{
-				if(e.SalesOrderId <= 0)
-				{
-					Console.WriteLine("NH: Data is empty");
-					break;
-				}
-			}
+			VerifyData(headers, v => v.SalesOrderId, frameworkName);
 		}
+
 
         private static void FetchSalesOrderHeaderOakDynamicDb()
         {
@@ -495,16 +416,29 @@ namespace RawBencher
             var headers = db.All();
             sw.Stop();
             ReportResult(frameworkName, sw.ElapsedMilliseconds, headers.Count());
-
-            foreach (var header in headers)
-            {
-                if (header.SalesOrderID <= 0)
-                {
-                    Console.WriteLine("Oak: Data is empty");
-                    break;
-                }
-            }
+			VerifyData(headers, v => v.SalesOrderID, frameworkName);
         }
+
+
+		private static void VerifyData<T>(IEnumerable<T> toEnumerate, Func<T, int> idRetriever, string frameworkName)
+		{
+			var sw = new Stopwatch();
+			sw.Start();
+			foreach(var v in toEnumerate)
+			{
+				if(idRetriever(v) <= 0)
+				{
+					Console.WriteLine("{0}: data is empty.");
+					break;
+				}
+			}
+			sw.Stop();
+			if(PrintEnumerationTimings)
+			{
+				Console.WriteLine("Enumerating all rows in the resultset of '{0}' took: {1}ms", frameworkName, sw.ElapsedMilliseconds);
+			}
+		}
+
 
 		private static void GetVersionStrings(Assembly a, out string fileVersion, out string assemblyVersion)
 		{

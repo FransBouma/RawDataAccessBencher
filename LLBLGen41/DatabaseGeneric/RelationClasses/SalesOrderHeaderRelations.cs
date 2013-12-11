@@ -34,7 +34,6 @@ namespace AdventureWorks.Dal.Adapter.v41.RelationClasses
 			toReturn.Add(this.SalesOrderHeaderSalesReasonEntityUsingSalesOrderId);
 			toReturn.Add(this.AddressEntityUsingBillToAddressId);
 			toReturn.Add(this.AddressEntityUsingShipToAddressId);
-			toReturn.Add(this.ContactEntityUsingContactId);
 			toReturn.Add(this.CreditCardEntityUsingCreditCardId);
 			toReturn.Add(this.CurrencyRateEntityUsingCurrencyRateId);
 			toReturn.Add(this.CustomerEntityUsingCustomerId);
@@ -101,20 +100,6 @@ namespace AdventureWorks.Dal.Adapter.v41.RelationClasses
 				IEntityRelation relation = new EntityRelation(SD.LLBLGen.Pro.ORMSupportClasses.RelationType.ManyToOne, "Address_", false);
 				relation.AddEntityFieldPair(AddressFields.AddressId, SalesOrderHeaderFields.ShipToAddressId);
 				relation.InheritanceInfoPkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("AddressEntity", false);
-				relation.InheritanceInfoFkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("SalesOrderHeaderEntity", true);
-				return relation;
-			}
-		}
-		/// <summary>Returns a new IEntityRelation object, between SalesOrderHeaderEntity and ContactEntity over the m:1 relation they have, using the relation between the fields:
-		/// SalesOrderHeader.ContactId - Contact.ContactId
-		/// </summary>
-		public virtual IEntityRelation ContactEntityUsingContactId
-		{
-			get
-			{
-				IEntityRelation relation = new EntityRelation(SD.LLBLGen.Pro.ORMSupportClasses.RelationType.ManyToOne, "Contact", false);
-				relation.AddEntityFieldPair(ContactFields.ContactId, SalesOrderHeaderFields.ContactId);
-				relation.InheritanceInfoPkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("ContactEntity", false);
 				relation.InheritanceInfoFkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("SalesOrderHeaderEntity", true);
 				return relation;
 			}
@@ -221,7 +206,6 @@ namespace AdventureWorks.Dal.Adapter.v41.RelationClasses
 		internal static readonly IEntityRelation SalesOrderHeaderSalesReasonEntityUsingSalesOrderIdStatic = new SalesOrderHeaderRelations().SalesOrderHeaderSalesReasonEntityUsingSalesOrderId;
 		internal static readonly IEntityRelation AddressEntityUsingBillToAddressIdStatic = new SalesOrderHeaderRelations().AddressEntityUsingBillToAddressId;
 		internal static readonly IEntityRelation AddressEntityUsingShipToAddressIdStatic = new SalesOrderHeaderRelations().AddressEntityUsingShipToAddressId;
-		internal static readonly IEntityRelation ContactEntityUsingContactIdStatic = new SalesOrderHeaderRelations().ContactEntityUsingContactId;
 		internal static readonly IEntityRelation CreditCardEntityUsingCreditCardIdStatic = new SalesOrderHeaderRelations().CreditCardEntityUsingCreditCardId;
 		internal static readonly IEntityRelation CurrencyRateEntityUsingCurrencyRateIdStatic = new SalesOrderHeaderRelations().CurrencyRateEntityUsingCurrencyRateId;
 		internal static readonly IEntityRelation CustomerEntityUsingCustomerIdStatic = new SalesOrderHeaderRelations().CustomerEntityUsingCustomerId;

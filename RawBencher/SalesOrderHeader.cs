@@ -196,7 +196,6 @@ namespace RawBencher
         }
 
         public int CustomerID { get; set; }
-        public int ContactID { get; set; }
         public int? SalesPersonID { get; set; }
         public int? TerritoryID { get; set; }
         public int BillToAddressID { get; set; }

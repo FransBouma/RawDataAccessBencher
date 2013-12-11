@@ -154,7 +154,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductProductPhoto.Product - Product.ProductProductPhotos (m:1)'</summary>
-		[Association(Name="ProductProductPhoto_Product8fa0e9fb804f4b3dbc53396294410f98", Storage="_product", ThisKey="ProductId", IsForeignKey=true)] 
+		[Association(Name="ProductProductPhoto_Productf09090fc15c6433e90c3424f422e1af5", Storage="_product", ThisKey="ProductId", IsForeignKey=true)] 
 		public Product Product
 		{
 			get { return _product.Entity; }
@@ -185,7 +185,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductProductPhoto.ProductPhoto - ProductPhoto.ProductProductPhotos (m:1)'</summary>
-		[Association(Name="ProductProductPhoto_ProductPhoto7da8bba3794243b0b453e0aff347f705", Storage="_productPhoto", ThisKey="ProductPhotoId", IsForeignKey=true)] 
+		[Association(Name="ProductProductPhoto_ProductPhoto80c4e733153e40f1876a31f4f3213393", Storage="_productPhoto", ThisKey="ProductPhotoId", IsForeignKey=true)] 
 		public ProductPhoto ProductPhoto
 		{
 			get { return _productPhoto.Entity; }

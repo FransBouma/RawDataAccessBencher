@@ -11,8 +11,7 @@ namespace NH.Bencher.EntityClasses
 	public partial class AddressType
 	{
 		#region Class Member Declarations
-		private Iesi.Collections.Generic.ISet<CustomerAddress> _customerAddresses;
-		private Iesi.Collections.Generic.ISet<VendorAddress> _vendorAddresses;
+		private Iesi.Collections.Generic.ISet<BusinessEntityAddress> _businessEntityAddresses;
 		private System.Int32 _addressTypeId;
 		private System.DateTime _modifiedDate;
 		private System.String _name;
@@ -22,8 +21,7 @@ namespace NH.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="AddressType"/> class.</summary>
 		public AddressType() : base()
 		{
-			_customerAddresses = new Iesi.Collections.Generic.HashedSet<CustomerAddress>();
-			_vendorAddresses = new Iesi.Collections.Generic.HashedSet<VendorAddress>();
+			_businessEntityAddresses = new Iesi.Collections.Generic.HashedSet<BusinessEntityAddress>();
 			_addressTypeId = default(System.Int32);
 			OnCreated();
 		}
@@ -82,18 +80,11 @@ namespace NH.Bencher.EntityClasses
 			set { _rowguid = value; }
 		}
 
-		/// <summary>Represents the navigator which is mapped onto the association 'CustomerAddress.AddressType - AddressType.CustomerAddresses (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<CustomerAddress> CustomerAddresses
+		/// <summary>Represents the navigator which is mapped onto the association 'BusinessEntityAddress.AddressType - AddressType.BusinessEntityAddresses (m:1)'</summary>
+		public virtual Iesi.Collections.Generic.ISet<BusinessEntityAddress> BusinessEntityAddresses
 		{
-			get { return _customerAddresses; }
-			set { _customerAddresses = value; }
-		}
-		
-		/// <summary>Represents the navigator which is mapped onto the association 'VendorAddress.AddressType - AddressType.VendorAddresses (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<VendorAddress> VendorAddresses
-		{
-			get { return _vendorAddresses; }
-			set { _vendorAddresses = value; }
+			get { return _businessEntityAddresses; }
+			set { _businessEntityAddresses = value; }
 		}
 		
 		#endregion

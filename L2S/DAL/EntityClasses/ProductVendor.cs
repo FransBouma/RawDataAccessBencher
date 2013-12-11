@@ -22,6 +22,7 @@ namespace L2S.Bencher.EntityClasses
 		
 		#region Class Member Declarations
 		private System.Int32	_averageLeadTime;
+		private System.Int32	_businessEntityId;
 		private Nullable<System.Decimal>	_lastReceiptCost;
 		private Nullable<System.DateTime>	_lastReceiptDate;
 		private System.Int32	_maxOrderQty;
@@ -31,7 +32,6 @@ namespace L2S.Bencher.EntityClasses
 		private System.Int32	_productId;
 		private System.Decimal	_standardPrice;
 		private System.String	_unitMeasureCode;
-		private System.Int32	_vendorId;
 		private EntityRef <Product> _product;
 		private EntityRef <UnitMeasure> _unitMeasure;
 		private EntityRef <Vendor> _vendor;
@@ -43,6 +43,8 @@ namespace L2S.Bencher.EntityClasses
 		partial void OnCreated();
 		partial void OnAverageLeadTimeChanging(System.Int32 value);
 		partial void OnAverageLeadTimeChanged();
+		partial void OnBusinessEntityIdChanging(System.Int32 value);
+		partial void OnBusinessEntityIdChanged();
 		partial void OnLastReceiptCostChanging(Nullable<System.Decimal> value);
 		partial void OnLastReceiptCostChanged();
 		partial void OnLastReceiptDateChanging(Nullable<System.DateTime> value);
@@ -61,8 +63,6 @@ namespace L2S.Bencher.EntityClasses
 		partial void OnStandardPriceChanged();
 		partial void OnUnitMeasureCodeChanging(System.String value);
 		partial void OnUnitMeasureCodeChanged();
-		partial void OnVendorIdChanging(System.Int32 value);
-		partial void OnVendorIdChanged();
 		#endregion
 		
 		/// <summary>Initializes a new instance of the <see cref="ProductVendor"/> class.</summary>
@@ -110,6 +110,28 @@ namespace L2S.Bencher.EntityClasses
 					_averageLeadTime = value;
 					SendPropertyChanged("AverageLeadTime");
 					OnAverageLeadTimeChanged();
+				}
+			}
+		}
+
+		/// <summary>Gets or sets the BusinessEntityId field. Mapped on target field 'BusinessEntityID'. </summary>
+		[Column(Name="BusinessEntityID", Storage="_businessEntityId", CanBeNull=false, DbType="int NOT NULL", IsPrimaryKey=true)]
+		public System.Int32 BusinessEntityId
+		{
+			get	{ return _businessEntityId; }
+			set
+			{
+				if((_businessEntityId != value))
+				{
+					if(_vendor.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					OnBusinessEntityIdChanging(value);
+					SendPropertyChanging("BusinessEntityId");
+					_businessEntityId = value;
+					SendPropertyChanged("BusinessEntityId");
+					OnBusinessEntityIdChanged();
 				}
 			}
 		}
@@ -284,30 +306,8 @@ namespace L2S.Bencher.EntityClasses
 			}
 		}
 
-		/// <summary>Gets or sets the VendorId field. Mapped on target field 'VendorID'. </summary>
-		[Column(Name="VendorID", Storage="_vendorId", CanBeNull=false, DbType="int NOT NULL", IsPrimaryKey=true)]
-		public System.Int32 VendorId
-		{
-			get	{ return _vendorId; }
-			set
-			{
-				if((_vendorId != value))
-				{
-					if(_vendor.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					OnVendorIdChanging(value);
-					SendPropertyChanging("VendorId");
-					_vendorId = value;
-					SendPropertyChanged("VendorId");
-					OnVendorIdChanged();
-				}
-			}
-		}
-
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductVendor.Product - Product.ProductVendors (m:1)'</summary>
-		[Association(Name="ProductVendor_Product1bf4057500c24bc2ab36330450010ae9", Storage="_product", ThisKey="ProductId", IsForeignKey=true)] 
+		[Association(Name="ProductVendor_Product870d999dfa5647ce8879f7499a26181d", Storage="_product", ThisKey="ProductId", IsForeignKey=true)] 
 		public Product Product
 		{
 			get { return _product.Entity; }
@@ -338,7 +338,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductVendor.UnitMeasure - UnitMeasure.ProductVendors (m:1)'</summary>
-		[Association(Name="ProductVendor_UnitMeasurece4b3e6c67de4291b5c1b129dcb0edbe", Storage="_unitMeasure", ThisKey="UnitMeasureCode", IsForeignKey=true)] 
+		[Association(Name="ProductVendor_UnitMeasuref41bc33f7eed41d2a5808f22a066c3d4", Storage="_unitMeasure", ThisKey="UnitMeasureCode", IsForeignKey=true)] 
 		public UnitMeasure UnitMeasure
 		{
 			get { return _unitMeasure.Entity; }
@@ -369,7 +369,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductVendor.Vendor - Vendor.ProductVendors (m:1)'</summary>
-		[Association(Name="ProductVendor_Vendor18cb37fc8ab5434291dd10925cffb5e3", Storage="_vendor", ThisKey="VendorId", IsForeignKey=true)] 
+		[Association(Name="ProductVendor_Vendorab56faa0a9484f9eaaa056a5bc57437f", Storage="_vendor", ThisKey="BusinessEntityId", IsForeignKey=true)] 
 		public Vendor Vendor
 		{
 			get { return _vendor.Entity; }
@@ -387,12 +387,12 @@ namespace L2S.Bencher.EntityClasses
 					_vendor.Entity = value;
 					if(value == null)
 					{
-						_vendorId = default(System.Int32);
+						_businessEntityId = default(System.Int32);
 					}
 					else
 					{
 						value.ProductVendors.Add(this);
-						_vendorId = value.VendorId;
+						_businessEntityId = value.BusinessEntityId;
 					}
 					this.SendPropertyChanged("Vendor");
 				}

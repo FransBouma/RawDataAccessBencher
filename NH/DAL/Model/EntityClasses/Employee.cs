@@ -11,13 +11,11 @@ namespace NH.Bencher.EntityClasses
 	public partial class Employee
 	{
 		#region Class Member Declarations
-		private Contact _contact;
-		private Employee _manager;
-		private Iesi.Collections.Generic.ISet<Employee> _employees;
-		private Iesi.Collections.Generic.ISet<EmployeeAddress> _employeeAddresses;
+		private Iesi.Collections.Generic.ISet<Document> _documents;
 		private Iesi.Collections.Generic.ISet<EmployeeDepartmentHistory> _employeeDepartmentHistories;
 		private Iesi.Collections.Generic.ISet<EmployeePayHistory> _employeePayHistories;
 		private Iesi.Collections.Generic.ISet<JobCandidate> _jobCandidates;
+		private Person _person;
 		private Iesi.Collections.Generic.ISet<PurchaseOrderHeader> _purchaseOrderHeaders;
 		private SalesPerson _salesPerson;
 		private System.DateTime _birthDate;
@@ -29,6 +27,8 @@ namespace NH.Bencher.EntityClasses
 		private System.String _maritalStatus;
 		private System.DateTime _modifiedDate;
 		private System.String _nationalIdnumber;
+		private Nullable<System.Int16> _organizationLevel;
+		private System.String _organizationNode;
 		private System.Guid _rowguid;
 		private System.Boolean _salariedFlag;
 		private System.Int16 _sickLeaveHours;
@@ -39,13 +39,13 @@ namespace NH.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="Employee"/> class.</summary>
 		public Employee() : base()
 		{
-			_employees = new Iesi.Collections.Generic.HashedSet<Employee>();
-			_employeeAddresses = new Iesi.Collections.Generic.HashedSet<EmployeeAddress>();
+			_documents = new Iesi.Collections.Generic.HashedSet<Document>();
 			_employeeDepartmentHistories = new Iesi.Collections.Generic.HashedSet<EmployeeDepartmentHistory>();
 			_employeePayHistories = new Iesi.Collections.Generic.HashedSet<EmployeePayHistory>();
 			_jobCandidates = new Iesi.Collections.Generic.HashedSet<JobCandidate>();
 			_purchaseOrderHeaders = new Iesi.Collections.Generic.HashedSet<PurchaseOrderHeader>();
 			_employeeId = default(System.Int32);
+			_organizationLevel = default(Nullable<System.Int16>);
 			OnCreated();
 		}
 
@@ -66,12 +66,7 @@ namespace NH.Bencher.EntityClasses
 		/// <returns><c>true</c> if the specified <see cref="System.Object"/> is equal to this instance; otherwise, <c>false</c>.</returns>
 		public override bool Equals(object obj)
 		{
-			if(obj == null) 
-			{
-				return false;
-			}
-			Employee toCompareWith = obj as Employee;
-			return toCompareWith == null ? false : ((this.EmployeeId == toCompareWith.EmployeeId));
+			return object.ReferenceEquals(this, obj);
 		}
 		
 
@@ -138,6 +133,19 @@ namespace NH.Bencher.EntityClasses
 			set { _nationalIdnumber = value; }
 		}
 
+		/// <summary>Gets the OrganizationLevel field. </summary>	
+		public virtual Nullable<System.Int16> OrganizationLevel
+		{ 
+			get { return _organizationLevel; }
+		}
+
+		/// <summary>Gets or sets the OrganizationNode field. </summary>	
+		public virtual System.String OrganizationNode
+		{ 
+			get { return _organizationNode; }
+			set { _organizationNode = value; }
+		}
+
 		/// <summary>Gets or sets the Rowguid field. </summary>	
 		public virtual System.Guid Rowguid
 		{ 
@@ -173,32 +181,11 @@ namespace NH.Bencher.EntityClasses
 			set { _vacationHours = value; }
 		}
 
-		/// <summary>Represents the navigator which is mapped onto the association 'Employee.Contact - Contact.Employees (m:1)'</summary>
-		public virtual Contact Contact
+		/// <summary>Represents the navigator which is mapped onto the association 'Document.Employee - Employee.Documents (m:1)'</summary>
+		public virtual Iesi.Collections.Generic.ISet<Document> Documents
 		{
-			get { return _contact; }
-			set { _contact = value; }
-		}
-		
-		/// <summary>Represents the navigator which is mapped onto the association 'Employee.Manager - Employee.Employees (m:1)'</summary>
-		public virtual Employee Manager
-		{
-			get { return _manager; }
-			set { _manager = value; }
-		}
-		
-		/// <summary>Represents the navigator which is mapped onto the association 'Employee.Manager - Employee.Employees (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<Employee> Employees
-		{
-			get { return _employees; }
-			set { _employees = value; }
-		}
-		
-		/// <summary>Represents the navigator which is mapped onto the association 'EmployeeAddress.Employee - Employee.EmployeeAddresses (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<EmployeeAddress> EmployeeAddresses
-		{
-			get { return _employeeAddresses; }
-			set { _employeeAddresses = value; }
+			get { return _documents; }
+			set { _documents = value; }
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'EmployeeDepartmentHistory.Employee - Employee.EmployeeDepartmentHistories (m:1)'</summary>
@@ -220,6 +207,13 @@ namespace NH.Bencher.EntityClasses
 		{
 			get { return _jobCandidates; }
 			set { _jobCandidates = value; }
+		}
+		
+		/// <summary>Represents the navigator which is mapped onto the association 'Employee.Person - Person.Employee (1:1)'</summary>
+		public virtual Person Person
+		{
+			get { return _person; }
+			set { _person = value; }
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'PurchaseOrderHeader.Employee - Employee.PurchaseOrderHeaders (m:1)'</summary>

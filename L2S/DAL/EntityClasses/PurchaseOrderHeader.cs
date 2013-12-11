@@ -356,7 +356,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'PurchaseOrderHeader.Employee - Employee.PurchaseOrderHeaders (m:1)'</summary>
-		[Association(Name="PurchaseOrderHeader_Employee124ba68ba340461aa86fcd2f3485dba8", Storage="_employee", ThisKey="EmployeeId", IsForeignKey=true)] 
+		[Association(Name="PurchaseOrderHeader_Employeec4979523b2b34bb4a3c1e0c347d9b665", Storage="_employee", ThisKey="EmployeeId", IsForeignKey=true)] 
 		public Employee Employee
 		{
 			get { return _employee.Entity; }
@@ -379,7 +379,7 @@ namespace L2S.Bencher.EntityClasses
 					else
 					{
 						value.PurchaseOrderHeaders.Add(this);
-						_employeeId = value.EmployeeId;
+						_employeeId = value.BusinessEntityId;
 					}
 					this.SendPropertyChanged("Employee");
 				}
@@ -387,7 +387,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'PurchaseOrderDetail.PurchaseOrderHeader - PurchaseOrderHeader.PurchaseOrderDetails (m:1)'</summary>
-		[Association(Name="PurchaseOrderDetail_PurchaseOrderHeader08dff713017748378b4930402e6f7555", Storage="_purchaseOrderDetails", OtherKey="PurchaseOrderId")]
+		[Association(Name="PurchaseOrderDetail_PurchaseOrderHeader16afa68c7f36487c81bf5a4e7de500df", Storage="_purchaseOrderDetails", OtherKey="PurchaseOrderId")]
 		public EntitySet<PurchaseOrderDetail> PurchaseOrderDetails
 		{
 			get { return this._purchaseOrderDetails; }
@@ -395,7 +395,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'PurchaseOrderHeader.ShipMethod - ShipMethod.PurchaseOrderHeaders (m:1)'</summary>
-		[Association(Name="PurchaseOrderHeader_ShipMethod9009bfbb55984fd78806b70247a5d7fc", Storage="_shipMethod", ThisKey="ShipMethodId", IsForeignKey=true)] 
+		[Association(Name="PurchaseOrderHeader_ShipMethodb9e0447b9efd4e07b6e8902dabe7ca65", Storage="_shipMethod", ThisKey="ShipMethodId", IsForeignKey=true)] 
 		public ShipMethod ShipMethod
 		{
 			get { return _shipMethod.Entity; }
@@ -426,7 +426,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'PurchaseOrderHeader.Vendor - Vendor.PurchaseOrderHeaders (m:1)'</summary>
-		[Association(Name="PurchaseOrderHeader_Vendordf935cd8a11e4c289c3b92e488d4b427", Storage="_vendor", ThisKey="VendorId", IsForeignKey=true)] 
+		[Association(Name="PurchaseOrderHeader_Vendor0c14df47893649fa9f436089a770b879", Storage="_vendor", ThisKey="VendorId", IsForeignKey=true)] 
 		public Vendor Vendor
 		{
 			get { return _vendor.Entity; }
@@ -449,7 +449,7 @@ namespace L2S.Bencher.EntityClasses
 					else
 					{
 						value.PurchaseOrderHeaders.Add(this);
-						_vendorId = value.VendorId;
+						_vendorId = value.BusinessEntityId;
 					}
 					this.SendPropertyChanged("Vendor");
 				}

@@ -18,8 +18,7 @@ namespace EF6.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="Employee"/> class.</summary>
 		public Employee() : base()
 		{
-			this.Employees = new HashSet<Employee>();
-			this.EmployeeAddresses = new HashSet<EmployeeAddress>();
+			this.Documents = new HashSet<Document>();
 			this.EmployeeDepartmentHistories = new HashSet<EmployeeDepartmentHistory>();
 			this.EmployeePayHistories = new HashSet<EmployeePayHistory>();
 			this.JobCandidates = new HashSet<JobCandidate>();
@@ -54,6 +53,12 @@ namespace EF6.Bencher.EntityClasses
 		/// <summary>Gets or sets the NationalIdnumber field. </summary>
 		[DataMember]
 		public System.String NationalIdnumber { get; set;}
+		/// <summary>Gets or sets the OrganizationLevel field. </summary>
+		[DataMember]
+		public Nullable<System.Int16> OrganizationLevel { get; set;}
+		/// <summary>Gets or sets the OrganizationNode field. </summary>
+		[DataMember]
+		public System.String OrganizationNode { get; set;}
 		/// <summary>Gets or sets the Rowguid field. </summary>
 		[DataMember]
 		public System.Guid Rowguid { get; set;}
@@ -69,18 +74,9 @@ namespace EF6.Bencher.EntityClasses
 		/// <summary>Gets or sets the VacationHours field. </summary>
 		[DataMember]
 		public System.Int16 VacationHours { get; set;}
-		/// <summary>Represents the navigator which is mapped onto the association 'Employee.Contact - Contact.Employees (m:1)'</summary>
+		/// <summary>Represents the navigator which is mapped onto the association 'Document.Employee - Employee.Documents (m:1)'</summary>
 		[DataMember]
-		public virtual Contact Contact { get; set;}
-		/// <summary>Represents the navigator which is mapped onto the association 'Employee.Manager - Employee.Employees (m:1)'</summary>
-		[DataMember]
-		public virtual Employee Manager { get; set;}
-		/// <summary>Represents the navigator which is mapped onto the association 'Employee.Manager - Employee.Employees (m:1)'</summary>
-		[DataMember]
-		public virtual ICollection<Employee> Employees { get; set;}
-		/// <summary>Represents the navigator which is mapped onto the association 'EmployeeAddress.Employee - Employee.EmployeeAddresses (m:1)'</summary>
-		[DataMember]
-		public virtual ICollection<EmployeeAddress> EmployeeAddresses { get; set;}
+		public virtual ICollection<Document> Documents { get; set;}
 		/// <summary>Represents the navigator which is mapped onto the association 'EmployeeDepartmentHistory.Employee - Employee.EmployeeDepartmentHistories (m:1)'</summary>
 		[DataMember]
 		public virtual ICollection<EmployeeDepartmentHistory> EmployeeDepartmentHistories { get; set;}
@@ -90,6 +86,9 @@ namespace EF6.Bencher.EntityClasses
 		/// <summary>Represents the navigator which is mapped onto the association 'JobCandidate.Employee - Employee.JobCandidates (m:1)'</summary>
 		[DataMember]
 		public virtual ICollection<JobCandidate> JobCandidates { get; set;}
+		/// <summary>Represents the navigator which is mapped onto the association 'Employee.Person - Person.Person.Employee (1:1)'</summary>
+		[DataMember]
+		public virtual Person Person { get; set;}
 		/// <summary>Represents the navigator which is mapped onto the association 'PurchaseOrderHeader.Employee - Employee.PurchaseOrderHeaders (m:1)'</summary>
 		[DataMember]
 		public virtual ICollection<PurchaseOrderHeader> PurchaseOrderHeaders { get; set;}

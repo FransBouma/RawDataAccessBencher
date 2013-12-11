@@ -12,6 +12,7 @@ namespace NH.Bencher.EntityClasses
 	{
 		#region Class Member Declarations
 		private Iesi.Collections.Generic.ISet<CountryRegionCurrency> _countryRegionCurrencies;
+		private Iesi.Collections.Generic.ISet<SalesTerritory> _salesTerritories;
 		private Iesi.Collections.Generic.ISet<StateProvince> _stateProvinces;
 		private System.String _countryRegionCode;
 		private System.DateTime _modifiedDate;
@@ -22,6 +23,7 @@ namespace NH.Bencher.EntityClasses
 		public CountryRegion() : base()
 		{
 			_countryRegionCurrencies = new Iesi.Collections.Generic.HashedSet<CountryRegionCurrency>();
+			_salesTerritories = new Iesi.Collections.Generic.HashedSet<SalesTerritory>();
 			_stateProvinces = new Iesi.Collections.Generic.HashedSet<StateProvince>();
 			OnCreated();
 		}
@@ -79,6 +81,13 @@ namespace NH.Bencher.EntityClasses
 		{
 			get { return _countryRegionCurrencies; }
 			set { _countryRegionCurrencies = value; }
+		}
+		
+		/// <summary>Represents the navigator which is mapped onto the association 'SalesTerritory.CountryRegion - CountryRegion.SalesTerritories (m:1)'</summary>
+		public virtual Iesi.Collections.Generic.ISet<SalesTerritory> SalesTerritories
+		{
+			get { return _salesTerritories; }
+			set { _salesTerritories = value; }
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'StateProvince.CountryRegion - CountryRegion.StateProvinces (m:1)'</summary>

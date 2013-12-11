@@ -18,8 +18,7 @@ namespace EF6.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="ContactType"/> class.</summary>
 		public ContactType() : base()
 		{
-			this.StoreContacts = new HashSet<StoreContact>();
-			this.VendorContacts = new HashSet<VendorContact>();
+			this.BusinessEntityContacts = new HashSet<BusinessEntityContact>();
 		}
 
 		#region Class Property Declarations
@@ -32,12 +31,9 @@ namespace EF6.Bencher.EntityClasses
 		/// <summary>Gets or sets the Name field. </summary>
 		[DataMember]
 		public System.String Name { get; set;}
-		/// <summary>Represents the navigator which is mapped onto the association 'StoreContact.ContactType - ContactType.StoreContacts (m:1)'</summary>
+		/// <summary>Represents the navigator which is mapped onto the association 'Person.BusinessEntityContact.ContactType - ContactType.BusinessEntityContacts (m:1)'</summary>
 		[DataMember]
-		public virtual ICollection<StoreContact> StoreContacts { get; set;}
-		/// <summary>Represents the navigator which is mapped onto the association 'VendorContact.ContactType - ContactType.VendorContacts (m:1)'</summary>
-		[DataMember]
-		public virtual ICollection<VendorContact> VendorContacts { get; set;}
+		public virtual ICollection<BusinessEntityContact> BusinessEntityContacts { get; set;}
 		#endregion
 	}
 }

@@ -30,12 +30,12 @@ namespace EF6.Bencher.EntityClasses
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
 		[DataMember]
 		public System.DateTime ModifiedDate { get; set;}
-		/// <summary>Represents the navigator which is mapped onto the association 'ContactCreditCard.Contact - Contact.ContactCreditCards (m:1)'</summary>
-		[DataMember]
-		public virtual Contact Contact { get; set;}
 		/// <summary>Represents the navigator which is mapped onto the association 'ContactCreditCard.CreditCard - CreditCard.ContactCreditCards (m:1)'</summary>
 		[DataMember]
 		public virtual CreditCard CreditCard { get; set;}
+		/// <summary>Represents the navigator which is mapped onto the association 'ContactCreditCard.Person - Person.Person.ContactCreditCards (m:1)'</summary>
+		[DataMember]
+		public virtual Person Person { get; set;}
 		#endregion
 	}
 }

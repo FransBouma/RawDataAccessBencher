@@ -139,7 +139,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductModelProductDescriptionCulture.Culture - Culture.ProductModelProductDescriptionCultures (m:1)'</summary>
-		[Association(Name="ProductModelProductDescriptionCulture_Culturee148dcf4d0cd426ca1f5d1fbcfe3c2dc", Storage="_productModelProductDescriptionCultures", OtherKey="CultureId")]
+		[Association(Name="ProductModelProductDescriptionCulture_Culture985301aed07f4540ad5d30047ae03b49", Storage="_productModelProductDescriptionCultures", OtherKey="CultureId")]
 		public EntitySet<ProductModelProductDescriptionCulture> ProductModelProductDescriptionCultures
 		{
 			get { return this._productModelProductDescriptionCultures; }

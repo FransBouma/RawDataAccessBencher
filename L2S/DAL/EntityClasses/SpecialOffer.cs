@@ -307,7 +307,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'SpecialOfferProduct.SpecialOffer - SpecialOffer.SpecialOfferProducts (m:1)'</summary>
-		[Association(Name="SpecialOfferProduct_SpecialOffer747caa5a54be47e3a5ef4d0bd2defd18", Storage="_specialOfferProducts", OtherKey="SpecialOfferId")]
+		[Association(Name="SpecialOfferProduct_SpecialOffer4d199cee46b947ed9fb12f6c0b4d5596", Storage="_specialOfferProducts", OtherKey="SpecialOfferId")]
 		public EntitySet<SpecialOfferProduct> SpecialOfferProducts
 		{
 			get { return this._specialOfferProducts; }

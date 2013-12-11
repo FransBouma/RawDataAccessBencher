@@ -3,21 +3,27 @@
 	<edmx:Runtime>
 		<edmx:StorageModels>
 			<Schema Namespace="AW.SQLServer.Store" Alias="Self" 
-					Provider="System.Data.SqlClient" ProviderManifestToken="2005"
+					Provider="System.Data.SqlClient" ProviderManifestToken="2008"
 					xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
 				<EntityContainer Name="AWSQLServerContainer">
 					<EntitySet Name="Department" EntityType="Self.Department" Schema="HumanResources" />
 					<EntitySet Name="Employee" EntityType="Self.Employee" Schema="HumanResources" />
-					<EntitySet Name="EmployeeAddress" EntityType="Self.EmployeeAddress" Schema="HumanResources" />
 					<EntitySet Name="EmployeeDepartmentHistory" EntityType="Self.EmployeeDepartmentHistory" Schema="HumanResources" />
 					<EntitySet Name="EmployeePayHistory" EntityType="Self.EmployeePayHistory" Schema="HumanResources" />
 					<EntitySet Name="JobCandidate" EntityType="Self.JobCandidate" Schema="HumanResources" />
 					<EntitySet Name="Shift" EntityType="Self.Shift" Schema="HumanResources" />
 					<EntitySet Name="Address" EntityType="Self.Address" Schema="Person" />
 					<EntitySet Name="AddressType" EntityType="Self.AddressType" Schema="Person" />
-					<EntitySet Name="Contact" EntityType="Self.Contact" Schema="Person" />
+					<EntitySet Name="BusinessEntity" EntityType="Self.BusinessEntity" Schema="Person" />
+					<EntitySet Name="BusinessEntityAddress" EntityType="Self.BusinessEntityAddress" Schema="Person" />
+					<EntitySet Name="BusinessEntityContact" EntityType="Self.BusinessEntityContact" Schema="Person" />
 					<EntitySet Name="ContactType" EntityType="Self.ContactType" Schema="Person" />
 					<EntitySet Name="CountryRegion" EntityType="Self.CountryRegion" Schema="Person" />
+					<EntitySet Name="EmailAddress" EntityType="Self.EmailAddress" Schema="Person" />
+					<EntitySet Name="Password" EntityType="Self.Password" Schema="Person" />
+					<EntitySet Name="Person" EntityType="Self.Person" Schema="Person" />
+					<EntitySet Name="PersonPhone" EntityType="Self.PersonPhone" Schema="Person" />
+					<EntitySet Name="PhoneNumberType" EntityType="Self.PhoneNumberType" Schema="Person" />
 					<EntitySet Name="StateProvince" EntityType="Self.StateProvince" Schema="Person" />
 					<EntitySet Name="BillOfMaterials" EntityType="Self.BillOfMaterials" Schema="Production" />
 					<EntitySet Name="Culture" EntityType="Self.Culture" Schema="Production" />
@@ -49,16 +55,12 @@
 					<EntitySet Name="PurchaseOrderHeader" EntityType="Self.PurchaseOrderHeader" Schema="Purchasing" />
 					<EntitySet Name="ShipMethod" EntityType="Self.ShipMethod" Schema="Purchasing" />
 					<EntitySet Name="Vendor" EntityType="Self.Vendor" Schema="Purchasing" />
-					<EntitySet Name="VendorAddress" EntityType="Self.VendorAddress" Schema="Purchasing" />
-					<EntitySet Name="VendorContact" EntityType="Self.VendorContact" Schema="Purchasing" />
-					<EntitySet Name="ContactCreditCard" EntityType="Self.ContactCreditCard" Schema="Sales" />
 					<EntitySet Name="CountryRegionCurrency" EntityType="Self.CountryRegionCurrency" Schema="Sales" />
 					<EntitySet Name="CreditCard" EntityType="Self.CreditCard" Schema="Sales" />
 					<EntitySet Name="Currency" EntityType="Self.Currency" Schema="Sales" />
 					<EntitySet Name="CurrencyRate" EntityType="Self.CurrencyRate" Schema="Sales" />
 					<EntitySet Name="Customer" EntityType="Self.Customer" Schema="Sales" />
-					<EntitySet Name="CustomerAddress" EntityType="Self.CustomerAddress" Schema="Sales" />
-					<EntitySet Name="Individual" EntityType="Self.Individual" Schema="Sales" />
+					<EntitySet Name="PersonCreditCard" EntityType="Self.PersonCreditCard" Schema="Sales" />
 					<EntitySet Name="SalesOrderDetail" EntityType="Self.SalesOrderDetail" Schema="Sales" />
 					<EntitySet Name="SalesOrderHeader" EntityType="Self.SalesOrderHeader" Schema="Sales" />
 					<EntitySet Name="SalesOrderHeaderSalesReason" EntityType="Self.SalesOrderHeaderSalesReason" Schema="Sales" />
@@ -72,28 +74,15 @@
 					<EntitySet Name="SpecialOffer" EntityType="Self.SpecialOffer" Schema="Sales" />
 					<EntitySet Name="SpecialOfferProduct" EntityType="Self.SpecialOfferProduct" Schema="Sales" />
 					<EntitySet Name="Store" EntityType="Self.Store" Schema="Sales" />
-					<EntitySet Name="StoreContact" EntityType="Self.StoreContact" Schema="Sales" />
-					<AssociationSet Name="FK_Employee_Contact_ContactID" Association="Self.FK_Employee_Contact_ContactID">
+					<AssociationSet Name="FK_Employee_Person_BusinessEntityID" Association="Self.FK_Employee_Person_BusinessEntityID">
 						<End Role="Employee" EntitySet="Employee"/>
-						<End Role="Contact" EntitySet="Contact"/>
-					</AssociationSet>
-					<AssociationSet Name="FK_Employee_Employee_ManagerID" Association="Self.FK_Employee_Employee_ManagerID">
-						<End Role="Employee" EntitySet="Employee"/>
-						<End Role="Employee1" EntitySet="Employee"/>
-					</AssociationSet>
-					<AssociationSet Name="FK_EmployeeAddress_Address_AddressID" Association="Self.FK_EmployeeAddress_Address_AddressID">
-						<End Role="EmployeeAddress" EntitySet="EmployeeAddress"/>
-						<End Role="Address" EntitySet="Address"/>
-					</AssociationSet>
-					<AssociationSet Name="FK_EmployeeAddress_Employee_EmployeeID" Association="Self.FK_EmployeeAddress_Employee_EmployeeID">
-						<End Role="EmployeeAddress" EntitySet="EmployeeAddress"/>
-						<End Role="Employee" EntitySet="Employee"/>
+						<End Role="Person" EntitySet="Person"/>
 					</AssociationSet>
 					<AssociationSet Name="FK_EmployeeDepartmentHistory_Department_DepartmentID" Association="Self.FK_EmployeeDepartmentHistory_Department_DepartmentID">
 						<End Role="EmployeeDepartmentHistory" EntitySet="EmployeeDepartmentHistory"/>
 						<End Role="Department" EntitySet="Department"/>
 					</AssociationSet>
-					<AssociationSet Name="FK_EmployeeDepartmentHistory_Employee_EmployeeID" Association="Self.FK_EmployeeDepartmentHistory_Employee_EmployeeID">
+					<AssociationSet Name="FK_EmployeeDepartmentHistory_Employee_BusinessEntityID" Association="Self.FK_EmployeeDepartmentHistory_Employee_BusinessEntityID">
 						<End Role="EmployeeDepartmentHistory" EntitySet="EmployeeDepartmentHistory"/>
 						<End Role="Employee" EntitySet="Employee"/>
 					</AssociationSet>
@@ -101,17 +90,61 @@
 						<End Role="EmployeeDepartmentHistory" EntitySet="EmployeeDepartmentHistory"/>
 						<End Role="Shift" EntitySet="Shift"/>
 					</AssociationSet>
-					<AssociationSet Name="FK_EmployeePayHistory_Employee_EmployeeID" Association="Self.FK_EmployeePayHistory_Employee_EmployeeID">
+					<AssociationSet Name="FK_EmployeePayHistory_Employee_BusinessEntityID" Association="Self.FK_EmployeePayHistory_Employee_BusinessEntityID">
 						<End Role="EmployeePayHistory" EntitySet="EmployeePayHistory"/>
 						<End Role="Employee" EntitySet="Employee"/>
 					</AssociationSet>
-					<AssociationSet Name="FK_JobCandidate_Employee_EmployeeID" Association="Self.FK_JobCandidate_Employee_EmployeeID">
+					<AssociationSet Name="FK_JobCandidate_Employee_BusinessEntityID" Association="Self.FK_JobCandidate_Employee_BusinessEntityID">
 						<End Role="JobCandidate" EntitySet="JobCandidate"/>
 						<End Role="Employee" EntitySet="Employee"/>
 					</AssociationSet>
 					<AssociationSet Name="FK_Address_StateProvince_StateProvinceID" Association="Self.FK_Address_StateProvince_StateProvinceID">
 						<End Role="Address" EntitySet="Address"/>
 						<End Role="StateProvince" EntitySet="StateProvince"/>
+					</AssociationSet>
+					<AssociationSet Name="FK_BusinessEntityAddress_Address_AddressID" Association="Self.FK_BusinessEntityAddress_Address_AddressID">
+						<End Role="BusinessEntityAddress" EntitySet="BusinessEntityAddress"/>
+						<End Role="Address" EntitySet="Address"/>
+					</AssociationSet>
+					<AssociationSet Name="FK_BusinessEntityAddress_AddressType_AddressTypeID" Association="Self.FK_BusinessEntityAddress_AddressType_AddressTypeID">
+						<End Role="BusinessEntityAddress" EntitySet="BusinessEntityAddress"/>
+						<End Role="AddressType" EntitySet="AddressType"/>
+					</AssociationSet>
+					<AssociationSet Name="FK_BusinessEntityAddress_BusinessEntity_BusinessEntityID" Association="Self.FK_BusinessEntityAddress_BusinessEntity_BusinessEntityID">
+						<End Role="BusinessEntityAddress" EntitySet="BusinessEntityAddress"/>
+						<End Role="BusinessEntity" EntitySet="BusinessEntity"/>
+					</AssociationSet>
+					<AssociationSet Name="FK_BusinessEntityContact_BusinessEntity_BusinessEntityID" Association="Self.FK_BusinessEntityContact_BusinessEntity_BusinessEntityID">
+						<End Role="BusinessEntityContact" EntitySet="BusinessEntityContact"/>
+						<End Role="BusinessEntity" EntitySet="BusinessEntity"/>
+					</AssociationSet>
+					<AssociationSet Name="FK_BusinessEntityContact_ContactType_ContactTypeID" Association="Self.FK_BusinessEntityContact_ContactType_ContactTypeID">
+						<End Role="BusinessEntityContact" EntitySet="BusinessEntityContact"/>
+						<End Role="ContactType" EntitySet="ContactType"/>
+					</AssociationSet>
+					<AssociationSet Name="FK_BusinessEntityContact_Person_PersonID" Association="Self.FK_BusinessEntityContact_Person_PersonID">
+						<End Role="BusinessEntityContact" EntitySet="BusinessEntityContact"/>
+						<End Role="Person" EntitySet="Person"/>
+					</AssociationSet>
+					<AssociationSet Name="FK_EmailAddress_Person_BusinessEntityID" Association="Self.FK_EmailAddress_Person_BusinessEntityID">
+						<End Role="EmailAddress" EntitySet="EmailAddress"/>
+						<End Role="Person" EntitySet="Person"/>
+					</AssociationSet>
+					<AssociationSet Name="FK_Password_Person_BusinessEntityID" Association="Self.FK_Password_Person_BusinessEntityID">
+						<End Role="Password" EntitySet="Password"/>
+						<End Role="Person" EntitySet="Person"/>
+					</AssociationSet>
+					<AssociationSet Name="FK_Person_BusinessEntity_BusinessEntityID" Association="Self.FK_Person_BusinessEntity_BusinessEntityID">
+						<End Role="Person" EntitySet="Person"/>
+						<End Role="BusinessEntity" EntitySet="BusinessEntity"/>
+					</AssociationSet>
+					<AssociationSet Name="FK_PersonPhone_Person_BusinessEntityID" Association="Self.FK_PersonPhone_Person_BusinessEntityID">
+						<End Role="PersonPhone" EntitySet="PersonPhone"/>
+						<End Role="Person" EntitySet="Person"/>
+					</AssociationSet>
+					<AssociationSet Name="FK_PersonPhone_PhoneNumberType_PhoneNumberTypeID" Association="Self.FK_PersonPhone_PhoneNumberType_PhoneNumberTypeID">
+						<End Role="PersonPhone" EntitySet="PersonPhone"/>
+						<End Role="PhoneNumberType" EntitySet="PhoneNumberType"/>
 					</AssociationSet>
 					<AssociationSet Name="FK_StateProvince_CountryRegion_CountryRegionCode" Association="Self.FK_StateProvince_CountryRegion_CountryRegionCode">
 						<End Role="StateProvince" EntitySet="StateProvince"/>
@@ -133,6 +166,10 @@
 						<End Role="BillOfMaterials" EntitySet="BillOfMaterials"/>
 						<End Role="UnitMeasure" EntitySet="UnitMeasure"/>
 					</AssociationSet>
+					<AssociationSet Name="FK_Document_Employee_Owner" Association="Self.FK_Document_Employee_Owner">
+						<End Role="Document" EntitySet="Document"/>
+						<End Role="Employee" EntitySet="Employee"/>
+					</AssociationSet>
 					<AssociationSet Name="FK_Product_ProductModel_ProductModelID" Association="Self.FK_Product_ProductModel_ProductModelID">
 						<End Role="Product" EntitySet="Product"/>
 						<End Role="ProductModel" EntitySet="ProductModel"/>
@@ -153,7 +190,7 @@
 						<End Role="ProductCostHistory" EntitySet="ProductCostHistory"/>
 						<End Role="Product" EntitySet="Product"/>
 					</AssociationSet>
-					<AssociationSet Name="FK_ProductDocument_Document_DocumentID" Association="Self.FK_ProductDocument_Document_DocumentID">
+					<AssociationSet Name="FK_ProductDocument_Document_DocumentNode" Association="Self.FK_ProductDocument_Document_DocumentNode">
 						<End Role="ProductDocument" EntitySet="ProductDocument"/>
 						<End Role="Document" EntitySet="Document"/>
 					</AssociationSet>
@@ -237,7 +274,7 @@
 						<End Role="ProductVendor" EntitySet="ProductVendor"/>
 						<End Role="UnitMeasure" EntitySet="UnitMeasure"/>
 					</AssociationSet>
-					<AssociationSet Name="FK_ProductVendor_Vendor_VendorID" Association="Self.FK_ProductVendor_Vendor_VendorID">
+					<AssociationSet Name="FK_ProductVendor_Vendor_BusinessEntityID" Association="Self.FK_ProductVendor_Vendor_BusinessEntityID">
 						<End Role="ProductVendor" EntitySet="ProductVendor"/>
 						<End Role="Vendor" EntitySet="Vendor"/>
 					</AssociationSet>
@@ -261,37 +298,9 @@
 						<End Role="PurchaseOrderHeader" EntitySet="PurchaseOrderHeader"/>
 						<End Role="Vendor" EntitySet="Vendor"/>
 					</AssociationSet>
-					<AssociationSet Name="FK_VendorAddress_Address_AddressID" Association="Self.FK_VendorAddress_Address_AddressID">
-						<End Role="VendorAddress" EntitySet="VendorAddress"/>
-						<End Role="Address" EntitySet="Address"/>
-					</AssociationSet>
-					<AssociationSet Name="FK_VendorAddress_AddressType_AddressTypeID" Association="Self.FK_VendorAddress_AddressType_AddressTypeID">
-						<End Role="VendorAddress" EntitySet="VendorAddress"/>
-						<End Role="AddressType" EntitySet="AddressType"/>
-					</AssociationSet>
-					<AssociationSet Name="FK_VendorAddress_Vendor_VendorID" Association="Self.FK_VendorAddress_Vendor_VendorID">
-						<End Role="VendorAddress" EntitySet="VendorAddress"/>
+					<AssociationSet Name="FK_Vendor_BusinessEntity_BusinessEntityID" Association="Self.FK_Vendor_BusinessEntity_BusinessEntityID">
 						<End Role="Vendor" EntitySet="Vendor"/>
-					</AssociationSet>
-					<AssociationSet Name="FK_VendorContact_Contact_ContactID" Association="Self.FK_VendorContact_Contact_ContactID">
-						<End Role="VendorContact" EntitySet="VendorContact"/>
-						<End Role="Contact" EntitySet="Contact"/>
-					</AssociationSet>
-					<AssociationSet Name="FK_VendorContact_ContactType_ContactTypeID" Association="Self.FK_VendorContact_ContactType_ContactTypeID">
-						<End Role="VendorContact" EntitySet="VendorContact"/>
-						<End Role="ContactType" EntitySet="ContactType"/>
-					</AssociationSet>
-					<AssociationSet Name="FK_VendorContact_Vendor_VendorID" Association="Self.FK_VendorContact_Vendor_VendorID">
-						<End Role="VendorContact" EntitySet="VendorContact"/>
-						<End Role="Vendor" EntitySet="Vendor"/>
-					</AssociationSet>
-					<AssociationSet Name="FK_ContactCreditCard_Contact_ContactID" Association="Self.FK_ContactCreditCard_Contact_ContactID">
-						<End Role="ContactCreditCard" EntitySet="ContactCreditCard"/>
-						<End Role="Contact" EntitySet="Contact"/>
-					</AssociationSet>
-					<AssociationSet Name="FK_ContactCreditCard_CreditCard_CreditCardID" Association="Self.FK_ContactCreditCard_CreditCard_CreditCardID">
-						<End Role="ContactCreditCard" EntitySet="ContactCreditCard"/>
-						<End Role="CreditCard" EntitySet="CreditCard"/>
+						<End Role="BusinessEntity" EntitySet="BusinessEntity"/>
 					</AssociationSet>
 					<AssociationSet Name="FK_CountryRegionCurrency_CountryRegion_CountryRegionCode" Association="Self.FK_CountryRegionCurrency_CountryRegion_CountryRegionCode">
 						<End Role="CountryRegionCurrency" EntitySet="CountryRegionCurrency"/>
@@ -309,29 +318,25 @@
 						<End Role="CurrencyRate" EntitySet="CurrencyRate"/>
 						<End Role="Currency" EntitySet="Currency"/>
 					</AssociationSet>
+					<AssociationSet Name="FK_Customer_Person_PersonID" Association="Self.FK_Customer_Person_PersonID">
+						<End Role="Customer" EntitySet="Customer"/>
+						<End Role="Person" EntitySet="Person"/>
+					</AssociationSet>
 					<AssociationSet Name="FK_Customer_SalesTerritory_TerritoryID" Association="Self.FK_Customer_SalesTerritory_TerritoryID">
 						<End Role="Customer" EntitySet="Customer"/>
 						<End Role="SalesTerritory" EntitySet="SalesTerritory"/>
 					</AssociationSet>
-					<AssociationSet Name="FK_CustomerAddress_Address_AddressID" Association="Self.FK_CustomerAddress_Address_AddressID">
-						<End Role="CustomerAddress" EntitySet="CustomerAddress"/>
-						<End Role="Address" EntitySet="Address"/>
-					</AssociationSet>
-					<AssociationSet Name="FK_CustomerAddress_AddressType_AddressTypeID" Association="Self.FK_CustomerAddress_AddressType_AddressTypeID">
-						<End Role="CustomerAddress" EntitySet="CustomerAddress"/>
-						<End Role="AddressType" EntitySet="AddressType"/>
-					</AssociationSet>
-					<AssociationSet Name="FK_CustomerAddress_Customer_CustomerID" Association="Self.FK_CustomerAddress_Customer_CustomerID">
-						<End Role="CustomerAddress" EntitySet="CustomerAddress"/>
+					<AssociationSet Name="FK_Customer_Store_StoreID" Association="Self.FK_Customer_Store_StoreID">
 						<End Role="Customer" EntitySet="Customer"/>
+						<End Role="Store" EntitySet="Store"/>
 					</AssociationSet>
-					<AssociationSet Name="FK_Individual_Contact_ContactID" Association="Self.FK_Individual_Contact_ContactID">
-						<End Role="Individual" EntitySet="Individual"/>
-						<End Role="Contact" EntitySet="Contact"/>
+					<AssociationSet Name="FK_PersonCreditCard_CreditCard_CreditCardID" Association="Self.FK_PersonCreditCard_CreditCard_CreditCardID">
+						<End Role="PersonCreditCard" EntitySet="PersonCreditCard"/>
+						<End Role="CreditCard" EntitySet="CreditCard"/>
 					</AssociationSet>
-					<AssociationSet Name="FK_Individual_Customer_CustomerID" Association="Self.FK_Individual_Customer_CustomerID">
-						<End Role="Individual" EntitySet="Individual"/>
-						<End Role="Customer" EntitySet="Customer"/>
+					<AssociationSet Name="FK_PersonCreditCard_Person_BusinessEntityID" Association="Self.FK_PersonCreditCard_Person_BusinessEntityID">
+						<End Role="PersonCreditCard" EntitySet="PersonCreditCard"/>
+						<End Role="Person" EntitySet="Person"/>
 					</AssociationSet>
 					<AssociationSet Name="FK_SalesOrderDetail_SalesOrderHeader_SalesOrderID" Association="Self.FK_SalesOrderDetail_SalesOrderHeader_SalesOrderID">
 						<End Role="SalesOrderDetail" EntitySet="SalesOrderDetail"/>
@@ -348,10 +353,6 @@
 					<AssociationSet Name="FK_SalesOrderHeader_Address_ShipToAddressID" Association="Self.FK_SalesOrderHeader_Address_ShipToAddressID">
 						<End Role="SalesOrderHeader" EntitySet="SalesOrderHeader"/>
 						<End Role="Address" EntitySet="Address"/>
-					</AssociationSet>
-					<AssociationSet Name="FK_SalesOrderHeader_Contact_ContactID" Association="Self.FK_SalesOrderHeader_Contact_ContactID">
-						<End Role="SalesOrderHeader" EntitySet="SalesOrderHeader"/>
-						<End Role="Contact" EntitySet="Contact"/>
 					</AssociationSet>
 					<AssociationSet Name="FK_SalesOrderHeader_CreditCard_CreditCardID" Association="Self.FK_SalesOrderHeader_CreditCard_CreditCardID">
 						<End Role="SalesOrderHeader" EntitySet="SalesOrderHeader"/>
@@ -385,7 +386,7 @@
 						<End Role="SalesOrderHeaderSalesReason" EntitySet="SalesOrderHeaderSalesReason"/>
 						<End Role="SalesReason" EntitySet="SalesReason"/>
 					</AssociationSet>
-					<AssociationSet Name="FK_SalesPerson_Employee_SalesPersonID" Association="Self.FK_SalesPerson_Employee_SalesPersonID">
+					<AssociationSet Name="FK_SalesPerson_Employee_BusinessEntityID" Association="Self.FK_SalesPerson_Employee_BusinessEntityID">
 						<End Role="SalesPerson" EntitySet="SalesPerson"/>
 						<End Role="Employee" EntitySet="Employee"/>
 					</AssociationSet>
@@ -393,7 +394,7 @@
 						<End Role="SalesPerson" EntitySet="SalesPerson"/>
 						<End Role="SalesTerritory" EntitySet="SalesTerritory"/>
 					</AssociationSet>
-					<AssociationSet Name="FK_SalesPersonQuotaHistory_SalesPerson_SalesPersonID" Association="Self.FK_SalesPersonQuotaHistory_SalesPerson_SalesPersonID">
+					<AssociationSet Name="FK_SalesPersonQuotaHistory_SalesPerson_BusinessEntityID" Association="Self.FK_SalesPersonQuotaHistory_SalesPerson_BusinessEntityID">
 						<End Role="SalesPersonQuotaHistory" EntitySet="SalesPersonQuotaHistory"/>
 						<End Role="SalesPerson" EntitySet="SalesPerson"/>
 					</AssociationSet>
@@ -401,7 +402,11 @@
 						<End Role="SalesTaxRate" EntitySet="SalesTaxRate"/>
 						<End Role="StateProvince" EntitySet="StateProvince"/>
 					</AssociationSet>
-					<AssociationSet Name="FK_SalesTerritoryHistory_SalesPerson_SalesPersonID" Association="Self.FK_SalesTerritoryHistory_SalesPerson_SalesPersonID">
+					<AssociationSet Name="FK_SalesTerritory_CountryRegion_CountryRegionCode" Association="Self.FK_SalesTerritory_CountryRegion_CountryRegionCode">
+						<End Role="SalesTerritory" EntitySet="SalesTerritory"/>
+						<End Role="CountryRegion" EntitySet="CountryRegion"/>
+					</AssociationSet>
+					<AssociationSet Name="FK_SalesTerritoryHistory_SalesPerson_BusinessEntityID" Association="Self.FK_SalesTerritoryHistory_SalesPerson_BusinessEntityID">
 						<End Role="SalesTerritoryHistory" EntitySet="SalesTerritoryHistory"/>
 						<End Role="SalesPerson" EntitySet="SalesPerson"/>
 					</AssociationSet>
@@ -421,25 +426,13 @@
 						<End Role="SpecialOfferProduct" EntitySet="SpecialOfferProduct"/>
 						<End Role="SpecialOffer" EntitySet="SpecialOffer"/>
 					</AssociationSet>
-					<AssociationSet Name="FK_Store_Customer_CustomerID" Association="Self.FK_Store_Customer_CustomerID">
+					<AssociationSet Name="FK_Store_BusinessEntity_BusinessEntityID" Association="Self.FK_Store_BusinessEntity_BusinessEntityID">
 						<End Role="Store" EntitySet="Store"/>
-						<End Role="Customer" EntitySet="Customer"/>
+						<End Role="BusinessEntity" EntitySet="BusinessEntity"/>
 					</AssociationSet>
 					<AssociationSet Name="FK_Store_SalesPerson_SalesPersonID" Association="Self.FK_Store_SalesPerson_SalesPersonID">
 						<End Role="Store" EntitySet="Store"/>
 						<End Role="SalesPerson" EntitySet="SalesPerson"/>
-					</AssociationSet>
-					<AssociationSet Name="FK_StoreContact_Contact_ContactID" Association="Self.FK_StoreContact_Contact_ContactID">
-						<End Role="StoreContact" EntitySet="StoreContact"/>
-						<End Role="Contact" EntitySet="Contact"/>
-					</AssociationSet>
-					<AssociationSet Name="FK_StoreContact_ContactType_ContactTypeID" Association="Self.FK_StoreContact_ContactType_ContactTypeID">
-						<End Role="StoreContact" EntitySet="StoreContact"/>
-						<End Role="ContactType" EntitySet="ContactType"/>
-					</AssociationSet>
-					<AssociationSet Name="FK_StoreContact_Store_CustomerID" Association="Self.FK_StoreContact_Store_CustomerID">
-						<End Role="StoreContact" EntitySet="StoreContact"/>
-						<End Role="Store" EntitySet="Store"/>
 					</AssociationSet>
 	<!-- __LLBLGENPRO_USER_CODE_REGION_START SSDLEntityContainerCustomCode -->
 	<!-- __LLBLGENPRO_USER_CODE_REGION_END -->
@@ -455,18 +448,18 @@
 				</EntityType>
 				<EntityType Name="Employee">
 					<Key>
-						<PropertyRef Name="EmployeeID"/>
+						<PropertyRef Name="BusinessEntityID"/>
 					</Key>
-					<Property Name="EmployeeID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" DefaultValue="1"  />
+					<Property Name="BusinessEntityID" Type="int" Nullable="false"  />
 					<Property Name="NationalIDNumber" Type="nvarchar" Nullable="false" MaxLength="15"  />
-					<Property Name="ContactID" Type="int" Nullable="false"  />
 					<Property Name="LoginID" Type="nvarchar" Nullable="false" MaxLength="256"  />
-					<Property Name="ManagerID" Type="int"  />
-					<Property Name="Title" Type="nvarchar" Nullable="false" MaxLength="50"  />
-					<Property Name="BirthDate" Type="datetime" Nullable="false"  />
+					<Property Name="OrganizationNode" Type="varchar" MaxLength="892"  />
+					<Property Name="OrganizationLevel" Type="smallint" StoreGeneratedPattern="Computed"  />
+					<Property Name="JobTitle" Type="nvarchar" Nullable="false" MaxLength="50"  />
+					<Property Name="BirthDate" Type="date" Nullable="false"  />
 					<Property Name="MaritalStatus" Type="nchar" Nullable="false" MaxLength="1"  />
 					<Property Name="Gender" Type="nchar" Nullable="false" MaxLength="1"  />
-					<Property Name="HireDate" Type="datetime" Nullable="false"  />
+					<Property Name="HireDate" Type="date" Nullable="false"  />
 					<Property Name="SalariedFlag" Type="bit" Nullable="false"  />
 					<Property Name="VacationHours" Type="smallint" Nullable="false"  />
 					<Property Name="SickLeaveHours" Type="smallint" Nullable="false"  />
@@ -474,36 +467,26 @@
 					<Property Name="rowguid" Type="uniqueidentifier" Nullable="false"  />
 					<Property Name="ModifiedDate" Type="datetime" Nullable="false"  />
 				</EntityType>
-				<EntityType Name="EmployeeAddress">
-					<Key>
-						<PropertyRef Name="EmployeeID"/>
-						<PropertyRef Name="AddressID"/>
-					</Key>
-					<Property Name="EmployeeID" Type="int" Nullable="false"  />
-					<Property Name="AddressID" Type="int" Nullable="false"  />
-					<Property Name="rowguid" Type="uniqueidentifier" Nullable="false"  />
-					<Property Name="ModifiedDate" Type="datetime" Nullable="false"  />
-				</EntityType>
 				<EntityType Name="EmployeeDepartmentHistory">
 					<Key>
-						<PropertyRef Name="EmployeeID"/>
+						<PropertyRef Name="BusinessEntityID"/>
 						<PropertyRef Name="DepartmentID"/>
 						<PropertyRef Name="ShiftID"/>
 						<PropertyRef Name="StartDate"/>
 					</Key>
-					<Property Name="EmployeeID" Type="int" Nullable="false"  />
+					<Property Name="BusinessEntityID" Type="int" Nullable="false"  />
 					<Property Name="DepartmentID" Type="smallint" Nullable="false"  />
 					<Property Name="ShiftID" Type="tinyint" Nullable="false"  />
-					<Property Name="StartDate" Type="datetime" Nullable="false"  />
-					<Property Name="EndDate" Type="datetime"  />
+					<Property Name="StartDate" Type="date" Nullable="false"  />
+					<Property Name="EndDate" Type="date"  />
 					<Property Name="ModifiedDate" Type="datetime" Nullable="false"  />
 				</EntityType>
 				<EntityType Name="EmployeePayHistory">
 					<Key>
-						<PropertyRef Name="EmployeeID"/>
+						<PropertyRef Name="BusinessEntityID"/>
 						<PropertyRef Name="RateChangeDate"/>
 					</Key>
-					<Property Name="EmployeeID" Type="int" Nullable="false"  />
+					<Property Name="BusinessEntityID" Type="int" Nullable="false"  />
 					<Property Name="RateChangeDate" Type="datetime" Nullable="false"  />
 					<Property Name="Rate" Type="money" Nullable="false"  />
 					<Property Name="PayFrequency" Type="tinyint" Nullable="false"  />
@@ -514,7 +497,7 @@
 						<PropertyRef Name="JobCandidateID"/>
 					</Key>
 					<Property Name="JobCandidateID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" DefaultValue="1"  />
-					<Property Name="EmployeeID" Type="int"  />
+					<Property Name="BusinessEntityID" Type="int"  />
 					<Property Name="Resume" Type="xml"  />
 					<Property Name="ModifiedDate" Type="datetime" Nullable="false"  />
 				</EntityType>
@@ -524,8 +507,8 @@
 					</Key>
 					<Property Name="ShiftID" Type="tinyint" Nullable="false" StoreGeneratedPattern="Identity" DefaultValue="1"  />
 					<Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50"  />
-					<Property Name="StartTime" Type="datetime" Nullable="false"  />
-					<Property Name="EndTime" Type="datetime" Nullable="false"  />
+					<Property Name="StartTime" Type="time" Nullable="false"  />
+					<Property Name="EndTime" Type="time" Nullable="false"  />
 					<Property Name="ModifiedDate" Type="datetime" Nullable="false"  />
 				</EntityType>
 				<EntityType Name="Address">
@@ -538,6 +521,7 @@
 					<Property Name="City" Type="nvarchar" Nullable="false" MaxLength="30"  />
 					<Property Name="StateProvinceID" Type="int" Nullable="false"  />
 					<Property Name="PostalCode" Type="nvarchar" Nullable="false" MaxLength="15"  />
+					<Property Name="SpatialLocation" Type="geography" SRID="4326" />
 					<Property Name="rowguid" Type="uniqueidentifier" Nullable="false"  />
 					<Property Name="ModifiedDate" Type="datetime" Nullable="false"  />
 				</EntityType>
@@ -550,23 +534,35 @@
 					<Property Name="rowguid" Type="uniqueidentifier" Nullable="false"  />
 					<Property Name="ModifiedDate" Type="datetime" Nullable="false"  />
 				</EntityType>
-				<EntityType Name="Contact">
+				<EntityType Name="BusinessEntity">
 					<Key>
-						<PropertyRef Name="ContactID"/>
+						<PropertyRef Name="BusinessEntityID"/>
 					</Key>
-					<Property Name="ContactID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" DefaultValue="1"  />
-					<Property Name="NameStyle" Type="bit" Nullable="false"  />
-					<Property Name="Title" Type="nvarchar" MaxLength="8"  />
-					<Property Name="FirstName" Type="nvarchar" Nullable="false" MaxLength="50"  />
-					<Property Name="MiddleName" Type="nvarchar" MaxLength="50"  />
-					<Property Name="LastName" Type="nvarchar" Nullable="false" MaxLength="50"  />
-					<Property Name="Suffix" Type="nvarchar" MaxLength="10"  />
-					<Property Name="EmailAddress" Type="nvarchar" MaxLength="50"  />
-					<Property Name="EmailPromotion" Type="int" Nullable="false"  />
-					<Property Name="Phone" Type="nvarchar" MaxLength="25"  />
-					<Property Name="PasswordHash" Type="varchar" Nullable="false" MaxLength="40"  />
-					<Property Name="PasswordSalt" Type="varchar" Nullable="false" MaxLength="10"  />
-					<Property Name="AdditionalContactInfo" Type="xml"  />
+					<Property Name="BusinessEntityID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" DefaultValue="1"  />
+					<Property Name="rowguid" Type="uniqueidentifier" Nullable="false"  />
+					<Property Name="ModifiedDate" Type="datetime" Nullable="false"  />
+				</EntityType>
+				<EntityType Name="BusinessEntityAddress">
+					<Key>
+						<PropertyRef Name="BusinessEntityID"/>
+						<PropertyRef Name="AddressID"/>
+						<PropertyRef Name="AddressTypeID"/>
+					</Key>
+					<Property Name="BusinessEntityID" Type="int" Nullable="false"  />
+					<Property Name="AddressID" Type="int" Nullable="false"  />
+					<Property Name="AddressTypeID" Type="int" Nullable="false"  />
+					<Property Name="rowguid" Type="uniqueidentifier" Nullable="false"  />
+					<Property Name="ModifiedDate" Type="datetime" Nullable="false"  />
+				</EntityType>
+				<EntityType Name="BusinessEntityContact">
+					<Key>
+						<PropertyRef Name="BusinessEntityID"/>
+						<PropertyRef Name="PersonID"/>
+						<PropertyRef Name="ContactTypeID"/>
+					</Key>
+					<Property Name="BusinessEntityID" Type="int" Nullable="false"  />
+					<Property Name="PersonID" Type="int" Nullable="false"  />
+					<Property Name="ContactTypeID" Type="int" Nullable="false"  />
 					<Property Name="rowguid" Type="uniqueidentifier" Nullable="false"  />
 					<Property Name="ModifiedDate" Type="datetime" Nullable="false"  />
 				</EntityType>
@@ -583,6 +579,64 @@
 						<PropertyRef Name="CountryRegionCode"/>
 					</Key>
 					<Property Name="CountryRegionCode" Type="nvarchar" Nullable="false" MaxLength="3"  />
+					<Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50"  />
+					<Property Name="ModifiedDate" Type="datetime" Nullable="false"  />
+				</EntityType>
+				<EntityType Name="EmailAddress">
+					<Key>
+						<PropertyRef Name="BusinessEntityID"/>
+						<PropertyRef Name="EmailAddressID"/>
+					</Key>
+					<Property Name="BusinessEntityID" Type="int" Nullable="false"  />
+					<Property Name="EmailAddressID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" DefaultValue="1"  />
+					<Property Name="EmailAddress" Type="nvarchar" MaxLength="50"  />
+					<Property Name="rowguid" Type="uniqueidentifier" Nullable="false"  />
+					<Property Name="ModifiedDate" Type="datetime" Nullable="false"  />
+				</EntityType>
+				<EntityType Name="Password">
+					<Key>
+						<PropertyRef Name="BusinessEntityID"/>
+					</Key>
+					<Property Name="BusinessEntityID" Type="int" Nullable="false"  />
+					<Property Name="PasswordHash" Type="varchar" Nullable="false" MaxLength="128"  />
+					<Property Name="PasswordSalt" Type="varchar" Nullable="false" MaxLength="10"  />
+					<Property Name="rowguid" Type="uniqueidentifier" Nullable="false"  />
+					<Property Name="ModifiedDate" Type="datetime" Nullable="false"  />
+				</EntityType>
+				<EntityType Name="Person">
+					<Key>
+						<PropertyRef Name="BusinessEntityID"/>
+					</Key>
+					<Property Name="BusinessEntityID" Type="int" Nullable="false"  />
+					<Property Name="PersonType" Type="nchar" Nullable="false" MaxLength="2"  />
+					<Property Name="NameStyle" Type="bit" Nullable="false"  />
+					<Property Name="Title" Type="nvarchar" MaxLength="8"  />
+					<Property Name="FirstName" Type="nvarchar" Nullable="false" MaxLength="50"  />
+					<Property Name="MiddleName" Type="nvarchar" MaxLength="50"  />
+					<Property Name="LastName" Type="nvarchar" Nullable="false" MaxLength="50"  />
+					<Property Name="Suffix" Type="nvarchar" MaxLength="10"  />
+					<Property Name="EmailPromotion" Type="int" Nullable="false"  />
+					<Property Name="AdditionalContactInfo" Type="xml"  />
+					<Property Name="Demographics" Type="xml"  />
+					<Property Name="rowguid" Type="uniqueidentifier" Nullable="false"  />
+					<Property Name="ModifiedDate" Type="datetime" Nullable="false"  />
+				</EntityType>
+				<EntityType Name="PersonPhone">
+					<Key>
+						<PropertyRef Name="BusinessEntityID"/>
+						<PropertyRef Name="PhoneNumber"/>
+						<PropertyRef Name="PhoneNumberTypeID"/>
+					</Key>
+					<Property Name="BusinessEntityID" Type="int" Nullable="false"  />
+					<Property Name="PhoneNumber" Type="nvarchar" Nullable="false" MaxLength="25"  />
+					<Property Name="PhoneNumberTypeID" Type="int" Nullable="false"  />
+					<Property Name="ModifiedDate" Type="datetime" Nullable="false"  />
+				</EntityType>
+				<EntityType Name="PhoneNumberType">
+					<Key>
+						<PropertyRef Name="PhoneNumberTypeID"/>
+					</Key>
+					<Property Name="PhoneNumberTypeID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" DefaultValue="1"  />
 					<Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50"  />
 					<Property Name="ModifiedDate" Type="datetime" Nullable="false"  />
 				</EntityType>
@@ -623,10 +677,13 @@
 				</EntityType>
 				<EntityType Name="Document">
 					<Key>
-						<PropertyRef Name="DocumentID"/>
+						<PropertyRef Name="DocumentNode"/>
 					</Key>
-					<Property Name="DocumentID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" DefaultValue="1"  />
+					<Property Name="DocumentNode" Type="varchar" Nullable="false" MaxLength="892"  />
+					<Property Name="DocumentLevel" Type="smallint" StoreGeneratedPattern="Computed"  />
 					<Property Name="Title" Type="nvarchar" Nullable="false" MaxLength="50"  />
+					<Property Name="Owner" Type="int" Nullable="false"  />
+					<Property Name="FolderFlag" Type="bit" Nullable="false"  />
 					<Property Name="FileName" Type="nvarchar" Nullable="false" MaxLength="400"  />
 					<Property Name="FileExtension" Type="nvarchar" Nullable="false" MaxLength="8"  />
 					<Property Name="Revision" Type="nchar" Nullable="false" MaxLength="5"  />
@@ -634,6 +691,7 @@
 					<Property Name="Status" Type="tinyint" Nullable="false"  />
 					<Property Name="DocumentSummary" Type="nvarchar"  />
 					<Property Name="Document" Type="varbinary"  />
+					<Property Name="rowguid" Type="uniqueidentifier" Nullable="false"  />
 					<Property Name="ModifiedDate" Type="datetime" Nullable="false"  />
 				</EntityType>
 				<EntityType Name="Illustration">
@@ -716,10 +774,10 @@
 				<EntityType Name="ProductDocument">
 					<Key>
 						<PropertyRef Name="ProductID"/>
-						<PropertyRef Name="DocumentID"/>
+						<PropertyRef Name="DocumentNode"/>
 					</Key>
 					<Property Name="ProductID" Type="int" Nullable="false"  />
-					<Property Name="DocumentID" Type="int" Nullable="false"  />
+					<Property Name="DocumentNode" Type="varchar" Nullable="false" MaxLength="892"  />
 					<Property Name="ModifiedDate" Type="datetime" Nullable="false"  />
 				</EntityType>
 				<EntityType Name="ProductInventory">
@@ -902,10 +960,10 @@
 				<EntityType Name="ProductVendor">
 					<Key>
 						<PropertyRef Name="ProductID"/>
-						<PropertyRef Name="VendorID"/>
+						<PropertyRef Name="BusinessEntityID"/>
 					</Key>
 					<Property Name="ProductID" Type="int" Nullable="false"  />
-					<Property Name="VendorID" Type="int" Nullable="false"  />
+					<Property Name="BusinessEntityID" Type="int" Nullable="false"  />
 					<Property Name="AverageLeadTime" Type="int" Nullable="false"  />
 					<Property Name="StandardPrice" Type="money" Nullable="false"  />
 					<Property Name="LastReceiptCost" Type="money"  />
@@ -964,44 +1022,15 @@
 				</EntityType>
 				<EntityType Name="Vendor">
 					<Key>
-						<PropertyRef Name="VendorID"/>
+						<PropertyRef Name="BusinessEntityID"/>
 					</Key>
-					<Property Name="VendorID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" DefaultValue="1"  />
+					<Property Name="BusinessEntityID" Type="int" Nullable="false"  />
 					<Property Name="AccountNumber" Type="nvarchar" Nullable="false" MaxLength="15"  />
 					<Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50"  />
 					<Property Name="CreditRating" Type="tinyint" Nullable="false"  />
 					<Property Name="PreferredVendorStatus" Type="bit" Nullable="false"  />
 					<Property Name="ActiveFlag" Type="bit" Nullable="false"  />
 					<Property Name="PurchasingWebServiceURL" Type="nvarchar" MaxLength="1024"  />
-					<Property Name="ModifiedDate" Type="datetime" Nullable="false"  />
-				</EntityType>
-				<EntityType Name="VendorAddress">
-					<Key>
-						<PropertyRef Name="VendorID"/>
-						<PropertyRef Name="AddressID"/>
-					</Key>
-					<Property Name="VendorID" Type="int" Nullable="false"  />
-					<Property Name="AddressID" Type="int" Nullable="false"  />
-					<Property Name="AddressTypeID" Type="int" Nullable="false"  />
-					<Property Name="ModifiedDate" Type="datetime" Nullable="false"  />
-				</EntityType>
-				<EntityType Name="VendorContact">
-					<Key>
-						<PropertyRef Name="VendorID"/>
-						<PropertyRef Name="ContactID"/>
-					</Key>
-					<Property Name="VendorID" Type="int" Nullable="false"  />
-					<Property Name="ContactID" Type="int" Nullable="false"  />
-					<Property Name="ContactTypeID" Type="int" Nullable="false"  />
-					<Property Name="ModifiedDate" Type="datetime" Nullable="false"  />
-				</EntityType>
-				<EntityType Name="ContactCreditCard">
-					<Key>
-						<PropertyRef Name="ContactID"/>
-						<PropertyRef Name="CreditCardID"/>
-					</Key>
-					<Property Name="ContactID" Type="int" Nullable="false"  />
-					<Property Name="CreditCardID" Type="int" Nullable="false"  />
 					<Property Name="ModifiedDate" Type="datetime" Nullable="false"  />
 				</EntityType>
 				<EntityType Name="CountryRegionCurrency">
@@ -1049,30 +1078,20 @@
 						<PropertyRef Name="CustomerID"/>
 					</Key>
 					<Property Name="CustomerID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" DefaultValue="1"  />
+					<Property Name="PersonID" Type="int"  />
+					<Property Name="StoreID" Type="int"  />
 					<Property Name="TerritoryID" Type="int"  />
 					<Property Name="AccountNumber" Type="varchar" Nullable="false" StoreGeneratedPattern="Computed" MaxLength="10"  />
-					<Property Name="CustomerType" Type="nchar" Nullable="false" MaxLength="1"  />
 					<Property Name="rowguid" Type="uniqueidentifier" Nullable="false"  />
 					<Property Name="ModifiedDate" Type="datetime" Nullable="false"  />
 				</EntityType>
-				<EntityType Name="CustomerAddress">
+				<EntityType Name="PersonCreditCard">
 					<Key>
-						<PropertyRef Name="CustomerID"/>
-						<PropertyRef Name="AddressID"/>
+						<PropertyRef Name="BusinessEntityID"/>
+						<PropertyRef Name="CreditCardID"/>
 					</Key>
-					<Property Name="CustomerID" Type="int" Nullable="false"  />
-					<Property Name="AddressID" Type="int" Nullable="false"  />
-					<Property Name="AddressTypeID" Type="int" Nullable="false"  />
-					<Property Name="rowguid" Type="uniqueidentifier" Nullable="false"  />
-					<Property Name="ModifiedDate" Type="datetime" Nullable="false"  />
-				</EntityType>
-				<EntityType Name="Individual">
-					<Key>
-						<PropertyRef Name="CustomerID"/>
-					</Key>
-					<Property Name="CustomerID" Type="int" Nullable="false"  />
-					<Property Name="ContactID" Type="int" Nullable="false"  />
-					<Property Name="Demographics" Type="xml"  />
+					<Property Name="BusinessEntityID" Type="int" Nullable="false"  />
+					<Property Name="CreditCardID" Type="int" Nullable="false"  />
 					<Property Name="ModifiedDate" Type="datetime" Nullable="false"  />
 				</EntityType>
 				<EntityType Name="SalesOrderDetail">
@@ -1107,7 +1126,6 @@
 					<Property Name="PurchaseOrderNumber" Type="nvarchar" MaxLength="25"  />
 					<Property Name="AccountNumber" Type="nvarchar" MaxLength="15"  />
 					<Property Name="CustomerID" Type="int" Nullable="false"  />
-					<Property Name="ContactID" Type="int" Nullable="false"  />
 					<Property Name="SalesPersonID" Type="int"  />
 					<Property Name="TerritoryID" Type="int"  />
 					<Property Name="BillToAddressID" Type="int" Nullable="false"  />
@@ -1135,9 +1153,9 @@
 				</EntityType>
 				<EntityType Name="SalesPerson">
 					<Key>
-						<PropertyRef Name="SalesPersonID"/>
+						<PropertyRef Name="BusinessEntityID"/>
 					</Key>
-					<Property Name="SalesPersonID" Type="int" Nullable="false"  />
+					<Property Name="BusinessEntityID" Type="int" Nullable="false"  />
 					<Property Name="TerritoryID" Type="int"  />
 					<Property Name="SalesQuota" Type="money"  />
 					<Property Name="Bonus" Type="money" Nullable="false"  />
@@ -1149,10 +1167,10 @@
 				</EntityType>
 				<EntityType Name="SalesPersonQuotaHistory">
 					<Key>
-						<PropertyRef Name="SalesPersonID"/>
+						<PropertyRef Name="BusinessEntityID"/>
 						<PropertyRef Name="QuotaDate"/>
 					</Key>
-					<Property Name="SalesPersonID" Type="int" Nullable="false"  />
+					<Property Name="BusinessEntityID" Type="int" Nullable="false"  />
 					<Property Name="QuotaDate" Type="datetime" Nullable="false"  />
 					<Property Name="SalesQuota" Type="money" Nullable="false"  />
 					<Property Name="rowguid" Type="uniqueidentifier" Nullable="false"  />
@@ -1196,11 +1214,11 @@
 				</EntityType>
 				<EntityType Name="SalesTerritoryHistory">
 					<Key>
-						<PropertyRef Name="SalesPersonID"/>
+						<PropertyRef Name="BusinessEntityID"/>
 						<PropertyRef Name="TerritoryID"/>
 						<PropertyRef Name="StartDate"/>
 					</Key>
-					<Property Name="SalesPersonID" Type="int" Nullable="false"  />
+					<Property Name="BusinessEntityID" Type="int" Nullable="false"  />
 					<Property Name="TerritoryID" Type="int" Nullable="false"  />
 					<Property Name="StartDate" Type="datetime" Nullable="false"  />
 					<Property Name="EndDate" Type="datetime"  />
@@ -1246,71 +1264,24 @@
 				</EntityType>
 				<EntityType Name="Store">
 					<Key>
-						<PropertyRef Name="CustomerID"/>
+						<PropertyRef Name="BusinessEntityID"/>
 					</Key>
-					<Property Name="CustomerID" Type="int" Nullable="false"  />
+					<Property Name="BusinessEntityID" Type="int" Nullable="false"  />
 					<Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50"  />
 					<Property Name="SalesPersonID" Type="int"  />
 					<Property Name="Demographics" Type="xml"  />
 					<Property Name="rowguid" Type="uniqueidentifier" Nullable="false"  />
 					<Property Name="ModifiedDate" Type="datetime" Nullable="false"  />
 				</EntityType>
-				<EntityType Name="StoreContact">
-					<Key>
-						<PropertyRef Name="CustomerID"/>
-						<PropertyRef Name="ContactID"/>
-					</Key>
-					<Property Name="CustomerID" Type="int" Nullable="false"  />
-					<Property Name="ContactID" Type="int" Nullable="false"  />
-					<Property Name="ContactTypeID" Type="int" Nullable="false"  />
-					<Property Name="rowguid" Type="uniqueidentifier" Nullable="false"  />
-					<Property Name="ModifiedDate" Type="datetime" Nullable="false"  />
-				</EntityType>
-				<Association Name="FK_Employee_Contact_ContactID">
-					<End Role="Employee" Type="Self.Employee" Multiplicity="*" />
-					<End Role="Contact" Type="Self.Contact" Multiplicity="1" />
+				<Association Name="FK_Employee_Person_BusinessEntityID">
+					<End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+					<End Role="Person" Type="Self.Person" Multiplicity="1" />
 					<ReferentialConstraint>
-						<Principal Role="Contact">
-							<PropertyRef Name="ContactID"/>
+						<Principal Role="Person">
+							<PropertyRef Name="BusinessEntityID"/>
 						</Principal>
 						<Dependent Role="Employee">
-							<PropertyRef Name="ContactID"/>
-						</Dependent>
-					</ReferentialConstraint>
-				</Association>
-				<Association Name="FK_Employee_Employee_ManagerID">
-					<End Role="Employee" Type="Self.Employee" Multiplicity="*" />
-					<End Role="Employee1" Type="Self.Employee" Multiplicity="0..1" />
-					<ReferentialConstraint>
-						<Principal Role="Employee1">
-							<PropertyRef Name="EmployeeID"/>
-						</Principal>
-						<Dependent Role="Employee">
-							<PropertyRef Name="ManagerID"/>
-						</Dependent>
-					</ReferentialConstraint>
-				</Association>
-				<Association Name="FK_EmployeeAddress_Address_AddressID">
-					<End Role="EmployeeAddress" Type="Self.EmployeeAddress" Multiplicity="*" />
-					<End Role="Address" Type="Self.Address" Multiplicity="1" />
-					<ReferentialConstraint>
-						<Principal Role="Address">
-							<PropertyRef Name="AddressID"/>
-						</Principal>
-						<Dependent Role="EmployeeAddress">
-							<PropertyRef Name="AddressID"/>
-						</Dependent>
-					</ReferentialConstraint>
-				</Association>
-				<Association Name="FK_EmployeeAddress_Employee_EmployeeID">
-					<End Role="EmployeeAddress" Type="Self.EmployeeAddress" Multiplicity="*" />
-					<End Role="Employee" Type="Self.Employee" Multiplicity="1" />
-					<ReferentialConstraint>
-						<Principal Role="Employee">
-							<PropertyRef Name="EmployeeID"/>
-						</Principal>
-						<Dependent Role="EmployeeAddress">
-							<PropertyRef Name="EmployeeID"/>
+							<PropertyRef Name="BusinessEntityID"/>
 						</Dependent>
 					</ReferentialConstraint>
 				</Association>
@@ -1326,15 +1297,15 @@
 						</Dependent>
 					</ReferentialConstraint>
 				</Association>
-				<Association Name="FK_EmployeeDepartmentHistory_Employee_EmployeeID">
+				<Association Name="FK_EmployeeDepartmentHistory_Employee_BusinessEntityID">
 					<End Role="EmployeeDepartmentHistory" Type="Self.EmployeeDepartmentHistory" Multiplicity="*" />
 					<End Role="Employee" Type="Self.Employee" Multiplicity="1" />
 					<ReferentialConstraint>
 						<Principal Role="Employee">
-							<PropertyRef Name="EmployeeID"/>
+							<PropertyRef Name="BusinessEntityID"/>
 						</Principal>
 						<Dependent Role="EmployeeDepartmentHistory">
-							<PropertyRef Name="EmployeeID"/>
+							<PropertyRef Name="BusinessEntityID"/>
 						</Dependent>
 					</ReferentialConstraint>
 				</Association>
@@ -1350,27 +1321,27 @@
 						</Dependent>
 					</ReferentialConstraint>
 				</Association>
-				<Association Name="FK_EmployeePayHistory_Employee_EmployeeID">
+				<Association Name="FK_EmployeePayHistory_Employee_BusinessEntityID">
 					<End Role="EmployeePayHistory" Type="Self.EmployeePayHistory" Multiplicity="*" />
 					<End Role="Employee" Type="Self.Employee" Multiplicity="1" />
 					<ReferentialConstraint>
 						<Principal Role="Employee">
-							<PropertyRef Name="EmployeeID"/>
+							<PropertyRef Name="BusinessEntityID"/>
 						</Principal>
 						<Dependent Role="EmployeePayHistory">
-							<PropertyRef Name="EmployeeID"/>
+							<PropertyRef Name="BusinessEntityID"/>
 						</Dependent>
 					</ReferentialConstraint>
 				</Association>
-				<Association Name="FK_JobCandidate_Employee_EmployeeID">
+				<Association Name="FK_JobCandidate_Employee_BusinessEntityID">
 					<End Role="JobCandidate" Type="Self.JobCandidate" Multiplicity="*" />
 					<End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
 					<ReferentialConstraint>
 						<Principal Role="Employee">
-							<PropertyRef Name="EmployeeID"/>
+							<PropertyRef Name="BusinessEntityID"/>
 						</Principal>
 						<Dependent Role="JobCandidate">
-							<PropertyRef Name="EmployeeID"/>
+							<PropertyRef Name="BusinessEntityID"/>
 						</Dependent>
 					</ReferentialConstraint>
 				</Association>
@@ -1383,6 +1354,138 @@
 						</Principal>
 						<Dependent Role="Address">
 							<PropertyRef Name="StateProvinceID"/>
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK_BusinessEntityAddress_Address_AddressID">
+					<End Role="BusinessEntityAddress" Type="Self.BusinessEntityAddress" Multiplicity="*" />
+					<End Role="Address" Type="Self.Address" Multiplicity="1" />
+					<ReferentialConstraint>
+						<Principal Role="Address">
+							<PropertyRef Name="AddressID"/>
+						</Principal>
+						<Dependent Role="BusinessEntityAddress">
+							<PropertyRef Name="AddressID"/>
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK_BusinessEntityAddress_AddressType_AddressTypeID">
+					<End Role="BusinessEntityAddress" Type="Self.BusinessEntityAddress" Multiplicity="*" />
+					<End Role="AddressType" Type="Self.AddressType" Multiplicity="1" />
+					<ReferentialConstraint>
+						<Principal Role="AddressType">
+							<PropertyRef Name="AddressTypeID"/>
+						</Principal>
+						<Dependent Role="BusinessEntityAddress">
+							<PropertyRef Name="AddressTypeID"/>
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK_BusinessEntityAddress_BusinessEntity_BusinessEntityID">
+					<End Role="BusinessEntityAddress" Type="Self.BusinessEntityAddress" Multiplicity="*" />
+					<End Role="BusinessEntity" Type="Self.BusinessEntity" Multiplicity="1" />
+					<ReferentialConstraint>
+						<Principal Role="BusinessEntity">
+							<PropertyRef Name="BusinessEntityID"/>
+						</Principal>
+						<Dependent Role="BusinessEntityAddress">
+							<PropertyRef Name="BusinessEntityID"/>
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK_BusinessEntityContact_BusinessEntity_BusinessEntityID">
+					<End Role="BusinessEntityContact" Type="Self.BusinessEntityContact" Multiplicity="*" />
+					<End Role="BusinessEntity" Type="Self.BusinessEntity" Multiplicity="1" />
+					<ReferentialConstraint>
+						<Principal Role="BusinessEntity">
+							<PropertyRef Name="BusinessEntityID"/>
+						</Principal>
+						<Dependent Role="BusinessEntityContact">
+							<PropertyRef Name="BusinessEntityID"/>
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK_BusinessEntityContact_ContactType_ContactTypeID">
+					<End Role="BusinessEntityContact" Type="Self.BusinessEntityContact" Multiplicity="*" />
+					<End Role="ContactType" Type="Self.ContactType" Multiplicity="1" />
+					<ReferentialConstraint>
+						<Principal Role="ContactType">
+							<PropertyRef Name="ContactTypeID"/>
+						</Principal>
+						<Dependent Role="BusinessEntityContact">
+							<PropertyRef Name="ContactTypeID"/>
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK_BusinessEntityContact_Person_PersonID">
+					<End Role="BusinessEntityContact" Type="Self.BusinessEntityContact" Multiplicity="*" />
+					<End Role="Person" Type="Self.Person" Multiplicity="1" />
+					<ReferentialConstraint>
+						<Principal Role="Person">
+							<PropertyRef Name="BusinessEntityID"/>
+						</Principal>
+						<Dependent Role="BusinessEntityContact">
+							<PropertyRef Name="PersonID"/>
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK_EmailAddress_Person_BusinessEntityID">
+					<End Role="EmailAddress" Type="Self.EmailAddress" Multiplicity="*" />
+					<End Role="Person" Type="Self.Person" Multiplicity="1" />
+					<ReferentialConstraint>
+						<Principal Role="Person">
+							<PropertyRef Name="BusinessEntityID"/>
+						</Principal>
+						<Dependent Role="EmailAddress">
+							<PropertyRef Name="BusinessEntityID"/>
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK_Password_Person_BusinessEntityID">
+					<End Role="Password" Type="Self.Password" Multiplicity="0..1" />
+					<End Role="Person" Type="Self.Person" Multiplicity="1" />
+					<ReferentialConstraint>
+						<Principal Role="Person">
+							<PropertyRef Name="BusinessEntityID"/>
+						</Principal>
+						<Dependent Role="Password">
+							<PropertyRef Name="BusinessEntityID"/>
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK_Person_BusinessEntity_BusinessEntityID">
+					<End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+					<End Role="BusinessEntity" Type="Self.BusinessEntity" Multiplicity="1" />
+					<ReferentialConstraint>
+						<Principal Role="BusinessEntity">
+							<PropertyRef Name="BusinessEntityID"/>
+						</Principal>
+						<Dependent Role="Person">
+							<PropertyRef Name="BusinessEntityID"/>
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK_PersonPhone_Person_BusinessEntityID">
+					<End Role="PersonPhone" Type="Self.PersonPhone" Multiplicity="*" />
+					<End Role="Person" Type="Self.Person" Multiplicity="1" />
+					<ReferentialConstraint>
+						<Principal Role="Person">
+							<PropertyRef Name="BusinessEntityID"/>
+						</Principal>
+						<Dependent Role="PersonPhone">
+							<PropertyRef Name="BusinessEntityID"/>
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK_PersonPhone_PhoneNumberType_PhoneNumberTypeID">
+					<End Role="PersonPhone" Type="Self.PersonPhone" Multiplicity="*" />
+					<End Role="PhoneNumberType" Type="Self.PhoneNumberType" Multiplicity="1" />
+					<ReferentialConstraint>
+						<Principal Role="PhoneNumberType">
+							<PropertyRef Name="PhoneNumberTypeID"/>
+						</Principal>
+						<Dependent Role="PersonPhone">
+							<PropertyRef Name="PhoneNumberTypeID"/>
 						</Dependent>
 					</ReferentialConstraint>
 				</Association>
@@ -1446,6 +1549,18 @@
 						</Dependent>
 					</ReferentialConstraint>
 				</Association>
+				<Association Name="FK_Document_Employee_Owner">
+					<End Role="Document" Type="Self.Document" Multiplicity="*" />
+					<End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+					<ReferentialConstraint>
+						<Principal Role="Employee">
+							<PropertyRef Name="BusinessEntityID"/>
+						</Principal>
+						<Dependent Role="Document">
+							<PropertyRef Name="Owner"/>
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
 				<Association Name="FK_Product_ProductModel_ProductModelID">
 					<End Role="Product" Type="Self.Product" Multiplicity="*" />
 					<End Role="ProductModel" Type="Self.ProductModel" Multiplicity="0..1" />
@@ -1506,15 +1621,15 @@
 						</Dependent>
 					</ReferentialConstraint>
 				</Association>
-				<Association Name="FK_ProductDocument_Document_DocumentID">
+				<Association Name="FK_ProductDocument_Document_DocumentNode">
 					<End Role="ProductDocument" Type="Self.ProductDocument" Multiplicity="*" />
 					<End Role="Document" Type="Self.Document" Multiplicity="1" />
 					<ReferentialConstraint>
 						<Principal Role="Document">
-							<PropertyRef Name="DocumentID"/>
+							<PropertyRef Name="DocumentNode"/>
 						</Principal>
 						<Dependent Role="ProductDocument">
-							<PropertyRef Name="DocumentID"/>
+							<PropertyRef Name="DocumentNode"/>
 						</Dependent>
 					</ReferentialConstraint>
 				</Association>
@@ -1758,15 +1873,15 @@
 						</Dependent>
 					</ReferentialConstraint>
 				</Association>
-				<Association Name="FK_ProductVendor_Vendor_VendorID">
+				<Association Name="FK_ProductVendor_Vendor_BusinessEntityID">
 					<End Role="ProductVendor" Type="Self.ProductVendor" Multiplicity="*" />
 					<End Role="Vendor" Type="Self.Vendor" Multiplicity="1" />
 					<ReferentialConstraint>
 						<Principal Role="Vendor">
-							<PropertyRef Name="VendorID"/>
+							<PropertyRef Name="BusinessEntityID"/>
 						</Principal>
 						<Dependent Role="ProductVendor">
-							<PropertyRef Name="VendorID"/>
+							<PropertyRef Name="BusinessEntityID"/>
 						</Dependent>
 					</ReferentialConstraint>
 				</Association>
@@ -1799,7 +1914,7 @@
 					<End Role="Employee" Type="Self.Employee" Multiplicity="1" />
 					<ReferentialConstraint>
 						<Principal Role="Employee">
-							<PropertyRef Name="EmployeeID"/>
+							<PropertyRef Name="BusinessEntityID"/>
 						</Principal>
 						<Dependent Role="PurchaseOrderHeader">
 							<PropertyRef Name="EmployeeID"/>
@@ -1823,106 +1938,22 @@
 					<End Role="Vendor" Type="Self.Vendor" Multiplicity="1" />
 					<ReferentialConstraint>
 						<Principal Role="Vendor">
-							<PropertyRef Name="VendorID"/>
+							<PropertyRef Name="BusinessEntityID"/>
 						</Principal>
 						<Dependent Role="PurchaseOrderHeader">
 							<PropertyRef Name="VendorID"/>
 						</Dependent>
 					</ReferentialConstraint>
 				</Association>
-				<Association Name="FK_VendorAddress_Address_AddressID">
-					<End Role="VendorAddress" Type="Self.VendorAddress" Multiplicity="*" />
-					<End Role="Address" Type="Self.Address" Multiplicity="1" />
+				<Association Name="FK_Vendor_BusinessEntity_BusinessEntityID">
+					<End Role="Vendor" Type="Self.Vendor" Multiplicity="0..1" />
+					<End Role="BusinessEntity" Type="Self.BusinessEntity" Multiplicity="1" />
 					<ReferentialConstraint>
-						<Principal Role="Address">
-							<PropertyRef Name="AddressID"/>
+						<Principal Role="BusinessEntity">
+							<PropertyRef Name="BusinessEntityID"/>
 						</Principal>
-						<Dependent Role="VendorAddress">
-							<PropertyRef Name="AddressID"/>
-						</Dependent>
-					</ReferentialConstraint>
-				</Association>
-				<Association Name="FK_VendorAddress_AddressType_AddressTypeID">
-					<End Role="VendorAddress" Type="Self.VendorAddress" Multiplicity="*" />
-					<End Role="AddressType" Type="Self.AddressType" Multiplicity="1" />
-					<ReferentialConstraint>
-						<Principal Role="AddressType">
-							<PropertyRef Name="AddressTypeID"/>
-						</Principal>
-						<Dependent Role="VendorAddress">
-							<PropertyRef Name="AddressTypeID"/>
-						</Dependent>
-					</ReferentialConstraint>
-				</Association>
-				<Association Name="FK_VendorAddress_Vendor_VendorID">
-					<End Role="VendorAddress" Type="Self.VendorAddress" Multiplicity="*" />
-					<End Role="Vendor" Type="Self.Vendor" Multiplicity="1" />
-					<ReferentialConstraint>
-						<Principal Role="Vendor">
-							<PropertyRef Name="VendorID"/>
-						</Principal>
-						<Dependent Role="VendorAddress">
-							<PropertyRef Name="VendorID"/>
-						</Dependent>
-					</ReferentialConstraint>
-				</Association>
-				<Association Name="FK_VendorContact_Contact_ContactID">
-					<End Role="VendorContact" Type="Self.VendorContact" Multiplicity="*" />
-					<End Role="Contact" Type="Self.Contact" Multiplicity="1" />
-					<ReferentialConstraint>
-						<Principal Role="Contact">
-							<PropertyRef Name="ContactID"/>
-						</Principal>
-						<Dependent Role="VendorContact">
-							<PropertyRef Name="ContactID"/>
-						</Dependent>
-					</ReferentialConstraint>
-				</Association>
-				<Association Name="FK_VendorContact_ContactType_ContactTypeID">
-					<End Role="VendorContact" Type="Self.VendorContact" Multiplicity="*" />
-					<End Role="ContactType" Type="Self.ContactType" Multiplicity="1" />
-					<ReferentialConstraint>
-						<Principal Role="ContactType">
-							<PropertyRef Name="ContactTypeID"/>
-						</Principal>
-						<Dependent Role="VendorContact">
-							<PropertyRef Name="ContactTypeID"/>
-						</Dependent>
-					</ReferentialConstraint>
-				</Association>
-				<Association Name="FK_VendorContact_Vendor_VendorID">
-					<End Role="VendorContact" Type="Self.VendorContact" Multiplicity="*" />
-					<End Role="Vendor" Type="Self.Vendor" Multiplicity="1" />
-					<ReferentialConstraint>
-						<Principal Role="Vendor">
-							<PropertyRef Name="VendorID"/>
-						</Principal>
-						<Dependent Role="VendorContact">
-							<PropertyRef Name="VendorID"/>
-						</Dependent>
-					</ReferentialConstraint>
-				</Association>
-				<Association Name="FK_ContactCreditCard_Contact_ContactID">
-					<End Role="ContactCreditCard" Type="Self.ContactCreditCard" Multiplicity="*" />
-					<End Role="Contact" Type="Self.Contact" Multiplicity="1" />
-					<ReferentialConstraint>
-						<Principal Role="Contact">
-							<PropertyRef Name="ContactID"/>
-						</Principal>
-						<Dependent Role="ContactCreditCard">
-							<PropertyRef Name="ContactID"/>
-						</Dependent>
-					</ReferentialConstraint>
-				</Association>
-				<Association Name="FK_ContactCreditCard_CreditCard_CreditCardID">
-					<End Role="ContactCreditCard" Type="Self.ContactCreditCard" Multiplicity="*" />
-					<End Role="CreditCard" Type="Self.CreditCard" Multiplicity="1" />
-					<ReferentialConstraint>
-						<Principal Role="CreditCard">
-							<PropertyRef Name="CreditCardID"/>
-						</Principal>
-						<Dependent Role="ContactCreditCard">
-							<PropertyRef Name="CreditCardID"/>
+						<Dependent Role="Vendor">
+							<PropertyRef Name="BusinessEntityID"/>
 						</Dependent>
 					</ReferentialConstraint>
 				</Association>
@@ -1974,6 +2005,18 @@
 						</Dependent>
 					</ReferentialConstraint>
 				</Association>
+				<Association Name="FK_Customer_Person_PersonID">
+					<End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+					<End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+					<ReferentialConstraint>
+						<Principal Role="Person">
+							<PropertyRef Name="BusinessEntityID"/>
+						</Principal>
+						<Dependent Role="Customer">
+							<PropertyRef Name="PersonID"/>
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
 				<Association Name="FK_Customer_SalesTerritory_TerritoryID">
 					<End Role="Customer" Type="Self.Customer" Multiplicity="*" />
 					<End Role="SalesTerritory" Type="Self.SalesTerritory" Multiplicity="0..1" />
@@ -1986,63 +2029,39 @@
 						</Dependent>
 					</ReferentialConstraint>
 				</Association>
-				<Association Name="FK_CustomerAddress_Address_AddressID">
-					<End Role="CustomerAddress" Type="Self.CustomerAddress" Multiplicity="*" />
-					<End Role="Address" Type="Self.Address" Multiplicity="1" />
+				<Association Name="FK_Customer_Store_StoreID">
+					<End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+					<End Role="Store" Type="Self.Store" Multiplicity="0..1" />
 					<ReferentialConstraint>
-						<Principal Role="Address">
-							<PropertyRef Name="AddressID"/>
+						<Principal Role="Store">
+							<PropertyRef Name="BusinessEntityID"/>
 						</Principal>
-						<Dependent Role="CustomerAddress">
-							<PropertyRef Name="AddressID"/>
+						<Dependent Role="Customer">
+							<PropertyRef Name="StoreID"/>
 						</Dependent>
 					</ReferentialConstraint>
 				</Association>
-				<Association Name="FK_CustomerAddress_AddressType_AddressTypeID">
-					<End Role="CustomerAddress" Type="Self.CustomerAddress" Multiplicity="*" />
-					<End Role="AddressType" Type="Self.AddressType" Multiplicity="1" />
+				<Association Name="FK_PersonCreditCard_CreditCard_CreditCardID">
+					<End Role="PersonCreditCard" Type="Self.PersonCreditCard" Multiplicity="*" />
+					<End Role="CreditCard" Type="Self.CreditCard" Multiplicity="1" />
 					<ReferentialConstraint>
-						<Principal Role="AddressType">
-							<PropertyRef Name="AddressTypeID"/>
+						<Principal Role="CreditCard">
+							<PropertyRef Name="CreditCardID"/>
 						</Principal>
-						<Dependent Role="CustomerAddress">
-							<PropertyRef Name="AddressTypeID"/>
+						<Dependent Role="PersonCreditCard">
+							<PropertyRef Name="CreditCardID"/>
 						</Dependent>
 					</ReferentialConstraint>
 				</Association>
-				<Association Name="FK_CustomerAddress_Customer_CustomerID">
-					<End Role="CustomerAddress" Type="Self.CustomerAddress" Multiplicity="*" />
-					<End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+				<Association Name="FK_PersonCreditCard_Person_BusinessEntityID">
+					<End Role="PersonCreditCard" Type="Self.PersonCreditCard" Multiplicity="*" />
+					<End Role="Person" Type="Self.Person" Multiplicity="1" />
 					<ReferentialConstraint>
-						<Principal Role="Customer">
-							<PropertyRef Name="CustomerID"/>
+						<Principal Role="Person">
+							<PropertyRef Name="BusinessEntityID"/>
 						</Principal>
-						<Dependent Role="CustomerAddress">
-							<PropertyRef Name="CustomerID"/>
-						</Dependent>
-					</ReferentialConstraint>
-				</Association>
-				<Association Name="FK_Individual_Contact_ContactID">
-					<End Role="Individual" Type="Self.Individual" Multiplicity="*" />
-					<End Role="Contact" Type="Self.Contact" Multiplicity="1" />
-					<ReferentialConstraint>
-						<Principal Role="Contact">
-							<PropertyRef Name="ContactID"/>
-						</Principal>
-						<Dependent Role="Individual">
-							<PropertyRef Name="ContactID"/>
-						</Dependent>
-					</ReferentialConstraint>
-				</Association>
-				<Association Name="FK_Individual_Customer_CustomerID">
-					<End Role="Individual" Type="Self.Individual" Multiplicity="0..1" />
-					<End Role="Customer" Type="Self.Customer" Multiplicity="1" />
-					<ReferentialConstraint>
-						<Principal Role="Customer">
-							<PropertyRef Name="CustomerID"/>
-						</Principal>
-						<Dependent Role="Individual">
-							<PropertyRef Name="CustomerID"/>
+						<Dependent Role="PersonCreditCard">
+							<PropertyRef Name="BusinessEntityID"/>
 						</Dependent>
 					</ReferentialConstraint>
 				</Association>
@@ -2096,18 +2115,6 @@
 						</Dependent>
 					</ReferentialConstraint>
 				</Association>
-				<Association Name="FK_SalesOrderHeader_Contact_ContactID">
-					<End Role="SalesOrderHeader" Type="Self.SalesOrderHeader" Multiplicity="*" />
-					<End Role="Contact" Type="Self.Contact" Multiplicity="1" />
-					<ReferentialConstraint>
-						<Principal Role="Contact">
-							<PropertyRef Name="ContactID"/>
-						</Principal>
-						<Dependent Role="SalesOrderHeader">
-							<PropertyRef Name="ContactID"/>
-						</Dependent>
-					</ReferentialConstraint>
-				</Association>
 				<Association Name="FK_SalesOrderHeader_CreditCard_CreditCardID">
 					<End Role="SalesOrderHeader" Type="Self.SalesOrderHeader" Multiplicity="*" />
 					<End Role="CreditCard" Type="Self.CreditCard" Multiplicity="0..1" />
@@ -2149,7 +2156,7 @@
 					<End Role="SalesPerson" Type="Self.SalesPerson" Multiplicity="0..1" />
 					<ReferentialConstraint>
 						<Principal Role="SalesPerson">
-							<PropertyRef Name="SalesPersonID"/>
+							<PropertyRef Name="BusinessEntityID"/>
 						</Principal>
 						<Dependent Role="SalesOrderHeader">
 							<PropertyRef Name="SalesPersonID"/>
@@ -2204,15 +2211,15 @@
 						</Dependent>
 					</ReferentialConstraint>
 				</Association>
-				<Association Name="FK_SalesPerson_Employee_SalesPersonID">
+				<Association Name="FK_SalesPerson_Employee_BusinessEntityID">
 					<End Role="SalesPerson" Type="Self.SalesPerson" Multiplicity="0..1" />
 					<End Role="Employee" Type="Self.Employee" Multiplicity="1" />
 					<ReferentialConstraint>
 						<Principal Role="Employee">
-							<PropertyRef Name="EmployeeID"/>
+							<PropertyRef Name="BusinessEntityID"/>
 						</Principal>
 						<Dependent Role="SalesPerson">
-							<PropertyRef Name="SalesPersonID"/>
+							<PropertyRef Name="BusinessEntityID"/>
 						</Dependent>
 					</ReferentialConstraint>
 				</Association>
@@ -2228,15 +2235,15 @@
 						</Dependent>
 					</ReferentialConstraint>
 				</Association>
-				<Association Name="FK_SalesPersonQuotaHistory_SalesPerson_SalesPersonID">
+				<Association Name="FK_SalesPersonQuotaHistory_SalesPerson_BusinessEntityID">
 					<End Role="SalesPersonQuotaHistory" Type="Self.SalesPersonQuotaHistory" Multiplicity="*" />
 					<End Role="SalesPerson" Type="Self.SalesPerson" Multiplicity="1" />
 					<ReferentialConstraint>
 						<Principal Role="SalesPerson">
-							<PropertyRef Name="SalesPersonID"/>
+							<PropertyRef Name="BusinessEntityID"/>
 						</Principal>
 						<Dependent Role="SalesPersonQuotaHistory">
-							<PropertyRef Name="SalesPersonID"/>
+							<PropertyRef Name="BusinessEntityID"/>
 						</Dependent>
 					</ReferentialConstraint>
 				</Association>
@@ -2252,15 +2259,27 @@
 						</Dependent>
 					</ReferentialConstraint>
 				</Association>
-				<Association Name="FK_SalesTerritoryHistory_SalesPerson_SalesPersonID">
+				<Association Name="FK_SalesTerritory_CountryRegion_CountryRegionCode">
+					<End Role="SalesTerritory" Type="Self.SalesTerritory" Multiplicity="*" />
+					<End Role="CountryRegion" Type="Self.CountryRegion" Multiplicity="1" />
+					<ReferentialConstraint>
+						<Principal Role="CountryRegion">
+							<PropertyRef Name="CountryRegionCode"/>
+						</Principal>
+						<Dependent Role="SalesTerritory">
+							<PropertyRef Name="CountryRegionCode"/>
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK_SalesTerritoryHistory_SalesPerson_BusinessEntityID">
 					<End Role="SalesTerritoryHistory" Type="Self.SalesTerritoryHistory" Multiplicity="*" />
 					<End Role="SalesPerson" Type="Self.SalesPerson" Multiplicity="1" />
 					<ReferentialConstraint>
 						<Principal Role="SalesPerson">
-							<PropertyRef Name="SalesPersonID"/>
+							<PropertyRef Name="BusinessEntityID"/>
 						</Principal>
 						<Dependent Role="SalesTerritoryHistory">
-							<PropertyRef Name="SalesPersonID"/>
+							<PropertyRef Name="BusinessEntityID"/>
 						</Dependent>
 					</ReferentialConstraint>
 				</Association>
@@ -2312,15 +2331,15 @@
 						</Dependent>
 					</ReferentialConstraint>
 				</Association>
-				<Association Name="FK_Store_Customer_CustomerID">
+				<Association Name="FK_Store_BusinessEntity_BusinessEntityID">
 					<End Role="Store" Type="Self.Store" Multiplicity="0..1" />
-					<End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+					<End Role="BusinessEntity" Type="Self.BusinessEntity" Multiplicity="1" />
 					<ReferentialConstraint>
-						<Principal Role="Customer">
-							<PropertyRef Name="CustomerID"/>
+						<Principal Role="BusinessEntity">
+							<PropertyRef Name="BusinessEntityID"/>
 						</Principal>
 						<Dependent Role="Store">
-							<PropertyRef Name="CustomerID"/>
+							<PropertyRef Name="BusinessEntityID"/>
 						</Dependent>
 					</ReferentialConstraint>
 				</Association>
@@ -2329,46 +2348,10 @@
 					<End Role="SalesPerson" Type="Self.SalesPerson" Multiplicity="0..1" />
 					<ReferentialConstraint>
 						<Principal Role="SalesPerson">
-							<PropertyRef Name="SalesPersonID"/>
+							<PropertyRef Name="BusinessEntityID"/>
 						</Principal>
 						<Dependent Role="Store">
 							<PropertyRef Name="SalesPersonID"/>
-						</Dependent>
-					</ReferentialConstraint>
-				</Association>
-				<Association Name="FK_StoreContact_Contact_ContactID">
-					<End Role="StoreContact" Type="Self.StoreContact" Multiplicity="*" />
-					<End Role="Contact" Type="Self.Contact" Multiplicity="1" />
-					<ReferentialConstraint>
-						<Principal Role="Contact">
-							<PropertyRef Name="ContactID"/>
-						</Principal>
-						<Dependent Role="StoreContact">
-							<PropertyRef Name="ContactID"/>
-						</Dependent>
-					</ReferentialConstraint>
-				</Association>
-				<Association Name="FK_StoreContact_ContactType_ContactTypeID">
-					<End Role="StoreContact" Type="Self.StoreContact" Multiplicity="*" />
-					<End Role="ContactType" Type="Self.ContactType" Multiplicity="1" />
-					<ReferentialConstraint>
-						<Principal Role="ContactType">
-							<PropertyRef Name="ContactTypeID"/>
-						</Principal>
-						<Dependent Role="StoreContact">
-							<PropertyRef Name="ContactTypeID"/>
-						</Dependent>
-					</ReferentialConstraint>
-				</Association>
-				<Association Name="FK_StoreContact_Store_CustomerID">
-					<End Role="StoreContact" Type="Self.StoreContact" Multiplicity="*" />
-					<End Role="Store" Type="Self.Store" Multiplicity="1" />
-					<ReferentialConstraint>
-						<Principal Role="Store">
-							<PropertyRef Name="CustomerID"/>
-						</Principal>
-						<Dependent Role="StoreContact">
-							<PropertyRef Name="CustomerID"/>
 						</Dependent>
 					</ReferentialConstraint>
 				</Association>
@@ -2382,7 +2365,9 @@
 					<EntitySet Name="Address" EntityType="Self.Address"/>	
 					<EntitySet Name="AddressType" EntityType="Self.AddressType"/>	
 					<EntitySet Name="BillOfMaterial" EntityType="Self.BillOfMaterial"/>	
-					<EntitySet Name="Contact" EntityType="Self.Contact"/>	
+					<EntitySet Name="BusinessEntity" EntityType="Self.BusinessEntity"/>	
+					<EntitySet Name="BusinessEntityAddress" EntityType="Self.BusinessEntityAddress"/>	
+					<EntitySet Name="BusinessEntityContact" EntityType="Self.BusinessEntityContact"/>	
 					<EntitySet Name="ContactCreditCard" EntityType="Self.ContactCreditCard"/>	
 					<EntitySet Name="ContactType" EntityType="Self.ContactType"/>	
 					<EntitySet Name="CountryRegion" EntityType="Self.CountryRegion"/>	
@@ -2392,17 +2377,19 @@
 					<EntitySet Name="Currency" EntityType="Self.Currency"/>	
 					<EntitySet Name="CurrencyRate" EntityType="Self.CurrencyRate"/>	
 					<EntitySet Name="Customer" EntityType="Self.Customer"/>	
-					<EntitySet Name="CustomerAddress" EntityType="Self.CustomerAddress"/>	
 					<EntitySet Name="Department" EntityType="Self.Department"/>	
 					<EntitySet Name="Document" EntityType="Self.Document"/>	
+					<EntitySet Name="EmailAddress" EntityType="Self.EmailAddress"/>	
 					<EntitySet Name="Employee" EntityType="Self.Employee"/>	
-					<EntitySet Name="EmployeeAddress" EntityType="Self.EmployeeAddress"/>	
 					<EntitySet Name="EmployeeDepartmentHistory" EntityType="Self.EmployeeDepartmentHistory"/>	
 					<EntitySet Name="EmployeePayHistory" EntityType="Self.EmployeePayHistory"/>	
 					<EntitySet Name="Illustration" EntityType="Self.Illustration"/>	
-					<EntitySet Name="Individual" EntityType="Self.Individual"/>	
 					<EntitySet Name="JobCandidate" EntityType="Self.JobCandidate"/>	
 					<EntitySet Name="Location" EntityType="Self.Location"/>	
+					<EntitySet Name="Password" EntityType="Self.Password"/>	
+					<EntitySet Name="Person" EntityType="Self.Person"/>	
+					<EntitySet Name="PersonPhone" EntityType="Self.PersonPhone"/>	
+					<EntitySet Name="PhoneNumberType" EntityType="Self.PhoneNumberType"/>	
 					<EntitySet Name="Product" EntityType="Self.Product"/>	
 					<EntitySet Name="ProductCategory" EntityType="Self.ProductCategory"/>	
 					<EntitySet Name="ProductCostHistory" EntityType="Self.ProductCostHistory"/>	
@@ -2437,26 +2424,15 @@
 					<EntitySet Name="SpecialOfferProduct" EntityType="Self.SpecialOfferProduct"/>	
 					<EntitySet Name="StateProvince" EntityType="Self.StateProvince"/>	
 					<EntitySet Name="Store" EntityType="Self.Store"/>	
-					<EntitySet Name="StoreContact" EntityType="Self.StoreContact"/>	
 					<EntitySet Name="TransactionHistory" EntityType="Self.TransactionHistory"/>	
 					<EntitySet Name="TransactionHistoryArchive" EntityType="Self.TransactionHistoryArchive"/>	
 					<EntitySet Name="UnitMeasure" EntityType="Self.UnitMeasure"/>	
 					<EntitySet Name="Vendor" EntityType="Self.Vendor"/>	
-					<EntitySet Name="VendorAddress" EntityType="Self.VendorAddress"/>	
-					<EntitySet Name="VendorContact" EntityType="Self.VendorContact"/>	
 					<EntitySet Name="WorkOrder" EntityType="Self.WorkOrder"/>	
 					<EntitySet Name="WorkOrderRouting" EntityType="Self.WorkOrderRouting"/>	
 					<AssociationSet Name="Address_StateProvince_StateProvince_Addresses" Association="Self.Address_StateProvince_StateProvince_Addresses">
 						<End Role="Address" EntitySet="Address"/>
 						<End Role="StateProvince" EntitySet="StateProvince"/>
-					</AssociationSet>
-					<AssociationSet Name="CustomerAddress_Address_Address_CustomerAddresses" Association="Self.CustomerAddress_Address_Address_CustomerAddresses">
-						<End Role="CustomerAddress" EntitySet="CustomerAddress"/>
-						<End Role="Address" EntitySet="Address"/>
-					</AssociationSet>
-					<AssociationSet Name="EmployeeAddress_Address_Address_EmployeeAddresses" Association="Self.EmployeeAddress_Address_Address_EmployeeAddresses">
-						<End Role="EmployeeAddress" EntitySet="EmployeeAddress"/>
-						<End Role="Address" EntitySet="Address"/>
 					</AssociationSet>
 					<AssociationSet Name="SalesOrderHeader_Address_Address_SalesOrderHeaders" Association="Self.SalesOrderHeader_Address_Address_SalesOrderHeaders">
 						<End Role="SalesOrderHeader" EntitySet="SalesOrderHeader"/>
@@ -2466,16 +2442,12 @@
 						<End Role="SalesOrderHeader" EntitySet="SalesOrderHeader"/>
 						<End Role="Address" EntitySet="Address"/>
 					</AssociationSet>
-					<AssociationSet Name="VendorAddress_Address_Address_VendorAddresses" Association="Self.VendorAddress_Address_Address_VendorAddresses">
-						<End Role="VendorAddress" EntitySet="VendorAddress"/>
+					<AssociationSet Name="BusinessEntityAddress_Address_Address_BusinessEntityAddresses" Association="Self.BusinessEntityAddress_Address_Address_BusinessEntityAddresses">
+						<End Role="BusinessEntityAddress" EntitySet="BusinessEntityAddress"/>
 						<End Role="Address" EntitySet="Address"/>
 					</AssociationSet>
-					<AssociationSet Name="CustomerAddress_AddressType_AddressType_CustomerAddresses" Association="Self.CustomerAddress_AddressType_AddressType_CustomerAddresses">
-						<End Role="CustomerAddress" EntitySet="CustomerAddress"/>
-						<End Role="AddressType" EntitySet="AddressType"/>
-					</AssociationSet>
-					<AssociationSet Name="VendorAddress_AddressType_AddressType_VendorAddresses" Association="Self.VendorAddress_AddressType_AddressType_VendorAddresses">
-						<End Role="VendorAddress" EntitySet="VendorAddress"/>
+					<AssociationSet Name="BusinessEntityAddress_AddressType_AddressType_BusinessEntityAddresses" Association="Self.BusinessEntityAddress_AddressType_AddressType_BusinessEntityAddresses">
+						<End Role="BusinessEntityAddress" EntitySet="BusinessEntityAddress"/>
 						<End Role="AddressType" EntitySet="AddressType"/>
 					</AssociationSet>
 					<AssociationSet Name="BillOfMaterial_Product_Product_BillOfMaterials" Association="Self.BillOfMaterial_Product_Product_BillOfMaterials">
@@ -2490,40 +2462,24 @@
 						<End Role="BillOfMaterial" EntitySet="BillOfMaterial"/>
 						<End Role="UnitMeasure" EntitySet="UnitMeasure"/>
 					</AssociationSet>
-					<AssociationSet Name="ContactCreditCard_Contact_Contact_ContactCreditCards" Association="Self.ContactCreditCard_Contact_Contact_ContactCreditCards">
+					<AssociationSet Name="PersonPhone_Person_Person_PersonPhones" Association="Self.PersonPhone_Person_Person_PersonPhones">
+						<End Role="PersonPhone" EntitySet="PersonPhone"/>
+						<End Role="Person" EntitySet="Person"/>
+					</AssociationSet>
+					<AssociationSet Name="PersonPhone_PhoneNumberType_PhoneNumberType_PersonPhones" Association="Self.PersonPhone_PhoneNumberType_PhoneNumberType_PersonPhones">
+						<End Role="PersonPhone" EntitySet="PersonPhone"/>
+						<End Role="PhoneNumberType" EntitySet="PhoneNumberType"/>
+					</AssociationSet>
+					<AssociationSet Name="ContactCreditCard_Person_Person_ContactCreditCards" Association="Self.ContactCreditCard_Person_Person_ContactCreditCards">
 						<End Role="ContactCreditCard" EntitySet="ContactCreditCard"/>
-						<End Role="Contact" EntitySet="Contact"/>
-					</AssociationSet>
-					<AssociationSet Name="Employee_Contact_Contact_Employees" Association="Self.Employee_Contact_Contact_Employees">
-						<End Role="Employee" EntitySet="Employee"/>
-						<End Role="Contact" EntitySet="Contact"/>
-					</AssociationSet>
-					<AssociationSet Name="Individual_Contact_Contact_Individuals" Association="Self.Individual_Contact_Contact_Individuals">
-						<End Role="Individual" EntitySet="Individual"/>
-						<End Role="Contact" EntitySet="Contact"/>
-					</AssociationSet>
-					<AssociationSet Name="SalesOrderHeader_Contact_Contact_SalesOrderHeaders" Association="Self.SalesOrderHeader_Contact_Contact_SalesOrderHeaders">
-						<End Role="SalesOrderHeader" EntitySet="SalesOrderHeader"/>
-						<End Role="Contact" EntitySet="Contact"/>
-					</AssociationSet>
-					<AssociationSet Name="StoreContact_Contact_Contact_StoreContacts" Association="Self.StoreContact_Contact_Contact_StoreContacts">
-						<End Role="StoreContact" EntitySet="StoreContact"/>
-						<End Role="Contact" EntitySet="Contact"/>
-					</AssociationSet>
-					<AssociationSet Name="VendorContact_Contact_Contact_VendorContacts" Association="Self.VendorContact_Contact_Contact_VendorContacts">
-						<End Role="VendorContact" EntitySet="VendorContact"/>
-						<End Role="Contact" EntitySet="Contact"/>
+						<End Role="Person" EntitySet="Person"/>
 					</AssociationSet>
 					<AssociationSet Name="ContactCreditCard_CreditCard_CreditCard_ContactCreditCards" Association="Self.ContactCreditCard_CreditCard_CreditCard_ContactCreditCards">
 						<End Role="ContactCreditCard" EntitySet="ContactCreditCard"/>
 						<End Role="CreditCard" EntitySet="CreditCard"/>
 					</AssociationSet>
-					<AssociationSet Name="StoreContact_ContactType_ContactType_StoreContacts" Association="Self.StoreContact_ContactType_ContactType_StoreContacts">
-						<End Role="StoreContact" EntitySet="StoreContact"/>
-						<End Role="ContactType" EntitySet="ContactType"/>
-					</AssociationSet>
-					<AssociationSet Name="VendorContact_ContactType_ContactType_VendorContacts" Association="Self.VendorContact_ContactType_ContactType_VendorContacts">
-						<End Role="VendorContact" EntitySet="VendorContact"/>
+					<AssociationSet Name="BusinessEntityContact_ContactType_ContactType_BusinessEntityContacts" Association="Self.BusinessEntityContact_ContactType_ContactType_BusinessEntityContacts">
+						<End Role="BusinessEntityContact" EntitySet="BusinessEntityContact"/>
 						<End Role="ContactType" EntitySet="ContactType"/>
 					</AssociationSet>
 					<AssociationSet Name="CountryRegionCurrency_CountryRegion_CountryRegion_CountryRegionCurrencies" Association="Self.CountryRegionCurrency_CountryRegion_CountryRegion_CountryRegionCurrencies">
@@ -2532,6 +2488,10 @@
 					</AssociationSet>
 					<AssociationSet Name="StateProvince_CountryRegion_CountryRegion_StateProvinces" Association="Self.StateProvince_CountryRegion_CountryRegion_StateProvinces">
 						<End Role="StateProvince" EntitySet="StateProvince"/>
+						<End Role="CountryRegion" EntitySet="CountryRegion"/>
+					</AssociationSet>
+					<AssociationSet Name="SalesTerritory_CountryRegion_CountryRegion_SalesTerritories" Association="Self.SalesTerritory_CountryRegion_CountryRegion_SalesTerritories">
+						<End Role="SalesTerritory" EntitySet="SalesTerritory"/>
 						<End Role="CountryRegion" EntitySet="CountryRegion"/>
 					</AssociationSet>
 					<AssociationSet Name="CountryRegionCurrency_Currency_Currency_CountryRegionCurrencies" Association="Self.CountryRegionCurrency_Currency_Currency_CountryRegionCurrencies">
@@ -2562,37 +2522,49 @@
 						<End Role="Customer" EntitySet="Customer"/>
 						<End Role="SalesTerritory" EntitySet="SalesTerritory"/>
 					</AssociationSet>
-					<AssociationSet Name="CustomerAddress_Customer_Customer_CustomerAddresses" Association="Self.CustomerAddress_Customer_Customer_CustomerAddresses">
-						<End Role="CustomerAddress" EntitySet="CustomerAddress"/>
+					<AssociationSet Name="Customer_Person_Person_Customers" Association="Self.Customer_Person_Person_Customers">
 						<End Role="Customer" EntitySet="Customer"/>
-					</AssociationSet>
-					<AssociationSet Name="Individual_Customer_Customer_Individual" Association="Self.Individual_Customer_Customer_Individual">
-						<End Role="Individual" EntitySet="Individual"/>
-						<End Role="Customer" EntitySet="Customer"/>
+						<End Role="Person" EntitySet="Person"/>
 					</AssociationSet>
 					<AssociationSet Name="SalesOrderHeader_Customer_Customer_SalesOrderHeaders" Association="Self.SalesOrderHeader_Customer_Customer_SalesOrderHeaders">
 						<End Role="SalesOrderHeader" EntitySet="SalesOrderHeader"/>
 						<End Role="Customer" EntitySet="Customer"/>
 					</AssociationSet>
-					<AssociationSet Name="Store_Customer_Customer_Store" Association="Self.Store_Customer_Customer_Store">
-						<End Role="Store" EntitySet="Store"/>
+					<AssociationSet Name="Customer_Store_Store_Customers" Association="Self.Customer_Store_Store_Customers">
 						<End Role="Customer" EntitySet="Customer"/>
+						<End Role="Store" EntitySet="Store"/>
+					</AssociationSet>
+					<AssociationSet Name="Person_BusinessEntity_BusinessEntity_Person" Association="Self.Person_BusinessEntity_BusinessEntity_Person">
+						<End Role="Person" EntitySet="Person"/>
+						<End Role="BusinessEntity" EntitySet="BusinessEntity"/>
+					</AssociationSet>
+					<AssociationSet Name="Employee_Person_Person_Employee" Association="Self.Employee_Person_Person_Employee">
+						<End Role="Employee" EntitySet="Employee"/>
+						<End Role="Person" EntitySet="Person"/>
+					</AssociationSet>
+					<AssociationSet Name="BusinessEntityContact_Person_Person_BusinessEntityContacts" Association="Self.BusinessEntityContact_Person_Person_BusinessEntityContacts">
+						<End Role="BusinessEntityContact" EntitySet="BusinessEntityContact"/>
+						<End Role="Person" EntitySet="Person"/>
+					</AssociationSet>
+					<AssociationSet Name="EmailAddress_Person_Person_EmailAddresses" Association="Self.EmailAddress_Person_Person_EmailAddresses">
+						<End Role="EmailAddress" EntitySet="EmailAddress"/>
+						<End Role="Person" EntitySet="Person"/>
+					</AssociationSet>
+					<AssociationSet Name="Password_Person_Person_Password" Association="Self.Password_Person_Person_Password">
+						<End Role="Password" EntitySet="Password"/>
+						<End Role="Person" EntitySet="Person"/>
 					</AssociationSet>
 					<AssociationSet Name="EmployeeDepartmentHistory_Department_Department_EmployeeDepartmentHistories" Association="Self.EmployeeDepartmentHistory_Department_Department_EmployeeDepartmentHistories">
 						<End Role="EmployeeDepartmentHistory" EntitySet="EmployeeDepartmentHistory"/>
 						<End Role="Department" EntitySet="Department"/>
 					</AssociationSet>
+					<AssociationSet Name="Document_Employee_Employee_Documents" Association="Self.Document_Employee_Employee_Documents">
+						<End Role="Document" EntitySet="Document"/>
+						<End Role="Employee" EntitySet="Employee"/>
+					</AssociationSet>
 					<AssociationSet Name="ProductDocument_Document_Document_ProductDocuments" Association="Self.ProductDocument_Document_Document_ProductDocuments">
 						<End Role="ProductDocument" EntitySet="ProductDocument"/>
 						<End Role="Document" EntitySet="Document"/>
-					</AssociationSet>
-					<AssociationSet Name="Employee_Manager_Employee_Employees" Association="Self.Employee_Manager_Employee_Employees">
-						<End Role="Employee" EntitySet="Employee"/>
-						<End Role="Employee1" EntitySet="Employee"/>
-					</AssociationSet>
-					<AssociationSet Name="EmployeeAddress_Employee_Employee_EmployeeAddresses" Association="Self.EmployeeAddress_Employee_Employee_EmployeeAddresses">
-						<End Role="EmployeeAddress" EntitySet="EmployeeAddress"/>
-						<End Role="Employee" EntitySet="Employee"/>
 					</AssociationSet>
 					<AssociationSet Name="EmployeeDepartmentHistory_Employee_Employee_EmployeeDepartmentHistories" Association="Self.EmployeeDepartmentHistory_Employee_Employee_EmployeeDepartmentHistories">
 						<End Role="EmployeeDepartmentHistory" EntitySet="EmployeeDepartmentHistory"/>
@@ -2798,17 +2770,21 @@
 						<End Role="SpecialOfferProduct" EntitySet="SpecialOfferProduct"/>
 						<End Role="SpecialOffer" EntitySet="SpecialOffer"/>
 					</AssociationSet>
-					<AssociationSet Name="StoreContact_Store_Store_StoreContacts" Association="Self.StoreContact_Store_Store_StoreContacts">
-						<End Role="StoreContact" EntitySet="StoreContact"/>
+					<AssociationSet Name="Store_BusinessEntity_BusinessEntity_Store" Association="Self.Store_BusinessEntity_BusinessEntity_Store">
 						<End Role="Store" EntitySet="Store"/>
+						<End Role="BusinessEntity" EntitySet="BusinessEntity"/>
 					</AssociationSet>
-					<AssociationSet Name="VendorAddress_Vendor_Vendor_VendorAddresses" Association="Self.VendorAddress_Vendor_Vendor_VendorAddresses">
-						<End Role="VendorAddress" EntitySet="VendorAddress"/>
-						<End Role="Vendor" EntitySet="Vendor"/>
+					<AssociationSet Name="BusinessEntityContact_BusinessEntity_BusinessEntity_BusinessEntityContacts" Association="Self.BusinessEntityContact_BusinessEntity_BusinessEntity_BusinessEntityContacts">
+						<End Role="BusinessEntityContact" EntitySet="BusinessEntityContact"/>
+						<End Role="BusinessEntity" EntitySet="BusinessEntity"/>
 					</AssociationSet>
-					<AssociationSet Name="VendorContact_Vendor_Vendor_VendorContacts" Association="Self.VendorContact_Vendor_Vendor_VendorContacts">
-						<End Role="VendorContact" EntitySet="VendorContact"/>
+					<AssociationSet Name="Vendor_BusinessEntity_BusinessEntity_Vendor" Association="Self.Vendor_BusinessEntity_BusinessEntity_Vendor">
 						<End Role="Vendor" EntitySet="Vendor"/>
+						<End Role="BusinessEntity" EntitySet="BusinessEntity"/>
+					</AssociationSet>
+					<AssociationSet Name="BusinessEntityAddress_BusinessEntity_BusinessEntity_BusinessEntityAddresses" Association="Self.BusinessEntityAddress_BusinessEntity_BusinessEntity_BusinessEntityAddresses">
+						<End Role="BusinessEntityAddress" EntitySet="BusinessEntityAddress"/>
+						<End Role="BusinessEntity" EntitySet="BusinessEntity"/>
 					</AssociationSet>
 					<AssociationSet Name="WorkOrderRouting_WorkOrder_WorkOrder_WorkOrderRoutings" Association="Self.WorkOrderRouting_WorkOrder_WorkOrder_WorkOrderRoutings">
 						<End Role="WorkOrderRouting" EntitySet="WorkOrderRouting"/>
@@ -2828,12 +2804,11 @@
 					<Property Name="ModifiedDate" Nullable="false"  Type="DateTime" />
 					<Property Name="PostalCode" Nullable="false"  Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
 					<Property Name="Rowguid" Nullable="false"  Type="Guid" />
-					<NavigationProperty Name="CustomerAddresses" Relationship="Self.CustomerAddress_Address_Address_CustomerAddresses" FromRole="Address" ToRole="CustomerAddress" />
-					<NavigationProperty Name="EmployeeAddresses" Relationship="Self.EmployeeAddress_Address_Address_EmployeeAddresses" FromRole="Address" ToRole="EmployeeAddress" />
+					<Property Name="SpatialLocation"  Type="Geography" />
+					<NavigationProperty Name="BusinessEntityAddresses" Relationship="Self.BusinessEntityAddress_Address_Address_BusinessEntityAddresses" FromRole="Address" ToRole="BusinessEntityAddress" />
 					<NavigationProperty Name="SalesOrderHeaders" Relationship="Self.SalesOrderHeader_Address_Address_SalesOrderHeaders" FromRole="Address" ToRole="SalesOrderHeader" />
 					<NavigationProperty Name="SalesOrderHeaders_" Relationship="Self.SalesOrderHeader_Address__Address_SalesOrderHeaders_" FromRole="Address" ToRole="SalesOrderHeader" />
 					<NavigationProperty Name="StateProvince" Relationship="Self.Address_StateProvince_StateProvince_Addresses" FromRole="Address" ToRole="StateProvince" />
-					<NavigationProperty Name="VendorAddresses" Relationship="Self.VendorAddress_Address_Address_VendorAddresses" FromRole="Address" ToRole="VendorAddress" />
 				</EntityType>
 				<EntityType Name="AddressType">
 					<Key>
@@ -2843,8 +2818,7 @@
 					<Property Name="ModifiedDate" Nullable="false"  Type="DateTime" />
 					<Property Name="Name" Nullable="false"  Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
 					<Property Name="Rowguid" Nullable="false"  Type="Guid" />
-					<NavigationProperty Name="CustomerAddresses" Relationship="Self.CustomerAddress_AddressType_AddressType_CustomerAddresses" FromRole="AddressType" ToRole="CustomerAddress" />
-					<NavigationProperty Name="VendorAddresses" Relationship="Self.VendorAddress_AddressType_AddressType_VendorAddresses" FromRole="AddressType" ToRole="VendorAddress" />
+					<NavigationProperty Name="BusinessEntityAddresses" Relationship="Self.BusinessEntityAddress_AddressType_AddressType_BusinessEntityAddresses" FromRole="AddressType" ToRole="BusinessEntityAddress" />
 				</EntityType>
 				<EntityType Name="BillOfMaterial">
 					<Key>
@@ -2860,31 +2834,48 @@
 					<NavigationProperty Name="Product_" Relationship="Self.BillOfMaterial_Product__Product_BillOfMaterials_" FromRole="BillOfMaterial" ToRole="Product" />
 					<NavigationProperty Name="UnitMeasure" Relationship="Self.BillOfMaterial_UnitMeasure_UnitMeasure_BillOfMaterials" FromRole="BillOfMaterial" ToRole="UnitMeasure" />
 				</EntityType>
-				<EntityType Name="Contact">
+				<EntityType Name="BusinessEntity">
 					<Key>
-						<PropertyRef Name="ContactId"/>
+						<PropertyRef Name="BusinessEntityId"/>
 					</Key>
-					<Property Name="AdditionalContactInfo"  Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-					<Property Name="ContactId" Nullable="false"  Type="Int32" />
-					<Property Name="EmailAddress"  Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-					<Property Name="EmailPromotion" Nullable="false"  Type="Int32" />
-					<Property Name="FirstName" Nullable="false"  Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-					<Property Name="LastName" Nullable="false"  Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-					<Property Name="MiddleName"  Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+					<Property Name="BusinessEntityId" Nullable="false"  Type="Int32" />
 					<Property Name="ModifiedDate" Nullable="false"  Type="DateTime" />
-					<Property Name="NameStyle" Nullable="false"  Type="Boolean" />
-					<Property Name="PasswordHash" Nullable="false"  Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
-					<Property Name="PasswordSalt" Nullable="false"  Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-					<Property Name="Phone"  Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
 					<Property Name="Rowguid" Nullable="false"  Type="Guid" />
-					<Property Name="Suffix"  Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-					<Property Name="Title"  Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
-					<NavigationProperty Name="ContactCreditCards" Relationship="Self.ContactCreditCard_Contact_Contact_ContactCreditCards" FromRole="Contact" ToRole="ContactCreditCard" />
-					<NavigationProperty Name="Employees" Relationship="Self.Employee_Contact_Contact_Employees" FromRole="Contact" ToRole="Employee" />
-					<NavigationProperty Name="Individuals" Relationship="Self.Individual_Contact_Contact_Individuals" FromRole="Contact" ToRole="Individual" />
-					<NavigationProperty Name="SalesOrderHeaders" Relationship="Self.SalesOrderHeader_Contact_Contact_SalesOrderHeaders" FromRole="Contact" ToRole="SalesOrderHeader" />
-					<NavigationProperty Name="StoreContacts" Relationship="Self.StoreContact_Contact_Contact_StoreContacts" FromRole="Contact" ToRole="StoreContact" />
-					<NavigationProperty Name="VendorContacts" Relationship="Self.VendorContact_Contact_Contact_VendorContacts" FromRole="Contact" ToRole="VendorContact" />
+					<NavigationProperty Name="BusinessEntityAddresses" Relationship="Self.BusinessEntityAddress_BusinessEntity_BusinessEntity_BusinessEntityAddresses" FromRole="BusinessEntity" ToRole="BusinessEntityAddress" />
+					<NavigationProperty Name="BusinessEntityContacts" Relationship="Self.BusinessEntityContact_BusinessEntity_BusinessEntity_BusinessEntityContacts" FromRole="BusinessEntity" ToRole="BusinessEntityContact" />
+					<NavigationProperty Name="Person" Relationship="Self.Person_BusinessEntity_BusinessEntity_Person" FromRole="BusinessEntity" ToRole="Person" />
+					<NavigationProperty Name="Store" Relationship="Self.Store_BusinessEntity_BusinessEntity_Store" FromRole="BusinessEntity" ToRole="Store" />
+					<NavigationProperty Name="Vendor" Relationship="Self.Vendor_BusinessEntity_BusinessEntity_Vendor" FromRole="BusinessEntity" ToRole="Vendor" />
+				</EntityType>
+				<EntityType Name="BusinessEntityAddress">
+					<Key>
+						<PropertyRef Name="AddressId"/>
+						<PropertyRef Name="AddressTypeId"/>
+						<PropertyRef Name="BusinessEntityId"/>
+					</Key>
+					<Property Name="AddressId" Nullable="false"  Type="Int32" />
+					<Property Name="AddressTypeId" Nullable="false"  Type="Int32" />
+					<Property Name="BusinessEntityId" Nullable="false"  Type="Int32" />
+					<Property Name="ModifiedDate" Nullable="false"  Type="DateTime" />
+					<Property Name="Rowguid" Nullable="false"  Type="Guid" />
+					<NavigationProperty Name="Address" Relationship="Self.BusinessEntityAddress_Address_Address_BusinessEntityAddresses" FromRole="BusinessEntityAddress" ToRole="Address" />
+					<NavigationProperty Name="AddressType" Relationship="Self.BusinessEntityAddress_AddressType_AddressType_BusinessEntityAddresses" FromRole="BusinessEntityAddress" ToRole="AddressType" />
+					<NavigationProperty Name="BusinessEntity" Relationship="Self.BusinessEntityAddress_BusinessEntity_BusinessEntity_BusinessEntityAddresses" FromRole="BusinessEntityAddress" ToRole="BusinessEntity" />
+				</EntityType>
+				<EntityType Name="BusinessEntityContact">
+					<Key>
+						<PropertyRef Name="BusinessEntityId"/>
+						<PropertyRef Name="ContactTypeId"/>
+						<PropertyRef Name="PersonId"/>
+					</Key>
+					<Property Name="BusinessEntityId" Nullable="false"  Type="Int32" />
+					<Property Name="ContactTypeId" Nullable="false"  Type="Int32" />
+					<Property Name="ModifiedDate" Nullable="false"  Type="DateTime" />
+					<Property Name="PersonId" Nullable="false"  Type="Int32" />
+					<Property Name="Rowguid" Nullable="false"  Type="Guid" />
+					<NavigationProperty Name="ContactType" Relationship="Self.BusinessEntityContact_ContactType_ContactType_BusinessEntityContacts" FromRole="BusinessEntityContact" ToRole="ContactType" />
+					<NavigationProperty Name="BusinessEntity" Relationship="Self.BusinessEntityContact_BusinessEntity_BusinessEntity_BusinessEntityContacts" FromRole="BusinessEntityContact" ToRole="BusinessEntity" />
+					<NavigationProperty Name="Person" Relationship="Self.BusinessEntityContact_Person_Person_BusinessEntityContacts" FromRole="BusinessEntityContact" ToRole="Person" />
 				</EntityType>
 				<EntityType Name="ContactCreditCard">
 					<Key>
@@ -2894,8 +2885,8 @@
 					<Property Name="ContactId" Nullable="false"  Type="Int32" />
 					<Property Name="CreditCardId" Nullable="false"  Type="Int32" />
 					<Property Name="ModifiedDate" Nullable="false"  Type="DateTime" />
-					<NavigationProperty Name="Contact" Relationship="Self.ContactCreditCard_Contact_Contact_ContactCreditCards" FromRole="ContactCreditCard" ToRole="Contact" />
 					<NavigationProperty Name="CreditCard" Relationship="Self.ContactCreditCard_CreditCard_CreditCard_ContactCreditCards" FromRole="ContactCreditCard" ToRole="CreditCard" />
+					<NavigationProperty Name="Person" Relationship="Self.ContactCreditCard_Person_Person_ContactCreditCards" FromRole="ContactCreditCard" ToRole="Person" />
 				</EntityType>
 				<EntityType Name="ContactType">
 					<Key>
@@ -2904,8 +2895,7 @@
 					<Property Name="ContactTypeId" Nullable="false"  Type="Int32" />
 					<Property Name="ModifiedDate" Nullable="false"  Type="DateTime" />
 					<Property Name="Name" Nullable="false"  Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-					<NavigationProperty Name="StoreContacts" Relationship="Self.StoreContact_ContactType_ContactType_StoreContacts" FromRole="ContactType" ToRole="StoreContact" />
-					<NavigationProperty Name="VendorContacts" Relationship="Self.VendorContact_ContactType_ContactType_VendorContacts" FromRole="ContactType" ToRole="VendorContact" />
+					<NavigationProperty Name="BusinessEntityContacts" Relationship="Self.BusinessEntityContact_ContactType_ContactType_BusinessEntityContacts" FromRole="ContactType" ToRole="BusinessEntityContact" />
 				</EntityType>
 				<EntityType Name="CountryRegion">
 					<Key>
@@ -2915,6 +2905,7 @@
 					<Property Name="ModifiedDate" Nullable="false"  Type="DateTime" />
 					<Property Name="Name" Nullable="false"  Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
 					<NavigationProperty Name="CountryRegionCurrencies" Relationship="Self.CountryRegionCurrency_CountryRegion_CountryRegion_CountryRegionCurrencies" FromRole="CountryRegion" ToRole="CountryRegionCurrency" />
+					<NavigationProperty Name="SalesTerritories" Relationship="Self.SalesTerritory_CountryRegion_CountryRegion_SalesTerritories" FromRole="CountryRegion" ToRole="SalesTerritory" />
 					<NavigationProperty Name="StateProvinces" Relationship="Self.StateProvince_CountryRegion_CountryRegion_StateProvinces" FromRole="CountryRegion" ToRole="StateProvince" />
 				</EntityType>
 				<EntityType Name="CountryRegionCurrency">
@@ -2980,27 +2971,12 @@
 					</Key>
 					<Property Name="AccountNumber" Nullable="false"  Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
 					<Property Name="CustomerId" Nullable="false"  Type="Int32" />
-					<Property Name="CustomerType" Nullable="false"  Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
 					<Property Name="ModifiedDate" Nullable="false"  Type="DateTime" />
 					<Property Name="Rowguid" Nullable="false"  Type="Guid" />
-					<NavigationProperty Name="CustomerAddresses" Relationship="Self.CustomerAddress_Customer_Customer_CustomerAddresses" FromRole="Customer" ToRole="CustomerAddress" />
-					<NavigationProperty Name="Individual" Relationship="Self.Individual_Customer_Customer_Individual" FromRole="Customer" ToRole="Individual" />
+					<NavigationProperty Name="Person" Relationship="Self.Customer_Person_Person_Customers" FromRole="Customer" ToRole="Person" />
 					<NavigationProperty Name="SalesOrderHeaders" Relationship="Self.SalesOrderHeader_Customer_Customer_SalesOrderHeaders" FromRole="Customer" ToRole="SalesOrderHeader" />
 					<NavigationProperty Name="SalesTerritory" Relationship="Self.Customer_SalesTerritory_SalesTerritory_Customers" FromRole="Customer" ToRole="SalesTerritory" />
-					<NavigationProperty Name="Store" Relationship="Self.Store_Customer_Customer_Store" FromRole="Customer" ToRole="Store" />
-				</EntityType>
-				<EntityType Name="CustomerAddress">
-					<Key>
-						<PropertyRef Name="AddressId"/>
-						<PropertyRef Name="CustomerId"/>
-					</Key>
-					<Property Name="AddressId" Nullable="false"  Type="Int32" />
-					<Property Name="CustomerId" Nullable="false"  Type="Int32" />
-					<Property Name="ModifiedDate" Nullable="false"  Type="DateTime" />
-					<Property Name="Rowguid" Nullable="false"  Type="Guid" />
-					<NavigationProperty Name="Address" Relationship="Self.CustomerAddress_Address_Address_CustomerAddresses" FromRole="CustomerAddress" ToRole="Address" />
-					<NavigationProperty Name="AddressType" Relationship="Self.CustomerAddress_AddressType_AddressType_CustomerAddresses" FromRole="CustomerAddress" ToRole="AddressType" />
-					<NavigationProperty Name="Customer" Relationship="Self.CustomerAddress_Customer_Customer_CustomerAddresses" FromRole="CustomerAddress" ToRole="Customer" />
+					<NavigationProperty Name="Store" Relationship="Self.Customer_Store_Store_Customers" FromRole="Customer" ToRole="Store" />
 				</EntityType>
 				<EntityType Name="Department">
 					<Key>
@@ -3014,19 +2990,35 @@
 				</EntityType>
 				<EntityType Name="Document">
 					<Key>
-						<PropertyRef Name="DocumentId"/>
+						<PropertyRef Name="DocumentNode"/>
 					</Key>
 					<Property Name="ChangeNumber" Nullable="false"  Type="Int32" />
-					<Property Name="DocumentId" Nullable="false"  Type="Int32" />
+					<Property Name="DocumentLevel"  Type="Int16" />
+					<Property Name="DocumentNode" Nullable="false"  Type="String" MaxLength="892" FixedLength="false" Unicode="true" />
 					<Property Name="DocumentSummary"  Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
 					<Property Name="DocumentValue"  Type="Binary" MaxLength="Max" FixedLength="false" />
 					<Property Name="FileExtension" Nullable="false"  Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
 					<Property Name="FileName" Nullable="false"  Type="String" MaxLength="400" FixedLength="false" Unicode="true" />
+					<Property Name="FolderFlag" Nullable="false"  Type="Boolean" />
 					<Property Name="ModifiedDate" Nullable="false"  Type="DateTime" />
 					<Property Name="Revision" Nullable="false"  Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+					<Property Name="Rowguid" Nullable="false"  Type="Guid" />
 					<Property Name="Status" Nullable="false"  Type="Byte" />
 					<Property Name="Title" Nullable="false"  Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+					<NavigationProperty Name="Employee" Relationship="Self.Document_Employee_Employee_Documents" FromRole="Document" ToRole="Employee" />
 					<NavigationProperty Name="ProductDocuments" Relationship="Self.ProductDocument_Document_Document_ProductDocuments" FromRole="Document" ToRole="ProductDocument" />
+				</EntityType>
+				<EntityType Name="EmailAddress">
+					<Key>
+						<PropertyRef Name="BusinessEntityId"/>
+						<PropertyRef Name="EmailAddressId"/>
+					</Key>
+					<Property Name="BusinessEntityId" Nullable="false"  Type="Int32" />
+					<Property Name="EmailAddressId" Nullable="false"  Type="Int32" />
+					<Property Name="EmailAddressValue"  Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+					<Property Name="ModifiedDate" Nullable="false"  Type="DateTime" />
+					<Property Name="Rowguid" Nullable="false"  Type="Guid" />
+					<NavigationProperty Name="Person" Relationship="Self.EmailAddress_Person_Person_EmailAddresses" FromRole="EmailAddress" ToRole="Person" />
 				</EntityType>
 				<EntityType Name="Employee">
 					<Key>
@@ -3041,32 +3033,20 @@
 					<Property Name="MaritalStatus" Nullable="false"  Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
 					<Property Name="ModifiedDate" Nullable="false"  Type="DateTime" />
 					<Property Name="NationalIdnumber" Nullable="false"  Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+					<Property Name="OrganizationLevel"  Type="Int16" />
+					<Property Name="OrganizationNode"  Type="String" MaxLength="892" FixedLength="false" Unicode="true" />
 					<Property Name="Rowguid" Nullable="false"  Type="Guid" />
 					<Property Name="SalariedFlag" Nullable="false"  Type="Boolean" />
 					<Property Name="SickLeaveHours" Nullable="false"  Type="Int16" />
 					<Property Name="Title" Nullable="false"  Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
 					<Property Name="VacationHours" Nullable="false"  Type="Int16" />
-					<NavigationProperty Name="Contact" Relationship="Self.Employee_Contact_Contact_Employees" FromRole="Employee" ToRole="Contact" />
-					<NavigationProperty Name="Manager" Relationship="Self.Employee_Manager_Employee_Employees" FromRole="Employee" ToRole="Employee1" />
-					<NavigationProperty Name="Employees" Relationship="Self.Employee_Manager_Employee_Employees" FromRole="Employee1" ToRole="Employee" />
-					<NavigationProperty Name="EmployeeAddresses" Relationship="Self.EmployeeAddress_Employee_Employee_EmployeeAddresses" FromRole="Employee" ToRole="EmployeeAddress" />
+					<NavigationProperty Name="Documents" Relationship="Self.Document_Employee_Employee_Documents" FromRole="Employee" ToRole="Document" />
 					<NavigationProperty Name="EmployeeDepartmentHistories" Relationship="Self.EmployeeDepartmentHistory_Employee_Employee_EmployeeDepartmentHistories" FromRole="Employee" ToRole="EmployeeDepartmentHistory" />
 					<NavigationProperty Name="EmployeePayHistories" Relationship="Self.EmployeePayHistory_Employee_Employee_EmployeePayHistories" FromRole="Employee" ToRole="EmployeePayHistory" />
 					<NavigationProperty Name="JobCandidates" Relationship="Self.JobCandidate_Employee_Employee_JobCandidates" FromRole="Employee" ToRole="JobCandidate" />
+					<NavigationProperty Name="Person" Relationship="Self.Employee_Person_Person_Employee" FromRole="Employee" ToRole="Person" />
 					<NavigationProperty Name="PurchaseOrderHeaders" Relationship="Self.PurchaseOrderHeader_Employee_Employee_PurchaseOrderHeaders" FromRole="Employee" ToRole="PurchaseOrderHeader" />
 					<NavigationProperty Name="SalesPerson" Relationship="Self.SalesPerson_Employee_Employee_SalesPerson" FromRole="Employee" ToRole="SalesPerson" />
-				</EntityType>
-				<EntityType Name="EmployeeAddress">
-					<Key>
-						<PropertyRef Name="AddressId"/>
-						<PropertyRef Name="EmployeeId"/>
-					</Key>
-					<Property Name="AddressId" Nullable="false"  Type="Int32" />
-					<Property Name="EmployeeId" Nullable="false"  Type="Int32" />
-					<Property Name="ModifiedDate" Nullable="false"  Type="DateTime" />
-					<Property Name="Rowguid" Nullable="false"  Type="Guid" />
-					<NavigationProperty Name="Address" Relationship="Self.EmployeeAddress_Address_Address_EmployeeAddresses" FromRole="EmployeeAddress" ToRole="Address" />
-					<NavigationProperty Name="Employee" Relationship="Self.EmployeeAddress_Employee_Employee_EmployeeAddresses" FromRole="EmployeeAddress" ToRole="Employee" />
 				</EntityType>
 				<EntityType Name="EmployeeDepartmentHistory">
 					<Key>
@@ -3106,16 +3086,6 @@
 					<Property Name="ModifiedDate" Nullable="false"  Type="DateTime" />
 					<NavigationProperty Name="ProductModelIllustrations" Relationship="Self.ProductModelIllustration_Illustration_Illustration_ProductModelIllustrations" FromRole="Illustration" ToRole="ProductModelIllustration" />
 				</EntityType>
-				<EntityType Name="Individual">
-					<Key>
-						<PropertyRef Name="CustomerId"/>
-					</Key>
-					<Property Name="CustomerId" Nullable="false"  Type="Int32" />
-					<Property Name="Demographics"  Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-					<Property Name="ModifiedDate" Nullable="false"  Type="DateTime" />
-					<NavigationProperty Name="Contact" Relationship="Self.Individual_Contact_Contact_Individuals" FromRole="Individual" ToRole="Contact" />
-					<NavigationProperty Name="Customer" Relationship="Self.Individual_Customer_Customer_Individual" FromRole="Individual" ToRole="Customer" />
-				</EntityType>
 				<EntityType Name="JobCandidate">
 					<Key>
 						<PropertyRef Name="JobCandidateId"/>
@@ -3136,6 +3106,65 @@
 					<Property Name="Name" Nullable="false"  Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
 					<NavigationProperty Name="ProductInventories" Relationship="Self.ProductInventory_Location_Location_ProductInventories" FromRole="Location" ToRole="ProductInventory" />
 					<NavigationProperty Name="WorkOrderRoutings" Relationship="Self.WorkOrderRouting_Location_Location_WorkOrderRoutings" FromRole="Location" ToRole="WorkOrderRouting" />
+				</EntityType>
+				<EntityType Name="Password">
+					<Key>
+						<PropertyRef Name="BusinessEntityId"/>
+					</Key>
+					<Property Name="BusinessEntityId" Nullable="false"  Type="Int32" />
+					<Property Name="ModifiedDate" Nullable="false"  Type="DateTime" />
+					<Property Name="PasswordHash" Nullable="false"  Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+					<Property Name="PasswordSalt" Nullable="false"  Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+					<Property Name="Rowguid" Nullable="false"  Type="Guid" />
+					<NavigationProperty Name="Person" Relationship="Self.Password_Person_Person_Password" FromRole="Password" ToRole="Person" />
+				</EntityType>
+				<EntityType Name="Person">
+					<Key>
+						<PropertyRef Name="BusinessEntityId"/>
+					</Key>
+					<Property Name="AdditionalContactInfo"  Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+					<Property Name="BusinessEntityId" Nullable="false"  Type="Int32" />
+					<Property Name="Demographics"  Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+					<Property Name="EmailPromotion" Nullable="false"  Type="Int32" />
+					<Property Name="FirstName" Nullable="false"  Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+					<Property Name="LastName" Nullable="false"  Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+					<Property Name="MiddleName"  Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+					<Property Name="ModifiedDate" Nullable="false"  Type="DateTime" />
+					<Property Name="NameStyle" Nullable="false"  Type="Boolean" />
+					<Property Name="PersonType" Nullable="false"  Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+					<Property Name="Rowguid" Nullable="false"  Type="Guid" />
+					<Property Name="Suffix"  Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+					<Property Name="Title"  Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+					<NavigationProperty Name="ContactCreditCards" Relationship="Self.ContactCreditCard_Person_Person_ContactCreditCards" FromRole="Person" ToRole="ContactCreditCard" />
+					<NavigationProperty Name="Customers" Relationship="Self.Customer_Person_Person_Customers" FromRole="Person" ToRole="Customer" />
+					<NavigationProperty Name="Employee" Relationship="Self.Employee_Person_Person_Employee" FromRole="Person" ToRole="Employee" />
+					<NavigationProperty Name="BusinessEntity" Relationship="Self.Person_BusinessEntity_BusinessEntity_Person" FromRole="Person" ToRole="BusinessEntity" />
+					<NavigationProperty Name="BusinessEntityContacts" Relationship="Self.BusinessEntityContact_Person_Person_BusinessEntityContacts" FromRole="Person" ToRole="BusinessEntityContact" />
+					<NavigationProperty Name="EmailAddresses" Relationship="Self.EmailAddress_Person_Person_EmailAddresses" FromRole="Person" ToRole="EmailAddress" />
+					<NavigationProperty Name="Password" Relationship="Self.Password_Person_Person_Password" FromRole="Person" ToRole="Password" />
+					<NavigationProperty Name="PersonPhones" Relationship="Self.PersonPhone_Person_Person_PersonPhones" FromRole="Person" ToRole="PersonPhone" />
+				</EntityType>
+				<EntityType Name="PersonPhone">
+					<Key>
+						<PropertyRef Name="BusinessEntityId"/>
+						<PropertyRef Name="PhoneNumber"/>
+						<PropertyRef Name="PhoneNumberTypeId"/>
+					</Key>
+					<Property Name="BusinessEntityId" Nullable="false"  Type="Int32" />
+					<Property Name="ModifiedDate" Nullable="false"  Type="DateTime" />
+					<Property Name="PhoneNumber" Nullable="false"  Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+					<Property Name="PhoneNumberTypeId" Nullable="false"  Type="Int32" />
+					<NavigationProperty Name="Person" Relationship="Self.PersonPhone_Person_Person_PersonPhones" FromRole="PersonPhone" ToRole="Person" />
+					<NavigationProperty Name="PhoneNumberType" Relationship="Self.PersonPhone_PhoneNumberType_PhoneNumberType_PersonPhones" FromRole="PersonPhone" ToRole="PhoneNumberType" />
+				</EntityType>
+				<EntityType Name="PhoneNumberType">
+					<Key>
+						<PropertyRef Name="PhoneNumberTypeId"/>
+					</Key>
+					<Property Name="ModifiedDate" Nullable="false"  Type="DateTime" />
+					<Property Name="Name" Nullable="false"  Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+					<Property Name="PhoneNumberTypeId" Nullable="false"  Type="Int32" />
+					<NavigationProperty Name="PersonPhones" Relationship="Self.PersonPhone_PhoneNumberType_PhoneNumberType_PersonPhones" FromRole="PhoneNumberType" ToRole="PersonPhone" />
 				</EntityType>
 				<EntityType Name="Product">
 					<Key>
@@ -3215,10 +3244,10 @@
 				</EntityType>
 				<EntityType Name="ProductDocument">
 					<Key>
-						<PropertyRef Name="DocumentId"/>
+						<PropertyRef Name="DocumentNode"/>
 						<PropertyRef Name="ProductId"/>
 					</Key>
-					<Property Name="DocumentId" Nullable="false"  Type="Int32" />
+					<Property Name="DocumentNode" Nullable="false"  Type="String" MaxLength="892" FixedLength="false" Unicode="true" />
 					<Property Name="ModifiedDate" Nullable="false"  Type="DateTime" />
 					<Property Name="ProductId" Nullable="false"  Type="Int32" />
 					<NavigationProperty Name="Document" Relationship="Self.ProductDocument_Document_Document_ProductDocuments" FromRole="ProductDocument" ToRole="Document" />
@@ -3435,7 +3464,6 @@
 					<Property Name="TotalDue" Nullable="false"  Type="Decimal" Precision="19" Scale="4" />
 					<NavigationProperty Name="Address" Relationship="Self.SalesOrderHeader_Address_Address_SalesOrderHeaders" FromRole="SalesOrderHeader" ToRole="Address" />
 					<NavigationProperty Name="Address_" Relationship="Self.SalesOrderHeader_Address__Address_SalesOrderHeaders_" FromRole="SalesOrderHeader" ToRole="Address" />
-					<NavigationProperty Name="Contact" Relationship="Self.SalesOrderHeader_Contact_Contact_SalesOrderHeaders" FromRole="SalesOrderHeader" ToRole="Contact" />
 					<NavigationProperty Name="CreditCard" Relationship="Self.SalesOrderHeader_CreditCard_CreditCard_SalesOrderHeaders" FromRole="SalesOrderHeader" ToRole="CreditCard" />
 					<NavigationProperty Name="CurrencyRate" Relationship="Self.SalesOrderHeader_CurrencyRate_CurrencyRate_SalesOrderHeaders" FromRole="SalesOrderHeader" ToRole="CurrencyRate" />
 					<NavigationProperty Name="Customer" Relationship="Self.SalesOrderHeader_Customer_Customer_SalesOrderHeaders" FromRole="SalesOrderHeader" ToRole="Customer" />
@@ -3515,7 +3543,6 @@
 					</Key>
 					<Property Name="CostLastYear" Nullable="false"  Type="Decimal" Precision="19" Scale="4" />
 					<Property Name="CostYtd" Nullable="false"  Type="Decimal" Precision="19" Scale="4" />
-					<Property Name="CountryRegionCode" Nullable="false"  Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
 					<Property Name="Group" Nullable="false"  Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
 					<Property Name="ModifiedDate" Nullable="false"  Type="DateTime" />
 					<Property Name="Name" Nullable="false"  Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -3523,6 +3550,7 @@
 					<Property Name="SalesLastYear" Nullable="false"  Type="Decimal" Precision="19" Scale="4" />
 					<Property Name="SalesYtd" Nullable="false"  Type="Decimal" Precision="19" Scale="4" />
 					<Property Name="TerritoryId" Nullable="false"  Type="Int32" />
+					<NavigationProperty Name="CountryRegion" Relationship="Self.SalesTerritory_CountryRegion_CountryRegion_SalesTerritories" FromRole="SalesTerritory" ToRole="CountryRegion" />
 					<NavigationProperty Name="Customers" Relationship="Self.Customer_SalesTerritory_SalesTerritory_Customers" FromRole="SalesTerritory" ToRole="Customer" />
 					<NavigationProperty Name="SalesOrderHeaders" Relationship="Self.SalesOrderHeader_SalesTerritory_SalesTerritory_SalesOrderHeaders" FromRole="SalesTerritory" ToRole="SalesOrderHeader" />
 					<NavigationProperty Name="SalesPeople" Relationship="Self.SalesPerson_SalesTerritory_SalesTerritory_SalesPeople" FromRole="SalesTerritory" ToRole="SalesPerson" />
@@ -3557,11 +3585,11 @@
 					<Key>
 						<PropertyRef Name="ShiftId"/>
 					</Key>
-					<Property Name="EndTime" Nullable="false"  Type="DateTime" />
+					<Property Name="EndTime" Nullable="false"  Type="Time" />
 					<Property Name="ModifiedDate" Nullable="false"  Type="DateTime" />
 					<Property Name="Name" Nullable="false"  Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
 					<Property Name="ShiftId" Nullable="false"  Type="Byte" />
-					<Property Name="StartTime" Nullable="false"  Type="DateTime" />
+					<Property Name="StartTime" Nullable="false"  Type="Time" />
 					<NavigationProperty Name="EmployeeDepartmentHistories" Relationship="Self.EmployeeDepartmentHistory_Shift_Shift_EmployeeDepartmentHistories" FromRole="Shift" ToRole="EmployeeDepartmentHistory" />
 				</EntityType>
 				<EntityType Name="ShipMethod">
@@ -3642,22 +3670,9 @@
 					<Property Name="ModifiedDate" Nullable="false"  Type="DateTime" />
 					<Property Name="Name" Nullable="false"  Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
 					<Property Name="Rowguid" Nullable="false"  Type="Guid" />
-					<NavigationProperty Name="Customer" Relationship="Self.Store_Customer_Customer_Store" FromRole="Store" ToRole="Customer" />
+					<NavigationProperty Name="Customers" Relationship="Self.Customer_Store_Store_Customers" FromRole="Store" ToRole="Customer" />
+					<NavigationProperty Name="BusinessEntity" Relationship="Self.Store_BusinessEntity_BusinessEntity_Store" FromRole="Store" ToRole="BusinessEntity" />
 					<NavigationProperty Name="SalesPerson" Relationship="Self.Store_SalesPerson_SalesPerson_Stores" FromRole="Store" ToRole="SalesPerson" />
-					<NavigationProperty Name="StoreContacts" Relationship="Self.StoreContact_Store_Store_StoreContacts" FromRole="Store" ToRole="StoreContact" />
-				</EntityType>
-				<EntityType Name="StoreContact">
-					<Key>
-						<PropertyRef Name="ContactId"/>
-						<PropertyRef Name="CustomerId"/>
-					</Key>
-					<Property Name="ContactId" Nullable="false"  Type="Int32" />
-					<Property Name="CustomerId" Nullable="false"  Type="Int32" />
-					<Property Name="ModifiedDate" Nullable="false"  Type="DateTime" />
-					<Property Name="Rowguid" Nullable="false"  Type="Guid" />
-					<NavigationProperty Name="Contact" Relationship="Self.StoreContact_Contact_Contact_StoreContacts" FromRole="StoreContact" ToRole="Contact" />
-					<NavigationProperty Name="ContactType" Relationship="Self.StoreContact_ContactType_ContactType_StoreContacts" FromRole="StoreContact" ToRole="ContactType" />
-					<NavigationProperty Name="Store" Relationship="Self.StoreContact_Store_Store_StoreContacts" FromRole="StoreContact" ToRole="Store" />
 				</EntityType>
 				<EntityType Name="TransactionHistory">
 					<Key>
@@ -3711,34 +3726,9 @@
 					<Property Name="PreferredVendorStatus" Nullable="false"  Type="Boolean" />
 					<Property Name="PurchasingWebServiceUrl"  Type="String" MaxLength="1024" FixedLength="false" Unicode="true" />
 					<Property Name="VendorId" Nullable="false"  Type="Int32" />
+					<NavigationProperty Name="BusinessEntity" Relationship="Self.Vendor_BusinessEntity_BusinessEntity_Vendor" FromRole="Vendor" ToRole="BusinessEntity" />
 					<NavigationProperty Name="ProductVendors" Relationship="Self.ProductVendor_Vendor_Vendor_ProductVendors" FromRole="Vendor" ToRole="ProductVendor" />
 					<NavigationProperty Name="PurchaseOrderHeaders" Relationship="Self.PurchaseOrderHeader_Vendor_Vendor_PurchaseOrderHeaders" FromRole="Vendor" ToRole="PurchaseOrderHeader" />
-					<NavigationProperty Name="VendorAddresses" Relationship="Self.VendorAddress_Vendor_Vendor_VendorAddresses" FromRole="Vendor" ToRole="VendorAddress" />
-					<NavigationProperty Name="VendorContacts" Relationship="Self.VendorContact_Vendor_Vendor_VendorContacts" FromRole="Vendor" ToRole="VendorContact" />
-				</EntityType>
-				<EntityType Name="VendorAddress">
-					<Key>
-						<PropertyRef Name="AddressId"/>
-						<PropertyRef Name="VendorId"/>
-					</Key>
-					<Property Name="AddressId" Nullable="false"  Type="Int32" />
-					<Property Name="ModifiedDate" Nullable="false"  Type="DateTime" />
-					<Property Name="VendorId" Nullable="false"  Type="Int32" />
-					<NavigationProperty Name="Address" Relationship="Self.VendorAddress_Address_Address_VendorAddresses" FromRole="VendorAddress" ToRole="Address" />
-					<NavigationProperty Name="AddressType" Relationship="Self.VendorAddress_AddressType_AddressType_VendorAddresses" FromRole="VendorAddress" ToRole="AddressType" />
-					<NavigationProperty Name="Vendor" Relationship="Self.VendorAddress_Vendor_Vendor_VendorAddresses" FromRole="VendorAddress" ToRole="Vendor" />
-				</EntityType>
-				<EntityType Name="VendorContact">
-					<Key>
-						<PropertyRef Name="ContactId"/>
-						<PropertyRef Name="VendorId"/>
-					</Key>
-					<Property Name="ContactId" Nullable="false"  Type="Int32" />
-					<Property Name="ModifiedDate" Nullable="false"  Type="DateTime" />
-					<Property Name="VendorId" Nullable="false"  Type="Int32" />
-					<NavigationProperty Name="Contact" Relationship="Self.VendorContact_Contact_Contact_VendorContacts" FromRole="VendorContact" ToRole="Contact" />
-					<NavigationProperty Name="ContactType" Relationship="Self.VendorContact_ContactType_ContactType_VendorContacts" FromRole="VendorContact" ToRole="ContactType" />
-					<NavigationProperty Name="Vendor" Relationship="Self.VendorContact_Vendor_Vendor_VendorContacts" FromRole="VendorContact" ToRole="Vendor" />
 				</EntityType>
 				<EntityType Name="WorkOrder">
 					<Key>
@@ -3780,30 +3770,6 @@
 					<End Role="Address" Type="Self.Address" Multiplicity="*" />
 					<End Role="StateProvince" Type="Self.StateProvince" Multiplicity="1" />
 				</Association>
-				<Association Name="CustomerAddress_Address_Address_CustomerAddresses">
-					<End Role="CustomerAddress" Type="Self.CustomerAddress" Multiplicity="*" />
-					<End Role="Address" Type="Self.Address" Multiplicity="1" />
-					<ReferentialConstraint>
-						<Principal Role="Address">
-							<PropertyRef Name="AddressId" />
-						</Principal>
-						<Dependent Role="CustomerAddress">
-							<PropertyRef Name="AddressId" />
-						</Dependent>
-					</ReferentialConstraint>	
-				</Association>
-				<Association Name="EmployeeAddress_Address_Address_EmployeeAddresses">
-					<End Role="EmployeeAddress" Type="Self.EmployeeAddress" Multiplicity="*" />
-					<End Role="Address" Type="Self.Address" Multiplicity="1" />
-					<ReferentialConstraint>
-						<Principal Role="Address">
-							<PropertyRef Name="AddressId" />
-						</Principal>
-						<Dependent Role="EmployeeAddress">
-							<PropertyRef Name="AddressId" />
-						</Dependent>
-					</ReferentialConstraint>	
-				</Association>
 				<Association Name="SalesOrderHeader_Address_Address_SalesOrderHeaders">
 					<End Role="SalesOrderHeader" Type="Self.SalesOrderHeader" Multiplicity="*" />
 					<End Role="Address" Type="Self.Address" Multiplicity="1" />
@@ -3812,25 +3778,29 @@
 					<End Role="SalesOrderHeader" Type="Self.SalesOrderHeader" Multiplicity="*" />
 					<End Role="Address" Type="Self.Address" Multiplicity="1" />
 				</Association>
-				<Association Name="VendorAddress_Address_Address_VendorAddresses">
-					<End Role="VendorAddress" Type="Self.VendorAddress" Multiplicity="*" />
+				<Association Name="BusinessEntityAddress_Address_Address_BusinessEntityAddresses">
+					<End Role="BusinessEntityAddress" Type="Self.BusinessEntityAddress" Multiplicity="*" />
 					<End Role="Address" Type="Self.Address" Multiplicity="1" />
 					<ReferentialConstraint>
 						<Principal Role="Address">
 							<PropertyRef Name="AddressId" />
 						</Principal>
-						<Dependent Role="VendorAddress">
+						<Dependent Role="BusinessEntityAddress">
 							<PropertyRef Name="AddressId" />
 						</Dependent>
 					</ReferentialConstraint>	
 				</Association>
-				<Association Name="CustomerAddress_AddressType_AddressType_CustomerAddresses">
-					<End Role="CustomerAddress" Type="Self.CustomerAddress" Multiplicity="*" />
+				<Association Name="BusinessEntityAddress_AddressType_AddressType_BusinessEntityAddresses">
+					<End Role="BusinessEntityAddress" Type="Self.BusinessEntityAddress" Multiplicity="*" />
 					<End Role="AddressType" Type="Self.AddressType" Multiplicity="1" />
-				</Association>
-				<Association Name="VendorAddress_AddressType_AddressType_VendorAddresses">
-					<End Role="VendorAddress" Type="Self.VendorAddress" Multiplicity="*" />
-					<End Role="AddressType" Type="Self.AddressType" Multiplicity="1" />
+					<ReferentialConstraint>
+						<Principal Role="AddressType">
+							<PropertyRef Name="AddressTypeId" />
+						</Principal>
+						<Dependent Role="BusinessEntityAddress">
+							<PropertyRef Name="AddressTypeId" />
+						</Dependent>
+					</ReferentialConstraint>	
 				</Association>
 				<Association Name="BillOfMaterial_Product_Product_BillOfMaterials">
 					<End Role="BillOfMaterial" Type="Self.BillOfMaterial" Multiplicity="*" />
@@ -3844,50 +3814,38 @@
 					<End Role="BillOfMaterial" Type="Self.BillOfMaterial" Multiplicity="*" />
 					<End Role="UnitMeasure" Type="Self.UnitMeasure" Multiplicity="1" />
 				</Association>
-				<Association Name="ContactCreditCard_Contact_Contact_ContactCreditCards">
-					<End Role="ContactCreditCard" Type="Self.ContactCreditCard" Multiplicity="*" />
-					<End Role="Contact" Type="Self.Contact" Multiplicity="1" />
+				<Association Name="PersonPhone_Person_Person_PersonPhones">
+					<End Role="PersonPhone" Type="Self.PersonPhone" Multiplicity="*" />
+					<End Role="Person" Type="Self.Person" Multiplicity="1" />
 					<ReferentialConstraint>
-						<Principal Role="Contact">
-							<PropertyRef Name="ContactId" />
+						<Principal Role="Person">
+							<PropertyRef Name="BusinessEntityId" />
+						</Principal>
+						<Dependent Role="PersonPhone">
+							<PropertyRef Name="BusinessEntityId" />
+						</Dependent>
+					</ReferentialConstraint>	
+				</Association>
+				<Association Name="PersonPhone_PhoneNumberType_PhoneNumberType_PersonPhones">
+					<End Role="PersonPhone" Type="Self.PersonPhone" Multiplicity="*" />
+					<End Role="PhoneNumberType" Type="Self.PhoneNumberType" Multiplicity="1" />
+					<ReferentialConstraint>
+						<Principal Role="PhoneNumberType">
+							<PropertyRef Name="PhoneNumberTypeId" />
+						</Principal>
+						<Dependent Role="PersonPhone">
+							<PropertyRef Name="PhoneNumberTypeId" />
+						</Dependent>
+					</ReferentialConstraint>	
+				</Association>
+				<Association Name="ContactCreditCard_Person_Person_ContactCreditCards">
+					<End Role="ContactCreditCard" Type="Self.ContactCreditCard" Multiplicity="*" />
+					<End Role="Person" Type="Self.Person" Multiplicity="1" />
+					<ReferentialConstraint>
+						<Principal Role="Person">
+							<PropertyRef Name="BusinessEntityId" />
 						</Principal>
 						<Dependent Role="ContactCreditCard">
-							<PropertyRef Name="ContactId" />
-						</Dependent>
-					</ReferentialConstraint>	
-				</Association>
-				<Association Name="Employee_Contact_Contact_Employees">
-					<End Role="Employee" Type="Self.Employee" Multiplicity="*" />
-					<End Role="Contact" Type="Self.Contact" Multiplicity="1" />
-				</Association>
-				<Association Name="Individual_Contact_Contact_Individuals">
-					<End Role="Individual" Type="Self.Individual" Multiplicity="*" />
-					<End Role="Contact" Type="Self.Contact" Multiplicity="1" />
-				</Association>
-				<Association Name="SalesOrderHeader_Contact_Contact_SalesOrderHeaders">
-					<End Role="SalesOrderHeader" Type="Self.SalesOrderHeader" Multiplicity="*" />
-					<End Role="Contact" Type="Self.Contact" Multiplicity="1" />
-				</Association>
-				<Association Name="StoreContact_Contact_Contact_StoreContacts">
-					<End Role="StoreContact" Type="Self.StoreContact" Multiplicity="*" />
-					<End Role="Contact" Type="Self.Contact" Multiplicity="1" />
-					<ReferentialConstraint>
-						<Principal Role="Contact">
-							<PropertyRef Name="ContactId" />
-						</Principal>
-						<Dependent Role="StoreContact">
-							<PropertyRef Name="ContactId" />
-						</Dependent>
-					</ReferentialConstraint>	
-				</Association>
-				<Association Name="VendorContact_Contact_Contact_VendorContacts">
-					<End Role="VendorContact" Type="Self.VendorContact" Multiplicity="*" />
-					<End Role="Contact" Type="Self.Contact" Multiplicity="1" />
-					<ReferentialConstraint>
-						<Principal Role="Contact">
-							<PropertyRef Name="ContactId" />
-						</Principal>
-						<Dependent Role="VendorContact">
 							<PropertyRef Name="ContactId" />
 						</Dependent>
 					</ReferentialConstraint>	
@@ -3904,13 +3862,17 @@
 						</Dependent>
 					</ReferentialConstraint>	
 				</Association>
-				<Association Name="StoreContact_ContactType_ContactType_StoreContacts">
-					<End Role="StoreContact" Type="Self.StoreContact" Multiplicity="*" />
+				<Association Name="BusinessEntityContact_ContactType_ContactType_BusinessEntityContacts">
+					<End Role="BusinessEntityContact" Type="Self.BusinessEntityContact" Multiplicity="*" />
 					<End Role="ContactType" Type="Self.ContactType" Multiplicity="1" />
-				</Association>
-				<Association Name="VendorContact_ContactType_ContactType_VendorContacts">
-					<End Role="VendorContact" Type="Self.VendorContact" Multiplicity="*" />
-					<End Role="ContactType" Type="Self.ContactType" Multiplicity="1" />
+					<ReferentialConstraint>
+						<Principal Role="ContactType">
+							<PropertyRef Name="ContactTypeId" />
+						</Principal>
+						<Dependent Role="BusinessEntityContact">
+							<PropertyRef Name="ContactTypeId" />
+						</Dependent>
+					</ReferentialConstraint>	
 				</Association>
 				<Association Name="CountryRegionCurrency_CountryRegion_CountryRegion_CountryRegionCurrencies">
 					<End Role="CountryRegionCurrency" Type="Self.CountryRegionCurrency" Multiplicity="*" />
@@ -3926,6 +3888,10 @@
 				</Association>
 				<Association Name="StateProvince_CountryRegion_CountryRegion_StateProvinces">
 					<End Role="StateProvince" Type="Self.StateProvince" Multiplicity="*" />
+					<End Role="CountryRegion" Type="Self.CountryRegion" Multiplicity="1" />
+				</Association>
+				<Association Name="SalesTerritory_CountryRegion_CountryRegion_SalesTerritories">
+					<End Role="SalesTerritory" Type="Self.SalesTerritory" Multiplicity="*" />
 					<End Role="CountryRegion" Type="Self.CountryRegion" Multiplicity="1" />
 				</Association>
 				<Association Name="CountryRegionCurrency_Currency_Currency_CountryRegionCurrencies">
@@ -3972,43 +3938,75 @@
 					<End Role="Customer" Type="Self.Customer" Multiplicity="*" />
 					<End Role="SalesTerritory" Type="Self.SalesTerritory" Multiplicity="0..1" />
 				</Association>
-				<Association Name="CustomerAddress_Customer_Customer_CustomerAddresses">
-					<End Role="CustomerAddress" Type="Self.CustomerAddress" Multiplicity="*" />
-					<End Role="Customer" Type="Self.Customer" Multiplicity="1" />
-					<ReferentialConstraint>
-						<Principal Role="Customer">
-							<PropertyRef Name="CustomerId" />
-						</Principal>
-						<Dependent Role="CustomerAddress">
-							<PropertyRef Name="CustomerId" />
-						</Dependent>
-					</ReferentialConstraint>	
-				</Association>
-				<Association Name="Individual_Customer_Customer_Individual">
-					<End Role="Individual" Type="Self.Individual" Multiplicity="0..1" />
-					<End Role="Customer" Type="Self.Customer" Multiplicity="1" />
-					<ReferentialConstraint>
-						<Principal Role="Customer">
-							<PropertyRef Name="CustomerId" />
-						</Principal>
-						<Dependent Role="Individual">
-							<PropertyRef Name="CustomerId" />
-						</Dependent>
-					</ReferentialConstraint>	
+				<Association Name="Customer_Person_Person_Customers">
+					<End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+					<End Role="Person" Type="Self.Person" Multiplicity="0..1" />
 				</Association>
 				<Association Name="SalesOrderHeader_Customer_Customer_SalesOrderHeaders">
 					<End Role="SalesOrderHeader" Type="Self.SalesOrderHeader" Multiplicity="*" />
 					<End Role="Customer" Type="Self.Customer" Multiplicity="1" />
 				</Association>
-				<Association Name="Store_Customer_Customer_Store">
+				<Association Name="Customer_Store_Store_Customers">
+					<End Role="Customer" Type="Self.Customer" Multiplicity="*" />
 					<End Role="Store" Type="Self.Store" Multiplicity="0..1" />
-					<End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+				</Association>
+				<Association Name="Person_BusinessEntity_BusinessEntity_Person">
+					<End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+					<End Role="BusinessEntity" Type="Self.BusinessEntity" Multiplicity="1" />
 					<ReferentialConstraint>
-						<Principal Role="Customer">
-							<PropertyRef Name="CustomerId" />
+						<Principal Role="BusinessEntity">
+							<PropertyRef Name="BusinessEntityId" />
 						</Principal>
-						<Dependent Role="Store">
-							<PropertyRef Name="CustomerId" />
+						<Dependent Role="Person">
+							<PropertyRef Name="BusinessEntityId" />
+						</Dependent>
+					</ReferentialConstraint>	
+				</Association>
+				<Association Name="Employee_Person_Person_Employee">
+					<End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+					<End Role="Person" Type="Self.Person" Multiplicity="1" />
+					<ReferentialConstraint>
+						<Principal Role="Person">
+							<PropertyRef Name="BusinessEntityId" />
+						</Principal>
+						<Dependent Role="Employee">
+							<PropertyRef Name="EmployeeId" />
+						</Dependent>
+					</ReferentialConstraint>	
+				</Association>
+				<Association Name="BusinessEntityContact_Person_Person_BusinessEntityContacts">
+					<End Role="BusinessEntityContact" Type="Self.BusinessEntityContact" Multiplicity="*" />
+					<End Role="Person" Type="Self.Person" Multiplicity="1" />
+					<ReferentialConstraint>
+						<Principal Role="Person">
+							<PropertyRef Name="BusinessEntityId" />
+						</Principal>
+						<Dependent Role="BusinessEntityContact">
+							<PropertyRef Name="PersonId" />
+						</Dependent>
+					</ReferentialConstraint>	
+				</Association>
+				<Association Name="EmailAddress_Person_Person_EmailAddresses">
+					<End Role="EmailAddress" Type="Self.EmailAddress" Multiplicity="*" />
+					<End Role="Person" Type="Self.Person" Multiplicity="1" />
+					<ReferentialConstraint>
+						<Principal Role="Person">
+							<PropertyRef Name="BusinessEntityId" />
+						</Principal>
+						<Dependent Role="EmailAddress">
+							<PropertyRef Name="BusinessEntityId" />
+						</Dependent>
+					</ReferentialConstraint>	
+				</Association>
+				<Association Name="Password_Person_Person_Password">
+					<End Role="Password" Type="Self.Password" Multiplicity="0..1" />
+					<End Role="Person" Type="Self.Person" Multiplicity="1" />
+					<ReferentialConstraint>
+						<Principal Role="Person">
+							<PropertyRef Name="BusinessEntityId" />
+						</Principal>
+						<Dependent Role="Password">
+							<PropertyRef Name="BusinessEntityId" />
 						</Dependent>
 					</ReferentialConstraint>	
 				</Association>
@@ -4024,31 +4022,19 @@
 						</Dependent>
 					</ReferentialConstraint>	
 				</Association>
+				<Association Name="Document_Employee_Employee_Documents">
+					<End Role="Document" Type="Self.Document" Multiplicity="*" />
+					<End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+				</Association>
 				<Association Name="ProductDocument_Document_Document_ProductDocuments">
 					<End Role="ProductDocument" Type="Self.ProductDocument" Multiplicity="*" />
 					<End Role="Document" Type="Self.Document" Multiplicity="1" />
 					<ReferentialConstraint>
 						<Principal Role="Document">
-							<PropertyRef Name="DocumentId" />
+							<PropertyRef Name="DocumentNode" />
 						</Principal>
 						<Dependent Role="ProductDocument">
-							<PropertyRef Name="DocumentId" />
-						</Dependent>
-					</ReferentialConstraint>	
-				</Association>
-				<Association Name="Employee_Manager_Employee_Employees">
-					<End Role="Employee" Type="Self.Employee" Multiplicity="*" />
-					<End Role="Employee1" Type="Self.Employee" Multiplicity="0..1" />
-				</Association>
-				<Association Name="EmployeeAddress_Employee_Employee_EmployeeAddresses">
-					<End Role="EmployeeAddress" Type="Self.EmployeeAddress" Multiplicity="*" />
-					<End Role="Employee" Type="Self.Employee" Multiplicity="1" />
-					<ReferentialConstraint>
-						<Principal Role="Employee">
-							<PropertyRef Name="EmployeeId" />
-						</Principal>
-						<Dependent Role="EmployeeAddress">
-							<PropertyRef Name="EmployeeId" />
+							<PropertyRef Name="DocumentNode" />
 						</Dependent>
 					</ReferentialConstraint>	
 				</Association>
@@ -4464,39 +4450,51 @@
 						</Dependent>
 					</ReferentialConstraint>	
 				</Association>
-				<Association Name="StoreContact_Store_Store_StoreContacts">
-					<End Role="StoreContact" Type="Self.StoreContact" Multiplicity="*" />
-					<End Role="Store" Type="Self.Store" Multiplicity="1" />
+				<Association Name="Store_BusinessEntity_BusinessEntity_Store">
+					<End Role="Store" Type="Self.Store" Multiplicity="0..1" />
+					<End Role="BusinessEntity" Type="Self.BusinessEntity" Multiplicity="1" />
 					<ReferentialConstraint>
-						<Principal Role="Store">
-							<PropertyRef Name="CustomerId" />
+						<Principal Role="BusinessEntity">
+							<PropertyRef Name="BusinessEntityId" />
 						</Principal>
-						<Dependent Role="StoreContact">
+						<Dependent Role="Store">
 							<PropertyRef Name="CustomerId" />
 						</Dependent>
 					</ReferentialConstraint>	
 				</Association>
-				<Association Name="VendorAddress_Vendor_Vendor_VendorAddresses">
-					<End Role="VendorAddress" Type="Self.VendorAddress" Multiplicity="*" />
-					<End Role="Vendor" Type="Self.Vendor" Multiplicity="1" />
+				<Association Name="BusinessEntityContact_BusinessEntity_BusinessEntity_BusinessEntityContacts">
+					<End Role="BusinessEntityContact" Type="Self.BusinessEntityContact" Multiplicity="*" />
+					<End Role="BusinessEntity" Type="Self.BusinessEntity" Multiplicity="1" />
 					<ReferentialConstraint>
-						<Principal Role="Vendor">
-							<PropertyRef Name="VendorId" />
+						<Principal Role="BusinessEntity">
+							<PropertyRef Name="BusinessEntityId" />
 						</Principal>
-						<Dependent Role="VendorAddress">
+						<Dependent Role="BusinessEntityContact">
+							<PropertyRef Name="BusinessEntityId" />
+						</Dependent>
+					</ReferentialConstraint>	
+				</Association>
+				<Association Name="Vendor_BusinessEntity_BusinessEntity_Vendor">
+					<End Role="Vendor" Type="Self.Vendor" Multiplicity="0..1" />
+					<End Role="BusinessEntity" Type="Self.BusinessEntity" Multiplicity="1" />
+					<ReferentialConstraint>
+						<Principal Role="BusinessEntity">
+							<PropertyRef Name="BusinessEntityId" />
+						</Principal>
+						<Dependent Role="Vendor">
 							<PropertyRef Name="VendorId" />
 						</Dependent>
 					</ReferentialConstraint>	
 				</Association>
-				<Association Name="VendorContact_Vendor_Vendor_VendorContacts">
-					<End Role="VendorContact" Type="Self.VendorContact" Multiplicity="*" />
-					<End Role="Vendor" Type="Self.Vendor" Multiplicity="1" />
+				<Association Name="BusinessEntityAddress_BusinessEntity_BusinessEntity_BusinessEntityAddresses">
+					<End Role="BusinessEntityAddress" Type="Self.BusinessEntityAddress" Multiplicity="*" />
+					<End Role="BusinessEntity" Type="Self.BusinessEntity" Multiplicity="1" />
 					<ReferentialConstraint>
-						<Principal Role="Vendor">
-							<PropertyRef Name="VendorId" />
+						<Principal Role="BusinessEntity">
+							<PropertyRef Name="BusinessEntityId" />
 						</Principal>
-						<Dependent Role="VendorContact">
-							<PropertyRef Name="VendorId" />
+						<Dependent Role="BusinessEntityAddress">
+							<PropertyRef Name="BusinessEntityId" />
 						</Dependent>
 					</ReferentialConstraint>	
 				</Association>
@@ -4530,6 +4528,7 @@
 								<ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
 								<ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
 								<ScalarProperty Name="Rowguid" ColumnName="rowguid" />
+								<ScalarProperty Name="SpatialLocation" ColumnName="SpatialLocation" />
 							</MappingFragment>
 						</EntityTypeMapping>
 					</EntitySetMapping>
@@ -4555,31 +4554,41 @@
 							</MappingFragment>
 						</EntityTypeMapping>
 					</EntitySetMapping>
-					<EntitySetMapping Name="Contact">
-						<EntityTypeMapping TypeName="IsTypeOf(AWModel.Contact)">
-							<MappingFragment StoreEntitySet="Contact">
-								<ScalarProperty Name="AdditionalContactInfo" ColumnName="AdditionalContactInfo" />
-								<ScalarProperty Name="ContactId" ColumnName="ContactID" />
-								<ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
-								<ScalarProperty Name="EmailPromotion" ColumnName="EmailPromotion" />
-								<ScalarProperty Name="FirstName" ColumnName="FirstName" />
-								<ScalarProperty Name="LastName" ColumnName="LastName" />
-								<ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
-								<ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-								<ScalarProperty Name="NameStyle" ColumnName="NameStyle" />
-								<ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
-								<ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
-								<ScalarProperty Name="Phone" ColumnName="Phone" />
+					<EntitySetMapping Name="BusinessEntity">
+						<EntityTypeMapping TypeName="IsTypeOf(AWModel.BusinessEntity)">
+							<MappingFragment StoreEntitySet="BusinessEntity">
+								<ScalarProperty Name="BusinessEntityId" ColumnName="BusinessEntityID" />
 								<ScalarProperty Name="Rowguid" ColumnName="rowguid" />
-								<ScalarProperty Name="Suffix" ColumnName="Suffix" />
-								<ScalarProperty Name="Title" ColumnName="Title" />
+								<ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<EntitySetMapping Name="BusinessEntityAddress">
+						<EntityTypeMapping TypeName="IsTypeOf(AWModel.BusinessEntityAddress)">
+							<MappingFragment StoreEntitySet="BusinessEntityAddress">
+								<ScalarProperty Name="BusinessEntityId" ColumnName="BusinessEntityID" />
+								<ScalarProperty Name="AddressId" ColumnName="AddressID" />
+								<ScalarProperty Name="AddressTypeId" ColumnName="AddressTypeID" />
+								<ScalarProperty Name="Rowguid" ColumnName="rowguid" />
+								<ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<EntitySetMapping Name="BusinessEntityContact">
+						<EntityTypeMapping TypeName="IsTypeOf(AWModel.BusinessEntityContact)">
+							<MappingFragment StoreEntitySet="BusinessEntityContact">
+								<ScalarProperty Name="BusinessEntityId" ColumnName="BusinessEntityID" />
+								<ScalarProperty Name="PersonId" ColumnName="PersonID" />
+								<ScalarProperty Name="ContactTypeId" ColumnName="ContactTypeID" />
+								<ScalarProperty Name="Rowguid" ColumnName="rowguid" />
+								<ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
 							</MappingFragment>
 						</EntityTypeMapping>
 					</EntitySetMapping>
 					<EntitySetMapping Name="ContactCreditCard">
 						<EntityTypeMapping TypeName="IsTypeOf(AWModel.ContactCreditCard)">
-							<MappingFragment StoreEntitySet="ContactCreditCard">
-								<ScalarProperty Name="ContactId" ColumnName="ContactID" />
+							<MappingFragment StoreEntitySet="PersonCreditCard">
+								<ScalarProperty Name="ContactId" ColumnName="BusinessEntityID" />
 								<ScalarProperty Name="CreditCardId" ColumnName="CreditCardID" />
 								<ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
 							</MappingFragment>
@@ -4658,17 +4667,6 @@
 							<MappingFragment StoreEntitySet="Customer">
 								<ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
 								<ScalarProperty Name="CustomerId" ColumnName="CustomerID" />
-								<ScalarProperty Name="CustomerType" ColumnName="CustomerType" />
-								<ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-								<ScalarProperty Name="Rowguid" ColumnName="rowguid" />
-							</MappingFragment>
-						</EntityTypeMapping>
-					</EntitySetMapping>
-					<EntitySetMapping Name="CustomerAddress">
-						<EntityTypeMapping TypeName="IsTypeOf(AWModel.CustomerAddress)">
-							<MappingFragment StoreEntitySet="CustomerAddress">
-								<ScalarProperty Name="AddressId" ColumnName="AddressID" />
-								<ScalarProperty Name="CustomerId" ColumnName="CustomerID" />
 								<ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
 								<ScalarProperty Name="Rowguid" ColumnName="rowguid" />
 							</MappingFragment>
@@ -4688,15 +4686,29 @@
 						<EntityTypeMapping TypeName="IsTypeOf(AWModel.Document)">
 							<MappingFragment StoreEntitySet="Document">
 								<ScalarProperty Name="ChangeNumber" ColumnName="ChangeNumber" />
-								<ScalarProperty Name="DocumentValue" ColumnName="Document" />
-								<ScalarProperty Name="DocumentId" ColumnName="DocumentID" />
 								<ScalarProperty Name="DocumentSummary" ColumnName="DocumentSummary" />
+								<ScalarProperty Name="DocumentValue" ColumnName="Document" />
 								<ScalarProperty Name="FileExtension" ColumnName="FileExtension" />
 								<ScalarProperty Name="FileName" ColumnName="FileName" />
 								<ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
 								<ScalarProperty Name="Revision" ColumnName="Revision" />
 								<ScalarProperty Name="Status" ColumnName="Status" />
 								<ScalarProperty Name="Title" ColumnName="Title" />
+								<ScalarProperty Name="DocumentNode" ColumnName="DocumentNode" />
+								<ScalarProperty Name="DocumentLevel" ColumnName="DocumentLevel" />
+								<ScalarProperty Name="FolderFlag" ColumnName="FolderFlag" />
+								<ScalarProperty Name="Rowguid" ColumnName="rowguid" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<EntitySetMapping Name="EmailAddress">
+						<EntityTypeMapping TypeName="IsTypeOf(AWModel.EmailAddress)">
+							<MappingFragment StoreEntitySet="EmailAddress">
+								<ScalarProperty Name="BusinessEntityId" ColumnName="BusinessEntityID" />
+								<ScalarProperty Name="EmailAddressId" ColumnName="EmailAddressID" />
+								<ScalarProperty Name="EmailAddressValue" ColumnName="EmailAddress" />
+								<ScalarProperty Name="Rowguid" ColumnName="rowguid" />
+								<ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
 							</MappingFragment>
 						</EntityTypeMapping>
 					</EntitySetMapping>
@@ -4705,7 +4717,7 @@
 							<MappingFragment StoreEntitySet="Employee">
 								<ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
 								<ScalarProperty Name="CurrentFlag" ColumnName="CurrentFlag" />
-								<ScalarProperty Name="EmployeeId" ColumnName="EmployeeID" />
+								<ScalarProperty Name="EmployeeId" ColumnName="BusinessEntityID" />
 								<ScalarProperty Name="Gender" ColumnName="Gender" />
 								<ScalarProperty Name="HireDate" ColumnName="HireDate" />
 								<ScalarProperty Name="LoginId" ColumnName="LoginID" />
@@ -4715,18 +4727,10 @@
 								<ScalarProperty Name="Rowguid" ColumnName="rowguid" />
 								<ScalarProperty Name="SalariedFlag" ColumnName="SalariedFlag" />
 								<ScalarProperty Name="SickLeaveHours" ColumnName="SickLeaveHours" />
-								<ScalarProperty Name="Title" ColumnName="Title" />
+								<ScalarProperty Name="Title" ColumnName="JobTitle" />
 								<ScalarProperty Name="VacationHours" ColumnName="VacationHours" />
-							</MappingFragment>
-						</EntityTypeMapping>
-					</EntitySetMapping>
-					<EntitySetMapping Name="EmployeeAddress">
-						<EntityTypeMapping TypeName="IsTypeOf(AWModel.EmployeeAddress)">
-							<MappingFragment StoreEntitySet="EmployeeAddress">
-								<ScalarProperty Name="AddressId" ColumnName="AddressID" />
-								<ScalarProperty Name="EmployeeId" ColumnName="EmployeeID" />
-								<ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-								<ScalarProperty Name="Rowguid" ColumnName="rowguid" />
+								<ScalarProperty Name="OrganizationNode" ColumnName="OrganizationNode" />
+								<ScalarProperty Name="OrganizationLevel" ColumnName="OrganizationLevel" />
 							</MappingFragment>
 						</EntityTypeMapping>
 					</EntitySetMapping>
@@ -4734,7 +4738,7 @@
 						<EntityTypeMapping TypeName="IsTypeOf(AWModel.EmployeeDepartmentHistory)">
 							<MappingFragment StoreEntitySet="EmployeeDepartmentHistory">
 								<ScalarProperty Name="DepartmentId" ColumnName="DepartmentID" />
-								<ScalarProperty Name="EmployeeId" ColumnName="EmployeeID" />
+								<ScalarProperty Name="EmployeeId" ColumnName="BusinessEntityID" />
 								<ScalarProperty Name="EndDate" ColumnName="EndDate" />
 								<ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
 								<ScalarProperty Name="ShiftId" ColumnName="ShiftID" />
@@ -4745,7 +4749,7 @@
 					<EntitySetMapping Name="EmployeePayHistory">
 						<EntityTypeMapping TypeName="IsTypeOf(AWModel.EmployeePayHistory)">
 							<MappingFragment StoreEntitySet="EmployeePayHistory">
-								<ScalarProperty Name="EmployeeId" ColumnName="EmployeeID" />
+								<ScalarProperty Name="EmployeeId" ColumnName="BusinessEntityID" />
 								<ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
 								<ScalarProperty Name="PayFrequency" ColumnName="PayFrequency" />
 								<ScalarProperty Name="Rate" ColumnName="Rate" />
@@ -4758,15 +4762,6 @@
 							<MappingFragment StoreEntitySet="Illustration">
 								<ScalarProperty Name="Diagram" ColumnName="Diagram" />
 								<ScalarProperty Name="IllustrationId" ColumnName="IllustrationID" />
-								<ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-							</MappingFragment>
-						</EntityTypeMapping>
-					</EntitySetMapping>
-					<EntitySetMapping Name="Individual">
-						<EntityTypeMapping TypeName="IsTypeOf(AWModel.Individual)">
-							<MappingFragment StoreEntitySet="Individual">
-								<ScalarProperty Name="CustomerId" ColumnName="CustomerID" />
-								<ScalarProperty Name="Demographics" ColumnName="Demographics" />
 								<ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
 							</MappingFragment>
 						</EntityTypeMapping>
@@ -4788,6 +4783,55 @@
 								<ScalarProperty Name="LocationId" ColumnName="LocationID" />
 								<ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
 								<ScalarProperty Name="Name" ColumnName="Name" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<EntitySetMapping Name="Password">
+						<EntityTypeMapping TypeName="IsTypeOf(AWModel.Password)">
+							<MappingFragment StoreEntitySet="Password">
+								<ScalarProperty Name="BusinessEntityId" ColumnName="BusinessEntityID" />
+								<ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+								<ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
+								<ScalarProperty Name="Rowguid" ColumnName="rowguid" />
+								<ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<EntitySetMapping Name="Person">
+						<EntityTypeMapping TypeName="IsTypeOf(AWModel.Person)">
+							<MappingFragment StoreEntitySet="Person">
+								<ScalarProperty Name="BusinessEntityId" ColumnName="BusinessEntityID" />
+								<ScalarProperty Name="PersonType" ColumnName="PersonType" />
+								<ScalarProperty Name="NameStyle" ColumnName="NameStyle" />
+								<ScalarProperty Name="Title" ColumnName="Title" />
+								<ScalarProperty Name="FirstName" ColumnName="FirstName" />
+								<ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+								<ScalarProperty Name="LastName" ColumnName="LastName" />
+								<ScalarProperty Name="Suffix" ColumnName="Suffix" />
+								<ScalarProperty Name="EmailPromotion" ColumnName="EmailPromotion" />
+								<ScalarProperty Name="AdditionalContactInfo" ColumnName="AdditionalContactInfo" />
+								<ScalarProperty Name="Demographics" ColumnName="Demographics" />
+								<ScalarProperty Name="Rowguid" ColumnName="rowguid" />
+								<ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<EntitySetMapping Name="PersonPhone">
+						<EntityTypeMapping TypeName="IsTypeOf(AWModel.PersonPhone)">
+							<MappingFragment StoreEntitySet="PersonPhone">
+								<ScalarProperty Name="BusinessEntityId" ColumnName="BusinessEntityID" />
+								<ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+								<ScalarProperty Name="PhoneNumberTypeId" ColumnName="PhoneNumberTypeID" />
+								<ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<EntitySetMapping Name="PhoneNumberType">
+						<EntityTypeMapping TypeName="IsTypeOf(AWModel.PhoneNumberType)">
+							<MappingFragment StoreEntitySet="PhoneNumberType">
+								<ScalarProperty Name="PhoneNumberTypeId" ColumnName="PhoneNumberTypeID" />
+								<ScalarProperty Name="Name" ColumnName="Name" />
+								<ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
 							</MappingFragment>
 						</EntityTypeMapping>
 					</EntitySetMapping>
@@ -4852,9 +4896,9 @@
 					<EntitySetMapping Name="ProductDocument">
 						<EntityTypeMapping TypeName="IsTypeOf(AWModel.ProductDocument)">
 							<MappingFragment StoreEntitySet="ProductDocument">
-								<ScalarProperty Name="DocumentId" ColumnName="DocumentID" />
 								<ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
 								<ScalarProperty Name="ProductId" ColumnName="ProductID" />
+								<ScalarProperty Name="DocumentNode" ColumnName="DocumentNode" />
 							</MappingFragment>
 						</EntityTypeMapping>
 					</EntitySetMapping>
@@ -4970,7 +5014,7 @@
 								<ScalarProperty Name="OnOrderQty" ColumnName="OnOrderQty" />
 								<ScalarProperty Name="ProductId" ColumnName="ProductID" />
 								<ScalarProperty Name="StandardPrice" ColumnName="StandardPrice" />
-								<ScalarProperty Name="VendorId" ColumnName="VendorID" />
+								<ScalarProperty Name="VendorId" ColumnName="BusinessEntityID" />
 							</MappingFragment>
 						</EntityTypeMapping>
 					</EntitySetMapping>
@@ -5062,7 +5106,7 @@
 								<ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
 								<ScalarProperty Name="Rowguid" ColumnName="rowguid" />
 								<ScalarProperty Name="SalesLastYear" ColumnName="SalesLastYear" />
-								<ScalarProperty Name="SalesPersonId" ColumnName="SalesPersonID" />
+								<ScalarProperty Name="SalesPersonId" ColumnName="BusinessEntityID" />
 								<ScalarProperty Name="SalesQuota" ColumnName="SalesQuota" />
 								<ScalarProperty Name="SalesYtd" ColumnName="SalesYTD" />
 							</MappingFragment>
@@ -5074,7 +5118,7 @@
 								<ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
 								<ScalarProperty Name="QuotaDate" ColumnName="QuotaDate" />
 								<ScalarProperty Name="Rowguid" ColumnName="rowguid" />
-								<ScalarProperty Name="SalesPersonId" ColumnName="SalesPersonID" />
+								<ScalarProperty Name="SalesPersonId" ColumnName="BusinessEntityID" />
 								<ScalarProperty Name="SalesQuota" ColumnName="SalesQuota" />
 							</MappingFragment>
 						</EntityTypeMapping>
@@ -5106,7 +5150,6 @@
 							<MappingFragment StoreEntitySet="SalesTerritory">
 								<ScalarProperty Name="CostLastYear" ColumnName="CostLastYear" />
 								<ScalarProperty Name="CostYtd" ColumnName="CostYTD" />
-								<ScalarProperty Name="CountryRegionCode" ColumnName="CountryRegionCode" />
 								<ScalarProperty Name="Group" ColumnName="Group" />
 								<ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
 								<ScalarProperty Name="Name" ColumnName="Name" />
@@ -5123,7 +5166,7 @@
 								<ScalarProperty Name="EndDate" ColumnName="EndDate" />
 								<ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
 								<ScalarProperty Name="Rowguid" ColumnName="rowguid" />
-								<ScalarProperty Name="SalesPersonId" ColumnName="SalesPersonID" />
+								<ScalarProperty Name="SalesPersonId" ColumnName="BusinessEntityID" />
 								<ScalarProperty Name="StartDate" ColumnName="StartDate" />
 								<ScalarProperty Name="TerritoryId" ColumnName="TerritoryID" />
 							</MappingFragment>
@@ -5214,20 +5257,10 @@
 					<EntitySetMapping Name="Store">
 						<EntityTypeMapping TypeName="IsTypeOf(AWModel.Store)">
 							<MappingFragment StoreEntitySet="Store">
-								<ScalarProperty Name="CustomerId" ColumnName="CustomerID" />
+								<ScalarProperty Name="CustomerId" ColumnName="BusinessEntityID" />
 								<ScalarProperty Name="Demographics" ColumnName="Demographics" />
 								<ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
 								<ScalarProperty Name="Name" ColumnName="Name" />
-								<ScalarProperty Name="Rowguid" ColumnName="rowguid" />
-							</MappingFragment>
-						</EntityTypeMapping>
-					</EntitySetMapping>
-					<EntitySetMapping Name="StoreContact">
-						<EntityTypeMapping TypeName="IsTypeOf(AWModel.StoreContact)">
-							<MappingFragment StoreEntitySet="StoreContact">
-								<ScalarProperty Name="ContactId" ColumnName="ContactID" />
-								<ScalarProperty Name="CustomerId" ColumnName="CustomerID" />
-								<ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
 								<ScalarProperty Name="Rowguid" ColumnName="rowguid" />
 							</MappingFragment>
 						</EntityTypeMapping>
@@ -5280,25 +5313,7 @@
 								<ScalarProperty Name="Name" ColumnName="Name" />
 								<ScalarProperty Name="PreferredVendorStatus" ColumnName="PreferredVendorStatus" />
 								<ScalarProperty Name="PurchasingWebServiceUrl" ColumnName="PurchasingWebServiceURL" />
-								<ScalarProperty Name="VendorId" ColumnName="VendorID" />
-							</MappingFragment>
-						</EntityTypeMapping>
-					</EntitySetMapping>
-					<EntitySetMapping Name="VendorAddress">
-						<EntityTypeMapping TypeName="IsTypeOf(AWModel.VendorAddress)">
-							<MappingFragment StoreEntitySet="VendorAddress">
-								<ScalarProperty Name="AddressId" ColumnName="AddressID" />
-								<ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-								<ScalarProperty Name="VendorId" ColumnName="VendorID" />
-							</MappingFragment>
-						</EntityTypeMapping>
-					</EntitySetMapping>
-					<EntitySetMapping Name="VendorContact">
-						<EntityTypeMapping TypeName="IsTypeOf(AWModel.VendorContact)">
-							<MappingFragment StoreEntitySet="VendorContact">
-								<ScalarProperty Name="ContactId" ColumnName="ContactID" />
-								<ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-								<ScalarProperty Name="VendorId" ColumnName="VendorID" />
+								<ScalarProperty Name="VendorId" ColumnName="BusinessEntityID" />
 							</MappingFragment>
 						</EntityTypeMapping>
 					</EntitySetMapping>
@@ -5341,24 +5356,6 @@
 							<ScalarProperty Name="StateProvinceId" ColumnName="StateProvinceID"/>
 						</EndProperty>
 					</AssociationSetMapping>
-					<AssociationSetMapping Name="CustomerAddress_Address_Address_CustomerAddresses" TypeName="AWModel.CustomerAddress_Address_Address_CustomerAddresses" StoreEntitySet="CustomerAddress" >
-						<EndProperty Name="CustomerAddress">
-							<ScalarProperty Name="AddressId" ColumnName="AddressID"/>
-							<ScalarProperty Name="CustomerId" ColumnName="CustomerID"/>
-						</EndProperty>
-						<EndProperty Name="Address">
-							<ScalarProperty Name="AddressId" ColumnName="AddressID"/>
-						</EndProperty>
-					</AssociationSetMapping>
-					<AssociationSetMapping Name="EmployeeAddress_Address_Address_EmployeeAddresses" TypeName="AWModel.EmployeeAddress_Address_Address_EmployeeAddresses" StoreEntitySet="EmployeeAddress" >
-						<EndProperty Name="EmployeeAddress">
-							<ScalarProperty Name="AddressId" ColumnName="AddressID"/>
-							<ScalarProperty Name="EmployeeId" ColumnName="EmployeeID"/>
-						</EndProperty>
-						<EndProperty Name="Address">
-							<ScalarProperty Name="AddressId" ColumnName="AddressID"/>
-						</EndProperty>
-					</AssociationSetMapping>
 					<AssociationSetMapping Name="SalesOrderHeader_Address_Address_SalesOrderHeaders" TypeName="AWModel.SalesOrderHeader_Address_Address_SalesOrderHeaders" StoreEntitySet="SalesOrderHeader" >
 						<EndProperty Name="SalesOrderHeader">
 							<ScalarProperty Name="SalesOrderId" ColumnName="SalesOrderID"/>
@@ -5375,28 +5372,21 @@
 							<ScalarProperty Name="AddressId" ColumnName="ShipToAddressID"/>
 						</EndProperty>
 					</AssociationSetMapping>
-					<AssociationSetMapping Name="VendorAddress_Address_Address_VendorAddresses" TypeName="AWModel.VendorAddress_Address_Address_VendorAddresses" StoreEntitySet="VendorAddress" >
-						<EndProperty Name="VendorAddress">
+					<AssociationSetMapping Name="BusinessEntityAddress_Address_Address_BusinessEntityAddresses" TypeName="AWModel.BusinessEntityAddress_Address_Address_BusinessEntityAddresses" StoreEntitySet="BusinessEntityAddress" >
+						<EndProperty Name="BusinessEntityAddress">
+							<ScalarProperty Name="BusinessEntityId" ColumnName="BusinessEntityID"/>
 							<ScalarProperty Name="AddressId" ColumnName="AddressID"/>
-							<ScalarProperty Name="VendorId" ColumnName="VendorID"/>
+							<ScalarProperty Name="AddressTypeId" ColumnName="AddressTypeID"/>
 						</EndProperty>
 						<EndProperty Name="Address">
 							<ScalarProperty Name="AddressId" ColumnName="AddressID"/>
 						</EndProperty>
 					</AssociationSetMapping>
-					<AssociationSetMapping Name="CustomerAddress_AddressType_AddressType_CustomerAddresses" TypeName="AWModel.CustomerAddress_AddressType_AddressType_CustomerAddresses" StoreEntitySet="CustomerAddress" >
-						<EndProperty Name="CustomerAddress">
+					<AssociationSetMapping Name="BusinessEntityAddress_AddressType_AddressType_BusinessEntityAddresses" TypeName="AWModel.BusinessEntityAddress_AddressType_AddressType_BusinessEntityAddresses" StoreEntitySet="BusinessEntityAddress" >
+						<EndProperty Name="BusinessEntityAddress">
+							<ScalarProperty Name="BusinessEntityId" ColumnName="BusinessEntityID"/>
 							<ScalarProperty Name="AddressId" ColumnName="AddressID"/>
-							<ScalarProperty Name="CustomerId" ColumnName="CustomerID"/>
-						</EndProperty>
-						<EndProperty Name="AddressType">
 							<ScalarProperty Name="AddressTypeId" ColumnName="AddressTypeID"/>
-						</EndProperty>
-					</AssociationSetMapping>
-					<AssociationSetMapping Name="VendorAddress_AddressType_AddressType_VendorAddresses" TypeName="AWModel.VendorAddress_AddressType_AddressType_VendorAddresses" StoreEntitySet="VendorAddress" >
-						<EndProperty Name="VendorAddress">
-							<ScalarProperty Name="AddressId" ColumnName="AddressID"/>
-							<ScalarProperty Name="VendorId" ColumnName="VendorID"/>
 						</EndProperty>
 						<EndProperty Name="AddressType">
 							<ScalarProperty Name="AddressTypeId" ColumnName="AddressTypeID"/>
@@ -5427,79 +5417,49 @@
 							<ScalarProperty Name="UnitMeasureCode" ColumnName="UnitMeasureCode"/>
 						</EndProperty>
 					</AssociationSetMapping>
-					<AssociationSetMapping Name="ContactCreditCard_Contact_Contact_ContactCreditCards" TypeName="AWModel.ContactCreditCard_Contact_Contact_ContactCreditCards" StoreEntitySet="ContactCreditCard" >
+					<AssociationSetMapping Name="PersonPhone_Person_Person_PersonPhones" TypeName="AWModel.PersonPhone_Person_Person_PersonPhones" StoreEntitySet="PersonPhone" >
+						<EndProperty Name="PersonPhone">
+							<ScalarProperty Name="BusinessEntityId" ColumnName="BusinessEntityID"/>
+							<ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber"/>
+							<ScalarProperty Name="PhoneNumberTypeId" ColumnName="PhoneNumberTypeID"/>
+						</EndProperty>
+						<EndProperty Name="Person">
+							<ScalarProperty Name="BusinessEntityId" ColumnName="BusinessEntityID"/>
+						</EndProperty>
+					</AssociationSetMapping>
+					<AssociationSetMapping Name="PersonPhone_PhoneNumberType_PhoneNumberType_PersonPhones" TypeName="AWModel.PersonPhone_PhoneNumberType_PhoneNumberType_PersonPhones" StoreEntitySet="PersonPhone" >
+						<EndProperty Name="PersonPhone">
+							<ScalarProperty Name="BusinessEntityId" ColumnName="BusinessEntityID"/>
+							<ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber"/>
+							<ScalarProperty Name="PhoneNumberTypeId" ColumnName="PhoneNumberTypeID"/>
+						</EndProperty>
+						<EndProperty Name="PhoneNumberType">
+							<ScalarProperty Name="PhoneNumberTypeId" ColumnName="PhoneNumberTypeID"/>
+						</EndProperty>
+					</AssociationSetMapping>
+					<AssociationSetMapping Name="ContactCreditCard_Person_Person_ContactCreditCards" TypeName="AWModel.ContactCreditCard_Person_Person_ContactCreditCards" StoreEntitySet="PersonCreditCard" >
 						<EndProperty Name="ContactCreditCard">
-							<ScalarProperty Name="ContactId" ColumnName="ContactID"/>
+							<ScalarProperty Name="ContactId" ColumnName="BusinessEntityID"/>
 							<ScalarProperty Name="CreditCardId" ColumnName="CreditCardID"/>
 						</EndProperty>
-						<EndProperty Name="Contact">
-							<ScalarProperty Name="ContactId" ColumnName="ContactID"/>
+						<EndProperty Name="Person">
+							<ScalarProperty Name="BusinessEntityId" ColumnName="BusinessEntityID"/>
 						</EndProperty>
 					</AssociationSetMapping>
-					<AssociationSetMapping Name="Employee_Contact_Contact_Employees" TypeName="AWModel.Employee_Contact_Contact_Employees" StoreEntitySet="Employee" >
-						<EndProperty Name="Employee">
-							<ScalarProperty Name="EmployeeId" ColumnName="EmployeeID"/>
-						</EndProperty>
-						<EndProperty Name="Contact">
-							<ScalarProperty Name="ContactId" ColumnName="ContactID"/>
-						</EndProperty>
-					</AssociationSetMapping>
-					<AssociationSetMapping Name="Individual_Contact_Contact_Individuals" TypeName="AWModel.Individual_Contact_Contact_Individuals" StoreEntitySet="Individual" >
-						<EndProperty Name="Individual">
-							<ScalarProperty Name="CustomerId" ColumnName="CustomerID"/>
-						</EndProperty>
-						<EndProperty Name="Contact">
-							<ScalarProperty Name="ContactId" ColumnName="ContactID"/>
-						</EndProperty>
-					</AssociationSetMapping>
-					<AssociationSetMapping Name="SalesOrderHeader_Contact_Contact_SalesOrderHeaders" TypeName="AWModel.SalesOrderHeader_Contact_Contact_SalesOrderHeaders" StoreEntitySet="SalesOrderHeader" >
-						<EndProperty Name="SalesOrderHeader">
-							<ScalarProperty Name="SalesOrderId" ColumnName="SalesOrderID"/>
-						</EndProperty>
-						<EndProperty Name="Contact">
-							<ScalarProperty Name="ContactId" ColumnName="ContactID"/>
-						</EndProperty>
-					</AssociationSetMapping>
-					<AssociationSetMapping Name="StoreContact_Contact_Contact_StoreContacts" TypeName="AWModel.StoreContact_Contact_Contact_StoreContacts" StoreEntitySet="StoreContact" >
-						<EndProperty Name="StoreContact">
-							<ScalarProperty Name="ContactId" ColumnName="ContactID"/>
-							<ScalarProperty Name="CustomerId" ColumnName="CustomerID"/>
-						</EndProperty>
-						<EndProperty Name="Contact">
-							<ScalarProperty Name="ContactId" ColumnName="ContactID"/>
-						</EndProperty>
-					</AssociationSetMapping>
-					<AssociationSetMapping Name="VendorContact_Contact_Contact_VendorContacts" TypeName="AWModel.VendorContact_Contact_Contact_VendorContacts" StoreEntitySet="VendorContact" >
-						<EndProperty Name="VendorContact">
-							<ScalarProperty Name="ContactId" ColumnName="ContactID"/>
-							<ScalarProperty Name="VendorId" ColumnName="VendorID"/>
-						</EndProperty>
-						<EndProperty Name="Contact">
-							<ScalarProperty Name="ContactId" ColumnName="ContactID"/>
-						</EndProperty>
-					</AssociationSetMapping>
-					<AssociationSetMapping Name="ContactCreditCard_CreditCard_CreditCard_ContactCreditCards" TypeName="AWModel.ContactCreditCard_CreditCard_CreditCard_ContactCreditCards" StoreEntitySet="ContactCreditCard" >
+					<AssociationSetMapping Name="ContactCreditCard_CreditCard_CreditCard_ContactCreditCards" TypeName="AWModel.ContactCreditCard_CreditCard_CreditCard_ContactCreditCards" StoreEntitySet="PersonCreditCard" >
 						<EndProperty Name="ContactCreditCard">
-							<ScalarProperty Name="ContactId" ColumnName="ContactID"/>
+							<ScalarProperty Name="ContactId" ColumnName="BusinessEntityID"/>
 							<ScalarProperty Name="CreditCardId" ColumnName="CreditCardID"/>
 						</EndProperty>
 						<EndProperty Name="CreditCard">
 							<ScalarProperty Name="CreditCardId" ColumnName="CreditCardID"/>
 						</EndProperty>
 					</AssociationSetMapping>
-					<AssociationSetMapping Name="StoreContact_ContactType_ContactType_StoreContacts" TypeName="AWModel.StoreContact_ContactType_ContactType_StoreContacts" StoreEntitySet="StoreContact" >
-						<EndProperty Name="StoreContact">
-							<ScalarProperty Name="ContactId" ColumnName="ContactID"/>
-							<ScalarProperty Name="CustomerId" ColumnName="CustomerID"/>
-						</EndProperty>
-						<EndProperty Name="ContactType">
+					<AssociationSetMapping Name="BusinessEntityContact_ContactType_ContactType_BusinessEntityContacts" TypeName="AWModel.BusinessEntityContact_ContactType_ContactType_BusinessEntityContacts" StoreEntitySet="BusinessEntityContact" >
+						<EndProperty Name="BusinessEntityContact">
+							<ScalarProperty Name="BusinessEntityId" ColumnName="BusinessEntityID"/>
+							<ScalarProperty Name="PersonId" ColumnName="PersonID"/>
 							<ScalarProperty Name="ContactTypeId" ColumnName="ContactTypeID"/>
-						</EndProperty>
-					</AssociationSetMapping>
-					<AssociationSetMapping Name="VendorContact_ContactType_ContactType_VendorContacts" TypeName="AWModel.VendorContact_ContactType_ContactType_VendorContacts" StoreEntitySet="VendorContact" >
-						<EndProperty Name="VendorContact">
-							<ScalarProperty Name="ContactId" ColumnName="ContactID"/>
-							<ScalarProperty Name="VendorId" ColumnName="VendorID"/>
 						</EndProperty>
 						<EndProperty Name="ContactType">
 							<ScalarProperty Name="ContactTypeId" ColumnName="ContactTypeID"/>
@@ -5517,6 +5477,14 @@
 					<AssociationSetMapping Name="StateProvince_CountryRegion_CountryRegion_StateProvinces" TypeName="AWModel.StateProvince_CountryRegion_CountryRegion_StateProvinces" StoreEntitySet="StateProvince" >
 						<EndProperty Name="StateProvince">
 							<ScalarProperty Name="StateProvinceId" ColumnName="StateProvinceID"/>
+						</EndProperty>
+						<EndProperty Name="CountryRegion">
+							<ScalarProperty Name="CountryRegionCode" ColumnName="CountryRegionCode"/>
+						</EndProperty>
+					</AssociationSetMapping>
+					<AssociationSetMapping Name="SalesTerritory_CountryRegion_CountryRegion_SalesTerritories" TypeName="AWModel.SalesTerritory_CountryRegion_CountryRegion_SalesTerritories" StoreEntitySet="SalesTerritory" >
+						<EndProperty Name="SalesTerritory">
+							<ScalarProperty Name="TerritoryId" ColumnName="TerritoryID"/>
 						</EndProperty>
 						<EndProperty Name="CountryRegion">
 							<ScalarProperty Name="CountryRegionCode" ColumnName="CountryRegionCode"/>
@@ -5584,22 +5552,14 @@
 						</EndProperty>
 						<Condition ColumnName="TerritoryID" IsNull="false" />
 					</AssociationSetMapping>
-					<AssociationSetMapping Name="CustomerAddress_Customer_Customer_CustomerAddresses" TypeName="AWModel.CustomerAddress_Customer_Customer_CustomerAddresses" StoreEntitySet="CustomerAddress" >
-						<EndProperty Name="CustomerAddress">
-							<ScalarProperty Name="AddressId" ColumnName="AddressID"/>
-							<ScalarProperty Name="CustomerId" ColumnName="CustomerID"/>
-						</EndProperty>
+					<AssociationSetMapping Name="Customer_Person_Person_Customers" TypeName="AWModel.Customer_Person_Person_Customers" StoreEntitySet="Customer" >
 						<EndProperty Name="Customer">
 							<ScalarProperty Name="CustomerId" ColumnName="CustomerID"/>
 						</EndProperty>
-					</AssociationSetMapping>
-					<AssociationSetMapping Name="Individual_Customer_Customer_Individual" TypeName="AWModel.Individual_Customer_Customer_Individual" StoreEntitySet="Individual" >
-						<EndProperty Name="Individual">
-							<ScalarProperty Name="CustomerId" ColumnName="CustomerID"/>
+						<EndProperty Name="Person">
+							<ScalarProperty Name="BusinessEntityId" ColumnName="PersonID"/>
 						</EndProperty>
-						<EndProperty Name="Customer">
-							<ScalarProperty Name="CustomerId" ColumnName="CustomerID"/>
-						</EndProperty>
+						<Condition ColumnName="PersonID" IsNull="false" />
 					</AssociationSetMapping>
 					<AssociationSetMapping Name="SalesOrderHeader_Customer_Customer_SalesOrderHeaders" TypeName="AWModel.SalesOrderHeader_Customer_Customer_SalesOrderHeaders" StoreEntitySet="SalesOrderHeader" >
 						<EndProperty Name="SalesOrderHeader">
@@ -5609,18 +5569,62 @@
 							<ScalarProperty Name="CustomerId" ColumnName="CustomerID"/>
 						</EndProperty>
 					</AssociationSetMapping>
-					<AssociationSetMapping Name="Store_Customer_Customer_Store" TypeName="AWModel.Store_Customer_Customer_Store" StoreEntitySet="Store" >
-						<EndProperty Name="Store">
-							<ScalarProperty Name="CustomerId" ColumnName="CustomerID"/>
-						</EndProperty>
+					<AssociationSetMapping Name="Customer_Store_Store_Customers" TypeName="AWModel.Customer_Store_Store_Customers" StoreEntitySet="Customer" >
 						<EndProperty Name="Customer">
 							<ScalarProperty Name="CustomerId" ColumnName="CustomerID"/>
+						</EndProperty>
+						<EndProperty Name="Store">
+							<ScalarProperty Name="CustomerId" ColumnName="StoreID"/>
+						</EndProperty>
+						<Condition ColumnName="StoreID" IsNull="false" />
+					</AssociationSetMapping>
+					<AssociationSetMapping Name="Person_BusinessEntity_BusinessEntity_Person" TypeName="AWModel.Person_BusinessEntity_BusinessEntity_Person" StoreEntitySet="Person" >
+						<EndProperty Name="Person">
+							<ScalarProperty Name="BusinessEntityId" ColumnName="BusinessEntityID"/>
+						</EndProperty>
+						<EndProperty Name="BusinessEntity">
+							<ScalarProperty Name="BusinessEntityId" ColumnName="BusinessEntityID"/>
+						</EndProperty>
+					</AssociationSetMapping>
+					<AssociationSetMapping Name="Employee_Person_Person_Employee" TypeName="AWModel.Employee_Person_Person_Employee" StoreEntitySet="Employee" >
+						<EndProperty Name="Employee">
+							<ScalarProperty Name="EmployeeId" ColumnName="BusinessEntityID"/>
+						</EndProperty>
+						<EndProperty Name="Person">
+							<ScalarProperty Name="BusinessEntityId" ColumnName="BusinessEntityID"/>
+						</EndProperty>
+					</AssociationSetMapping>
+					<AssociationSetMapping Name="BusinessEntityContact_Person_Person_BusinessEntityContacts" TypeName="AWModel.BusinessEntityContact_Person_Person_BusinessEntityContacts" StoreEntitySet="BusinessEntityContact" >
+						<EndProperty Name="BusinessEntityContact">
+							<ScalarProperty Name="BusinessEntityId" ColumnName="BusinessEntityID"/>
+							<ScalarProperty Name="PersonId" ColumnName="PersonID"/>
+							<ScalarProperty Name="ContactTypeId" ColumnName="ContactTypeID"/>
+						</EndProperty>
+						<EndProperty Name="Person">
+							<ScalarProperty Name="BusinessEntityId" ColumnName="PersonID"/>
+						</EndProperty>
+					</AssociationSetMapping>
+					<AssociationSetMapping Name="EmailAddress_Person_Person_EmailAddresses" TypeName="AWModel.EmailAddress_Person_Person_EmailAddresses" StoreEntitySet="EmailAddress" >
+						<EndProperty Name="EmailAddress">
+							<ScalarProperty Name="BusinessEntityId" ColumnName="BusinessEntityID"/>
+							<ScalarProperty Name="EmailAddressId" ColumnName="EmailAddressID"/>
+						</EndProperty>
+						<EndProperty Name="Person">
+							<ScalarProperty Name="BusinessEntityId" ColumnName="BusinessEntityID"/>
+						</EndProperty>
+					</AssociationSetMapping>
+					<AssociationSetMapping Name="Password_Person_Person_Password" TypeName="AWModel.Password_Person_Person_Password" StoreEntitySet="Password" >
+						<EndProperty Name="Password">
+							<ScalarProperty Name="BusinessEntityId" ColumnName="BusinessEntityID"/>
+						</EndProperty>
+						<EndProperty Name="Person">
+							<ScalarProperty Name="BusinessEntityId" ColumnName="BusinessEntityID"/>
 						</EndProperty>
 					</AssociationSetMapping>
 					<AssociationSetMapping Name="EmployeeDepartmentHistory_Department_Department_EmployeeDepartmentHistories" TypeName="AWModel.EmployeeDepartmentHistory_Department_Department_EmployeeDepartmentHistories" StoreEntitySet="EmployeeDepartmentHistory" >
 						<EndProperty Name="EmployeeDepartmentHistory">
 							<ScalarProperty Name="DepartmentId" ColumnName="DepartmentID"/>
-							<ScalarProperty Name="EmployeeId" ColumnName="EmployeeID"/>
+							<ScalarProperty Name="EmployeeId" ColumnName="BusinessEntityID"/>
 							<ScalarProperty Name="ShiftId" ColumnName="ShiftID"/>
 							<ScalarProperty Name="StartDate" ColumnName="StartDate"/>
 						</EndProperty>
@@ -5628,51 +5632,41 @@
 							<ScalarProperty Name="DepartmentId" ColumnName="DepartmentID"/>
 						</EndProperty>
 					</AssociationSetMapping>
+					<AssociationSetMapping Name="Document_Employee_Employee_Documents" TypeName="AWModel.Document_Employee_Employee_Documents" StoreEntitySet="Document" >
+						<EndProperty Name="Document">
+							<ScalarProperty Name="DocumentNode" ColumnName="DocumentNode"/>
+						</EndProperty>
+						<EndProperty Name="Employee">
+							<ScalarProperty Name="EmployeeId" ColumnName="Owner"/>
+						</EndProperty>
+					</AssociationSetMapping>
 					<AssociationSetMapping Name="ProductDocument_Document_Document_ProductDocuments" TypeName="AWModel.ProductDocument_Document_Document_ProductDocuments" StoreEntitySet="ProductDocument" >
 						<EndProperty Name="ProductDocument">
-							<ScalarProperty Name="DocumentId" ColumnName="DocumentID"/>
 							<ScalarProperty Name="ProductId" ColumnName="ProductID"/>
+							<ScalarProperty Name="DocumentNode" ColumnName="DocumentNode"/>
 						</EndProperty>
 						<EndProperty Name="Document">
-							<ScalarProperty Name="DocumentId" ColumnName="DocumentID"/>
-						</EndProperty>
-					</AssociationSetMapping>
-					<AssociationSetMapping Name="Employee_Manager_Employee_Employees" TypeName="AWModel.Employee_Manager_Employee_Employees" StoreEntitySet="Employee" >
-						<EndProperty Name="Employee">
-							<ScalarProperty Name="EmployeeId" ColumnName="EmployeeID"/>
-						</EndProperty>
-						<EndProperty Name="Employee1">
-							<ScalarProperty Name="EmployeeId" ColumnName="ManagerID"/>
-						</EndProperty>
-						<Condition ColumnName="ManagerID" IsNull="false" />
-					</AssociationSetMapping>
-					<AssociationSetMapping Name="EmployeeAddress_Employee_Employee_EmployeeAddresses" TypeName="AWModel.EmployeeAddress_Employee_Employee_EmployeeAddresses" StoreEntitySet="EmployeeAddress" >
-						<EndProperty Name="EmployeeAddress">
-							<ScalarProperty Name="AddressId" ColumnName="AddressID"/>
-							<ScalarProperty Name="EmployeeId" ColumnName="EmployeeID"/>
-						</EndProperty>
-						<EndProperty Name="Employee">
-							<ScalarProperty Name="EmployeeId" ColumnName="EmployeeID"/>
+							<ScalarProperty Name="DocumentNode" ColumnName="DocumentNode"/>
 						</EndProperty>
 					</AssociationSetMapping>
 					<AssociationSetMapping Name="EmployeeDepartmentHistory_Employee_Employee_EmployeeDepartmentHistories" TypeName="AWModel.EmployeeDepartmentHistory_Employee_Employee_EmployeeDepartmentHistories" StoreEntitySet="EmployeeDepartmentHistory" >
 						<EndProperty Name="EmployeeDepartmentHistory">
 							<ScalarProperty Name="DepartmentId" ColumnName="DepartmentID"/>
-							<ScalarProperty Name="EmployeeId" ColumnName="EmployeeID"/>
+							<ScalarProperty Name="EmployeeId" ColumnName="BusinessEntityID"/>
 							<ScalarProperty Name="ShiftId" ColumnName="ShiftID"/>
 							<ScalarProperty Name="StartDate" ColumnName="StartDate"/>
 						</EndProperty>
 						<EndProperty Name="Employee">
-							<ScalarProperty Name="EmployeeId" ColumnName="EmployeeID"/>
+							<ScalarProperty Name="EmployeeId" ColumnName="BusinessEntityID"/>
 						</EndProperty>
 					</AssociationSetMapping>
 					<AssociationSetMapping Name="EmployeePayHistory_Employee_Employee_EmployeePayHistories" TypeName="AWModel.EmployeePayHistory_Employee_Employee_EmployeePayHistories" StoreEntitySet="EmployeePayHistory" >
 						<EndProperty Name="EmployeePayHistory">
-							<ScalarProperty Name="EmployeeId" ColumnName="EmployeeID"/>
+							<ScalarProperty Name="EmployeeId" ColumnName="BusinessEntityID"/>
 							<ScalarProperty Name="RateChangeDate" ColumnName="RateChangeDate"/>
 						</EndProperty>
 						<EndProperty Name="Employee">
-							<ScalarProperty Name="EmployeeId" ColumnName="EmployeeID"/>
+							<ScalarProperty Name="EmployeeId" ColumnName="BusinessEntityID"/>
 						</EndProperty>
 					</AssociationSetMapping>
 					<AssociationSetMapping Name="JobCandidate_Employee_Employee_JobCandidates" TypeName="AWModel.JobCandidate_Employee_Employee_JobCandidates" StoreEntitySet="JobCandidate" >
@@ -5680,9 +5674,9 @@
 							<ScalarProperty Name="JobCandidateId" ColumnName="JobCandidateID"/>
 						</EndProperty>
 						<EndProperty Name="Employee">
-							<ScalarProperty Name="EmployeeId" ColumnName="EmployeeID"/>
+							<ScalarProperty Name="EmployeeId" ColumnName="BusinessEntityID"/>
 						</EndProperty>
-						<Condition ColumnName="EmployeeID" IsNull="false" />
+						<Condition ColumnName="BusinessEntityID" IsNull="false" />
 					</AssociationSetMapping>
 					<AssociationSetMapping Name="PurchaseOrderHeader_Employee_Employee_PurchaseOrderHeaders" TypeName="AWModel.PurchaseOrderHeader_Employee_Employee_PurchaseOrderHeaders" StoreEntitySet="PurchaseOrderHeader" >
 						<EndProperty Name="PurchaseOrderHeader">
@@ -5694,16 +5688,16 @@
 					</AssociationSetMapping>
 					<AssociationSetMapping Name="SalesPerson_Employee_Employee_SalesPerson" TypeName="AWModel.SalesPerson_Employee_Employee_SalesPerson" StoreEntitySet="SalesPerson" >
 						<EndProperty Name="SalesPerson">
-							<ScalarProperty Name="SalesPersonId" ColumnName="SalesPersonID"/>
+							<ScalarProperty Name="SalesPersonId" ColumnName="BusinessEntityID"/>
 						</EndProperty>
 						<EndProperty Name="Employee">
-							<ScalarProperty Name="EmployeeId" ColumnName="SalesPersonID"/>
+							<ScalarProperty Name="EmployeeId" ColumnName="BusinessEntityID"/>
 						</EndProperty>
 					</AssociationSetMapping>
 					<AssociationSetMapping Name="EmployeeDepartmentHistory_Shift_Shift_EmployeeDepartmentHistories" TypeName="AWModel.EmployeeDepartmentHistory_Shift_Shift_EmployeeDepartmentHistories" StoreEntitySet="EmployeeDepartmentHistory" >
 						<EndProperty Name="EmployeeDepartmentHistory">
 							<ScalarProperty Name="DepartmentId" ColumnName="DepartmentID"/>
-							<ScalarProperty Name="EmployeeId" ColumnName="EmployeeID"/>
+							<ScalarProperty Name="EmployeeId" ColumnName="BusinessEntityID"/>
 							<ScalarProperty Name="ShiftId" ColumnName="ShiftID"/>
 							<ScalarProperty Name="StartDate" ColumnName="StartDate"/>
 						</EndProperty>
@@ -5786,8 +5780,8 @@
 					</AssociationSetMapping>
 					<AssociationSetMapping Name="ProductDocument_Product_Product_ProductDocuments" TypeName="AWModel.ProductDocument_Product_Product_ProductDocuments" StoreEntitySet="ProductDocument" >
 						<EndProperty Name="ProductDocument">
-							<ScalarProperty Name="DocumentId" ColumnName="DocumentID"/>
 							<ScalarProperty Name="ProductId" ColumnName="ProductID"/>
+							<ScalarProperty Name="DocumentNode" ColumnName="DocumentNode"/>
 						</EndProperty>
 						<EndProperty Name="Product">
 							<ScalarProperty Name="ProductId" ColumnName="ProductID"/>
@@ -5831,7 +5825,7 @@
 					<AssociationSetMapping Name="ProductVendor_Product_Product_ProductVendors" TypeName="AWModel.ProductVendor_Product_Product_ProductVendors" StoreEntitySet="ProductVendor" >
 						<EndProperty Name="ProductVendor">
 							<ScalarProperty Name="ProductId" ColumnName="ProductID"/>
-							<ScalarProperty Name="VendorId" ColumnName="VendorID"/>
+							<ScalarProperty Name="VendorId" ColumnName="BusinessEntityID"/>
 						</EndProperty>
 						<EndProperty Name="Product">
 							<ScalarProperty Name="ProductId" ColumnName="ProductID"/>
@@ -5928,7 +5922,7 @@
 					<AssociationSetMapping Name="ProductVendor_UnitMeasure_UnitMeasure_ProductVendors" TypeName="AWModel.ProductVendor_UnitMeasure_UnitMeasure_ProductVendors" StoreEntitySet="ProductVendor" >
 						<EndProperty Name="ProductVendor">
 							<ScalarProperty Name="ProductId" ColumnName="ProductID"/>
-							<ScalarProperty Name="VendorId" ColumnName="VendorID"/>
+							<ScalarProperty Name="VendorId" ColumnName="BusinessEntityID"/>
 						</EndProperty>
 						<EndProperty Name="UnitMeasure">
 							<ScalarProperty Name="UnitMeasureCode" ColumnName="UnitMeasureCode"/>
@@ -5937,10 +5931,10 @@
 					<AssociationSetMapping Name="ProductVendor_Vendor_Vendor_ProductVendors" TypeName="AWModel.ProductVendor_Vendor_Vendor_ProductVendors" StoreEntitySet="ProductVendor" >
 						<EndProperty Name="ProductVendor">
 							<ScalarProperty Name="ProductId" ColumnName="ProductID"/>
-							<ScalarProperty Name="VendorId" ColumnName="VendorID"/>
+							<ScalarProperty Name="VendorId" ColumnName="BusinessEntityID"/>
 						</EndProperty>
 						<EndProperty Name="Vendor">
-							<ScalarProperty Name="VendorId" ColumnName="VendorID"/>
+							<ScalarProperty Name="VendorId" ColumnName="BusinessEntityID"/>
 						</EndProperty>
 					</AssociationSetMapping>
 					<AssociationSetMapping Name="PurchaseOrderDetail_PurchaseOrderHeader_PurchaseOrderHeader_PurchaseOrderDetails" TypeName="AWModel.PurchaseOrderDetail_PurchaseOrderHeader_PurchaseOrderHeader_PurchaseOrderDetails" StoreEntitySet="PurchaseOrderDetail" >
@@ -6033,7 +6027,7 @@
 					</AssociationSetMapping>
 					<AssociationSetMapping Name="SalesPerson_SalesTerritory_SalesTerritory_SalesPeople" TypeName="AWModel.SalesPerson_SalesTerritory_SalesTerritory_SalesPeople" StoreEntitySet="SalesPerson" >
 						<EndProperty Name="SalesPerson">
-							<ScalarProperty Name="SalesPersonId" ColumnName="SalesPersonID"/>
+							<ScalarProperty Name="SalesPersonId" ColumnName="BusinessEntityID"/>
 						</EndProperty>
 						<EndProperty Name="SalesTerritory">
 							<ScalarProperty Name="TerritoryId" ColumnName="TerritoryID"/>
@@ -6043,25 +6037,25 @@
 					<AssociationSetMapping Name="SalesPersonQuotaHistory_SalesPerson_SalesPerson_SalesPersonQuotaHistories" TypeName="AWModel.SalesPersonQuotaHistory_SalesPerson_SalesPerson_SalesPersonQuotaHistories" StoreEntitySet="SalesPersonQuotaHistory" >
 						<EndProperty Name="SalesPersonQuotaHistory">
 							<ScalarProperty Name="QuotaDate" ColumnName="QuotaDate"/>
-							<ScalarProperty Name="SalesPersonId" ColumnName="SalesPersonID"/>
+							<ScalarProperty Name="SalesPersonId" ColumnName="BusinessEntityID"/>
 						</EndProperty>
 						<EndProperty Name="SalesPerson">
-							<ScalarProperty Name="SalesPersonId" ColumnName="SalesPersonID"/>
+							<ScalarProperty Name="SalesPersonId" ColumnName="BusinessEntityID"/>
 						</EndProperty>
 					</AssociationSetMapping>
 					<AssociationSetMapping Name="SalesTerritoryHistory_SalesPerson_SalesPerson_SalesTerritoryHistories" TypeName="AWModel.SalesTerritoryHistory_SalesPerson_SalesPerson_SalesTerritoryHistories" StoreEntitySet="SalesTerritoryHistory" >
 						<EndProperty Name="SalesTerritoryHistory">
-							<ScalarProperty Name="SalesPersonId" ColumnName="SalesPersonID"/>
+							<ScalarProperty Name="SalesPersonId" ColumnName="BusinessEntityID"/>
 							<ScalarProperty Name="StartDate" ColumnName="StartDate"/>
 							<ScalarProperty Name="TerritoryId" ColumnName="TerritoryID"/>
 						</EndProperty>
 						<EndProperty Name="SalesPerson">
-							<ScalarProperty Name="SalesPersonId" ColumnName="SalesPersonID"/>
+							<ScalarProperty Name="SalesPersonId" ColumnName="BusinessEntityID"/>
 						</EndProperty>
 					</AssociationSetMapping>
 					<AssociationSetMapping Name="Store_SalesPerson_SalesPerson_Stores" TypeName="AWModel.Store_SalesPerson_SalesPerson_Stores" StoreEntitySet="Store" >
 						<EndProperty Name="Store">
-							<ScalarProperty Name="CustomerId" ColumnName="CustomerID"/>
+							<ScalarProperty Name="CustomerId" ColumnName="BusinessEntityID"/>
 						</EndProperty>
 						<EndProperty Name="SalesPerson">
 							<ScalarProperty Name="SalesPersonId" ColumnName="SalesPersonID"/>
@@ -6078,7 +6072,7 @@
 					</AssociationSetMapping>
 					<AssociationSetMapping Name="SalesTerritoryHistory_SalesTerritory_SalesTerritory_SalesTerritoryHistories" TypeName="AWModel.SalesTerritoryHistory_SalesTerritory_SalesTerritory_SalesTerritoryHistories" StoreEntitySet="SalesTerritoryHistory" >
 						<EndProperty Name="SalesTerritoryHistory">
-							<ScalarProperty Name="SalesPersonId" ColumnName="SalesPersonID"/>
+							<ScalarProperty Name="SalesPersonId" ColumnName="BusinessEntityID"/>
 							<ScalarProperty Name="StartDate" ColumnName="StartDate"/>
 							<ScalarProperty Name="TerritoryId" ColumnName="TerritoryID"/>
 						</EndProperty>
@@ -6112,31 +6106,40 @@
 							<ScalarProperty Name="SpecialOfferId" ColumnName="SpecialOfferID"/>
 						</EndProperty>
 					</AssociationSetMapping>
-					<AssociationSetMapping Name="StoreContact_Store_Store_StoreContacts" TypeName="AWModel.StoreContact_Store_Store_StoreContacts" StoreEntitySet="StoreContact" >
-						<EndProperty Name="StoreContact">
-							<ScalarProperty Name="ContactId" ColumnName="ContactID"/>
-							<ScalarProperty Name="CustomerId" ColumnName="CustomerID"/>
-						</EndProperty>
+					<AssociationSetMapping Name="Store_BusinessEntity_BusinessEntity_Store" TypeName="AWModel.Store_BusinessEntity_BusinessEntity_Store" StoreEntitySet="Store" >
 						<EndProperty Name="Store">
-							<ScalarProperty Name="CustomerId" ColumnName="CustomerID"/>
+							<ScalarProperty Name="CustomerId" ColumnName="BusinessEntityID"/>
+						</EndProperty>
+						<EndProperty Name="BusinessEntity">
+							<ScalarProperty Name="BusinessEntityId" ColumnName="BusinessEntityID"/>
 						</EndProperty>
 					</AssociationSetMapping>
-					<AssociationSetMapping Name="VendorAddress_Vendor_Vendor_VendorAddresses" TypeName="AWModel.VendorAddress_Vendor_Vendor_VendorAddresses" StoreEntitySet="VendorAddress" >
-						<EndProperty Name="VendorAddress">
+					<AssociationSetMapping Name="BusinessEntityContact_BusinessEntity_BusinessEntity_BusinessEntityContacts" TypeName="AWModel.BusinessEntityContact_BusinessEntity_BusinessEntity_BusinessEntityContacts" StoreEntitySet="BusinessEntityContact" >
+						<EndProperty Name="BusinessEntityContact">
+							<ScalarProperty Name="BusinessEntityId" ColumnName="BusinessEntityID"/>
+							<ScalarProperty Name="PersonId" ColumnName="PersonID"/>
+							<ScalarProperty Name="ContactTypeId" ColumnName="ContactTypeID"/>
+						</EndProperty>
+						<EndProperty Name="BusinessEntity">
+							<ScalarProperty Name="BusinessEntityId" ColumnName="BusinessEntityID"/>
+						</EndProperty>
+					</AssociationSetMapping>
+					<AssociationSetMapping Name="Vendor_BusinessEntity_BusinessEntity_Vendor" TypeName="AWModel.Vendor_BusinessEntity_BusinessEntity_Vendor" StoreEntitySet="Vendor" >
+						<EndProperty Name="Vendor">
+							<ScalarProperty Name="VendorId" ColumnName="BusinessEntityID"/>
+						</EndProperty>
+						<EndProperty Name="BusinessEntity">
+							<ScalarProperty Name="BusinessEntityId" ColumnName="BusinessEntityID"/>
+						</EndProperty>
+					</AssociationSetMapping>
+					<AssociationSetMapping Name="BusinessEntityAddress_BusinessEntity_BusinessEntity_BusinessEntityAddresses" TypeName="AWModel.BusinessEntityAddress_BusinessEntity_BusinessEntity_BusinessEntityAddresses" StoreEntitySet="BusinessEntityAddress" >
+						<EndProperty Name="BusinessEntityAddress">
+							<ScalarProperty Name="BusinessEntityId" ColumnName="BusinessEntityID"/>
 							<ScalarProperty Name="AddressId" ColumnName="AddressID"/>
-							<ScalarProperty Name="VendorId" ColumnName="VendorID"/>
+							<ScalarProperty Name="AddressTypeId" ColumnName="AddressTypeID"/>
 						</EndProperty>
-						<EndProperty Name="Vendor">
-							<ScalarProperty Name="VendorId" ColumnName="VendorID"/>
-						</EndProperty>
-					</AssociationSetMapping>
-					<AssociationSetMapping Name="VendorContact_Vendor_Vendor_VendorContacts" TypeName="AWModel.VendorContact_Vendor_Vendor_VendorContacts" StoreEntitySet="VendorContact" >
-						<EndProperty Name="VendorContact">
-							<ScalarProperty Name="ContactId" ColumnName="ContactID"/>
-							<ScalarProperty Name="VendorId" ColumnName="VendorID"/>
-						</EndProperty>
-						<EndProperty Name="Vendor">
-							<ScalarProperty Name="VendorId" ColumnName="VendorID"/>
+						<EndProperty Name="BusinessEntity">
+							<ScalarProperty Name="BusinessEntityId" ColumnName="BusinessEntityID"/>
 						</EndProperty>
 					</AssociationSetMapping>
 					<AssociationSetMapping Name="WorkOrderRouting_WorkOrder_WorkOrder_WorkOrderRoutings" TypeName="AWModel.WorkOrderRouting_WorkOrder_WorkOrder_WorkOrderRoutings" StoreEntitySet="WorkOrderRouting" >

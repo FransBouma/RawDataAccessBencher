@@ -22,28 +22,26 @@ namespace L2S.Bencher.EntityClasses
 		
 		#region Class Member Declarations
 		private System.DateTime	_birthDate;
-		private System.Int32	_contactId;
+		private System.Int32	_businessEntityId;
 		private System.Boolean	_currentFlag;
-		private System.Int32	_employeeId;
 		private System.String	_gender;
 		private System.DateTime	_hireDate;
+		private System.String	_jobTitle;
 		private System.String	_loginId;
-		private Nullable<System.Int32>	_managerId;
 		private System.String	_maritalStatus;
 		private System.DateTime	_modifiedDate;
 		private System.String	_nationalIdnumber;
+		private Nullable<System.Int16>	_organizationLevel;
+		private System.String	_organizationNode;
 		private System.Guid	_rowguid;
 		private System.Boolean	_salariedFlag;
 		private System.Int16	_sickLeaveHours;
-		private System.String	_title;
 		private System.Int16	_vacationHours;
-		private EntityRef <Contact> _contact;
-		private EntityRef <Employee> _manager;
-		private EntitySet <Employee> _employees;
-		private EntitySet <EmployeeAddress> _employeeAddresses;
+		private EntitySet <Document> _documents;
 		private EntitySet <EmployeeDepartmentHistory> _employeeDepartmentHistories;
 		private EntitySet <EmployeePayHistory> _employeePayHistories;
 		private EntitySet <JobCandidate> _jobCandidates;
+		private EntityRef <Person> _person;
 		private EntitySet <PurchaseOrderHeader> _purchaseOrderHeaders;
 		private EntityRef <SalesPerson> _salesPerson;
 		#endregion
@@ -54,34 +52,34 @@ namespace L2S.Bencher.EntityClasses
 		partial void OnCreated();
 		partial void OnBirthDateChanging(System.DateTime value);
 		partial void OnBirthDateChanged();
-		partial void OnContactIdChanging(System.Int32 value);
-		partial void OnContactIdChanged();
+		partial void OnBusinessEntityIdChanging(System.Int32 value);
+		partial void OnBusinessEntityIdChanged();
 		partial void OnCurrentFlagChanging(System.Boolean value);
 		partial void OnCurrentFlagChanged();
-		partial void OnEmployeeIdChanging(System.Int32 value);
-		partial void OnEmployeeIdChanged();
 		partial void OnGenderChanging(System.String value);
 		partial void OnGenderChanged();
 		partial void OnHireDateChanging(System.DateTime value);
 		partial void OnHireDateChanged();
+		partial void OnJobTitleChanging(System.String value);
+		partial void OnJobTitleChanged();
 		partial void OnLoginIdChanging(System.String value);
 		partial void OnLoginIdChanged();
-		partial void OnManagerIdChanging(Nullable<System.Int32> value);
-		partial void OnManagerIdChanged();
 		partial void OnMaritalStatusChanging(System.String value);
 		partial void OnMaritalStatusChanged();
 		partial void OnModifiedDateChanging(System.DateTime value);
 		partial void OnModifiedDateChanged();
 		partial void OnNationalIdnumberChanging(System.String value);
 		partial void OnNationalIdnumberChanged();
+		partial void OnOrganizationLevelChanging(Nullable<System.Int16> value);
+		partial void OnOrganizationLevelChanged();
+		partial void OnOrganizationNodeChanging(System.String value);
+		partial void OnOrganizationNodeChanged();
 		partial void OnRowguidChanging(System.Guid value);
 		partial void OnRowguidChanged();
 		partial void OnSalariedFlagChanging(System.Boolean value);
 		partial void OnSalariedFlagChanged();
 		partial void OnSickLeaveHoursChanging(System.Int16 value);
 		partial void OnSickLeaveHoursChanged();
-		partial void OnTitleChanging(System.String value);
-		partial void OnTitleChanged();
 		partial void OnVacationHoursChanging(System.Int16 value);
 		partial void OnVacationHoursChanged();
 		#endregion
@@ -89,13 +87,11 @@ namespace L2S.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="Employee"/> class.</summary>
 		public Employee()
 		{
-			_contact = default(EntityRef<Contact>);
-			_manager = default(EntityRef<Employee>);
-			_employees = new EntitySet<Employee>(new Action<Employee>(this.Attach_Employees), new Action<Employee>(this.Detach_Employees) );
-			_employeeAddresses = new EntitySet<EmployeeAddress>(new Action<EmployeeAddress>(this.Attach_EmployeeAddresses), new Action<EmployeeAddress>(this.Detach_EmployeeAddresses) );
+			_documents = new EntitySet<Document>(new Action<Document>(this.Attach_Documents), new Action<Document>(this.Detach_Documents) );
 			_employeeDepartmentHistories = new EntitySet<EmployeeDepartmentHistory>(new Action<EmployeeDepartmentHistory>(this.Attach_EmployeeDepartmentHistories), new Action<EmployeeDepartmentHistory>(this.Detach_EmployeeDepartmentHistories) );
 			_employeePayHistories = new EntitySet<EmployeePayHistory>(new Action<EmployeePayHistory>(this.Attach_EmployeePayHistories), new Action<EmployeePayHistory>(this.Detach_EmployeePayHistories) );
 			_jobCandidates = new EntitySet<JobCandidate>(new Action<JobCandidate>(this.Attach_JobCandidates), new Action<JobCandidate>(this.Detach_JobCandidates) );
+			_person = default(EntityRef<Person>);
 			_purchaseOrderHeaders = new EntitySet<PurchaseOrderHeader>(new Action<PurchaseOrderHeader>(this.Attach_PurchaseOrderHeaders), new Action<PurchaseOrderHeader>(this.Detach_PurchaseOrderHeaders) );
 			_salesPerson = default(EntityRef<SalesPerson>);
 			OnCreated();
@@ -123,33 +119,17 @@ namespace L2S.Bencher.EntityClasses
 		
 		/// <summary>Attaches this instance to the entity specified as an associated entity</summary>
 		/// <param name="entity">The related entity to attach to</param>
-		private void Attach_Employees(Employee entity)
+		private void Attach_Documents(Document entity)
 		{
-			this.SendPropertyChanging("Employees");
-			entity.Manager = this;
-		}
-		
-		/// <summary>Detaches this instance from the entity specified so it's no longer an associated entity</summary>
-		/// <param name="entity">The related entity to detach from</param>
-		private void Detach_Employees(Employee entity)
-		{
-			this.SendPropertyChanging("Employees");
-			entity.Manager = null;
-		}
-
-		/// <summary>Attaches this instance to the entity specified as an associated entity</summary>
-		/// <param name="entity">The related entity to attach to</param>
-		private void Attach_EmployeeAddresses(EmployeeAddress entity)
-		{
-			this.SendPropertyChanging("EmployeeAddresses");
+			this.SendPropertyChanging("Documents");
 			entity.Employee = this;
 		}
 		
 		/// <summary>Detaches this instance from the entity specified so it's no longer an associated entity</summary>
 		/// <param name="entity">The related entity to detach from</param>
-		private void Detach_EmployeeAddresses(EmployeeAddress entity)
+		private void Detach_Documents(Document entity)
 		{
-			this.SendPropertyChanging("EmployeeAddresses");
+			this.SendPropertyChanging("Documents");
 			entity.Employee = null;
 		}
 
@@ -220,7 +200,7 @@ namespace L2S.Bencher.EntityClasses
 
 		#region Class Property Declarations
 		/// <summary>Gets or sets the BirthDate field. Mapped on target field 'BirthDate'. </summary>
-		[Column(Name="BirthDate", Storage="_birthDate", CanBeNull=false, DbType="datetime NOT NULL")]
+		[Column(Name="BirthDate", Storage="_birthDate", CanBeNull=false, DbType="date NOT NULL")]
 		public System.DateTime BirthDate
 		{
 			get	{ return _birthDate; }
@@ -237,24 +217,24 @@ namespace L2S.Bencher.EntityClasses
 			}
 		}
 
-		/// <summary>Gets or sets the ContactId field. Mapped on target field 'ContactID'. </summary>
-		[Column(Name="ContactID", Storage="_contactId", CanBeNull=false, DbType="int NOT NULL")]
-		public System.Int32 ContactId
+		/// <summary>Gets or sets the BusinessEntityId field. Mapped on target field 'BusinessEntityID'. </summary>
+		[Column(Name="BusinessEntityID", Storage="_businessEntityId", CanBeNull=false, DbType="int NOT NULL", IsPrimaryKey=true)]
+		public System.Int32 BusinessEntityId
 		{
-			get	{ return _contactId; }
+			get	{ return _businessEntityId; }
 			set
 			{
-				if((_contactId != value))
+				if((_businessEntityId != value))
 				{
-					if(_contact.HasLoadedOrAssignedValue)
+					if(_person.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
-					OnContactIdChanging(value);
-					SendPropertyChanging("ContactId");
-					_contactId = value;
-					SendPropertyChanged("ContactId");
-					OnContactIdChanged();
+					OnBusinessEntityIdChanging(value);
+					SendPropertyChanging("BusinessEntityId");
+					_businessEntityId = value;
+					SendPropertyChanged("BusinessEntityId");
+					OnBusinessEntityIdChanged();
 				}
 			}
 		}
@@ -273,24 +253,6 @@ namespace L2S.Bencher.EntityClasses
 					_currentFlag = value;
 					SendPropertyChanged("CurrentFlag");
 					OnCurrentFlagChanged();
-				}
-			}
-		}
-
-		/// <summary>Gets or sets the EmployeeId field. Mapped on target field 'EmployeeID'. </summary>
-		[Column(Name="EmployeeID", Storage="_employeeId", AutoSync=AutoSync.OnInsert, CanBeNull=false, DbType="int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
-		public System.Int32 EmployeeId
-		{
-			get	{ return _employeeId; }
-			set
-			{
-				if((_employeeId != value))
-				{
-					OnEmployeeIdChanging(value);
-					SendPropertyChanging("EmployeeId");
-					_employeeId = value;
-					SendPropertyChanged("EmployeeId");
-					OnEmployeeIdChanged();
 				}
 			}
 		}
@@ -314,7 +276,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 
 		/// <summary>Gets or sets the HireDate field. Mapped on target field 'HireDate'. </summary>
-		[Column(Name="HireDate", Storage="_hireDate", CanBeNull=false, DbType="datetime NOT NULL")]
+		[Column(Name="HireDate", Storage="_hireDate", CanBeNull=false, DbType="date NOT NULL")]
 		public System.DateTime HireDate
 		{
 			get	{ return _hireDate; }
@@ -327,6 +289,24 @@ namespace L2S.Bencher.EntityClasses
 					_hireDate = value;
 					SendPropertyChanged("HireDate");
 					OnHireDateChanged();
+				}
+			}
+		}
+
+		/// <summary>Gets or sets the JobTitle field. Mapped on target field 'JobTitle'. </summary>
+		[Column(Name="JobTitle", Storage="_jobTitle", CanBeNull=false, DbType="nvarchar(50) NOT NULL")]
+		public System.String JobTitle
+		{
+			get	{ return _jobTitle; }
+			set
+			{
+				if((_jobTitle != value))
+				{
+					OnJobTitleChanging(value);
+					SendPropertyChanging("JobTitle");
+					_jobTitle = value;
+					SendPropertyChanged("JobTitle");
+					OnJobTitleChanged();
 				}
 			}
 		}
@@ -345,32 +325,6 @@ namespace L2S.Bencher.EntityClasses
 					_loginId = value;
 					SendPropertyChanged("LoginId");
 					OnLoginIdChanged();
-				}
-			}
-		}
-
-		/// <summary>Gets or sets the ManagerId field. Mapped on target field 'ManagerID'. </summary>
-		[Column(Name="ManagerID", Storage="_managerId", DbType="int NULL")]
-		public Nullable<System.Int32> ManagerId
-		{
-			get	{ return _managerId; }
-			set
-			{
-				if((_managerId != value))
-				{
-					if(_manager.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					if(_manager.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					OnManagerIdChanging(value);
-					SendPropertyChanging("ManagerId");
-					_managerId = value;
-					SendPropertyChanged("ManagerId");
-					OnManagerIdChanged();
 				}
 			}
 		}
@@ -429,6 +383,31 @@ namespace L2S.Bencher.EntityClasses
 			}
 		}
 
+		/// <summary>Gets or sets the OrganizationLevel field. Mapped on target field 'OrganizationLevel'. </summary>
+		[Column(Name="OrganizationLevel", Storage="_organizationLevel", AutoSync=AutoSync.OnInsert, DbType="smallint NULL", IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
+		public Nullable<System.Int16> OrganizationLevel
+		{
+			get	{ return _organizationLevel; }
+		}
+
+		/// <summary>Gets or sets the OrganizationNode field. Mapped on target field 'OrganizationNode'. </summary>
+		[Column(Name="OrganizationNode", Storage="_organizationNode", DbType="varchar(892) NULL")]
+		public System.String OrganizationNode
+		{
+			get	{ return _organizationNode; }
+			set
+			{
+				if((_organizationNode != value))
+				{
+					OnOrganizationNodeChanging(value);
+					SendPropertyChanging("OrganizationNode");
+					_organizationNode = value;
+					SendPropertyChanged("OrganizationNode");
+					OnOrganizationNodeChanged();
+				}
+			}
+		}
+
 		/// <summary>Gets or sets the Rowguid field. Mapped on target field 'rowguid'. </summary>
 		[Column(Name="rowguid", Storage="_rowguid", AutoSync=AutoSync.OnInsert, CanBeNull=false, DbType="uniqueidentifier NOT NULL", IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
 		public System.Guid Rowguid
@@ -483,24 +462,6 @@ namespace L2S.Bencher.EntityClasses
 			}
 		}
 
-		/// <summary>Gets or sets the Title field. Mapped on target field 'Title'. </summary>
-		[Column(Name="Title", Storage="_title", CanBeNull=false, DbType="nvarchar(50) NOT NULL")]
-		public System.String Title
-		{
-			get	{ return _title; }
-			set
-			{
-				if((_title != value))
-				{
-					OnTitleChanging(value);
-					SendPropertyChanging("Title");
-					_title = value;
-					SendPropertyChanged("Title");
-					OnTitleChanged();
-				}
-			}
-		}
-
 		/// <summary>Gets or sets the VacationHours field. Mapped on target field 'VacationHours'. </summary>
 		[Column(Name="VacationHours", Storage="_vacationHours", CanBeNull=false, DbType="smallint NOT NULL")]
 		public System.Int16 VacationHours
@@ -519,86 +480,16 @@ namespace L2S.Bencher.EntityClasses
 			}
 		}
 
-		/// <summary>Represents the navigator which is mapped onto the association 'Employee.Contact - Contact.Employees (m:1)'</summary>
-		[Association(Name="Employee_Contactb361864d558c44d8a18d902bb1927645", Storage="_contact", ThisKey="ContactId", IsForeignKey=true)] 
-		public Contact Contact
+		/// <summary>Represents the navigator which is mapped onto the association 'Document.Employee - Employee.Documents (m:1)'</summary>
+		[Association(Name="Document_Employeefb51c9a62c5340979fd40fe35e3b18bc", Storage="_documents", OtherKey="Owner")]
+		public EntitySet<Document> Documents
 		{
-			get { return _contact.Entity; }
-			set
-			{
-				Contact previousValue = _contact.Entity;
-				if((previousValue != value) || (_contact.HasLoadedOrAssignedValue == false))
-				{
-					this.SendPropertyChanging("Contact");
-					if(previousValue != null)
-					{
-						_contact.Entity = null;
-						previousValue.Employees.Remove(this);
-					}
-					_contact.Entity = value;
-					if(value == null)
-					{
-						_contactId = default(System.Int32);
-					}
-					else
-					{
-						value.Employees.Add(this);
-						_contactId = value.ContactId;
-					}
-					this.SendPropertyChanged("Contact");
-				}
-			}
-		}
-		
-		/// <summary>Represents the navigator which is mapped onto the association 'Employee.Manager - Employee.Employees (m:1)'</summary>
-		[Association(Name="Employee_Employee098b62caacae4965bc50695e049da7c2", Storage="_manager", ThisKey="ManagerId", IsForeignKey=true)] 
-		public Employee Manager
-		{
-			get { return _manager.Entity; }
-			set
-			{
-				Employee previousValue = _manager.Entity;
-				if((previousValue != value) || (_manager.HasLoadedOrAssignedValue == false))
-				{
-					this.SendPropertyChanging("Manager");
-					if(previousValue != null)
-					{
-						_manager.Entity = null;
-						previousValue.Employees.Remove(this);
-					}
-					_manager.Entity = value;
-					if(value == null)
-					{
-						_managerId = default(Nullable<System.Int32>);
-					}
-					else
-					{
-						value.Employees.Add(this);
-						_managerId = value.EmployeeId;
-					}
-					this.SendPropertyChanged("Manager");
-				}
-			}
-		}
-		
-		/// <summary>Represents the navigator which is mapped onto the association 'Employee.Manager - Employee.Employees (m:1)'</summary>
-		[Association(Name="Employee_Employee098b62caacae4965bc50695e049da7c2", Storage="_employees", OtherKey="ManagerId")]
-		public EntitySet<Employee> Employees
-		{
-			get { return this._employees; }
-			set { this._employees.Assign(value); }
-		}
-		
-		/// <summary>Represents the navigator which is mapped onto the association 'EmployeeAddress.Employee - Employee.EmployeeAddresses (m:1)'</summary>
-		[Association(Name="EmployeeAddress_Employeeecd3ad59e3554f40b88af37752dfed59", Storage="_employeeAddresses", OtherKey="EmployeeId")]
-		public EntitySet<EmployeeAddress> EmployeeAddresses
-		{
-			get { return this._employeeAddresses; }
-			set { this._employeeAddresses.Assign(value); }
+			get { return this._documents; }
+			set { this._documents.Assign(value); }
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'EmployeeDepartmentHistory.Employee - Employee.EmployeeDepartmentHistories (m:1)'</summary>
-		[Association(Name="EmployeeDepartmentHistory_Employeed00739cbcdf24b1392b159504b57ec34", Storage="_employeeDepartmentHistories", OtherKey="EmployeeId")]
+		[Association(Name="EmployeeDepartmentHistory_Employeedc3758d181924a4aa72e67f8f5994ab8", Storage="_employeeDepartmentHistories", OtherKey="BusinessEntityId")]
 		public EntitySet<EmployeeDepartmentHistory> EmployeeDepartmentHistories
 		{
 			get { return this._employeeDepartmentHistories; }
@@ -606,7 +497,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'EmployeePayHistory.Employee - Employee.EmployeePayHistories (m:1)'</summary>
-		[Association(Name="EmployeePayHistory_Employeef470928384fa447d96250b4dd34a757f", Storage="_employeePayHistories", OtherKey="EmployeeId")]
+		[Association(Name="EmployeePayHistory_Employee3d5bac7db90748fea4ffe5b8ffc98fff", Storage="_employeePayHistories", OtherKey="BusinessEntityId")]
 		public EntitySet<EmployeePayHistory> EmployeePayHistories
 		{
 			get { return this._employeePayHistories; }
@@ -614,15 +505,46 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'JobCandidate.Employee - Employee.JobCandidates (m:1)'</summary>
-		[Association(Name="JobCandidate_Employee91809a205c6547bebcdcd7b7cd5d5cc9", Storage="_jobCandidates", OtherKey="EmployeeId")]
+		[Association(Name="JobCandidate_Employee6a30e792c8c94bfdabdbae66d9583b57", Storage="_jobCandidates", OtherKey="BusinessEntityId")]
 		public EntitySet<JobCandidate> JobCandidates
 		{
 			get { return this._jobCandidates; }
 			set { this._jobCandidates.Assign(value); }
 		}
 		
+		/// <summary>Represents the navigator which is mapped onto the association 'Employee.Person - Person.Employee (1:1)'</summary>
+		[Association(Name="Employee_Person607045aa64b14bf6a8c7f47f785fbb1d", Storage="_person", ThisKey="BusinessEntityId", IsForeignKey=true, IsUnique=true)]
+		public Person Person
+		{
+			get { return _person.Entity; }
+			set
+			{
+				Person previousValue = _person.Entity;
+				if((previousValue != value) || (_person.HasLoadedOrAssignedValue == false))
+				{
+					this.SendPropertyChanging("Person");
+					if(previousValue != null)
+					{
+						_person.Entity = null;
+						previousValue.Employee=null;
+					}
+					_person.Entity = value;
+					if(value==null)
+					{
+						_businessEntityId = default(System.Int32);
+					}
+					else
+					{
+						value.Employee = this;
+						_businessEntityId = value.BusinessEntityId;
+					}
+					this.SendPropertyChanged("Person");
+				}
+			}
+		}
+		
 		/// <summary>Represents the navigator which is mapped onto the association 'PurchaseOrderHeader.Employee - Employee.PurchaseOrderHeaders (m:1)'</summary>
-		[Association(Name="PurchaseOrderHeader_Employee124ba68ba340461aa86fcd2f3485dba8", Storage="_purchaseOrderHeaders", OtherKey="EmployeeId")]
+		[Association(Name="PurchaseOrderHeader_Employeec4979523b2b34bb4a3c1e0c347d9b665", Storage="_purchaseOrderHeaders", OtherKey="EmployeeId")]
 		public EntitySet<PurchaseOrderHeader> PurchaseOrderHeaders
 		{
 			get { return this._purchaseOrderHeaders; }
@@ -630,7 +552,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesPerson.Employee - Employee.SalesPerson (1:1)'</summary>
-		[Association(Name="SalesPerson_Employee9dd86acd996e41af974a98d04cc724d7", Storage="_salesPerson", OtherKey="SalesPersonId", IsForeignKey=false, IsUnique=true)]
+		[Association(Name="SalesPerson_Employee8303eda141db45f882e1978089cc3486", Storage="_salesPerson", OtherKey="BusinessEntityId", IsForeignKey=false, IsUnique=true)]
 		public SalesPerson SalesPerson
 		{
 			get { return _salesPerson.Entity; }

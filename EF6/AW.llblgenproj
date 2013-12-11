@@ -7,8 +7,8 @@
     <Property Name="AdditionalTasksFolder" Value="" />
     <Property Name="AdditionalTemplatesFolder" Value="" />
     <Property Name="AdditionalTypeConverterFolder" Value="" />
-    <Property Name="AddNewElementsAfterRefresh" Value="0" />
-    <Property Name="AddNewFieldsAfterRefresh" Value="0" />
+    <Property Name="AddNewElementsAfterRefresh" Value="1" />
+    <Property Name="AddNewFieldsAfterRefresh" Value="1" />
     <Property Name="AddNewViewsAsEntitiesAfterRefresh" Value="0" />
     <Property Name="AutoAddManyToManyRelationships" Value="false" />
     <Property Name="AutoAssignSequencesToIntegerPks" Value="true" />
@@ -27,10 +27,10 @@
     <Property Name="FkFieldsAreNamedAfterTargetField" Value="true" />
     <Property Name="ForeignKeyFieldPattern" Value="{$NavigatorName}{$RelatedFieldName}" />
     <Property Name="GroupUsage" Value="0" />
-    <Property Name="IdentifyingFieldsFollowDBPrimaryKeyConstraints" Value="0" />
+    <Property Name="IdentifyingFieldsFollowDBPrimaryKeyConstraints" Value="1" />
     <Property Name="InsertUnderscoreAtWordBreakCaseInsensitiveDBs" Value="false" />
     <Property Name="InsertUnderscoreAtWordBreakCaseSensitiveDBs" Value="false" />
-    <Property Name="LengthPrecisionScaleFollowDBLengthPrecisionScale" Value="0" />
+    <Property Name="LengthPrecisionScaleFollowDBLengthPrecisionScale" Value="1" />
     <Property Name="MakeElementNamePascalCasing" Value="true" />
     <Property Name="NavigatorMappedOntoManyToManyPattern" Value="{$EndEntityName}CollectionVia{$IntermediateEntityName$S}" />
     <Property Name="NavigatorMappedOntoOneManyToOnePattern" Value="{$EndEntityName$S}" />
@@ -45,9 +45,9 @@
     <Property Name="ReflectNullabilityOfElementFieldInTargetField" Value="0" />
     <Property Name="RelationalModelDataElementNameCasingCaseInsensitiveDBs" Value="3" />
     <Property Name="RelationalModelDataElementNameCasingCaseSensitiveDBs" Value="3" />
-    <Property Name="RelationshipsFollowDBForeignKeyConstraints" Value="0" />
+    <Property Name="RelationshipsFollowDBForeignKeyConstraints" Value="1" />
     <Property Name="RemoveUnderscoresFromElementName" Value="true" />
-    <Property Name="RemoveUnmappedElementsAfterRefresh" Value="0" />
+    <Property Name="RemoveUnmappedElementsAfterRefresh" Value="1" />
     <Property Name="ResetFieldOrderBasedOnTargetOrderAtRefresh" Value="false" />
     <Property Name="RetrieveDBCustomProperties" Value="false" />
     <Property Name="RootNamespace" Value="" />
@@ -64,18 +64,20 @@
     <Property Name="TypedViewFieldNameStripPattern" Value="{}{}" />
     <Property Name="TypedViewMappedOnResultsetPattern" Value="{$ProcFunctionName}{$ResultsetName}Result" />
     <Property Name="TypedViewNameStripPattern" Value="{vw_}{}" />
-    <Property Name="UniqueConstraintsFollowDBUniqueConstraints" Value="0" />
+    <Property Name="UniqueConstraintsFollowDBUniqueConstraints" Value="1" />
     <Property Name="UpdateCustomPropertiesAfterRefresh" Value="0" />
     <Property Name="UseCustomFieldOrderingOnNewElements" Value="false" />
   </Properties>
-  <TypeShortcuts />
+  <TypeShortcuts>
+    <TypeShortcut Shortcut="SqlGeography" Type="Microsoft.SqlServer.Types.SqlGeography, Microsoft.SqlServer.Types, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+  </TypeShortcuts>
   <CodeGenerationCyclePreferences>
     <OutputType Value="3">
       <LastUsedPreferences>
-        <DestinationRootFolder Value="C:\Temp\Scratchpad\RawBencher\EF6\" />
+        <DestinationRootFolder Value=".\" />
         <FrameworkName Value="Entity Framework v6" />
         <LanguageName Value="C#" />
-        <PlatformName Value=".NET 4.5" />
+        <PlatformName Value=".NET 4.5.1" />
         <PresetName Value="SD.EntityFramework.v6 (DbContext API)" />
         <RootNamespace Value="EF6.Bencher" />
         <TemplateGroup Value="General" />
@@ -90,7 +92,7 @@
   </CodeGenerationCyclePreferences>
   <OutputSettingValues>
     <SettingValues>
-      <SettingValue Name="1:ProviderManifestTokenValue" Value="2005" Type="18" />
+      <SettingValue Name="1:ProviderManifestTokenValue" Value="2008" Type="18" />
     </SettingValues>
   </OutputSettingValues>
   <CodeGenerationMetaDataDefaults>
@@ -174,6 +176,7 @@
           <Field Name="ModifiedDate" Type="datetime" />
           <Field Name="PostalCode" Type="string" MaxLength="15" />
           <Field Name="Rowguid" Type="guid" />
+          <Field Name="SpatialLocation" Type="SqlGeography" IsOptional="true" />
           <Field Name="StateProvinceId" Type="int" Precision="10" />
         </Fields>
       </EntityDefinition>
@@ -196,25 +199,6 @@
           <Field Name="ProductAssemblyId" Type="int" IsOptional="true" Precision="10" />
           <Field Name="StartDate" Type="datetime" />
           <Field Name="UnitMeasureCode" Type="string" MaxLength="3" />
-        </Fields>
-      </EntityDefinition>
-      <EntityDefinition Name="Contact">
-        <Fields>
-          <Field Name="AdditionalContactInfo" Type="string" IsOptional="true" MaxLength="2147483647" />
-          <Field Name="ContactId" Type="int" IsReadOnly="true" Precision="10" IsPrimaryKey="true" />
-          <Field Name="EmailAddress" Type="string" IsOptional="true" MaxLength="50" />
-          <Field Name="EmailPromotion" Type="int" Precision="10" />
-          <Field Name="FirstName" Type="string" MaxLength="50" />
-          <Field Name="LastName" Type="string" MaxLength="50" />
-          <Field Name="MiddleName" Type="string" IsOptional="true" MaxLength="50" />
-          <Field Name="ModifiedDate" Type="datetime" />
-          <Field Name="NameStyle" Type="bool" />
-          <Field Name="PasswordHash" Type="string" MaxLength="40" />
-          <Field Name="PasswordSalt" Type="string" MaxLength="10" />
-          <Field Name="Phone" Type="string" IsOptional="true" MaxLength="25" />
-          <Field Name="Rowguid" Type="guid" />
-          <Field Name="Suffix" Type="string" IsOptional="true" MaxLength="10" />
-          <Field Name="Title" Type="string" IsOptional="true" MaxLength="8" />
         </Fields>
       </EntityDefinition>
       <EntityDefinition Name="ContactCreditCard">
@@ -284,19 +268,11 @@
         <Fields>
           <Field Name="AccountNumber" Type="string" IsReadOnly="true" MaxLength="10" />
           <Field Name="CustomerId" Type="int" IsReadOnly="true" Precision="10" IsPrimaryKey="true" />
-          <Field Name="CustomerType" Type="string" MaxLength="1" />
           <Field Name="ModifiedDate" Type="datetime" />
+          <Field Name="PersonId" Type="int" IsOptional="true" Precision="10" IsAutoCreated="true" />
           <Field Name="Rowguid" Type="guid" />
+          <Field Name="StoreId" Type="int" IsOptional="true" Precision="10" IsAutoCreated="true" />
           <Field Name="TerritoryId" Type="int" IsOptional="true" Precision="10" />
-        </Fields>
-      </EntityDefinition>
-      <EntityDefinition Name="CustomerAddress">
-        <Fields>
-          <Field Name="AddressId" Type="int" Precision="10" IsPrimaryKey="true" />
-          <Field Name="AddressTypeId" Type="int" Precision="10" />
-          <Field Name="CustomerId" Type="int" Precision="10" IsPrimaryKey="true" />
-          <Field Name="ModifiedDate" Type="datetime" />
-          <Field Name="Rowguid" Type="guid" />
         </Fields>
       </EntityDefinition>
       <EntityDefinition Name="Department">
@@ -310,43 +286,44 @@
       <EntityDefinition Name="Document">
         <Fields>
           <Field Name="ChangeNumber" Type="int" Precision="10" />
-          <Field Name="DocumentId" Type="int" IsReadOnly="true" Precision="10" IsPrimaryKey="true" />
+          <Field Name="DocumentLevel" Type="short" IsReadOnly="true" IsOptional="true" Precision="5" />
+          <Field Name="DocumentNode" Type="string" MaxLength="892" IsPrimaryKey="true" />
           <Field Name="DocumentSummary" Type="string" IsOptional="true" MaxLength="2147483647" />
           <Field Name="DocumentValue" Type="byte[]" IsOptional="true" MaxLength="2147483647" />
           <Field Name="FileExtension" Type="string" MaxLength="8" />
           <Field Name="FileName" Type="string" MaxLength="400" />
+          <Field Name="FolderFlag" Type="bool" />
           <Field Name="ModifiedDate" Type="datetime" />
+          <Field Name="Owner" Type="int" Precision="10" IsAutoCreated="true" />
           <Field Name="Revision" Type="string" MaxLength="5" />
+          <Field Name="Rowguid" Type="guid" />
           <Field Name="Status" Type="byte" Precision="3" />
           <Field Name="Title" Type="string" MaxLength="50" />
         </Fields>
+        <UniqueConstraints>
+          <UniqueConstraint Name="UqDocumentF73921F730F848Ed">
+            <Field Name="Rowguid" />
+          </UniqueConstraint>
+        </UniqueConstraints>
       </EntityDefinition>
       <EntityDefinition Name="Employee">
         <Fields>
           <Field Name="BirthDate" Type="datetime" />
-          <Field Name="ContactId" Type="int" Precision="10" />
           <Field Name="CurrentFlag" Type="bool" />
           <Field Name="EmployeeId" Type="int" IsReadOnly="true" Precision="10" IsPrimaryKey="true" />
           <Field Name="Gender" Type="string" MaxLength="1" />
           <Field Name="HireDate" Type="datetime" />
           <Field Name="LoginId" Type="string" MaxLength="256" />
-          <Field Name="ManagerId" Type="int" IsOptional="true" Precision="10" />
           <Field Name="MaritalStatus" Type="string" MaxLength="1" />
           <Field Name="ModifiedDate" Type="datetime" />
           <Field Name="NationalIdnumber" Type="string" MaxLength="15" />
+          <Field Name="OrganizationLevel" Type="short" IsReadOnly="true" IsOptional="true" Precision="5" />
+          <Field Name="OrganizationNode" Type="string" IsOptional="true" MaxLength="892" />
           <Field Name="Rowguid" Type="guid" />
           <Field Name="SalariedFlag" Type="bool" />
           <Field Name="SickLeaveHours" Type="short" Precision="5" />
           <Field Name="Title" Type="string" MaxLength="50" />
           <Field Name="VacationHours" Type="short" Precision="5" />
-        </Fields>
-      </EntityDefinition>
-      <EntityDefinition Name="EmployeeAddress">
-        <Fields>
-          <Field Name="AddressId" Type="int" Precision="10" IsPrimaryKey="true" />
-          <Field Name="EmployeeId" Type="int" Precision="10" IsPrimaryKey="true" />
-          <Field Name="ModifiedDate" Type="datetime" />
-          <Field Name="Rowguid" Type="guid" />
         </Fields>
       </EntityDefinition>
       <EntityDefinition Name="EmployeeDepartmentHistory">
@@ -372,14 +349,6 @@
         <Fields>
           <Field Name="Diagram" Type="string" IsOptional="true" MaxLength="2147483647" />
           <Field Name="IllustrationId" Type="int" IsReadOnly="true" Precision="10" IsPrimaryKey="true" />
-          <Field Name="ModifiedDate" Type="datetime" />
-        </Fields>
-      </EntityDefinition>
-      <EntityDefinition Name="Individual">
-        <Fields>
-          <Field Name="ContactId" Type="int" Precision="10" />
-          <Field Name="CustomerId" Type="int" Precision="10" IsPrimaryKey="true" />
-          <Field Name="Demographics" Type="string" IsOptional="true" MaxLength="2147483647" />
           <Field Name="ModifiedDate" Type="datetime" />
         </Fields>
       </EntityDefinition>
@@ -456,7 +425,7 @@
       </EntityDefinition>
       <EntityDefinition Name="ProductDocument">
         <Fields>
-          <Field Name="DocumentId" Type="int" Precision="10" IsPrimaryKey="true" />
+          <Field Name="DocumentNode" Type="string" MaxLength="892" IsPrimaryKey="true" IsAutoCreated="true" />
           <Field Name="ModifiedDate" Type="datetime" />
           <Field Name="ProductId" Type="int" Precision="10" IsPrimaryKey="true" />
         </Fields>
@@ -612,7 +581,6 @@
           <Field Name="AccountNumber" Type="string" IsOptional="true" MaxLength="15" />
           <Field Name="BillToAddressId" Type="int" Precision="10" />
           <Field Name="Comment" Type="string" IsOptional="true" MaxLength="128" />
-          <Field Name="ContactId" Type="int" Precision="10" />
           <Field Name="CreditCardApprovalCode" Type="string" IsOptional="true" MaxLength="15" />
           <Field Name="CreditCardId" Type="int" IsOptional="true" Precision="10" />
           <Field Name="CurrencyRateId" Type="int" IsOptional="true" Precision="10" />
@@ -719,11 +687,11 @@
       </EntityDefinition>
       <EntityDefinition Name="Shift">
         <Fields>
-          <Field Name="EndTime" Type="datetime" />
+          <Field Name="EndTime" Type="timespan" />
           <Field Name="ModifiedDate" Type="datetime" />
           <Field Name="Name" Type="string" MaxLength="50" />
           <Field Name="ShiftId" Type="byte" IsReadOnly="true" Precision="3" IsPrimaryKey="true" />
-          <Field Name="StartTime" Type="datetime" />
+          <Field Name="StartTime" Type="timespan" />
         </Fields>
       </EntityDefinition>
       <EntityDefinition Name="ShipMethod">
@@ -791,15 +759,6 @@
           <Field Name="SalesPersonId" Type="int" IsOptional="true" Precision="10" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="StoreContact">
-        <Fields>
-          <Field Name="ContactId" Type="int" Precision="10" IsPrimaryKey="true" />
-          <Field Name="ContactTypeId" Type="int" Precision="10" />
-          <Field Name="CustomerId" Type="int" Precision="10" IsPrimaryKey="true" />
-          <Field Name="ModifiedDate" Type="datetime" />
-          <Field Name="Rowguid" Type="guid" />
-        </Fields>
-      </EntityDefinition>
       <EntityDefinition Name="TransactionHistory">
         <Fields>
           <Field Name="ActualCost" Type="decimal" Precision="19" Scale="4" />
@@ -845,22 +804,6 @@
           <Field Name="VendorId" Type="int" IsReadOnly="true" Precision="10" IsPrimaryKey="true" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="VendorAddress">
-        <Fields>
-          <Field Name="AddressId" Type="int" Precision="10" IsPrimaryKey="true" />
-          <Field Name="AddressTypeId" Type="int" Precision="10" />
-          <Field Name="ModifiedDate" Type="datetime" />
-          <Field Name="VendorId" Type="int" Precision="10" IsPrimaryKey="true" />
-        </Fields>
-      </EntityDefinition>
-      <EntityDefinition Name="VendorContact">
-        <Fields>
-          <Field Name="ContactId" Type="int" Precision="10" IsPrimaryKey="true" />
-          <Field Name="ContactTypeId" Type="int" Precision="10" />
-          <Field Name="ModifiedDate" Type="datetime" />
-          <Field Name="VendorId" Type="int" Precision="10" IsPrimaryKey="true" />
-        </Fields>
-      </EntityDefinition>
       <EntityDefinition Name="WorkOrder">
         <Fields>
           <Field Name="DueDate" Type="datetime" />
@@ -891,6 +834,81 @@
           <Field Name="WorkOrderId" Type="int" Precision="10" IsPrimaryKey="true" />
         </Fields>
       </EntityDefinition>
+      <EntityDefinition Name="BusinessEntity" GroupName="Person">
+        <Fields>
+          <Field Name="BusinessEntityId" Type="int" IsReadOnly="true" Precision="10" IsPrimaryKey="true" />
+          <Field Name="ModifiedDate" Type="datetime" />
+          <Field Name="Rowguid" Type="guid" />
+        </Fields>
+      </EntityDefinition>
+      <EntityDefinition Name="BusinessEntityAddress" GroupName="Person">
+        <Fields>
+          <Field Name="AddressId" Type="int" Precision="10" IsPrimaryKey="true" />
+          <Field Name="AddressTypeId" Type="int" Precision="10" IsPrimaryKey="true" />
+          <Field Name="BusinessEntityId" Type="int" Precision="10" IsPrimaryKey="true" />
+          <Field Name="ModifiedDate" Type="datetime" />
+          <Field Name="Rowguid" Type="guid" />
+        </Fields>
+      </EntityDefinition>
+      <EntityDefinition Name="BusinessEntityContact" GroupName="Person">
+        <Fields>
+          <Field Name="BusinessEntityId" Type="int" Precision="10" IsPrimaryKey="true" />
+          <Field Name="ContactTypeId" Type="int" Precision="10" IsPrimaryKey="true" />
+          <Field Name="ModifiedDate" Type="datetime" />
+          <Field Name="PersonId" Type="int" Precision="10" IsPrimaryKey="true" />
+          <Field Name="Rowguid" Type="guid" />
+        </Fields>
+      </EntityDefinition>
+      <EntityDefinition Name="EmailAddress" GroupName="Person">
+        <Fields>
+          <Field Name="BusinessEntityId" Type="int" Precision="10" IsPrimaryKey="true" />
+          <Field Name="EmailAddressId" Type="int" IsReadOnly="true" Precision="10" IsPrimaryKey="true" />
+          <Field Name="EmailAddressValue" Type="string" IsOptional="true" MaxLength="50" />
+          <Field Name="ModifiedDate" Type="datetime" />
+          <Field Name="Rowguid" Type="guid" />
+        </Fields>
+      </EntityDefinition>
+      <EntityDefinition Name="Password" GroupName="Person">
+        <Fields>
+          <Field Name="BusinessEntityId" Type="int" Precision="10" IsPrimaryKey="true" />
+          <Field Name="ModifiedDate" Type="datetime" />
+          <Field Name="PasswordHash" Type="string" MaxLength="128" />
+          <Field Name="PasswordSalt" Type="string" MaxLength="10" />
+          <Field Name="Rowguid" Type="guid" />
+        </Fields>
+      </EntityDefinition>
+      <EntityDefinition Name="Person" GroupName="Person">
+        <Fields>
+          <Field Name="AdditionalContactInfo" Type="string" IsOptional="true" MaxLength="2147483647" />
+          <Field Name="BusinessEntityId" Type="int" Precision="10" IsPrimaryKey="true" />
+          <Field Name="Demographics" Type="string" IsOptional="true" MaxLength="2147483647" />
+          <Field Name="EmailPromotion" Type="int" Precision="10" />
+          <Field Name="FirstName" Type="string" MaxLength="50" />
+          <Field Name="LastName" Type="string" MaxLength="50" />
+          <Field Name="MiddleName" Type="string" IsOptional="true" MaxLength="50" />
+          <Field Name="ModifiedDate" Type="datetime" />
+          <Field Name="NameStyle" Type="bool" />
+          <Field Name="PersonType" Type="string" MaxLength="2" />
+          <Field Name="Rowguid" Type="guid" />
+          <Field Name="Suffix" Type="string" IsOptional="true" MaxLength="10" />
+          <Field Name="Title" Type="string" IsOptional="true" MaxLength="8" />
+        </Fields>
+      </EntityDefinition>
+      <EntityDefinition Name="PersonPhone" GroupName="Person">
+        <Fields>
+          <Field Name="BusinessEntityId" Type="int" Precision="10" IsPrimaryKey="true" />
+          <Field Name="ModifiedDate" Type="datetime" />
+          <Field Name="PhoneNumber" Type="string" MaxLength="25" IsPrimaryKey="true" />
+          <Field Name="PhoneNumberTypeId" Type="int" Precision="10" IsPrimaryKey="true" />
+        </Fields>
+      </EntityDefinition>
+      <EntityDefinition Name="PhoneNumberType" GroupName="Person">
+        <Fields>
+          <Field Name="ModifiedDate" Type="datetime" />
+          <Field Name="Name" Type="string" MaxLength="50" />
+          <Field Name="PhoneNumberTypeId" Type="int" IsReadOnly="true" Precision="10" IsPrimaryKey="true" />
+        </Fields>
+      </EntityDefinition>
     </EntityDefinitions>
     <Relationships>
       <NormalRelationship Name="Address.StateProvince-StateProvince.Addresses" Start=":Address" End=":StateProvince" StartNavigator="StateProvince" EndNavigator="Addresses" Type="4">
@@ -913,14 +931,14 @@
           <FieldFieldRelationship FkField="UnitMeasureCode" PkField="UnitMeasureCode" />
         </FieldRelationships>
       </NormalRelationship>
-      <NormalRelationship Name="ContactCreditCard.Contact-Contact.ContactCreditCards" Start=":ContactCreditCard" End=":Contact" StartNavigator="Contact" EndNavigator="ContactCreditCards" Type="4">
-        <FieldRelationships>
-          <FieldFieldRelationship FkField="ContactId" PkField="ContactId" />
-        </FieldRelationships>
-      </NormalRelationship>
       <NormalRelationship Name="ContactCreditCard.CreditCard-CreditCard.ContactCreditCards" Start=":ContactCreditCard" End=":CreditCard" StartNavigator="CreditCard" EndNavigator="ContactCreditCards" Type="4">
         <FieldRelationships>
           <FieldFieldRelationship FkField="CreditCardId" PkField="CreditCardId" />
+        </FieldRelationships>
+      </NormalRelationship>
+      <NormalRelationship Name="ContactCreditCard.Person-Person.Person.ContactCreditCards" Start=":ContactCreditCard" End="Person:Person" StartNavigator="Person" EndNavigator="ContactCreditCards" Type="4">
+        <FieldRelationships>
+          <FieldFieldRelationship FkField="ContactId" PkField="BusinessEntityId" />
         </FieldRelationships>
       </NormalRelationship>
       <NormalRelationship Name="CountryRegionCurrency.CountryRegion-CountryRegion.CountryRegionCurrencies" Start=":CountryRegionCurrency" End=":CountryRegion" StartNavigator="CountryRegion" EndNavigator="CountryRegionCurrencies" Type="4">
@@ -943,44 +961,29 @@
           <FieldFieldRelationship FkField="ToCurrencyCode" PkField="CurrencyCode" />
         </FieldRelationships>
       </NormalRelationship>
+      <NormalRelationship Name="Customer.Person-Person.Person.Customers" Start=":Customer" End="Person:Person" StartNavigator="Person" EndNavigator="Customers" Type="4" EndIsOptional="true">
+        <FieldRelationships>
+          <FieldFieldRelationship FkField="PersonId" PkField="BusinessEntityId" />
+        </FieldRelationships>
+      </NormalRelationship>
       <NormalRelationship Name="Customer.SalesTerritory-SalesTerritory.Customers" Start=":Customer" End=":SalesTerritory" StartNavigator="SalesTerritory" EndNavigator="Customers" Type="4" EndIsOptional="true">
         <FieldRelationships>
           <FieldFieldRelationship FkField="TerritoryId" PkField="TerritoryId" />
         </FieldRelationships>
       </NormalRelationship>
-      <NormalRelationship Name="CustomerAddress.Address-Address.CustomerAddresses" Start=":CustomerAddress" End=":Address" StartNavigator="Address" EndNavigator="CustomerAddresses" Type="4">
+      <NormalRelationship Name="Customer.Store-Store.Customers" Start=":Customer" End=":Store" StartNavigator="Store" EndNavigator="Customers" Type="4" EndIsOptional="true">
         <FieldRelationships>
-          <FieldFieldRelationship FkField="AddressId" PkField="AddressId" />
+          <FieldFieldRelationship FkField="StoreId" PkField="CustomerId" />
         </FieldRelationships>
       </NormalRelationship>
-      <NormalRelationship Name="CustomerAddress.AddressType-AddressType.CustomerAddresses" Start=":CustomerAddress" End=":AddressType" StartNavigator="AddressType" EndNavigator="CustomerAddresses" Type="4">
+      <NormalRelationship Name="Document.Employee-Employee.Documents" Start=":Document" End=":Employee" StartNavigator="Employee" EndNavigator="Documents" Type="4">
         <FieldRelationships>
-          <FieldFieldRelationship FkField="AddressTypeId" PkField="AddressTypeId" />
+          <FieldFieldRelationship FkField="Owner" PkField="EmployeeId" />
         </FieldRelationships>
       </NormalRelationship>
-      <NormalRelationship Name="CustomerAddress.Customer-Customer.CustomerAddresses" Start=":CustomerAddress" End=":Customer" StartNavigator="Customer" EndNavigator="CustomerAddresses" Type="4">
+      <NormalRelationship Name="Employee.Person-Person.Person.Employee" Start=":Employee" End="Person:Person" StartNavigator="Person" EndNavigator="Employee" Type="1" StartIsOptional="true">
         <FieldRelationships>
-          <FieldFieldRelationship FkField="CustomerId" PkField="CustomerId" />
-        </FieldRelationships>
-      </NormalRelationship>
-      <NormalRelationship Name="Employee.Contact-Contact.Employees" Start=":Employee" End=":Contact" StartNavigator="Contact" EndNavigator="Employees" Type="4">
-        <FieldRelationships>
-          <FieldFieldRelationship FkField="ContactId" PkField="ContactId" />
-        </FieldRelationships>
-      </NormalRelationship>
-      <NormalRelationship Name="Employee.Manager-Employee.Employees" Start=":Employee" End=":Employee" StartNavigator="Manager" EndNavigator="Employees" Type="4" EndIsOptional="true">
-        <FieldRelationships>
-          <FieldFieldRelationship FkField="ManagerId" PkField="EmployeeId" />
-        </FieldRelationships>
-      </NormalRelationship>
-      <NormalRelationship Name="EmployeeAddress.Address-Address.EmployeeAddresses" Start=":EmployeeAddress" End=":Address" StartNavigator="Address" EndNavigator="EmployeeAddresses" Type="4">
-        <FieldRelationships>
-          <FieldFieldRelationship FkField="AddressId" PkField="AddressId" />
-        </FieldRelationships>
-      </NormalRelationship>
-      <NormalRelationship Name="EmployeeAddress.Employee-Employee.EmployeeAddresses" Start=":EmployeeAddress" End=":Employee" StartNavigator="Employee" EndNavigator="EmployeeAddresses" Type="4">
-        <FieldRelationships>
-          <FieldFieldRelationship FkField="EmployeeId" PkField="EmployeeId" />
+          <FieldFieldRelationship FkField="EmployeeId" PkField="BusinessEntityId" />
         </FieldRelationships>
       </NormalRelationship>
       <NormalRelationship Name="EmployeeDepartmentHistory.Department-Department.EmployeeDepartmentHistories" Start=":EmployeeDepartmentHistory" End=":Department" StartNavigator="Department" EndNavigator="EmployeeDepartmentHistories" Type="4">
@@ -1003,19 +1006,64 @@
           <FieldFieldRelationship FkField="EmployeeId" PkField="EmployeeId" />
         </FieldRelationships>
       </NormalRelationship>
-      <NormalRelationship Name="Individual.Contact-Contact.Individuals" Start=":Individual" End=":Contact" StartNavigator="Contact" EndNavigator="Individuals" Type="4">
-        <FieldRelationships>
-          <FieldFieldRelationship FkField="ContactId" PkField="ContactId" />
-        </FieldRelationships>
-      </NormalRelationship>
-      <NormalRelationship Name="Individual.Customer-Customer.Individual" Start=":Individual" End=":Customer" StartNavigator="Customer" EndNavigator="Individual" Type="1" StartIsOptional="true">
-        <FieldRelationships>
-          <FieldFieldRelationship FkField="CustomerId" PkField="CustomerId" />
-        </FieldRelationships>
-      </NormalRelationship>
       <NormalRelationship Name="JobCandidate.Employee-Employee.JobCandidates" Start=":JobCandidate" End=":Employee" StartNavigator="Employee" EndNavigator="JobCandidates" Type="4" EndIsOptional="true">
         <FieldRelationships>
           <FieldFieldRelationship FkField="EmployeeId" PkField="EmployeeId" />
+        </FieldRelationships>
+      </NormalRelationship>
+      <NormalRelationship Name="Person.BusinessEntityAddress.Address-Address.BusinessEntityAddresses" Start="Person:BusinessEntityAddress" End=":Address" StartNavigator="Address" EndNavigator="BusinessEntityAddresses" Type="4">
+        <FieldRelationships>
+          <FieldFieldRelationship FkField="AddressId" PkField="AddressId" />
+        </FieldRelationships>
+      </NormalRelationship>
+      <NormalRelationship Name="Person.BusinessEntityAddress.AddressType-AddressType.BusinessEntityAddresses" Start="Person:BusinessEntityAddress" End=":AddressType" StartNavigator="AddressType" EndNavigator="BusinessEntityAddresses" Type="4">
+        <FieldRelationships>
+          <FieldFieldRelationship FkField="AddressTypeId" PkField="AddressTypeId" />
+        </FieldRelationships>
+      </NormalRelationship>
+      <NormalRelationship Name="Person.BusinessEntityAddress.BusinessEntity-Person.BusinessEntity.BusinessEntityAddresses" Start="Person:BusinessEntityAddress" End="Person:BusinessEntity" StartNavigator="BusinessEntity" EndNavigator="BusinessEntityAddresses" Type="4">
+        <FieldRelationships>
+          <FieldFieldRelationship FkField="BusinessEntityId" PkField="BusinessEntityId" />
+        </FieldRelationships>
+      </NormalRelationship>
+      <NormalRelationship Name="Person.BusinessEntityContact.BusinessEntity-Person.BusinessEntity.BusinessEntityContacts" Start="Person:BusinessEntityContact" End="Person:BusinessEntity" StartNavigator="BusinessEntity" EndNavigator="BusinessEntityContacts" Type="4">
+        <FieldRelationships>
+          <FieldFieldRelationship FkField="BusinessEntityId" PkField="BusinessEntityId" />
+        </FieldRelationships>
+      </NormalRelationship>
+      <NormalRelationship Name="Person.BusinessEntityContact.ContactType-ContactType.BusinessEntityContacts" Start="Person:BusinessEntityContact" End=":ContactType" StartNavigator="ContactType" EndNavigator="BusinessEntityContacts" Type="4">
+        <FieldRelationships>
+          <FieldFieldRelationship FkField="ContactTypeId" PkField="ContactTypeId" />
+        </FieldRelationships>
+      </NormalRelationship>
+      <NormalRelationship Name="Person.BusinessEntityContact.Person-Person.Person.BusinessEntityContacts" Start="Person:BusinessEntityContact" End="Person:Person" StartNavigator="Person" EndNavigator="BusinessEntityContacts" Type="4">
+        <FieldRelationships>
+          <FieldFieldRelationship FkField="PersonId" PkField="BusinessEntityId" />
+        </FieldRelationships>
+      </NormalRelationship>
+      <NormalRelationship Name="Person.EmailAddress.Person-Person.Person.EmailAddresses" Start="Person:EmailAddress" End="Person:Person" StartNavigator="Person" EndNavigator="EmailAddresses" Type="4">
+        <FieldRelationships>
+          <FieldFieldRelationship FkField="BusinessEntityId" PkField="BusinessEntityId" />
+        </FieldRelationships>
+      </NormalRelationship>
+      <NormalRelationship Name="Person.Password.Person-Person.Person.Password" Start="Person:Password" End="Person:Person" StartNavigator="Person" EndNavigator="Password" Type="1" StartIsOptional="true">
+        <FieldRelationships>
+          <FieldFieldRelationship FkField="BusinessEntityId" PkField="BusinessEntityId" />
+        </FieldRelationships>
+      </NormalRelationship>
+      <NormalRelationship Name="Person.Person.BusinessEntity-Person.BusinessEntity.Person" Start="Person:Person" End="Person:BusinessEntity" StartNavigator="BusinessEntity" EndNavigator="Person" Type="1" StartIsOptional="true">
+        <FieldRelationships>
+          <FieldFieldRelationship FkField="BusinessEntityId" PkField="BusinessEntityId" />
+        </FieldRelationships>
+      </NormalRelationship>
+      <NormalRelationship Name="Person.PersonPhone.Person-Person.Person.PersonPhones" Start="Person:PersonPhone" End="Person:Person" StartNavigator="Person" EndNavigator="PersonPhones" Type="4">
+        <FieldRelationships>
+          <FieldFieldRelationship FkField="BusinessEntityId" PkField="BusinessEntityId" />
+        </FieldRelationships>
+      </NormalRelationship>
+      <NormalRelationship Name="Person.PersonPhone.PhoneNumberType-Person.PhoneNumberType.PersonPhones" Start="Person:PersonPhone" End="Person:PhoneNumberType" StartNavigator="PhoneNumberType" EndNavigator="PersonPhones" Type="4">
+        <FieldRelationships>
+          <FieldFieldRelationship FkField="PhoneNumberTypeId" PkField="PhoneNumberTypeId" />
         </FieldRelationships>
       </NormalRelationship>
       <NormalRelationship Name="Product.ProductModel-ProductModel.Products" Start=":Product" End=":ProductModel" StartNavigator="ProductModel" EndNavigator="Products" Type="4" EndIsOptional="true">
@@ -1045,7 +1093,7 @@
       </NormalRelationship>
       <NormalRelationship Name="ProductDocument.Document-Document.ProductDocuments" Start=":ProductDocument" End=":Document" StartNavigator="Document" EndNavigator="ProductDocuments" Type="4">
         <FieldRelationships>
-          <FieldFieldRelationship FkField="DocumentId" PkField="DocumentId" />
+          <FieldFieldRelationship FkField="DocumentNode" PkField="DocumentNode" />
         </FieldRelationships>
       </NormalRelationship>
       <NormalRelationship Name="ProductDocument.Product-Product.ProductDocuments" Start=":ProductDocument" End=":Product" StartNavigator="Product" EndNavigator="ProductDocuments" Type="4">
@@ -1174,11 +1222,6 @@
           <FieldFieldRelationship FkField="ShipToAddressId" PkField="AddressId" />
         </FieldRelationships>
       </NormalRelationship>
-      <NormalRelationship Name="SalesOrderHeader.Contact-Contact.SalesOrderHeaders" Start=":SalesOrderHeader" End=":Contact" StartNavigator="Contact" EndNavigator="SalesOrderHeaders" Type="4">
-        <FieldRelationships>
-          <FieldFieldRelationship FkField="ContactId" PkField="ContactId" />
-        </FieldRelationships>
-      </NormalRelationship>
       <NormalRelationship Name="SalesOrderHeader.CreditCard-CreditCard.SalesOrderHeaders" Start=":SalesOrderHeader" End=":CreditCard" StartNavigator="CreditCard" EndNavigator="SalesOrderHeaders" Type="4" EndIsOptional="true">
         <FieldRelationships>
           <FieldFieldRelationship FkField="CreditCardId" PkField="CreditCardId" />
@@ -1239,6 +1282,11 @@
           <FieldFieldRelationship FkField="StateProvinceId" PkField="StateProvinceId" />
         </FieldRelationships>
       </NormalRelationship>
+      <NormalRelationship Name="SalesTerritory.CountryRegion-CountryRegion.SalesTerritories" Start=":SalesTerritory" End=":CountryRegion" StartNavigator="CountryRegion" EndNavigator="SalesTerritories" Type="4">
+        <FieldRelationships>
+          <FieldFieldRelationship FkField="CountryRegionCode" PkField="CountryRegionCode" />
+        </FieldRelationships>
+      </NormalRelationship>
       <NormalRelationship Name="SalesTerritoryHistory.SalesPerson-SalesPerson.SalesTerritoryHistories" Start=":SalesTerritoryHistory" End=":SalesPerson" StartNavigator="SalesPerson" EndNavigator="SalesTerritoryHistories" Type="4">
         <FieldRelationships>
           <FieldFieldRelationship FkField="SalesPersonId" PkField="SalesPersonId" />
@@ -1274,9 +1322,9 @@
           <FieldFieldRelationship FkField="TerritoryId" PkField="TerritoryId" />
         </FieldRelationships>
       </NormalRelationship>
-      <NormalRelationship Name="Store.Customer-Customer.Store" Start=":Store" End=":Customer" StartNavigator="Customer" EndNavigator="Store" Type="1" StartIsOptional="true">
+      <NormalRelationship Name="Store.BusinessEntity-Person.BusinessEntity.Store" Start=":Store" End="Person:BusinessEntity" StartNavigator="BusinessEntity" EndNavigator="Store" Type="1" StartIsOptional="true">
         <FieldRelationships>
-          <FieldFieldRelationship FkField="CustomerId" PkField="CustomerId" />
+          <FieldFieldRelationship FkField="CustomerId" PkField="BusinessEntityId" />
         </FieldRelationships>
       </NormalRelationship>
       <NormalRelationship Name="Store.SalesPerson-SalesPerson.Stores" Start=":Store" End=":SalesPerson" StartNavigator="SalesPerson" EndNavigator="Stores" Type="4" EndIsOptional="true">
@@ -1284,54 +1332,14 @@
           <FieldFieldRelationship FkField="SalesPersonId" PkField="SalesPersonId" />
         </FieldRelationships>
       </NormalRelationship>
-      <NormalRelationship Name="StoreContact.Contact-Contact.StoreContacts" Start=":StoreContact" End=":Contact" StartNavigator="Contact" EndNavigator="StoreContacts" Type="4">
-        <FieldRelationships>
-          <FieldFieldRelationship FkField="ContactId" PkField="ContactId" />
-        </FieldRelationships>
-      </NormalRelationship>
-      <NormalRelationship Name="StoreContact.ContactType-ContactType.StoreContacts" Start=":StoreContact" End=":ContactType" StartNavigator="ContactType" EndNavigator="StoreContacts" Type="4">
-        <FieldRelationships>
-          <FieldFieldRelationship FkField="ContactTypeId" PkField="ContactTypeId" />
-        </FieldRelationships>
-      </NormalRelationship>
-      <NormalRelationship Name="StoreContact.Store-Store.StoreContacts" Start=":StoreContact" End=":Store" StartNavigator="Store" EndNavigator="StoreContacts" Type="4">
-        <FieldRelationships>
-          <FieldFieldRelationship FkField="CustomerId" PkField="CustomerId" />
-        </FieldRelationships>
-      </NormalRelationship>
       <NormalRelationship Name="TransactionHistory.Product-Product.TransactionHistories" Start=":TransactionHistory" End=":Product" StartNavigator="Product" EndNavigator="TransactionHistories" Type="4">
         <FieldRelationships>
           <FieldFieldRelationship FkField="ProductId" PkField="ProductId" />
         </FieldRelationships>
       </NormalRelationship>
-      <NormalRelationship Name="VendorAddress.Address-Address.VendorAddresses" Start=":VendorAddress" End=":Address" StartNavigator="Address" EndNavigator="VendorAddresses" Type="4">
+      <NormalRelationship Name="Vendor.BusinessEntity-Person.BusinessEntity.Vendor" Start=":Vendor" End="Person:BusinessEntity" StartNavigator="BusinessEntity" EndNavigator="Vendor" Type="1" StartIsOptional="true">
         <FieldRelationships>
-          <FieldFieldRelationship FkField="AddressId" PkField="AddressId" />
-        </FieldRelationships>
-      </NormalRelationship>
-      <NormalRelationship Name="VendorAddress.AddressType-AddressType.VendorAddresses" Start=":VendorAddress" End=":AddressType" StartNavigator="AddressType" EndNavigator="VendorAddresses" Type="4">
-        <FieldRelationships>
-          <FieldFieldRelationship FkField="AddressTypeId" PkField="AddressTypeId" />
-        </FieldRelationships>
-      </NormalRelationship>
-      <NormalRelationship Name="VendorAddress.Vendor-Vendor.VendorAddresses" Start=":VendorAddress" End=":Vendor" StartNavigator="Vendor" EndNavigator="VendorAddresses" Type="4">
-        <FieldRelationships>
-          <FieldFieldRelationship FkField="VendorId" PkField="VendorId" />
-        </FieldRelationships>
-      </NormalRelationship>
-      <NormalRelationship Name="VendorContact.Contact-Contact.VendorContacts" Start=":VendorContact" End=":Contact" StartNavigator="Contact" EndNavigator="VendorContacts" Type="4">
-        <FieldRelationships>
-          <FieldFieldRelationship FkField="ContactId" PkField="ContactId" />
-        </FieldRelationships>
-      </NormalRelationship>
-      <NormalRelationship Name="VendorContact.ContactType-ContactType.VendorContacts" Start=":VendorContact" End=":ContactType" StartNavigator="ContactType" EndNavigator="VendorContacts" Type="4">
-        <FieldRelationships>
-          <FieldFieldRelationship FkField="ContactTypeId" PkField="ContactTypeId" />
-        </FieldRelationships>
-      </NormalRelationship>
-      <NormalRelationship Name="VendorContact.Vendor-Vendor.VendorContacts" Start=":VendorContact" End=":Vendor" StartNavigator="Vendor" EndNavigator="VendorContacts" Type="4">
-        <FieldRelationships>
-          <FieldFieldRelationship FkField="VendorId" PkField="VendorId" />
+          <FieldFieldRelationship FkField="VendorId" PkField="BusinessEntityId" />
         </FieldRelationships>
       </NormalRelationship>
       <NormalRelationship Name="WorkOrder.Product-Product.WorkOrders" Start=":WorkOrder" End=":Product" StartNavigator="Product" EndNavigator="WorkOrders" Type="4">
@@ -1360,7 +1368,7 @@
   <TargetDatabases>
     <TargetDatabase Type="2D18D138-1DD2-467E-86CC-4838250611AE">
       <ConnectionElements>
-        <ConnectionElement Name="ServerName" Value="zeusVM\SQLSERVER2005" />
+        <ConnectionElement Name="ServerName" Value="win2008sql2012\sqlexpress" />
         <ConnectionElement Name="CatalogName" Value="master" />
         <ConnectionElement Name="UseWindowsAuthentication" Value="true" />
         <ConnectionElement Name="UserID" Value="" />
@@ -1404,7 +1412,7 @@
                 </Table>
                 <Table Name="Employee">
                   <Fields>
-                    <Field Name="EmployeeID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" PkConstraintName="PK_Employee_EmployeeID" DbType="8" Precision="10">
+                    <Field Name="BusinessEntityID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_Employee_BusinessEntityID" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
@@ -1414,29 +1422,29 @@
                         <CustomProperty Name="MS_Description" Value="Unique national identification number such as a social security number." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ContactID" Ordinal="3" DbType="8" Precision="10">
+                    <Field Name="LoginID" Ordinal="3" DbType="12" Length="256">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Unique nonclustered index." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="LoginID" Ordinal="4" DbType="12" Length="256">
+                    <Field Name="OrganizationNode" Ordinal="4" IsOptional="true" DbType="24" Length="892">
                       <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="Network login." />
+                        <CustomProperty Name="MS_Description" Value="Where the employee is located in corporate hierarchy." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ManagerID" Ordinal="5" IsOptional="true" DbType="8" Precision="10">
+                    <Field Name="OrganizationLevel" Ordinal="5" IsOptional="true" IsComputed="true" DbType="16" Precision="5">
                       <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="Nonclustered index." />
+                        <CustomProperty Name="MS_Description" Value="Unique nonclustered index." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="Title" Ordinal="6" DbType="12" Length="50">
+                    <Field Name="JobTitle" Ordinal="6" DbType="12" Length="50">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Work title such as Buyer or Sales Representative." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="BirthDate" Ordinal="7" DbType="4">
+                    <Field Name="BirthDate" Ordinal="7" DbType="28">
                       <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="Date of birth." />
+                        <CustomProperty Name="MS_Description" Value="Unique nonclustered index. Used to support replication samples." />
                       </CustomProperties>
                     </Field>
                     <Field Name="MaritalStatus" Ordinal="8" DbType="10" Length="1">
@@ -1449,7 +1457,7 @@
                         <CustomProperty Name="MS_Description" Value="M = Male, F = Female" />
                       </CustomProperties>
                     </Field>
-                    <Field Name="HireDate" Ordinal="10" DbType="4">
+                    <Field Name="HireDate" Ordinal="10" DbType="28">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Employee hired on this date." />
                       </CustomProperties>
@@ -1489,56 +1497,29 @@
                     <CustomProperty Name="MS_Description" Value="Employee information such as salary, department, and title." />
                   </CustomProperties>
                 </Table>
-                <Table Name="EmployeeAddress">
-                  <Fields>
-                    <Field Name="EmployeeID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_EmployeeAddress_EmployeeID_AddressID" DbType="8" Precision="10">
-                      <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
-                      </CustomProperties>
-                    </Field>
-                    <Field Name="AddressID" Ordinal="2" IsPrimaryKey="true" PkConstraintName="PK_EmployeeAddress_EmployeeID_AddressID" DbType="8" Precision="10">
-                      <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="Primary key. Foreign key to Address.AddressID." />
-                      </CustomProperties>
-                    </Field>
-                    <Field Name="rowguid" Ordinal="3" IsRowGUID="true" DefaultValue="(newid())" DbType="25">
-                      <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample." />
-                      </CustomProperties>
-                    </Field>
-                    <Field Name="ModifiedDate" Ordinal="4" DefaultValue="(getdate())" DbType="4">
-                      <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
-                      </CustomProperties>
-                    </Field>
-                  </Fields>
-                  <CustomProperties>
-                    <CustomProperty Name="MS_Description" Value="Cross-reference table mapping employees to their address(es)." />
-                  </CustomProperties>
-                </Table>
                 <Table Name="EmployeeDepartmentHistory">
                   <Fields>
-                    <Field Name="EmployeeID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_EmployeeDepartmentHistory_EmployeeID_StartDate_DepartmentID" DbType="8" Precision="10">
+                    <Field Name="BusinessEntityID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_EmployeeDepartmentHistory_BusinessEntityID_StartDate_DepartmentID" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="DepartmentID" Ordinal="2" IsPrimaryKey="true" PkConstraintName="PK_EmployeeDepartmentHistory_EmployeeID_StartDate_DepartmentID" DbType="16" Precision="5">
+                    <Field Name="DepartmentID" Ordinal="2" IsPrimaryKey="true" PkConstraintName="PK_EmployeeDepartmentHistory_BusinessEntityID_StartDate_DepartmentID" DbType="16" Precision="5">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Department in which the employee worked including currently. Foreign key to Department.DepartmentID." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ShiftID" Ordinal="3" IsPrimaryKey="true" PkConstraintName="PK_EmployeeDepartmentHistory_EmployeeID_StartDate_DepartmentID" DbType="22" Precision="3">
+                    <Field Name="ShiftID" Ordinal="3" IsPrimaryKey="true" PkConstraintName="PK_EmployeeDepartmentHistory_BusinessEntityID_StartDate_DepartmentID" DbType="22" Precision="3">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Nonclustered index." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="StartDate" Ordinal="4" IsPrimaryKey="true" PkConstraintName="PK_EmployeeDepartmentHistory_EmployeeID_StartDate_DepartmentID" DbType="4">
+                    <Field Name="StartDate" Ordinal="4" IsPrimaryKey="true" PkConstraintName="PK_EmployeeDepartmentHistory_BusinessEntityID_StartDate_DepartmentID" DbType="28">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date the employee started work in the department." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="EndDate" Ordinal="5" IsOptional="true" DbType="4">
+                    <Field Name="EndDate" Ordinal="5" IsOptional="true" DbType="28">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date the employee left the department. NULL = Current department." />
                       </CustomProperties>
@@ -1555,12 +1536,12 @@
                 </Table>
                 <Table Name="EmployeePayHistory">
                   <Fields>
-                    <Field Name="EmployeeID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_EmployeePayHistory_EmployeeID_RateChangeDate" DbType="8" Precision="10">
+                    <Field Name="BusinessEntityID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_EmployeePayHistory_BusinessEntityID_RateChangeDate" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="RateChangeDate" Ordinal="2" IsPrimaryKey="true" PkConstraintName="PK_EmployeePayHistory_EmployeeID_RateChangeDate" DbType="4">
+                    <Field Name="RateChangeDate" Ordinal="2" IsPrimaryKey="true" PkConstraintName="PK_EmployeePayHistory_BusinessEntityID_RateChangeDate" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date the change in pay is effective" />
                       </CustomProperties>
@@ -1592,9 +1573,9 @@
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="EmployeeID" Ordinal="2" IsOptional="true" DbType="8" Precision="10">
+                    <Field Name="BusinessEntityID" Ordinal="2" IsOptional="true" DbType="8" Precision="10">
                       <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="Employee identification number if applicant was hired. Foreign key to Employee.EmployeeID." />
+                        <CustomProperty Name="MS_Description" Value="Employee identification number if applicant was hired. Foreign key to Employee.BusinessEntityID." />
                       </CustomProperties>
                     </Field>
                     <Field Name="Resume" Ordinal="3" IsOptional="true" DbType="26" Length="2147483647">
@@ -1624,12 +1605,12 @@
                         <CustomProperty Name="MS_Description" Value="Shift description." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="StartTime" Ordinal="3" DbType="4">
+                    <Field Name="StartTime" Ordinal="3" DbType="31">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Unique nonclustered index." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="EndTime" Ordinal="4" DbType="4">
+                    <Field Name="EndTime" Ordinal="4" DbType="31">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Shift end time." />
                       </CustomProperties>
@@ -1680,12 +1661,17 @@
                         <CustomProperty Name="MS_Description" Value="Postal code for the street address." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="rowguid" Ordinal="7" IsRowGUID="true" DefaultValue="(newid())" DbType="25">
+                    <Field Name="SpatialLocation" Ordinal="7" IsOptional="true" UdtCatalog="master" UdtOwner="dbo" UdtName="geography" DbType="27" DbTypeAsNetType="Microsoft.SqlServer.Types.SqlGeography, Microsoft.SqlServer.Types, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">
+                      <CustomProperties>
+                        <CustomProperty Name="MS_Description" Value="Latitude and longitude of this address." />
+                      </CustomProperties>
+                    </Field>
+                    <Field Name="rowguid" Ordinal="8" IsRowGUID="true" DefaultValue="(newid())" DbType="25">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="8" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="9" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -1722,86 +1708,90 @@
                     <CustomProperty Name="MS_Description" Value="Types of addresses stored in the Address table. " />
                   </CustomProperties>
                 </Table>
-                <Table Name="Contact">
+                <Table Name="BusinessEntity">
                   <Fields>
-                    <Field Name="ContactID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" PkConstraintName="PK_Contact_ContactID" DbType="8" Precision="10">
+                    <Field Name="BusinessEntityID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" PkConstraintName="PK_BusinessEntity_BusinessEntityID" DbType="8" Precision="10">
                       <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="Primary key for Contact records." />
+                        <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="NameStyle" Ordinal="2" DefaultValue="((0))" DbType="2">
-                      <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="Unique nonclustered index. Used to support replication samples." />
-                      </CustomProperties>
-                    </Field>
-                    <Field Name="Title" Ordinal="3" IsOptional="true" DbType="12" Length="8">
-                      <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="A courtesy title. For example, Mr. or Ms." />
-                      </CustomProperties>
-                    </Field>
-                    <Field Name="FirstName" Ordinal="4" DbType="12" Length="50">
-                      <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="First name of the person." />
-                      </CustomProperties>
-                    </Field>
-                    <Field Name="MiddleName" Ordinal="5" IsOptional="true" DbType="12" Length="50">
-                      <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="Middle name or middle initial of the person." />
-                      </CustomProperties>
-                    </Field>
-                    <Field Name="LastName" Ordinal="6" DbType="12" Length="50">
-                      <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="Last name of the person." />
-                      </CustomProperties>
-                    </Field>
-                    <Field Name="Suffix" Ordinal="7" IsOptional="true" DbType="12" Length="10">
-                      <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="Surname suffix. For example, Sr. or Jr." />
-                      </CustomProperties>
-                    </Field>
-                    <Field Name="EmailAddress" Ordinal="8" IsOptional="true" DbType="12" Length="50">
-                      <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="E-mail address for the person." />
-                      </CustomProperties>
-                    </Field>
-                    <Field Name="EmailPromotion" Ordinal="9" DefaultValue="((0))" DbType="8" Precision="10">
-                      <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="0 = Contact does not wish to receive e-mail promotions, 1 = Contact does wish to receive e-mail promotions from AdventureWorks, 2 = Contact does wish to receive e-mail promotions from AdventureWorks and selected partners. " />
-                      </CustomProperties>
-                    </Field>
-                    <Field Name="Phone" Ordinal="10" IsOptional="true" DbType="12" Length="25">
-                      <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="Phone number associated with the person." />
-                      </CustomProperties>
-                    </Field>
-                    <Field Name="PasswordHash" Ordinal="11" DbType="24" Length="40">
-                      <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="Password for the e-mail account." />
-                      </CustomProperties>
-                    </Field>
-                    <Field Name="PasswordSalt" Ordinal="12" DbType="24" Length="10">
-                      <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="Random value concatenated with the password string before the password is hashed." />
-                      </CustomProperties>
-                    </Field>
-                    <Field Name="AdditionalContactInfo" Ordinal="13" IsOptional="true" DbType="26" Length="2147483647">
-                      <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="Additional contact information about the person stored in xml format. " />
-                      </CustomProperties>
-                    </Field>
-                    <Field Name="rowguid" Ordinal="14" IsRowGUID="true" DefaultValue="(newid())" DbType="25">
+                    <Field Name="rowguid" Ordinal="2" IsRowGUID="true" DefaultValue="(newid())" DbType="25">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="15" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="3" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
                     </Field>
                   </Fields>
                   <CustomProperties>
-                    <CustomProperty Name="MS_Description" Value="Primary XML index." />
+                    <CustomProperty Name="MS_Description" Value="Source of the ID that connects vendors, customers, and employees with address and contact information." />
+                  </CustomProperties>
+                </Table>
+                <Table Name="BusinessEntityAddress">
+                  <Fields>
+                    <Field Name="BusinessEntityID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_BusinessEntityAddress_BusinessEntityID_AddressID_AddressTypeID" DbType="8" Precision="10">
+                      <CustomProperties>
+                        <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
+                      </CustomProperties>
+                    </Field>
+                    <Field Name="AddressID" Ordinal="2" IsPrimaryKey="true" PkConstraintName="PK_BusinessEntityAddress_BusinessEntityID_AddressID_AddressTypeID" DbType="8" Precision="10">
+                      <CustomProperties>
+                        <CustomProperty Name="MS_Description" Value="Primary key. Foreign key to Address.AddressID." />
+                      </CustomProperties>
+                    </Field>
+                    <Field Name="AddressTypeID" Ordinal="3" IsPrimaryKey="true" PkConstraintName="PK_BusinessEntityAddress_BusinessEntityID_AddressID_AddressTypeID" DbType="8" Precision="10">
+                      <CustomProperties>
+                        <CustomProperty Name="MS_Description" Value="Nonclustered index." />
+                      </CustomProperties>
+                    </Field>
+                    <Field Name="rowguid" Ordinal="4" IsRowGUID="true" DefaultValue="(newid())" DbType="25">
+                      <CustomProperties>
+                        <CustomProperty Name="MS_Description" Value="ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample." />
+                      </CustomProperties>
+                    </Field>
+                    <Field Name="ModifiedDate" Ordinal="5" DefaultValue="(getdate())" DbType="4">
+                      <CustomProperties>
+                        <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
+                      </CustomProperties>
+                    </Field>
+                  </Fields>
+                  <CustomProperties>
+                    <CustomProperty Name="MS_Description" Value="Cross-reference table mapping customers, vendors, and employees to their addresses." />
+                  </CustomProperties>
+                </Table>
+                <Table Name="BusinessEntityContact">
+                  <Fields>
+                    <Field Name="BusinessEntityID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_BusinessEntityContact_BusinessEntityID_PersonID_ContactTypeID" DbType="8" Precision="10">
+                      <CustomProperties>
+                        <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
+                      </CustomProperties>
+                    </Field>
+                    <Field Name="PersonID" Ordinal="2" IsPrimaryKey="true" PkConstraintName="PK_BusinessEntityContact_BusinessEntityID_PersonID_ContactTypeID" DbType="8" Precision="10">
+                      <CustomProperties>
+                        <CustomProperty Name="MS_Description" Value="Primary key. Foreign key to Person.BusinessEntityID." />
+                      </CustomProperties>
+                    </Field>
+                    <Field Name="ContactTypeID" Ordinal="3" IsPrimaryKey="true" PkConstraintName="PK_BusinessEntityContact_BusinessEntityID_PersonID_ContactTypeID" DbType="8" Precision="10">
+                      <CustomProperties>
+                        <CustomProperty Name="MS_Description" Value="Nonclustered index." />
+                      </CustomProperties>
+                    </Field>
+                    <Field Name="rowguid" Ordinal="4" IsRowGUID="true" DefaultValue="(newid())" DbType="25">
+                      <CustomProperties>
+                        <CustomProperty Name="MS_Description" Value="ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample." />
+                      </CustomProperties>
+                    </Field>
+                    <Field Name="ModifiedDate" Ordinal="5" DefaultValue="(getdate())" DbType="4">
+                      <CustomProperties>
+                        <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
+                      </CustomProperties>
+                    </Field>
+                  </Fields>
+                  <CustomProperties>
+                    <CustomProperty Name="MS_Description" Value="Cross-reference table mapping stores, vendors, and employees to people" />
                   </CustomProperties>
                 </Table>
                 <Table Name="ContactType">
@@ -1823,7 +1813,7 @@
                     </Field>
                   </Fields>
                   <CustomProperties>
-                    <CustomProperty Name="MS_Description" Value="Lookup table containing the types of contacts stored in Contact." />
+                    <CustomProperty Name="MS_Description" Value="Lookup table containing the types of business entity contacts." />
                   </CustomProperties>
                 </Table>
                 <Table Name="CountryRegion">
@@ -1846,6 +1836,191 @@
                   </Fields>
                   <CustomProperties>
                     <CustomProperty Name="MS_Description" Value="Lookup table containing the ISO standard codes for countries and regions." />
+                  </CustomProperties>
+                </Table>
+                <Table Name="EmailAddress">
+                  <Fields>
+                    <Field Name="BusinessEntityID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_EmailAddress_BusinessEntityID_EmailAddressID" DbType="8" Precision="10">
+                      <CustomProperties>
+                        <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
+                      </CustomProperties>
+                    </Field>
+                    <Field Name="EmailAddressID" Ordinal="2" IsIdentity="true" IsPrimaryKey="true" PkConstraintName="PK_EmailAddress_BusinessEntityID_EmailAddressID" DbType="8" Precision="10">
+                      <CustomProperties>
+                        <CustomProperty Name="MS_Description" Value="Primary key. ID of this email address." />
+                      </CustomProperties>
+                    </Field>
+                    <Field Name="EmailAddress" Ordinal="3" IsOptional="true" DbType="12" Length="50">
+                      <CustomProperties>
+                        <CustomProperty Name="MS_Description" Value="E-mail address for the person." />
+                      </CustomProperties>
+                    </Field>
+                    <Field Name="rowguid" Ordinal="4" IsRowGUID="true" DefaultValue="(newid())" DbType="25">
+                      <CustomProperties>
+                        <CustomProperty Name="MS_Description" Value="ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample." />
+                      </CustomProperties>
+                    </Field>
+                    <Field Name="ModifiedDate" Ordinal="5" DefaultValue="(getdate())" DbType="4">
+                      <CustomProperties>
+                        <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
+                      </CustomProperties>
+                    </Field>
+                  </Fields>
+                  <CustomProperties>
+                    <CustomProperty Name="MS_Description" Value="Where to send a person email." />
+                  </CustomProperties>
+                </Table>
+                <Table Name="Password">
+                  <Fields>
+                    <Field Name="BusinessEntityID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_Password_BusinessEntityID" DbType="8" Precision="10">
+                      <CustomProperties>
+                        <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
+                      </CustomProperties>
+                    </Field>
+                    <Field Name="PasswordHash" Ordinal="2" DbType="24" Length="128">
+                      <CustomProperties>
+                        <CustomProperty Name="MS_Description" Value="Password for the e-mail account." />
+                      </CustomProperties>
+                    </Field>
+                    <Field Name="PasswordSalt" Ordinal="3" DbType="24" Length="10">
+                      <CustomProperties>
+                        <CustomProperty Name="MS_Description" Value="Random value concatenated with the password string before the password is hashed." />
+                      </CustomProperties>
+                    </Field>
+                    <Field Name="rowguid" Ordinal="4" IsRowGUID="true" DefaultValue="(newid())" DbType="25">
+                      <CustomProperties>
+                        <CustomProperty Name="MS_Description" Value="ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample." />
+                      </CustomProperties>
+                    </Field>
+                    <Field Name="ModifiedDate" Ordinal="5" DefaultValue="(getdate())" DbType="4">
+                      <CustomProperties>
+                        <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
+                      </CustomProperties>
+                    </Field>
+                  </Fields>
+                  <CustomProperties>
+                    <CustomProperty Name="MS_Description" Value="One way hashed authentication information" />
+                  </CustomProperties>
+                </Table>
+                <Table Name="Person">
+                  <Fields>
+                    <Field Name="BusinessEntityID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_Person_BusinessEntityID" DbType="8" Precision="10">
+                      <CustomProperties>
+                        <CustomProperty Name="MS_Description" Value="Primary key for Person records." />
+                      </CustomProperties>
+                    </Field>
+                    <Field Name="PersonType" Ordinal="2" DbType="10" Length="2">
+                      <CustomProperties>
+                        <CustomProperty Name="MS_Description" Value="Primary type of person: SC = Store Contact, IN = Individual (retail) customer, SP = Sales person, EM = Employee (non-sales), VC = Vendor contact, GC = General contact" />
+                      </CustomProperties>
+                    </Field>
+                    <Field Name="NameStyle" Ordinal="3" DefaultValue="((0))" DbType="2">
+                      <CustomProperties>
+                        <CustomProperty Name="MS_Description" Value="Unique nonclustered index. Used to support replication samples." />
+                      </CustomProperties>
+                    </Field>
+                    <Field Name="Title" Ordinal="4" IsOptional="true" DbType="12" Length="8">
+                      <CustomProperties>
+                        <CustomProperty Name="MS_Description" Value="A courtesy title. For example, Mr. or Ms." />
+                      </CustomProperties>
+                    </Field>
+                    <Field Name="FirstName" Ordinal="5" DbType="12" Length="50">
+                      <CustomProperties>
+                        <CustomProperty Name="MS_Description" Value="First name of the person." />
+                      </CustomProperties>
+                    </Field>
+                    <Field Name="MiddleName" Ordinal="6" IsOptional="true" DbType="12" Length="50">
+                      <CustomProperties>
+                        <CustomProperty Name="MS_Description" Value="Middle name or middle initial of the person." />
+                      </CustomProperties>
+                    </Field>
+                    <Field Name="LastName" Ordinal="7" DbType="12" Length="50">
+                      <CustomProperties>
+                        <CustomProperty Name="MS_Description" Value="Last name of the person." />
+                      </CustomProperties>
+                    </Field>
+                    <Field Name="Suffix" Ordinal="8" IsOptional="true" DbType="12" Length="10">
+                      <CustomProperties>
+                        <CustomProperty Name="MS_Description" Value="Surname suffix. For example, Sr. or Jr." />
+                      </CustomProperties>
+                    </Field>
+                    <Field Name="EmailPromotion" Ordinal="9" DefaultValue="((0))" DbType="8" Precision="10">
+                      <CustomProperties>
+                        <CustomProperty Name="MS_Description" Value="0 = Contact does not wish to receive e-mail promotions, 1 = Contact does wish to receive e-mail promotions from AdventureWorks, 2 = Contact does wish to receive e-mail promotions from AdventureWorks and selected partners. " />
+                      </CustomProperties>
+                    </Field>
+                    <Field Name="AdditionalContactInfo" Ordinal="10" IsOptional="true" DbType="26" Length="2147483647">
+                      <CustomProperties>
+                        <CustomProperty Name="MS_Description" Value="Additional contact information about the person stored in xml format. " />
+                      </CustomProperties>
+                    </Field>
+                    <Field Name="Demographics" Ordinal="11" IsOptional="true" DbType="26" Length="2147483647">
+                      <CustomProperties>
+                        <CustomProperty Name="MS_Description" Value="Personal information such as hobbies, and income collected from online shoppers. Used for sales analysis." />
+                      </CustomProperties>
+                    </Field>
+                    <Field Name="rowguid" Ordinal="12" IsRowGUID="true" DefaultValue="(newid())" DbType="25">
+                      <CustomProperties>
+                        <CustomProperty Name="MS_Description" Value="ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample." />
+                      </CustomProperties>
+                    </Field>
+                    <Field Name="ModifiedDate" Ordinal="13" DefaultValue="(getdate())" DbType="4">
+                      <CustomProperties>
+                        <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
+                      </CustomProperties>
+                    </Field>
+                  </Fields>
+                  <CustomProperties>
+                    <CustomProperty Name="MS_Description" Value="Secondary XML index for value." />
+                  </CustomProperties>
+                </Table>
+                <Table Name="PersonPhone">
+                  <Fields>
+                    <Field Name="BusinessEntityID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_PersonPhone_BusinessEntityID_PhoneNumber_PhoneNumberTypeID" DbType="8" Precision="10">
+                      <CustomProperties>
+                        <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
+                      </CustomProperties>
+                    </Field>
+                    <Field Name="PhoneNumber" Ordinal="2" IsPrimaryKey="true" PkConstraintName="PK_PersonPhone_BusinessEntityID_PhoneNumber_PhoneNumberTypeID" DbType="12" Length="25">
+                      <CustomProperties>
+                        <CustomProperty Name="MS_Description" Value="Telephone number identification number." />
+                      </CustomProperties>
+                    </Field>
+                    <Field Name="PhoneNumberTypeID" Ordinal="3" IsPrimaryKey="true" PkConstraintName="PK_PersonPhone_BusinessEntityID_PhoneNumber_PhoneNumberTypeID" DbType="8" Precision="10">
+                      <CustomProperties>
+                        <CustomProperty Name="MS_Description" Value="Kind of phone number. Foreign key to PhoneNumberType.PhoneNumberTypeID." />
+                      </CustomProperties>
+                    </Field>
+                    <Field Name="ModifiedDate" Ordinal="4" DefaultValue="(getdate())" DbType="4">
+                      <CustomProperties>
+                        <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
+                      </CustomProperties>
+                    </Field>
+                  </Fields>
+                  <CustomProperties>
+                    <CustomProperty Name="MS_Description" Value="Telephone number and type of a person." />
+                  </CustomProperties>
+                </Table>
+                <Table Name="PhoneNumberType">
+                  <Fields>
+                    <Field Name="PhoneNumberTypeID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" PkConstraintName="PK_PhoneNumberType_PhoneNumberTypeID" DbType="8" Precision="10">
+                      <CustomProperties>
+                        <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
+                      </CustomProperties>
+                    </Field>
+                    <Field Name="Name" Ordinal="2" DbType="12" Length="50">
+                      <CustomProperties>
+                        <CustomProperty Name="MS_Description" Value="Name of the telephone number type" />
+                      </CustomProperties>
+                    </Field>
+                    <Field Name="ModifiedDate" Ordinal="3" DefaultValue="(getdate())" DbType="4">
+                      <CustomProperties>
+                        <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
+                      </CustomProperties>
+                    </Field>
+                  </Fields>
+                  <CustomProperties>
+                    <CustomProperty Name="MS_Description" Value="Type of phone number of a person." />
                   </CustomProperties>
                 </Table>
                 <Table Name="StateProvince">
@@ -1975,57 +2150,78 @@
                 </Table>
                 <Table Name="Document">
                   <Fields>
-                    <Field Name="DocumentID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" PkConstraintName="PK_Document_DocumentID" DbType="8" Precision="10">
+                    <Field Name="DocumentNode" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_Document_DocumentNode" DbType="24" Length="892">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="Title" Ordinal="2" DbType="12" Length="50">
+                    <Field Name="DocumentLevel" Ordinal="2" IsOptional="true" IsComputed="true" DbType="16" Precision="5">
                       <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="Title of the document." />
+                        <CustomProperty Name="MS_Description" Value="Depth in the document hierarchy." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="FileName" Ordinal="3" DbType="12" Length="400">
+                    <Field Name="Title" Ordinal="3" DbType="12" Length="50">
                       <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="Directory path and file name of the document" />
+                        <CustomProperty Name="MS_Description" Value="Unique nonclustered index." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="FileExtension" Ordinal="4" DbType="12" Length="8">
+                    <Field Name="Owner" Ordinal="4" DbType="8" Precision="10">
+                      <CustomProperties>
+                        <CustomProperty Name="MS_Description" Value="Employee who controls the document.  Foreign key to Employee.BusinessEntityID" />
+                      </CustomProperties>
+                    </Field>
+                    <Field Name="FolderFlag" Ordinal="5" DefaultValue="((0))" DbType="2">
+                      <CustomProperties>
+                        <CustomProperty Name="MS_Description" Value="0 = This is a folder, 1 = This is a document." />
+                      </CustomProperties>
+                    </Field>
+                    <Field Name="FileName" Ordinal="6" DbType="12" Length="400">
+                      <CustomProperties>
+                        <CustomProperty Name="MS_Description" Value="Unique nonclustered index." />
+                      </CustomProperties>
+                    </Field>
+                    <Field Name="FileExtension" Ordinal="7" DbType="12" Length="8">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="File extension indicating the document type. For example, .doc or .txt." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="Revision" Ordinal="5" DbType="10" Length="5">
+                    <Field Name="Revision" Ordinal="8" DbType="10" Length="5">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Revision number of the document. " />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ChangeNumber" Ordinal="6" DefaultValue="((0))" DbType="8" Precision="10">
+                    <Field Name="ChangeNumber" Ordinal="9" DefaultValue="((0))" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Engineering change approval number." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="Status" Ordinal="7" DbType="22" Precision="3">
+                    <Field Name="Status" Ordinal="10" DbType="22" Precision="3">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="1 = Pending approval, 2 = Approved, 3 = Obsolete" />
                       </CustomProperties>
                     </Field>
-                    <Field Name="DocumentSummary" Ordinal="8" IsOptional="true" DbType="12" Length="2147483647">
+                    <Field Name="DocumentSummary" Ordinal="11" IsOptional="true" DbType="12" Length="2147483647">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Document abstract." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="Document" Ordinal="9" IsOptional="true" DbType="23" Length="2147483647">
+                    <Field Name="Document" Ordinal="12" IsOptional="true" DbType="23" Length="2147483647">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Complete document." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="10" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="rowguid" Ordinal="13" IsRowGUID="true" DefaultValue="(newid())" DbType="25" />
+                    <Field Name="ModifiedDate" Ordinal="14" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
                     </Field>
                   </Fields>
+                  <UniqueConstraints>
+                    <UniqueConstraint Name="UQ__Document__F73921F730F848ED">
+                      <Field Name="rowguid" />
+                    </UniqueConstraint>
+                  </UniqueConstraints>
                   <CustomProperties>
                     <CustomProperty Name="MS_Description" Value="Product maintenance documents." />
                   </CustomProperties>
@@ -2304,14 +2500,14 @@
                 </Table>
                 <Table Name="ProductDocument">
                   <Fields>
-                    <Field Name="ProductID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_ProductDocument_ProductID_DocumentID" DbType="8" Precision="10">
+                    <Field Name="ProductID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_ProductDocument_ProductID_DocumentNode" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="DocumentID" Ordinal="2" IsPrimaryKey="true" PkConstraintName="PK_ProductDocument_ProductID_DocumentID" DbType="8" Precision="10">
+                    <Field Name="DocumentNode" Ordinal="2" IsPrimaryKey="true" PkConstraintName="PK_ProductDocument_ProductID_DocumentNode" DbType="24" Length="892">
                       <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="Document identification number. Foreign key to Document.DocumentID." />
+                        <CustomProperty Name="MS_Description" Value="Document identification number. Foreign key to Document.DocumentNode." />
                       </CustomProperties>
                     </Field>
                     <Field Name="ModifiedDate" Ordinal="3" DefaultValue="(getdate())" DbType="4">
@@ -2905,14 +3101,14 @@
               <Tables>
                 <Table Name="ProductVendor">
                   <Fields>
-                    <Field Name="ProductID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_ProductVendor_ProductID_VendorID" DbType="8" Precision="10">
+                    <Field Name="ProductID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_ProductVendor_ProductID_BusinessEntityID" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="VendorID" Ordinal="2" IsPrimaryKey="true" PkConstraintName="PK_ProductVendor_ProductID_VendorID" DbType="8" Precision="10">
+                    <Field Name="BusinessEntityID" Ordinal="2" IsPrimaryKey="true" PkConstraintName="PK_ProductVendor_ProductID_BusinessEntityID" DbType="8" Precision="10">
                       <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="Primary key. Foreign key to Vendor.VendorID." />
+                        <CustomProperty Name="MS_Description" Value="Primary key. Foreign key to Vendor.BusinessEntityID." />
                       </CustomProperties>
                     </Field>
                     <Field Name="AverageLeadTime" Ordinal="3" DbType="8" Precision="10">
@@ -3046,12 +3242,12 @@
                     </Field>
                     <Field Name="EmployeeID" Ordinal="4" DbType="8" Precision="10">
                       <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="Employee who created the purchase order. Foreign key to Employee.EmployeeID." />
+                        <CustomProperty Name="MS_Description" Value="Employee who created the purchase order. Foreign key to Employee.BusinessEntityID." />
                       </CustomProperties>
                     </Field>
                     <Field Name="VendorID" Ordinal="5" DbType="8" Precision="10">
                       <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="Vendor with whom the purchase order is placed. Foreign key to Vendor.VendorID." />
+                        <CustomProperty Name="MS_Description" Value="Vendor with whom the purchase order is placed. Foreign key to Vendor.BusinessEntityID." />
                       </CustomProperties>
                     </Field>
                     <Field Name="ShipMethodID" Ordinal="6" DbType="8" Precision="10">
@@ -3138,7 +3334,7 @@
                 </Table>
                 <Table Name="Vendor">
                   <Fields>
-                    <Field Name="VendorID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" PkConstraintName="PK_Vendor_VendorID" DbType="8" Precision="10">
+                    <Field Name="BusinessEntityID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_Vendor_BusinessEntityID" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
@@ -3183,86 +3379,10 @@
                     <CustomProperty Name="MS_Description" Value="Companies from whom Adventure Works Cycles purchases parts or other goods." />
                   </CustomProperties>
                 </Table>
-                <Table Name="VendorAddress">
-                  <Fields>
-                    <Field Name="VendorID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_VendorAddress_VendorID_AddressID" DbType="8" Precision="10">
-                      <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
-                      </CustomProperties>
-                    </Field>
-                    <Field Name="AddressID" Ordinal="2" IsPrimaryKey="true" PkConstraintName="PK_VendorAddress_VendorID_AddressID" DbType="8" Precision="10">
-                      <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="Primary key. Foreign key to Address.AddressID." />
-                      </CustomProperties>
-                    </Field>
-                    <Field Name="AddressTypeID" Ordinal="3" DbType="8" Precision="10">
-                      <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="Address type. Foreign key to AddressType.AddressTypeID." />
-                      </CustomProperties>
-                    </Field>
-                    <Field Name="ModifiedDate" Ordinal="4" DefaultValue="(getdate())" DbType="4">
-                      <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
-                      </CustomProperties>
-                    </Field>
-                  </Fields>
-                  <CustomProperties>
-                    <CustomProperty Name="MS_Description" Value="Cross-reference mapping vendors and addresses." />
-                  </CustomProperties>
-                </Table>
-                <Table Name="VendorContact">
-                  <Fields>
-                    <Field Name="VendorID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_VendorContact_VendorID_ContactID" DbType="8" Precision="10">
-                      <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
-                      </CustomProperties>
-                    </Field>
-                    <Field Name="ContactID" Ordinal="2" IsPrimaryKey="true" PkConstraintName="PK_VendorContact_VendorID_ContactID" DbType="8" Precision="10">
-                      <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="Contact (Vendor employee) identification number. Foreign key to Contact.ContactID." />
-                      </CustomProperties>
-                    </Field>
-                    <Field Name="ContactTypeID" Ordinal="3" DbType="8" Precision="10">
-                      <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="Nonclustered index." />
-                      </CustomProperties>
-                    </Field>
-                    <Field Name="ModifiedDate" Ordinal="4" DefaultValue="(getdate())" DbType="4">
-                      <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
-                      </CustomProperties>
-                    </Field>
-                  </Fields>
-                  <CustomProperties>
-                    <CustomProperty Name="MS_Description" Value="Cross-reference table mapping vendors and their employees." />
-                  </CustomProperties>
-                </Table>
               </Tables>
             </Schema>
             <Schema Name="Sales">
               <Tables>
-                <Table Name="ContactCreditCard">
-                  <Fields>
-                    <Field Name="ContactID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_ContactCreditCard_ContactID_CreditCardID" DbType="8" Precision="10">
-                      <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
-                      </CustomProperties>
-                    </Field>
-                    <Field Name="CreditCardID" Ordinal="2" IsPrimaryKey="true" PkConstraintName="PK_ContactCreditCard_ContactID_CreditCardID" DbType="8" Precision="10">
-                      <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="Credit card identification number. Foreign key to CreditCard.CreditCardID." />
-                      </CustomProperties>
-                    </Field>
-                    <Field Name="ModifiedDate" Ordinal="3" DefaultValue="(getdate())" DbType="4">
-                      <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
-                      </CustomProperties>
-                    </Field>
-                  </Fields>
-                  <CustomProperties>
-                    <CustomProperty Name="MS_Description" Value="Cross-reference table mapping customers in the Contact table to their credit card information in the CreditCard table. " />
-                  </CustomProperties>
-                </Table>
                 <Table Name="CountryRegionCurrency">
                   <Fields>
                     <Field Name="CountryRegionCode" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_CountryRegionCurrency_CountryRegionCode_CurrencyCode" DbType="12" Length="3">
@@ -3393,93 +3513,61 @@
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="TerritoryID" Ordinal="2" IsOptional="true" DbType="8" Precision="10">
+                    <Field Name="PersonID" Ordinal="2" IsOptional="true" DbType="8" Precision="10">
                       <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="ID of the territory in which the customer is located. Foreign key to SalesTerritory.SalesTerritoryID." />
+                        <CustomProperty Name="MS_Description" Value="Foreign key to Person.BusinessEntityID" />
                       </CustomProperties>
                     </Field>
-                    <Field Name="AccountNumber" Ordinal="3" IsComputed="true" DbType="24" Length="10">
+                    <Field Name="StoreID" Ordinal="3" IsOptional="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Unique nonclustered index." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="CustomerType" Ordinal="4" DbType="10" Length="1">
+                    <Field Name="TerritoryID" Ordinal="4" IsOptional="true" DbType="8" Precision="10">
                       <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="Customer type: I = Individual, S = Store" />
+                        <CustomProperty Name="MS_Description" Value="ID of the territory in which the customer is located. Foreign key to SalesTerritory.SalesTerritoryID." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="rowguid" Ordinal="5" IsRowGUID="true" DefaultValue="(newid())" DbType="25">
+                    <Field Name="AccountNumber" Ordinal="5" IsComputed="true" DbType="24" Length="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Nonclustered index." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="6" DefaultValue="(getdate())" DbType="4">
-                      <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
-                      </CustomProperties>
-                    </Field>
-                  </Fields>
-                  <CustomProperties>
-                    <CustomProperty Name="MS_Description" Value="Current customer information. Also see the Individual and Store tables." />
-                  </CustomProperties>
-                </Table>
-                <Table Name="CustomerAddress">
-                  <Fields>
-                    <Field Name="CustomerID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_CustomerAddress_CustomerID_AddressID" DbType="8" Precision="10">
-                      <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
-                      </CustomProperties>
-                    </Field>
-                    <Field Name="AddressID" Ordinal="2" IsPrimaryKey="true" PkConstraintName="PK_CustomerAddress_CustomerID_AddressID" DbType="8" Precision="10">
-                      <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="Primary key. Foreign key to Address.AddressID." />
-                      </CustomProperties>
-                    </Field>
-                    <Field Name="AddressTypeID" Ordinal="3" DbType="8" Precision="10">
-                      <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="Address type. Foreign key to AddressType.AddressTypeID." />
-                      </CustomProperties>
-                    </Field>
-                    <Field Name="rowguid" Ordinal="4" IsRowGUID="true" DefaultValue="(newid())" DbType="25">
+                    <Field Name="rowguid" Ordinal="6" IsRowGUID="true" DefaultValue="(newid())" DbType="25">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="5" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="7" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
                     </Field>
                   </Fields>
                   <CustomProperties>
-                    <CustomProperty Name="MS_Description" Value="Cross-reference table mapping customers to their address(es)." />
+                    <CustomProperty Name="MS_Description" Value="Current customer information. Also see the Person and Store tables." />
                   </CustomProperties>
                 </Table>
-                <Table Name="Individual">
+                <Table Name="PersonCreditCard">
                   <Fields>
-                    <Field Name="CustomerID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_Individual_CustomerID" DbType="8" Precision="10">
+                    <Field Name="BusinessEntityID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_PersonCreditCard_BusinessEntityID_CreditCardID" DbType="8" Precision="10">
                       <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="Unique customer identification number. Foreign key to Customer.CustomerID." />
+                        <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ContactID" Ordinal="2" DbType="8" Precision="10">
+                    <Field Name="CreditCardID" Ordinal="2" IsPrimaryKey="true" PkConstraintName="PK_PersonCreditCard_BusinessEntityID_CreditCardID" DbType="8" Precision="10">
                       <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="Identifies the customer in the Contact table. Foreign key to Contact.ContactID." />
+                        <CustomProperty Name="MS_Description" Value="Credit card identification number. Foreign key to CreditCard.CreditCardID." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="Demographics" Ordinal="3" IsOptional="true" DbType="26" Length="2147483647">
-                      <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="Personal information such as hobbies, and income collected from online shoppers. Used for sales analysis." />
-                      </CustomProperties>
-                    </Field>
-                    <Field Name="ModifiedDate" Ordinal="4" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="3" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
                     </Field>
                   </Fields>
                   <CustomProperties>
-                    <CustomProperty Name="MS_Description" Value="Secondary XML index for value." />
+                    <CustomProperty Name="MS_Description" Value="Cross-reference table mapping people to their credit card information in the CreditCard table. " />
                   </CustomProperties>
                 </Table>
                 <Table Name="SalesOrderDetail">
@@ -3598,85 +3686,80 @@
                     </Field>
                     <Field Name="CustomerID" Ordinal="11" DbType="8" Precision="10">
                       <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="Customer identification number. Foreign key to Customer.CustomerID." />
+                        <CustomProperty Name="MS_Description" Value="Customer identification number. Foreign key to Customer.BusinessEntityID." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ContactID" Ordinal="12" DbType="8" Precision="10">
+                    <Field Name="SalesPersonID" Ordinal="12" IsOptional="true" DbType="8" Precision="10">
                       <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="Customer contact identification number. Foreign key to Contact.ContactID." />
+                        <CustomProperty Name="MS_Description" Value="Sales person who created the sales order. Foreign key to SalesPerson.BusinessEntityID." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="SalesPersonID" Ordinal="13" IsOptional="true" DbType="8" Precision="10">
-                      <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="Sales person who created the sales order. Foreign key to SalesPerson.SalePersonID." />
-                      </CustomProperties>
-                    </Field>
-                    <Field Name="TerritoryID" Ordinal="14" IsOptional="true" DbType="8" Precision="10">
+                    <Field Name="TerritoryID" Ordinal="13" IsOptional="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Territory in which the sale was made. Foreign key to SalesTerritory.SalesTerritoryID." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="BillToAddressID" Ordinal="15" DbType="8" Precision="10">
+                    <Field Name="BillToAddressID" Ordinal="14" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Customer billing address. Foreign key to Address.AddressID." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ShipToAddressID" Ordinal="16" DbType="8" Precision="10">
+                    <Field Name="ShipToAddressID" Ordinal="15" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Customer shipping address. Foreign key to Address.AddressID." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ShipMethodID" Ordinal="17" DbType="8" Precision="10">
+                    <Field Name="ShipMethodID" Ordinal="16" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Shipping method. Foreign key to ShipMethod.ShipMethodID." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="CreditCardID" Ordinal="18" IsOptional="true" DbType="8" Precision="10">
+                    <Field Name="CreditCardID" Ordinal="17" IsOptional="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Credit card identification number. Foreign key to CreditCard.CreditCardID." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="CreditCardApprovalCode" Ordinal="19" IsOptional="true" DbType="24" Length="15">
+                    <Field Name="CreditCardApprovalCode" Ordinal="18" IsOptional="true" DbType="24" Length="15">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Approval code provided by the credit card company." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="CurrencyRateID" Ordinal="20" IsOptional="true" DbType="8" Precision="10">
+                    <Field Name="CurrencyRateID" Ordinal="19" IsOptional="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Currency exchange rate used. Foreign key to CurrencyRate.CurrencyRateID." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="SubTotal" Ordinal="21" DefaultValue="((0.00))" DbType="9" Precision="19" Scale="4">
+                    <Field Name="SubTotal" Ordinal="20" DefaultValue="((0.00))" DbType="9" Precision="19" Scale="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Sales subtotal. Computed as SUM(SalesOrderDetail.LineTotal)for the appropriate SalesOrderID." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="TaxAmt" Ordinal="22" DefaultValue="((0.00))" DbType="9" Precision="19" Scale="4">
+                    <Field Name="TaxAmt" Ordinal="21" DefaultValue="((0.00))" DbType="9" Precision="19" Scale="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Tax amount." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="Freight" Ordinal="23" DefaultValue="((0.00))" DbType="9" Precision="19" Scale="4">
+                    <Field Name="Freight" Ordinal="22" DefaultValue="((0.00))" DbType="9" Precision="19" Scale="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Shipping cost." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="TotalDue" Ordinal="24" IsComputed="true" DbType="9" Precision="19" Scale="4">
+                    <Field Name="TotalDue" Ordinal="23" IsComputed="true" DbType="9" Precision="19" Scale="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Total due from customer. Computed as Subtotal + TaxAmt + Freight." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="Comment" Ordinal="25" IsOptional="true" DbType="12" Length="128">
+                    <Field Name="Comment" Ordinal="24" IsOptional="true" DbType="12" Length="128">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Sales representative comments." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="rowguid" Ordinal="26" IsRowGUID="true" DefaultValue="(newid())" DbType="25">
+                    <Field Name="rowguid" Ordinal="25" IsRowGUID="true" DefaultValue="(newid())" DbType="25">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="27" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="26" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -3710,7 +3793,7 @@
                 </Table>
                 <Table Name="SalesPerson">
                   <Fields>
-                    <Field Name="SalesPersonID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_SalesPerson_SalesPersonID" DbType="8" Precision="10">
+                    <Field Name="BusinessEntityID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_SalesPerson_BusinessEntityID" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
@@ -3762,12 +3845,12 @@
                 </Table>
                 <Table Name="SalesPersonQuotaHistory">
                   <Fields>
-                    <Field Name="SalesPersonID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_SalesPersonQuotaHistory_SalesPersonID_QuotaDate" DbType="8" Precision="10">
+                    <Field Name="BusinessEntityID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_SalesPersonQuotaHistory_BusinessEntityID_QuotaDate" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="QuotaDate" Ordinal="2" IsPrimaryKey="true" PkConstraintName="PK_SalesPersonQuotaHistory_SalesPersonID_QuotaDate" DbType="4">
+                    <Field Name="QuotaDate" Ordinal="2" IsPrimaryKey="true" PkConstraintName="PK_SalesPersonQuotaHistory_BusinessEntityID_QuotaDate" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Sales quota date." />
                       </CustomProperties>
@@ -3920,19 +4003,19 @@
                 </Table>
                 <Table Name="SalesTerritoryHistory">
                   <Fields>
-                    <Field Name="SalesPersonID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_SalesTerritoryHistory_SalesPersonID_StartDate_TerritoryID" DbType="8" Precision="10">
+                    <Field Name="BusinessEntityID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_SalesTerritoryHistory_BusinessEntityID_StartDate_TerritoryID" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="TerritoryID" Ordinal="2" IsPrimaryKey="true" PkConstraintName="PK_SalesTerritoryHistory_SalesPersonID_StartDate_TerritoryID" DbType="8" Precision="10">
+                    <Field Name="TerritoryID" Ordinal="2" IsPrimaryKey="true" PkConstraintName="PK_SalesTerritoryHistory_BusinessEntityID_StartDate_TerritoryID" DbType="8" Precision="10">
                       <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="Territory identification number. Foreign key to SalesTerritory.SalesTerritoryID." />
+                        <CustomProperty Name="MS_Description" Value="Primary key. Territory identification number. Foreign key to SalesTerritory.SalesTerritoryID." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="StartDate" Ordinal="3" IsPrimaryKey="true" PkConstraintName="PK_SalesTerritoryHistory_SalesPersonID_StartDate_TerritoryID" DbType="4">
+                    <Field Name="StartDate" Ordinal="3" IsPrimaryKey="true" PkConstraintName="PK_SalesTerritoryHistory_BusinessEntityID_StartDate_TerritoryID" DbType="4">
                       <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="Date the sales representive started work in the territory." />
+                        <CustomProperty Name="MS_Description" Value="Primary key. Date the sales representive started work in the territory." />
                       </CustomProperties>
                     </Field>
                     <Field Name="EndDate" Ordinal="4" IsOptional="true" DbType="4">
@@ -4083,9 +4166,9 @@
                 </Table>
                 <Table Name="Store">
                   <Fields>
-                    <Field Name="CustomerID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_Store_CustomerID" DbType="8" Precision="10">
+                    <Field Name="BusinessEntityID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_Store_BusinessEntityID" DbType="8" Precision="10">
                       <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="Primary key. Foreign key to Customer.CustomerID." />
+                        <CustomProperty Name="MS_Description" Value="Primary key. Foreign key to Customer.BusinessEntityID." />
                       </CustomProperties>
                     </Field>
                     <Field Name="Name" Ordinal="2" DbType="12" Length="50">
@@ -4095,7 +4178,7 @@
                     </Field>
                     <Field Name="SalesPersonID" Ordinal="3" IsOptional="true" DbType="8" Precision="10">
                       <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="ID of the sales person assigned to the customer. Foreign key to SalesPerson.SalesPersonID." />
+                        <CustomProperty Name="MS_Description" Value="ID of the sales person assigned to the customer. Foreign key to SalesPerson.BusinessEntityID." />
                       </CustomProperties>
                     </Field>
                     <Field Name="Demographics" Ordinal="4" IsOptional="true" DbType="26" Length="2147483647">
@@ -4118,60 +4201,13 @@
                     <CustomProperty Name="MS_Description" Value="Primary XML index." />
                   </CustomProperties>
                 </Table>
-                <Table Name="StoreContact">
-                  <Fields>
-                    <Field Name="CustomerID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_StoreContact_CustomerID_ContactID" DbType="8" Precision="10">
-                      <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
-                      </CustomProperties>
-                    </Field>
-                    <Field Name="ContactID" Ordinal="2" IsPrimaryKey="true" PkConstraintName="PK_StoreContact_CustomerID_ContactID" DbType="8" Precision="10">
-                      <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="Contact (store employee) identification number. Foreign key to Contact.ContactID." />
-                      </CustomProperties>
-                    </Field>
-                    <Field Name="ContactTypeID" Ordinal="3" DbType="8" Precision="10">
-                      <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="Nonclustered index." />
-                      </CustomProperties>
-                    </Field>
-                    <Field Name="rowguid" Ordinal="4" IsRowGUID="true" DefaultValue="(newid())" DbType="25">
-                      <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample." />
-                      </CustomProperties>
-                    </Field>
-                    <Field Name="ModifiedDate" Ordinal="5" DefaultValue="(getdate())" DbType="4">
-                      <CustomProperties>
-                        <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
-                      </CustomProperties>
-                    </Field>
-                  </Fields>
-                  <CustomProperties>
-                    <CustomProperty Name="MS_Description" Value="Cross-reference table mapping stores and their employees." />
-                  </CustomProperties>
-                </Table>
               </Tables>
             </Schema>
           </Schemas>
           <ForeignKeyConstraints>
-            <ForeignKeyConstraint Name="HumanResources:Employee:FK_Employee_Contact_ContactID">
+            <ForeignKeyConstraint Name="HumanResources:Employee:FK_Employee_Person_BusinessEntityID">
               <FieldPairs>
-                <FieldPair PkField="Person:Contact:ContactID" FkField="HumanResources:Employee:ContactID" />
-              </FieldPairs>
-            </ForeignKeyConstraint>
-            <ForeignKeyConstraint Name="HumanResources:Employee:FK_Employee_Employee_ManagerID">
-              <FieldPairs>
-                <FieldPair PkField="HumanResources:Employee:EmployeeID" FkField="HumanResources:Employee:ManagerID" />
-              </FieldPairs>
-            </ForeignKeyConstraint>
-            <ForeignKeyConstraint Name="HumanResources:EmployeeAddress:FK_EmployeeAddress_Address_AddressID">
-              <FieldPairs>
-                <FieldPair PkField="Person:Address:AddressID" FkField="HumanResources:EmployeeAddress:AddressID" />
-              </FieldPairs>
-            </ForeignKeyConstraint>
-            <ForeignKeyConstraint Name="HumanResources:EmployeeAddress:FK_EmployeeAddress_Employee_EmployeeID">
-              <FieldPairs>
-                <FieldPair PkField="HumanResources:Employee:EmployeeID" FkField="HumanResources:EmployeeAddress:EmployeeID" />
+                <FieldPair PkField="Person:Person:BusinessEntityID" FkField="HumanResources:Employee:BusinessEntityID" />
               </FieldPairs>
             </ForeignKeyConstraint>
             <ForeignKeyConstraint Name="HumanResources:EmployeeDepartmentHistory:FK_EmployeeDepartmentHistory_Department_DepartmentID">
@@ -4179,9 +4215,9 @@
                 <FieldPair PkField="HumanResources:Department:DepartmentID" FkField="HumanResources:EmployeeDepartmentHistory:DepartmentID" />
               </FieldPairs>
             </ForeignKeyConstraint>
-            <ForeignKeyConstraint Name="HumanResources:EmployeeDepartmentHistory:FK_EmployeeDepartmentHistory_Employee_EmployeeID">
+            <ForeignKeyConstraint Name="HumanResources:EmployeeDepartmentHistory:FK_EmployeeDepartmentHistory_Employee_BusinessEntityID">
               <FieldPairs>
-                <FieldPair PkField="HumanResources:Employee:EmployeeID" FkField="HumanResources:EmployeeDepartmentHistory:EmployeeID" />
+                <FieldPair PkField="HumanResources:Employee:BusinessEntityID" FkField="HumanResources:EmployeeDepartmentHistory:BusinessEntityID" />
               </FieldPairs>
             </ForeignKeyConstraint>
             <ForeignKeyConstraint Name="HumanResources:EmployeeDepartmentHistory:FK_EmployeeDepartmentHistory_Shift_ShiftID">
@@ -4189,19 +4225,74 @@
                 <FieldPair PkField="HumanResources:Shift:ShiftID" FkField="HumanResources:EmployeeDepartmentHistory:ShiftID" />
               </FieldPairs>
             </ForeignKeyConstraint>
-            <ForeignKeyConstraint Name="HumanResources:EmployeePayHistory:FK_EmployeePayHistory_Employee_EmployeeID">
+            <ForeignKeyConstraint Name="HumanResources:EmployeePayHistory:FK_EmployeePayHistory_Employee_BusinessEntityID">
               <FieldPairs>
-                <FieldPair PkField="HumanResources:Employee:EmployeeID" FkField="HumanResources:EmployeePayHistory:EmployeeID" />
+                <FieldPair PkField="HumanResources:Employee:BusinessEntityID" FkField="HumanResources:EmployeePayHistory:BusinessEntityID" />
               </FieldPairs>
             </ForeignKeyConstraint>
-            <ForeignKeyConstraint Name="HumanResources:JobCandidate:FK_JobCandidate_Employee_EmployeeID">
+            <ForeignKeyConstraint Name="HumanResources:JobCandidate:FK_JobCandidate_Employee_BusinessEntityID">
               <FieldPairs>
-                <FieldPair PkField="HumanResources:Employee:EmployeeID" FkField="HumanResources:JobCandidate:EmployeeID" />
+                <FieldPair PkField="HumanResources:Employee:BusinessEntityID" FkField="HumanResources:JobCandidate:BusinessEntityID" />
               </FieldPairs>
             </ForeignKeyConstraint>
             <ForeignKeyConstraint Name="Person:Address:FK_Address_StateProvince_StateProvinceID">
               <FieldPairs>
                 <FieldPair PkField="Person:StateProvince:StateProvinceID" FkField="Person:Address:StateProvinceID" />
+              </FieldPairs>
+            </ForeignKeyConstraint>
+            <ForeignKeyConstraint Name="Person:BusinessEntityAddress:FK_BusinessEntityAddress_Address_AddressID">
+              <FieldPairs>
+                <FieldPair PkField="Person:Address:AddressID" FkField="Person:BusinessEntityAddress:AddressID" />
+              </FieldPairs>
+            </ForeignKeyConstraint>
+            <ForeignKeyConstraint Name="Person:BusinessEntityAddress:FK_BusinessEntityAddress_AddressType_AddressTypeID">
+              <FieldPairs>
+                <FieldPair PkField="Person:AddressType:AddressTypeID" FkField="Person:BusinessEntityAddress:AddressTypeID" />
+              </FieldPairs>
+            </ForeignKeyConstraint>
+            <ForeignKeyConstraint Name="Person:BusinessEntityAddress:FK_BusinessEntityAddress_BusinessEntity_BusinessEntityID">
+              <FieldPairs>
+                <FieldPair PkField="Person:BusinessEntity:BusinessEntityID" FkField="Person:BusinessEntityAddress:BusinessEntityID" />
+              </FieldPairs>
+            </ForeignKeyConstraint>
+            <ForeignKeyConstraint Name="Person:BusinessEntityContact:FK_BusinessEntityContact_BusinessEntity_BusinessEntityID">
+              <FieldPairs>
+                <FieldPair PkField="Person:BusinessEntity:BusinessEntityID" FkField="Person:BusinessEntityContact:BusinessEntityID" />
+              </FieldPairs>
+            </ForeignKeyConstraint>
+            <ForeignKeyConstraint Name="Person:BusinessEntityContact:FK_BusinessEntityContact_ContactType_ContactTypeID">
+              <FieldPairs>
+                <FieldPair PkField="Person:ContactType:ContactTypeID" FkField="Person:BusinessEntityContact:ContactTypeID" />
+              </FieldPairs>
+            </ForeignKeyConstraint>
+            <ForeignKeyConstraint Name="Person:BusinessEntityContact:FK_BusinessEntityContact_Person_PersonID">
+              <FieldPairs>
+                <FieldPair PkField="Person:Person:BusinessEntityID" FkField="Person:BusinessEntityContact:PersonID" />
+              </FieldPairs>
+            </ForeignKeyConstraint>
+            <ForeignKeyConstraint Name="Person:EmailAddress:FK_EmailAddress_Person_BusinessEntityID">
+              <FieldPairs>
+                <FieldPair PkField="Person:Person:BusinessEntityID" FkField="Person:EmailAddress:BusinessEntityID" />
+              </FieldPairs>
+            </ForeignKeyConstraint>
+            <ForeignKeyConstraint Name="Person:Password:FK_Password_Person_BusinessEntityID">
+              <FieldPairs>
+                <FieldPair PkField="Person:Person:BusinessEntityID" FkField="Person:Password:BusinessEntityID" />
+              </FieldPairs>
+            </ForeignKeyConstraint>
+            <ForeignKeyConstraint Name="Person:Person:FK_Person_BusinessEntity_BusinessEntityID">
+              <FieldPairs>
+                <FieldPair PkField="Person:BusinessEntity:BusinessEntityID" FkField="Person:Person:BusinessEntityID" />
+              </FieldPairs>
+            </ForeignKeyConstraint>
+            <ForeignKeyConstraint Name="Person:PersonPhone:FK_PersonPhone_Person_BusinessEntityID">
+              <FieldPairs>
+                <FieldPair PkField="Person:Person:BusinessEntityID" FkField="Person:PersonPhone:BusinessEntityID" />
+              </FieldPairs>
+            </ForeignKeyConstraint>
+            <ForeignKeyConstraint Name="Person:PersonPhone:FK_PersonPhone_PhoneNumberType_PhoneNumberTypeID">
+              <FieldPairs>
+                <FieldPair PkField="Person:PhoneNumberType:PhoneNumberTypeID" FkField="Person:PersonPhone:PhoneNumberTypeID" />
               </FieldPairs>
             </ForeignKeyConstraint>
             <ForeignKeyConstraint Name="Person:StateProvince:FK_StateProvince_CountryRegion_CountryRegionCode">
@@ -4229,6 +4320,11 @@
                 <FieldPair PkField="Production:UnitMeasure:UnitMeasureCode" FkField="Production:BillOfMaterials:UnitMeasureCode" />
               </FieldPairs>
             </ForeignKeyConstraint>
+            <ForeignKeyConstraint Name="Production:Document:FK_Document_Employee_Owner">
+              <FieldPairs>
+                <FieldPair PkField="HumanResources:Employee:BusinessEntityID" FkField="Production:Document:Owner" />
+              </FieldPairs>
+            </ForeignKeyConstraint>
             <ForeignKeyConstraint Name="Production:Product:FK_Product_ProductModel_ProductModelID">
               <FieldPairs>
                 <FieldPair PkField="Production:ProductModel:ProductModelID" FkField="Production:Product:ProductModelID" />
@@ -4254,9 +4350,9 @@
                 <FieldPair PkField="Production:Product:ProductID" FkField="Production:ProductCostHistory:ProductID" />
               </FieldPairs>
             </ForeignKeyConstraint>
-            <ForeignKeyConstraint Name="Production:ProductDocument:FK_ProductDocument_Document_DocumentID">
+            <ForeignKeyConstraint Name="Production:ProductDocument:FK_ProductDocument_Document_DocumentNode">
               <FieldPairs>
-                <FieldPair PkField="Production:Document:DocumentID" FkField="Production:ProductDocument:DocumentID" />
+                <FieldPair PkField="Production:Document:DocumentNode" FkField="Production:ProductDocument:DocumentNode" />
               </FieldPairs>
             </ForeignKeyConstraint>
             <ForeignKeyConstraint Name="Production:ProductDocument:FK_ProductDocument_Product_ProductID">
@@ -4359,9 +4455,9 @@
                 <FieldPair PkField="Production:UnitMeasure:UnitMeasureCode" FkField="Purchasing:ProductVendor:UnitMeasureCode" />
               </FieldPairs>
             </ForeignKeyConstraint>
-            <ForeignKeyConstraint Name="Purchasing:ProductVendor:FK_ProductVendor_Vendor_VendorID">
+            <ForeignKeyConstraint Name="Purchasing:ProductVendor:FK_ProductVendor_Vendor_BusinessEntityID">
               <FieldPairs>
-                <FieldPair PkField="Purchasing:Vendor:VendorID" FkField="Purchasing:ProductVendor:VendorID" />
+                <FieldPair PkField="Purchasing:Vendor:BusinessEntityID" FkField="Purchasing:ProductVendor:BusinessEntityID" />
               </FieldPairs>
             </ForeignKeyConstraint>
             <ForeignKeyConstraint Name="Purchasing:PurchaseOrderDetail:FK_PurchaseOrderDetail_Product_ProductID">
@@ -4376,7 +4472,7 @@
             </ForeignKeyConstraint>
             <ForeignKeyConstraint Name="Purchasing:PurchaseOrderHeader:FK_PurchaseOrderHeader_Employee_EmployeeID">
               <FieldPairs>
-                <FieldPair PkField="HumanResources:Employee:EmployeeID" FkField="Purchasing:PurchaseOrderHeader:EmployeeID" />
+                <FieldPair PkField="HumanResources:Employee:BusinessEntityID" FkField="Purchasing:PurchaseOrderHeader:EmployeeID" />
               </FieldPairs>
             </ForeignKeyConstraint>
             <ForeignKeyConstraint Name="Purchasing:PurchaseOrderHeader:FK_PurchaseOrderHeader_ShipMethod_ShipMethodID">
@@ -4386,47 +4482,12 @@
             </ForeignKeyConstraint>
             <ForeignKeyConstraint Name="Purchasing:PurchaseOrderHeader:FK_PurchaseOrderHeader_Vendor_VendorID">
               <FieldPairs>
-                <FieldPair PkField="Purchasing:Vendor:VendorID" FkField="Purchasing:PurchaseOrderHeader:VendorID" />
+                <FieldPair PkField="Purchasing:Vendor:BusinessEntityID" FkField="Purchasing:PurchaseOrderHeader:VendorID" />
               </FieldPairs>
             </ForeignKeyConstraint>
-            <ForeignKeyConstraint Name="Purchasing:VendorAddress:FK_VendorAddress_Address_AddressID">
+            <ForeignKeyConstraint Name="Purchasing:Vendor:FK_Vendor_BusinessEntity_BusinessEntityID">
               <FieldPairs>
-                <FieldPair PkField="Person:Address:AddressID" FkField="Purchasing:VendorAddress:AddressID" />
-              </FieldPairs>
-            </ForeignKeyConstraint>
-            <ForeignKeyConstraint Name="Purchasing:VendorAddress:FK_VendorAddress_AddressType_AddressTypeID">
-              <FieldPairs>
-                <FieldPair PkField="Person:AddressType:AddressTypeID" FkField="Purchasing:VendorAddress:AddressTypeID" />
-              </FieldPairs>
-            </ForeignKeyConstraint>
-            <ForeignKeyConstraint Name="Purchasing:VendorAddress:FK_VendorAddress_Vendor_VendorID">
-              <FieldPairs>
-                <FieldPair PkField="Purchasing:Vendor:VendorID" FkField="Purchasing:VendorAddress:VendorID" />
-              </FieldPairs>
-            </ForeignKeyConstraint>
-            <ForeignKeyConstraint Name="Purchasing:VendorContact:FK_VendorContact_Contact_ContactID">
-              <FieldPairs>
-                <FieldPair PkField="Person:Contact:ContactID" FkField="Purchasing:VendorContact:ContactID" />
-              </FieldPairs>
-            </ForeignKeyConstraint>
-            <ForeignKeyConstraint Name="Purchasing:VendorContact:FK_VendorContact_ContactType_ContactTypeID">
-              <FieldPairs>
-                <FieldPair PkField="Person:ContactType:ContactTypeID" FkField="Purchasing:VendorContact:ContactTypeID" />
-              </FieldPairs>
-            </ForeignKeyConstraint>
-            <ForeignKeyConstraint Name="Purchasing:VendorContact:FK_VendorContact_Vendor_VendorID">
-              <FieldPairs>
-                <FieldPair PkField="Purchasing:Vendor:VendorID" FkField="Purchasing:VendorContact:VendorID" />
-              </FieldPairs>
-            </ForeignKeyConstraint>
-            <ForeignKeyConstraint Name="Sales:ContactCreditCard:FK_ContactCreditCard_Contact_ContactID">
-              <FieldPairs>
-                <FieldPair PkField="Person:Contact:ContactID" FkField="Sales:ContactCreditCard:ContactID" />
-              </FieldPairs>
-            </ForeignKeyConstraint>
-            <ForeignKeyConstraint Name="Sales:ContactCreditCard:FK_ContactCreditCard_CreditCard_CreditCardID">
-              <FieldPairs>
-                <FieldPair PkField="Sales:CreditCard:CreditCardID" FkField="Sales:ContactCreditCard:CreditCardID" />
+                <FieldPair PkField="Person:BusinessEntity:BusinessEntityID" FkField="Purchasing:Vendor:BusinessEntityID" />
               </FieldPairs>
             </ForeignKeyConstraint>
             <ForeignKeyConstraint Name="Sales:CountryRegionCurrency:FK_CountryRegionCurrency_CountryRegion_CountryRegionCode">
@@ -4449,34 +4510,29 @@
                 <FieldPair PkField="Sales:Currency:CurrencyCode" FkField="Sales:CurrencyRate:ToCurrencyCode" />
               </FieldPairs>
             </ForeignKeyConstraint>
+            <ForeignKeyConstraint Name="Sales:Customer:FK_Customer_Person_PersonID">
+              <FieldPairs>
+                <FieldPair PkField="Person:Person:BusinessEntityID" FkField="Sales:Customer:PersonID" />
+              </FieldPairs>
+            </ForeignKeyConstraint>
             <ForeignKeyConstraint Name="Sales:Customer:FK_Customer_SalesTerritory_TerritoryID">
               <FieldPairs>
                 <FieldPair PkField="Sales:SalesTerritory:TerritoryID" FkField="Sales:Customer:TerritoryID" />
               </FieldPairs>
             </ForeignKeyConstraint>
-            <ForeignKeyConstraint Name="Sales:CustomerAddress:FK_CustomerAddress_Address_AddressID">
+            <ForeignKeyConstraint Name="Sales:Customer:FK_Customer_Store_StoreID">
               <FieldPairs>
-                <FieldPair PkField="Person:Address:AddressID" FkField="Sales:CustomerAddress:AddressID" />
+                <FieldPair PkField="Sales:Store:BusinessEntityID" FkField="Sales:Customer:StoreID" />
               </FieldPairs>
             </ForeignKeyConstraint>
-            <ForeignKeyConstraint Name="Sales:CustomerAddress:FK_CustomerAddress_AddressType_AddressTypeID">
+            <ForeignKeyConstraint Name="Sales:PersonCreditCard:FK_PersonCreditCard_CreditCard_CreditCardID">
               <FieldPairs>
-                <FieldPair PkField="Person:AddressType:AddressTypeID" FkField="Sales:CustomerAddress:AddressTypeID" />
+                <FieldPair PkField="Sales:CreditCard:CreditCardID" FkField="Sales:PersonCreditCard:CreditCardID" />
               </FieldPairs>
             </ForeignKeyConstraint>
-            <ForeignKeyConstraint Name="Sales:CustomerAddress:FK_CustomerAddress_Customer_CustomerID">
+            <ForeignKeyConstraint Name="Sales:PersonCreditCard:FK_PersonCreditCard_Person_BusinessEntityID">
               <FieldPairs>
-                <FieldPair PkField="Sales:Customer:CustomerID" FkField="Sales:CustomerAddress:CustomerID" />
-              </FieldPairs>
-            </ForeignKeyConstraint>
-            <ForeignKeyConstraint Name="Sales:Individual:FK_Individual_Contact_ContactID">
-              <FieldPairs>
-                <FieldPair PkField="Person:Contact:ContactID" FkField="Sales:Individual:ContactID" />
-              </FieldPairs>
-            </ForeignKeyConstraint>
-            <ForeignKeyConstraint Name="Sales:Individual:FK_Individual_Customer_CustomerID">
-              <FieldPairs>
-                <FieldPair PkField="Sales:Customer:CustomerID" FkField="Sales:Individual:CustomerID" />
+                <FieldPair PkField="Person:Person:BusinessEntityID" FkField="Sales:PersonCreditCard:BusinessEntityID" />
               </FieldPairs>
             </ForeignKeyConstraint>
             <ForeignKeyConstraint Name="Sales:SalesOrderDetail:FK_SalesOrderDetail_SalesOrderHeader_SalesOrderID" DeleteRuleAction="1">
@@ -4500,11 +4556,6 @@
                 <FieldPair PkField="Person:Address:AddressID" FkField="Sales:SalesOrderHeader:ShipToAddressID" />
               </FieldPairs>
             </ForeignKeyConstraint>
-            <ForeignKeyConstraint Name="Sales:SalesOrderHeader:FK_SalesOrderHeader_Contact_ContactID">
-              <FieldPairs>
-                <FieldPair PkField="Person:Contact:ContactID" FkField="Sales:SalesOrderHeader:ContactID" />
-              </FieldPairs>
-            </ForeignKeyConstraint>
             <ForeignKeyConstraint Name="Sales:SalesOrderHeader:FK_SalesOrderHeader_CreditCard_CreditCardID">
               <FieldPairs>
                 <FieldPair PkField="Sales:CreditCard:CreditCardID" FkField="Sales:SalesOrderHeader:CreditCardID" />
@@ -4522,7 +4573,7 @@
             </ForeignKeyConstraint>
             <ForeignKeyConstraint Name="Sales:SalesOrderHeader:FK_SalesOrderHeader_SalesPerson_SalesPersonID">
               <FieldPairs>
-                <FieldPair PkField="Sales:SalesPerson:SalesPersonID" FkField="Sales:SalesOrderHeader:SalesPersonID" />
+                <FieldPair PkField="Sales:SalesPerson:BusinessEntityID" FkField="Sales:SalesOrderHeader:SalesPersonID" />
               </FieldPairs>
             </ForeignKeyConstraint>
             <ForeignKeyConstraint Name="Sales:SalesOrderHeader:FK_SalesOrderHeader_SalesTerritory_TerritoryID">
@@ -4545,9 +4596,9 @@
                 <FieldPair PkField="Sales:SalesReason:SalesReasonID" FkField="Sales:SalesOrderHeaderSalesReason:SalesReasonID" />
               </FieldPairs>
             </ForeignKeyConstraint>
-            <ForeignKeyConstraint Name="Sales:SalesPerson:FK_SalesPerson_Employee_SalesPersonID">
+            <ForeignKeyConstraint Name="Sales:SalesPerson:FK_SalesPerson_Employee_BusinessEntityID">
               <FieldPairs>
-                <FieldPair PkField="HumanResources:Employee:EmployeeID" FkField="Sales:SalesPerson:SalesPersonID" />
+                <FieldPair PkField="HumanResources:Employee:BusinessEntityID" FkField="Sales:SalesPerson:BusinessEntityID" />
               </FieldPairs>
             </ForeignKeyConstraint>
             <ForeignKeyConstraint Name="Sales:SalesPerson:FK_SalesPerson_SalesTerritory_TerritoryID">
@@ -4555,9 +4606,9 @@
                 <FieldPair PkField="Sales:SalesTerritory:TerritoryID" FkField="Sales:SalesPerson:TerritoryID" />
               </FieldPairs>
             </ForeignKeyConstraint>
-            <ForeignKeyConstraint Name="Sales:SalesPersonQuotaHistory:FK_SalesPersonQuotaHistory_SalesPerson_SalesPersonID">
+            <ForeignKeyConstraint Name="Sales:SalesPersonQuotaHistory:FK_SalesPersonQuotaHistory_SalesPerson_BusinessEntityID">
               <FieldPairs>
-                <FieldPair PkField="Sales:SalesPerson:SalesPersonID" FkField="Sales:SalesPersonQuotaHistory:SalesPersonID" />
+                <FieldPair PkField="Sales:SalesPerson:BusinessEntityID" FkField="Sales:SalesPersonQuotaHistory:BusinessEntityID" />
               </FieldPairs>
             </ForeignKeyConstraint>
             <ForeignKeyConstraint Name="Sales:SalesTaxRate:FK_SalesTaxRate_StateProvince_StateProvinceID">
@@ -4565,9 +4616,14 @@
                 <FieldPair PkField="Person:StateProvince:StateProvinceID" FkField="Sales:SalesTaxRate:StateProvinceID" />
               </FieldPairs>
             </ForeignKeyConstraint>
-            <ForeignKeyConstraint Name="Sales:SalesTerritoryHistory:FK_SalesTerritoryHistory_SalesPerson_SalesPersonID">
+            <ForeignKeyConstraint Name="Sales:SalesTerritory:FK_SalesTerritory_CountryRegion_CountryRegionCode">
               <FieldPairs>
-                <FieldPair PkField="Sales:SalesPerson:SalesPersonID" FkField="Sales:SalesTerritoryHistory:SalesPersonID" />
+                <FieldPair PkField="Person:CountryRegion:CountryRegionCode" FkField="Sales:SalesTerritory:CountryRegionCode" />
+              </FieldPairs>
+            </ForeignKeyConstraint>
+            <ForeignKeyConstraint Name="Sales:SalesTerritoryHistory:FK_SalesTerritoryHistory_SalesPerson_BusinessEntityID">
+              <FieldPairs>
+                <FieldPair PkField="Sales:SalesPerson:BusinessEntityID" FkField="Sales:SalesTerritoryHistory:BusinessEntityID" />
               </FieldPairs>
             </ForeignKeyConstraint>
             <ForeignKeyConstraint Name="Sales:SalesTerritoryHistory:FK_SalesTerritoryHistory_SalesTerritory_TerritoryID">
@@ -4590,29 +4646,14 @@
                 <FieldPair PkField="Sales:SpecialOffer:SpecialOfferID" FkField="Sales:SpecialOfferProduct:SpecialOfferID" />
               </FieldPairs>
             </ForeignKeyConstraint>
-            <ForeignKeyConstraint Name="Sales:Store:FK_Store_Customer_CustomerID">
+            <ForeignKeyConstraint Name="Sales:Store:FK_Store_BusinessEntity_BusinessEntityID">
               <FieldPairs>
-                <FieldPair PkField="Sales:Customer:CustomerID" FkField="Sales:Store:CustomerID" />
+                <FieldPair PkField="Person:BusinessEntity:BusinessEntityID" FkField="Sales:Store:BusinessEntityID" />
               </FieldPairs>
             </ForeignKeyConstraint>
             <ForeignKeyConstraint Name="Sales:Store:FK_Store_SalesPerson_SalesPersonID">
               <FieldPairs>
-                <FieldPair PkField="Sales:SalesPerson:SalesPersonID" FkField="Sales:Store:SalesPersonID" />
-              </FieldPairs>
-            </ForeignKeyConstraint>
-            <ForeignKeyConstraint Name="Sales:StoreContact:FK_StoreContact_Contact_ContactID">
-              <FieldPairs>
-                <FieldPair PkField="Person:Contact:ContactID" FkField="Sales:StoreContact:ContactID" />
-              </FieldPairs>
-            </ForeignKeyConstraint>
-            <ForeignKeyConstraint Name="Sales:StoreContact:FK_StoreContact_ContactType_ContactTypeID">
-              <FieldPairs>
-                <FieldPair PkField="Person:ContactType:ContactTypeID" FkField="Sales:StoreContact:ContactTypeID" />
-              </FieldPairs>
-            </ForeignKeyConstraint>
-            <ForeignKeyConstraint Name="Sales:StoreContact:FK_StoreContact_Store_CustomerID">
-              <FieldPairs>
-                <FieldPair PkField="Sales:Store:CustomerID" FkField="Sales:StoreContact:CustomerID" />
+                <FieldPair PkField="Sales:SalesPerson:BusinessEntityID" FkField="Sales:Store:SalesPersonID" />
               </FieldPairs>
             </ForeignKeyConstraint>
           </ForeignKeyConstraints>
@@ -4632,6 +4673,7 @@
             <FieldMapping FieldName="ModifiedDate" TargetFieldName="ModifiedDate" />
             <FieldMapping FieldName="PostalCode" TargetFieldName="PostalCode" />
             <FieldMapping FieldName="Rowguid" TargetFieldName="rowguid" />
+            <FieldMapping FieldName="SpatialLocation" TargetFieldName="SpatialLocation" />
             <FieldMapping FieldName="StateProvinceId" TargetFieldName="StateProvinceID" />
           </FieldMappings>
         </EntityMapping>
@@ -4656,28 +4698,9 @@
             <FieldMapping FieldName="UnitMeasureCode" TargetFieldName="UnitMeasureCode" />
           </FieldMappings>
         </EntityMapping>
-        <EntityMapping EntityName=":Contact" TargetName="AdventureWorks:Person:Contact">
+        <EntityMapping EntityName=":ContactCreditCard" TargetName="AdventureWorks:Sales:PersonCreditCard">
           <FieldMappings>
-            <FieldMapping FieldName="AdditionalContactInfo" TargetFieldName="AdditionalContactInfo" />
-            <FieldMapping FieldName="ContactId" TargetFieldName="ContactID" SequenceToUse="SCOPE_IDENTITY()" />
-            <FieldMapping FieldName="EmailAddress" TargetFieldName="EmailAddress" />
-            <FieldMapping FieldName="EmailPromotion" TargetFieldName="EmailPromotion" />
-            <FieldMapping FieldName="FirstName" TargetFieldName="FirstName" />
-            <FieldMapping FieldName="LastName" TargetFieldName="LastName" />
-            <FieldMapping FieldName="MiddleName" TargetFieldName="MiddleName" />
-            <FieldMapping FieldName="ModifiedDate" TargetFieldName="ModifiedDate" />
-            <FieldMapping FieldName="NameStyle" TargetFieldName="NameStyle" />
-            <FieldMapping FieldName="PasswordHash" TargetFieldName="PasswordHash" />
-            <FieldMapping FieldName="PasswordSalt" TargetFieldName="PasswordSalt" />
-            <FieldMapping FieldName="Phone" TargetFieldName="Phone" />
-            <FieldMapping FieldName="Rowguid" TargetFieldName="rowguid" />
-            <FieldMapping FieldName="Suffix" TargetFieldName="Suffix" />
-            <FieldMapping FieldName="Title" TargetFieldName="Title" />
-          </FieldMappings>
-        </EntityMapping>
-        <EntityMapping EntityName=":ContactCreditCard" TargetName="AdventureWorks:Sales:ContactCreditCard">
-          <FieldMappings>
-            <FieldMapping FieldName="ContactId" TargetFieldName="ContactID" />
+            <FieldMapping FieldName="ContactId" TargetFieldName="BusinessEntityID" />
             <FieldMapping FieldName="CreditCardId" TargetFieldName="CreditCardID" />
             <FieldMapping FieldName="ModifiedDate" TargetFieldName="ModifiedDate" />
           </FieldMappings>
@@ -4742,19 +4765,11 @@
           <FieldMappings>
             <FieldMapping FieldName="AccountNumber" TargetFieldName="AccountNumber" />
             <FieldMapping FieldName="CustomerId" TargetFieldName="CustomerID" SequenceToUse="SCOPE_IDENTITY()" />
-            <FieldMapping FieldName="CustomerType" TargetFieldName="CustomerType" />
             <FieldMapping FieldName="ModifiedDate" TargetFieldName="ModifiedDate" />
+            <FieldMapping FieldName="PersonId" TargetFieldName="PersonID" />
             <FieldMapping FieldName="Rowguid" TargetFieldName="rowguid" />
+            <FieldMapping FieldName="StoreId" TargetFieldName="StoreID" />
             <FieldMapping FieldName="TerritoryId" TargetFieldName="TerritoryID" />
-          </FieldMappings>
-        </EntityMapping>
-        <EntityMapping EntityName=":CustomerAddress" TargetName="AdventureWorks:Sales:CustomerAddress">
-          <FieldMappings>
-            <FieldMapping FieldName="AddressId" TargetFieldName="AddressID" />
-            <FieldMapping FieldName="AddressTypeId" TargetFieldName="AddressTypeID" />
-            <FieldMapping FieldName="CustomerId" TargetFieldName="CustomerID" />
-            <FieldMapping FieldName="ModifiedDate" TargetFieldName="ModifiedDate" />
-            <FieldMapping FieldName="Rowguid" TargetFieldName="rowguid" />
           </FieldMappings>
         </EntityMapping>
         <EntityMapping EntityName=":Department" TargetName="AdventureWorks:HumanResources:Department">
@@ -4768,13 +4783,17 @@
         <EntityMapping EntityName=":Document" TargetName="AdventureWorks:Production:Document">
           <FieldMappings>
             <FieldMapping FieldName="ChangeNumber" TargetFieldName="ChangeNumber" />
-            <FieldMapping FieldName="DocumentId" TargetFieldName="DocumentID" SequenceToUse="SCOPE_IDENTITY()" />
+            <FieldMapping FieldName="DocumentLevel" TargetFieldName="DocumentLevel" />
+            <FieldMapping FieldName="DocumentNode" TargetFieldName="DocumentNode" />
             <FieldMapping FieldName="DocumentSummary" TargetFieldName="DocumentSummary" />
             <FieldMapping FieldName="DocumentValue" TargetFieldName="Document" />
             <FieldMapping FieldName="FileExtension" TargetFieldName="FileExtension" />
             <FieldMapping FieldName="FileName" TargetFieldName="FileName" />
+            <FieldMapping FieldName="FolderFlag" TargetFieldName="FolderFlag" />
             <FieldMapping FieldName="ModifiedDate" TargetFieldName="ModifiedDate" />
+            <FieldMapping FieldName="Owner" TargetFieldName="Owner" />
             <FieldMapping FieldName="Revision" TargetFieldName="Revision" />
+            <FieldMapping FieldName="Rowguid" TargetFieldName="rowguid" />
             <FieldMapping FieldName="Status" TargetFieldName="Status" />
             <FieldMapping FieldName="Title" TargetFieldName="Title" />
           </FieldMappings>
@@ -4782,35 +4801,27 @@
         <EntityMapping EntityName=":Employee" TargetName="AdventureWorks:HumanResources:Employee">
           <FieldMappings>
             <FieldMapping FieldName="BirthDate" TargetFieldName="BirthDate" />
-            <FieldMapping FieldName="ContactId" TargetFieldName="ContactID" />
             <FieldMapping FieldName="CurrentFlag" TargetFieldName="CurrentFlag" />
-            <FieldMapping FieldName="EmployeeId" TargetFieldName="EmployeeID" SequenceToUse="SCOPE_IDENTITY()" />
+            <FieldMapping FieldName="EmployeeId" TargetFieldName="BusinessEntityID" />
             <FieldMapping FieldName="Gender" TargetFieldName="Gender" />
             <FieldMapping FieldName="HireDate" TargetFieldName="HireDate" />
             <FieldMapping FieldName="LoginId" TargetFieldName="LoginID" />
-            <FieldMapping FieldName="ManagerId" TargetFieldName="ManagerID" />
             <FieldMapping FieldName="MaritalStatus" TargetFieldName="MaritalStatus" />
             <FieldMapping FieldName="ModifiedDate" TargetFieldName="ModifiedDate" />
             <FieldMapping FieldName="NationalIdnumber" TargetFieldName="NationalIDNumber" />
+            <FieldMapping FieldName="OrganizationLevel" TargetFieldName="OrganizationLevel" />
+            <FieldMapping FieldName="OrganizationNode" TargetFieldName="OrganizationNode" />
             <FieldMapping FieldName="Rowguid" TargetFieldName="rowguid" />
             <FieldMapping FieldName="SalariedFlag" TargetFieldName="SalariedFlag" />
             <FieldMapping FieldName="SickLeaveHours" TargetFieldName="SickLeaveHours" />
-            <FieldMapping FieldName="Title" TargetFieldName="Title" />
+            <FieldMapping FieldName="Title" TargetFieldName="JobTitle" />
             <FieldMapping FieldName="VacationHours" TargetFieldName="VacationHours" />
-          </FieldMappings>
-        </EntityMapping>
-        <EntityMapping EntityName=":EmployeeAddress" TargetName="AdventureWorks:HumanResources:EmployeeAddress">
-          <FieldMappings>
-            <FieldMapping FieldName="AddressId" TargetFieldName="AddressID" />
-            <FieldMapping FieldName="EmployeeId" TargetFieldName="EmployeeID" />
-            <FieldMapping FieldName="ModifiedDate" TargetFieldName="ModifiedDate" />
-            <FieldMapping FieldName="Rowguid" TargetFieldName="rowguid" />
           </FieldMappings>
         </EntityMapping>
         <EntityMapping EntityName=":EmployeeDepartmentHistory" TargetName="AdventureWorks:HumanResources:EmployeeDepartmentHistory">
           <FieldMappings>
             <FieldMapping FieldName="DepartmentId" TargetFieldName="DepartmentID" />
-            <FieldMapping FieldName="EmployeeId" TargetFieldName="EmployeeID" />
+            <FieldMapping FieldName="EmployeeId" TargetFieldName="BusinessEntityID" />
             <FieldMapping FieldName="EndDate" TargetFieldName="EndDate" />
             <FieldMapping FieldName="ModifiedDate" TargetFieldName="ModifiedDate" />
             <FieldMapping FieldName="ShiftId" TargetFieldName="ShiftID" />
@@ -4819,7 +4830,7 @@
         </EntityMapping>
         <EntityMapping EntityName=":EmployeePayHistory" TargetName="AdventureWorks:HumanResources:EmployeePayHistory">
           <FieldMappings>
-            <FieldMapping FieldName="EmployeeId" TargetFieldName="EmployeeID" />
+            <FieldMapping FieldName="EmployeeId" TargetFieldName="BusinessEntityID" />
             <FieldMapping FieldName="ModifiedDate" TargetFieldName="ModifiedDate" />
             <FieldMapping FieldName="PayFrequency" TargetFieldName="PayFrequency" />
             <FieldMapping FieldName="Rate" TargetFieldName="Rate" />
@@ -4833,17 +4844,9 @@
             <FieldMapping FieldName="ModifiedDate" TargetFieldName="ModifiedDate" />
           </FieldMappings>
         </EntityMapping>
-        <EntityMapping EntityName=":Individual" TargetName="AdventureWorks:Sales:Individual">
-          <FieldMappings>
-            <FieldMapping FieldName="ContactId" TargetFieldName="ContactID" />
-            <FieldMapping FieldName="CustomerId" TargetFieldName="CustomerID" />
-            <FieldMapping FieldName="Demographics" TargetFieldName="Demographics" />
-            <FieldMapping FieldName="ModifiedDate" TargetFieldName="ModifiedDate" />
-          </FieldMappings>
-        </EntityMapping>
         <EntityMapping EntityName=":JobCandidate" TargetName="AdventureWorks:HumanResources:JobCandidate">
           <FieldMappings>
-            <FieldMapping FieldName="EmployeeId" TargetFieldName="EmployeeID" />
+            <FieldMapping FieldName="EmployeeId" TargetFieldName="BusinessEntityID" />
             <FieldMapping FieldName="JobCandidateId" TargetFieldName="JobCandidateID" SequenceToUse="SCOPE_IDENTITY()" />
             <FieldMapping FieldName="ModifiedDate" TargetFieldName="ModifiedDate" />
             <FieldMapping FieldName="Resume" TargetFieldName="Resume" />
@@ -4856,6 +4859,81 @@
             <FieldMapping FieldName="LocationId" TargetFieldName="LocationID" SequenceToUse="SCOPE_IDENTITY()" />
             <FieldMapping FieldName="ModifiedDate" TargetFieldName="ModifiedDate" />
             <FieldMapping FieldName="Name" TargetFieldName="Name" />
+          </FieldMappings>
+        </EntityMapping>
+        <EntityMapping EntityName="Person:BusinessEntity" TargetName="AdventureWorks:Person:BusinessEntity">
+          <FieldMappings>
+            <FieldMapping FieldName="BusinessEntityId" TargetFieldName="BusinessEntityID" SequenceToUse="SCOPE_IDENTITY()" />
+            <FieldMapping FieldName="ModifiedDate" TargetFieldName="ModifiedDate" />
+            <FieldMapping FieldName="Rowguid" TargetFieldName="rowguid" />
+          </FieldMappings>
+        </EntityMapping>
+        <EntityMapping EntityName="Person:BusinessEntityAddress" TargetName="AdventureWorks:Person:BusinessEntityAddress">
+          <FieldMappings>
+            <FieldMapping FieldName="AddressId" TargetFieldName="AddressID" />
+            <FieldMapping FieldName="AddressTypeId" TargetFieldName="AddressTypeID" />
+            <FieldMapping FieldName="BusinessEntityId" TargetFieldName="BusinessEntityID" />
+            <FieldMapping FieldName="ModifiedDate" TargetFieldName="ModifiedDate" />
+            <FieldMapping FieldName="Rowguid" TargetFieldName="rowguid" />
+          </FieldMappings>
+        </EntityMapping>
+        <EntityMapping EntityName="Person:BusinessEntityContact" TargetName="AdventureWorks:Person:BusinessEntityContact">
+          <FieldMappings>
+            <FieldMapping FieldName="BusinessEntityId" TargetFieldName="BusinessEntityID" />
+            <FieldMapping FieldName="ContactTypeId" TargetFieldName="ContactTypeID" />
+            <FieldMapping FieldName="ModifiedDate" TargetFieldName="ModifiedDate" />
+            <FieldMapping FieldName="PersonId" TargetFieldName="PersonID" />
+            <FieldMapping FieldName="Rowguid" TargetFieldName="rowguid" />
+          </FieldMappings>
+        </EntityMapping>
+        <EntityMapping EntityName="Person:EmailAddress" TargetName="AdventureWorks:Person:EmailAddress">
+          <FieldMappings>
+            <FieldMapping FieldName="BusinessEntityId" TargetFieldName="BusinessEntityID" />
+            <FieldMapping FieldName="EmailAddressId" TargetFieldName="EmailAddressID" SequenceToUse="SCOPE_IDENTITY()" />
+            <FieldMapping FieldName="EmailAddressValue" TargetFieldName="EmailAddress" />
+            <FieldMapping FieldName="ModifiedDate" TargetFieldName="ModifiedDate" />
+            <FieldMapping FieldName="Rowguid" TargetFieldName="rowguid" />
+          </FieldMappings>
+        </EntityMapping>
+        <EntityMapping EntityName="Person:Password" TargetName="AdventureWorks:Person:Password">
+          <FieldMappings>
+            <FieldMapping FieldName="BusinessEntityId" TargetFieldName="BusinessEntityID" />
+            <FieldMapping FieldName="ModifiedDate" TargetFieldName="ModifiedDate" />
+            <FieldMapping FieldName="PasswordHash" TargetFieldName="PasswordHash" />
+            <FieldMapping FieldName="PasswordSalt" TargetFieldName="PasswordSalt" />
+            <FieldMapping FieldName="Rowguid" TargetFieldName="rowguid" />
+          </FieldMappings>
+        </EntityMapping>
+        <EntityMapping EntityName="Person:Person" TargetName="AdventureWorks:Person:Person">
+          <FieldMappings>
+            <FieldMapping FieldName="AdditionalContactInfo" TargetFieldName="AdditionalContactInfo" />
+            <FieldMapping FieldName="BusinessEntityId" TargetFieldName="BusinessEntityID" />
+            <FieldMapping FieldName="Demographics" TargetFieldName="Demographics" />
+            <FieldMapping FieldName="EmailPromotion" TargetFieldName="EmailPromotion" />
+            <FieldMapping FieldName="FirstName" TargetFieldName="FirstName" />
+            <FieldMapping FieldName="LastName" TargetFieldName="LastName" />
+            <FieldMapping FieldName="MiddleName" TargetFieldName="MiddleName" />
+            <FieldMapping FieldName="ModifiedDate" TargetFieldName="ModifiedDate" />
+            <FieldMapping FieldName="NameStyle" TargetFieldName="NameStyle" />
+            <FieldMapping FieldName="PersonType" TargetFieldName="PersonType" />
+            <FieldMapping FieldName="Rowguid" TargetFieldName="rowguid" />
+            <FieldMapping FieldName="Suffix" TargetFieldName="Suffix" />
+            <FieldMapping FieldName="Title" TargetFieldName="Title" />
+          </FieldMappings>
+        </EntityMapping>
+        <EntityMapping EntityName="Person:PersonPhone" TargetName="AdventureWorks:Person:PersonPhone">
+          <FieldMappings>
+            <FieldMapping FieldName="BusinessEntityId" TargetFieldName="BusinessEntityID" />
+            <FieldMapping FieldName="ModifiedDate" TargetFieldName="ModifiedDate" />
+            <FieldMapping FieldName="PhoneNumber" TargetFieldName="PhoneNumber" />
+            <FieldMapping FieldName="PhoneNumberTypeId" TargetFieldName="PhoneNumberTypeID" />
+          </FieldMappings>
+        </EntityMapping>
+        <EntityMapping EntityName="Person:PhoneNumberType" TargetName="AdventureWorks:Person:PhoneNumberType">
+          <FieldMappings>
+            <FieldMapping FieldName="ModifiedDate" TargetFieldName="ModifiedDate" />
+            <FieldMapping FieldName="Name" TargetFieldName="Name" />
+            <FieldMapping FieldName="PhoneNumberTypeId" TargetFieldName="PhoneNumberTypeID" SequenceToUse="SCOPE_IDENTITY()" />
           </FieldMappings>
         </EntityMapping>
         <EntityMapping EntityName=":Product" TargetName="AdventureWorks:Production:Product">
@@ -4914,7 +4992,7 @@
         </EntityMapping>
         <EntityMapping EntityName=":ProductDocument" TargetName="AdventureWorks:Production:ProductDocument">
           <FieldMappings>
-            <FieldMapping FieldName="DocumentId" TargetFieldName="DocumentID" />
+            <FieldMapping FieldName="DocumentNode" TargetFieldName="DocumentNode" />
             <FieldMapping FieldName="ModifiedDate" TargetFieldName="ModifiedDate" />
             <FieldMapping FieldName="ProductId" TargetFieldName="ProductID" />
           </FieldMappings>
@@ -5015,7 +5093,7 @@
             <FieldMapping FieldName="ProductId" TargetFieldName="ProductID" />
             <FieldMapping FieldName="StandardPrice" TargetFieldName="StandardPrice" />
             <FieldMapping FieldName="UnitMeasureCode" TargetFieldName="UnitMeasureCode" />
-            <FieldMapping FieldName="VendorId" TargetFieldName="VendorID" />
+            <FieldMapping FieldName="VendorId" TargetFieldName="BusinessEntityID" />
           </FieldMappings>
         </EntityMapping>
         <EntityMapping EntityName=":PurchaseOrderDetail" TargetName="AdventureWorks:Purchasing:PurchaseOrderDetail">
@@ -5070,7 +5148,6 @@
             <FieldMapping FieldName="AccountNumber" TargetFieldName="AccountNumber" />
             <FieldMapping FieldName="BillToAddressId" TargetFieldName="BillToAddressID" />
             <FieldMapping FieldName="Comment" TargetFieldName="Comment" />
-            <FieldMapping FieldName="ContactId" TargetFieldName="ContactID" />
             <FieldMapping FieldName="CreditCardApprovalCode" TargetFieldName="CreditCardApprovalCode" />
             <FieldMapping FieldName="CreditCardId" TargetFieldName="CreditCardID" />
             <FieldMapping FieldName="CurrencyRateId" TargetFieldName="CurrencyRateID" />
@@ -5110,7 +5187,7 @@
             <FieldMapping FieldName="ModifiedDate" TargetFieldName="ModifiedDate" />
             <FieldMapping FieldName="Rowguid" TargetFieldName="rowguid" />
             <FieldMapping FieldName="SalesLastYear" TargetFieldName="SalesLastYear" />
-            <FieldMapping FieldName="SalesPersonId" TargetFieldName="SalesPersonID" />
+            <FieldMapping FieldName="SalesPersonId" TargetFieldName="BusinessEntityID" />
             <FieldMapping FieldName="SalesQuota" TargetFieldName="SalesQuota" />
             <FieldMapping FieldName="SalesYtd" TargetFieldName="SalesYTD" />
             <FieldMapping FieldName="TerritoryId" TargetFieldName="TerritoryID" />
@@ -5121,7 +5198,7 @@
             <FieldMapping FieldName="ModifiedDate" TargetFieldName="ModifiedDate" />
             <FieldMapping FieldName="QuotaDate" TargetFieldName="QuotaDate" />
             <FieldMapping FieldName="Rowguid" TargetFieldName="rowguid" />
-            <FieldMapping FieldName="SalesPersonId" TargetFieldName="SalesPersonID" />
+            <FieldMapping FieldName="SalesPersonId" TargetFieldName="BusinessEntityID" />
             <FieldMapping FieldName="SalesQuota" TargetFieldName="SalesQuota" />
           </FieldMappings>
         </EntityMapping>
@@ -5163,7 +5240,7 @@
             <FieldMapping FieldName="EndDate" TargetFieldName="EndDate" />
             <FieldMapping FieldName="ModifiedDate" TargetFieldName="ModifiedDate" />
             <FieldMapping FieldName="Rowguid" TargetFieldName="rowguid" />
-            <FieldMapping FieldName="SalesPersonId" TargetFieldName="SalesPersonID" />
+            <FieldMapping FieldName="SalesPersonId" TargetFieldName="BusinessEntityID" />
             <FieldMapping FieldName="StartDate" TargetFieldName="StartDate" />
             <FieldMapping FieldName="TerritoryId" TargetFieldName="TerritoryID" />
           </FieldMappings>
@@ -5241,21 +5318,12 @@
         </EntityMapping>
         <EntityMapping EntityName=":Store" TargetName="AdventureWorks:Sales:Store">
           <FieldMappings>
-            <FieldMapping FieldName="CustomerId" TargetFieldName="CustomerID" />
+            <FieldMapping FieldName="CustomerId" TargetFieldName="BusinessEntityID" />
             <FieldMapping FieldName="Demographics" TargetFieldName="Demographics" />
             <FieldMapping FieldName="ModifiedDate" TargetFieldName="ModifiedDate" />
             <FieldMapping FieldName="Name" TargetFieldName="Name" />
             <FieldMapping FieldName="Rowguid" TargetFieldName="rowguid" />
             <FieldMapping FieldName="SalesPersonId" TargetFieldName="SalesPersonID" />
-          </FieldMappings>
-        </EntityMapping>
-        <EntityMapping EntityName=":StoreContact" TargetName="AdventureWorks:Sales:StoreContact">
-          <FieldMappings>
-            <FieldMapping FieldName="ContactId" TargetFieldName="ContactID" />
-            <FieldMapping FieldName="ContactTypeId" TargetFieldName="ContactTypeID" />
-            <FieldMapping FieldName="CustomerId" TargetFieldName="CustomerID" />
-            <FieldMapping FieldName="ModifiedDate" TargetFieldName="ModifiedDate" />
-            <FieldMapping FieldName="Rowguid" TargetFieldName="rowguid" />
           </FieldMappings>
         </EntityMapping>
         <EntityMapping EntityName=":TransactionHistory" TargetName="AdventureWorks:Production:TransactionHistory">
@@ -5300,23 +5368,7 @@
             <FieldMapping FieldName="Name" TargetFieldName="Name" />
             <FieldMapping FieldName="PreferredVendorStatus" TargetFieldName="PreferredVendorStatus" />
             <FieldMapping FieldName="PurchasingWebServiceUrl" TargetFieldName="PurchasingWebServiceURL" />
-            <FieldMapping FieldName="VendorId" TargetFieldName="VendorID" SequenceToUse="SCOPE_IDENTITY()" />
-          </FieldMappings>
-        </EntityMapping>
-        <EntityMapping EntityName=":VendorAddress" TargetName="AdventureWorks:Purchasing:VendorAddress">
-          <FieldMappings>
-            <FieldMapping FieldName="AddressId" TargetFieldName="AddressID" />
-            <FieldMapping FieldName="AddressTypeId" TargetFieldName="AddressTypeID" />
-            <FieldMapping FieldName="ModifiedDate" TargetFieldName="ModifiedDate" />
-            <FieldMapping FieldName="VendorId" TargetFieldName="VendorID" />
-          </FieldMappings>
-        </EntityMapping>
-        <EntityMapping EntityName=":VendorContact" TargetName="AdventureWorks:Purchasing:VendorContact">
-          <FieldMappings>
-            <FieldMapping FieldName="ContactId" TargetFieldName="ContactID" />
-            <FieldMapping FieldName="ContactTypeId" TargetFieldName="ContactTypeID" />
-            <FieldMapping FieldName="ModifiedDate" TargetFieldName="ModifiedDate" />
-            <FieldMapping FieldName="VendorId" TargetFieldName="VendorID" />
+            <FieldMapping FieldName="VendorId" TargetFieldName="BusinessEntityID" />
           </FieldMappings>
         </EntityMapping>
         <EntityMapping EntityName=":WorkOrder" TargetName="AdventureWorks:Production:WorkOrder">

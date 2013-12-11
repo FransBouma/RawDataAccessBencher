@@ -123,10 +123,22 @@ namespace AdventureWorks.Dal.Adapter.v41.FactoryClasses
 			get { return Create<BillOfMaterialEntity>(); }
 		}
 
-		/// <summary>Creates and returns a new EntityQuery for the Contact entity</summary>
-		public EntityQuery<ContactEntity> Contact
+		/// <summary>Creates and returns a new EntityQuery for the BusinessEntity entity</summary>
+		public EntityQuery<BusinessEntityEntity> BusinessEntity
 		{
-			get { return Create<ContactEntity>(); }
+			get { return Create<BusinessEntityEntity>(); }
+		}
+
+		/// <summary>Creates and returns a new EntityQuery for the BusinessEntityAddress entity</summary>
+		public EntityQuery<BusinessEntityAddressEntity> BusinessEntityAddress
+		{
+			get { return Create<BusinessEntityAddressEntity>(); }
+		}
+
+		/// <summary>Creates and returns a new EntityQuery for the BusinessEntityContact entity</summary>
+		public EntityQuery<BusinessEntityContactEntity> BusinessEntityContact
+		{
+			get { return Create<BusinessEntityContactEntity>(); }
 		}
 
 		/// <summary>Creates and returns a new EntityQuery for the ContactCreditCard entity</summary>
@@ -183,12 +195,6 @@ namespace AdventureWorks.Dal.Adapter.v41.FactoryClasses
 			get { return Create<CustomerEntity>(); }
 		}
 
-		/// <summary>Creates and returns a new EntityQuery for the CustomerAddress entity</summary>
-		public EntityQuery<CustomerAddressEntity> CustomerAddress
-		{
-			get { return Create<CustomerAddressEntity>(); }
-		}
-
 		/// <summary>Creates and returns a new EntityQuery for the Department entity</summary>
 		public EntityQuery<DepartmentEntity> Department
 		{
@@ -201,16 +207,16 @@ namespace AdventureWorks.Dal.Adapter.v41.FactoryClasses
 			get { return Create<DocumentEntity>(); }
 		}
 
+		/// <summary>Creates and returns a new EntityQuery for the EmailAddress entity</summary>
+		public EntityQuery<EmailAddressEntity> EmailAddress
+		{
+			get { return Create<EmailAddressEntity>(); }
+		}
+
 		/// <summary>Creates and returns a new EntityQuery for the Employee entity</summary>
 		public EntityQuery<EmployeeEntity> Employee
 		{
 			get { return Create<EmployeeEntity>(); }
-		}
-
-		/// <summary>Creates and returns a new EntityQuery for the EmployeeAddress entity</summary>
-		public EntityQuery<EmployeeAddressEntity> EmployeeAddress
-		{
-			get { return Create<EmployeeAddressEntity>(); }
 		}
 
 		/// <summary>Creates and returns a new EntityQuery for the EmployeeDepartmentHistory entity</summary>
@@ -231,12 +237,6 @@ namespace AdventureWorks.Dal.Adapter.v41.FactoryClasses
 			get { return Create<IllustrationEntity>(); }
 		}
 
-		/// <summary>Creates and returns a new EntityQuery for the Individual entity</summary>
-		public EntityQuery<IndividualEntity> Individual
-		{
-			get { return Create<IndividualEntity>(); }
-		}
-
 		/// <summary>Creates and returns a new EntityQuery for the JobCandidate entity</summary>
 		public EntityQuery<JobCandidateEntity> JobCandidate
 		{
@@ -247,6 +247,30 @@ namespace AdventureWorks.Dal.Adapter.v41.FactoryClasses
 		public EntityQuery<LocationEntity> Location
 		{
 			get { return Create<LocationEntity>(); }
+		}
+
+		/// <summary>Creates and returns a new EntityQuery for the Password entity</summary>
+		public EntityQuery<PasswordEntity> Password
+		{
+			get { return Create<PasswordEntity>(); }
+		}
+
+		/// <summary>Creates and returns a new EntityQuery for the Person entity</summary>
+		public EntityQuery<PersonEntity> Person
+		{
+			get { return Create<PersonEntity>(); }
+		}
+
+		/// <summary>Creates and returns a new EntityQuery for the PersonPhone entity</summary>
+		public EntityQuery<PersonPhoneEntity> PersonPhone
+		{
+			get { return Create<PersonPhoneEntity>(); }
+		}
+
+		/// <summary>Creates and returns a new EntityQuery for the PhoneNumberType entity</summary>
+		public EntityQuery<PhoneNumberTypeEntity> PhoneNumberType
+		{
+			get { return Create<PhoneNumberTypeEntity>(); }
 		}
 
 		/// <summary>Creates and returns a new EntityQuery for the Product entity</summary>
@@ -453,12 +477,6 @@ namespace AdventureWorks.Dal.Adapter.v41.FactoryClasses
 			get { return Create<StoreEntity>(); }
 		}
 
-		/// <summary>Creates and returns a new EntityQuery for the StoreContact entity</summary>
-		public EntityQuery<StoreContactEntity> StoreContact
-		{
-			get { return Create<StoreContactEntity>(); }
-		}
-
 		/// <summary>Creates and returns a new EntityQuery for the TransactionHistory entity</summary>
 		public EntityQuery<TransactionHistoryEntity> TransactionHistory
 		{
@@ -481,18 +499,6 @@ namespace AdventureWorks.Dal.Adapter.v41.FactoryClasses
 		public EntityQuery<VendorEntity> Vendor
 		{
 			get { return Create<VendorEntity>(); }
-		}
-
-		/// <summary>Creates and returns a new EntityQuery for the VendorAddress entity</summary>
-		public EntityQuery<VendorAddressEntity> VendorAddress
-		{
-			get { return Create<VendorAddressEntity>(); }
-		}
-
-		/// <summary>Creates and returns a new EntityQuery for the VendorContact entity</summary>
-		public EntityQuery<VendorContactEntity> VendorContact
-		{
-			get { return Create<VendorContactEntity>(); }
 		}
 
 		/// <summary>Creates and returns a new EntityQuery for the WorkOrder entity</summary>

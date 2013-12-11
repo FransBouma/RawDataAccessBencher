@@ -24,7 +24,6 @@ namespace AdventureWorks.Dal.Adapter.v41.HelperClasses
 {
 	// __LLBLGENPRO_USER_CODE_REGION_START AdditionalNamespaces
 	// __LLBLGENPRO_USER_CODE_REGION_END
-	
 
 	/// <summary>EntityCollection implementation which is used for backwards compatibility and for design time databinding. This EntityCollection is an EntityCollection(Of EntityBase2)
 	/// </summary>
@@ -53,7 +52,6 @@ namespace AdventureWorks.Dal.Adapter.v41.HelperClasses
 		
 		// __LLBLGENPRO_USER_CODE_REGION_START CustomEntityCollectionCode
 		// __LLBLGENPRO_USER_CODE_REGION_END
-		
 		#endregion
 		
 		#region Included Code
@@ -97,7 +95,6 @@ namespace AdventureWorks.Dal.Adapter.v41.HelperClasses
 		
 		// __LLBLGENPRO_USER_CODE_REGION_START CustomEntityCollectionCodeGeneric
 		// __LLBLGENPRO_USER_CODE_REGION_END
-		
 		#endregion
 		
 		#region Included Code

@@ -21,10 +21,10 @@ namespace L2S.Bencher.EntityClasses
 		#endregion
 		
 		#region Class Member Declarations
+		private System.Int32	_businessEntityId;
 		private Nullable<System.DateTime>	_endDate;
 		private System.DateTime	_modifiedDate;
 		private System.Guid	_rowguid;
-		private System.Int32	_salesPersonId;
 		private System.DateTime	_startDate;
 		private System.Int32	_territoryId;
 		private EntityRef <SalesPerson> _salesPerson;
@@ -35,14 +35,14 @@ namespace L2S.Bencher.EntityClasses
 		partial void OnLoaded();
 		partial void OnValidate(System.Data.Linq.ChangeAction action);
 		partial void OnCreated();
+		partial void OnBusinessEntityIdChanging(System.Int32 value);
+		partial void OnBusinessEntityIdChanged();
 		partial void OnEndDateChanging(Nullable<System.DateTime> value);
 		partial void OnEndDateChanged();
 		partial void OnModifiedDateChanging(System.DateTime value);
 		partial void OnModifiedDateChanged();
 		partial void OnRowguidChanging(System.Guid value);
 		partial void OnRowguidChanged();
-		partial void OnSalesPersonIdChanging(System.Int32 value);
-		partial void OnSalesPersonIdChanged();
 		partial void OnStartDateChanging(System.DateTime value);
 		partial void OnStartDateChanged();
 		partial void OnTerritoryIdChanging(System.Int32 value);
@@ -79,6 +79,28 @@ namespace L2S.Bencher.EntityClasses
 		
 
 		#region Class Property Declarations
+		/// <summary>Gets or sets the BusinessEntityId field. Mapped on target field 'BusinessEntityID'. </summary>
+		[Column(Name="BusinessEntityID", Storage="_businessEntityId", CanBeNull=false, DbType="int NOT NULL", IsPrimaryKey=true)]
+		public System.Int32 BusinessEntityId
+		{
+			get	{ return _businessEntityId; }
+			set
+			{
+				if((_businessEntityId != value))
+				{
+					if(_salesPerson.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					OnBusinessEntityIdChanging(value);
+					SendPropertyChanging("BusinessEntityId");
+					_businessEntityId = value;
+					SendPropertyChanged("BusinessEntityId");
+					OnBusinessEntityIdChanged();
+				}
+			}
+		}
+
 		/// <summary>Gets or sets the EndDate field. Mapped on target field 'EndDate'. </summary>
 		[Column(Name="EndDate", Storage="_endDate", DbType="datetime NULL")]
 		public Nullable<System.DateTime> EndDate
@@ -133,28 +155,6 @@ namespace L2S.Bencher.EntityClasses
 			}
 		}
 
-		/// <summary>Gets or sets the SalesPersonId field. Mapped on target field 'SalesPersonID'. </summary>
-		[Column(Name="SalesPersonID", Storage="_salesPersonId", CanBeNull=false, DbType="int NOT NULL", IsPrimaryKey=true)]
-		public System.Int32 SalesPersonId
-		{
-			get	{ return _salesPersonId; }
-			set
-			{
-				if((_salesPersonId != value))
-				{
-					if(_salesPerson.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					OnSalesPersonIdChanging(value);
-					SendPropertyChanging("SalesPersonId");
-					_salesPersonId = value;
-					SendPropertyChanged("SalesPersonId");
-					OnSalesPersonIdChanged();
-				}
-			}
-		}
-
 		/// <summary>Gets or sets the StartDate field. Mapped on target field 'StartDate'. </summary>
 		[Column(Name="StartDate", Storage="_startDate", CanBeNull=false, DbType="datetime NOT NULL", IsPrimaryKey=true)]
 		public System.DateTime StartDate
@@ -196,7 +196,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesTerritoryHistory.SalesPerson - SalesPerson.SalesTerritoryHistories (m:1)'</summary>
-		[Association(Name="SalesTerritoryHistory_SalesPerson6b2fe0cd26254181a705c87f07336af2", Storage="_salesPerson", ThisKey="SalesPersonId", IsForeignKey=true)] 
+		[Association(Name="SalesTerritoryHistory_SalesPerson89c732cde3b9475cae7403d82c59c472", Storage="_salesPerson", ThisKey="BusinessEntityId", IsForeignKey=true)] 
 		public SalesPerson SalesPerson
 		{
 			get { return _salesPerson.Entity; }
@@ -214,12 +214,12 @@ namespace L2S.Bencher.EntityClasses
 					_salesPerson.Entity = value;
 					if(value == null)
 					{
-						_salesPersonId = default(System.Int32);
+						_businessEntityId = default(System.Int32);
 					}
 					else
 					{
 						value.SalesTerritoryHistories.Add(this);
-						_salesPersonId = value.SalesPersonId;
+						_businessEntityId = value.BusinessEntityId;
 					}
 					this.SendPropertyChanged("SalesPerson");
 				}
@@ -227,7 +227,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesTerritoryHistory.SalesTerritory - SalesTerritory.SalesTerritoryHistories (m:1)'</summary>
-		[Association(Name="SalesTerritoryHistory_SalesTerritorye773e0f8bcbd41ce8572a8c1756f0e58", Storage="_salesTerritory", ThisKey="TerritoryId", IsForeignKey=true)] 
+		[Association(Name="SalesTerritoryHistory_SalesTerritory4fd8c35d23c44152a5bf52634c3bd709", Storage="_salesTerritory", ThisKey="TerritoryId", IsForeignKey=true)] 
 		public SalesTerritory SalesTerritory
 		{
 			get { return _salesTerritory.Entity; }

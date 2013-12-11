@@ -25,13 +25,11 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 {
 	// __LLBLGENPRO_USER_CODE_REGION_START AdditionalNamespaces
 	// __LLBLGENPRO_USER_CODE_REGION_END
-	
 	/// <summary>Entity class which represents the entity 'SalesTerritory'.<br/><br/></summary>
 	[Serializable]
 	public partial class SalesTerritoryEntity : CommonEntityBase
 		// __LLBLGENPRO_USER_CODE_REGION_START AdditionalInterfaces
-		// __LLBLGENPRO_USER_CODE_REGION_END
-			
+		// __LLBLGENPRO_USER_CODE_REGION_END	
 	{
 		#region Class Member Declarations
 		private EntityCollection<CustomerEntity> _customers;
@@ -39,10 +37,10 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		private EntityCollection<SalesPersonEntity> _salesPeople;
 		private EntityCollection<SalesTerritoryHistoryEntity> _salesTerritoryHistories;
 		private EntityCollection<StateProvinceEntity> _stateProvinces;
+		private CountryRegionEntity _countryRegion;
 
 		// __LLBLGENPRO_USER_CODE_REGION_START PrivateMembers
 		// __LLBLGENPRO_USER_CODE_REGION_END
-		
 		#endregion
 
 		#region Statics
@@ -52,6 +50,8 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		/// <summary>All names of fields mapped onto a relation. Usable for in-memory filtering</summary>
 		public static partial class MemberNames
 		{
+			/// <summary>Member name CountryRegion</summary>
+			public static readonly string CountryRegion = "CountryRegion";
 			/// <summary>Member name Customers</summary>
 			public static readonly string Customers = "Customers";
 			/// <summary>Member name SalesOrderHeaders</summary>
@@ -124,13 +124,32 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 				_salesPeople = (EntityCollection<SalesPersonEntity>)info.GetValue("_salesPeople", typeof(EntityCollection<SalesPersonEntity>));
 				_salesTerritoryHistories = (EntityCollection<SalesTerritoryHistoryEntity>)info.GetValue("_salesTerritoryHistories", typeof(EntityCollection<SalesTerritoryHistoryEntity>));
 				_stateProvinces = (EntityCollection<StateProvinceEntity>)info.GetValue("_stateProvinces", typeof(EntityCollection<StateProvinceEntity>));
+				_countryRegion = (CountryRegionEntity)info.GetValue("_countryRegion", typeof(CountryRegionEntity));
+				if(_countryRegion!=null)
+				{
+					_countryRegion.AfterSave+=new EventHandler(OnEntityAfterSave);
+				}
 				this.FixupDeserialization(FieldInfoProviderSingleton.GetInstance());
 			}
 			// __LLBLGENPRO_USER_CODE_REGION_START DeserializationConstructor
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 		}
 
+		
+		/// <summary>Performs the desync setup when an FK field has been changed. The entity referenced based on the FK field will be dereferenced and sync info will be removed.</summary>
+		/// <param name="fieldIndex">The fieldindex.</param>
+		protected override void PerformDesyncSetupFKFieldChange(int fieldIndex)
+		{
+			switch((SalesTerritoryFieldIndex)fieldIndex)
+			{
+				case SalesTerritoryFieldIndex.CountryRegionCode:
+					DesetupSyncCountryRegion(true, false);
+					break;
+				default:
+					base.PerformDesyncSetupFKFieldChange(fieldIndex);
+					break;
+			}
+		}
 
 		/// <summary> Sets the related entity property to the entity specified. If the property is a collection, it will add the entity specified to that collection.</summary>
 		/// <param name="propertyName">Name of the property.</param>
@@ -140,6 +159,9 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		{
 			switch(propertyName)
 			{
+				case "CountryRegion":
+					this.CountryRegion = (CountryRegionEntity)entity;
+					break;
 				case "Customers":
 					this.Customers.Add((CustomerEntity)entity);
 					break;
@@ -177,6 +199,9 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			RelationCollection toReturn = new RelationCollection();
 			switch(fieldName)
 			{
+				case "CountryRegion":
+					toReturn.Add(Relations.CountryRegionEntityUsingCountryRegionCode);
+					break;
 				case "Customers":
 					toReturn.Add(Relations.CustomerEntityUsingTerritoryId);
 					break;
@@ -220,6 +245,9 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		{
 			switch(fieldName)
 			{
+				case "CountryRegion":
+					SetupSyncCountryRegion(relatedEntity);
+					break;
 				case "Customers":
 					this.Customers.Add((CustomerEntity)relatedEntity);
 					break;
@@ -248,6 +276,9 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		{
 			switch(fieldName)
 			{
+				case "CountryRegion":
+					DesetupSyncCountryRegion(false, true);
+					break;
 				case "Customers":
 					this.PerformRelatedEntityRemoval(this.Customers, relatedEntity, signalRelatedEntityManyToOne);
 					break;
@@ -282,6 +313,10 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		protected override List<IEntity2> GetDependentRelatedEntities()
 		{
 			List<IEntity2> toReturn = new List<IEntity2>();
+			if(_countryRegion!=null)
+			{
+				toReturn.Add(_countryRegion);
+			}
 			return toReturn;
 		}
 		
@@ -311,10 +346,10 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 				info.AddValue("_salesPeople", ((_salesPeople!=null) && (_salesPeople.Count>0) && !this.MarkedForDeletion)?_salesPeople:null);
 				info.AddValue("_salesTerritoryHistories", ((_salesTerritoryHistories!=null) && (_salesTerritoryHistories.Count>0) && !this.MarkedForDeletion)?_salesTerritoryHistories:null);
 				info.AddValue("_stateProvinces", ((_stateProvinces!=null) && (_stateProvinces.Count>0) && !this.MarkedForDeletion)?_stateProvinces:null);
+				info.AddValue("_countryRegion", (!this.MarkedForDeletion?_countryRegion:null));
 			}
 			// __LLBLGENPRO_USER_CODE_REGION_START GetObjectInfo
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			base.GetObjectData(info, context);
 		}
 
@@ -369,6 +404,15 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		{
 			IRelationPredicateBucket bucket = new RelationPredicateBucket();
 			bucket.PredicateExpression.Add(new FieldCompareValuePredicate(StateProvinceFields.TerritoryId, null, ComparisonOperator.Equal, this.TerritoryId));
+			return bucket;
+		}
+
+		/// <summary> Creates a new IRelationPredicateBucket object which contains the predicate expression and relation collection to fetch the related entity of type 'CountryRegion' to this entity.</summary>
+		/// <returns></returns>
+		public virtual IRelationPredicateBucket GetRelationInfoCountryRegion()
+		{
+			IRelationPredicateBucket bucket = new RelationPredicateBucket();
+			bucket.PredicateExpression.Add(new FieldCompareValuePredicate(CountryRegionFields.CountryRegionCode, null, ComparisonOperator.Equal, this.CountryRegionCode));
 			return bucket;
 		}
 		
@@ -435,6 +479,7 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		protected override Dictionary<string, object> GetRelatedData()
 		{
 			Dictionary<string, object> toReturn = new Dictionary<string, object>();
+			toReturn.Add("CountryRegion", _countryRegion);
 			toReturn.Add("Customers", _customers);
 			toReturn.Add("SalesOrderHeaders", _salesOrderHeaders);
 			toReturn.Add("SalesPeople", _salesPeople);
@@ -450,7 +495,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			
 			// __LLBLGENPRO_USER_CODE_REGION_START InitClassMembers
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			OnInitClassMembersComplete();
 		}
 
@@ -485,6 +529,39 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		}
 		#endregion
 
+		/// <summary> Removes the sync logic for member _countryRegion</summary>
+		/// <param name="signalRelatedEntity">If set to true, it will call the related entity's UnsetRelatedEntity method</param>
+		/// <param name="resetFKFields">if set to true it will also reset the FK fields pointing to the related entity</param>
+		private void DesetupSyncCountryRegion(bool signalRelatedEntity, bool resetFKFields)
+		{
+			this.PerformDesetupSyncRelatedEntity( _countryRegion, new PropertyChangedEventHandler( OnCountryRegionPropertyChanged ), "CountryRegion", AdventureWorks.Dal.Adapter.v41.RelationClasses.StaticSalesTerritoryRelations.CountryRegionEntityUsingCountryRegionCodeStatic, true, signalRelatedEntity, "SalesTerritories", resetFKFields, new int[] { (int)SalesTerritoryFieldIndex.CountryRegionCode } );
+			_countryRegion = null;
+		}
+
+		/// <summary> setups the sync logic for member _countryRegion</summary>
+		/// <param name="relatedEntity">Instance to set as the related entity of type entityType</param>
+		private void SetupSyncCountryRegion(IEntityCore relatedEntity)
+		{
+			if(_countryRegion!=relatedEntity)
+			{
+				DesetupSyncCountryRegion(true, true);
+				_countryRegion = (CountryRegionEntity)relatedEntity;
+				this.PerformSetupSyncRelatedEntity( _countryRegion, new PropertyChangedEventHandler( OnCountryRegionPropertyChanged ), "CountryRegion", AdventureWorks.Dal.Adapter.v41.RelationClasses.StaticSalesTerritoryRelations.CountryRegionEntityUsingCountryRegionCodeStatic, true, new string[] {  } );
+			}
+		}
+		
+		/// <summary>Handles property change events of properties in a related entity.</summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void OnCountryRegionPropertyChanged( object sender, PropertyChangedEventArgs e )
+		{
+			switch( e.PropertyName )
+			{
+				default:
+					break;
+			}
+		}
+
 		/// <summary> Initializes the class with empty data, as if it is a new Entity.</summary>
 		/// <param name="validator">The validator object for this SalesTerritoryEntity</param>
 		/// <param name="fields">Fields of this entity</param>
@@ -497,7 +574,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 
 			// __LLBLGENPRO_USER_CODE_REGION_START InitClassEmpty
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 
 			OnInitialized();
 
@@ -550,6 +626,13 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		public static IPrefetchPathElement2 PrefetchPathStateProvinces
 		{
 			get	{ return new PrefetchPathElement2( new EntityCollection<StateProvinceEntity>(EntityFactoryCache2.GetEntityFactory(typeof(StateProvinceEntityFactory))), (IEntityRelation)GetRelationsForField("StateProvinces")[0], (int)AdventureWorks.Dal.Adapter.v41.EntityType.SalesTerritoryEntity, (int)AdventureWorks.Dal.Adapter.v41.EntityType.StateProvinceEntity, 0, null, null, null, null, "StateProvinces", SD.LLBLGen.Pro.ORMSupportClasses.RelationType.OneToMany);	}
+		}
+
+		/// <summary> Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'CountryRegion' for this entity.</summary>
+		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
+		public static IPrefetchPathElement2 PrefetchPathCountryRegion
+		{
+			get	{ return new PrefetchPathElement2(new EntityCollection(EntityFactoryCache2.GetEntityFactory(typeof(CountryRegionEntityFactory))),	(IEntityRelation)GetRelationsForField("CountryRegion")[0], (int)AdventureWorks.Dal.Adapter.v41.EntityType.SalesTerritoryEntity, (int)AdventureWorks.Dal.Adapter.v41.EntityType.CountryRegionEntity, 0, null, null, null, null, "CountryRegion", SD.LLBLGen.Pro.ORMSupportClasses.RelationType.ManyToOne); }
 		}
 
 
@@ -710,6 +793,24 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		{
 			get { return GetOrCreateEntityCollection<StateProvinceEntity, StateProvinceEntityFactory>("SalesTerritory", true, false, ref _stateProvinces);	}
 		}
+
+		/// <summary> Gets / sets related entity of type 'CountryRegionEntity' which has to be set using a fetch action earlier. If no related entity is set for this property, null is returned..<br/><br/></summary>
+		[Browsable(false)]
+		public virtual CountryRegionEntity CountryRegion
+		{
+			get	{ return _countryRegion; }
+			set
+			{
+				if(this.IsDeserializing)
+				{
+					SetupSyncCountryRegion(value);
+				}
+				else
+				{
+					SetSingleRelatedEntityNavigator(value, "SalesTerritories", "CountryRegion", _countryRegion, true); 
+				}
+			}
+		}
 	
 		/// <summary> Gets the type of the hierarchy this entity is in. </summary>
 		protected override InheritanceHierarchyType LLBLGenProIsInHierarchyOfType
@@ -737,7 +838,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		
 		// __LLBLGENPRO_USER_CODE_REGION_START CustomEntityCode
 		// __LLBLGENPRO_USER_CODE_REGION_END
-		
 		#endregion
 
 		#region Included code

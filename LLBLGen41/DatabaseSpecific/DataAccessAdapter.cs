@@ -21,7 +21,6 @@ namespace AdventureWorks.Dal.Adapter.v41.DatabaseSpecific
 	
 	// __LLBLGENPRO_USER_CODE_REGION_START AdditionalNamespaces
 	// __LLBLGENPRO_USER_CODE_REGION_END
-	
 	/// <summary>Data access adapter class, which controls the complete database interaction with the database for all objects.</summary>
 	/// <remarks>Use a DataAccessAdapter object solely per thread, and per connection. A DataAccessAdapter object contains 1 active connection 
 	/// and no thread-access scheduling code. This means that you need to create a new DataAccessAdapter object if you want to utilize
@@ -31,7 +30,7 @@ namespace AdventureWorks.Dal.Adapter.v41.DatabaseSpecific
 		#region Public static members
 		/// <summary>The name of the key in the *.config file of the executing application which contains the connection string.</summary>
 		/// <remarks>Default: the value set in the LLBLGen Pro project properties</remarks>
-		public static string ConnectionStringKeyName = "AdventureWorks.ConnectionString.SQL Server (SqlClient)";
+		public static string ConnectionStringKeyName="AdventureWorks.ConnectionString.SQL Server (SqlClient)";
 		#endregion
 
 		/// <summary>CTor</summary>
@@ -151,7 +150,6 @@ namespace AdventureWorks.Dal.Adapter.v41.DatabaseSpecific
 		
 		// __LLBLGENPRO_USER_CODE_REGION_START CustomDataAccessAdapterCode
 		// __LLBLGENPRO_USER_CODE_REGION_END
-		
 		#endregion
 		
 		#region Included Code

@@ -193,7 +193,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'BillOfMaterial.UnitMeasure - UnitMeasure.BillOfMaterials (m:1)'</summary>
-		[Association(Name="BillOfMaterial_UnitMeasure44a83cef990d418ab69cce9d5be522ae", Storage="_billOfMaterials", OtherKey="UnitMeasureCode")]
+		[Association(Name="BillOfMaterial_UnitMeasureb9a111c0fa984a84a117a37a269b6954", Storage="_billOfMaterials", OtherKey="UnitMeasureCode")]
 		public EntitySet<BillOfMaterial> BillOfMaterials
 		{
 			get { return this._billOfMaterials; }
@@ -201,7 +201,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'Product.UnitMeasure - UnitMeasure.Products (m:1)'</summary>
-		[Association(Name="Product_UnitMeasureddb34a32292a40988bc56c6b01a66c16", Storage="_products", OtherKey="SizeUnitMeasureCode")]
+		[Association(Name="Product_UnitMeasure4e4a7f30c95440cd94bfa734af4037a5", Storage="_products", OtherKey="SizeUnitMeasureCode")]
 		public EntitySet<Product> Products
 		{
 			get { return this._products; }
@@ -209,7 +209,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'Product.UnitMeasure1 - UnitMeasure.Products1 (m:1)'</summary>
-		[Association(Name="Product_UnitMeasurea31888b0eba449acbd8f39681e96a5ff", Storage="_products1", OtherKey="WeightUnitMeasureCode")]
+		[Association(Name="Product_UnitMeasure425caec4610f4e93aeb62d99daca56af", Storage="_products1", OtherKey="WeightUnitMeasureCode")]
 		public EntitySet<Product> Products1
 		{
 			get { return this._products1; }
@@ -217,7 +217,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductVendor.UnitMeasure - UnitMeasure.ProductVendors (m:1)'</summary>
-		[Association(Name="ProductVendor_UnitMeasurece4b3e6c67de4291b5c1b129dcb0edbe", Storage="_productVendors", OtherKey="UnitMeasureCode")]
+		[Association(Name="ProductVendor_UnitMeasuref41bc33f7eed41d2a5808f22a066c3d4", Storage="_productVendors", OtherKey="UnitMeasureCode")]
 		public EntitySet<ProductVendor> ProductVendors
 		{
 			get { return this._productVendors; }

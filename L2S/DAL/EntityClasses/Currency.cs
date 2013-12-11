@@ -175,7 +175,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'CountryRegionCurrency.Currency - Currency.CountryRegionCurrencies (m:1)'</summary>
-		[Association(Name="CountryRegionCurrency_Currency6cd1787819e549bab9ba87fea5fcaa94", Storage="_countryRegionCurrencies", OtherKey="CurrencyCode")]
+		[Association(Name="CountryRegionCurrency_Currency2e89d81f4105423daaa3b2f1804e2759", Storage="_countryRegionCurrencies", OtherKey="CurrencyCode")]
 		public EntitySet<CountryRegionCurrency> CountryRegionCurrencies
 		{
 			get { return this._countryRegionCurrencies; }
@@ -183,7 +183,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'CurrencyRate.Currency - Currency.CurrencyRates (m:1)'</summary>
-		[Association(Name="CurrencyRate_Currency5cd48705c0b84a419fb85d8b70c7636c", Storage="_currencyRates", OtherKey="FromCurrencyCode")]
+		[Association(Name="CurrencyRate_Currencyc358cb9f77314458a55bc009267c793a", Storage="_currencyRates", OtherKey="FromCurrencyCode")]
 		public EntitySet<CurrencyRate> CurrencyRates
 		{
 			get { return this._currencyRates; }
@@ -191,7 +191,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'CurrencyRate.Currency1 - Currency.CurrencyRates1 (m:1)'</summary>
-		[Association(Name="CurrencyRate_Currency12467e4208bf45f583ec103faed4fe09", Storage="_currencyRates1", OtherKey="ToCurrencyCode")]
+		[Association(Name="CurrencyRate_Currencyebfe4789e8154e1eb683ffbc49939d09", Storage="_currencyRates1", OtherKey="ToCurrencyCode")]
 		public EntitySet<CurrencyRate> CurrencyRates1
 		{
 			get { return this._currencyRates1; }
