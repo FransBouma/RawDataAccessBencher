@@ -15,6 +15,12 @@ namespace OakDynamicDb.Bencher
         public SalesOrderHeader() : base() { }
     }
 
+    public class SalesOrderHeaderDto : Gemini 
+    {
+        public SalesOrderHeaderDto(object dto) : base(dto) { }
+        public SalesOrderHeaderDto() : base() { }
+    }
+
     public class SalesOrderHeaders : DynamicRepository
     {
         public SalesOrderHeaders() : base("Sales.SalesOrderHeader", "SalesOrderID") 
