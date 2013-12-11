@@ -95,11 +95,23 @@ namespace Massive
 
         public static dynamic RecordToGemini(this IDataReader rdr, Func<dynamic, dynamic> projection)
         {
-            dynamic e = new Gemini();
-            var d = e.Prototype as IDictionary<string, object>;
-            for (int i = 0; i < rdr.FieldCount; i++)
-                d.Add(rdr.GetName(i), DBNull.Value.Equals(rdr[i]) ? null : rdr[i]);
-            return projection(e);
+            if (projection == null)
+            {
+                var e = new Prototype() as IDictionary<string, object>;;
+                PopluateDynamicDictionary(rdr, e);
+                return e;
+            }
+            else
+            {
+                dynamic e = new Gemini();
+                PopluateDynamicDictionary(rdr, e.Prototype);
+                return projection(e);
+            }
+        }
+
+        public static void PopluateDynamicDictionary(this IDataReader rdr, IDictionary<string, object> d)
+        {
+            for (int i = 0; i < rdr.FieldCount; i++) d.Add(rdr.GetName(i), DBNull.Value.Equals(rdr[i]) ? null : rdr[i]);
         }
     }
 
