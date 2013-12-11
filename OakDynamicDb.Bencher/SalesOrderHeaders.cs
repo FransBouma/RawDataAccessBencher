@@ -25,7 +25,7 @@ namespace OakDynamicDb.Bencher
     {
         public SalesOrderHeaders() : base("Sales.SalesOrderHeader", "SalesOrderID") 
         {
-            Projection = d => new SalesOrderHeader(d);
+            
         }
     }
 }

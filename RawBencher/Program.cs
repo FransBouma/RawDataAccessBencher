@@ -98,12 +98,17 @@ namespace RawBencher
 			}
             for (int i = 0; i < loopAmount; i++)
             {
-                FetchSalesOrderHeaderOakDynamicDb();
+                FetchSalesOrderHeaderOakDynamicDbTypeless();
             }
             for (int i = 0; i < loopAmount; i++)
             {
                 FetchSalesOrderHeaderOakDynamicDbDto();
             }
+            for (int i = 0; i < loopAmount; i++)
+            {
+                FetchSalesOrderHeaderOakDynamicDb();
+            }
+            
 
 			Console.WriteLine("\nIndividual entity fetch benches");
 			Console.WriteLine("------------------------------------------");
@@ -492,10 +497,11 @@ namespace RawBencher
 
         private static void FetchSalesOrderHeaderOakDynamicDb()
         {
-            var frameworkName = "Oak.DyDynamicDb hydrating and binding a dynamic type, with change tracking";
+            var frameworkName = "Oak.DynamicDb hydrating and binding a dynamic class, with change tracking";
             var sw = new Stopwatch();
             sw.Start();
             var db = new OakDynamicDb.Bencher.SalesOrderHeaders();
+            db.Projection = d => new OakDynamicDb.Bencher.SalesOrderHeader(d);
             var headers = db.All();
             
             foreach (var header in headers)
@@ -511,9 +517,31 @@ namespace RawBencher
             ReportResult(frameworkName, sw.ElapsedMilliseconds, headers.Count());
         }
 
+        private static void FetchSalesOrderHeaderOakDynamicDbTypeless()
+        {
+            var frameworkName = "Oak.DynamicDb hydrating and binding a typeless dynamic object, without change tracking";
+            var sw = new Stopwatch();
+            sw.Start();
+            var db = new OakDynamicDb.Bencher.SalesOrderHeaders();
+            db.Projection = null;
+            var headers = db.All();
+
+            foreach (var header in headers)
+            {
+                if (header.SalesOrderID <= 0)
+                {
+                    Console.WriteLine("Oak: Data is empty");
+                    break;
+                }
+            }
+            sw.Stop();
+
+            ReportResult(frameworkName, sw.ElapsedMilliseconds, headers.Count());
+        }
+
         private static void FetchSalesOrderHeaderOakDynamicDbDto()
         {
-            var frameworkName = "Oak.DyDynamicDb hydrating and binding a dynamic type, without change tracking";
+            var frameworkName = "Oak.DynamicDb hydrating and binding a dynamic class, without change tracking";
             var sw = new Stopwatch();
             sw.Start();
             var db = new OakDynamicDb.Bencher.SalesOrderHeaders();
