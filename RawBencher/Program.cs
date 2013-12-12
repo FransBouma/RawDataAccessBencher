@@ -24,6 +24,7 @@ using SD.LLBLGen.Pro.QuerySpec.Adapter;
 using SD.LLBLGen.Pro.ORMSupportClasses;
 using ServiceStack.OrmLite;
 using ServiceStack.OrmLite.SqlServer;
+using AdventureWorks.Dal.Adapter.v41.TypedViewClasses;
 
 namespace RawBencher
 {
@@ -51,8 +52,8 @@ namespace RawBencher
 				FetchSalesOrderHeaderHandCoded();
 			}
 
-			Console.WriteLine("\nStarting benchmarks");
-			Console.WriteLine("------------------------------------------");
+			Console.WriteLine("\nStarting benchmarks. Reported times are materialization only.");
+			Console.WriteLine("---------------------------------------------------------------------------");
 			_rawResultsPerORM.Clear();
 
 			for(int i = 0; i < loopAmount; i++)
@@ -73,11 +74,15 @@ namespace RawBencher
 			}
 			for(int i = 0; i < loopAmount; i++)
 			{
-				FetchSalesOrderHeaderEntities();
+				FetchSalesOrderHeaderLLBLGenPro();
 			}
 			for(int i = 0; i < loopAmount; i++)
 			{
-				FetchSalesOrderHeaderEntitiesWithCaching();
+				FetchSalesOrderHeaderLLBLGenProWithCaching();
+			}
+			for(int i = 0; i < loopAmount; i++)
+			{
+				FetchSalesOrderHeaderLLBLGenProNoTracking();
 			}
 			for(int i = 0; i < loopAmount; i++)
 			{
@@ -106,7 +111,7 @@ namespace RawBencher
 
 			Console.WriteLine("\nIndividual entity fetch benches");
 			Console.WriteLine("------------------------------------------");
-			FetchSalesOrderHeaderEntitiesIndividually();
+			FetchSalesOrderHeaderLLBLGenProIndividually();
 			FetchSalesOrderHeaderEFIndividually();
 
 			Console.WriteLine("\nAveraged total results per framework");
@@ -119,7 +124,7 @@ namespace RawBencher
 
 		private static void FetchSalesOrderHeaderDataTable()
 		{
-			var frameworkName = "DbDataAdapter into DataTable";
+			var frameworkName = "DbDataAdapter into DataTable, with change tracking";
 			var sw = new Stopwatch();
 			sw.Start();
 			var headers = new DataTable();
@@ -138,7 +143,7 @@ namespace RawBencher
 
 		private static void FetchSalesOrderHeaderHandCoded()
 		{
-			var frameworkName = "DbDataReader, handcoded";
+			var frameworkName = "DbDataReader, handcoded, no change tracking";
 
 			var sw = new Stopwatch();
 			sw.Start();
@@ -201,7 +206,7 @@ namespace RawBencher
 
 		private static void FetchSalesOrderHeaderDapper()
 		{
-			var frameworkName = "Dapper";
+			var frameworkName = "Dapper, no change tracking";
 
 			var sw = new Stopwatch();
 			sw.Start();
@@ -220,7 +225,7 @@ namespace RawBencher
 
         private static void FetchSalesOrderHeaderOrmLite()
         {
-            var frameworkName = "ServiceStack OrmLite v4.0";
+            var frameworkName = "ServiceStack OrmLite v4.0, no change tracking";
 
             var sw = new Stopwatch();
             sw.Start();
@@ -237,9 +242,9 @@ namespace RawBencher
 		}
 
 
-		private static void FetchSalesOrderHeaderEntitiesWithCaching()
+		private static void FetchSalesOrderHeaderLLBLGenProWithCaching()
 		{
-			var frameworkName = CreateFrameworkName("LLBLGen Pro v{0} (v{1}), with resultset caching", typeof(DataAccessAdapterBase));
+			var frameworkName = CreateFrameworkName("LLBLGen Pro v{0} (v{1}), with resultset caching, change tracking", typeof(DataAccessAdapterBase));
 			var sw = new Stopwatch();
 			sw.Start();
 			var qf = new QueryFactory();
@@ -255,10 +260,10 @@ namespace RawBencher
 		}
 
 
-		private static void FetchSalesOrderHeaderEntitiesIndividually()
+		private static void FetchSalesOrderHeaderLLBLGenProIndividually()
 		{
 			Console.WriteLine("Fetching entities individually, LLBLGen Pro v4.1");
-			var headers = FetchSalesOrderHeaderEntities();
+			var headers = FetchSalesOrderHeaderLLBLGenPro();
 			int count = 0;
 			var sw = new Stopwatch();
 			sw.Start();
@@ -286,9 +291,9 @@ namespace RawBencher
 		}
 		
 
-		private static EntityCollection<SalesOrderHeaderEntity> FetchSalesOrderHeaderEntities()
+		private static EntityCollection<SalesOrderHeaderEntity> FetchSalesOrderHeaderLLBLGenPro()
 		{
-			var frameworkName = CreateFrameworkName("LLBLGen Pro v{0} (v{1})", typeof(DataAccessAdapterBase));
+			var frameworkName = CreateFrameworkName("LLBLGen Pro v{0} (v{1}), with change tracking", typeof(DataAccessAdapterBase));
 			var sw = new Stopwatch();
 			sw.Start();
 			var headers = new EntityCollection<SalesOrderHeaderEntity>();
@@ -303,9 +308,25 @@ namespace RawBencher
 		}
 
 
+		private static void FetchSalesOrderHeaderLLBLGenProNoTracking()
+		{
+			var frameworkName = CreateFrameworkName("LLBLGen Pro v{0} (v{1}), typed view, no change tracking", typeof(DataAccessAdapterBase));
+			var sw = new Stopwatch();
+			sw.Start();
+			var headers = new SohTypedView();
+			using(var adapter = new DataAccessAdapter())
+			{
+				adapter.FetchTypedView(headers, allowDuplicates:true);
+			}
+			sw.Stop();
+			ReportResult(frameworkName, sw.ElapsedMilliseconds, headers.Count);
+			VerifyData(headers, v => v.SalesOrderId, frameworkName);
+		}
+
+
 		private static List<EF6.Bencher.EntityClasses.SalesOrderHeader>  FetchSalesOrderHeaderEF()
 		{
-			var frameworkName = CreateFrameworkName("Entity Framework v{0} (v{1})", typeof(System.Data.Entity.DbContext));
+			var frameworkName = CreateFrameworkName("Entity Framework v{0} (v{1}), with change tracking", typeof(System.Data.Entity.DbContext));
 			var sw = new Stopwatch();
 			sw.Start();
 			List<EF6.Bencher.EntityClasses.SalesOrderHeader> headers = null;
@@ -322,7 +343,7 @@ namespace RawBencher
 
 		private static List<EF6.Bencher.EntityClasses.SalesOrderHeader> FetchSalesOrderHeaderEFNoTracking()
 		{
-			var frameworkName = CreateFrameworkName("Entity Framework v{0} (v{1}), using AsNoTracking()", typeof(System.Data.Entity.DbContext));
+			var frameworkName = CreateFrameworkName("Entity Framework v{0} (v{1}), no change tracking", typeof(System.Data.Entity.DbContext));
 			var sw = new Stopwatch();
 			sw.Start();
 			List<EF6.Bencher.EntityClasses.SalesOrderHeader> headers = null;
@@ -364,7 +385,7 @@ namespace RawBencher
 
 		private static void FetchSalesOrderHeaderL2S()
 		{
-			var frameworkName = CreateFrameworkName("Linq to Sql v{0} (v{1})", typeof(System.Data.Linq.DataContext));
+			var frameworkName = CreateFrameworkName("Linq to Sql v{0} (v{1}), with change tracking", typeof(System.Data.Linq.DataContext));
 			var sw = new Stopwatch();
 			sw.Start();
 			List<L2S.Bencher.EntityClasses.SalesOrderHeader> headers = null;
@@ -378,7 +399,7 @@ namespace RawBencher
 
 		private static void FetchSalesOrderHeaderL2SNoTracking()
 		{
-			var frameworkName = CreateFrameworkName("Linq to Sql v{0} (v{1}), using no tracking", typeof(System.Data.Linq.DataContext));
+			var frameworkName = CreateFrameworkName("Linq to Sql v{0} (v{1}), no tracking", typeof(System.Data.Linq.DataContext));
 			var sw = new Stopwatch();
 			sw.Start();
 			List<L2S.Bencher.EntityClasses.SalesOrderHeader> headers = null;
@@ -393,7 +414,7 @@ namespace RawBencher
 
 		private static void FetchSalesOrderHeaderNH()
 		{
-			var frameworkName = CreateFrameworkName("NHibernate v{0} (v{1})", typeof(ISession));
+			var frameworkName = CreateFrameworkName("NHibernate v{0} (v{1}), with change tracking", typeof(ISession));
 			var sw = new Stopwatch();
 			sw.Start();
 			List<NH.Bencher.EntityClasses.SalesOrderHeader> headers = null;
@@ -409,10 +430,11 @@ namespace RawBencher
 
         private static void FetchSalesOrderHeaderOakDynamicDb()
         {
-            var frameworkName = "Oak.DynamicDb hydrating a dynamic type";
+			var frameworkName = "Oak.DynamicDb using dynamic class, with change tracking";
             var sw = new Stopwatch();
             sw.Start();
             var db = new OakDynamicDb.Bencher.SalesOrderHeaders();
+			db.Projection = d => new OakDynamicDb.Bencher.SalesOrderHeader(d);
             var headers = db.All();
             sw.Stop();
             ReportResult(frameworkName, sw.ElapsedMilliseconds, headers.Count());
