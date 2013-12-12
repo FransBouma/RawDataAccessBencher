@@ -23,16 +23,15 @@ namespace L2S.Bencher.EntityClasses
 		#region Class Member Declarations
 		private System.String	_accountNumber;
 		private System.Boolean	_activeFlag;
+		private System.Int32	_businessEntityId;
 		private System.Byte	_creditRating;
 		private System.DateTime	_modifiedDate;
 		private System.String	_name;
 		private System.Boolean	_preferredVendorStatus;
 		private System.String	_purchasingWebServiceUrl;
-		private System.Int32	_vendorId;
+		private EntityRef <BusinessEntity> _businessEntity;
 		private EntitySet <ProductVendor> _productVendors;
 		private EntitySet <PurchaseOrderHeader> _purchaseOrderHeaders;
-		private EntitySet <VendorAddress> _vendorAddresses;
-		private EntitySet <VendorContact> _vendorContacts;
 		#endregion
 		
 		#region Extensibility Method Definitions
@@ -43,6 +42,8 @@ namespace L2S.Bencher.EntityClasses
 		partial void OnAccountNumberChanged();
 		partial void OnActiveFlagChanging(System.Boolean value);
 		partial void OnActiveFlagChanged();
+		partial void OnBusinessEntityIdChanging(System.Int32 value);
+		partial void OnBusinessEntityIdChanged();
 		partial void OnCreditRatingChanging(System.Byte value);
 		partial void OnCreditRatingChanged();
 		partial void OnModifiedDateChanging(System.DateTime value);
@@ -53,17 +54,14 @@ namespace L2S.Bencher.EntityClasses
 		partial void OnPreferredVendorStatusChanged();
 		partial void OnPurchasingWebServiceUrlChanging(System.String value);
 		partial void OnPurchasingWebServiceUrlChanged();
-		partial void OnVendorIdChanging(System.Int32 value);
-		partial void OnVendorIdChanged();
 		#endregion
 		
 		/// <summary>Initializes a new instance of the <see cref="Vendor"/> class.</summary>
 		public Vendor()
 		{
+			_businessEntity = default(EntityRef<BusinessEntity>);
 			_productVendors = new EntitySet<ProductVendor>(new Action<ProductVendor>(this.Attach_ProductVendors), new Action<ProductVendor>(this.Detach_ProductVendors) );
 			_purchaseOrderHeaders = new EntitySet<PurchaseOrderHeader>(new Action<PurchaseOrderHeader>(this.Attach_PurchaseOrderHeaders), new Action<PurchaseOrderHeader>(this.Detach_PurchaseOrderHeaders) );
-			_vendorAddresses = new EntitySet<VendorAddress>(new Action<VendorAddress>(this.Attach_VendorAddresses), new Action<VendorAddress>(this.Detach_VendorAddresses) );
-			_vendorContacts = new EntitySet<VendorContact>(new Action<VendorContact>(this.Attach_VendorContacts), new Action<VendorContact>(this.Detach_VendorContacts) );
 			OnCreated();
 		}
 
@@ -119,38 +117,6 @@ namespace L2S.Bencher.EntityClasses
 			entity.Vendor = null;
 		}
 
-		/// <summary>Attaches this instance to the entity specified as an associated entity</summary>
-		/// <param name="entity">The related entity to attach to</param>
-		private void Attach_VendorAddresses(VendorAddress entity)
-		{
-			this.SendPropertyChanging("VendorAddresses");
-			entity.Vendor = this;
-		}
-		
-		/// <summary>Detaches this instance from the entity specified so it's no longer an associated entity</summary>
-		/// <param name="entity">The related entity to detach from</param>
-		private void Detach_VendorAddresses(VendorAddress entity)
-		{
-			this.SendPropertyChanging("VendorAddresses");
-			entity.Vendor = null;
-		}
-
-		/// <summary>Attaches this instance to the entity specified as an associated entity</summary>
-		/// <param name="entity">The related entity to attach to</param>
-		private void Attach_VendorContacts(VendorContact entity)
-		{
-			this.SendPropertyChanging("VendorContacts");
-			entity.Vendor = this;
-		}
-		
-		/// <summary>Detaches this instance from the entity specified so it's no longer an associated entity</summary>
-		/// <param name="entity">The related entity to detach from</param>
-		private void Detach_VendorContacts(VendorContact entity)
-		{
-			this.SendPropertyChanging("VendorContacts");
-			entity.Vendor = null;
-		}
-
 
 		#region Class Property Declarations
 		/// <summary>Gets or sets the AccountNumber field. Mapped on target field 'AccountNumber'. </summary>
@@ -185,6 +151,28 @@ namespace L2S.Bencher.EntityClasses
 					_activeFlag = value;
 					SendPropertyChanged("ActiveFlag");
 					OnActiveFlagChanged();
+				}
+			}
+		}
+
+		/// <summary>Gets or sets the BusinessEntityId field. Mapped on target field 'BusinessEntityID'. </summary>
+		[Column(Name="BusinessEntityID", Storage="_businessEntityId", CanBeNull=false, DbType="int NOT NULL", IsPrimaryKey=true)]
+		public System.Int32 BusinessEntityId
+		{
+			get	{ return _businessEntityId; }
+			set
+			{
+				if((_businessEntityId != value))
+				{
+					if(_businessEntity.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					OnBusinessEntityIdChanging(value);
+					SendPropertyChanging("BusinessEntityId");
+					_businessEntityId = value;
+					SendPropertyChanged("BusinessEntityId");
+					OnBusinessEntityIdChanged();
 				}
 			}
 		}
@@ -279,26 +267,39 @@ namespace L2S.Bencher.EntityClasses
 			}
 		}
 
-		/// <summary>Gets or sets the VendorId field. Mapped on target field 'VendorID'. </summary>
-		[Column(Name="VendorID", Storage="_vendorId", AutoSync=AutoSync.OnInsert, CanBeNull=false, DbType="int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
-		public System.Int32 VendorId
+		/// <summary>Represents the navigator which is mapped onto the association 'Vendor.BusinessEntity - BusinessEntity.Vendor (1:1)'</summary>
+		[Association(Name="Vendor_BusinessEntity7089b9759bcd40cf876f803e2566b2d3", Storage="_businessEntity", ThisKey="BusinessEntityId", IsForeignKey=true, IsUnique=true)]
+		public BusinessEntity BusinessEntity
 		{
-			get	{ return _vendorId; }
+			get { return _businessEntity.Entity; }
 			set
 			{
-				if((_vendorId != value))
+				BusinessEntity previousValue = _businessEntity.Entity;
+				if((previousValue != value) || (_businessEntity.HasLoadedOrAssignedValue == false))
 				{
-					OnVendorIdChanging(value);
-					SendPropertyChanging("VendorId");
-					_vendorId = value;
-					SendPropertyChanged("VendorId");
-					OnVendorIdChanged();
+					this.SendPropertyChanging("BusinessEntity");
+					if(previousValue != null)
+					{
+						_businessEntity.Entity = null;
+						previousValue.Vendor=null;
+					}
+					_businessEntity.Entity = value;
+					if(value==null)
+					{
+						_businessEntityId = default(System.Int32);
+					}
+					else
+					{
+						value.Vendor = this;
+						_businessEntityId = value.BusinessEntityId;
+					}
+					this.SendPropertyChanged("BusinessEntity");
 				}
 			}
 		}
-
+		
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductVendor.Vendor - Vendor.ProductVendors (m:1)'</summary>
-		[Association(Name="ProductVendor_Vendor18cb37fc8ab5434291dd10925cffb5e3", Storage="_productVendors", OtherKey="VendorId")]
+		[Association(Name="ProductVendor_Vendorab56faa0a9484f9eaaa056a5bc57437f", Storage="_productVendors", OtherKey="BusinessEntityId")]
 		public EntitySet<ProductVendor> ProductVendors
 		{
 			get { return this._productVendors; }
@@ -306,27 +307,11 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'PurchaseOrderHeader.Vendor - Vendor.PurchaseOrderHeaders (m:1)'</summary>
-		[Association(Name="PurchaseOrderHeader_Vendordf935cd8a11e4c289c3b92e488d4b427", Storage="_purchaseOrderHeaders", OtherKey="VendorId")]
+		[Association(Name="PurchaseOrderHeader_Vendor0c14df47893649fa9f436089a770b879", Storage="_purchaseOrderHeaders", OtherKey="VendorId")]
 		public EntitySet<PurchaseOrderHeader> PurchaseOrderHeaders
 		{
 			get { return this._purchaseOrderHeaders; }
 			set { this._purchaseOrderHeaders.Assign(value); }
-		}
-		
-		/// <summary>Represents the navigator which is mapped onto the association 'VendorAddress.Vendor - Vendor.VendorAddresses (m:1)'</summary>
-		[Association(Name="VendorAddress_Vendor9aefaf8ff0654d3883801658809c9958", Storage="_vendorAddresses", OtherKey="VendorId")]
-		public EntitySet<VendorAddress> VendorAddresses
-		{
-			get { return this._vendorAddresses; }
-			set { this._vendorAddresses.Assign(value); }
-		}
-		
-		/// <summary>Represents the navigator which is mapped onto the association 'VendorContact.Vendor - Vendor.VendorContacts (m:1)'</summary>
-		[Association(Name="VendorContact_Vendor5a3c581c8dad430bb421560f317e7c4e", Storage="_vendorContacts", OtherKey="VendorId")]
-		public EntitySet<VendorContact> VendorContacts
-		{
-			get { return this._vendorContacts; }
-			set { this._vendorContacts.Assign(value); }
 		}
 		
 		#endregion

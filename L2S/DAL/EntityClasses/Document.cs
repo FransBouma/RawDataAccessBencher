@@ -22,15 +22,20 @@ namespace L2S.Bencher.EntityClasses
 		
 		#region Class Member Declarations
 		private System.Int32	_changeNumber;
-		private System.Data.Linq.Binary	_documentData;
-		private System.Int32	_documentId;
+		private Nullable<System.Int16>	_documentLevel;
+		private System.String	_documentNode;
 		private System.String	_documentSummary;
+		private System.Data.Linq.Binary	_documentValue;
 		private System.String	_fileExtension;
 		private System.String	_fileName;
+		private System.Boolean	_folderFlag;
 		private System.DateTime	_modifiedDate;
+		private System.Int32	_owner;
 		private System.String	_revision;
+		private System.Guid	_rowguid;
 		private System.Byte	_status;
 		private System.String	_title;
+		private EntityRef <Employee> _employee;
 		private EntitySet <ProductDocument> _productDocuments;
 		#endregion
 		
@@ -40,20 +45,28 @@ namespace L2S.Bencher.EntityClasses
 		partial void OnCreated();
 		partial void OnChangeNumberChanging(System.Int32 value);
 		partial void OnChangeNumberChanged();
-		partial void OnDocumentDataChanging(System.Data.Linq.Binary value);
-		partial void OnDocumentDataChanged();
-		partial void OnDocumentIdChanging(System.Int32 value);
-		partial void OnDocumentIdChanged();
+		partial void OnDocumentLevelChanging(Nullable<System.Int16> value);
+		partial void OnDocumentLevelChanged();
+		partial void OnDocumentNodeChanging(System.String value);
+		partial void OnDocumentNodeChanged();
 		partial void OnDocumentSummaryChanging(System.String value);
 		partial void OnDocumentSummaryChanged();
+		partial void OnDocumentValueChanging(System.Data.Linq.Binary value);
+		partial void OnDocumentValueChanged();
 		partial void OnFileExtensionChanging(System.String value);
 		partial void OnFileExtensionChanged();
 		partial void OnFileNameChanging(System.String value);
 		partial void OnFileNameChanged();
+		partial void OnFolderFlagChanging(System.Boolean value);
+		partial void OnFolderFlagChanged();
 		partial void OnModifiedDateChanging(System.DateTime value);
 		partial void OnModifiedDateChanged();
+		partial void OnOwnerChanging(System.Int32 value);
+		partial void OnOwnerChanged();
 		partial void OnRevisionChanging(System.String value);
 		partial void OnRevisionChanged();
+		partial void OnRowguidChanging(System.Guid value);
+		partial void OnRowguidChanged();
 		partial void OnStatusChanging(System.Byte value);
 		partial void OnStatusChanged();
 		partial void OnTitleChanging(System.String value);
@@ -63,6 +76,7 @@ namespace L2S.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="Document"/> class.</summary>
 		public Document()
 		{
+			_employee = default(EntityRef<Employee>);
 			_productDocuments = new EntitySet<ProductDocument>(new Action<ProductDocument>(this.Attach_ProductDocuments), new Action<ProductDocument>(this.Detach_ProductDocuments) );
 			OnCreated();
 		}
@@ -123,38 +137,27 @@ namespace L2S.Bencher.EntityClasses
 			}
 		}
 
-		/// <summary>Gets or sets the DocumentData field. Mapped on target field 'Document'. </summary>
-		[Column(Name="Document", Storage="_documentData", DbType="varbinary(MAX) NULL", UpdateCheck=UpdateCheck.Never)]
-		public System.Data.Linq.Binary DocumentData
+		/// <summary>Gets or sets the DocumentLevel field. Mapped on target field 'DocumentLevel'. </summary>
+		[Column(Name="DocumentLevel", Storage="_documentLevel", AutoSync=AutoSync.OnInsert, DbType="smallint NULL", IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
+		public Nullable<System.Int16> DocumentLevel
 		{
-			get	{ return _documentData; }
-			set
-			{
-				if((_documentData != value))
-				{
-					OnDocumentDataChanging(value);
-					SendPropertyChanging("DocumentData");
-					_documentData = value;
-					SendPropertyChanged("DocumentData");
-					OnDocumentDataChanged();
-				}
-			}
+			get	{ return _documentLevel; }
 		}
 
-		/// <summary>Gets or sets the DocumentId field. Mapped on target field 'DocumentID'. </summary>
-		[Column(Name="DocumentID", Storage="_documentId", AutoSync=AutoSync.OnInsert, CanBeNull=false, DbType="int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
-		public System.Int32 DocumentId
+		/// <summary>Gets or sets the DocumentNode field. Mapped on target field 'DocumentNode'. </summary>
+		[Column(Name="DocumentNode", Storage="_documentNode", CanBeNull=false, DbType="varchar(892) NOT NULL", IsPrimaryKey=true)]
+		public System.String DocumentNode
 		{
-			get	{ return _documentId; }
+			get	{ return _documentNode; }
 			set
 			{
-				if((_documentId != value))
+				if((_documentNode != value))
 				{
-					OnDocumentIdChanging(value);
-					SendPropertyChanging("DocumentId");
-					_documentId = value;
-					SendPropertyChanged("DocumentId");
-					OnDocumentIdChanged();
+					OnDocumentNodeChanging(value);
+					SendPropertyChanging("DocumentNode");
+					_documentNode = value;
+					SendPropertyChanged("DocumentNode");
+					OnDocumentNodeChanged();
 				}
 			}
 		}
@@ -173,6 +176,24 @@ namespace L2S.Bencher.EntityClasses
 					_documentSummary = value;
 					SendPropertyChanged("DocumentSummary");
 					OnDocumentSummaryChanged();
+				}
+			}
+		}
+
+		/// <summary>Gets or sets the DocumentValue field. Mapped on target field 'Document'. </summary>
+		[Column(Name="Document", Storage="_documentValue", DbType="varbinary(MAX) NULL", UpdateCheck=UpdateCheck.Never)]
+		public System.Data.Linq.Binary DocumentValue
+		{
+			get	{ return _documentValue; }
+			set
+			{
+				if((_documentValue != value))
+				{
+					OnDocumentValueChanging(value);
+					SendPropertyChanging("DocumentValue");
+					_documentValue = value;
+					SendPropertyChanged("DocumentValue");
+					OnDocumentValueChanged();
 				}
 			}
 		}
@@ -213,6 +234,24 @@ namespace L2S.Bencher.EntityClasses
 			}
 		}
 
+		/// <summary>Gets or sets the FolderFlag field. Mapped on target field 'FolderFlag'. </summary>
+		[Column(Name="FolderFlag", Storage="_folderFlag", CanBeNull=false, DbType="bit NOT NULL")]
+		public System.Boolean FolderFlag
+		{
+			get	{ return _folderFlag; }
+			set
+			{
+				if((_folderFlag != value))
+				{
+					OnFolderFlagChanging(value);
+					SendPropertyChanging("FolderFlag");
+					_folderFlag = value;
+					SendPropertyChanged("FolderFlag");
+					OnFolderFlagChanged();
+				}
+			}
+		}
+
 		/// <summary>Gets or sets the ModifiedDate field. Mapped on target field 'ModifiedDate'. </summary>
 		[Column(Name="ModifiedDate", Storage="_modifiedDate", CanBeNull=false, DbType="datetime NOT NULL")]
 		public System.DateTime ModifiedDate
@@ -231,6 +270,28 @@ namespace L2S.Bencher.EntityClasses
 			}
 		}
 
+		/// <summary>Gets or sets the Owner field. Mapped on target field 'Owner'. </summary>
+		[Column(Name="Owner", Storage="_owner", CanBeNull=false, DbType="int NOT NULL")]
+		public System.Int32 Owner
+		{
+			get	{ return _owner; }
+			set
+			{
+				if((_owner != value))
+				{
+					if(_employee.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					OnOwnerChanging(value);
+					SendPropertyChanging("Owner");
+					_owner = value;
+					SendPropertyChanged("Owner");
+					OnOwnerChanged();
+				}
+			}
+		}
+
 		/// <summary>Gets or sets the Revision field. Mapped on target field 'Revision'. </summary>
 		[Column(Name="Revision", Storage="_revision", CanBeNull=false, DbType="nchar(5) NOT NULL")]
 		public System.String Revision
@@ -245,6 +306,24 @@ namespace L2S.Bencher.EntityClasses
 					_revision = value;
 					SendPropertyChanged("Revision");
 					OnRevisionChanged();
+				}
+			}
+		}
+
+		/// <summary>Gets or sets the Rowguid field. Mapped on target field 'rowguid'. </summary>
+		[Column(Name="rowguid", Storage="_rowguid", AutoSync=AutoSync.OnInsert, CanBeNull=false, DbType="uniqueidentifier NOT NULL", IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
+		public System.Guid Rowguid
+		{
+			get	{ return _rowguid; }
+			set
+			{
+				if((_rowguid != value))
+				{
+					OnRowguidChanging(value);
+					SendPropertyChanging("Rowguid");
+					_rowguid = value;
+					SendPropertyChanged("Rowguid");
+					OnRowguidChanged();
 				}
 			}
 		}
@@ -285,8 +364,39 @@ namespace L2S.Bencher.EntityClasses
 			}
 		}
 
+		/// <summary>Represents the navigator which is mapped onto the association 'Document.Employee - Employee.Documents (m:1)'</summary>
+		[Association(Name="Document_Employeefb51c9a62c5340979fd40fe35e3b18bc", Storage="_employee", ThisKey="Owner", IsForeignKey=true)] 
+		public Employee Employee
+		{
+			get { return _employee.Entity; }
+			set
+			{
+				Employee previousValue = _employee.Entity;
+				if((previousValue != value) || (_employee.HasLoadedOrAssignedValue == false))
+				{
+					this.SendPropertyChanging("Employee");
+					if(previousValue != null)
+					{
+						_employee.Entity = null;
+						previousValue.Documents.Remove(this);
+					}
+					_employee.Entity = value;
+					if(value == null)
+					{
+						_owner = default(System.Int32);
+					}
+					else
+					{
+						value.Documents.Add(this);
+						_owner = value.BusinessEntityId;
+					}
+					this.SendPropertyChanged("Employee");
+				}
+			}
+		}
+		
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductDocument.Document - Document.ProductDocuments (m:1)'</summary>
-		[Association(Name="ProductDocument_Document7d25a883933044f3ac84d05bb0f3c88c", Storage="_productDocuments", OtherKey="DocumentId")]
+		[Association(Name="ProductDocument_Document2b53484260ec4f40b66df266668c97af", Storage="_productDocuments", OtherKey="DocumentNode")]
 		public EntitySet<ProductDocument> ProductDocuments
 		{
 			get { return this._productDocuments; }

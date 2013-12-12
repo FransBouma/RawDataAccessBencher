@@ -294,7 +294,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderDetail.SalesOrderHeader - SalesOrderHeader.SalesOrderDetails (m:1)'</summary>
-		[Association(Name="SalesOrderDetail_SalesOrderHeader166045216bca4ff9b765c87f30cbd21b", Storage="_salesOrderHeader", ThisKey="SalesOrderId", IsForeignKey=true)] 
+		[Association(Name="SalesOrderDetail_SalesOrderHeaderf84a782d89264798a902535a287299d3", Storage="_salesOrderHeader", ThisKey="SalesOrderId", IsForeignKey=true)] 
 		public SalesOrderHeader SalesOrderHeader
 		{
 			get { return _salesOrderHeader.Entity; }
@@ -325,7 +325,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderDetail.SpecialOfferProduct - SpecialOfferProduct.SalesOrderDetails (m:1)'</summary>
-		[Association(Name="SalesOrderDetail_SpecialOfferProduct5ab9a124ce484578bda46575364ae0a6", Storage="_specialOfferProduct", ThisKey="ProductId, SpecialOfferId", IsForeignKey=true)] 
+		[Association(Name="SalesOrderDetail_SpecialOfferProductd7614968101b4c71a23957bf9eb1d931", Storage="_specialOfferProduct", ThisKey="ProductId, SpecialOfferId", IsForeignKey=true)] 
 		public SpecialOfferProduct SpecialOfferProduct
 		{
 			get { return _specialOfferProduct.Entity; }

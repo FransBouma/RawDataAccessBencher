@@ -24,14 +24,17 @@ using SD.LLBLGen.Pro.QuerySpec.Adapter;
 using SD.LLBLGen.Pro.ORMSupportClasses;
 using ServiceStack.OrmLite;
 using ServiceStack.OrmLite.SqlServer;
+using AdventureWorks.Dal.Adapter.v41.TypedViewClasses;
 
 namespace RawBencher
 {
 	class Program
 	{
 		private static Dictionary<string, List<long>> _rawResultsPerORM = new Dictionary<string, List<long>>();
-		private static string ConnectionString = @"data source=(local);initial catalog=AdventureWorks;integrated security=SSPI;persist security info=False;packet size=4096";
-        private static string SqlSelectCommandText = @"SELECT [SalesOrderID],[RevisionNumber],[OrderDate],[DueDate],[ShipDate],[Status],[OnlineOrderFlag],[SalesOrderNumber],[PurchaseOrderNumber],[AccountNumber],[CustomerID],[ContactID],[SalesPersonID],[TerritoryID],[BillToAddressID],[ShipToAddressID],[ShipMethodID],[CreditCardID],[CreditCardApprovalCode],[CurrencyRateID],[SubTotal],[TaxAmt],[Freight],[TotalDue],[Comment],[rowguid],[ModifiedDate]  FROM [Sales].[SalesOrderHeader]";
+		private static string ConnectionString = @"data source=WIN2008SQL2012\SQLEXPRESS;initial catalog=AdventureWorks;integrated security=SSPI;persist security info=False;packet size=4096";
+        private static string SqlSelectCommandText = @"SELECT [SalesOrderID],[RevisionNumber],[OrderDate],[DueDate],[ShipDate],[Status],[OnlineOrderFlag],[SalesOrderNumber],[PurchaseOrderNumber],[AccountNumber],[CustomerID],[SalesPersonID],[TerritoryID],[BillToAddressID],[ShipToAddressID],[ShipMethodID],[CreditCardID],[CreditCardApprovalCode],[CurrencyRateID],[SubTotal],[TaxAmt],[Freight],[TotalDue],[Comment],[rowguid],[ModifiedDate]  FROM [Sales].[SalesOrderHeader]";
+
+		private static bool PrintEnumerationTimings = false;	// if true, it will show the time it took to enumerate the resultset.
 
 		static void Main(string[] args)
 		{
@@ -41,7 +44,7 @@ namespace RawBencher
             
             CacheController.RegisterCache(ConnectionString, new ResultsetCache());
 			int loopAmount = 10;
-
+			
 			Console.WriteLine("\nWarming up DB, DB client code and CLR");
 			Console.WriteLine("------------------------------------------");
 			for(int i = 0; i < loopAmount; i++)
@@ -49,9 +52,10 @@ namespace RawBencher
 				FetchSalesOrderHeaderHandCoded();
 			}
 
-			Console.WriteLine("\nStarting benchmarks");
-			Console.WriteLine("------------------------------------------");
+			Console.WriteLine("\nStarting benchmarks. Reported times are materialization only.");
+			Console.WriteLine("---------------------------------------------------------------------------");
 			_rawResultsPerORM.Clear();
+
 			for(int i = 0; i < loopAmount; i++)
 			{
 				FetchSalesOrderHeaderEF();
@@ -70,11 +74,15 @@ namespace RawBencher
 			}
 			for(int i = 0; i < loopAmount; i++)
 			{
-				FetchSalesOrderHeaderEntities();
+				FetchSalesOrderHeaderLLBLGenPro();
 			}
 			for(int i = 0; i < loopAmount; i++)
 			{
-				FetchSalesOrderHeaderEntitiesWithCaching();
+				FetchSalesOrderHeaderLLBLGenProWithCaching();
+			}
+			for(int i = 0; i < loopAmount; i++)
+			{
+				FetchSalesOrderHeaderLLBLGenProNoTracking();
 			}
 			for(int i = 0; i < loopAmount; i++)
 			{
@@ -96,14 +104,14 @@ namespace RawBencher
 			{
 				FetchSalesOrderHeaderDataTable();
 			}
-            for (int i = 0; i < loopAmount; i++)
-            {
-                FetchSalesOrderHeaderOakDynamicDb();
-            }
+			for(int i = 0; i < loopAmount; i++)
+			{
+				FetchSalesOrderHeaderOakDynamicDb();
+			}
 
 			Console.WriteLine("\nIndividual entity fetch benches");
 			Console.WriteLine("------------------------------------------");
-			FetchSalesOrderHeaderEntitiesIndividually();
+			FetchSalesOrderHeaderLLBLGenProIndividually();
 			FetchSalesOrderHeaderEFIndividually();
 
 			Console.WriteLine("\nAveraged total results per framework");
@@ -116,7 +124,7 @@ namespace RawBencher
 
 		private static void FetchSalesOrderHeaderDataTable()
 		{
-			var frameworkName = "DbDataAdapter into DataTable";
+			var frameworkName = "DbDataAdapter into DataTable, with change tracking";
 			var sw = new Stopwatch();
 			sw.Start();
 			var headers = new DataTable();
@@ -129,21 +137,13 @@ namespace RawBencher
 			}
 			sw.Stop();
 			ReportResult(frameworkName, sw.ElapsedMilliseconds, headers.Rows.Count);
-
-			for(int i = 0; i < headers.Rows.Count;i++ )
-			{
-				if(Convert.ToInt32(headers.Rows[i]["SalesOrderID"]) <= 0)
-				{
-					Console.WriteLine("Data table: Data is empty");
-					break;
-				}
-			}
+			VerifyData(headers.AsEnumerable(), r =>Convert.ToInt32(r["SalesOrderID"]), frameworkName);
 		}
 
 
 		private static void FetchSalesOrderHeaderHandCoded()
 		{
-			var frameworkName = "DbDataReader, handcoded";
+			var frameworkName = "DbDataReader, handcoded, no change tracking";
 
 			var sw = new Stopwatch();
 			sw.Start();
@@ -172,28 +172,27 @@ namespace RawBencher
 					fieldValue = reader.GetValue(9);
 					soh.AccountNumber = (string)(fieldValue == DBNull.Value ? null : fieldValue);
 					soh.CustomerID = (int)reader.GetValue(10);
-					soh.ContactID = (int)reader.GetValue(11);
-					fieldValue = reader.GetValue(12);
+					fieldValue = reader.GetValue(11);
 					soh.SalesPersonID = (int?)(fieldValue == DBNull.Value ? null : fieldValue);
-					fieldValue = reader.GetValue(13);
+					fieldValue = reader.GetValue(12);
 					soh.TerritoryID = (int?)(fieldValue == DBNull.Value ? null : fieldValue);
-					soh.BillToAddressID = (int)reader.GetValue(14);
-					soh.ShipToAddressID = (int)reader.GetValue(15);
-					soh.ShipMethodID = (int)reader.GetValue(16);
-					fieldValue = reader.GetValue(17);
+					soh.BillToAddressID = (int)reader.GetValue(13);
+					soh.ShipToAddressID = (int)reader.GetValue(14);
+					soh.ShipMethodID = (int)reader.GetValue(15);
+					fieldValue = reader.GetValue(16);
 					soh.CreditCardID = (int?)(fieldValue == DBNull.Value ? null : fieldValue);
-					fieldValue = reader.GetValue(18);
+					fieldValue = reader.GetValue(17);
 					soh.CreditCardApprovalCode = (string)(fieldValue == DBNull.Value ? null : fieldValue);
-					fieldValue = reader.GetValue(19);
+					fieldValue = reader.GetValue(18);
 					soh.CurrencyRateID = (int?)(fieldValue == DBNull.Value?null : fieldValue);
-					soh.SubTotal = (decimal)reader.GetValue(20);
-					soh.TaxAmt = (decimal)reader.GetValue(21);
-					soh.Freight = (decimal)reader.GetValue(22);
-					soh.TotalDue = (decimal)reader.GetValue(23);
-					fieldValue = reader.GetValue(24);
+					soh.SubTotal = (decimal)reader.GetValue(19);
+					soh.TaxAmt = (decimal)reader.GetValue(20);
+					soh.Freight = (decimal)reader.GetValue(21);
+					soh.TotalDue = (decimal)reader.GetValue(22);
+					fieldValue = reader.GetValue(23);
 					soh.Comment = (string)(fieldValue==DBNull.Value ? null : fieldValue);
-					soh.Rowguid = (Guid)reader.GetValue(25);
-					soh.ModifiedDate = (DateTime)reader.GetValue(26);
+					soh.Rowguid = (Guid)reader.GetValue(24);
+					soh.ModifiedDate = (DateTime)reader.GetValue(25);
 					headers.Add(soh);
 				}
 				reader.Close();
@@ -201,20 +200,13 @@ namespace RawBencher
 			}
 			sw.Stop();
 			ReportResult(frameworkName, sw.ElapsedMilliseconds, headers.Count);
-			foreach(var e in headers)
-			{
-				if(e.SalesOrderId <= 0)
-				{
-					Console.WriteLine("Hand written: Data is empty");
-					break;
-				}
-			}
+			VerifyData(headers, v => v.SalesOrderId, frameworkName);
 		}
 
 
 		private static void FetchSalesOrderHeaderDapper()
 		{
-			var frameworkName = "Dapper";
+			var frameworkName = "Dapper, no change tracking";
 
 			var sw = new Stopwatch();
 			sw.Start();
@@ -227,21 +219,13 @@ namespace RawBencher
 			}
 			sw.Stop();
 			ReportResult(frameworkName, sw.ElapsedMilliseconds, headers.Count);
-
-			foreach(var e in headers)
-			{
-				if(e.SalesOrderId <= 0)
-				{
-					Console.WriteLine("Dapper: Data is empty");
-					break;
-				}
-			}
+			VerifyData(headers, v => v.SalesOrderId, frameworkName);
 		}
 
 
         private static void FetchSalesOrderHeaderOrmLite()
         {
-            var frameworkName = "ServiceStack OrmLite v4.0";
+            var frameworkName = "ServiceStack OrmLite v4.0, no change tracking";
 
             var sw = new Stopwatch();
             sw.Start();
@@ -254,21 +238,13 @@ namespace RawBencher
             }
             sw.Stop();
             ReportResult(frameworkName, sw.ElapsedMilliseconds, headers.Count);
-
-            foreach (var e in headers)
-            {
-                if (e.SalesOrderId <= 0)
-                {
-                    Console.WriteLine("OrmLite: Data is empty");
-                    break;
-                }
-            }
-        }
+			VerifyData(headers, v => v.SalesOrderId, frameworkName);
+		}
 
 
-		private static void FetchSalesOrderHeaderEntitiesWithCaching()
+		private static void FetchSalesOrderHeaderLLBLGenProWithCaching()
 		{
-			var frameworkName = CreateFrameworkName("LLBLGen Pro v{0} (v{1}), with resultset caching", typeof(DataAccessAdapterBase));
+			var frameworkName = CreateFrameworkName("LLBLGen Pro v{0} (v{1}), with resultset caching, change tracking", typeof(DataAccessAdapterBase));
 			var sw = new Stopwatch();
 			sw.Start();
 			var qf = new QueryFactory();
@@ -280,21 +256,14 @@ namespace RawBencher
 			}
 			sw.Stop();
 			ReportResult(frameworkName, sw.ElapsedMilliseconds, headers.Count);
-			foreach(var e in headers)
-			{
-				if(e.SalesOrderId <= 0)
-				{
-					Console.WriteLine("LLBL41 with cache: Data is empty");
-					break;
-				}
-			}
+			VerifyData(headers, v => v.SalesOrderId, frameworkName);
 		}
 
 
-		private static void FetchSalesOrderHeaderEntitiesIndividually()
+		private static void FetchSalesOrderHeaderLLBLGenProIndividually()
 		{
 			Console.WriteLine("Fetching entities individually, LLBLGen Pro v4.1");
-			var headers = FetchSalesOrderHeaderEntities();
+			var headers = FetchSalesOrderHeaderLLBLGenPro();
 			int count = 0;
 			var sw = new Stopwatch();
 			sw.Start();
@@ -322,9 +291,9 @@ namespace RawBencher
 		}
 		
 
-		private static EntityCollection<SalesOrderHeaderEntity> FetchSalesOrderHeaderEntities()
+		private static EntityCollection<SalesOrderHeaderEntity> FetchSalesOrderHeaderLLBLGenPro()
 		{
-			var frameworkName = CreateFrameworkName("LLBLGen Pro v{0} (v{1})", typeof(DataAccessAdapterBase));
+			var frameworkName = CreateFrameworkName("LLBLGen Pro v{0} (v{1}), with change tracking", typeof(DataAccessAdapterBase));
 			var sw = new Stopwatch();
 			sw.Start();
 			var headers = new EntityCollection<SalesOrderHeaderEntity>();
@@ -334,21 +303,30 @@ namespace RawBencher
 			}
 			sw.Stop();
 			ReportResult(frameworkName, sw.ElapsedMilliseconds, headers.Count);
-			foreach(var e in headers)
-			{
-				if(e.SalesOrderId <= 0)
-				{
-					Console.WriteLine("LLBL41: Data is empty");
-					break;
-				}
-			}
+			VerifyData(headers, v => v.SalesOrderId, frameworkName);
 			return headers;
+		}
+
+
+		private static void FetchSalesOrderHeaderLLBLGenProNoTracking()
+		{
+			var frameworkName = CreateFrameworkName("LLBLGen Pro v{0} (v{1}), typed view, no change tracking", typeof(DataAccessAdapterBase));
+			var sw = new Stopwatch();
+			sw.Start();
+			var headers = new SohTypedView();
+			using(var adapter = new DataAccessAdapter())
+			{
+				adapter.FetchTypedView(headers, allowDuplicates:true);
+			}
+			sw.Stop();
+			ReportResult(frameworkName, sw.ElapsedMilliseconds, headers.Count);
+			VerifyData(headers, v => v.SalesOrderId, frameworkName);
 		}
 
 
 		private static List<EF6.Bencher.EntityClasses.SalesOrderHeader>  FetchSalesOrderHeaderEF()
 		{
-			var frameworkName = CreateFrameworkName("Entity Framework v{0} (v{1})", typeof(System.Data.Entity.DbContext));
+			var frameworkName = CreateFrameworkName("Entity Framework v{0} (v{1}), with change tracking", typeof(System.Data.Entity.DbContext));
 			var sw = new Stopwatch();
 			sw.Start();
 			List<EF6.Bencher.EntityClasses.SalesOrderHeader> headers = null;
@@ -358,21 +336,14 @@ namespace RawBencher
 			}
 			sw.Stop();
 			ReportResult(frameworkName, sw.ElapsedMilliseconds, headers.Count);
-			foreach(var e in headers)
-			{
-				if(e.SalesOrderId <= 0)
-				{
-					Console.WriteLine("EF: Data is empty");
-					break;
-				}
-			}
+			VerifyData(headers, v => v.SalesOrderId, frameworkName);
 			return headers;
 		}
 
 
 		private static List<EF6.Bencher.EntityClasses.SalesOrderHeader> FetchSalesOrderHeaderEFNoTracking()
 		{
-			var frameworkName = CreateFrameworkName("Entity Framework v{0} (v{1}), using AsNoTracking()", typeof(System.Data.Entity.DbContext));
+			var frameworkName = CreateFrameworkName("Entity Framework v{0} (v{1}), no change tracking", typeof(System.Data.Entity.DbContext));
 			var sw = new Stopwatch();
 			sw.Start();
 			List<EF6.Bencher.EntityClasses.SalesOrderHeader> headers = null;
@@ -382,14 +353,7 @@ namespace RawBencher
 			}
 			sw.Stop();
 			ReportResult(frameworkName, sw.ElapsedMilliseconds, headers.Count);
-			foreach(var e in headers)
-			{
-				if(e.SalesOrderId <= 0)
-				{
-					Console.WriteLine("EF: Data is empty");
-					break;
-				}
-			}
+			VerifyData(headers, v => v.SalesOrderId, frameworkName);
 			return headers;
 		}
 
@@ -421,7 +385,7 @@ namespace RawBencher
 
 		private static void FetchSalesOrderHeaderL2S()
 		{
-			var frameworkName = CreateFrameworkName("Linq to Sql v{0} (v{1})", typeof(System.Data.Linq.DataContext));
+			var frameworkName = CreateFrameworkName("Linq to Sql v{0} (v{1}), with change tracking", typeof(System.Data.Linq.DataContext));
 			var sw = new Stopwatch();
 			sw.Start();
 			List<L2S.Bencher.EntityClasses.SalesOrderHeader> headers = null;
@@ -429,21 +393,13 @@ namespace RawBencher
 			headers = ctx.SalesOrderHeaders.ToList();
 			sw.Stop();
 			ReportResult(frameworkName, sw.ElapsedMilliseconds, headers.Count);
-
-			foreach(var e in headers)
-			{
-				if(e.SalesOrderId <= 0)
-				{
-					Console.WriteLine("L2S: Data is empty");
-					break;
-				}
-			}
+			VerifyData(headers, v => v.SalesOrderId, frameworkName);
 		}
 
 
 		private static void FetchSalesOrderHeaderL2SNoTracking()
 		{
-			var frameworkName = CreateFrameworkName("Linq to Sql v{0} (v{1}), using no tracking", typeof(System.Data.Linq.DataContext));
+			var frameworkName = CreateFrameworkName("Linq to Sql v{0} (v{1}), no tracking", typeof(System.Data.Linq.DataContext));
 			var sw = new Stopwatch();
 			sw.Start();
 			List<L2S.Bencher.EntityClasses.SalesOrderHeader> headers = null;
@@ -452,21 +408,13 @@ namespace RawBencher
 			headers = ctx.SalesOrderHeaders.ToList();
 			sw.Stop();
 			ReportResult(frameworkName, sw.ElapsedMilliseconds, headers.Count);
-
-			foreach(var e in headers)
-			{
-				if(e.SalesOrderId <= 0)
-				{
-					Console.WriteLine("L2S: Data is empty");
-					break;
-				}
-			}
+			VerifyData(headers, v => v.SalesOrderId, frameworkName);
 		}
 
 
 		private static void FetchSalesOrderHeaderNH()
 		{
-			var frameworkName = CreateFrameworkName("NHibernate v{0} (v{1})", typeof(ISession));
+			var frameworkName = CreateFrameworkName("NHibernate v{0} (v{1}), with change tracking", typeof(ISession));
 			var sw = new Stopwatch();
 			sw.Start();
 			List<NH.Bencher.EntityClasses.SalesOrderHeader> headers = null;
@@ -476,35 +424,43 @@ namespace RawBencher
 			}
 			sw.Stop();
 			ReportResult(frameworkName, sw.ElapsedMilliseconds, headers.Count);
-			foreach(var e in headers)
-			{
-				if(e.SalesOrderId <= 0)
-				{
-					Console.WriteLine("NH: Data is empty");
-					break;
-				}
-			}
+			VerifyData(headers, v => v.SalesOrderId, frameworkName);
 		}
+
 
         private static void FetchSalesOrderHeaderOakDynamicDb()
         {
-            var frameworkName = "Oak.DynamicDb hydrating a dynamic type";
+			var frameworkName = "Oak.DynamicDb using dynamic class, with change tracking";
             var sw = new Stopwatch();
             sw.Start();
             var db = new OakDynamicDb.Bencher.SalesOrderHeaders();
+			db.Projection = d => new OakDynamicDb.Bencher.SalesOrderHeader(d);
             var headers = db.All();
             sw.Stop();
             ReportResult(frameworkName, sw.ElapsedMilliseconds, headers.Count());
-
-            foreach (var header in headers)
-            {
-                if (header.SalesOrderID <= 0)
-                {
-                    Console.WriteLine("Oak: Data is empty");
-                    break;
-                }
-            }
+			VerifyData(headers, v => v.SalesOrderID, frameworkName);
         }
+
+
+		private static void VerifyData<T>(IEnumerable<T> toEnumerate, Func<T, int> idRetriever, string frameworkName)
+		{
+			var sw = new Stopwatch();
+			sw.Start();
+			foreach(var v in toEnumerate)
+			{
+				if(idRetriever(v) <= 0)
+				{
+					Console.WriteLine("{0}: data is empty.");
+					break;
+				}
+			}
+			sw.Stop();
+			if(PrintEnumerationTimings)
+			{
+				Console.WriteLine("Enumerating all rows in the resultset of '{0}' took: {1}ms", frameworkName, sw.ElapsedMilliseconds);
+			}
+		}
+
 
 		private static void GetVersionStrings(Assembly a, out string fileVersion, out string assemblyVersion)
 		{

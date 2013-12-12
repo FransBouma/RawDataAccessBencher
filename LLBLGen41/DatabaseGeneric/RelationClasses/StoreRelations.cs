@@ -30,43 +30,43 @@ namespace AdventureWorks.Dal.Adapter.v41.RelationClasses
 		public virtual List<IEntityRelation> GetAllRelations()
 		{
 			List<IEntityRelation> toReturn = new List<IEntityRelation>();
-			toReturn.Add(this.StoreContactEntityUsingCustomerId);
-			toReturn.Add(this.CustomerEntityUsingCustomerId);
+			toReturn.Add(this.CustomerEntityUsingStoreId);
+			toReturn.Add(this.BusinessEntityEntityUsingCustomerId);
 			toReturn.Add(this.SalesPersonEntityUsingSalesPersonId);
 			return toReturn;
 		}
 
 		#region Class Property Declarations
 
-		/// <summary>Returns a new IEntityRelation object, between StoreEntity and StoreContactEntity over the 1:n relation they have, using the relation between the fields:
-		/// Store.CustomerId - StoreContact.CustomerId
+		/// <summary>Returns a new IEntityRelation object, between StoreEntity and CustomerEntity over the 1:n relation they have, using the relation between the fields:
+		/// Store.CustomerId - Customer.StoreId
 		/// </summary>
-		public virtual IEntityRelation StoreContactEntityUsingCustomerId
+		public virtual IEntityRelation CustomerEntityUsingStoreId
 		{
 			get
 			{
-				IEntityRelation relation = new EntityRelation(SD.LLBLGen.Pro.ORMSupportClasses.RelationType.OneToMany, "StoreContacts" , true);
-				relation.AddEntityFieldPair(StoreFields.CustomerId, StoreContactFields.CustomerId);
+				IEntityRelation relation = new EntityRelation(SD.LLBLGen.Pro.ORMSupportClasses.RelationType.OneToMany, "Customers" , true);
+				relation.AddEntityFieldPair(StoreFields.CustomerId, CustomerFields.StoreId);
 				relation.InheritanceInfoPkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("StoreEntity", true);
-				relation.InheritanceInfoFkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("StoreContactEntity", false);
+				relation.InheritanceInfoFkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("CustomerEntity", false);
 				return relation;
 			}
 		}
 
-		/// <summary>Returns a new IEntityRelation object, between StoreEntity and CustomerEntity over the 1:1 relation they have, using the relation between the fields:
-		/// Store.CustomerId - Customer.CustomerId
+		/// <summary>Returns a new IEntityRelation object, between StoreEntity and BusinessEntityEntity over the 1:1 relation they have, using the relation between the fields:
+		/// Store.CustomerId - BusinessEntity.BusinessEntityId
 		/// </summary>
-		public virtual IEntityRelation CustomerEntityUsingCustomerId
+		public virtual IEntityRelation BusinessEntityEntityUsingCustomerId
 		{
 			get
 			{
-				IEntityRelation relation = new EntityRelation(SD.LLBLGen.Pro.ORMSupportClasses.RelationType.OneToOne, "Customer", false);
+				IEntityRelation relation = new EntityRelation(SD.LLBLGen.Pro.ORMSupportClasses.RelationType.OneToOne, "BusinessEntity", false);
 
 
 
-				relation.AddEntityFieldPair(CustomerFields.CustomerId, StoreFields.CustomerId);
+				relation.AddEntityFieldPair(BusinessEntityFields.BusinessEntityId, StoreFields.CustomerId);
 
-				relation.InheritanceInfoPkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("CustomerEntity", false);
+				relation.InheritanceInfoPkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("BusinessEntityEntity", false);
 				relation.InheritanceInfoFkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("StoreEntity", true);
 				return relation;
 			}
@@ -100,8 +100,8 @@ namespace AdventureWorks.Dal.Adapter.v41.RelationClasses
 	/// <summary>Static class which is used for providing relationship instances which are re-used internally for syncing</summary>
 	internal static class StaticStoreRelations
 	{
-		internal static readonly IEntityRelation StoreContactEntityUsingCustomerIdStatic = new StoreRelations().StoreContactEntityUsingCustomerId;
-		internal static readonly IEntityRelation CustomerEntityUsingCustomerIdStatic = new StoreRelations().CustomerEntityUsingCustomerId;
+		internal static readonly IEntityRelation CustomerEntityUsingStoreIdStatic = new StoreRelations().CustomerEntityUsingStoreId;
+		internal static readonly IEntityRelation BusinessEntityEntityUsingCustomerIdStatic = new StoreRelations().BusinessEntityEntityUsingCustomerId;
 		internal static readonly IEntityRelation SalesPersonEntityUsingSalesPersonIdStatic = new StoreRelations().SalesPersonEntityUsingSalesPersonId;
 
 		/// <summary>CTor</summary>

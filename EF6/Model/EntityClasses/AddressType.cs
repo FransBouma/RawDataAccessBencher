@@ -18,8 +18,7 @@ namespace EF6.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="AddressType"/> class.</summary>
 		public AddressType() : base()
 		{
-			this.CustomerAddresses = new HashSet<CustomerAddress>();
-			this.VendorAddresses = new HashSet<VendorAddress>();
+			this.BusinessEntityAddresses = new HashSet<BusinessEntityAddress>();
 		}
 
 		#region Class Property Declarations
@@ -35,12 +34,9 @@ namespace EF6.Bencher.EntityClasses
 		/// <summary>Gets or sets the Rowguid field. </summary>
 		[DataMember]
 		public System.Guid Rowguid { get; set;}
-		/// <summary>Represents the navigator which is mapped onto the association 'CustomerAddress.AddressType - AddressType.CustomerAddresses (m:1)'</summary>
+		/// <summary>Represents the navigator which is mapped onto the association 'Person.BusinessEntityAddress.AddressType - AddressType.BusinessEntityAddresses (m:1)'</summary>
 		[DataMember]
-		public virtual ICollection<CustomerAddress> CustomerAddresses { get; set;}
-		/// <summary>Represents the navigator which is mapped onto the association 'VendorAddress.AddressType - AddressType.VendorAddresses (m:1)'</summary>
-		[DataMember]
-		public virtual ICollection<VendorAddress> VendorAddresses { get; set;}
+		public virtual ICollection<BusinessEntityAddress> BusinessEntityAddresses { get; set;}
 		#endregion
 	}
 }

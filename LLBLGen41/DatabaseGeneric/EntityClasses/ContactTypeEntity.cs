@@ -25,21 +25,17 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 {
 	// __LLBLGENPRO_USER_CODE_REGION_START AdditionalNamespaces
 	// __LLBLGENPRO_USER_CODE_REGION_END
-	
 	/// <summary>Entity class which represents the entity 'ContactType'.<br/><br/></summary>
 	[Serializable]
 	public partial class ContactTypeEntity : CommonEntityBase
 		// __LLBLGENPRO_USER_CODE_REGION_START AdditionalInterfaces
-		// __LLBLGENPRO_USER_CODE_REGION_END
-			
+		// __LLBLGENPRO_USER_CODE_REGION_END	
 	{
 		#region Class Member Declarations
-		private EntityCollection<StoreContactEntity> _storeContacts;
-		private EntityCollection<VendorContactEntity> _vendorContacts;
+		private EntityCollection<BusinessEntityContactEntity> _businessEntityContacts;
 
 		// __LLBLGENPRO_USER_CODE_REGION_START PrivateMembers
 		// __LLBLGENPRO_USER_CODE_REGION_END
-		
 		#endregion
 
 		#region Statics
@@ -49,10 +45,8 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		/// <summary>All names of fields mapped onto a relation. Usable for in-memory filtering</summary>
 		public static partial class MemberNames
 		{
-			/// <summary>Member name StoreContacts</summary>
-			public static readonly string StoreContacts = "StoreContacts";
-			/// <summary>Member name VendorContacts</summary>
-			public static readonly string VendorContacts = "VendorContacts";
+			/// <summary>Member name BusinessEntityContacts</summary>
+			public static readonly string BusinessEntityContacts = "BusinessEntityContacts";
 		}
 		#endregion
 		
@@ -110,13 +104,11 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		{
 			if(SerializationHelper.Optimization != SerializationOptimization.Fast) 
 			{
-				_storeContacts = (EntityCollection<StoreContactEntity>)info.GetValue("_storeContacts", typeof(EntityCollection<StoreContactEntity>));
-				_vendorContacts = (EntityCollection<VendorContactEntity>)info.GetValue("_vendorContacts", typeof(EntityCollection<VendorContactEntity>));
+				_businessEntityContacts = (EntityCollection<BusinessEntityContactEntity>)info.GetValue("_businessEntityContacts", typeof(EntityCollection<BusinessEntityContactEntity>));
 				this.FixupDeserialization(FieldInfoProviderSingleton.GetInstance());
 			}
 			// __LLBLGENPRO_USER_CODE_REGION_START DeserializationConstructor
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 		}
 
 
@@ -128,11 +120,8 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		{
 			switch(propertyName)
 			{
-				case "StoreContacts":
-					this.StoreContacts.Add((StoreContactEntity)entity);
-					break;
-				case "VendorContacts":
-					this.VendorContacts.Add((VendorContactEntity)entity);
+				case "BusinessEntityContacts":
+					this.BusinessEntityContacts.Add((BusinessEntityContactEntity)entity);
 					break;
 				default:
 					this.OnSetRelatedEntityProperty(propertyName, entity);
@@ -156,11 +145,8 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			RelationCollection toReturn = new RelationCollection();
 			switch(fieldName)
 			{
-				case "StoreContacts":
-					toReturn.Add(Relations.StoreContactEntityUsingContactTypeId);
-					break;
-				case "VendorContacts":
-					toReturn.Add(Relations.VendorContactEntityUsingContactTypeId);
+				case "BusinessEntityContacts":
+					toReturn.Add(Relations.BusinessEntityContactEntityUsingContactTypeId);
 					break;
 				default:
 					break;				
@@ -190,11 +176,8 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		{
 			switch(fieldName)
 			{
-				case "StoreContacts":
-					this.StoreContacts.Add((StoreContactEntity)relatedEntity);
-					break;
-				case "VendorContacts":
-					this.VendorContacts.Add((VendorContactEntity)relatedEntity);
+				case "BusinessEntityContacts":
+					this.BusinessEntityContacts.Add((BusinessEntityContactEntity)relatedEntity);
 					break;
 				default:
 					break;
@@ -209,11 +192,8 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		{
 			switch(fieldName)
 			{
-				case "StoreContacts":
-					this.PerformRelatedEntityRemoval(this.StoreContacts, relatedEntity, signalRelatedEntityManyToOne);
-					break;
-				case "VendorContacts":
-					this.PerformRelatedEntityRemoval(this.VendorContacts, relatedEntity, signalRelatedEntityManyToOne);
+				case "BusinessEntityContacts":
+					this.PerformRelatedEntityRemoval(this.BusinessEntityContacts, relatedEntity, signalRelatedEntityManyToOne);
 					break;
 				default:
 					break;
@@ -242,8 +222,7 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		protected override List<IEntityCollection2> GetMemberEntityCollections()
 		{
 			List<IEntityCollection2> toReturn = new List<IEntityCollection2>();
-			toReturn.Add(this.StoreContacts);
-			toReturn.Add(this.VendorContacts);
+			toReturn.Add(this.BusinessEntityContacts);
 			return toReturn;
 		}
 
@@ -255,12 +234,10 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		{
 			if (SerializationHelper.Optimization != SerializationOptimization.Fast) 
 			{
-				info.AddValue("_storeContacts", ((_storeContacts!=null) && (_storeContacts.Count>0) && !this.MarkedForDeletion)?_storeContacts:null);
-				info.AddValue("_vendorContacts", ((_vendorContacts!=null) && (_vendorContacts.Count>0) && !this.MarkedForDeletion)?_vendorContacts:null);
+				info.AddValue("_businessEntityContacts", ((_businessEntityContacts!=null) && (_businessEntityContacts.Count>0) && !this.MarkedForDeletion)?_businessEntityContacts:null);
 			}
 			// __LLBLGENPRO_USER_CODE_REGION_START GetObjectInfo
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			base.GetObjectData(info, context);
 		}
 
@@ -273,21 +250,12 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			return new ContactTypeRelations().GetAllRelations();
 		}
 
-		/// <summary> Creates a new IRelationPredicateBucket object which contains the predicate expression and relation collection to fetch the related entities of type 'StoreContact' to this entity.</summary>
+		/// <summary> Creates a new IRelationPredicateBucket object which contains the predicate expression and relation collection to fetch the related entities of type 'BusinessEntityContact' to this entity.</summary>
 		/// <returns></returns>
-		public virtual IRelationPredicateBucket GetRelationInfoStoreContacts()
+		public virtual IRelationPredicateBucket GetRelationInfoBusinessEntityContacts()
 		{
 			IRelationPredicateBucket bucket = new RelationPredicateBucket();
-			bucket.PredicateExpression.Add(new FieldCompareValuePredicate(StoreContactFields.ContactTypeId, null, ComparisonOperator.Equal, this.ContactTypeId));
-			return bucket;
-		}
-
-		/// <summary> Creates a new IRelationPredicateBucket object which contains the predicate expression and relation collection to fetch the related entities of type 'VendorContact' to this entity.</summary>
-		/// <returns></returns>
-		public virtual IRelationPredicateBucket GetRelationInfoVendorContacts()
-		{
-			IRelationPredicateBucket bucket = new RelationPredicateBucket();
-			bucket.PredicateExpression.Add(new FieldCompareValuePredicate(VendorContactFields.ContactTypeId, null, ComparisonOperator.Equal, this.ContactTypeId));
+			bucket.PredicateExpression.Add(new FieldCompareValuePredicate(BusinessEntityContactFields.ContactTypeId, null, ComparisonOperator.Equal, this.ContactTypeId));
 			return bucket;
 		}
 		
@@ -303,8 +271,7 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		protected override void AddToMemberEntityCollectionsQueue(Queue<IEntityCollection2> collectionsQueue) 
 		{
 			base.AddToMemberEntityCollectionsQueue(collectionsQueue);
-			collectionsQueue.Enqueue(this._storeContacts);
-			collectionsQueue.Enqueue(this._vendorContacts);
+			collectionsQueue.Enqueue(this._businessEntityContacts);
 		}
 		
 		/// <summary>Gets the member collections queue from the queue (base first)</summary>
@@ -312,8 +279,7 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		protected override void GetFromMemberEntityCollectionsQueue(Queue<IEntityCollection2> collectionsQueue)
 		{
 			base.GetFromMemberEntityCollectionsQueue(collectionsQueue);
-			this._storeContacts = (EntityCollection<StoreContactEntity>) collectionsQueue.Dequeue();
-			this._vendorContacts = (EntityCollection<VendorContactEntity>) collectionsQueue.Dequeue();
+			this._businessEntityContacts = (EntityCollection<BusinessEntityContactEntity>) collectionsQueue.Dequeue();
 
 		}
 		
@@ -322,8 +288,7 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		protected override bool HasPopulatedMemberEntityCollections()
 		{
 			bool toReturn = false;
-			toReturn |=(this._storeContacts != null);
-			toReturn |=(this._vendorContacts != null);
+			toReturn |=(this._businessEntityContacts != null);
 			return toReturn ? true : base.HasPopulatedMemberEntityCollections();
 		}
 		
@@ -333,8 +298,7 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		protected override void CreateMemberEntityCollectionsQueue(Queue<IEntityCollection2> collectionsQueue, Queue<bool> requiredQueue) 
 		{
 			base.CreateMemberEntityCollectionsQueue(collectionsQueue, requiredQueue);
-			collectionsQueue.Enqueue(requiredQueue.Dequeue() ? new EntityCollection<StoreContactEntity>(EntityFactoryCache2.GetEntityFactory(typeof(StoreContactEntityFactory))) : null);
-			collectionsQueue.Enqueue(requiredQueue.Dequeue() ? new EntityCollection<VendorContactEntity>(EntityFactoryCache2.GetEntityFactory(typeof(VendorContactEntityFactory))) : null);
+			collectionsQueue.Enqueue(requiredQueue.Dequeue() ? new EntityCollection<BusinessEntityContactEntity>(EntityFactoryCache2.GetEntityFactory(typeof(BusinessEntityContactEntityFactory))) : null);
 		}
 #endif
 		/// <summary>Gets all related data objects, stored by name. The name is the field name mapped onto the relation for that particular data element.</summary>
@@ -342,8 +306,7 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		protected override Dictionary<string, object> GetRelatedData()
 		{
 			Dictionary<string, object> toReturn = new Dictionary<string, object>();
-			toReturn.Add("StoreContacts", _storeContacts);
-			toReturn.Add("VendorContacts", _vendorContacts);
+			toReturn.Add("BusinessEntityContacts", _businessEntityContacts);
 			return toReturn;
 		}
 
@@ -354,7 +317,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			
 			// __LLBLGENPRO_USER_CODE_REGION_START InitClassMembers
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			OnInitClassMembersComplete();
 		}
 
@@ -387,7 +349,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 
 			// __LLBLGENPRO_USER_CODE_REGION_START InitClassEmpty
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 
 			OnInitialized();
 
@@ -407,18 +368,11 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			get { return _customProperties;}
 		}
 
-		/// <summary> Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'StoreContact' for this entity.</summary>
+		/// <summary> Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'BusinessEntityContact' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathStoreContacts
+		public static IPrefetchPathElement2 PrefetchPathBusinessEntityContacts
 		{
-			get	{ return new PrefetchPathElement2( new EntityCollection<StoreContactEntity>(EntityFactoryCache2.GetEntityFactory(typeof(StoreContactEntityFactory))), (IEntityRelation)GetRelationsForField("StoreContacts")[0], (int)AdventureWorks.Dal.Adapter.v41.EntityType.ContactTypeEntity, (int)AdventureWorks.Dal.Adapter.v41.EntityType.StoreContactEntity, 0, null, null, null, null, "StoreContacts", SD.LLBLGen.Pro.ORMSupportClasses.RelationType.OneToMany);	}
-		}
-
-		/// <summary> Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'VendorContact' for this entity.</summary>
-		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathVendorContacts
-		{
-			get	{ return new PrefetchPathElement2( new EntityCollection<VendorContactEntity>(EntityFactoryCache2.GetEntityFactory(typeof(VendorContactEntityFactory))), (IEntityRelation)GetRelationsForField("VendorContacts")[0], (int)AdventureWorks.Dal.Adapter.v41.EntityType.ContactTypeEntity, (int)AdventureWorks.Dal.Adapter.v41.EntityType.VendorContactEntity, 0, null, null, null, null, "VendorContacts", SD.LLBLGen.Pro.ORMSupportClasses.RelationType.OneToMany);	}
+			get	{ return new PrefetchPathElement2( new EntityCollection<BusinessEntityContactEntity>(EntityFactoryCache2.GetEntityFactory(typeof(BusinessEntityContactEntityFactory))), (IEntityRelation)GetRelationsForField("BusinessEntityContacts")[0], (int)AdventureWorks.Dal.Adapter.v41.EntityType.ContactTypeEntity, (int)AdventureWorks.Dal.Adapter.v41.EntityType.BusinessEntityContactEntity, 0, null, null, null, null, "BusinessEntityContacts", SD.LLBLGen.Pro.ORMSupportClasses.RelationType.OneToMany);	}
 		}
 
 
@@ -475,18 +429,11 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			set	{ SetValue((int)ContactTypeFieldIndex.Name, value); }
 		}
 
-		/// <summary> Gets the EntityCollection with the related entities of type 'StoreContactEntity' which are related to this entity via a relation of type '1:n'. If the EntityCollection hasn't been fetched yet, the collection returned will be empty.<br/><br/></summary>
-		[TypeContainedAttribute(typeof(StoreContactEntity))]
-		public virtual EntityCollection<StoreContactEntity> StoreContacts
+		/// <summary> Gets the EntityCollection with the related entities of type 'BusinessEntityContactEntity' which are related to this entity via a relation of type '1:n'. If the EntityCollection hasn't been fetched yet, the collection returned will be empty.<br/><br/></summary>
+		[TypeContainedAttribute(typeof(BusinessEntityContactEntity))]
+		public virtual EntityCollection<BusinessEntityContactEntity> BusinessEntityContacts
 		{
-			get { return GetOrCreateEntityCollection<StoreContactEntity, StoreContactEntityFactory>("ContactType", true, false, ref _storeContacts);	}
-		}
-
-		/// <summary> Gets the EntityCollection with the related entities of type 'VendorContactEntity' which are related to this entity via a relation of type '1:n'. If the EntityCollection hasn't been fetched yet, the collection returned will be empty.<br/><br/></summary>
-		[TypeContainedAttribute(typeof(VendorContactEntity))]
-		public virtual EntityCollection<VendorContactEntity> VendorContacts
-		{
-			get { return GetOrCreateEntityCollection<VendorContactEntity, VendorContactEntityFactory>("ContactType", true, false, ref _vendorContacts);	}
+			get { return GetOrCreateEntityCollection<BusinessEntityContactEntity, BusinessEntityContactEntityFactory>("ContactType", true, false, ref _businessEntityContacts);	}
 		}
 	
 		/// <summary> Gets the type of the hierarchy this entity is in. </summary>
@@ -515,7 +462,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		
 		// __LLBLGENPRO_USER_CODE_REGION_START CustomEntityCode
 		// __LLBLGENPRO_USER_CODE_REGION_END
-		
 		#endregion
 
 		#region Included code

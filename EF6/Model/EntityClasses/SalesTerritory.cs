@@ -32,9 +32,6 @@ namespace EF6.Bencher.EntityClasses
 		/// <summary>Gets or sets the CostYtd field. </summary>
 		[DataMember]
 		public System.Decimal CostYtd { get; set;}
-		/// <summary>Gets or sets the CountryRegionCode field. </summary>
-		[DataMember]
-		public System.String CountryRegionCode { get; set;}
 		/// <summary>Gets or sets the Group field. </summary>
 		[DataMember]
 		public System.String Group { get; set;}
@@ -56,6 +53,9 @@ namespace EF6.Bencher.EntityClasses
 		/// <summary>Gets or sets the TerritoryId field. </summary>
 		[DataMember]
 		public System.Int32 TerritoryId { get; set;}
+		/// <summary>Represents the navigator which is mapped onto the association 'SalesTerritory.CountryRegion - CountryRegion.SalesTerritories (m:1)'</summary>
+		[DataMember]
+		public virtual CountryRegion CountryRegion { get; set;}
 		/// <summary>Represents the navigator which is mapped onto the association 'Customer.SalesTerritory - SalesTerritory.Customers (m:1)'</summary>
 		[DataMember]
 		public virtual ICollection<Customer> Customers { get; set;}

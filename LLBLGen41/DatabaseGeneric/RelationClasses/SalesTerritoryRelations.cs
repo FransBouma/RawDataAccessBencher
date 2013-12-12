@@ -35,6 +35,7 @@ namespace AdventureWorks.Dal.Adapter.v41.RelationClasses
 			toReturn.Add(this.SalesPersonEntityUsingTerritoryId);
 			toReturn.Add(this.SalesTerritoryHistoryEntityUsingTerritoryId);
 			toReturn.Add(this.StateProvinceEntityUsingTerritoryId);
+			toReturn.Add(this.CountryRegionEntityUsingCountryRegionCode);
 			return toReturn;
 		}
 
@@ -116,6 +117,20 @@ namespace AdventureWorks.Dal.Adapter.v41.RelationClasses
 		}
 
 
+		/// <summary>Returns a new IEntityRelation object, between SalesTerritoryEntity and CountryRegionEntity over the m:1 relation they have, using the relation between the fields:
+		/// SalesTerritory.CountryRegionCode - CountryRegion.CountryRegionCode
+		/// </summary>
+		public virtual IEntityRelation CountryRegionEntityUsingCountryRegionCode
+		{
+			get
+			{
+				IEntityRelation relation = new EntityRelation(SD.LLBLGen.Pro.ORMSupportClasses.RelationType.ManyToOne, "CountryRegion", false);
+				relation.AddEntityFieldPair(CountryRegionFields.CountryRegionCode, SalesTerritoryFields.CountryRegionCode);
+				relation.InheritanceInfoPkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("CountryRegionEntity", false);
+				relation.InheritanceInfoFkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("SalesTerritoryEntity", true);
+				return relation;
+			}
+		}
 		/// <summary>stub, not used in this entity, only for TargetPerEntity entities.</summary>
 		public virtual IEntityRelation GetSubTypeRelation(string subTypeEntityName) { return null; }
 		/// <summary>stub, not used in this entity, only for TargetPerEntity entities.</summary>
@@ -135,6 +150,7 @@ namespace AdventureWorks.Dal.Adapter.v41.RelationClasses
 		internal static readonly IEntityRelation SalesPersonEntityUsingTerritoryIdStatic = new SalesTerritoryRelations().SalesPersonEntityUsingTerritoryId;
 		internal static readonly IEntityRelation SalesTerritoryHistoryEntityUsingTerritoryIdStatic = new SalesTerritoryRelations().SalesTerritoryHistoryEntityUsingTerritoryId;
 		internal static readonly IEntityRelation StateProvinceEntityUsingTerritoryIdStatic = new SalesTerritoryRelations().StateProvinceEntityUsingTerritoryId;
+		internal static readonly IEntityRelation CountryRegionEntityUsingCountryRegionCodeStatic = new SalesTerritoryRelations().CountryRegionEntityUsingCountryRegionCode;
 
 		/// <summary>CTor</summary>
 		static StaticSalesTerritoryRelations()

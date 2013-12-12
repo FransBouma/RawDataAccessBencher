@@ -30,39 +30,23 @@ namespace AdventureWorks.Dal.Adapter.v41.RelationClasses
 		public virtual List<IEntityRelation> GetAllRelations()
 		{
 			List<IEntityRelation> toReturn = new List<IEntityRelation>();
-			toReturn.Add(this.StoreContactEntityUsingContactTypeId);
-			toReturn.Add(this.VendorContactEntityUsingContactTypeId);
+			toReturn.Add(this.BusinessEntityContactEntityUsingContactTypeId);
 			return toReturn;
 		}
 
 		#region Class Property Declarations
 
-		/// <summary>Returns a new IEntityRelation object, between ContactTypeEntity and StoreContactEntity over the 1:n relation they have, using the relation between the fields:
-		/// ContactType.ContactTypeId - StoreContact.ContactTypeId
+		/// <summary>Returns a new IEntityRelation object, between ContactTypeEntity and BusinessEntityContactEntity over the 1:n relation they have, using the relation between the fields:
+		/// ContactType.ContactTypeId - BusinessEntityContact.ContactTypeId
 		/// </summary>
-		public virtual IEntityRelation StoreContactEntityUsingContactTypeId
+		public virtual IEntityRelation BusinessEntityContactEntityUsingContactTypeId
 		{
 			get
 			{
-				IEntityRelation relation = new EntityRelation(SD.LLBLGen.Pro.ORMSupportClasses.RelationType.OneToMany, "StoreContacts" , true);
-				relation.AddEntityFieldPair(ContactTypeFields.ContactTypeId, StoreContactFields.ContactTypeId);
+				IEntityRelation relation = new EntityRelation(SD.LLBLGen.Pro.ORMSupportClasses.RelationType.OneToMany, "BusinessEntityContacts" , true);
+				relation.AddEntityFieldPair(ContactTypeFields.ContactTypeId, BusinessEntityContactFields.ContactTypeId);
 				relation.InheritanceInfoPkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("ContactTypeEntity", true);
-				relation.InheritanceInfoFkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("StoreContactEntity", false);
-				return relation;
-			}
-		}
-
-		/// <summary>Returns a new IEntityRelation object, between ContactTypeEntity and VendorContactEntity over the 1:n relation they have, using the relation between the fields:
-		/// ContactType.ContactTypeId - VendorContact.ContactTypeId
-		/// </summary>
-		public virtual IEntityRelation VendorContactEntityUsingContactTypeId
-		{
-			get
-			{
-				IEntityRelation relation = new EntityRelation(SD.LLBLGen.Pro.ORMSupportClasses.RelationType.OneToMany, "VendorContacts" , true);
-				relation.AddEntityFieldPair(ContactTypeFields.ContactTypeId, VendorContactFields.ContactTypeId);
-				relation.InheritanceInfoPkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("ContactTypeEntity", true);
-				relation.InheritanceInfoFkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("VendorContactEntity", false);
+				relation.InheritanceInfoFkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("BusinessEntityContactEntity", false);
 				return relation;
 			}
 		}
@@ -82,8 +66,7 @@ namespace AdventureWorks.Dal.Adapter.v41.RelationClasses
 	/// <summary>Static class which is used for providing relationship instances which are re-used internally for syncing</summary>
 	internal static class StaticContactTypeRelations
 	{
-		internal static readonly IEntityRelation StoreContactEntityUsingContactTypeIdStatic = new ContactTypeRelations().StoreContactEntityUsingContactTypeId;
-		internal static readonly IEntityRelation VendorContactEntityUsingContactTypeIdStatic = new ContactTypeRelations().VendorContactEntityUsingContactTypeId;
+		internal static readonly IEntityRelation BusinessEntityContactEntityUsingContactTypeIdStatic = new ContactTypeRelations().BusinessEntityContactEntityUsingContactTypeId;
 
 		/// <summary>CTor</summary>
 		static StaticContactTypeRelations()

@@ -4,7 +4,7 @@
                    namespace="NH.Bencher.EntityClasses">
 				   
 	<class name="SalesPerson" table="[Sales].[SalesPerson]" optimistic-lock="none" >
-		<id name="SalesPersonId" column="[SalesPersonID]" access="field.camelcase-underscore" >
+		<id name="SalesPersonId" column="[BusinessEntityID]" access="field.camelcase-underscore" >
 			<generator class="foreign">
 				<param name="property">Employee</param>
 			</generator>
@@ -25,7 +25,7 @@
 		</set>
 		<set name="SalesPersonQuotaHistories" access="field.camelcase-underscore" cascade="all-delete-orphan" inverse="true" fetch="select">
 			<key>
-				<column name="[SalesPersonID]"/>
+				<column name="[BusinessEntityID]"/>
 			</key>
 			<one-to-many class="SalesPersonQuotaHistory"/>
 		</set>
@@ -34,7 +34,7 @@
 		</many-to-one>
 		<set name="SalesTerritoryHistories" access="field.camelcase-underscore" cascade="all-delete-orphan" inverse="true" fetch="select">
 			<key>
-				<column name="[SalesPersonID]"/>
+				<column name="[BusinessEntityID]"/>
 			</key>
 			<one-to-many class="SalesTerritoryHistory"/>
 		</set>

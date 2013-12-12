@@ -23,12 +23,12 @@ namespace L2S.Bencher.EntityClasses
 		#region Class Member Declarations
 		private System.String	_accountNumber;
 		private System.Int32	_customerId;
-		private System.String	_customerType;
 		private System.DateTime	_modifiedDate;
+		private Nullable<System.Int32>	_personId;
 		private System.Guid	_rowguid;
+		private Nullable<System.Int32>	_storeId;
 		private Nullable<System.Int32>	_territoryId;
-		private EntitySet <CustomerAddress> _customerAddresses;
-		private EntityRef <Individual> _individual;
+		private EntityRef <Person> _person;
 		private EntitySet <SalesOrderHeader> _salesOrderHeaders;
 		private EntityRef <SalesTerritory> _salesTerritory;
 		private EntityRef <Store> _store;
@@ -42,12 +42,14 @@ namespace L2S.Bencher.EntityClasses
 		partial void OnAccountNumberChanged();
 		partial void OnCustomerIdChanging(System.Int32 value);
 		partial void OnCustomerIdChanged();
-		partial void OnCustomerTypeChanging(System.String value);
-		partial void OnCustomerTypeChanged();
 		partial void OnModifiedDateChanging(System.DateTime value);
 		partial void OnModifiedDateChanged();
+		partial void OnPersonIdChanging(Nullable<System.Int32> value);
+		partial void OnPersonIdChanged();
 		partial void OnRowguidChanging(System.Guid value);
 		partial void OnRowguidChanged();
+		partial void OnStoreIdChanging(Nullable<System.Int32> value);
+		partial void OnStoreIdChanged();
 		partial void OnTerritoryIdChanging(Nullable<System.Int32> value);
 		partial void OnTerritoryIdChanged();
 		#endregion
@@ -55,8 +57,7 @@ namespace L2S.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="Customer"/> class.</summary>
 		public Customer()
 		{
-			_customerAddresses = new EntitySet<CustomerAddress>(new Action<CustomerAddress>(this.Attach_CustomerAddresses), new Action<CustomerAddress>(this.Detach_CustomerAddresses) );
-			_individual = default(EntityRef<Individual>);
+			_person = default(EntityRef<Person>);
 			_salesOrderHeaders = new EntitySet<SalesOrderHeader>(new Action<SalesOrderHeader>(this.Attach_SalesOrderHeaders), new Action<SalesOrderHeader>(this.Detach_SalesOrderHeaders) );
 			_salesTerritory = default(EntityRef<SalesTerritory>);
 			_store = default(EntityRef<Store>);
@@ -83,22 +84,6 @@ namespace L2S.Bencher.EntityClasses
 			}
 		}
 		
-		/// <summary>Attaches this instance to the entity specified as an associated entity</summary>
-		/// <param name="entity">The related entity to attach to</param>
-		private void Attach_CustomerAddresses(CustomerAddress entity)
-		{
-			this.SendPropertyChanging("CustomerAddresses");
-			entity.Customer = this;
-		}
-		
-		/// <summary>Detaches this instance from the entity specified so it's no longer an associated entity</summary>
-		/// <param name="entity">The related entity to detach from</param>
-		private void Detach_CustomerAddresses(CustomerAddress entity)
-		{
-			this.SendPropertyChanging("CustomerAddresses");
-			entity.Customer = null;
-		}
-
 		/// <summary>Attaches this instance to the entity specified as an associated entity</summary>
 		/// <param name="entity">The related entity to attach to</param>
 		private void Attach_SalesOrderHeaders(SalesOrderHeader entity)
@@ -142,24 +127,6 @@ namespace L2S.Bencher.EntityClasses
 			}
 		}
 
-		/// <summary>Gets or sets the CustomerType field. Mapped on target field 'CustomerType'. </summary>
-		[Column(Name="CustomerType", Storage="_customerType", CanBeNull=false, DbType="nchar(1) NOT NULL")]
-		public System.String CustomerType
-		{
-			get	{ return _customerType; }
-			set
-			{
-				if((_customerType != value))
-				{
-					OnCustomerTypeChanging(value);
-					SendPropertyChanging("CustomerType");
-					_customerType = value;
-					SendPropertyChanged("CustomerType");
-					OnCustomerTypeChanged();
-				}
-			}
-		}
-
 		/// <summary>Gets or sets the ModifiedDate field. Mapped on target field 'ModifiedDate'. </summary>
 		[Column(Name="ModifiedDate", Storage="_modifiedDate", CanBeNull=false, DbType="datetime NOT NULL")]
 		public System.DateTime ModifiedDate
@@ -178,6 +145,28 @@ namespace L2S.Bencher.EntityClasses
 			}
 		}
 
+		/// <summary>Gets or sets the PersonId field. Mapped on target field 'PersonID'. </summary>
+		[Column(Name="PersonID", Storage="_personId", DbType="int NULL")]
+		public Nullable<System.Int32> PersonId
+		{
+			get	{ return _personId; }
+			set
+			{
+				if((_personId != value))
+				{
+					if(_person.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					OnPersonIdChanging(value);
+					SendPropertyChanging("PersonId");
+					_personId = value;
+					SendPropertyChanged("PersonId");
+					OnPersonIdChanged();
+				}
+			}
+		}
+
 		/// <summary>Gets or sets the Rowguid field. Mapped on target field 'rowguid'. </summary>
 		[Column(Name="rowguid", Storage="_rowguid", AutoSync=AutoSync.OnInsert, CanBeNull=false, DbType="uniqueidentifier NOT NULL", IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
 		public System.Guid Rowguid
@@ -192,6 +181,28 @@ namespace L2S.Bencher.EntityClasses
 					_rowguid = value;
 					SendPropertyChanged("Rowguid");
 					OnRowguidChanged();
+				}
+			}
+		}
+
+		/// <summary>Gets or sets the StoreId field. Mapped on target field 'StoreID'. </summary>
+		[Column(Name="StoreID", Storage="_storeId", DbType="int NULL")]
+		public Nullable<System.Int32> StoreId
+		{
+			get	{ return _storeId; }
+			set
+			{
+				if((_storeId != value))
+				{
+					if(_store.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					OnStoreIdChanging(value);
+					SendPropertyChanging("StoreId");
+					_storeId = value;
+					SendPropertyChanged("StoreId");
+					OnStoreIdChanged();
 				}
 			}
 		}
@@ -218,42 +229,39 @@ namespace L2S.Bencher.EntityClasses
 			}
 		}
 
-		/// <summary>Represents the navigator which is mapped onto the association 'CustomerAddress.Customer - Customer.CustomerAddresses (m:1)'</summary>
-		[Association(Name="CustomerAddress_Customer6e9120bff1a348dbb20f4e4b722993df", Storage="_customerAddresses", OtherKey="CustomerId")]
-		public EntitySet<CustomerAddress> CustomerAddresses
+		/// <summary>Represents the navigator which is mapped onto the association 'Customer.Person - Person.Customers (m:1)'</summary>
+		[Association(Name="Customer_Persona7aebeb94d794c53ae3e1cf1edcd48a3", Storage="_person", ThisKey="PersonId", IsForeignKey=true)] 
+		public Person Person
 		{
-			get { return this._customerAddresses; }
-			set { this._customerAddresses.Assign(value); }
-		}
-		
-		/// <summary>Represents the navigator which is mapped onto the association 'Individual.Customer - Customer.Individual (1:1)'</summary>
-		[Association(Name="Individual_Customer6111b50de9ed46cab93f164e976bbb45", Storage="_individual", OtherKey="CustomerId", IsForeignKey=false, IsUnique=true)]
-		public Individual Individual
-		{
-			get { return _individual.Entity; }
+			get { return _person.Entity; }
 			set
 			{
-				Individual previousValue = _individual.Entity;
-				if((previousValue != value) || (_individual.HasLoadedOrAssignedValue == false))
+				Person previousValue = _person.Entity;
+				if((previousValue != value) || (_person.HasLoadedOrAssignedValue == false))
 				{
-					this.SendPropertyChanging("Individual");
+					this.SendPropertyChanging("Person");
 					if(previousValue != null)
 					{
-						_individual.Entity = null;
-						previousValue.Customer=null;
+						_person.Entity = null;
+						previousValue.Customers.Remove(this);
 					}
-					_individual.Entity = value;
-					if(value != null)
+					_person.Entity = value;
+					if(value == null)
 					{
-						value.Customer = this;
+						_personId = default(Nullable<System.Int32>);
 					}
-					this.SendPropertyChanged("Individual");
+					else
+					{
+						value.Customers.Add(this);
+						_personId = value.BusinessEntityId;
+					}
+					this.SendPropertyChanged("Person");
 				}
 			}
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderHeader.Customer - Customer.SalesOrderHeaders (m:1)'</summary>
-		[Association(Name="SalesOrderHeader_Customera533767fd56a4286a9472c3a224240b7", Storage="_salesOrderHeaders", OtherKey="CustomerId")]
+		[Association(Name="SalesOrderHeader_Customer67981023e90d4f4d9b32f4c63f7fceb4", Storage="_salesOrderHeaders", OtherKey="CustomerId")]
 		public EntitySet<SalesOrderHeader> SalesOrderHeaders
 		{
 			get { return this._salesOrderHeaders; }
@@ -261,7 +269,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'Customer.SalesTerritory - SalesTerritory.Customers (m:1)'</summary>
-		[Association(Name="Customer_SalesTerritoryb4b69480649448039aaca02f2725fea7", Storage="_salesTerritory", ThisKey="TerritoryId", IsForeignKey=true)] 
+		[Association(Name="Customer_SalesTerritory7ad6c6c625e543cfb6084e52c1b35dad", Storage="_salesTerritory", ThisKey="TerritoryId", IsForeignKey=true)] 
 		public SalesTerritory SalesTerritory
 		{
 			get { return _salesTerritory.Entity; }
@@ -291,8 +299,8 @@ namespace L2S.Bencher.EntityClasses
 			}
 		}
 		
-		/// <summary>Represents the navigator which is mapped onto the association 'Store.Customer - Customer.Store (1:1)'</summary>
-		[Association(Name="Store_Customerc15a4ee4638f4c0ea094de863874e5f8", Storage="_store", OtherKey="CustomerId", IsForeignKey=false, IsUnique=true)]
+		/// <summary>Represents the navigator which is mapped onto the association 'Customer.Store - Store.Customers (m:1)'</summary>
+		[Association(Name="Customer_Storef77ea94a5bfa4ec49b0aeee356700508", Storage="_store", ThisKey="StoreId", IsForeignKey=true)] 
 		public Store Store
 		{
 			get { return _store.Entity; }
@@ -305,12 +313,17 @@ namespace L2S.Bencher.EntityClasses
 					if(previousValue != null)
 					{
 						_store.Entity = null;
-						previousValue.Customer=null;
+						previousValue.Customers.Remove(this);
 					}
 					_store.Entity = value;
-					if(value != null)
+					if(value == null)
 					{
-						value.Customer = this;
+						_storeId = default(Nullable<System.Int32>);
+					}
+					else
+					{
+						value.Customers.Add(this);
+						_storeId = value.BusinessEntityId;
 					}
 					this.SendPropertyChanged("Store");
 				}

@@ -11,10 +11,9 @@ namespace NH.Bencher.EntityClasses
 	public partial class Vendor
 	{
 		#region Class Member Declarations
+		private BusinessEntity _businessEntity;
 		private Iesi.Collections.Generic.ISet<ProductVendor> _productVendors;
 		private Iesi.Collections.Generic.ISet<PurchaseOrderHeader> _purchaseOrderHeaders;
-		private Iesi.Collections.Generic.ISet<VendorAddress> _vendorAddresses;
-		private Iesi.Collections.Generic.ISet<VendorContact> _vendorContacts;
 		private System.String _accountNumber;
 		private System.Boolean _activeFlag;
 		private System.Byte _creditRating;
@@ -30,8 +29,6 @@ namespace NH.Bencher.EntityClasses
 		{
 			_productVendors = new Iesi.Collections.Generic.HashedSet<ProductVendor>();
 			_purchaseOrderHeaders = new Iesi.Collections.Generic.HashedSet<PurchaseOrderHeader>();
-			_vendorAddresses = new Iesi.Collections.Generic.HashedSet<VendorAddress>();
-			_vendorContacts = new Iesi.Collections.Generic.HashedSet<VendorContact>();
 			_vendorId = default(System.Int32);
 			OnCreated();
 		}
@@ -53,12 +50,7 @@ namespace NH.Bencher.EntityClasses
 		/// <returns><c>true</c> if the specified <see cref="System.Object"/> is equal to this instance; otherwise, <c>false</c>.</returns>
 		public override bool Equals(object obj)
 		{
-			if(obj == null) 
-			{
-				return false;
-			}
-			Vendor toCompareWith = obj as Vendor;
-			return toCompareWith == null ? false : ((this.VendorId == toCompareWith.VendorId));
+			return object.ReferenceEquals(this, obj);
 		}
 		
 
@@ -118,6 +110,13 @@ namespace NH.Bencher.EntityClasses
 			get { return _vendorId; }
 		}
 
+		/// <summary>Represents the navigator which is mapped onto the association 'Vendor.BusinessEntity - BusinessEntity.Vendor (1:1)'</summary>
+		public virtual BusinessEntity BusinessEntity
+		{
+			get { return _businessEntity; }
+			set { _businessEntity = value; }
+		}
+		
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductVendor.Vendor - Vendor.ProductVendors (m:1)'</summary>
 		public virtual Iesi.Collections.Generic.ISet<ProductVendor> ProductVendors
 		{
@@ -130,20 +129,6 @@ namespace NH.Bencher.EntityClasses
 		{
 			get { return _purchaseOrderHeaders; }
 			set { _purchaseOrderHeaders = value; }
-		}
-		
-		/// <summary>Represents the navigator which is mapped onto the association 'VendorAddress.Vendor - Vendor.VendorAddresses (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<VendorAddress> VendorAddresses
-		{
-			get { return _vendorAddresses; }
-			set { _vendorAddresses = value; }
-		}
-		
-		/// <summary>Represents the navigator which is mapped onto the association 'VendorContact.Vendor - Vendor.VendorContacts (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<VendorContact> VendorContacts
-		{
-			get { return _vendorContacts; }
-			set { _vendorContacts = value; }
 		}
 		
 		#endregion

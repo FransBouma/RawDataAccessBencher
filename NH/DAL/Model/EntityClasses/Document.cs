@@ -11,15 +11,19 @@ namespace NH.Bencher.EntityClasses
 	public partial class Document
 	{
 		#region Class Member Declarations
+		private Employee _employee;
 		private Iesi.Collections.Generic.ISet<ProductDocument> _productDocuments;
 		private System.Int32 _changeNumber;
 		private System.Byte[] _documentData;
-		private System.Int32 _documentId;
+		private Nullable<System.Int16> _documentLevel;
+		private System.String _documentNode;
 		private System.String _documentSummary;
 		private System.String _fileExtension;
 		private System.String _fileName;
+		private System.Boolean _folderFlag;
 		private System.DateTime _modifiedDate;
 		private System.String _revision;
+		private System.Guid _rowguid;
 		private System.Byte _status;
 		private System.String _title;
 		#endregion
@@ -28,7 +32,7 @@ namespace NH.Bencher.EntityClasses
 		public Document() : base()
 		{
 			_productDocuments = new Iesi.Collections.Generic.HashedSet<ProductDocument>();
-			_documentId = default(System.Int32);
+			_documentLevel = default(Nullable<System.Int16>);
 			OnCreated();
 		}
 
@@ -40,7 +44,7 @@ namespace NH.Bencher.EntityClasses
 		public override int GetHashCode()
 		{
 			int toReturn = base.GetHashCode();
-			toReturn ^= this.DocumentId.GetHashCode();
+			toReturn ^= this.DocumentNode.GetHashCode();
 			return toReturn;
 		}
 	
@@ -54,7 +58,7 @@ namespace NH.Bencher.EntityClasses
 				return false;
 			}
 			Document toCompareWith = obj as Document;
-			return toCompareWith == null ? false : ((this.DocumentId == toCompareWith.DocumentId));
+			return toCompareWith == null ? false : ((this.DocumentNode == toCompareWith.DocumentNode));
 		}
 		
 
@@ -73,10 +77,17 @@ namespace NH.Bencher.EntityClasses
 			set { _documentData = value; }
 		}
 
-		/// <summary>Gets the DocumentId field. </summary>	
-		public virtual System.Int32 DocumentId
+		/// <summary>Gets the DocumentLevel field. </summary>	
+		public virtual Nullable<System.Int16> DocumentLevel
 		{ 
-			get { return _documentId; }
+			get { return _documentLevel; }
+		}
+
+		/// <summary>Gets or sets the DocumentNode field. </summary>	
+		public virtual System.String DocumentNode
+		{ 
+			get { return _documentNode; }
+			set { _documentNode = value; }
 		}
 
 		/// <summary>Gets or sets the DocumentSummary field. </summary>	
@@ -100,6 +111,13 @@ namespace NH.Bencher.EntityClasses
 			set { _fileName = value; }
 		}
 
+		/// <summary>Gets or sets the FolderFlag field. </summary>	
+		public virtual System.Boolean FolderFlag
+		{ 
+			get { return _folderFlag; }
+			set { _folderFlag = value; }
+		}
+
 		/// <summary>Gets or sets the ModifiedDate field. </summary>	
 		public virtual System.DateTime ModifiedDate
 		{ 
@@ -112,6 +130,13 @@ namespace NH.Bencher.EntityClasses
 		{ 
 			get { return _revision; }
 			set { _revision = value; }
+		}
+
+		/// <summary>Gets or sets the Rowguid field. </summary>	
+		public virtual System.Guid Rowguid
+		{ 
+			get { return _rowguid; }
+			set { _rowguid = value; }
 		}
 
 		/// <summary>Gets or sets the Status field. </summary>	
@@ -128,6 +153,13 @@ namespace NH.Bencher.EntityClasses
 			set { _title = value; }
 		}
 
+		/// <summary>Represents the navigator which is mapped onto the association 'Document.Employee - Employee.Documents (m:1)'</summary>
+		public virtual Employee Employee
+		{
+			get { return _employee; }
+			set { _employee = value; }
+		}
+		
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductDocument.Document - Document.ProductDocuments (m:1)'</summary>
 		public virtual Iesi.Collections.Generic.ISet<ProductDocument> ProductDocuments
 		{

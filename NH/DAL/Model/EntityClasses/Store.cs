@@ -11,9 +11,9 @@ namespace NH.Bencher.EntityClasses
 	public partial class Store
 	{
 		#region Class Member Declarations
-		private Customer _customer;
+		private BusinessEntity _businessEntity;
+		private Iesi.Collections.Generic.ISet<Customer> _customers;
 		private SalesPerson _salesPerson;
-		private Iesi.Collections.Generic.ISet<StoreContact> _storeContacts;
 		private System.Int32 _customerId;
 		private System.String _demographics;
 		private System.DateTime _modifiedDate;
@@ -24,7 +24,7 @@ namespace NH.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="Store"/> class.</summary>
 		public Store() : base()
 		{
-			_storeContacts = new Iesi.Collections.Generic.HashedSet<StoreContact>();
+			_customers = new Iesi.Collections.Generic.HashedSet<Customer>();
 			OnCreated();
 		}
 
@@ -85,11 +85,18 @@ namespace NH.Bencher.EntityClasses
 			set { _rowguid = value; }
 		}
 
-		/// <summary>Represents the navigator which is mapped onto the association 'Store.Customer - Customer.Store (1:1)'</summary>
-		public virtual Customer Customer
+		/// <summary>Represents the navigator which is mapped onto the association 'Store.BusinessEntity - BusinessEntity.Store (1:1)'</summary>
+		public virtual BusinessEntity BusinessEntity
 		{
-			get { return _customer; }
-			set { _customer = value; }
+			get { return _businessEntity; }
+			set { _businessEntity = value; }
+		}
+		
+		/// <summary>Represents the navigator which is mapped onto the association 'Customer.Store - Store.Customers (m:1)'</summary>
+		public virtual Iesi.Collections.Generic.ISet<Customer> Customers
+		{
+			get { return _customers; }
+			set { _customers = value; }
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'Store.SalesPerson - SalesPerson.Stores (m:1)'</summary>
@@ -97,13 +104,6 @@ namespace NH.Bencher.EntityClasses
 		{
 			get { return _salesPerson; }
 			set { _salesPerson = value; }
-		}
-		
-		/// <summary>Represents the navigator which is mapped onto the association 'StoreContact.Store - Store.StoreContacts (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<StoreContact> StoreContacts
-		{
-			get { return _storeContacts; }
-			set { _storeContacts = value; }
 		}
 		
 		#endregion

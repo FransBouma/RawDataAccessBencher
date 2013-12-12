@@ -25,13 +25,11 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 {
 	// __LLBLGENPRO_USER_CODE_REGION_START AdditionalNamespaces
 	// __LLBLGENPRO_USER_CODE_REGION_END
-	
 	/// <summary>Entity class which represents the entity 'EmployeeDepartmentHistory'.<br/><br/></summary>
 	[Serializable]
 	public partial class EmployeeDepartmentHistoryEntity : CommonEntityBase
 		// __LLBLGENPRO_USER_CODE_REGION_START AdditionalInterfaces
-		// __LLBLGENPRO_USER_CODE_REGION_END
-			
+		// __LLBLGENPRO_USER_CODE_REGION_END	
 	{
 		#region Class Member Declarations
 		private DepartmentEntity _department;
@@ -40,7 +38,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 
 		// __LLBLGENPRO_USER_CODE_REGION_START PrivateMembers
 		// __LLBLGENPRO_USER_CODE_REGION_END
-		
 		#endregion
 
 		#region Statics
@@ -144,7 +141,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			}
 			// __LLBLGENPRO_USER_CODE_REGION_START DeserializationConstructor
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 		}
 
 		
@@ -332,7 +328,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			}
 			// __LLBLGENPRO_USER_CODE_REGION_START GetObjectInfo
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			base.GetObjectData(info, context);
 		}
 
@@ -428,7 +423,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			
 			// __LLBLGENPRO_USER_CODE_REGION_START InitClassMembers
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			OnInitClassMembersComplete();
 		}
 
@@ -566,7 +560,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 
 			// __LLBLGENPRO_USER_CODE_REGION_START InitClassEmpty
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 
 			OnInitialized();
 
@@ -642,7 +635,7 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		}
 
 		/// <summary> The EmployeeId property of the Entity EmployeeDepartmentHistory<br/><br/></summary>
-		/// <remarks>Mapped on  table field: "EmployeeDepartmentHistory"."EmployeeID"<br/>
+		/// <remarks>Mapped on  table field: "EmployeeDepartmentHistory"."BusinessEntityID"<br/>
 		/// Table field type characteristics (type, precision, scale, length): Int, 10, 0, 0<br/>
 		/// Table field behavior characteristics (is nullable, is PK, is identity): false, true, false</remarks>
 		public virtual System.Int32 EmployeeId
@@ -653,7 +646,7 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 
 		/// <summary> The EndDate property of the Entity EmployeeDepartmentHistory<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "EmployeeDepartmentHistory"."EndDate"<br/>
-		/// Table field type characteristics (type, precision, scale, length): DateTime, 0, 0, 0<br/>
+		/// Table field type characteristics (type, precision, scale, length): Date, 0, 0, 0<br/>
 		/// Table field behavior characteristics (is nullable, is PK, is identity): true, false, false</remarks>
 		public virtual Nullable<System.DateTime> EndDate
 		{
@@ -683,7 +676,7 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 
 		/// <summary> The StartDate property of the Entity EmployeeDepartmentHistory<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "EmployeeDepartmentHistory"."StartDate"<br/>
-		/// Table field type characteristics (type, precision, scale, length): DateTime, 0, 0, 0<br/>
+		/// Table field type characteristics (type, precision, scale, length): Date, 0, 0, 0<br/>
 		/// Table field behavior characteristics (is nullable, is PK, is identity): false, true, false</remarks>
 		public virtual System.DateTime StartDate
 		{
@@ -771,7 +764,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		
 		// __LLBLGENPRO_USER_CODE_REGION_START CustomEntityCode
 		// __LLBLGENPRO_USER_CODE_REGION_END
-		
 		#endregion
 
 		#region Included code

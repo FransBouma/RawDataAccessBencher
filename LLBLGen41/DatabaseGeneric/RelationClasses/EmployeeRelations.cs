@@ -30,46 +30,29 @@ namespace AdventureWorks.Dal.Adapter.v41.RelationClasses
 		public virtual List<IEntityRelation> GetAllRelations()
 		{
 			List<IEntityRelation> toReturn = new List<IEntityRelation>();
-			toReturn.Add(this.EmployeeEntityUsingManagerId);
-			toReturn.Add(this.EmployeeAddressEntityUsingEmployeeId);
+			toReturn.Add(this.DocumentEntityUsingOwner);
 			toReturn.Add(this.EmployeeDepartmentHistoryEntityUsingEmployeeId);
 			toReturn.Add(this.EmployeePayHistoryEntityUsingEmployeeId);
 			toReturn.Add(this.JobCandidateEntityUsingEmployeeId);
 			toReturn.Add(this.PurchaseOrderHeaderEntityUsingEmployeeId);
+			toReturn.Add(this.PersonEntityUsingEmployeeId);
 			toReturn.Add(this.SalesPersonEntityUsingSalesPersonId);
-			toReturn.Add(this.ContactEntityUsingContactId);
-			toReturn.Add(this.EmployeeEntityUsingEmployeeIdManagerId);
 			return toReturn;
 		}
 
 		#region Class Property Declarations
 
-		/// <summary>Returns a new IEntityRelation object, between EmployeeEntity and EmployeeEntity over the 1:n relation they have, using the relation between the fields:
-		/// Employee.EmployeeId - Employee.ManagerId
+		/// <summary>Returns a new IEntityRelation object, between EmployeeEntity and DocumentEntity over the 1:n relation they have, using the relation between the fields:
+		/// Employee.EmployeeId - Document.Owner
 		/// </summary>
-		public virtual IEntityRelation EmployeeEntityUsingManagerId
+		public virtual IEntityRelation DocumentEntityUsingOwner
 		{
 			get
 			{
-				IEntityRelation relation = new EntityRelation(SD.LLBLGen.Pro.ORMSupportClasses.RelationType.OneToMany, "Employees" , true);
-				relation.AddEntityFieldPair(EmployeeFields.EmployeeId, EmployeeFields.ManagerId);
+				IEntityRelation relation = new EntityRelation(SD.LLBLGen.Pro.ORMSupportClasses.RelationType.OneToMany, "Documents" , true);
+				relation.AddEntityFieldPair(EmployeeFields.EmployeeId, DocumentFields.Owner);
 				relation.InheritanceInfoPkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("EmployeeEntity", true);
-				relation.InheritanceInfoFkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("EmployeeEntity", false);
-				return relation;
-			}
-		}
-
-		/// <summary>Returns a new IEntityRelation object, between EmployeeEntity and EmployeeAddressEntity over the 1:n relation they have, using the relation between the fields:
-		/// Employee.EmployeeId - EmployeeAddress.EmployeeId
-		/// </summary>
-		public virtual IEntityRelation EmployeeAddressEntityUsingEmployeeId
-		{
-			get
-			{
-				IEntityRelation relation = new EntityRelation(SD.LLBLGen.Pro.ORMSupportClasses.RelationType.OneToMany, "EmployeeAddresses" , true);
-				relation.AddEntityFieldPair(EmployeeFields.EmployeeId, EmployeeAddressFields.EmployeeId);
-				relation.InheritanceInfoPkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("EmployeeEntity", true);
-				relation.InheritanceInfoFkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("EmployeeAddressEntity", false);
+				relation.InheritanceInfoFkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("DocumentEntity", false);
 				return relation;
 			}
 		}
@@ -134,6 +117,25 @@ namespace AdventureWorks.Dal.Adapter.v41.RelationClasses
 			}
 		}
 
+		/// <summary>Returns a new IEntityRelation object, between EmployeeEntity and PersonEntity over the 1:1 relation they have, using the relation between the fields:
+		/// Employee.EmployeeId - Person.BusinessEntityId
+		/// </summary>
+		public virtual IEntityRelation PersonEntityUsingEmployeeId
+		{
+			get
+			{
+				IEntityRelation relation = new EntityRelation(SD.LLBLGen.Pro.ORMSupportClasses.RelationType.OneToOne, "Person", false);
+
+
+
+				relation.AddEntityFieldPair(PersonFields.BusinessEntityId, EmployeeFields.EmployeeId);
+
+				relation.InheritanceInfoPkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("PersonEntity", false);
+				relation.InheritanceInfoFkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("EmployeeEntity", true);
+				return relation;
+			}
+		}
+
 		/// <summary>Returns a new IEntityRelation object, between EmployeeEntity and SalesPersonEntity over the 1:1 relation they have, using the relation between the fields:
 		/// Employee.EmployeeId - SalesPerson.SalesPersonId
 		/// </summary>
@@ -153,34 +155,6 @@ namespace AdventureWorks.Dal.Adapter.v41.RelationClasses
 			}
 		}
 
-		/// <summary>Returns a new IEntityRelation object, between EmployeeEntity and ContactEntity over the m:1 relation they have, using the relation between the fields:
-		/// Employee.ContactId - Contact.ContactId
-		/// </summary>
-		public virtual IEntityRelation ContactEntityUsingContactId
-		{
-			get
-			{
-				IEntityRelation relation = new EntityRelation(SD.LLBLGen.Pro.ORMSupportClasses.RelationType.ManyToOne, "Contact", false);
-				relation.AddEntityFieldPair(ContactFields.ContactId, EmployeeFields.ContactId);
-				relation.InheritanceInfoPkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("ContactEntity", false);
-				relation.InheritanceInfoFkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("EmployeeEntity", true);
-				return relation;
-			}
-		}
-		/// <summary>Returns a new IEntityRelation object, between EmployeeEntity and EmployeeEntity over the m:1 relation they have, using the relation between the fields:
-		/// Employee.ManagerId - Employee.EmployeeId
-		/// </summary>
-		public virtual IEntityRelation EmployeeEntityUsingEmployeeIdManagerId
-		{
-			get
-			{
-				IEntityRelation relation = new EntityRelation(SD.LLBLGen.Pro.ORMSupportClasses.RelationType.ManyToOne, "Employee", false);
-				relation.AddEntityFieldPair(EmployeeFields.EmployeeId, EmployeeFields.ManagerId);
-				relation.InheritanceInfoPkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("EmployeeEntity", false);
-				relation.InheritanceInfoFkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("EmployeeEntity", true);
-				return relation;
-			}
-		}
 		/// <summary>stub, not used in this entity, only for TargetPerEntity entities.</summary>
 		public virtual IEntityRelation GetSubTypeRelation(string subTypeEntityName) { return null; }
 		/// <summary>stub, not used in this entity, only for TargetPerEntity entities.</summary>
@@ -195,15 +169,13 @@ namespace AdventureWorks.Dal.Adapter.v41.RelationClasses
 	/// <summary>Static class which is used for providing relationship instances which are re-used internally for syncing</summary>
 	internal static class StaticEmployeeRelations
 	{
-		internal static readonly IEntityRelation EmployeeEntityUsingManagerIdStatic = new EmployeeRelations().EmployeeEntityUsingManagerId;
-		internal static readonly IEntityRelation EmployeeAddressEntityUsingEmployeeIdStatic = new EmployeeRelations().EmployeeAddressEntityUsingEmployeeId;
+		internal static readonly IEntityRelation DocumentEntityUsingOwnerStatic = new EmployeeRelations().DocumentEntityUsingOwner;
 		internal static readonly IEntityRelation EmployeeDepartmentHistoryEntityUsingEmployeeIdStatic = new EmployeeRelations().EmployeeDepartmentHistoryEntityUsingEmployeeId;
 		internal static readonly IEntityRelation EmployeePayHistoryEntityUsingEmployeeIdStatic = new EmployeeRelations().EmployeePayHistoryEntityUsingEmployeeId;
 		internal static readonly IEntityRelation JobCandidateEntityUsingEmployeeIdStatic = new EmployeeRelations().JobCandidateEntityUsingEmployeeId;
 		internal static readonly IEntityRelation PurchaseOrderHeaderEntityUsingEmployeeIdStatic = new EmployeeRelations().PurchaseOrderHeaderEntityUsingEmployeeId;
+		internal static readonly IEntityRelation PersonEntityUsingEmployeeIdStatic = new EmployeeRelations().PersonEntityUsingEmployeeId;
 		internal static readonly IEntityRelation SalesPersonEntityUsingSalesPersonIdStatic = new EmployeeRelations().SalesPersonEntityUsingSalesPersonId;
-		internal static readonly IEntityRelation ContactEntityUsingContactIdStatic = new EmployeeRelations().ContactEntityUsingContactId;
-		internal static readonly IEntityRelation EmployeeEntityUsingEmployeeIdManagerIdStatic = new EmployeeRelations().EmployeeEntityUsingEmployeeIdManagerId;
 
 		/// <summary>CTor</summary>
 		static StaticEmployeeRelations()

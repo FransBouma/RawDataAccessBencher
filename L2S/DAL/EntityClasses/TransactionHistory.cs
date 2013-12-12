@@ -253,7 +253,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'TransactionHistory.Product - Product.TransactionHistories (m:1)'</summary>
-		[Association(Name="TransactionHistory_Productf0a295ee12fd48b59c2738d1d33ab39d", Storage="_product", ThisKey="ProductId", IsForeignKey=true)] 
+		[Association(Name="TransactionHistory_Productc9d33ae9dea447e3b82d40f37a4b1214", Storage="_product", ThisKey="ProductId", IsForeignKey=true)] 
 		public Product Product
 		{
 			get { return _product.Entity; }

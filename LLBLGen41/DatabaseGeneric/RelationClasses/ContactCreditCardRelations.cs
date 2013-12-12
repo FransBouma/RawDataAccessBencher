@@ -30,8 +30,8 @@ namespace AdventureWorks.Dal.Adapter.v41.RelationClasses
 		public virtual List<IEntityRelation> GetAllRelations()
 		{
 			List<IEntityRelation> toReturn = new List<IEntityRelation>();
-			toReturn.Add(this.ContactEntityUsingContactId);
 			toReturn.Add(this.CreditCardEntityUsingCreditCardId);
+			toReturn.Add(this.PersonEntityUsingContactId);
 			return toReturn;
 		}
 
@@ -39,20 +39,6 @@ namespace AdventureWorks.Dal.Adapter.v41.RelationClasses
 
 
 
-		/// <summary>Returns a new IEntityRelation object, between ContactCreditCardEntity and ContactEntity over the m:1 relation they have, using the relation between the fields:
-		/// ContactCreditCard.ContactId - Contact.ContactId
-		/// </summary>
-		public virtual IEntityRelation ContactEntityUsingContactId
-		{
-			get
-			{
-				IEntityRelation relation = new EntityRelation(SD.LLBLGen.Pro.ORMSupportClasses.RelationType.ManyToOne, "Contact", false);
-				relation.AddEntityFieldPair(ContactFields.ContactId, ContactCreditCardFields.ContactId);
-				relation.InheritanceInfoPkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("ContactEntity", false);
-				relation.InheritanceInfoFkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("ContactCreditCardEntity", true);
-				return relation;
-			}
-		}
 		/// <summary>Returns a new IEntityRelation object, between ContactCreditCardEntity and CreditCardEntity over the m:1 relation they have, using the relation between the fields:
 		/// ContactCreditCard.CreditCardId - CreditCard.CreditCardId
 		/// </summary>
@@ -63,6 +49,20 @@ namespace AdventureWorks.Dal.Adapter.v41.RelationClasses
 				IEntityRelation relation = new EntityRelation(SD.LLBLGen.Pro.ORMSupportClasses.RelationType.ManyToOne, "CreditCard", false);
 				relation.AddEntityFieldPair(CreditCardFields.CreditCardId, ContactCreditCardFields.CreditCardId);
 				relation.InheritanceInfoPkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("CreditCardEntity", false);
+				relation.InheritanceInfoFkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("ContactCreditCardEntity", true);
+				return relation;
+			}
+		}
+		/// <summary>Returns a new IEntityRelation object, between ContactCreditCardEntity and PersonEntity over the m:1 relation they have, using the relation between the fields:
+		/// ContactCreditCard.ContactId - Person.BusinessEntityId
+		/// </summary>
+		public virtual IEntityRelation PersonEntityUsingContactId
+		{
+			get
+			{
+				IEntityRelation relation = new EntityRelation(SD.LLBLGen.Pro.ORMSupportClasses.RelationType.ManyToOne, "Person", false);
+				relation.AddEntityFieldPair(PersonFields.BusinessEntityId, ContactCreditCardFields.ContactId);
+				relation.InheritanceInfoPkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("PersonEntity", false);
 				relation.InheritanceInfoFkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("ContactCreditCardEntity", true);
 				return relation;
 			}
@@ -81,8 +81,8 @@ namespace AdventureWorks.Dal.Adapter.v41.RelationClasses
 	/// <summary>Static class which is used for providing relationship instances which are re-used internally for syncing</summary>
 	internal static class StaticContactCreditCardRelations
 	{
-		internal static readonly IEntityRelation ContactEntityUsingContactIdStatic = new ContactCreditCardRelations().ContactEntityUsingContactId;
 		internal static readonly IEntityRelation CreditCardEntityUsingCreditCardIdStatic = new ContactCreditCardRelations().CreditCardEntityUsingCreditCardId;
+		internal static readonly IEntityRelation PersonEntityUsingContactIdStatic = new ContactCreditCardRelations().PersonEntityUsingContactId;
 
 		/// <summary>CTor</summary>
 		static StaticContactCreditCardRelations()

@@ -27,7 +27,7 @@ namespace L2S.Bencher.EntityClasses
 		private System.Byte	_expMonth;
 		private System.Int16	_expYear;
 		private System.DateTime	_modifiedDate;
-		private EntitySet <ContactCreditCard> _contactCreditCards;
+		private EntitySet <PersonCreditCard> _personCreditCards;
 		private EntitySet <SalesOrderHeader> _salesOrderHeaders;
 		#endregion
 		
@@ -52,7 +52,7 @@ namespace L2S.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="CreditCard"/> class.</summary>
 		public CreditCard()
 		{
-			_contactCreditCards = new EntitySet<ContactCreditCard>(new Action<ContactCreditCard>(this.Attach_ContactCreditCards), new Action<ContactCreditCard>(this.Detach_ContactCreditCards) );
+			_personCreditCards = new EntitySet<PersonCreditCard>(new Action<PersonCreditCard>(this.Attach_PersonCreditCards), new Action<PersonCreditCard>(this.Detach_PersonCreditCards) );
 			_salesOrderHeaders = new EntitySet<SalesOrderHeader>(new Action<SalesOrderHeader>(this.Attach_SalesOrderHeaders), new Action<SalesOrderHeader>(this.Detach_SalesOrderHeaders) );
 			OnCreated();
 		}
@@ -79,17 +79,17 @@ namespace L2S.Bencher.EntityClasses
 		
 		/// <summary>Attaches this instance to the entity specified as an associated entity</summary>
 		/// <param name="entity">The related entity to attach to</param>
-		private void Attach_ContactCreditCards(ContactCreditCard entity)
+		private void Attach_PersonCreditCards(PersonCreditCard entity)
 		{
-			this.SendPropertyChanging("ContactCreditCards");
+			this.SendPropertyChanging("PersonCreditCards");
 			entity.CreditCard = this;
 		}
 		
 		/// <summary>Detaches this instance from the entity specified so it's no longer an associated entity</summary>
 		/// <param name="entity">The related entity to detach from</param>
-		private void Detach_ContactCreditCards(ContactCreditCard entity)
+		private void Detach_PersonCreditCards(PersonCreditCard entity)
 		{
-			this.SendPropertyChanging("ContactCreditCards");
+			this.SendPropertyChanging("PersonCreditCards");
 			entity.CreditCard = null;
 		}
 
@@ -219,16 +219,16 @@ namespace L2S.Bencher.EntityClasses
 			}
 		}
 
-		/// <summary>Represents the navigator which is mapped onto the association 'ContactCreditCard.CreditCard - CreditCard.ContactCreditCards (m:1)'</summary>
-		[Association(Name="ContactCreditCard_CreditCard410bed2fa3e341e699bd60957f468c8b", Storage="_contactCreditCards", OtherKey="CreditCardId")]
-		public EntitySet<ContactCreditCard> ContactCreditCards
+		/// <summary>Represents the navigator which is mapped onto the association 'PersonCreditCard.CreditCard - CreditCard.PersonCreditCards (m:1)'</summary>
+		[Association(Name="PersonCreditCard_CreditCard052e2fca1401471e8a16e767f7f873db", Storage="_personCreditCards", OtherKey="CreditCardId")]
+		public EntitySet<PersonCreditCard> PersonCreditCards
 		{
-			get { return this._contactCreditCards; }
-			set { this._contactCreditCards.Assign(value); }
+			get { return this._personCreditCards; }
+			set { this._personCreditCards.Assign(value); }
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderHeader.CreditCard - CreditCard.SalesOrderHeaders (m:1)'</summary>
-		[Association(Name="SalesOrderHeader_CreditCard62645e1acfea4062a44a173c3b728b48", Storage="_salesOrderHeaders", OtherKey="CreditCardId")]
+		[Association(Name="SalesOrderHeader_CreditCarde89dd2cedc704c93bcea7dd2781e40f0", Storage="_salesOrderHeaders", OtherKey="CreditCardId")]
 		public EntitySet<SalesOrderHeader> SalesOrderHeaders
 		{
 			get { return this._salesOrderHeaders; }

@@ -83,9 +83,6 @@ namespace EF6.Bencher.EntityClasses
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderHeader.Address_ - Address.SalesOrderHeaders_ (m:1)'</summary>
 		[DataMember]
 		public virtual Address Address_ { get; set;}
-		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderHeader.Contact - Contact.SalesOrderHeaders (m:1)'</summary>
-		[DataMember]
-		public virtual Contact Contact { get; set;}
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderHeader.CreditCard - CreditCard.SalesOrderHeaders (m:1)'</summary>
 		[DataMember]
 		public virtual CreditCard CreditCard { get; set;}

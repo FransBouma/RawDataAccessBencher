@@ -9,17 +9,11 @@
 		</id>
 		<property name="ModifiedDate" column="[ModifiedDate]" access="field.camelcase-underscore" not-null="true"/>
 		<property name="Name" column="[Name]" access="field.camelcase-underscore" not-null="true"/>
-		<set name="StoreContacts" access="field.camelcase-underscore" cascade="all-delete-orphan" inverse="true" fetch="select">
+		<set name="BusinessEntityContacts" access="field.camelcase-underscore" cascade="all-delete-orphan" inverse="true" fetch="select">
 			<key>
 				<column name="[ContactTypeID]"/>
 			</key>
-			<one-to-many class="StoreContact"/>
-		</set>
-		<set name="VendorContacts" access="field.camelcase-underscore" cascade="all-delete-orphan" inverse="true" fetch="select">
-			<key>
-				<column name="[ContactTypeID]"/>
-			</key>
-			<one-to-many class="VendorContact"/>
+			<one-to-many class="BusinessEntityContact"/>
 		</set>
 	<!-- __LLBLGENPRO_USER_CODE_REGION_START EntityMappingCustomCode -->
 	<!-- __LLBLGENPRO_USER_CODE_REGION_END -->

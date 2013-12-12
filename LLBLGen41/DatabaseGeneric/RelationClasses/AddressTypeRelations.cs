@@ -30,39 +30,23 @@ namespace AdventureWorks.Dal.Adapter.v41.RelationClasses
 		public virtual List<IEntityRelation> GetAllRelations()
 		{
 			List<IEntityRelation> toReturn = new List<IEntityRelation>();
-			toReturn.Add(this.CustomerAddressEntityUsingAddressTypeId);
-			toReturn.Add(this.VendorAddressEntityUsingAddressTypeId);
+			toReturn.Add(this.BusinessEntityAddressEntityUsingAddressTypeId);
 			return toReturn;
 		}
 
 		#region Class Property Declarations
 
-		/// <summary>Returns a new IEntityRelation object, between AddressTypeEntity and CustomerAddressEntity over the 1:n relation they have, using the relation between the fields:
-		/// AddressType.AddressTypeId - CustomerAddress.AddressTypeId
+		/// <summary>Returns a new IEntityRelation object, between AddressTypeEntity and BusinessEntityAddressEntity over the 1:n relation they have, using the relation between the fields:
+		/// AddressType.AddressTypeId - BusinessEntityAddress.AddressTypeId
 		/// </summary>
-		public virtual IEntityRelation CustomerAddressEntityUsingAddressTypeId
+		public virtual IEntityRelation BusinessEntityAddressEntityUsingAddressTypeId
 		{
 			get
 			{
-				IEntityRelation relation = new EntityRelation(SD.LLBLGen.Pro.ORMSupportClasses.RelationType.OneToMany, "CustomerAddresses" , true);
-				relation.AddEntityFieldPair(AddressTypeFields.AddressTypeId, CustomerAddressFields.AddressTypeId);
+				IEntityRelation relation = new EntityRelation(SD.LLBLGen.Pro.ORMSupportClasses.RelationType.OneToMany, "BusinessEntityAddresses" , true);
+				relation.AddEntityFieldPair(AddressTypeFields.AddressTypeId, BusinessEntityAddressFields.AddressTypeId);
 				relation.InheritanceInfoPkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("AddressTypeEntity", true);
-				relation.InheritanceInfoFkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("CustomerAddressEntity", false);
-				return relation;
-			}
-		}
-
-		/// <summary>Returns a new IEntityRelation object, between AddressTypeEntity and VendorAddressEntity over the 1:n relation they have, using the relation between the fields:
-		/// AddressType.AddressTypeId - VendorAddress.AddressTypeId
-		/// </summary>
-		public virtual IEntityRelation VendorAddressEntityUsingAddressTypeId
-		{
-			get
-			{
-				IEntityRelation relation = new EntityRelation(SD.LLBLGen.Pro.ORMSupportClasses.RelationType.OneToMany, "VendorAddresses" , true);
-				relation.AddEntityFieldPair(AddressTypeFields.AddressTypeId, VendorAddressFields.AddressTypeId);
-				relation.InheritanceInfoPkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("AddressTypeEntity", true);
-				relation.InheritanceInfoFkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("VendorAddressEntity", false);
+				relation.InheritanceInfoFkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("BusinessEntityAddressEntity", false);
 				return relation;
 			}
 		}
@@ -82,8 +66,7 @@ namespace AdventureWorks.Dal.Adapter.v41.RelationClasses
 	/// <summary>Static class which is used for providing relationship instances which are re-used internally for syncing</summary>
 	internal static class StaticAddressTypeRelations
 	{
-		internal static readonly IEntityRelation CustomerAddressEntityUsingAddressTypeIdStatic = new AddressTypeRelations().CustomerAddressEntityUsingAddressTypeId;
-		internal static readonly IEntityRelation VendorAddressEntityUsingAddressTypeIdStatic = new AddressTypeRelations().VendorAddressEntityUsingAddressTypeId;
+		internal static readonly IEntityRelation BusinessEntityAddressEntityUsingAddressTypeIdStatic = new AddressTypeRelations().BusinessEntityAddressEntityUsingAddressTypeId;
 
 		/// <summary>CTor</summary>
 		static StaticAddressTypeRelations()

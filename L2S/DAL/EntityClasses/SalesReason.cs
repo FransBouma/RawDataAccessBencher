@@ -160,7 +160,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderHeaderSalesReason.SalesReason - SalesReason.SalesOrderHeaderSalesReasons (m:1)'</summary>
-		[Association(Name="SalesOrderHeaderSalesReason_SalesReason298ca9bcdde743c092c8f4b03bbe1ec8", Storage="_salesOrderHeaderSalesReasons", OtherKey="SalesReasonId")]
+		[Association(Name="SalesOrderHeaderSalesReason_SalesReason50c3e99e3f7c4749a060d26c3b752705", Storage="_salesOrderHeaderSalesReasons", OtherKey="SalesReasonId")]
 		public EntitySet<SalesOrderHeaderSalesReason> SalesOrderHeaderSalesReasons
 		{
 			get { return this._salesOrderHeaderSalesReasons; }

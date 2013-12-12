@@ -279,7 +279,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'PurchaseOrderDetail.Product - Product.PurchaseOrderDetails (m:1)'</summary>
-		[Association(Name="PurchaseOrderDetail_Product0eec904196274342b02d8f375608d4d6", Storage="_product", ThisKey="ProductId", IsForeignKey=true)] 
+		[Association(Name="PurchaseOrderDetail_Producta9b7302820a54752ba8de2670b42257d", Storage="_product", ThisKey="ProductId", IsForeignKey=true)] 
 		public Product Product
 		{
 			get { return _product.Entity; }
@@ -310,7 +310,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'PurchaseOrderDetail.PurchaseOrderHeader - PurchaseOrderHeader.PurchaseOrderDetails (m:1)'</summary>
-		[Association(Name="PurchaseOrderDetail_PurchaseOrderHeader08dff713017748378b4930402e6f7555", Storage="_purchaseOrderHeader", ThisKey="PurchaseOrderId", IsForeignKey=true)] 
+		[Association(Name="PurchaseOrderDetail_PurchaseOrderHeader16afa68c7f36487c81bf5a4e7de500df", Storage="_purchaseOrderHeader", ThisKey="PurchaseOrderId", IsForeignKey=true)] 
 		public PurchaseOrderHeader PurchaseOrderHeader
 		{
 			get { return _purchaseOrderHeader.Entity; }

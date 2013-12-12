@@ -139,7 +139,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductModelIllustration.Illustration - Illustration.ProductModelIllustrations (m:1)'</summary>
-		[Association(Name="ProductModelIllustration_Illustrationf1153741ae8642d8a68d72f4c6692a56", Storage="_productModelIllustrations", OtherKey="IllustrationId")]
+		[Association(Name="ProductModelIllustration_Illustrationa5a27066452c47558be7c9d862a501ce", Storage="_productModelIllustrations", OtherKey="IllustrationId")]
 		public EntitySet<ProductModelIllustration> ProductModelIllustrations
 		{
 			get { return this._productModelIllustrations; }

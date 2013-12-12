@@ -11,8 +11,7 @@ namespace NH.Bencher.EntityClasses
 	public partial class ContactType
 	{
 		#region Class Member Declarations
-		private Iesi.Collections.Generic.ISet<StoreContact> _storeContacts;
-		private Iesi.Collections.Generic.ISet<VendorContact> _vendorContacts;
+		private Iesi.Collections.Generic.ISet<BusinessEntityContact> _businessEntityContacts;
 		private System.Int32 _contactTypeId;
 		private System.DateTime _modifiedDate;
 		private System.String _name;
@@ -21,8 +20,7 @@ namespace NH.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="ContactType"/> class.</summary>
 		public ContactType() : base()
 		{
-			_storeContacts = new Iesi.Collections.Generic.HashedSet<StoreContact>();
-			_vendorContacts = new Iesi.Collections.Generic.HashedSet<VendorContact>();
+			_businessEntityContacts = new Iesi.Collections.Generic.HashedSet<BusinessEntityContact>();
 			_contactTypeId = default(System.Int32);
 			OnCreated();
 		}
@@ -74,18 +72,11 @@ namespace NH.Bencher.EntityClasses
 			set { _name = value; }
 		}
 
-		/// <summary>Represents the navigator which is mapped onto the association 'StoreContact.ContactType - ContactType.StoreContacts (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<StoreContact> StoreContacts
+		/// <summary>Represents the navigator which is mapped onto the association 'BusinessEntityContact.ContactType - ContactType.BusinessEntityContacts (m:1)'</summary>
+		public virtual Iesi.Collections.Generic.ISet<BusinessEntityContact> BusinessEntityContacts
 		{
-			get { return _storeContacts; }
-			set { _storeContacts = value; }
-		}
-		
-		/// <summary>Represents the navigator which is mapped onto the association 'VendorContact.ContactType - ContactType.VendorContacts (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<VendorContact> VendorContacts
-		{
-			get { return _vendorContacts; }
-			set { _vendorContacts = value; }
+			get { return _businessEntityContacts; }
+			set { _businessEntityContacts = value; }
 		}
 		
 		#endregion

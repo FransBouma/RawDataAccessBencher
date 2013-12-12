@@ -21,23 +21,23 @@ namespace L2S.Bencher.EntityClasses
 		#endregion
 		
 		#region Class Member Declarations
-		private System.Int32	_customerId;
+		private System.Int32	_businessEntityId;
 		private System.String	_demographics;
 		private System.DateTime	_modifiedDate;
 		private System.String	_name;
 		private System.Guid	_rowguid;
 		private Nullable<System.Int32>	_salesPersonId;
-		private EntityRef <Customer> _customer;
+		private EntityRef <BusinessEntity> _businessEntity;
+		private EntitySet <Customer> _customers;
 		private EntityRef <SalesPerson> _salesPerson;
-		private EntitySet <StoreContact> _storeContacts;
 		#endregion
 		
 		#region Extensibility Method Definitions
 		partial void OnLoaded();
 		partial void OnValidate(System.Data.Linq.ChangeAction action);
 		partial void OnCreated();
-		partial void OnCustomerIdChanging(System.Int32 value);
-		partial void OnCustomerIdChanged();
+		partial void OnBusinessEntityIdChanging(System.Int32 value);
+		partial void OnBusinessEntityIdChanged();
 		partial void OnDemographicsChanging(System.String value);
 		partial void OnDemographicsChanged();
 		partial void OnModifiedDateChanging(System.DateTime value);
@@ -53,9 +53,9 @@ namespace L2S.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="Store"/> class.</summary>
 		public Store()
 		{
-			_customer = default(EntityRef<Customer>);
+			_businessEntity = default(EntityRef<BusinessEntity>);
+			_customers = new EntitySet<Customer>(new Action<Customer>(this.Attach_Customers), new Action<Customer>(this.Detach_Customers) );
 			_salesPerson = default(EntityRef<SalesPerson>);
-			_storeContacts = new EntitySet<StoreContact>(new Action<StoreContact>(this.Attach_StoreContacts), new Action<StoreContact>(this.Detach_StoreContacts) );
 			OnCreated();
 		}
 
@@ -81,40 +81,40 @@ namespace L2S.Bencher.EntityClasses
 		
 		/// <summary>Attaches this instance to the entity specified as an associated entity</summary>
 		/// <param name="entity">The related entity to attach to</param>
-		private void Attach_StoreContacts(StoreContact entity)
+		private void Attach_Customers(Customer entity)
 		{
-			this.SendPropertyChanging("StoreContacts");
+			this.SendPropertyChanging("Customers");
 			entity.Store = this;
 		}
 		
 		/// <summary>Detaches this instance from the entity specified so it's no longer an associated entity</summary>
 		/// <param name="entity">The related entity to detach from</param>
-		private void Detach_StoreContacts(StoreContact entity)
+		private void Detach_Customers(Customer entity)
 		{
-			this.SendPropertyChanging("StoreContacts");
+			this.SendPropertyChanging("Customers");
 			entity.Store = null;
 		}
 
 
 		#region Class Property Declarations
-		/// <summary>Gets or sets the CustomerId field. Mapped on target field 'CustomerID'. </summary>
-		[Column(Name="CustomerID", Storage="_customerId", CanBeNull=false, DbType="int NOT NULL", IsPrimaryKey=true)]
-		public System.Int32 CustomerId
+		/// <summary>Gets or sets the BusinessEntityId field. Mapped on target field 'BusinessEntityID'. </summary>
+		[Column(Name="BusinessEntityID", Storage="_businessEntityId", CanBeNull=false, DbType="int NOT NULL", IsPrimaryKey=true)]
+		public System.Int32 BusinessEntityId
 		{
-			get	{ return _customerId; }
+			get	{ return _businessEntityId; }
 			set
 			{
-				if((_customerId != value))
+				if((_businessEntityId != value))
 				{
-					if(_customer.HasLoadedOrAssignedValue)
+					if(_businessEntity.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
-					OnCustomerIdChanging(value);
-					SendPropertyChanging("CustomerId");
-					_customerId = value;
-					SendPropertyChanged("CustomerId");
-					OnCustomerIdChanged();
+					OnBusinessEntityIdChanging(value);
+					SendPropertyChanging("BusinessEntityId");
+					_businessEntityId = value;
+					SendPropertyChanged("BusinessEntityId");
+					OnBusinessEntityIdChanged();
 				}
 			}
 		}
@@ -213,39 +213,47 @@ namespace L2S.Bencher.EntityClasses
 			}
 		}
 
-		/// <summary>Represents the navigator which is mapped onto the association 'Store.Customer - Customer.Store (1:1)'</summary>
-		[Association(Name="Store_Customerc15a4ee4638f4c0ea094de863874e5f8", Storage="_customer", ThisKey="CustomerId", IsForeignKey=true, IsUnique=true)]
-		public Customer Customer
+		/// <summary>Represents the navigator which is mapped onto the association 'Store.BusinessEntity - BusinessEntity.Store (1:1)'</summary>
+		[Association(Name="Store_BusinessEntity0e17cf7cab6b453db369e20dfab0ce3f", Storage="_businessEntity", ThisKey="BusinessEntityId", IsForeignKey=true, IsUnique=true)]
+		public BusinessEntity BusinessEntity
 		{
-			get { return _customer.Entity; }
+			get { return _businessEntity.Entity; }
 			set
 			{
-				Customer previousValue = _customer.Entity;
-				if((previousValue != value) || (_customer.HasLoadedOrAssignedValue == false))
+				BusinessEntity previousValue = _businessEntity.Entity;
+				if((previousValue != value) || (_businessEntity.HasLoadedOrAssignedValue == false))
 				{
-					this.SendPropertyChanging("Customer");
+					this.SendPropertyChanging("BusinessEntity");
 					if(previousValue != null)
 					{
-						_customer.Entity = null;
+						_businessEntity.Entity = null;
 						previousValue.Store=null;
 					}
-					_customer.Entity = value;
+					_businessEntity.Entity = value;
 					if(value==null)
 					{
-						_customerId = default(System.Int32);
+						_businessEntityId = default(System.Int32);
 					}
 					else
 					{
 						value.Store = this;
-						_customerId = value.CustomerId;
+						_businessEntityId = value.BusinessEntityId;
 					}
-					this.SendPropertyChanged("Customer");
+					this.SendPropertyChanged("BusinessEntity");
 				}
 			}
 		}
 		
+		/// <summary>Represents the navigator which is mapped onto the association 'Customer.Store - Store.Customers (m:1)'</summary>
+		[Association(Name="Customer_Storef77ea94a5bfa4ec49b0aeee356700508", Storage="_customers", OtherKey="StoreId")]
+		public EntitySet<Customer> Customers
+		{
+			get { return this._customers; }
+			set { this._customers.Assign(value); }
+		}
+		
 		/// <summary>Represents the navigator which is mapped onto the association 'Store.SalesPerson - SalesPerson.Stores (m:1)'</summary>
-		[Association(Name="Store_SalesPerson3c8cbca9603e4e52a266f82a3ce6d70c", Storage="_salesPerson", ThisKey="SalesPersonId", IsForeignKey=true)] 
+		[Association(Name="Store_SalesPerson9439df74a9fa40858c9bf8a08986fca3", Storage="_salesPerson", ThisKey="SalesPersonId", IsForeignKey=true)] 
 		public SalesPerson SalesPerson
 		{
 			get { return _salesPerson.Entity; }
@@ -268,19 +276,11 @@ namespace L2S.Bencher.EntityClasses
 					else
 					{
 						value.Stores.Add(this);
-						_salesPersonId = value.SalesPersonId;
+						_salesPersonId = value.BusinessEntityId;
 					}
 					this.SendPropertyChanged("SalesPerson");
 				}
 			}
-		}
-		
-		/// <summary>Represents the navigator which is mapped onto the association 'StoreContact.Store - Store.StoreContacts (m:1)'</summary>
-		[Association(Name="StoreContact_Store96380eb7242241c29e22868af415e68f", Storage="_storeContacts", OtherKey="CustomerId")]
-		public EntitySet<StoreContact> StoreContacts
-		{
-			get { return this._storeContacts; }
-			set { this._storeContacts.Assign(value); }
 		}
 		
 		#endregion

@@ -4,8 +4,10 @@
                    namespace="NH.Bencher.EntityClasses">
 				   
 	<class name="Employee" table="[HumanResources].[Employee]" optimistic-lock="none" >
-		<id name="EmployeeId" column="[EmployeeID]" access="field.camelcase-underscore" >
-			<generator class="identity"/>
+		<id name="EmployeeId" column="[BusinessEntityID]" access="field.camelcase-underscore" >
+			<generator class="foreign">
+				<param name="property">Person</param>
+			</generator>
 		</id>
 		<property name="BirthDate" column="[BirthDate]" access="field.camelcase-underscore" not-null="true"/>
 		<property name="CurrentFlag" column="[CurrentFlag]" access="field.camelcase-underscore" not-null="true"/>
@@ -15,47 +17,38 @@
 		<property name="MaritalStatus" column="[MaritalStatus]" access="field.camelcase-underscore" not-null="true"/>
 		<property name="ModifiedDate" column="[ModifiedDate]" access="field.camelcase-underscore" not-null="true"/>
 		<property name="NationalIdnumber" column="[NationalIDNumber]" access="field.camelcase-underscore" not-null="true"/>
+		<property name="OrganizationLevel" column="[OrganizationLevel]" access="field.camelcase-underscore" insert="false" update="false"/>
+		<property name="OrganizationNode" column="[OrganizationNode]" access="field.camelcase-underscore"/>
 		<property name="Rowguid" column="[rowguid]" access="field.camelcase-underscore" not-null="true"/>
 		<property name="SalariedFlag" column="[SalariedFlag]" access="field.camelcase-underscore" not-null="true"/>
 		<property name="SickLeaveHours" column="[SickLeaveHours]" access="field.camelcase-underscore" not-null="true"/>
-		<property name="Title" column="[Title]" access="field.camelcase-underscore" not-null="true"/>
+		<property name="Title" column="[JobTitle]" access="field.camelcase-underscore" not-null="true"/>
 		<property name="VacationHours" column="[VacationHours]" access="field.camelcase-underscore" not-null="true"/>
-		<many-to-one name="Contact" access="field.camelcase-underscore" fetch="select" cascade="all">
-			<column name="[ContactID]"/>
-		</many-to-one>
-		<set name="EmployeeAddresses" access="field.camelcase-underscore" cascade="all-delete-orphan" inverse="true" fetch="select">
+		<set name="Documents" access="field.camelcase-underscore" cascade="all-delete-orphan" inverse="true" fetch="select">
 			<key>
-				<column name="[EmployeeID]"/>
+				<column name="[Owner]"/>
 			</key>
-			<one-to-many class="EmployeeAddress"/>
+			<one-to-many class="Document"/>
 		</set>
 		<set name="EmployeeDepartmentHistories" access="field.camelcase-underscore" cascade="all-delete-orphan" inverse="true" fetch="select">
 			<key>
-				<column name="[EmployeeID]"/>
+				<column name="[BusinessEntityID]"/>
 			</key>
 			<one-to-many class="EmployeeDepartmentHistory"/>
 		</set>
 		<set name="EmployeePayHistories" access="field.camelcase-underscore" cascade="all-delete-orphan" inverse="true" fetch="select">
 			<key>
-				<column name="[EmployeeID]"/>
+				<column name="[BusinessEntityID]"/>
 			</key>
 			<one-to-many class="EmployeePayHistory"/>
 		</set>
-		<set name="Employees" access="field.camelcase-underscore" cascade="all-delete-orphan" inverse="true" fetch="select">
-			<key>
-				<column name="[ManagerID]"/>
-			</key>
-			<one-to-many class="Employee"/>
-		</set>
 		<set name="JobCandidates" access="field.camelcase-underscore" cascade="all-delete-orphan" inverse="true" fetch="select">
 			<key>
-				<column name="[EmployeeID]"/>
+				<column name="[BusinessEntityID]"/>
 			</key>
 			<one-to-many class="JobCandidate"/>
 		</set>
-		<many-to-one name="Manager" access="field.camelcase-underscore" fetch="select" cascade="all">
-			<column name="[ManagerID]"/>
-		</many-to-one>
+		<one-to-one name="Person" access="field.camelcase-underscore" fetch="select" cascade="all" constrained="true"/>
 		<set name="PurchaseOrderHeaders" access="field.camelcase-underscore" cascade="all-delete-orphan" inverse="true" fetch="select">
 			<key>
 				<column name="[EmployeeID]"/>

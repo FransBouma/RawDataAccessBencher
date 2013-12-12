@@ -287,7 +287,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'WorkOrder.Product - Product.WorkOrders (m:1)'</summary>
-		[Association(Name="WorkOrder_Product8099b6d23f3840be89b6f1ca77c8e946", Storage="_product", ThisKey="ProductId", IsForeignKey=true)] 
+		[Association(Name="WorkOrder_Producte10d028a5e8f49689152b78216000512", Storage="_product", ThisKey="ProductId", IsForeignKey=true)] 
 		public Product Product
 		{
 			get { return _product.Entity; }
@@ -318,7 +318,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'WorkOrder.ScrapReason - ScrapReason.WorkOrders (m:1)'</summary>
-		[Association(Name="WorkOrder_ScrapReason73b923f5d2a247319892873d2d37b46f", Storage="_scrapReason", ThisKey="ScrapReasonId", IsForeignKey=true)] 
+		[Association(Name="WorkOrder_ScrapReason8767bcd8a99242089c6c79486a9aad25", Storage="_scrapReason", ThisKey="ScrapReasonId", IsForeignKey=true)] 
 		public ScrapReason ScrapReason
 		{
 			get { return _scrapReason.Entity; }
@@ -349,7 +349,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'WorkOrderRouting.WorkOrder - WorkOrder.WorkOrderRoutings (m:1)'</summary>
-		[Association(Name="WorkOrderRouting_WorkOrder720634570f7646ccab3138f931ce2df0", Storage="_workOrderRoutings", OtherKey="WorkOrderId")]
+		[Association(Name="WorkOrderRouting_WorkOrder37c58468b2d343a0a43a61033db13319", Storage="_workOrderRoutings", OtherKey="WorkOrderId")]
 		public EntitySet<WorkOrderRouting> WorkOrderRoutings
 		{
 			get { return this._workOrderRoutings; }

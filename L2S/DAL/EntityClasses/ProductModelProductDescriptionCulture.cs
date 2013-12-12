@@ -160,7 +160,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductModelProductDescriptionCulture.Culture - Culture.ProductModelProductDescriptionCultures (m:1)'</summary>
-		[Association(Name="ProductModelProductDescriptionCulture_Culturee148dcf4d0cd426ca1f5d1fbcfe3c2dc", Storage="_culture", ThisKey="CultureId", IsForeignKey=true)] 
+		[Association(Name="ProductModelProductDescriptionCulture_Culture985301aed07f4540ad5d30047ae03b49", Storage="_culture", ThisKey="CultureId", IsForeignKey=true)] 
 		public Culture Culture
 		{
 			get { return _culture.Entity; }
@@ -191,7 +191,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductModelProductDescriptionCulture.ProductDescription - ProductDescription.ProductModelProductDescriptionCultures (m:1)'</summary>
-		[Association(Name="ProductModelProductDescriptionCulture_ProductDescriptionc809b91359884cc8b7cb922f737b1f5f", Storage="_productDescription", ThisKey="ProductDescriptionId", IsForeignKey=true)] 
+		[Association(Name="ProductModelProductDescriptionCulture_ProductDescription608757be9bd64256a8db6710cd1a7c2b", Storage="_productDescription", ThisKey="ProductDescriptionId", IsForeignKey=true)] 
 		public ProductDescription ProductDescription
 		{
 			get { return _productDescription.Entity; }
@@ -222,7 +222,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductModelProductDescriptionCulture.ProductModel - ProductModel.ProductModelProductDescriptionCultures (m:1)'</summary>
-		[Association(Name="ProductModelProductDescriptionCulture_ProductModelf9792f8c97cb442ca8d747ae1a184b16", Storage="_productModel", ThisKey="ProductModelId", IsForeignKey=true)] 
+		[Association(Name="ProductModelProductDescriptionCulture_ProductModel1d9059fac1644cbf9b9fafbc22438722", Storage="_productModel", ThisKey="ProductModelId", IsForeignKey=true)] 
 		public ProductModel ProductModel
 		{
 			get { return _productModel.Entity; }

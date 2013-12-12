@@ -238,7 +238,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'Product.ProductModel - ProductModel.Products (m:1)'</summary>
-		[Association(Name="Product_ProductModelb2cb07473df741279830123dfee542b9", Storage="_products", OtherKey="ProductModelId")]
+		[Association(Name="Product_ProductModel739aed265eb8478fac72a5d913abb48e", Storage="_products", OtherKey="ProductModelId")]
 		public EntitySet<Product> Products
 		{
 			get { return this._products; }
@@ -246,7 +246,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductModelIllustration.ProductModel - ProductModel.ProductModelIllustrations (m:1)'</summary>
-		[Association(Name="ProductModelIllustration_ProductModel16ccb246a85c40149e4771d807735f89", Storage="_productModelIllustrations", OtherKey="ProductModelId")]
+		[Association(Name="ProductModelIllustration_ProductModel3a9db1ea24f94a64ae6d1ae9345271f3", Storage="_productModelIllustrations", OtherKey="ProductModelId")]
 		public EntitySet<ProductModelIllustration> ProductModelIllustrations
 		{
 			get { return this._productModelIllustrations; }
@@ -254,7 +254,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductModelProductDescriptionCulture.ProductModel - ProductModel.ProductModelProductDescriptionCultures (m:1)'</summary>
-		[Association(Name="ProductModelProductDescriptionCulture_ProductModelf9792f8c97cb442ca8d747ae1a184b16", Storage="_productModelProductDescriptionCultures", OtherKey="ProductModelId")]
+		[Association(Name="ProductModelProductDescriptionCulture_ProductModel1d9059fac1644cbf9b9fafbc22438722", Storage="_productModelProductDescriptionCultures", OtherKey="ProductModelId")]
 		public EntitySet<ProductModelProductDescriptionCulture> ProductModelProductDescriptionCultures
 		{
 			get { return this._productModelProductDescriptionCultures; }

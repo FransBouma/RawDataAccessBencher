@@ -133,7 +133,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'CountryRegionCurrency.CountryRegion - CountryRegion.CountryRegionCurrencies (m:1)'</summary>
-		[Association(Name="CountryRegionCurrency_CountryRegion10abe569356442f1815b311b49a95309", Storage="_countryRegion", ThisKey="CountryRegionCode", IsForeignKey=true)] 
+		[Association(Name="CountryRegionCurrency_CountryRegionceaab744f6674d949785ab3cf64cc713", Storage="_countryRegion", ThisKey="CountryRegionCode", IsForeignKey=true)] 
 		public CountryRegion CountryRegion
 		{
 			get { return _countryRegion.Entity; }
@@ -164,7 +164,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'CountryRegionCurrency.Currency - Currency.CountryRegionCurrencies (m:1)'</summary>
-		[Association(Name="CountryRegionCurrency_Currency6cd1787819e549bab9ba87fea5fcaa94", Storage="_currency", ThisKey="CurrencyCode", IsForeignKey=true)] 
+		[Association(Name="CountryRegionCurrency_Currency2e89d81f4105423daaa3b2f1804e2759", Storage="_currency", ThisKey="CurrencyCode", IsForeignKey=true)] 
 		public Currency Currency
 		{
 			get { return _currency.Entity; }

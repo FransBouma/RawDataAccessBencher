@@ -3,9 +3,9 @@
                    assembly="NH.Bencher.Model"
                    namespace="NH.Bencher.EntityClasses">
 				   
-	<class name="ContactCreditCard" table="[Sales].[ContactCreditCard]" optimistic-lock="none" >
+	<class name="ContactCreditCard" table="[Sales].[PersonCreditCard]" optimistic-lock="none" >
 		<composite-id>
-			<key-many-to-one name="Contact" column="[ContactID]" access="field.camelcase-underscore"  />
+			<key-many-to-one name="Person" column="[BusinessEntityID]" access="field.camelcase-underscore"  />
 			<key-many-to-one name="CreditCard" column="[CreditCardID]" access="field.camelcase-underscore"  />
 		</composite-id>
 		<property name="ModifiedDate" column="[ModifiedDate]" access="field.camelcase-underscore" not-null="true"/>

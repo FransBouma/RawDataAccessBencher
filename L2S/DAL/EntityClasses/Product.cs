@@ -859,7 +859,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'BillOfMaterial.Product - Product.BillOfMaterials (m:1)'</summary>
-		[Association(Name="BillOfMaterial_Product3e30ffcf9c8549359b61d9b94497b093", Storage="_billOfMaterials", OtherKey="ComponentId")]
+		[Association(Name="BillOfMaterial_Product30e78042efd74e5b9884d562b26e3fc9", Storage="_billOfMaterials", OtherKey="ComponentId")]
 		public EntitySet<BillOfMaterial> BillOfMaterials
 		{
 			get { return this._billOfMaterials; }
@@ -867,7 +867,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'BillOfMaterial.Product1 - Product.BillOfMaterials1 (m:1)'</summary>
-		[Association(Name="BillOfMaterial_Product4737a890d3824bc481009ee8f2a4fd7d", Storage="_billOfMaterials1", OtherKey="ProductAssemblyId")]
+		[Association(Name="BillOfMaterial_Product08ed1c5580994d11bd24a9914ee85c6d", Storage="_billOfMaterials1", OtherKey="ProductAssemblyId")]
 		public EntitySet<BillOfMaterial> BillOfMaterials1
 		{
 			get { return this._billOfMaterials1; }
@@ -875,7 +875,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductCostHistory.Product - Product.ProductCostHistories (m:1)'</summary>
-		[Association(Name="ProductCostHistory_Product8179ded383694518b8eb415de38a87a6", Storage="_productCostHistories", OtherKey="ProductId")]
+		[Association(Name="ProductCostHistory_Product2e35c02f9cd54013a729212d2a97f538", Storage="_productCostHistories", OtherKey="ProductId")]
 		public EntitySet<ProductCostHistory> ProductCostHistories
 		{
 			get { return this._productCostHistories; }
@@ -883,7 +883,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductDocument.Product - Product.ProductDocuments (m:1)'</summary>
-		[Association(Name="ProductDocument_Product46c98069a63a4944b252e6984f4c4ce9", Storage="_productDocuments", OtherKey="ProductId")]
+		[Association(Name="ProductDocument_Productfc4642fc06fb4679b3d9771eb56ab7d9", Storage="_productDocuments", OtherKey="ProductId")]
 		public EntitySet<ProductDocument> ProductDocuments
 		{
 			get { return this._productDocuments; }
@@ -891,7 +891,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductInventory.Product - Product.ProductInventories (m:1)'</summary>
-		[Association(Name="ProductInventory_Product275ae730bf8a4b4b9ca47901a11308f9", Storage="_productInventories", OtherKey="ProductId")]
+		[Association(Name="ProductInventory_Product3acb3bf8eef544d19542622090083b01", Storage="_productInventories", OtherKey="ProductId")]
 		public EntitySet<ProductInventory> ProductInventories
 		{
 			get { return this._productInventories; }
@@ -899,7 +899,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductListPriceHistory.Product - Product.ProductListPriceHistories (m:1)'</summary>
-		[Association(Name="ProductListPriceHistory_Productb4100bc2d44446ebb7deb788281045b9", Storage="_productListPriceHistories", OtherKey="ProductId")]
+		[Association(Name="ProductListPriceHistory_Product648c48d1c99548868500bfed9a20d003", Storage="_productListPriceHistories", OtherKey="ProductId")]
 		public EntitySet<ProductListPriceHistory> ProductListPriceHistories
 		{
 			get { return this._productListPriceHistories; }
@@ -907,7 +907,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'Product.ProductModel - ProductModel.Products (m:1)'</summary>
-		[Association(Name="Product_ProductModelb2cb07473df741279830123dfee542b9", Storage="_productModel", ThisKey="ProductModelId", IsForeignKey=true)] 
+		[Association(Name="Product_ProductModel739aed265eb8478fac72a5d913abb48e", Storage="_productModel", ThisKey="ProductModelId", IsForeignKey=true)] 
 		public ProductModel ProductModel
 		{
 			get { return _productModel.Entity; }
@@ -938,7 +938,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductProductPhoto.Product - Product.ProductProductPhotos (m:1)'</summary>
-		[Association(Name="ProductProductPhoto_Product8fa0e9fb804f4b3dbc53396294410f98", Storage="_productProductPhotos", OtherKey="ProductId")]
+		[Association(Name="ProductProductPhoto_Productf09090fc15c6433e90c3424f422e1af5", Storage="_productProductPhotos", OtherKey="ProductId")]
 		public EntitySet<ProductProductPhoto> ProductProductPhotos
 		{
 			get { return this._productProductPhotos; }
@@ -946,7 +946,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductReview.Product - Product.ProductReviews (m:1)'</summary>
-		[Association(Name="ProductReview_Producta8b8f735282949169d87b5305aaea1d1", Storage="_productReviews", OtherKey="ProductId")]
+		[Association(Name="ProductReview_Product179037abdb49461bbd96ab67c4e9e6cf", Storage="_productReviews", OtherKey="ProductId")]
 		public EntitySet<ProductReview> ProductReviews
 		{
 			get { return this._productReviews; }
@@ -954,7 +954,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'Product.ProductSubcategory - ProductSubcategory.Products (m:1)'</summary>
-		[Association(Name="Product_ProductSubcategory1ffc32b7c1804945bda9f74140112fe4", Storage="_productSubcategory", ThisKey="ProductSubcategoryId", IsForeignKey=true)] 
+		[Association(Name="Product_ProductSubcategoryafa3a96e7a354f4e89e7574f115cd350", Storage="_productSubcategory", ThisKey="ProductSubcategoryId", IsForeignKey=true)] 
 		public ProductSubcategory ProductSubcategory
 		{
 			get { return _productSubcategory.Entity; }
@@ -985,7 +985,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductVendor.Product - Product.ProductVendors (m:1)'</summary>
-		[Association(Name="ProductVendor_Product1bf4057500c24bc2ab36330450010ae9", Storage="_productVendors", OtherKey="ProductId")]
+		[Association(Name="ProductVendor_Product870d999dfa5647ce8879f7499a26181d", Storage="_productVendors", OtherKey="ProductId")]
 		public EntitySet<ProductVendor> ProductVendors
 		{
 			get { return this._productVendors; }
@@ -993,7 +993,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'PurchaseOrderDetail.Product - Product.PurchaseOrderDetails (m:1)'</summary>
-		[Association(Name="PurchaseOrderDetail_Product0eec904196274342b02d8f375608d4d6", Storage="_purchaseOrderDetails", OtherKey="ProductId")]
+		[Association(Name="PurchaseOrderDetail_Producta9b7302820a54752ba8de2670b42257d", Storage="_purchaseOrderDetails", OtherKey="ProductId")]
 		public EntitySet<PurchaseOrderDetail> PurchaseOrderDetails
 		{
 			get { return this._purchaseOrderDetails; }
@@ -1001,7 +1001,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'ShoppingCartItem.Product - Product.ShoppingCartItems (m:1)'</summary>
-		[Association(Name="ShoppingCartItem_Product8aae5cee1d734699b568ce5c339a534b", Storage="_shoppingCartItems", OtherKey="ProductId")]
+		[Association(Name="ShoppingCartItem_Producta5751febdf9c4b43b64d7c423831400f", Storage="_shoppingCartItems", OtherKey="ProductId")]
 		public EntitySet<ShoppingCartItem> ShoppingCartItems
 		{
 			get { return this._shoppingCartItems; }
@@ -1009,7 +1009,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'SpecialOfferProduct.Product - Product.SpecialOfferProducts (m:1)'</summary>
-		[Association(Name="SpecialOfferProduct_Product06e27bb5927546b8a2b03b7be93a5cf9", Storage="_specialOfferProducts", OtherKey="ProductId")]
+		[Association(Name="SpecialOfferProduct_Productaca41663409d44bab7ca96c0b6d2b89c", Storage="_specialOfferProducts", OtherKey="ProductId")]
 		public EntitySet<SpecialOfferProduct> SpecialOfferProducts
 		{
 			get { return this._specialOfferProducts; }
@@ -1017,7 +1017,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'TransactionHistory.Product - Product.TransactionHistories (m:1)'</summary>
-		[Association(Name="TransactionHistory_Productf0a295ee12fd48b59c2738d1d33ab39d", Storage="_transactionHistories", OtherKey="ProductId")]
+		[Association(Name="TransactionHistory_Productc9d33ae9dea447e3b82d40f37a4b1214", Storage="_transactionHistories", OtherKey="ProductId")]
 		public EntitySet<TransactionHistory> TransactionHistories
 		{
 			get { return this._transactionHistories; }
@@ -1025,7 +1025,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'Product.UnitMeasure - UnitMeasure.Products (m:1)'</summary>
-		[Association(Name="Product_UnitMeasureddb34a32292a40988bc56c6b01a66c16", Storage="_unitMeasure", ThisKey="SizeUnitMeasureCode", IsForeignKey=true)] 
+		[Association(Name="Product_UnitMeasure4e4a7f30c95440cd94bfa734af4037a5", Storage="_unitMeasure", ThisKey="SizeUnitMeasureCode", IsForeignKey=true)] 
 		public UnitMeasure UnitMeasure
 		{
 			get { return _unitMeasure.Entity; }
@@ -1056,7 +1056,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'Product.UnitMeasure1 - UnitMeasure.Products1 (m:1)'</summary>
-		[Association(Name="Product_UnitMeasurea31888b0eba449acbd8f39681e96a5ff", Storage="_unitMeasure1", ThisKey="WeightUnitMeasureCode", IsForeignKey=true)] 
+		[Association(Name="Product_UnitMeasure425caec4610f4e93aeb62d99daca56af", Storage="_unitMeasure1", ThisKey="WeightUnitMeasureCode", IsForeignKey=true)] 
 		public UnitMeasure UnitMeasure1
 		{
 			get { return _unitMeasure1.Entity; }
@@ -1087,7 +1087,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'WorkOrder.Product - Product.WorkOrders (m:1)'</summary>
-		[Association(Name="WorkOrder_Product8099b6d23f3840be89b6f1ca77c8e946", Storage="_workOrders", OtherKey="ProductId")]
+		[Association(Name="WorkOrder_Producte10d028a5e8f49689152b78216000512", Storage="_workOrders", OtherKey="ProductId")]
 		public EntitySet<WorkOrder> WorkOrders
 		{
 			get { return this._workOrders; }

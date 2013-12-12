@@ -46,11 +46,13 @@ namespace AdventureWorks.Dal.Adapter.v41.DatabaseSpecific
 		/// <summary>Method which initializes the internal datastores with the structure of hierarchical types.</summary>
 		private void Init()
 		{
-			this.InitClass(67);
+			this.InitClass(69);
 			InitAddressEntityMappings();
 			InitAddressTypeEntityMappings();
 			InitBillOfMaterialEntityMappings();
-			InitContactEntityMappings();
+			InitBusinessEntityEntityMappings();
+			InitBusinessEntityAddressEntityMappings();
+			InitBusinessEntityContactEntityMappings();
 			InitContactCreditCardEntityMappings();
 			InitContactTypeEntityMappings();
 			InitCountryRegionEntityMappings();
@@ -60,17 +62,19 @@ namespace AdventureWorks.Dal.Adapter.v41.DatabaseSpecific
 			InitCurrencyEntityMappings();
 			InitCurrencyRateEntityMappings();
 			InitCustomerEntityMappings();
-			InitCustomerAddressEntityMappings();
 			InitDepartmentEntityMappings();
 			InitDocumentEntityMappings();
+			InitEmailAddressEntityMappings();
 			InitEmployeeEntityMappings();
-			InitEmployeeAddressEntityMappings();
 			InitEmployeeDepartmentHistoryEntityMappings();
 			InitEmployeePayHistoryEntityMappings();
 			InitIllustrationEntityMappings();
-			InitIndividualEntityMappings();
 			InitJobCandidateEntityMappings();
 			InitLocationEntityMappings();
+			InitPasswordEntityMappings();
+			InitPersonEntityMappings();
+			InitPersonPhoneEntityMappings();
+			InitPhoneNumberTypeEntityMappings();
 			InitProductEntityMappings();
 			InitProductCategoryEntityMappings();
 			InitProductCostHistoryEntityMappings();
@@ -105,21 +109,19 @@ namespace AdventureWorks.Dal.Adapter.v41.DatabaseSpecific
 			InitSpecialOfferProductEntityMappings();
 			InitStateProvinceEntityMappings();
 			InitStoreEntityMappings();
-			InitStoreContactEntityMappings();
 			InitTransactionHistoryEntityMappings();
 			InitTransactionHistoryArchiveEntityMappings();
 			InitUnitMeasureEntityMappings();
 			InitVendorEntityMappings();
-			InitVendorAddressEntityMappings();
-			InitVendorContactEntityMappings();
 			InitWorkOrderEntityMappings();
 			InitWorkOrderRoutingEntityMappings();
+			InitSohTypedViewMappings();
 		}
 
 		/// <summary>Inits AddressEntity's mappings</summary>
 		private void InitAddressEntityMappings()
 		{
-			this.AddElementMapping("AddressEntity", @"AdventureWorks", @"Person", "Address", 8);
+			this.AddElementMapping("AddressEntity", @"AdventureWorks", @"Person", "Address", 9);
 			this.AddElementFieldMapping("AddressEntity", "AddressId", "AddressID", false, "Int", 0, 10, 0, true, "SCOPE_IDENTITY()", null, typeof(System.Int32), 0);
 			this.AddElementFieldMapping("AddressEntity", "AddressLine1", "AddressLine1", false, "NVarChar", 60, 0, 0, false, "", null, typeof(System.String), 1);
 			this.AddElementFieldMapping("AddressEntity", "AddressLine2", "AddressLine2", true, "NVarChar", 60, 0, 0, false, "", null, typeof(System.String), 2);
@@ -127,7 +129,8 @@ namespace AdventureWorks.Dal.Adapter.v41.DatabaseSpecific
 			this.AddElementFieldMapping("AddressEntity", "ModifiedDate", "ModifiedDate", false, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 4);
 			this.AddElementFieldMapping("AddressEntity", "PostalCode", "PostalCode", false, "NVarChar", 15, 0, 0, false, "", null, typeof(System.String), 5);
 			this.AddElementFieldMapping("AddressEntity", "Rowguid", "rowguid", false, "UniqueIdentifier", 0, 0, 0, false, "", null, typeof(System.Guid), 6);
-			this.AddElementFieldMapping("AddressEntity", "StateProvinceId", "StateProvinceID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 7);
+			this.AddElementFieldMapping("AddressEntity", "SpatialLocation", "SpatialLocation", true, "Udt", 0, 0, 0, false, "", null, typeof(Microsoft.SqlServer.Types.SqlGeography), 7);
+			this.AddElementFieldMapping("AddressEntity", "StateProvinceId", "StateProvinceID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 8);
 		}
 
 		/// <summary>Inits AddressTypeEntity's mappings</summary>
@@ -155,32 +158,42 @@ namespace AdventureWorks.Dal.Adapter.v41.DatabaseSpecific
 			this.AddElementFieldMapping("BillOfMaterialEntity", "UnitMeasureCode", "UnitMeasureCode", false, "NChar", 3, 0, 0, false, "", null, typeof(System.String), 8);
 		}
 
-		/// <summary>Inits ContactEntity's mappings</summary>
-		private void InitContactEntityMappings()
+		/// <summary>Inits BusinessEntityEntity's mappings</summary>
+		private void InitBusinessEntityEntityMappings()
 		{
-			this.AddElementMapping("ContactEntity", @"AdventureWorks", @"Person", "Contact", 15);
-			this.AddElementFieldMapping("ContactEntity", "AdditionalContactInfo", "AdditionalContactInfo", true, "Xml", 2147483647, 0, 0, false, "", null, typeof(System.String), 0);
-			this.AddElementFieldMapping("ContactEntity", "ContactId", "ContactID", false, "Int", 0, 10, 0, true, "SCOPE_IDENTITY()", null, typeof(System.Int32), 1);
-			this.AddElementFieldMapping("ContactEntity", "EmailAddress", "EmailAddress", true, "NVarChar", 50, 0, 0, false, "", null, typeof(System.String), 2);
-			this.AddElementFieldMapping("ContactEntity", "EmailPromotion", "EmailPromotion", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 3);
-			this.AddElementFieldMapping("ContactEntity", "FirstName", "FirstName", false, "NVarChar", 50, 0, 0, false, "", null, typeof(System.String), 4);
-			this.AddElementFieldMapping("ContactEntity", "LastName", "LastName", false, "NVarChar", 50, 0, 0, false, "", null, typeof(System.String), 5);
-			this.AddElementFieldMapping("ContactEntity", "MiddleName", "MiddleName", true, "NVarChar", 50, 0, 0, false, "", null, typeof(System.String), 6);
-			this.AddElementFieldMapping("ContactEntity", "ModifiedDate", "ModifiedDate", false, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 7);
-			this.AddElementFieldMapping("ContactEntity", "NameStyle", "NameStyle", false, "Bit", 0, 0, 0, false, "", null, typeof(System.Boolean), 8);
-			this.AddElementFieldMapping("ContactEntity", "PasswordHash", "PasswordHash", false, "VarChar", 40, 0, 0, false, "", null, typeof(System.String), 9);
-			this.AddElementFieldMapping("ContactEntity", "PasswordSalt", "PasswordSalt", false, "VarChar", 10, 0, 0, false, "", null, typeof(System.String), 10);
-			this.AddElementFieldMapping("ContactEntity", "Phone", "Phone", true, "NVarChar", 25, 0, 0, false, "", null, typeof(System.String), 11);
-			this.AddElementFieldMapping("ContactEntity", "Rowguid", "rowguid", false, "UniqueIdentifier", 0, 0, 0, false, "", null, typeof(System.Guid), 12);
-			this.AddElementFieldMapping("ContactEntity", "Suffix", "Suffix", true, "NVarChar", 10, 0, 0, false, "", null, typeof(System.String), 13);
-			this.AddElementFieldMapping("ContactEntity", "Title", "Title", true, "NVarChar", 8, 0, 0, false, "", null, typeof(System.String), 14);
+			this.AddElementMapping("BusinessEntityEntity", @"AdventureWorks", @"Person", "BusinessEntity", 3);
+			this.AddElementFieldMapping("BusinessEntityEntity", "BusinessEntityId", "BusinessEntityID", false, "Int", 0, 10, 0, true, "SCOPE_IDENTITY()", null, typeof(System.Int32), 0);
+			this.AddElementFieldMapping("BusinessEntityEntity", "ModifiedDate", "ModifiedDate", false, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 1);
+			this.AddElementFieldMapping("BusinessEntityEntity", "Rowguid", "rowguid", false, "UniqueIdentifier", 0, 0, 0, false, "", null, typeof(System.Guid), 2);
+		}
+
+		/// <summary>Inits BusinessEntityAddressEntity's mappings</summary>
+		private void InitBusinessEntityAddressEntityMappings()
+		{
+			this.AddElementMapping("BusinessEntityAddressEntity", @"AdventureWorks", @"Person", "BusinessEntityAddress", 5);
+			this.AddElementFieldMapping("BusinessEntityAddressEntity", "AddressId", "AddressID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 0);
+			this.AddElementFieldMapping("BusinessEntityAddressEntity", "AddressTypeId", "AddressTypeID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 1);
+			this.AddElementFieldMapping("BusinessEntityAddressEntity", "BusinessEntityId", "BusinessEntityID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 2);
+			this.AddElementFieldMapping("BusinessEntityAddressEntity", "ModifiedDate", "ModifiedDate", false, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 3);
+			this.AddElementFieldMapping("BusinessEntityAddressEntity", "Rowguid", "rowguid", false, "UniqueIdentifier", 0, 0, 0, false, "", null, typeof(System.Guid), 4);
+		}
+
+		/// <summary>Inits BusinessEntityContactEntity's mappings</summary>
+		private void InitBusinessEntityContactEntityMappings()
+		{
+			this.AddElementMapping("BusinessEntityContactEntity", @"AdventureWorks", @"Person", "BusinessEntityContact", 5);
+			this.AddElementFieldMapping("BusinessEntityContactEntity", "BusinessEntityId", "BusinessEntityID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 0);
+			this.AddElementFieldMapping("BusinessEntityContactEntity", "ContactTypeId", "ContactTypeID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 1);
+			this.AddElementFieldMapping("BusinessEntityContactEntity", "ModifiedDate", "ModifiedDate", false, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 2);
+			this.AddElementFieldMapping("BusinessEntityContactEntity", "PersonId", "PersonID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 3);
+			this.AddElementFieldMapping("BusinessEntityContactEntity", "Rowguid", "rowguid", false, "UniqueIdentifier", 0, 0, 0, false, "", null, typeof(System.Guid), 4);
 		}
 
 		/// <summary>Inits ContactCreditCardEntity's mappings</summary>
 		private void InitContactCreditCardEntityMappings()
 		{
-			this.AddElementMapping("ContactCreditCardEntity", @"AdventureWorks", @"Sales", "ContactCreditCard", 3);
-			this.AddElementFieldMapping("ContactCreditCardEntity", "ContactId", "ContactID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 0);
+			this.AddElementMapping("ContactCreditCardEntity", @"AdventureWorks", @"Sales", "PersonCreditCard", 3);
+			this.AddElementFieldMapping("ContactCreditCardEntity", "ContactId", "BusinessEntityID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 0);
 			this.AddElementFieldMapping("ContactCreditCardEntity", "CreditCardId", "CreditCardID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 1);
 			this.AddElementFieldMapping("ContactCreditCardEntity", "ModifiedDate", "ModifiedDate", false, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 2);
 		}
@@ -258,24 +271,14 @@ namespace AdventureWorks.Dal.Adapter.v41.DatabaseSpecific
 		/// <summary>Inits CustomerEntity's mappings</summary>
 		private void InitCustomerEntityMappings()
 		{
-			this.AddElementMapping("CustomerEntity", @"AdventureWorks", @"Sales", "Customer", 6);
+			this.AddElementMapping("CustomerEntity", @"AdventureWorks", @"Sales", "Customer", 7);
 			this.AddElementFieldMapping("CustomerEntity", "AccountNumber", "AccountNumber", false, "VarChar", 10, 0, 0, false, "", null, typeof(System.String), 0);
 			this.AddElementFieldMapping("CustomerEntity", "CustomerId", "CustomerID", false, "Int", 0, 10, 0, true, "SCOPE_IDENTITY()", null, typeof(System.Int32), 1);
-			this.AddElementFieldMapping("CustomerEntity", "CustomerType", "CustomerType", false, "NChar", 1, 0, 0, false, "", null, typeof(System.String), 2);
-			this.AddElementFieldMapping("CustomerEntity", "ModifiedDate", "ModifiedDate", false, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 3);
+			this.AddElementFieldMapping("CustomerEntity", "ModifiedDate", "ModifiedDate", false, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 2);
+			this.AddElementFieldMapping("CustomerEntity", "PersonId", "PersonID", true, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 3);
 			this.AddElementFieldMapping("CustomerEntity", "Rowguid", "rowguid", false, "UniqueIdentifier", 0, 0, 0, false, "", null, typeof(System.Guid), 4);
-			this.AddElementFieldMapping("CustomerEntity", "TerritoryId", "TerritoryID", true, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 5);
-		}
-
-		/// <summary>Inits CustomerAddressEntity's mappings</summary>
-		private void InitCustomerAddressEntityMappings()
-		{
-			this.AddElementMapping("CustomerAddressEntity", @"AdventureWorks", @"Sales", "CustomerAddress", 5);
-			this.AddElementFieldMapping("CustomerAddressEntity", "AddressId", "AddressID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 0);
-			this.AddElementFieldMapping("CustomerAddressEntity", "AddressTypeId", "AddressTypeID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 1);
-			this.AddElementFieldMapping("CustomerAddressEntity", "CustomerId", "CustomerID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 2);
-			this.AddElementFieldMapping("CustomerAddressEntity", "ModifiedDate", "ModifiedDate", false, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 3);
-			this.AddElementFieldMapping("CustomerAddressEntity", "Rowguid", "rowguid", false, "UniqueIdentifier", 0, 0, 0, false, "", null, typeof(System.Guid), 4);
+			this.AddElementFieldMapping("CustomerEntity", "StoreId", "StoreID", true, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 5);
+			this.AddElementFieldMapping("CustomerEntity", "TerritoryId", "TerritoryID", true, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 6);
 		}
 
 		/// <summary>Inits DepartmentEntity's mappings</summary>
@@ -291,49 +294,54 @@ namespace AdventureWorks.Dal.Adapter.v41.DatabaseSpecific
 		/// <summary>Inits DocumentEntity's mappings</summary>
 		private void InitDocumentEntityMappings()
 		{
-			this.AddElementMapping("DocumentEntity", @"AdventureWorks", @"Production", "Document", 10);
+			this.AddElementMapping("DocumentEntity", @"AdventureWorks", @"Production", "Document", 14);
 			this.AddElementFieldMapping("DocumentEntity", "ChangeNumber", "ChangeNumber", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 0);
 			this.AddElementFieldMapping("DocumentEntity", "Document", "Document", true, "VarBinary", 2147483647, 0, 0, false, "", null, typeof(System.Byte[]), 1);
-			this.AddElementFieldMapping("DocumentEntity", "DocumentId", "DocumentID", false, "Int", 0, 10, 0, true, "SCOPE_IDENTITY()", null, typeof(System.Int32), 2);
-			this.AddElementFieldMapping("DocumentEntity", "DocumentSummary", "DocumentSummary", true, "NVarChar", 2147483647, 0, 0, false, "", null, typeof(System.String), 3);
-			this.AddElementFieldMapping("DocumentEntity", "FileExtension", "FileExtension", false, "NVarChar", 8, 0, 0, false, "", null, typeof(System.String), 4);
-			this.AddElementFieldMapping("DocumentEntity", "FileName", "FileName", false, "NVarChar", 400, 0, 0, false, "", null, typeof(System.String), 5);
-			this.AddElementFieldMapping("DocumentEntity", "ModifiedDate", "ModifiedDate", false, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 6);
-			this.AddElementFieldMapping("DocumentEntity", "Revision", "Revision", false, "NChar", 5, 0, 0, false, "", null, typeof(System.String), 7);
-			this.AddElementFieldMapping("DocumentEntity", "Status", "Status", false, "TinyInt", 0, 3, 0, false, "", null, typeof(System.Byte), 8);
-			this.AddElementFieldMapping("DocumentEntity", "Title", "Title", false, "NVarChar", 50, 0, 0, false, "", null, typeof(System.String), 9);
+			this.AddElementFieldMapping("DocumentEntity", "DocumentLevel", "DocumentLevel", true, "SmallInt", 0, 5, 0, false, "", null, typeof(System.Int16), 2);
+			this.AddElementFieldMapping("DocumentEntity", "DocumentNode", "DocumentNode", false, "VarChar", 892, 0, 0, false, "", null, typeof(System.String), 3);
+			this.AddElementFieldMapping("DocumentEntity", "DocumentSummary", "DocumentSummary", true, "NVarChar", 2147483647, 0, 0, false, "", null, typeof(System.String), 4);
+			this.AddElementFieldMapping("DocumentEntity", "FileExtension", "FileExtension", false, "NVarChar", 8, 0, 0, false, "", null, typeof(System.String), 5);
+			this.AddElementFieldMapping("DocumentEntity", "FileName", "FileName", false, "NVarChar", 400, 0, 0, false, "", null, typeof(System.String), 6);
+			this.AddElementFieldMapping("DocumentEntity", "FolderFlag", "FolderFlag", false, "Bit", 0, 0, 0, false, "", null, typeof(System.Boolean), 7);
+			this.AddElementFieldMapping("DocumentEntity", "ModifiedDate", "ModifiedDate", false, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 8);
+			this.AddElementFieldMapping("DocumentEntity", "Owner", "Owner", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 9);
+			this.AddElementFieldMapping("DocumentEntity", "Revision", "Revision", false, "NChar", 5, 0, 0, false, "", null, typeof(System.String), 10);
+			this.AddElementFieldMapping("DocumentEntity", "Rowguid", "rowguid", false, "UniqueIdentifier", 0, 0, 0, false, "", null, typeof(System.Guid), 11);
+			this.AddElementFieldMapping("DocumentEntity", "Status", "Status", false, "TinyInt", 0, 3, 0, false, "", null, typeof(System.Byte), 12);
+			this.AddElementFieldMapping("DocumentEntity", "Title", "Title", false, "NVarChar", 50, 0, 0, false, "", null, typeof(System.String), 13);
+		}
+
+		/// <summary>Inits EmailAddressEntity's mappings</summary>
+		private void InitEmailAddressEntityMappings()
+		{
+			this.AddElementMapping("EmailAddressEntity", @"AdventureWorks", @"Person", "EmailAddress", 5);
+			this.AddElementFieldMapping("EmailAddressEntity", "BusinessEntityId", "BusinessEntityID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 0);
+			this.AddElementFieldMapping("EmailAddressEntity", "EmailAddressId", "EmailAddressID", false, "Int", 0, 10, 0, true, "SCOPE_IDENTITY()", null, typeof(System.Int32), 1);
+			this.AddElementFieldMapping("EmailAddressEntity", "EmailAddressValue", "EmailAddress", true, "NVarChar", 50, 0, 0, false, "", null, typeof(System.String), 2);
+			this.AddElementFieldMapping("EmailAddressEntity", "ModifiedDate", "ModifiedDate", false, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 3);
+			this.AddElementFieldMapping("EmailAddressEntity", "Rowguid", "rowguid", false, "UniqueIdentifier", 0, 0, 0, false, "", null, typeof(System.Guid), 4);
 		}
 
 		/// <summary>Inits EmployeeEntity's mappings</summary>
 		private void InitEmployeeEntityMappings()
 		{
 			this.AddElementMapping("EmployeeEntity", @"AdventureWorks", @"HumanResources", "Employee", 16);
-			this.AddElementFieldMapping("EmployeeEntity", "BirthDate", "BirthDate", false, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 0);
-			this.AddElementFieldMapping("EmployeeEntity", "ContactId", "ContactID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 1);
-			this.AddElementFieldMapping("EmployeeEntity", "CurrentFlag", "CurrentFlag", false, "Bit", 0, 0, 0, false, "", null, typeof(System.Boolean), 2);
-			this.AddElementFieldMapping("EmployeeEntity", "EmployeeId", "EmployeeID", false, "Int", 0, 10, 0, true, "SCOPE_IDENTITY()", null, typeof(System.Int32), 3);
-			this.AddElementFieldMapping("EmployeeEntity", "Gender", "Gender", false, "NChar", 1, 0, 0, false, "", null, typeof(System.String), 4);
-			this.AddElementFieldMapping("EmployeeEntity", "HireDate", "HireDate", false, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 5);
-			this.AddElementFieldMapping("EmployeeEntity", "LoginId", "LoginID", false, "NVarChar", 256, 0, 0, false, "", null, typeof(System.String), 6);
-			this.AddElementFieldMapping("EmployeeEntity", "ManagerId", "ManagerID", true, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 7);
-			this.AddElementFieldMapping("EmployeeEntity", "MaritalStatus", "MaritalStatus", false, "NChar", 1, 0, 0, false, "", null, typeof(System.String), 8);
-			this.AddElementFieldMapping("EmployeeEntity", "ModifiedDate", "ModifiedDate", false, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 9);
-			this.AddElementFieldMapping("EmployeeEntity", "NationalIdnumber", "NationalIDNumber", false, "NVarChar", 15, 0, 0, false, "", null, typeof(System.String), 10);
+			this.AddElementFieldMapping("EmployeeEntity", "BirthDate", "BirthDate", false, "Date", 0, 0, 0, false, "", null, typeof(System.DateTime), 0);
+			this.AddElementFieldMapping("EmployeeEntity", "CurrentFlag", "CurrentFlag", false, "Bit", 0, 0, 0, false, "", null, typeof(System.Boolean), 1);
+			this.AddElementFieldMapping("EmployeeEntity", "EmployeeId", "BusinessEntityID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 2);
+			this.AddElementFieldMapping("EmployeeEntity", "Gender", "Gender", false, "NChar", 1, 0, 0, false, "", null, typeof(System.String), 3);
+			this.AddElementFieldMapping("EmployeeEntity", "HireDate", "HireDate", false, "Date", 0, 0, 0, false, "", null, typeof(System.DateTime), 4);
+			this.AddElementFieldMapping("EmployeeEntity", "LoginId", "LoginID", false, "NVarChar", 256, 0, 0, false, "", null, typeof(System.String), 5);
+			this.AddElementFieldMapping("EmployeeEntity", "MaritalStatus", "MaritalStatus", false, "NChar", 1, 0, 0, false, "", null, typeof(System.String), 6);
+			this.AddElementFieldMapping("EmployeeEntity", "ModifiedDate", "ModifiedDate", false, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 7);
+			this.AddElementFieldMapping("EmployeeEntity", "NationalIdnumber", "NationalIDNumber", false, "NVarChar", 15, 0, 0, false, "", null, typeof(System.String), 8);
+			this.AddElementFieldMapping("EmployeeEntity", "OrganizationLevel", "OrganizationLevel", true, "SmallInt", 0, 5, 0, false, "", null, typeof(System.Int16), 9);
+			this.AddElementFieldMapping("EmployeeEntity", "OrganizationNode", "OrganizationNode", true, "VarChar", 892, 0, 0, false, "", null, typeof(System.String), 10);
 			this.AddElementFieldMapping("EmployeeEntity", "Rowguid", "rowguid", false, "UniqueIdentifier", 0, 0, 0, false, "", null, typeof(System.Guid), 11);
 			this.AddElementFieldMapping("EmployeeEntity", "SalariedFlag", "SalariedFlag", false, "Bit", 0, 0, 0, false, "", null, typeof(System.Boolean), 12);
 			this.AddElementFieldMapping("EmployeeEntity", "SickLeaveHours", "SickLeaveHours", false, "SmallInt", 0, 5, 0, false, "", null, typeof(System.Int16), 13);
-			this.AddElementFieldMapping("EmployeeEntity", "Title", "Title", false, "NVarChar", 50, 0, 0, false, "", null, typeof(System.String), 14);
+			this.AddElementFieldMapping("EmployeeEntity", "Title", "JobTitle", false, "NVarChar", 50, 0, 0, false, "", null, typeof(System.String), 14);
 			this.AddElementFieldMapping("EmployeeEntity", "VacationHours", "VacationHours", false, "SmallInt", 0, 5, 0, false, "", null, typeof(System.Int16), 15);
-		}
-
-		/// <summary>Inits EmployeeAddressEntity's mappings</summary>
-		private void InitEmployeeAddressEntityMappings()
-		{
-			this.AddElementMapping("EmployeeAddressEntity", @"AdventureWorks", @"HumanResources", "EmployeeAddress", 4);
-			this.AddElementFieldMapping("EmployeeAddressEntity", "AddressId", "AddressID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 0);
-			this.AddElementFieldMapping("EmployeeAddressEntity", "EmployeeId", "EmployeeID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 1);
-			this.AddElementFieldMapping("EmployeeAddressEntity", "ModifiedDate", "ModifiedDate", false, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 2);
-			this.AddElementFieldMapping("EmployeeAddressEntity", "Rowguid", "rowguid", false, "UniqueIdentifier", 0, 0, 0, false, "", null, typeof(System.Guid), 3);
 		}
 
 		/// <summary>Inits EmployeeDepartmentHistoryEntity's mappings</summary>
@@ -341,18 +349,18 @@ namespace AdventureWorks.Dal.Adapter.v41.DatabaseSpecific
 		{
 			this.AddElementMapping("EmployeeDepartmentHistoryEntity", @"AdventureWorks", @"HumanResources", "EmployeeDepartmentHistory", 6);
 			this.AddElementFieldMapping("EmployeeDepartmentHistoryEntity", "DepartmentId", "DepartmentID", false, "SmallInt", 0, 5, 0, false, "", null, typeof(System.Int16), 0);
-			this.AddElementFieldMapping("EmployeeDepartmentHistoryEntity", "EmployeeId", "EmployeeID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 1);
-			this.AddElementFieldMapping("EmployeeDepartmentHistoryEntity", "EndDate", "EndDate", true, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 2);
+			this.AddElementFieldMapping("EmployeeDepartmentHistoryEntity", "EmployeeId", "BusinessEntityID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 1);
+			this.AddElementFieldMapping("EmployeeDepartmentHistoryEntity", "EndDate", "EndDate", true, "Date", 0, 0, 0, false, "", null, typeof(System.DateTime), 2);
 			this.AddElementFieldMapping("EmployeeDepartmentHistoryEntity", "ModifiedDate", "ModifiedDate", false, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 3);
 			this.AddElementFieldMapping("EmployeeDepartmentHistoryEntity", "ShiftId", "ShiftID", false, "TinyInt", 0, 3, 0, false, "", null, typeof(System.Byte), 4);
-			this.AddElementFieldMapping("EmployeeDepartmentHistoryEntity", "StartDate", "StartDate", false, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 5);
+			this.AddElementFieldMapping("EmployeeDepartmentHistoryEntity", "StartDate", "StartDate", false, "Date", 0, 0, 0, false, "", null, typeof(System.DateTime), 5);
 		}
 
 		/// <summary>Inits EmployeePayHistoryEntity's mappings</summary>
 		private void InitEmployeePayHistoryEntityMappings()
 		{
 			this.AddElementMapping("EmployeePayHistoryEntity", @"AdventureWorks", @"HumanResources", "EmployeePayHistory", 5);
-			this.AddElementFieldMapping("EmployeePayHistoryEntity", "EmployeeId", "EmployeeID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 0);
+			this.AddElementFieldMapping("EmployeePayHistoryEntity", "EmployeeId", "BusinessEntityID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 0);
 			this.AddElementFieldMapping("EmployeePayHistoryEntity", "ModifiedDate", "ModifiedDate", false, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 1);
 			this.AddElementFieldMapping("EmployeePayHistoryEntity", "PayFrequency", "PayFrequency", false, "TinyInt", 0, 3, 0, false, "", null, typeof(System.Byte), 2);
 			this.AddElementFieldMapping("EmployeePayHistoryEntity", "Rate", "Rate", false, "Money", 0, 19, 4, false, "", null, typeof(System.Decimal), 3);
@@ -368,21 +376,11 @@ namespace AdventureWorks.Dal.Adapter.v41.DatabaseSpecific
 			this.AddElementFieldMapping("IllustrationEntity", "ModifiedDate", "ModifiedDate", false, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 2);
 		}
 
-		/// <summary>Inits IndividualEntity's mappings</summary>
-		private void InitIndividualEntityMappings()
-		{
-			this.AddElementMapping("IndividualEntity", @"AdventureWorks", @"Sales", "Individual", 4);
-			this.AddElementFieldMapping("IndividualEntity", "ContactId", "ContactID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 0);
-			this.AddElementFieldMapping("IndividualEntity", "CustomerId", "CustomerID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 1);
-			this.AddElementFieldMapping("IndividualEntity", "Demographics", "Demographics", true, "Xml", 2147483647, 0, 0, false, "", null, typeof(System.String), 2);
-			this.AddElementFieldMapping("IndividualEntity", "ModifiedDate", "ModifiedDate", false, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 3);
-		}
-
 		/// <summary>Inits JobCandidateEntity's mappings</summary>
 		private void InitJobCandidateEntityMappings()
 		{
 			this.AddElementMapping("JobCandidateEntity", @"AdventureWorks", @"HumanResources", "JobCandidate", 4);
-			this.AddElementFieldMapping("JobCandidateEntity", "EmployeeId", "EmployeeID", true, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 0);
+			this.AddElementFieldMapping("JobCandidateEntity", "EmployeeId", "BusinessEntityID", true, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 0);
 			this.AddElementFieldMapping("JobCandidateEntity", "JobCandidateId", "JobCandidateID", false, "Int", 0, 10, 0, true, "SCOPE_IDENTITY()", null, typeof(System.Int32), 1);
 			this.AddElementFieldMapping("JobCandidateEntity", "ModifiedDate", "ModifiedDate", false, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 2);
 			this.AddElementFieldMapping("JobCandidateEntity", "Resume", "Resume", true, "Xml", 2147483647, 0, 0, false, "", null, typeof(System.String), 3);
@@ -397,6 +395,55 @@ namespace AdventureWorks.Dal.Adapter.v41.DatabaseSpecific
 			this.AddElementFieldMapping("LocationEntity", "LocationId", "LocationID", false, "SmallInt", 0, 5, 0, true, "SCOPE_IDENTITY()", null, typeof(System.Int16), 2);
 			this.AddElementFieldMapping("LocationEntity", "ModifiedDate", "ModifiedDate", false, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 3);
 			this.AddElementFieldMapping("LocationEntity", "Name", "Name", false, "NVarChar", 50, 0, 0, false, "", null, typeof(System.String), 4);
+		}
+
+		/// <summary>Inits PasswordEntity's mappings</summary>
+		private void InitPasswordEntityMappings()
+		{
+			this.AddElementMapping("PasswordEntity", @"AdventureWorks", @"Person", "Password", 5);
+			this.AddElementFieldMapping("PasswordEntity", "BusinessEntityId", "BusinessEntityID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 0);
+			this.AddElementFieldMapping("PasswordEntity", "ModifiedDate", "ModifiedDate", false, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 1);
+			this.AddElementFieldMapping("PasswordEntity", "PasswordHash", "PasswordHash", false, "VarChar", 128, 0, 0, false, "", null, typeof(System.String), 2);
+			this.AddElementFieldMapping("PasswordEntity", "PasswordSalt", "PasswordSalt", false, "VarChar", 10, 0, 0, false, "", null, typeof(System.String), 3);
+			this.AddElementFieldMapping("PasswordEntity", "Rowguid", "rowguid", false, "UniqueIdentifier", 0, 0, 0, false, "", null, typeof(System.Guid), 4);
+		}
+
+		/// <summary>Inits PersonEntity's mappings</summary>
+		private void InitPersonEntityMappings()
+		{
+			this.AddElementMapping("PersonEntity", @"AdventureWorks", @"Person", "Person", 13);
+			this.AddElementFieldMapping("PersonEntity", "AdditionalContactInfo", "AdditionalContactInfo", true, "Xml", 2147483647, 0, 0, false, "", null, typeof(System.String), 0);
+			this.AddElementFieldMapping("PersonEntity", "BusinessEntityId", "BusinessEntityID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 1);
+			this.AddElementFieldMapping("PersonEntity", "Demographics", "Demographics", true, "Xml", 2147483647, 0, 0, false, "", null, typeof(System.String), 2);
+			this.AddElementFieldMapping("PersonEntity", "EmailPromotion", "EmailPromotion", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 3);
+			this.AddElementFieldMapping("PersonEntity", "FirstName", "FirstName", false, "NVarChar", 50, 0, 0, false, "", null, typeof(System.String), 4);
+			this.AddElementFieldMapping("PersonEntity", "LastName", "LastName", false, "NVarChar", 50, 0, 0, false, "", null, typeof(System.String), 5);
+			this.AddElementFieldMapping("PersonEntity", "MiddleName", "MiddleName", true, "NVarChar", 50, 0, 0, false, "", null, typeof(System.String), 6);
+			this.AddElementFieldMapping("PersonEntity", "ModifiedDate", "ModifiedDate", false, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 7);
+			this.AddElementFieldMapping("PersonEntity", "NameStyle", "NameStyle", false, "Bit", 0, 0, 0, false, "", null, typeof(System.Boolean), 8);
+			this.AddElementFieldMapping("PersonEntity", "PersonType", "PersonType", false, "NChar", 2, 0, 0, false, "", null, typeof(System.String), 9);
+			this.AddElementFieldMapping("PersonEntity", "Rowguid", "rowguid", false, "UniqueIdentifier", 0, 0, 0, false, "", null, typeof(System.Guid), 10);
+			this.AddElementFieldMapping("PersonEntity", "Suffix", "Suffix", true, "NVarChar", 10, 0, 0, false, "", null, typeof(System.String), 11);
+			this.AddElementFieldMapping("PersonEntity", "Title", "Title", true, "NVarChar", 8, 0, 0, false, "", null, typeof(System.String), 12);
+		}
+
+		/// <summary>Inits PersonPhoneEntity's mappings</summary>
+		private void InitPersonPhoneEntityMappings()
+		{
+			this.AddElementMapping("PersonPhoneEntity", @"AdventureWorks", @"Person", "PersonPhone", 4);
+			this.AddElementFieldMapping("PersonPhoneEntity", "BusinessEntityId", "BusinessEntityID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 0);
+			this.AddElementFieldMapping("PersonPhoneEntity", "ModifiedDate", "ModifiedDate", false, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 1);
+			this.AddElementFieldMapping("PersonPhoneEntity", "PhoneNumber", "PhoneNumber", false, "NVarChar", 25, 0, 0, false, "", null, typeof(System.String), 2);
+			this.AddElementFieldMapping("PersonPhoneEntity", "PhoneNumberTypeId", "PhoneNumberTypeID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 3);
+		}
+
+		/// <summary>Inits PhoneNumberTypeEntity's mappings</summary>
+		private void InitPhoneNumberTypeEntityMappings()
+		{
+			this.AddElementMapping("PhoneNumberTypeEntity", @"AdventureWorks", @"Person", "PhoneNumberType", 3);
+			this.AddElementFieldMapping("PhoneNumberTypeEntity", "ModifiedDate", "ModifiedDate", false, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 0);
+			this.AddElementFieldMapping("PhoneNumberTypeEntity", "Name", "Name", false, "NVarChar", 50, 0, 0, false, "", null, typeof(System.String), 1);
+			this.AddElementFieldMapping("PhoneNumberTypeEntity", "PhoneNumberTypeId", "PhoneNumberTypeID", false, "Int", 0, 10, 0, true, "SCOPE_IDENTITY()", null, typeof(System.Int32), 2);
 		}
 
 		/// <summary>Inits ProductEntity's mappings</summary>
@@ -465,7 +512,7 @@ namespace AdventureWorks.Dal.Adapter.v41.DatabaseSpecific
 		private void InitProductDocumentEntityMappings()
 		{
 			this.AddElementMapping("ProductDocumentEntity", @"AdventureWorks", @"Production", "ProductDocument", 3);
-			this.AddElementFieldMapping("ProductDocumentEntity", "DocumentId", "DocumentID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 0);
+			this.AddElementFieldMapping("ProductDocumentEntity", "DocumentNode", "DocumentNode", false, "VarChar", 892, 0, 0, false, "", null, typeof(System.String), 0);
 			this.AddElementFieldMapping("ProductDocumentEntity", "ModifiedDate", "ModifiedDate", false, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 1);
 			this.AddElementFieldMapping("ProductDocumentEntity", "ProductId", "ProductID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 2);
 		}
@@ -586,7 +633,7 @@ namespace AdventureWorks.Dal.Adapter.v41.DatabaseSpecific
 			this.AddElementFieldMapping("ProductVendorEntity", "ProductId", "ProductID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 7);
 			this.AddElementFieldMapping("ProductVendorEntity", "StandardPrice", "StandardPrice", false, "Money", 0, 19, 4, false, "", null, typeof(System.Decimal), 8);
 			this.AddElementFieldMapping("ProductVendorEntity", "UnitMeasureCode", "UnitMeasureCode", false, "NChar", 3, 0, 0, false, "", null, typeof(System.String), 9);
-			this.AddElementFieldMapping("ProductVendorEntity", "VendorId", "VendorID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 10);
+			this.AddElementFieldMapping("ProductVendorEntity", "VendorId", "BusinessEntityID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 10);
 		}
 
 		/// <summary>Inits PurchaseOrderDetailEntity's mappings</summary>
@@ -645,34 +692,33 @@ namespace AdventureWorks.Dal.Adapter.v41.DatabaseSpecific
 		/// <summary>Inits SalesOrderHeaderEntity's mappings</summary>
 		private void InitSalesOrderHeaderEntityMappings()
 		{
-			this.AddElementMapping("SalesOrderHeaderEntity", @"AdventureWorks", @"Sales", "SalesOrderHeader", 27);
+			this.AddElementMapping("SalesOrderHeaderEntity", @"AdventureWorks", @"Sales", "SalesOrderHeader", 26);
 			this.AddElementFieldMapping("SalesOrderHeaderEntity", "AccountNumber", "AccountNumber", true, "NVarChar", 15, 0, 0, false, "", null, typeof(System.String), 0);
 			this.AddElementFieldMapping("SalesOrderHeaderEntity", "BillToAddressId", "BillToAddressID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 1);
 			this.AddElementFieldMapping("SalesOrderHeaderEntity", "Comment", "Comment", true, "NVarChar", 128, 0, 0, false, "", null, typeof(System.String), 2);
-			this.AddElementFieldMapping("SalesOrderHeaderEntity", "ContactId", "ContactID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 3);
-			this.AddElementFieldMapping("SalesOrderHeaderEntity", "CreditCardApprovalCode", "CreditCardApprovalCode", true, "VarChar", 15, 0, 0, false, "", null, typeof(System.String), 4);
-			this.AddElementFieldMapping("SalesOrderHeaderEntity", "CreditCardId", "CreditCardID", true, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 5);
-			this.AddElementFieldMapping("SalesOrderHeaderEntity", "CurrencyRateId", "CurrencyRateID", true, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 6);
-			this.AddElementFieldMapping("SalesOrderHeaderEntity", "CustomerId", "CustomerID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 7);
-			this.AddElementFieldMapping("SalesOrderHeaderEntity", "DueDate", "DueDate", false, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 8);
-			this.AddElementFieldMapping("SalesOrderHeaderEntity", "Freight", "Freight", false, "Money", 0, 19, 4, false, "", null, typeof(System.Decimal), 9);
-			this.AddElementFieldMapping("SalesOrderHeaderEntity", "ModifiedDate", "ModifiedDate", false, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 10);
-			this.AddElementFieldMapping("SalesOrderHeaderEntity", "OnlineOrderFlag", "OnlineOrderFlag", false, "Bit", 0, 0, 0, false, "", null, typeof(System.Boolean), 11);
-			this.AddElementFieldMapping("SalesOrderHeaderEntity", "OrderDate", "OrderDate", false, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 12);
-			this.AddElementFieldMapping("SalesOrderHeaderEntity", "PurchaseOrderNumber", "PurchaseOrderNumber", true, "NVarChar", 25, 0, 0, false, "", null, typeof(System.String), 13);
-			this.AddElementFieldMapping("SalesOrderHeaderEntity", "RevisionNumber", "RevisionNumber", false, "TinyInt", 0, 3, 0, false, "", null, typeof(System.Byte), 14);
-			this.AddElementFieldMapping("SalesOrderHeaderEntity", "Rowguid", "rowguid", false, "UniqueIdentifier", 0, 0, 0, false, "", null, typeof(System.Guid), 15);
-			this.AddElementFieldMapping("SalesOrderHeaderEntity", "SalesOrderId", "SalesOrderID", false, "Int", 0, 10, 0, true, "SCOPE_IDENTITY()", null, typeof(System.Int32), 16);
-			this.AddElementFieldMapping("SalesOrderHeaderEntity", "SalesOrderNumber", "SalesOrderNumber", false, "NVarChar", 25, 0, 0, false, "", null, typeof(System.String), 17);
-			this.AddElementFieldMapping("SalesOrderHeaderEntity", "SalesPersonId", "SalesPersonID", true, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 18);
-			this.AddElementFieldMapping("SalesOrderHeaderEntity", "ShipDate", "ShipDate", true, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 19);
-			this.AddElementFieldMapping("SalesOrderHeaderEntity", "ShipMethodId", "ShipMethodID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 20);
-			this.AddElementFieldMapping("SalesOrderHeaderEntity", "ShipToAddressId", "ShipToAddressID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 21);
-			this.AddElementFieldMapping("SalesOrderHeaderEntity", "Status", "Status", false, "TinyInt", 0, 3, 0, false, "", null, typeof(System.Byte), 22);
-			this.AddElementFieldMapping("SalesOrderHeaderEntity", "SubTotal", "SubTotal", false, "Money", 0, 19, 4, false, "", null, typeof(System.Decimal), 23);
-			this.AddElementFieldMapping("SalesOrderHeaderEntity", "TaxAmt", "TaxAmt", false, "Money", 0, 19, 4, false, "", null, typeof(System.Decimal), 24);
-			this.AddElementFieldMapping("SalesOrderHeaderEntity", "TerritoryId", "TerritoryID", true, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 25);
-			this.AddElementFieldMapping("SalesOrderHeaderEntity", "TotalDue", "TotalDue", false, "Money", 0, 19, 4, false, "", null, typeof(System.Decimal), 26);
+			this.AddElementFieldMapping("SalesOrderHeaderEntity", "CreditCardApprovalCode", "CreditCardApprovalCode", true, "VarChar", 15, 0, 0, false, "", null, typeof(System.String), 3);
+			this.AddElementFieldMapping("SalesOrderHeaderEntity", "CreditCardId", "CreditCardID", true, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 4);
+			this.AddElementFieldMapping("SalesOrderHeaderEntity", "CurrencyRateId", "CurrencyRateID", true, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 5);
+			this.AddElementFieldMapping("SalesOrderHeaderEntity", "CustomerId", "CustomerID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 6);
+			this.AddElementFieldMapping("SalesOrderHeaderEntity", "DueDate", "DueDate", false, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 7);
+			this.AddElementFieldMapping("SalesOrderHeaderEntity", "Freight", "Freight", false, "Money", 0, 19, 4, false, "", null, typeof(System.Decimal), 8);
+			this.AddElementFieldMapping("SalesOrderHeaderEntity", "ModifiedDate", "ModifiedDate", false, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 9);
+			this.AddElementFieldMapping("SalesOrderHeaderEntity", "OnlineOrderFlag", "OnlineOrderFlag", false, "Bit", 0, 0, 0, false, "", null, typeof(System.Boolean), 10);
+			this.AddElementFieldMapping("SalesOrderHeaderEntity", "OrderDate", "OrderDate", false, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 11);
+			this.AddElementFieldMapping("SalesOrderHeaderEntity", "PurchaseOrderNumber", "PurchaseOrderNumber", true, "NVarChar", 25, 0, 0, false, "", null, typeof(System.String), 12);
+			this.AddElementFieldMapping("SalesOrderHeaderEntity", "RevisionNumber", "RevisionNumber", false, "TinyInt", 0, 3, 0, false, "", null, typeof(System.Byte), 13);
+			this.AddElementFieldMapping("SalesOrderHeaderEntity", "Rowguid", "rowguid", false, "UniqueIdentifier", 0, 0, 0, false, "", null, typeof(System.Guid), 14);
+			this.AddElementFieldMapping("SalesOrderHeaderEntity", "SalesOrderId", "SalesOrderID", false, "Int", 0, 10, 0, true, "SCOPE_IDENTITY()", null, typeof(System.Int32), 15);
+			this.AddElementFieldMapping("SalesOrderHeaderEntity", "SalesOrderNumber", "SalesOrderNumber", false, "NVarChar", 25, 0, 0, false, "", null, typeof(System.String), 16);
+			this.AddElementFieldMapping("SalesOrderHeaderEntity", "SalesPersonId", "SalesPersonID", true, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 17);
+			this.AddElementFieldMapping("SalesOrderHeaderEntity", "ShipDate", "ShipDate", true, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 18);
+			this.AddElementFieldMapping("SalesOrderHeaderEntity", "ShipMethodId", "ShipMethodID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 19);
+			this.AddElementFieldMapping("SalesOrderHeaderEntity", "ShipToAddressId", "ShipToAddressID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 20);
+			this.AddElementFieldMapping("SalesOrderHeaderEntity", "Status", "Status", false, "TinyInt", 0, 3, 0, false, "", null, typeof(System.Byte), 21);
+			this.AddElementFieldMapping("SalesOrderHeaderEntity", "SubTotal", "SubTotal", false, "Money", 0, 19, 4, false, "", null, typeof(System.Decimal), 22);
+			this.AddElementFieldMapping("SalesOrderHeaderEntity", "TaxAmt", "TaxAmt", false, "Money", 0, 19, 4, false, "", null, typeof(System.Decimal), 23);
+			this.AddElementFieldMapping("SalesOrderHeaderEntity", "TerritoryId", "TerritoryID", true, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 24);
+			this.AddElementFieldMapping("SalesOrderHeaderEntity", "TotalDue", "TotalDue", false, "Money", 0, 19, 4, false, "", null, typeof(System.Decimal), 25);
 		}
 
 		/// <summary>Inits SalesOrderHeaderSalesReasonEntity's mappings</summary>
@@ -693,7 +739,7 @@ namespace AdventureWorks.Dal.Adapter.v41.DatabaseSpecific
 			this.AddElementFieldMapping("SalesPersonEntity", "ModifiedDate", "ModifiedDate", false, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 2);
 			this.AddElementFieldMapping("SalesPersonEntity", "Rowguid", "rowguid", false, "UniqueIdentifier", 0, 0, 0, false, "", null, typeof(System.Guid), 3);
 			this.AddElementFieldMapping("SalesPersonEntity", "SalesLastYear", "SalesLastYear", false, "Money", 0, 19, 4, false, "", null, typeof(System.Decimal), 4);
-			this.AddElementFieldMapping("SalesPersonEntity", "SalesPersonId", "SalesPersonID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 5);
+			this.AddElementFieldMapping("SalesPersonEntity", "SalesPersonId", "BusinessEntityID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 5);
 			this.AddElementFieldMapping("SalesPersonEntity", "SalesQuota", "SalesQuota", true, "Money", 0, 19, 4, false, "", null, typeof(System.Decimal), 6);
 			this.AddElementFieldMapping("SalesPersonEntity", "SalesYtd", "SalesYTD", false, "Money", 0, 19, 4, false, "", null, typeof(System.Decimal), 7);
 			this.AddElementFieldMapping("SalesPersonEntity", "TerritoryId", "TerritoryID", true, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 8);
@@ -706,7 +752,7 @@ namespace AdventureWorks.Dal.Adapter.v41.DatabaseSpecific
 			this.AddElementFieldMapping("SalesPersonQuotaHistoryEntity", "ModifiedDate", "ModifiedDate", false, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 0);
 			this.AddElementFieldMapping("SalesPersonQuotaHistoryEntity", "QuotaDate", "QuotaDate", false, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 1);
 			this.AddElementFieldMapping("SalesPersonQuotaHistoryEntity", "Rowguid", "rowguid", false, "UniqueIdentifier", 0, 0, 0, false, "", null, typeof(System.Guid), 2);
-			this.AddElementFieldMapping("SalesPersonQuotaHistoryEntity", "SalesPersonId", "SalesPersonID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 3);
+			this.AddElementFieldMapping("SalesPersonQuotaHistoryEntity", "SalesPersonId", "BusinessEntityID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 3);
 			this.AddElementFieldMapping("SalesPersonQuotaHistoryEntity", "SalesQuota", "SalesQuota", false, "Money", 0, 19, 4, false, "", null, typeof(System.Decimal), 4);
 		}
 
@@ -756,7 +802,7 @@ namespace AdventureWorks.Dal.Adapter.v41.DatabaseSpecific
 			this.AddElementFieldMapping("SalesTerritoryHistoryEntity", "EndDate", "EndDate", true, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 0);
 			this.AddElementFieldMapping("SalesTerritoryHistoryEntity", "ModifiedDate", "ModifiedDate", false, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 1);
 			this.AddElementFieldMapping("SalesTerritoryHistoryEntity", "Rowguid", "rowguid", false, "UniqueIdentifier", 0, 0, 0, false, "", null, typeof(System.Guid), 2);
-			this.AddElementFieldMapping("SalesTerritoryHistoryEntity", "SalesPersonId", "SalesPersonID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 3);
+			this.AddElementFieldMapping("SalesTerritoryHistoryEntity", "SalesPersonId", "BusinessEntityID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 3);
 			this.AddElementFieldMapping("SalesTerritoryHistoryEntity", "StartDate", "StartDate", false, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 4);
 			this.AddElementFieldMapping("SalesTerritoryHistoryEntity", "TerritoryId", "TerritoryID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 5);
 		}
@@ -774,11 +820,11 @@ namespace AdventureWorks.Dal.Adapter.v41.DatabaseSpecific
 		private void InitShiftEntityMappings()
 		{
 			this.AddElementMapping("ShiftEntity", @"AdventureWorks", @"HumanResources", "Shift", 5);
-			this.AddElementFieldMapping("ShiftEntity", "EndTime", "EndTime", false, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 0);
+			this.AddElementFieldMapping("ShiftEntity", "EndTime", "EndTime", false, "Time", 0, 0, 0, false, "", null, typeof(System.TimeSpan), 0);
 			this.AddElementFieldMapping("ShiftEntity", "ModifiedDate", "ModifiedDate", false, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 1);
 			this.AddElementFieldMapping("ShiftEntity", "Name", "Name", false, "NVarChar", 50, 0, 0, false, "", null, typeof(System.String), 2);
 			this.AddElementFieldMapping("ShiftEntity", "ShiftId", "ShiftID", false, "TinyInt", 0, 3, 0, true, "SCOPE_IDENTITY()", null, typeof(System.Byte), 3);
-			this.AddElementFieldMapping("ShiftEntity", "StartTime", "StartTime", false, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 4);
+			this.AddElementFieldMapping("ShiftEntity", "StartTime", "StartTime", false, "Time", 0, 0, 0, false, "", null, typeof(System.TimeSpan), 4);
 		}
 
 		/// <summary>Inits ShipMethodEntity's mappings</summary>
@@ -850,23 +896,12 @@ namespace AdventureWorks.Dal.Adapter.v41.DatabaseSpecific
 		private void InitStoreEntityMappings()
 		{
 			this.AddElementMapping("StoreEntity", @"AdventureWorks", @"Sales", "Store", 6);
-			this.AddElementFieldMapping("StoreEntity", "CustomerId", "CustomerID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 0);
+			this.AddElementFieldMapping("StoreEntity", "CustomerId", "BusinessEntityID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 0);
 			this.AddElementFieldMapping("StoreEntity", "Demographics", "Demographics", true, "Xml", 2147483647, 0, 0, false, "", null, typeof(System.String), 1);
 			this.AddElementFieldMapping("StoreEntity", "ModifiedDate", "ModifiedDate", false, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 2);
 			this.AddElementFieldMapping("StoreEntity", "Name", "Name", false, "NVarChar", 50, 0, 0, false, "", null, typeof(System.String), 3);
 			this.AddElementFieldMapping("StoreEntity", "Rowguid", "rowguid", false, "UniqueIdentifier", 0, 0, 0, false, "", null, typeof(System.Guid), 4);
 			this.AddElementFieldMapping("StoreEntity", "SalesPersonId", "SalesPersonID", true, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 5);
-		}
-
-		/// <summary>Inits StoreContactEntity's mappings</summary>
-		private void InitStoreContactEntityMappings()
-		{
-			this.AddElementMapping("StoreContactEntity", @"AdventureWorks", @"Sales", "StoreContact", 5);
-			this.AddElementFieldMapping("StoreContactEntity", "ContactId", "ContactID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 0);
-			this.AddElementFieldMapping("StoreContactEntity", "ContactTypeId", "ContactTypeID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 1);
-			this.AddElementFieldMapping("StoreContactEntity", "CustomerId", "CustomerID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 2);
-			this.AddElementFieldMapping("StoreContactEntity", "ModifiedDate", "ModifiedDate", false, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 3);
-			this.AddElementFieldMapping("StoreContactEntity", "Rowguid", "rowguid", false, "UniqueIdentifier", 0, 0, 0, false, "", null, typeof(System.Guid), 4);
 		}
 
 		/// <summary>Inits TransactionHistoryEntity's mappings</summary>
@@ -919,27 +954,7 @@ namespace AdventureWorks.Dal.Adapter.v41.DatabaseSpecific
 			this.AddElementFieldMapping("VendorEntity", "Name", "Name", false, "NVarChar", 50, 0, 0, false, "", null, typeof(System.String), 4);
 			this.AddElementFieldMapping("VendorEntity", "PreferredVendorStatus", "PreferredVendorStatus", false, "Bit", 0, 0, 0, false, "", null, typeof(System.Boolean), 5);
 			this.AddElementFieldMapping("VendorEntity", "PurchasingWebServiceUrl", "PurchasingWebServiceURL", true, "NVarChar", 1024, 0, 0, false, "", null, typeof(System.String), 6);
-			this.AddElementFieldMapping("VendorEntity", "VendorId", "VendorID", false, "Int", 0, 10, 0, true, "SCOPE_IDENTITY()", null, typeof(System.Int32), 7);
-		}
-
-		/// <summary>Inits VendorAddressEntity's mappings</summary>
-		private void InitVendorAddressEntityMappings()
-		{
-			this.AddElementMapping("VendorAddressEntity", @"AdventureWorks", @"Purchasing", "VendorAddress", 4);
-			this.AddElementFieldMapping("VendorAddressEntity", "AddressId", "AddressID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 0);
-			this.AddElementFieldMapping("VendorAddressEntity", "AddressTypeId", "AddressTypeID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 1);
-			this.AddElementFieldMapping("VendorAddressEntity", "ModifiedDate", "ModifiedDate", false, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 2);
-			this.AddElementFieldMapping("VendorAddressEntity", "VendorId", "VendorID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 3);
-		}
-
-		/// <summary>Inits VendorContactEntity's mappings</summary>
-		private void InitVendorContactEntityMappings()
-		{
-			this.AddElementMapping("VendorContactEntity", @"AdventureWorks", @"Purchasing", "VendorContact", 4);
-			this.AddElementFieldMapping("VendorContactEntity", "ContactId", "ContactID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 0);
-			this.AddElementFieldMapping("VendorContactEntity", "ContactTypeId", "ContactTypeID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 1);
-			this.AddElementFieldMapping("VendorContactEntity", "ModifiedDate", "ModifiedDate", false, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 2);
-			this.AddElementFieldMapping("VendorContactEntity", "VendorId", "VendorID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 3);
+			this.AddElementFieldMapping("VendorEntity", "VendorId", "BusinessEntityID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 7);
 		}
 
 		/// <summary>Inits WorkOrderEntity's mappings</summary>
@@ -974,6 +989,39 @@ namespace AdventureWorks.Dal.Adapter.v41.DatabaseSpecific
 			this.AddElementFieldMapping("WorkOrderRoutingEntity", "ScheduledEndDate", "ScheduledEndDate", false, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 9);
 			this.AddElementFieldMapping("WorkOrderRoutingEntity", "ScheduledStartDate", "ScheduledStartDate", false, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 10);
 			this.AddElementFieldMapping("WorkOrderRoutingEntity", "WorkOrderId", "WorkOrderID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 11);
+		}
+
+
+		/// <summary>Inits SohView's mappings</summary>
+		private void InitSohTypedViewMappings()
+		{
+			this.AddElementMapping("SohTypedView", @"AdventureWorks", @"Sales", "SalesOrderHeader", 26);
+			this.AddElementFieldMapping("SohTypedView", "SalesOrderId", "SalesOrderID", false, "Int", 0, 10, 0, false, string.Empty, null, typeof(System.Int32), 0);
+			this.AddElementFieldMapping("SohTypedView", "RevisionNumber", "RevisionNumber", false, "TinyInt", 0, 3, 0, false, string.Empty, null, typeof(System.Byte), 1);
+			this.AddElementFieldMapping("SohTypedView", "OrderDate", "OrderDate", false, "DateTime", 0, 0, 0, false, string.Empty, null, typeof(System.DateTime), 2);
+			this.AddElementFieldMapping("SohTypedView", "DueDate", "DueDate", false, "DateTime", 0, 0, 0, false, string.Empty, null, typeof(System.DateTime), 3);
+			this.AddElementFieldMapping("SohTypedView", "ShipDate", "ShipDate", false, "DateTime", 0, 0, 0, false, string.Empty, null, typeof(System.DateTime), 4);
+			this.AddElementFieldMapping("SohTypedView", "Status", "Status", false, "TinyInt", 0, 3, 0, false, string.Empty, null, typeof(System.Byte), 5);
+			this.AddElementFieldMapping("SohTypedView", "OnlineOrderFlag", "OnlineOrderFlag", false, "Bit", 0, 0, 0, false, string.Empty, null, typeof(System.Boolean), 6);
+			this.AddElementFieldMapping("SohTypedView", "SalesOrderNumber", "SalesOrderNumber", false, "NVarChar", 25, 0, 0, false, string.Empty, null, typeof(System.String), 7);
+			this.AddElementFieldMapping("SohTypedView", "PurchaseOrderNumber", "PurchaseOrderNumber", false, "NVarChar", 25, 0, 0, false, string.Empty, null, typeof(System.String), 8);
+			this.AddElementFieldMapping("SohTypedView", "AccountNumber", "AccountNumber", false, "NVarChar", 15, 0, 0, false, string.Empty, null, typeof(System.String), 9);
+			this.AddElementFieldMapping("SohTypedView", "CustomerId", "CustomerID", false, "Int", 0, 10, 0, false, string.Empty, null, typeof(System.Int32), 10);
+			this.AddElementFieldMapping("SohTypedView", "SalesPersonId", "SalesPersonID", false, "Int", 0, 10, 0, false, string.Empty, null, typeof(System.Int32), 11);
+			this.AddElementFieldMapping("SohTypedView", "TerritoryId", "TerritoryID", false, "Int", 0, 10, 0, false, string.Empty, null, typeof(System.Int32), 12);
+			this.AddElementFieldMapping("SohTypedView", "BillToAddressId", "BillToAddressID", false, "Int", 0, 10, 0, false, string.Empty, null, typeof(System.Int32), 13);
+			this.AddElementFieldMapping("SohTypedView", "ShipToAddressId", "ShipToAddressID", false, "Int", 0, 10, 0, false, string.Empty, null, typeof(System.Int32), 14);
+			this.AddElementFieldMapping("SohTypedView", "ShipMethodId", "ShipMethodID", false, "Int", 0, 10, 0, false, string.Empty, null, typeof(System.Int32), 15);
+			this.AddElementFieldMapping("SohTypedView", "CreditCardId", "CreditCardID", false, "Int", 0, 10, 0, false, string.Empty, null, typeof(System.Int32), 16);
+			this.AddElementFieldMapping("SohTypedView", "CreditCardApprovalCode", "CreditCardApprovalCode", false, "VarChar", 15, 0, 0, false, string.Empty, null, typeof(System.String), 17);
+			this.AddElementFieldMapping("SohTypedView", "CurrencyRateId", "CurrencyRateID", false, "Int", 0, 10, 0, false, string.Empty, null, typeof(System.Int32), 18);
+			this.AddElementFieldMapping("SohTypedView", "SubTotal", "SubTotal", false, "Money", 0, 19, 4, false, string.Empty, null, typeof(System.Decimal), 19);
+			this.AddElementFieldMapping("SohTypedView", "TaxAmt", "TaxAmt", false, "Money", 0, 19, 4, false, string.Empty, null, typeof(System.Decimal), 20);
+			this.AddElementFieldMapping("SohTypedView", "Freight", "Freight", false, "Money", 0, 19, 4, false, string.Empty, null, typeof(System.Decimal), 21);
+			this.AddElementFieldMapping("SohTypedView", "TotalDue", "TotalDue", false, "Money", 0, 19, 4, false, string.Empty, null, typeof(System.Decimal), 22);
+			this.AddElementFieldMapping("SohTypedView", "Comment", "Comment", false, "NVarChar", 128, 0, 0, false, string.Empty, null, typeof(System.String), 23);
+			this.AddElementFieldMapping("SohTypedView", "Rowguid", "rowguid", false, "UniqueIdentifier", 0, 0, 0, false, string.Empty, null, typeof(System.Guid), 24);
+			this.AddElementFieldMapping("SohTypedView", "ModifiedDate", "ModifiedDate", false, "DateTime", 0, 0, 0, false, string.Empty, null, typeof(System.DateTime), 25);
 		}
 
 	}

@@ -187,7 +187,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'Product.ProductSubcategory - ProductSubcategory.Products (m:1)'</summary>
-		[Association(Name="Product_ProductSubcategory1ffc32b7c1804945bda9f74140112fe4", Storage="_products", OtherKey="ProductSubcategoryId")]
+		[Association(Name="Product_ProductSubcategoryafa3a96e7a354f4e89e7574f115cd350", Storage="_products", OtherKey="ProductSubcategoryId")]
 		public EntitySet<Product> Products
 		{
 			get { return this._products; }
@@ -195,7 +195,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductSubcategory.ProductCategory - ProductCategory.ProductSubcategories (m:1)'</summary>
-		[Association(Name="ProductSubcategory_ProductCategory059ac194fc44437ca0ca5afe9d450e14", Storage="_productCategory", ThisKey="ProductCategoryId", IsForeignKey=true)] 
+		[Association(Name="ProductSubcategory_ProductCategory87ba00a28673490fae3e81d9335a6f50", Storage="_productCategory", ThisKey="ProductCategoryId", IsForeignKey=true)] 
 		public ProductCategory ProductCategory
 		{
 			get { return _productCategory.Entity; }

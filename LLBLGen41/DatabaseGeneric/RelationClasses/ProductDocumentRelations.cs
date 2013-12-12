@@ -30,7 +30,7 @@ namespace AdventureWorks.Dal.Adapter.v41.RelationClasses
 		public virtual List<IEntityRelation> GetAllRelations()
 		{
 			List<IEntityRelation> toReturn = new List<IEntityRelation>();
-			toReturn.Add(this.DocumentEntityUsingDocumentId);
+			toReturn.Add(this.DocumentEntityUsingDocumentNode);
 			toReturn.Add(this.ProductEntityUsingProductId);
 			return toReturn;
 		}
@@ -40,14 +40,14 @@ namespace AdventureWorks.Dal.Adapter.v41.RelationClasses
 
 
 		/// <summary>Returns a new IEntityRelation object, between ProductDocumentEntity and DocumentEntity over the m:1 relation they have, using the relation between the fields:
-		/// ProductDocument.DocumentId - Document.DocumentId
+		/// ProductDocument.DocumentNode - Document.DocumentNode
 		/// </summary>
-		public virtual IEntityRelation DocumentEntityUsingDocumentId
+		public virtual IEntityRelation DocumentEntityUsingDocumentNode
 		{
 			get
 			{
 				IEntityRelation relation = new EntityRelation(SD.LLBLGen.Pro.ORMSupportClasses.RelationType.ManyToOne, "Document", false);
-				relation.AddEntityFieldPair(DocumentFields.DocumentId, ProductDocumentFields.DocumentId);
+				relation.AddEntityFieldPair(DocumentFields.DocumentNode, ProductDocumentFields.DocumentNode);
 				relation.InheritanceInfoPkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("DocumentEntity", false);
 				relation.InheritanceInfoFkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("ProductDocumentEntity", true);
 				return relation;
@@ -81,7 +81,7 @@ namespace AdventureWorks.Dal.Adapter.v41.RelationClasses
 	/// <summary>Static class which is used for providing relationship instances which are re-used internally for syncing</summary>
 	internal static class StaticProductDocumentRelations
 	{
-		internal static readonly IEntityRelation DocumentEntityUsingDocumentIdStatic = new ProductDocumentRelations().DocumentEntityUsingDocumentId;
+		internal static readonly IEntityRelation DocumentEntityUsingDocumentNodeStatic = new ProductDocumentRelations().DocumentEntityUsingDocumentNode;
 		internal static readonly IEntityRelation ProductEntityUsingProductIdStatic = new ProductDocumentRelations().ProductEntityUsingProductId;
 
 		/// <summary>CTor</summary>

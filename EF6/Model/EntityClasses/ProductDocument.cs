@@ -21,9 +21,9 @@ namespace EF6.Bencher.EntityClasses
 		}
 
 		#region Class Property Declarations
-		/// <summary>Gets or sets the DocumentId field. </summary>
+		/// <summary>Gets or sets the DocumentNode field. </summary>
 		[DataMember]
-		public System.Int32 DocumentId { get; set;}
+		public System.String DocumentNode { get; set;}
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
 		[DataMember]
 		public System.DateTime ModifiedDate { get; set;}

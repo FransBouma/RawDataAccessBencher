@@ -220,7 +220,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'PurchaseOrderHeader.ShipMethod - ShipMethod.PurchaseOrderHeaders (m:1)'</summary>
-		[Association(Name="PurchaseOrderHeader_ShipMethod9009bfbb55984fd78806b70247a5d7fc", Storage="_purchaseOrderHeaders", OtherKey="ShipMethodId")]
+		[Association(Name="PurchaseOrderHeader_ShipMethodb9e0447b9efd4e07b6e8902dabe7ca65", Storage="_purchaseOrderHeaders", OtherKey="ShipMethodId")]
 		public EntitySet<PurchaseOrderHeader> PurchaseOrderHeaders
 		{
 			get { return this._purchaseOrderHeaders; }
@@ -228,7 +228,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderHeader.ShipMethod - ShipMethod.SalesOrderHeaders (m:1)'</summary>
-		[Association(Name="SalesOrderHeader_ShipMethod0ce9292213f34021bfac3b45ea675e26", Storage="_salesOrderHeaders", OtherKey="ShipMethodId")]
+		[Association(Name="SalesOrderHeader_ShipMethod3698e256d9ac40689a23b4a34da4fbba", Storage="_salesOrderHeaders", OtherKey="ShipMethodId")]
 		public EntitySet<SalesOrderHeader> SalesOrderHeaders
 		{
 			get { return this._salesOrderHeaders; }

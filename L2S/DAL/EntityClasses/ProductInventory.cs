@@ -217,7 +217,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductInventory.Location - Location.ProductInventories (m:1)'</summary>
-		[Association(Name="ProductInventory_Locationb1250509577d4680b3d6e0296ecbbd5c", Storage="_location", ThisKey="LocationId", IsForeignKey=true)] 
+		[Association(Name="ProductInventory_Location1bf37855d80e4df3a35fea08034a9603", Storage="_location", ThisKey="LocationId", IsForeignKey=true)] 
 		public Location Location
 		{
 			get { return _location.Entity; }
@@ -248,7 +248,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductInventory.Product - Product.ProductInventories (m:1)'</summary>
-		[Association(Name="ProductInventory_Product275ae730bf8a4b4b9ca47901a11308f9", Storage="_product", ThisKey="ProductId", IsForeignKey=true)] 
+		[Association(Name="ProductInventory_Product3acb3bf8eef544d19542622090083b01", Storage="_product", ThisKey="ProductId", IsForeignKey=true)] 
 		public Product Product
 		{
 			get { return _product.Entity; }

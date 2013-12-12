@@ -133,7 +133,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderHeaderSalesReason.SalesOrderHeader - SalesOrderHeader.SalesOrderHeaderSalesReasons (m:1)'</summary>
-		[Association(Name="SalesOrderHeaderSalesReason_SalesOrderHeader68f26056cadd4176ae24242152d55625", Storage="_salesOrderHeader", ThisKey="SalesOrderId", IsForeignKey=true)] 
+		[Association(Name="SalesOrderHeaderSalesReason_SalesOrderHeader2fa8a05329a7416daf549686a43d0d1f", Storage="_salesOrderHeader", ThisKey="SalesOrderId", IsForeignKey=true)] 
 		public SalesOrderHeader SalesOrderHeader
 		{
 			get { return _salesOrderHeader.Entity; }
@@ -164,7 +164,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderHeaderSalesReason.SalesReason - SalesReason.SalesOrderHeaderSalesReasons (m:1)'</summary>
-		[Association(Name="SalesOrderHeaderSalesReason_SalesReason298ca9bcdde743c092c8f4b03bbe1ec8", Storage="_salesReason", ThisKey="SalesReasonId", IsForeignKey=true)] 
+		[Association(Name="SalesOrderHeaderSalesReason_SalesReason50c3e99e3f7c4749a060d26c3b752705", Storage="_salesReason", ThisKey="SalesReasonId", IsForeignKey=true)] 
 		public SalesReason SalesReason
 		{
 			get { return _salesReason.Entity; }

@@ -18,11 +18,9 @@ namespace EF6.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="Address"/> class.</summary>
 		public Address() : base()
 		{
-			this.CustomerAddresses = new HashSet<CustomerAddress>();
-			this.EmployeeAddresses = new HashSet<EmployeeAddress>();
+			this.BusinessEntityAddresses = new HashSet<BusinessEntityAddress>();
 			this.SalesOrderHeaders = new HashSet<SalesOrderHeader>();
 			this.SalesOrderHeaders_ = new HashSet<SalesOrderHeader>();
-			this.VendorAddresses = new HashSet<VendorAddress>();
 		}
 
 		#region Class Property Declarations
@@ -47,12 +45,12 @@ namespace EF6.Bencher.EntityClasses
 		/// <summary>Gets or sets the Rowguid field. </summary>
 		[DataMember]
 		public System.Guid Rowguid { get; set;}
-		/// <summary>Represents the navigator which is mapped onto the association 'CustomerAddress.Address - Address.CustomerAddresses (m:1)'</summary>
+		/// <summary>Gets or sets the SpatialLocation field. </summary>
 		[DataMember]
-		public virtual ICollection<CustomerAddress> CustomerAddresses { get; set;}
-		/// <summary>Represents the navigator which is mapped onto the association 'EmployeeAddress.Address - Address.EmployeeAddresses (m:1)'</summary>
+		public System.Data.Entity.Spatial.DbGeography SpatialLocation { get; set;}
+		/// <summary>Represents the navigator which is mapped onto the association 'Person.BusinessEntityAddress.Address - Address.BusinessEntityAddresses (m:1)'</summary>
 		[DataMember]
-		public virtual ICollection<EmployeeAddress> EmployeeAddresses { get; set;}
+		public virtual ICollection<BusinessEntityAddress> BusinessEntityAddresses { get; set;}
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderHeader.Address - Address.SalesOrderHeaders (m:1)'</summary>
 		[DataMember]
 		public virtual ICollection<SalesOrderHeader> SalesOrderHeaders { get; set;}
@@ -62,9 +60,6 @@ namespace EF6.Bencher.EntityClasses
 		/// <summary>Represents the navigator which is mapped onto the association 'Address.StateProvince - StateProvince.Addresses (m:1)'</summary>
 		[DataMember]
 		public virtual StateProvince StateProvince { get; set;}
-		/// <summary>Represents the navigator which is mapped onto the association 'VendorAddress.Address - Address.VendorAddresses (m:1)'</summary>
-		[DataMember]
-		public virtual ICollection<VendorAddress> VendorAddresses { get; set;}
 		#endregion
 	}
 }

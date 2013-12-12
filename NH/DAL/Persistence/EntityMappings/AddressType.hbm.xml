@@ -10,17 +10,11 @@
 		<property name="ModifiedDate" column="[ModifiedDate]" access="field.camelcase-underscore" not-null="true"/>
 		<property name="Name" column="[Name]" access="field.camelcase-underscore" not-null="true"/>
 		<property name="Rowguid" column="[rowguid]" access="field.camelcase-underscore" not-null="true"/>
-		<set name="CustomerAddresses" access="field.camelcase-underscore" cascade="all-delete-orphan" inverse="true" fetch="select">
+		<set name="BusinessEntityAddresses" access="field.camelcase-underscore" cascade="all-delete-orphan" inverse="true" fetch="select">
 			<key>
 				<column name="[AddressTypeID]"/>
 			</key>
-			<one-to-many class="CustomerAddress"/>
-		</set>
-		<set name="VendorAddresses" access="field.camelcase-underscore" cascade="all-delete-orphan" inverse="true" fetch="select">
-			<key>
-				<column name="[AddressTypeID]"/>
-			</key>
-			<one-to-many class="VendorAddress"/>
+			<one-to-many class="BusinessEntityAddress"/>
 		</set>
 	<!-- __LLBLGENPRO_USER_CODE_REGION_START EntityMappingCustomCode -->
 	<!-- __LLBLGENPRO_USER_CODE_REGION_END -->

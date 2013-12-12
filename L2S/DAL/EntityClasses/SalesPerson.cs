@@ -22,11 +22,11 @@ namespace L2S.Bencher.EntityClasses
 		
 		#region Class Member Declarations
 		private System.Decimal	_bonus;
+		private System.Int32	_businessEntityId;
 		private System.Decimal	_commissionPct;
 		private System.DateTime	_modifiedDate;
 		private System.Guid	_rowguid;
 		private System.Decimal	_salesLastYear;
-		private System.Int32	_salesPersonId;
 		private Nullable<System.Decimal>	_salesQuota;
 		private System.Decimal	_salesYtd;
 		private Nullable<System.Int32>	_territoryId;
@@ -44,6 +44,8 @@ namespace L2S.Bencher.EntityClasses
 		partial void OnCreated();
 		partial void OnBonusChanging(System.Decimal value);
 		partial void OnBonusChanged();
+		partial void OnBusinessEntityIdChanging(System.Int32 value);
+		partial void OnBusinessEntityIdChanged();
 		partial void OnCommissionPctChanging(System.Decimal value);
 		partial void OnCommissionPctChanged();
 		partial void OnModifiedDateChanging(System.DateTime value);
@@ -52,8 +54,6 @@ namespace L2S.Bencher.EntityClasses
 		partial void OnRowguidChanged();
 		partial void OnSalesLastYearChanging(System.Decimal value);
 		partial void OnSalesLastYearChanged();
-		partial void OnSalesPersonIdChanging(System.Int32 value);
-		partial void OnSalesPersonIdChanged();
 		partial void OnSalesQuotaChanging(Nullable<System.Decimal> value);
 		partial void OnSalesQuotaChanged();
 		partial void OnSalesYtdChanging(System.Decimal value);
@@ -178,6 +178,28 @@ namespace L2S.Bencher.EntityClasses
 			}
 		}
 
+		/// <summary>Gets or sets the BusinessEntityId field. Mapped on target field 'BusinessEntityID'. </summary>
+		[Column(Name="BusinessEntityID", Storage="_businessEntityId", CanBeNull=false, DbType="int NOT NULL", IsPrimaryKey=true)]
+		public System.Int32 BusinessEntityId
+		{
+			get	{ return _businessEntityId; }
+			set
+			{
+				if((_businessEntityId != value))
+				{
+					if(_employee.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					OnBusinessEntityIdChanging(value);
+					SendPropertyChanging("BusinessEntityId");
+					_businessEntityId = value;
+					SendPropertyChanged("BusinessEntityId");
+					OnBusinessEntityIdChanged();
+				}
+			}
+		}
+
 		/// <summary>Gets or sets the CommissionPct field. Mapped on target field 'CommissionPct'. </summary>
 		[Column(Name="CommissionPct", Storage="_commissionPct", CanBeNull=false, DbType="smallmoney NOT NULL")]
 		public System.Decimal CommissionPct
@@ -250,28 +272,6 @@ namespace L2S.Bencher.EntityClasses
 			}
 		}
 
-		/// <summary>Gets or sets the SalesPersonId field. Mapped on target field 'SalesPersonID'. </summary>
-		[Column(Name="SalesPersonID", Storage="_salesPersonId", CanBeNull=false, DbType="int NOT NULL", IsPrimaryKey=true)]
-		public System.Int32 SalesPersonId
-		{
-			get	{ return _salesPersonId; }
-			set
-			{
-				if((_salesPersonId != value))
-				{
-					if(_employee.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					OnSalesPersonIdChanging(value);
-					SendPropertyChanging("SalesPersonId");
-					_salesPersonId = value;
-					SendPropertyChanged("SalesPersonId");
-					OnSalesPersonIdChanged();
-				}
-			}
-		}
-
 		/// <summary>Gets or sets the SalesQuota field. Mapped on target field 'SalesQuota'. </summary>
 		[Column(Name="SalesQuota", Storage="_salesQuota", DbType="money NULL")]
 		public Nullable<System.Decimal> SalesQuota
@@ -331,7 +331,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesPerson.Employee - Employee.SalesPerson (1:1)'</summary>
-		[Association(Name="SalesPerson_Employee9dd86acd996e41af974a98d04cc724d7", Storage="_employee", ThisKey="SalesPersonId", IsForeignKey=true, IsUnique=true)]
+		[Association(Name="SalesPerson_Employee8303eda141db45f882e1978089cc3486", Storage="_employee", ThisKey="BusinessEntityId", IsForeignKey=true, IsUnique=true)]
 		public Employee Employee
 		{
 			get { return _employee.Entity; }
@@ -349,12 +349,12 @@ namespace L2S.Bencher.EntityClasses
 					_employee.Entity = value;
 					if(value==null)
 					{
-						_salesPersonId = default(System.Int32);
+						_businessEntityId = default(System.Int32);
 					}
 					else
 					{
 						value.SalesPerson = this;
-						_salesPersonId = value.EmployeeId;
+						_businessEntityId = value.BusinessEntityId;
 					}
 					this.SendPropertyChanged("Employee");
 				}
@@ -362,7 +362,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderHeader.SalesPerson - SalesPerson.SalesOrderHeaders (m:1)'</summary>
-		[Association(Name="SalesOrderHeader_SalesPerson2b7ba8c290a147d1ae5168e33baab2d6", Storage="_salesOrderHeaders", OtherKey="SalesPersonId")]
+		[Association(Name="SalesOrderHeader_SalesPerson118e3dd3d73442cfbcb22e44aa731ce8", Storage="_salesOrderHeaders", OtherKey="SalesPersonId")]
 		public EntitySet<SalesOrderHeader> SalesOrderHeaders
 		{
 			get { return this._salesOrderHeaders; }
@@ -370,7 +370,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesPersonQuotaHistory.SalesPerson - SalesPerson.SalesPersonQuotaHistories (m:1)'</summary>
-		[Association(Name="SalesPersonQuotaHistory_SalesPersonb35ee7c559514d8d8eb072559f8bb641", Storage="_salesPersonQuotaHistories", OtherKey="SalesPersonId")]
+		[Association(Name="SalesPersonQuotaHistory_SalesPersonf0ec214666cb4b8096c6d793afe6c1ba", Storage="_salesPersonQuotaHistories", OtherKey="BusinessEntityId")]
 		public EntitySet<SalesPersonQuotaHistory> SalesPersonQuotaHistories
 		{
 			get { return this._salesPersonQuotaHistories; }
@@ -378,7 +378,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesPerson.SalesTerritory - SalesTerritory.SalesPeople (m:1)'</summary>
-		[Association(Name="SalesPerson_SalesTerritoryf8210c025654468ab822c2fc043a1cfc", Storage="_salesTerritory", ThisKey="TerritoryId", IsForeignKey=true)] 
+		[Association(Name="SalesPerson_SalesTerritory1fd576bbd39d4023a25f7753982e8454", Storage="_salesTerritory", ThisKey="TerritoryId", IsForeignKey=true)] 
 		public SalesTerritory SalesTerritory
 		{
 			get { return _salesTerritory.Entity; }
@@ -409,7 +409,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesTerritoryHistory.SalesPerson - SalesPerson.SalesTerritoryHistories (m:1)'</summary>
-		[Association(Name="SalesTerritoryHistory_SalesPerson6b2fe0cd26254181a705c87f07336af2", Storage="_salesTerritoryHistories", OtherKey="SalesPersonId")]
+		[Association(Name="SalesTerritoryHistory_SalesPerson89c732cde3b9475cae7403d82c59c472", Storage="_salesTerritoryHistories", OtherKey="BusinessEntityId")]
 		public EntitySet<SalesTerritoryHistory> SalesTerritoryHistories
 		{
 			get { return this._salesTerritoryHistories; }
@@ -417,7 +417,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'Store.SalesPerson - SalesPerson.Stores (m:1)'</summary>
-		[Association(Name="Store_SalesPerson3c8cbca9603e4e52a266f82a3ce6d70c", Storage="_stores", OtherKey="SalesPersonId")]
+		[Association(Name="Store_SalesPerson9439df74a9fa40858c9bf8a08986fca3", Storage="_stores", OtherKey="SalesPersonId")]
 		public EntitySet<Store> Stores
 		{
 			get { return this._stores; }

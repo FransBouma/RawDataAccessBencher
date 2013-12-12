@@ -139,7 +139,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'WorkOrder.ScrapReason - ScrapReason.WorkOrders (m:1)'</summary>
-		[Association(Name="WorkOrder_ScrapReason73b923f5d2a247319892873d2d37b46f", Storage="_workOrders", OtherKey="ScrapReasonId")]
+		[Association(Name="WorkOrder_ScrapReason8767bcd8a99242089c6c79486a9aad25", Storage="_workOrders", OtherKey="ScrapReasonId")]
 		public EntitySet<WorkOrder> WorkOrders
 		{
 			get { return this._workOrders; }

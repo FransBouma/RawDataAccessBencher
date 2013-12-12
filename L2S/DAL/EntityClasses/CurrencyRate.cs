@@ -235,7 +235,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'CurrencyRate.Currency - Currency.CurrencyRates (m:1)'</summary>
-		[Association(Name="CurrencyRate_Currency5cd48705c0b84a419fb85d8b70c7636c", Storage="_currency", ThisKey="FromCurrencyCode", IsForeignKey=true)] 
+		[Association(Name="CurrencyRate_Currencyc358cb9f77314458a55bc009267c793a", Storage="_currency", ThisKey="FromCurrencyCode", IsForeignKey=true)] 
 		public Currency Currency
 		{
 			get { return _currency.Entity; }
@@ -266,7 +266,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'CurrencyRate.Currency1 - Currency.CurrencyRates1 (m:1)'</summary>
-		[Association(Name="CurrencyRate_Currency12467e4208bf45f583ec103faed4fe09", Storage="_currency1", ThisKey="ToCurrencyCode", IsForeignKey=true)] 
+		[Association(Name="CurrencyRate_Currencyebfe4789e8154e1eb683ffbc49939d09", Storage="_currency1", ThisKey="ToCurrencyCode", IsForeignKey=true)] 
 		public Currency Currency1
 		{
 			get { return _currency1.Entity; }
@@ -297,7 +297,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderHeader.CurrencyRate - CurrencyRate.SalesOrderHeaders (m:1)'</summary>
-		[Association(Name="SalesOrderHeader_CurrencyRate2a98408d9c8d4fdea0b97c67537cefe6", Storage="_salesOrderHeaders", OtherKey="CurrencyRateId")]
+		[Association(Name="SalesOrderHeader_CurrencyRatef6394c93f84149f8b750f6dd6d2770ad", Storage="_salesOrderHeaders", OtherKey="CurrencyRateId")]
 		public EntitySet<SalesOrderHeader> SalesOrderHeaders
 		{
 			get { return this._salesOrderHeaders; }

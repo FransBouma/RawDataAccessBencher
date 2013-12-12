@@ -274,7 +274,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'Address.StateProvince - StateProvince.Addresses (m:1)'</summary>
-		[Association(Name="Address_StateProvince2c6fb96e26d04236ae51fb241f769560", Storage="_addresses", OtherKey="StateProvinceId")]
+		[Association(Name="Address_StateProvince8e7031fc4cc74008859dafc922cb04ec", Storage="_addresses", OtherKey="StateProvinceId")]
 		public EntitySet<Address> Addresses
 		{
 			get { return this._addresses; }
@@ -282,7 +282,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'StateProvince.CountryRegion - CountryRegion.StateProvinces (m:1)'</summary>
-		[Association(Name="StateProvince_CountryRegion119c07f7fb5248ce8cfe986ad9f32c08", Storage="_countryRegion", ThisKey="CountryRegionCode", IsForeignKey=true)] 
+		[Association(Name="StateProvince_CountryRegion760056c349644109a8ca7959b8008096", Storage="_countryRegion", ThisKey="CountryRegionCode", IsForeignKey=true)] 
 		public CountryRegion CountryRegion
 		{
 			get { return _countryRegion.Entity; }
@@ -313,7 +313,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesTaxRate.StateProvince - StateProvince.SalesTaxRates (m:1)'</summary>
-		[Association(Name="SalesTaxRate_StateProvince998a28c228724dc895c93b4275ec50cd", Storage="_salesTaxRates", OtherKey="StateProvinceId")]
+		[Association(Name="SalesTaxRate_StateProvince2631d9a0bd4a4b9989375b6925a20368", Storage="_salesTaxRates", OtherKey="StateProvinceId")]
 		public EntitySet<SalesTaxRate> SalesTaxRates
 		{
 			get { return this._salesTaxRates; }
@@ -321,7 +321,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'StateProvince.SalesTerritory - SalesTerritory.StateProvinces (m:1)'</summary>
-		[Association(Name="StateProvince_SalesTerritoryd468d9b5492d4f3b85bb98550b684afd", Storage="_salesTerritory", ThisKey="TerritoryId", IsForeignKey=true)] 
+		[Association(Name="StateProvince_SalesTerritory5bf3b76bcdd142949c1a450a550d83e9", Storage="_salesTerritory", ThisKey="TerritoryId", IsForeignKey=true)] 
 		public SalesTerritory SalesTerritory
 		{
 			get { return _salesTerritory.Entity; }

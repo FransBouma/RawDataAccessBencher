@@ -211,7 +211,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesTaxRate.StateProvince - StateProvince.SalesTaxRates (m:1)'</summary>
-		[Association(Name="SalesTaxRate_StateProvince998a28c228724dc895c93b4275ec50cd", Storage="_stateProvince", ThisKey="StateProvinceId", IsForeignKey=true)] 
+		[Association(Name="SalesTaxRate_StateProvince2631d9a0bd4a4b9989375b6925a20368", Storage="_stateProvince", ThisKey="StateProvinceId", IsForeignKey=true)] 
 		public StateProvince StateProvince
 		{
 			get { return _stateProvince.Entity; }

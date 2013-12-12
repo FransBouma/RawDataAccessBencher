@@ -25,25 +25,20 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 {
 	// __LLBLGENPRO_USER_CODE_REGION_START AdditionalNamespaces
 	// __LLBLGENPRO_USER_CODE_REGION_END
-	
 	/// <summary>Entity class which represents the entity 'Address'.<br/><br/></summary>
 	[Serializable]
 	public partial class AddressEntity : CommonEntityBase
 		// __LLBLGENPRO_USER_CODE_REGION_START AdditionalInterfaces
-		// __LLBLGENPRO_USER_CODE_REGION_END
-			
+		// __LLBLGENPRO_USER_CODE_REGION_END	
 	{
 		#region Class Member Declarations
-		private EntityCollection<CustomerAddressEntity> _customerAddresses;
-		private EntityCollection<EmployeeAddressEntity> _employeeAddresses;
+		private EntityCollection<BusinessEntityAddressEntity> _businessEntityAddresses;
 		private EntityCollection<SalesOrderHeaderEntity> _salesOrderHeaders;
 		private EntityCollection<SalesOrderHeaderEntity> _salesOrderHeaders_;
-		private EntityCollection<VendorAddressEntity> _vendorAddresses;
 		private StateProvinceEntity _stateProvince;
 
 		// __LLBLGENPRO_USER_CODE_REGION_START PrivateMembers
 		// __LLBLGENPRO_USER_CODE_REGION_END
-		
 		#endregion
 
 		#region Statics
@@ -55,16 +50,12 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		{
 			/// <summary>Member name StateProvince</summary>
 			public static readonly string StateProvince = "StateProvince";
-			/// <summary>Member name CustomerAddresses</summary>
-			public static readonly string CustomerAddresses = "CustomerAddresses";
-			/// <summary>Member name EmployeeAddresses</summary>
-			public static readonly string EmployeeAddresses = "EmployeeAddresses";
+			/// <summary>Member name BusinessEntityAddresses</summary>
+			public static readonly string BusinessEntityAddresses = "BusinessEntityAddresses";
 			/// <summary>Member name SalesOrderHeaders</summary>
 			public static readonly string SalesOrderHeaders = "SalesOrderHeaders";
 			/// <summary>Member name SalesOrderHeaders_</summary>
 			public static readonly string SalesOrderHeaders_ = "SalesOrderHeaders_";
-			/// <summary>Member name VendorAddresses</summary>
-			public static readonly string VendorAddresses = "VendorAddresses";
 		}
 		#endregion
 		
@@ -122,11 +113,9 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		{
 			if(SerializationHelper.Optimization != SerializationOptimization.Fast) 
 			{
-				_customerAddresses = (EntityCollection<CustomerAddressEntity>)info.GetValue("_customerAddresses", typeof(EntityCollection<CustomerAddressEntity>));
-				_employeeAddresses = (EntityCollection<EmployeeAddressEntity>)info.GetValue("_employeeAddresses", typeof(EntityCollection<EmployeeAddressEntity>));
+				_businessEntityAddresses = (EntityCollection<BusinessEntityAddressEntity>)info.GetValue("_businessEntityAddresses", typeof(EntityCollection<BusinessEntityAddressEntity>));
 				_salesOrderHeaders = (EntityCollection<SalesOrderHeaderEntity>)info.GetValue("_salesOrderHeaders", typeof(EntityCollection<SalesOrderHeaderEntity>));
 				_salesOrderHeaders_ = (EntityCollection<SalesOrderHeaderEntity>)info.GetValue("_salesOrderHeaders_", typeof(EntityCollection<SalesOrderHeaderEntity>));
-				_vendorAddresses = (EntityCollection<VendorAddressEntity>)info.GetValue("_vendorAddresses", typeof(EntityCollection<VendorAddressEntity>));
 				_stateProvince = (StateProvinceEntity)info.GetValue("_stateProvince", typeof(StateProvinceEntity));
 				if(_stateProvince!=null)
 				{
@@ -136,7 +125,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			}
 			// __LLBLGENPRO_USER_CODE_REGION_START DeserializationConstructor
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 		}
 
 		
@@ -166,20 +154,14 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 				case "StateProvince":
 					this.StateProvince = (StateProvinceEntity)entity;
 					break;
-				case "CustomerAddresses":
-					this.CustomerAddresses.Add((CustomerAddressEntity)entity);
-					break;
-				case "EmployeeAddresses":
-					this.EmployeeAddresses.Add((EmployeeAddressEntity)entity);
+				case "BusinessEntityAddresses":
+					this.BusinessEntityAddresses.Add((BusinessEntityAddressEntity)entity);
 					break;
 				case "SalesOrderHeaders":
 					this.SalesOrderHeaders.Add((SalesOrderHeaderEntity)entity);
 					break;
 				case "SalesOrderHeaders_":
 					this.SalesOrderHeaders_.Add((SalesOrderHeaderEntity)entity);
-					break;
-				case "VendorAddresses":
-					this.VendorAddresses.Add((VendorAddressEntity)entity);
 					break;
 				default:
 					this.OnSetRelatedEntityProperty(propertyName, entity);
@@ -206,20 +188,14 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 				case "StateProvince":
 					toReturn.Add(Relations.StateProvinceEntityUsingStateProvinceId);
 					break;
-				case "CustomerAddresses":
-					toReturn.Add(Relations.CustomerAddressEntityUsingAddressId);
-					break;
-				case "EmployeeAddresses":
-					toReturn.Add(Relations.EmployeeAddressEntityUsingAddressId);
+				case "BusinessEntityAddresses":
+					toReturn.Add(Relations.BusinessEntityAddressEntityUsingAddressId);
 					break;
 				case "SalesOrderHeaders":
 					toReturn.Add(Relations.SalesOrderHeaderEntityUsingBillToAddressId);
 					break;
 				case "SalesOrderHeaders_":
 					toReturn.Add(Relations.SalesOrderHeaderEntityUsingShipToAddressId);
-					break;
-				case "VendorAddresses":
-					toReturn.Add(Relations.VendorAddressEntityUsingAddressId);
 					break;
 				default:
 					break;				
@@ -252,20 +228,14 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 				case "StateProvince":
 					SetupSyncStateProvince(relatedEntity);
 					break;
-				case "CustomerAddresses":
-					this.CustomerAddresses.Add((CustomerAddressEntity)relatedEntity);
-					break;
-				case "EmployeeAddresses":
-					this.EmployeeAddresses.Add((EmployeeAddressEntity)relatedEntity);
+				case "BusinessEntityAddresses":
+					this.BusinessEntityAddresses.Add((BusinessEntityAddressEntity)relatedEntity);
 					break;
 				case "SalesOrderHeaders":
 					this.SalesOrderHeaders.Add((SalesOrderHeaderEntity)relatedEntity);
 					break;
 				case "SalesOrderHeaders_":
 					this.SalesOrderHeaders_.Add((SalesOrderHeaderEntity)relatedEntity);
-					break;
-				case "VendorAddresses":
-					this.VendorAddresses.Add((VendorAddressEntity)relatedEntity);
 					break;
 				default:
 					break;
@@ -283,20 +253,14 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 				case "StateProvince":
 					DesetupSyncStateProvince(false, true);
 					break;
-				case "CustomerAddresses":
-					this.PerformRelatedEntityRemoval(this.CustomerAddresses, relatedEntity, signalRelatedEntityManyToOne);
-					break;
-				case "EmployeeAddresses":
-					this.PerformRelatedEntityRemoval(this.EmployeeAddresses, relatedEntity, signalRelatedEntityManyToOne);
+				case "BusinessEntityAddresses":
+					this.PerformRelatedEntityRemoval(this.BusinessEntityAddresses, relatedEntity, signalRelatedEntityManyToOne);
 					break;
 				case "SalesOrderHeaders":
 					this.PerformRelatedEntityRemoval(this.SalesOrderHeaders, relatedEntity, signalRelatedEntityManyToOne);
 					break;
 				case "SalesOrderHeaders_":
 					this.PerformRelatedEntityRemoval(this.SalesOrderHeaders_, relatedEntity, signalRelatedEntityManyToOne);
-					break;
-				case "VendorAddresses":
-					this.PerformRelatedEntityRemoval(this.VendorAddresses, relatedEntity, signalRelatedEntityManyToOne);
 					break;
 				default:
 					break;
@@ -329,11 +293,9 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		protected override List<IEntityCollection2> GetMemberEntityCollections()
 		{
 			List<IEntityCollection2> toReturn = new List<IEntityCollection2>();
-			toReturn.Add(this.CustomerAddresses);
-			toReturn.Add(this.EmployeeAddresses);
+			toReturn.Add(this.BusinessEntityAddresses);
 			toReturn.Add(this.SalesOrderHeaders);
 			toReturn.Add(this.SalesOrderHeaders_);
-			toReturn.Add(this.VendorAddresses);
 			return toReturn;
 		}
 
@@ -345,16 +307,13 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		{
 			if (SerializationHelper.Optimization != SerializationOptimization.Fast) 
 			{
-				info.AddValue("_customerAddresses", ((_customerAddresses!=null) && (_customerAddresses.Count>0) && !this.MarkedForDeletion)?_customerAddresses:null);
-				info.AddValue("_employeeAddresses", ((_employeeAddresses!=null) && (_employeeAddresses.Count>0) && !this.MarkedForDeletion)?_employeeAddresses:null);
+				info.AddValue("_businessEntityAddresses", ((_businessEntityAddresses!=null) && (_businessEntityAddresses.Count>0) && !this.MarkedForDeletion)?_businessEntityAddresses:null);
 				info.AddValue("_salesOrderHeaders", ((_salesOrderHeaders!=null) && (_salesOrderHeaders.Count>0) && !this.MarkedForDeletion)?_salesOrderHeaders:null);
 				info.AddValue("_salesOrderHeaders_", ((_salesOrderHeaders_!=null) && (_salesOrderHeaders_.Count>0) && !this.MarkedForDeletion)?_salesOrderHeaders_:null);
-				info.AddValue("_vendorAddresses", ((_vendorAddresses!=null) && (_vendorAddresses.Count>0) && !this.MarkedForDeletion)?_vendorAddresses:null);
 				info.AddValue("_stateProvince", (!this.MarkedForDeletion?_stateProvince:null));
 			}
 			// __LLBLGENPRO_USER_CODE_REGION_START GetObjectInfo
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			base.GetObjectData(info, context);
 		}
 
@@ -367,21 +326,12 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			return new AddressRelations().GetAllRelations();
 		}
 
-		/// <summary> Creates a new IRelationPredicateBucket object which contains the predicate expression and relation collection to fetch the related entities of type 'CustomerAddress' to this entity.</summary>
+		/// <summary> Creates a new IRelationPredicateBucket object which contains the predicate expression and relation collection to fetch the related entities of type 'BusinessEntityAddress' to this entity.</summary>
 		/// <returns></returns>
-		public virtual IRelationPredicateBucket GetRelationInfoCustomerAddresses()
+		public virtual IRelationPredicateBucket GetRelationInfoBusinessEntityAddresses()
 		{
 			IRelationPredicateBucket bucket = new RelationPredicateBucket();
-			bucket.PredicateExpression.Add(new FieldCompareValuePredicate(CustomerAddressFields.AddressId, null, ComparisonOperator.Equal, this.AddressId));
-			return bucket;
-		}
-
-		/// <summary> Creates a new IRelationPredicateBucket object which contains the predicate expression and relation collection to fetch the related entities of type 'EmployeeAddress' to this entity.</summary>
-		/// <returns></returns>
-		public virtual IRelationPredicateBucket GetRelationInfoEmployeeAddresses()
-		{
-			IRelationPredicateBucket bucket = new RelationPredicateBucket();
-			bucket.PredicateExpression.Add(new FieldCompareValuePredicate(EmployeeAddressFields.AddressId, null, ComparisonOperator.Equal, this.AddressId));
+			bucket.PredicateExpression.Add(new FieldCompareValuePredicate(BusinessEntityAddressFields.AddressId, null, ComparisonOperator.Equal, this.AddressId));
 			return bucket;
 		}
 
@@ -400,15 +350,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		{
 			IRelationPredicateBucket bucket = new RelationPredicateBucket();
 			bucket.PredicateExpression.Add(new FieldCompareValuePredicate(SalesOrderHeaderFields.ShipToAddressId, null, ComparisonOperator.Equal, this.AddressId));
-			return bucket;
-		}
-
-		/// <summary> Creates a new IRelationPredicateBucket object which contains the predicate expression and relation collection to fetch the related entities of type 'VendorAddress' to this entity.</summary>
-		/// <returns></returns>
-		public virtual IRelationPredicateBucket GetRelationInfoVendorAddresses()
-		{
-			IRelationPredicateBucket bucket = new RelationPredicateBucket();
-			bucket.PredicateExpression.Add(new FieldCompareValuePredicate(VendorAddressFields.AddressId, null, ComparisonOperator.Equal, this.AddressId));
 			return bucket;
 		}
 
@@ -433,11 +374,9 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		protected override void AddToMemberEntityCollectionsQueue(Queue<IEntityCollection2> collectionsQueue) 
 		{
 			base.AddToMemberEntityCollectionsQueue(collectionsQueue);
-			collectionsQueue.Enqueue(this._customerAddresses);
-			collectionsQueue.Enqueue(this._employeeAddresses);
+			collectionsQueue.Enqueue(this._businessEntityAddresses);
 			collectionsQueue.Enqueue(this._salesOrderHeaders);
 			collectionsQueue.Enqueue(this._salesOrderHeaders_);
-			collectionsQueue.Enqueue(this._vendorAddresses);
 		}
 		
 		/// <summary>Gets the member collections queue from the queue (base first)</summary>
@@ -445,11 +384,9 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		protected override void GetFromMemberEntityCollectionsQueue(Queue<IEntityCollection2> collectionsQueue)
 		{
 			base.GetFromMemberEntityCollectionsQueue(collectionsQueue);
-			this._customerAddresses = (EntityCollection<CustomerAddressEntity>) collectionsQueue.Dequeue();
-			this._employeeAddresses = (EntityCollection<EmployeeAddressEntity>) collectionsQueue.Dequeue();
+			this._businessEntityAddresses = (EntityCollection<BusinessEntityAddressEntity>) collectionsQueue.Dequeue();
 			this._salesOrderHeaders = (EntityCollection<SalesOrderHeaderEntity>) collectionsQueue.Dequeue();
 			this._salesOrderHeaders_ = (EntityCollection<SalesOrderHeaderEntity>) collectionsQueue.Dequeue();
-			this._vendorAddresses = (EntityCollection<VendorAddressEntity>) collectionsQueue.Dequeue();
 
 		}
 		
@@ -458,11 +395,9 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		protected override bool HasPopulatedMemberEntityCollections()
 		{
 			bool toReturn = false;
-			toReturn |=(this._customerAddresses != null);
-			toReturn |=(this._employeeAddresses != null);
+			toReturn |=(this._businessEntityAddresses != null);
 			toReturn |=(this._salesOrderHeaders != null);
 			toReturn |=(this._salesOrderHeaders_ != null);
-			toReturn |=(this._vendorAddresses != null);
 			return toReturn ? true : base.HasPopulatedMemberEntityCollections();
 		}
 		
@@ -472,11 +407,9 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		protected override void CreateMemberEntityCollectionsQueue(Queue<IEntityCollection2> collectionsQueue, Queue<bool> requiredQueue) 
 		{
 			base.CreateMemberEntityCollectionsQueue(collectionsQueue, requiredQueue);
-			collectionsQueue.Enqueue(requiredQueue.Dequeue() ? new EntityCollection<CustomerAddressEntity>(EntityFactoryCache2.GetEntityFactory(typeof(CustomerAddressEntityFactory))) : null);
-			collectionsQueue.Enqueue(requiredQueue.Dequeue() ? new EntityCollection<EmployeeAddressEntity>(EntityFactoryCache2.GetEntityFactory(typeof(EmployeeAddressEntityFactory))) : null);
+			collectionsQueue.Enqueue(requiredQueue.Dequeue() ? new EntityCollection<BusinessEntityAddressEntity>(EntityFactoryCache2.GetEntityFactory(typeof(BusinessEntityAddressEntityFactory))) : null);
 			collectionsQueue.Enqueue(requiredQueue.Dequeue() ? new EntityCollection<SalesOrderHeaderEntity>(EntityFactoryCache2.GetEntityFactory(typeof(SalesOrderHeaderEntityFactory))) : null);
 			collectionsQueue.Enqueue(requiredQueue.Dequeue() ? new EntityCollection<SalesOrderHeaderEntity>(EntityFactoryCache2.GetEntityFactory(typeof(SalesOrderHeaderEntityFactory))) : null);
-			collectionsQueue.Enqueue(requiredQueue.Dequeue() ? new EntityCollection<VendorAddressEntity>(EntityFactoryCache2.GetEntityFactory(typeof(VendorAddressEntityFactory))) : null);
 		}
 #endif
 		/// <summary>Gets all related data objects, stored by name. The name is the field name mapped onto the relation for that particular data element.</summary>
@@ -485,11 +418,9 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		{
 			Dictionary<string, object> toReturn = new Dictionary<string, object>();
 			toReturn.Add("StateProvince", _stateProvince);
-			toReturn.Add("CustomerAddresses", _customerAddresses);
-			toReturn.Add("EmployeeAddresses", _employeeAddresses);
+			toReturn.Add("BusinessEntityAddresses", _businessEntityAddresses);
 			toReturn.Add("SalesOrderHeaders", _salesOrderHeaders);
 			toReturn.Add("SalesOrderHeaders_", _salesOrderHeaders_);
-			toReturn.Add("VendorAddresses", _vendorAddresses);
 			return toReturn;
 		}
 
@@ -500,7 +431,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			
 			// __LLBLGENPRO_USER_CODE_REGION_START InitClassMembers
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			OnInitClassMembersComplete();
 		}
 
@@ -526,6 +456,8 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			_fieldsCustomProperties.Add("PostalCode", fieldHashtable);
 			fieldHashtable = new Dictionary<string, string>();
 			_fieldsCustomProperties.Add("Rowguid", fieldHashtable);
+			fieldHashtable = new Dictionary<string, string>();
+			_fieldsCustomProperties.Add("SpatialLocation", fieldHashtable);
 			fieldHashtable = new Dictionary<string, string>();
 			_fieldsCustomProperties.Add("StateProvinceId", fieldHashtable);
 		}
@@ -576,7 +508,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 
 			// __LLBLGENPRO_USER_CODE_REGION_START InitClassEmpty
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 
 			OnInitialized();
 
@@ -596,18 +527,11 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			get { return _customProperties;}
 		}
 
-		/// <summary> Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'CustomerAddress' for this entity.</summary>
+		/// <summary> Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'BusinessEntityAddress' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathCustomerAddresses
+		public static IPrefetchPathElement2 PrefetchPathBusinessEntityAddresses
 		{
-			get	{ return new PrefetchPathElement2( new EntityCollection<CustomerAddressEntity>(EntityFactoryCache2.GetEntityFactory(typeof(CustomerAddressEntityFactory))), (IEntityRelation)GetRelationsForField("CustomerAddresses")[0], (int)AdventureWorks.Dal.Adapter.v41.EntityType.AddressEntity, (int)AdventureWorks.Dal.Adapter.v41.EntityType.CustomerAddressEntity, 0, null, null, null, null, "CustomerAddresses", SD.LLBLGen.Pro.ORMSupportClasses.RelationType.OneToMany);	}
-		}
-
-		/// <summary> Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'EmployeeAddress' for this entity.</summary>
-		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathEmployeeAddresses
-		{
-			get	{ return new PrefetchPathElement2( new EntityCollection<EmployeeAddressEntity>(EntityFactoryCache2.GetEntityFactory(typeof(EmployeeAddressEntityFactory))), (IEntityRelation)GetRelationsForField("EmployeeAddresses")[0], (int)AdventureWorks.Dal.Adapter.v41.EntityType.AddressEntity, (int)AdventureWorks.Dal.Adapter.v41.EntityType.EmployeeAddressEntity, 0, null, null, null, null, "EmployeeAddresses", SD.LLBLGen.Pro.ORMSupportClasses.RelationType.OneToMany);	}
+			get	{ return new PrefetchPathElement2( new EntityCollection<BusinessEntityAddressEntity>(EntityFactoryCache2.GetEntityFactory(typeof(BusinessEntityAddressEntityFactory))), (IEntityRelation)GetRelationsForField("BusinessEntityAddresses")[0], (int)AdventureWorks.Dal.Adapter.v41.EntityType.AddressEntity, (int)AdventureWorks.Dal.Adapter.v41.EntityType.BusinessEntityAddressEntity, 0, null, null, null, null, "BusinessEntityAddresses", SD.LLBLGen.Pro.ORMSupportClasses.RelationType.OneToMany);	}
 		}
 
 		/// <summary> Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'SalesOrderHeader' for this entity.</summary>
@@ -622,13 +546,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		public static IPrefetchPathElement2 PrefetchPathSalesOrderHeaders_
 		{
 			get	{ return new PrefetchPathElement2( new EntityCollection<SalesOrderHeaderEntity>(EntityFactoryCache2.GetEntityFactory(typeof(SalesOrderHeaderEntityFactory))), (IEntityRelation)GetRelationsForField("SalesOrderHeaders_")[0], (int)AdventureWorks.Dal.Adapter.v41.EntityType.AddressEntity, (int)AdventureWorks.Dal.Adapter.v41.EntityType.SalesOrderHeaderEntity, 0, null, null, null, null, "SalesOrderHeaders_", SD.LLBLGen.Pro.ORMSupportClasses.RelationType.OneToMany);	}
-		}
-
-		/// <summary> Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'VendorAddress' for this entity.</summary>
-		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathVendorAddresses
-		{
-			get	{ return new PrefetchPathElement2( new EntityCollection<VendorAddressEntity>(EntityFactoryCache2.GetEntityFactory(typeof(VendorAddressEntityFactory))), (IEntityRelation)GetRelationsForField("VendorAddresses")[0], (int)AdventureWorks.Dal.Adapter.v41.EntityType.AddressEntity, (int)AdventureWorks.Dal.Adapter.v41.EntityType.VendorAddressEntity, 0, null, null, null, null, "VendorAddresses", SD.LLBLGen.Pro.ORMSupportClasses.RelationType.OneToMany);	}
 		}
 
 		/// <summary> Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'StateProvince' for this entity.</summary>
@@ -732,6 +649,16 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			set	{ SetValue((int)AddressFieldIndex.Rowguid, value); }
 		}
 
+		/// <summary> The SpatialLocation property of the Entity Address<br/><br/></summary>
+		/// <remarks>Mapped on  table field: "Address"."SpatialLocation"<br/>
+		/// Table field type characteristics (type, precision, scale, length): Udt, 0, 0, 0<br/>
+		/// Table field behavior characteristics (is nullable, is PK, is identity): true, false, false</remarks>
+		public virtual Microsoft.SqlServer.Types.SqlGeography SpatialLocation
+		{
+			get { return (Microsoft.SqlServer.Types.SqlGeography)GetValue((int)AddressFieldIndex.SpatialLocation, true); }
+			set	{ SetValue((int)AddressFieldIndex.SpatialLocation, value); }
+		}
+
 		/// <summary> The StateProvinceId property of the Entity Address<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "Address"."StateProvinceID"<br/>
 		/// Table field type characteristics (type, precision, scale, length): Int, 10, 0, 0<br/>
@@ -742,18 +669,11 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			set	{ SetValue((int)AddressFieldIndex.StateProvinceId, value); }
 		}
 
-		/// <summary> Gets the EntityCollection with the related entities of type 'CustomerAddressEntity' which are related to this entity via a relation of type '1:n'. If the EntityCollection hasn't been fetched yet, the collection returned will be empty.<br/><br/></summary>
-		[TypeContainedAttribute(typeof(CustomerAddressEntity))]
-		public virtual EntityCollection<CustomerAddressEntity> CustomerAddresses
+		/// <summary> Gets the EntityCollection with the related entities of type 'BusinessEntityAddressEntity' which are related to this entity via a relation of type '1:n'. If the EntityCollection hasn't been fetched yet, the collection returned will be empty.<br/><br/></summary>
+		[TypeContainedAttribute(typeof(BusinessEntityAddressEntity))]
+		public virtual EntityCollection<BusinessEntityAddressEntity> BusinessEntityAddresses
 		{
-			get { return GetOrCreateEntityCollection<CustomerAddressEntity, CustomerAddressEntityFactory>("Address", true, false, ref _customerAddresses);	}
-		}
-
-		/// <summary> Gets the EntityCollection with the related entities of type 'EmployeeAddressEntity' which are related to this entity via a relation of type '1:n'. If the EntityCollection hasn't been fetched yet, the collection returned will be empty.<br/><br/></summary>
-		[TypeContainedAttribute(typeof(EmployeeAddressEntity))]
-		public virtual EntityCollection<EmployeeAddressEntity> EmployeeAddresses
-		{
-			get { return GetOrCreateEntityCollection<EmployeeAddressEntity, EmployeeAddressEntityFactory>("Address", true, false, ref _employeeAddresses);	}
+			get { return GetOrCreateEntityCollection<BusinessEntityAddressEntity, BusinessEntityAddressEntityFactory>("Address", true, false, ref _businessEntityAddresses);	}
 		}
 
 		/// <summary> Gets the EntityCollection with the related entities of type 'SalesOrderHeaderEntity' which are related to this entity via a relation of type '1:n'. If the EntityCollection hasn't been fetched yet, the collection returned will be empty.<br/><br/></summary>
@@ -768,13 +688,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		public virtual EntityCollection<SalesOrderHeaderEntity> SalesOrderHeaders_
 		{
 			get { return GetOrCreateEntityCollection<SalesOrderHeaderEntity, SalesOrderHeaderEntityFactory>("Address_", true, false, ref _salesOrderHeaders_);	}
-		}
-
-		/// <summary> Gets the EntityCollection with the related entities of type 'VendorAddressEntity' which are related to this entity via a relation of type '1:n'. If the EntityCollection hasn't been fetched yet, the collection returned will be empty.<br/><br/></summary>
-		[TypeContainedAttribute(typeof(VendorAddressEntity))]
-		public virtual EntityCollection<VendorAddressEntity> VendorAddresses
-		{
-			get { return GetOrCreateEntityCollection<VendorAddressEntity, VendorAddressEntityFactory>("Address", true, false, ref _vendorAddresses);	}
 		}
 
 		/// <summary> Gets / sets related entity of type 'StateProvinceEntity' which has to be set using a fetch action earlier. If no related entity is set for this property, null is returned..<br/><br/></summary>
@@ -821,7 +734,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		
 		// __LLBLGENPRO_USER_CODE_REGION_START CustomEntityCode
 		// __LLBLGENPRO_USER_CODE_REGION_END
-		
 		#endregion
 
 		#region Included code

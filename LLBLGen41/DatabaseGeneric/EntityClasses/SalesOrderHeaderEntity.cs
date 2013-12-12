@@ -25,20 +25,17 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 {
 	// __LLBLGENPRO_USER_CODE_REGION_START AdditionalNamespaces
 	// __LLBLGENPRO_USER_CODE_REGION_END
-	
 	/// <summary>Entity class which represents the entity 'SalesOrderHeader'.<br/><br/></summary>
 	[Serializable]
 	public partial class SalesOrderHeaderEntity : CommonEntityBase
 		// __LLBLGENPRO_USER_CODE_REGION_START AdditionalInterfaces
-		// __LLBLGENPRO_USER_CODE_REGION_END
-			
+		// __LLBLGENPRO_USER_CODE_REGION_END	
 	{
 		#region Class Member Declarations
 		private EntityCollection<SalesOrderDetailEntity> _salesOrderDetails;
 		private EntityCollection<SalesOrderHeaderSalesReasonEntity> _salesOrderHeaderSalesReasons;
 		private AddressEntity _address;
 		private AddressEntity _address_;
-		private ContactEntity _contact;
 		private CreditCardEntity _creditCard;
 		private CurrencyRateEntity _currencyRate;
 		private CustomerEntity _customer;
@@ -48,7 +45,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 
 		// __LLBLGENPRO_USER_CODE_REGION_START PrivateMembers
 		// __LLBLGENPRO_USER_CODE_REGION_END
-		
 		#endregion
 
 		#region Statics
@@ -62,8 +58,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			public static readonly string Address = "Address";
 			/// <summary>Member name Address_</summary>
 			public static readonly string Address_ = "Address_";
-			/// <summary>Member name Contact</summary>
-			public static readonly string Contact = "Contact";
 			/// <summary>Member name CreditCard</summary>
 			public static readonly string CreditCard = "CreditCard";
 			/// <summary>Member name CurrencyRate</summary>
@@ -149,11 +143,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 				{
 					_address_.AfterSave+=new EventHandler(OnEntityAfterSave);
 				}
-				_contact = (ContactEntity)info.GetValue("_contact", typeof(ContactEntity));
-				if(_contact!=null)
-				{
-					_contact.AfterSave+=new EventHandler(OnEntityAfterSave);
-				}
 				_creditCard = (CreditCardEntity)info.GetValue("_creditCard", typeof(CreditCardEntity));
 				if(_creditCard!=null)
 				{
@@ -188,7 +177,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			}
 			// __LLBLGENPRO_USER_CODE_REGION_START DeserializationConstructor
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 		}
 
 		
@@ -200,9 +188,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			{
 				case SalesOrderHeaderFieldIndex.BillToAddressId:
 					DesetupSyncAddress(true, false);
-					break;
-				case SalesOrderHeaderFieldIndex.ContactId:
-					DesetupSyncContact(true, false);
 					break;
 				case SalesOrderHeaderFieldIndex.CreditCardId:
 					DesetupSyncCreditCard(true, false);
@@ -244,9 +229,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 					break;
 				case "Address_":
 					this.Address_ = (AddressEntity)entity;
-					break;
-				case "Contact":
-					this.Contact = (ContactEntity)entity;
 					break;
 				case "CreditCard":
 					this.CreditCard = (CreditCardEntity)entity;
@@ -299,9 +281,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 					break;
 				case "Address_":
 					toReturn.Add(Relations.AddressEntityUsingShipToAddressId);
-					break;
-				case "Contact":
-					toReturn.Add(Relations.ContactEntityUsingContactId);
 					break;
 				case "CreditCard":
 					toReturn.Add(Relations.CreditCardEntityUsingCreditCardId);
@@ -361,9 +340,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 				case "Address_":
 					SetupSyncAddress_(relatedEntity);
 					break;
-				case "Contact":
-					SetupSyncContact(relatedEntity);
-					break;
 				case "CreditCard":
 					SetupSyncCreditCard(relatedEntity);
 					break;
@@ -406,9 +382,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 					break;
 				case "Address_":
 					DesetupSyncAddress_(false, true);
-					break;
-				case "Contact":
-					DesetupSyncContact(false, true);
 					break;
 				case "CreditCard":
 					DesetupSyncCreditCard(false, true);
@@ -461,10 +434,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			{
 				toReturn.Add(_address_);
 			}
-			if(_contact!=null)
-			{
-				toReturn.Add(_contact);
-			}
 			if(_creditCard!=null)
 			{
 				toReturn.Add(_creditCard);
@@ -514,7 +483,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 				info.AddValue("_salesOrderHeaderSalesReasons", ((_salesOrderHeaderSalesReasons!=null) && (_salesOrderHeaderSalesReasons.Count>0) && !this.MarkedForDeletion)?_salesOrderHeaderSalesReasons:null);
 				info.AddValue("_address", (!this.MarkedForDeletion?_address:null));
 				info.AddValue("_address_", (!this.MarkedForDeletion?_address_:null));
-				info.AddValue("_contact", (!this.MarkedForDeletion?_contact:null));
 				info.AddValue("_creditCard", (!this.MarkedForDeletion?_creditCard:null));
 				info.AddValue("_currencyRate", (!this.MarkedForDeletion?_currencyRate:null));
 				info.AddValue("_customer", (!this.MarkedForDeletion?_customer:null));
@@ -524,7 +492,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			}
 			// __LLBLGENPRO_USER_CODE_REGION_START GetObjectInfo
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			base.GetObjectData(info, context);
 		}
 
@@ -570,15 +537,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		{
 			IRelationPredicateBucket bucket = new RelationPredicateBucket();
 			bucket.PredicateExpression.Add(new FieldCompareValuePredicate(AddressFields.AddressId, null, ComparisonOperator.Equal, this.ShipToAddressId));
-			return bucket;
-		}
-
-		/// <summary> Creates a new IRelationPredicateBucket object which contains the predicate expression and relation collection to fetch the related entity of type 'Contact' to this entity.</summary>
-		/// <returns></returns>
-		public virtual IRelationPredicateBucket GetRelationInfoContact()
-		{
-			IRelationPredicateBucket bucket = new RelationPredicateBucket();
-			bucket.PredicateExpression.Add(new FieldCompareValuePredicate(ContactFields.ContactId, null, ComparisonOperator.Equal, this.ContactId));
 			return bucket;
 		}
 
@@ -689,7 +647,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			Dictionary<string, object> toReturn = new Dictionary<string, object>();
 			toReturn.Add("Address", _address);
 			toReturn.Add("Address_", _address_);
-			toReturn.Add("Contact", _contact);
 			toReturn.Add("CreditCard", _creditCard);
 			toReturn.Add("CurrencyRate", _currencyRate);
 			toReturn.Add("Customer", _customer);
@@ -708,7 +665,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			
 			// __LLBLGENPRO_USER_CODE_REGION_START InitClassMembers
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			OnInitClassMembersComplete();
 		}
 
@@ -726,8 +682,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			_fieldsCustomProperties.Add("BillToAddressId", fieldHashtable);
 			fieldHashtable = new Dictionary<string, string>();
 			_fieldsCustomProperties.Add("Comment", fieldHashtable);
-			fieldHashtable = new Dictionary<string, string>();
-			_fieldsCustomProperties.Add("ContactId", fieldHashtable);
 			fieldHashtable = new Dictionary<string, string>();
 			_fieldsCustomProperties.Add("CreditCardApprovalCode", fieldHashtable);
 			fieldHashtable = new Dictionary<string, string>();
@@ -835,39 +789,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
 		private void OnAddress_PropertyChanged( object sender, PropertyChangedEventArgs e )
-		{
-			switch( e.PropertyName )
-			{
-				default:
-					break;
-			}
-		}
-
-		/// <summary> Removes the sync logic for member _contact</summary>
-		/// <param name="signalRelatedEntity">If set to true, it will call the related entity's UnsetRelatedEntity method</param>
-		/// <param name="resetFKFields">if set to true it will also reset the FK fields pointing to the related entity</param>
-		private void DesetupSyncContact(bool signalRelatedEntity, bool resetFKFields)
-		{
-			this.PerformDesetupSyncRelatedEntity( _contact, new PropertyChangedEventHandler( OnContactPropertyChanged ), "Contact", AdventureWorks.Dal.Adapter.v41.RelationClasses.StaticSalesOrderHeaderRelations.ContactEntityUsingContactIdStatic, true, signalRelatedEntity, "SalesOrderHeaders", resetFKFields, new int[] { (int)SalesOrderHeaderFieldIndex.ContactId } );
-			_contact = null;
-		}
-
-		/// <summary> setups the sync logic for member _contact</summary>
-		/// <param name="relatedEntity">Instance to set as the related entity of type entityType</param>
-		private void SetupSyncContact(IEntityCore relatedEntity)
-		{
-			if(_contact!=relatedEntity)
-			{
-				DesetupSyncContact(true, true);
-				_contact = (ContactEntity)relatedEntity;
-				this.PerformSetupSyncRelatedEntity( _contact, new PropertyChangedEventHandler( OnContactPropertyChanged ), "Contact", AdventureWorks.Dal.Adapter.v41.RelationClasses.StaticSalesOrderHeaderRelations.ContactEntityUsingContactIdStatic, true, new string[] {  } );
-			}
-		}
-		
-		/// <summary>Handles property change events of properties in a related entity.</summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void OnContactPropertyChanged( object sender, PropertyChangedEventArgs e )
 		{
 			switch( e.PropertyName )
 			{
@@ -1086,7 +1007,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 
 			// __LLBLGENPRO_USER_CODE_REGION_START InitClassEmpty
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 
 			OnInitialized();
 
@@ -1132,13 +1052,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		public static IPrefetchPathElement2 PrefetchPathAddress_
 		{
 			get	{ return new PrefetchPathElement2(new EntityCollection(EntityFactoryCache2.GetEntityFactory(typeof(AddressEntityFactory))),	(IEntityRelation)GetRelationsForField("Address_")[0], (int)AdventureWorks.Dal.Adapter.v41.EntityType.SalesOrderHeaderEntity, (int)AdventureWorks.Dal.Adapter.v41.EntityType.AddressEntity, 0, null, null, null, null, "Address_", SD.LLBLGen.Pro.ORMSupportClasses.RelationType.ManyToOne); }
-		}
-
-		/// <summary> Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'Contact' for this entity.</summary>
-		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathContact
-		{
-			get	{ return new PrefetchPathElement2(new EntityCollection(EntityFactoryCache2.GetEntityFactory(typeof(ContactEntityFactory))),	(IEntityRelation)GetRelationsForField("Contact")[0], (int)AdventureWorks.Dal.Adapter.v41.EntityType.SalesOrderHeaderEntity, (int)AdventureWorks.Dal.Adapter.v41.EntityType.ContactEntity, 0, null, null, null, null, "Contact", SD.LLBLGen.Pro.ORMSupportClasses.RelationType.ManyToOne); }
 		}
 
 		/// <summary> Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'CreditCard' for this entity.</summary>
@@ -1235,16 +1148,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		{
 			get { return (System.String)GetValue((int)SalesOrderHeaderFieldIndex.Comment, true); }
 			set	{ SetValue((int)SalesOrderHeaderFieldIndex.Comment, value); }
-		}
-
-		/// <summary> The ContactId property of the Entity SalesOrderHeader<br/><br/></summary>
-		/// <remarks>Mapped on  table field: "SalesOrderHeader"."ContactID"<br/>
-		/// Table field type characteristics (type, precision, scale, length): Int, 10, 0, 0<br/>
-		/// Table field behavior characteristics (is nullable, is PK, is identity): false, false, false</remarks>
-		public virtual System.Int32 ContactId
-		{
-			get { return (System.Int32)GetValue((int)SalesOrderHeaderFieldIndex.ContactId, true); }
-			set	{ SetValue((int)SalesOrderHeaderFieldIndex.ContactId, value); }
 		}
 
 		/// <summary> The CreditCardApprovalCode property of the Entity SalesOrderHeader<br/><br/></summary>
@@ -1527,24 +1430,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			}
 		}
 
-		/// <summary> Gets / sets related entity of type 'ContactEntity' which has to be set using a fetch action earlier. If no related entity is set for this property, null is returned..<br/><br/></summary>
-		[Browsable(false)]
-		public virtual ContactEntity Contact
-		{
-			get	{ return _contact; }
-			set
-			{
-				if(this.IsDeserializing)
-				{
-					SetupSyncContact(value);
-				}
-				else
-				{
-					SetSingleRelatedEntityNavigator(value, "SalesOrderHeaders", "Contact", _contact, true); 
-				}
-			}
-		}
-
 		/// <summary> Gets / sets related entity of type 'CreditCardEntity' which has to be set using a fetch action earlier. If no related entity is set for this property, null is returned..<br/><br/></summary>
 		[Browsable(false)]
 		public virtual CreditCardEntity CreditCard
@@ -1679,7 +1564,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		
 		// __LLBLGENPRO_USER_CODE_REGION_START CustomEntityCode
 		// __LLBLGENPRO_USER_CODE_REGION_END
-		
 		#endregion
 
 		#region Included code

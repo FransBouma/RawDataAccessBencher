@@ -133,7 +133,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductModelIllustration.Illustration - Illustration.ProductModelIllustrations (m:1)'</summary>
-		[Association(Name="ProductModelIllustration_Illustrationf1153741ae8642d8a68d72f4c6692a56", Storage="_illustration", ThisKey="IllustrationId", IsForeignKey=true)] 
+		[Association(Name="ProductModelIllustration_Illustrationa5a27066452c47558be7c9d862a501ce", Storage="_illustration", ThisKey="IllustrationId", IsForeignKey=true)] 
 		public Illustration Illustration
 		{
 			get { return _illustration.Entity; }
@@ -164,7 +164,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductModelIllustration.ProductModel - ProductModel.ProductModelIllustrations (m:1)'</summary>
-		[Association(Name="ProductModelIllustration_ProductModel16ccb246a85c40149e4771d807735f89", Storage="_productModel", ThisKey="ProductModelId", IsForeignKey=true)] 
+		[Association(Name="ProductModelIllustration_ProductModel3a9db1ea24f94a64ae6d1ae9345271f3", Storage="_productModel", ThisKey="ProductModelId", IsForeignKey=true)] 
 		public ProductModel ProductModel
 		{
 			get { return _productModel.Entity; }

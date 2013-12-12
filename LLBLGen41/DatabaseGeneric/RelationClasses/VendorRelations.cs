@@ -32,8 +32,7 @@ namespace AdventureWorks.Dal.Adapter.v41.RelationClasses
 			List<IEntityRelation> toReturn = new List<IEntityRelation>();
 			toReturn.Add(this.ProductVendorEntityUsingVendorId);
 			toReturn.Add(this.PurchaseOrderHeaderEntityUsingVendorId);
-			toReturn.Add(this.VendorAddressEntityUsingVendorId);
-			toReturn.Add(this.VendorContactEntityUsingVendorId);
+			toReturn.Add(this.BusinessEntityEntityUsingVendorId);
 			return toReturn;
 		}
 
@@ -69,36 +68,24 @@ namespace AdventureWorks.Dal.Adapter.v41.RelationClasses
 			}
 		}
 
-		/// <summary>Returns a new IEntityRelation object, between VendorEntity and VendorAddressEntity over the 1:n relation they have, using the relation between the fields:
-		/// Vendor.VendorId - VendorAddress.VendorId
+		/// <summary>Returns a new IEntityRelation object, between VendorEntity and BusinessEntityEntity over the 1:1 relation they have, using the relation between the fields:
+		/// Vendor.VendorId - BusinessEntity.BusinessEntityId
 		/// </summary>
-		public virtual IEntityRelation VendorAddressEntityUsingVendorId
+		public virtual IEntityRelation BusinessEntityEntityUsingVendorId
 		{
 			get
 			{
-				IEntityRelation relation = new EntityRelation(SD.LLBLGen.Pro.ORMSupportClasses.RelationType.OneToMany, "VendorAddresses" , true);
-				relation.AddEntityFieldPair(VendorFields.VendorId, VendorAddressFields.VendorId);
-				relation.InheritanceInfoPkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("VendorEntity", true);
-				relation.InheritanceInfoFkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("VendorAddressEntity", false);
+				IEntityRelation relation = new EntityRelation(SD.LLBLGen.Pro.ORMSupportClasses.RelationType.OneToOne, "BusinessEntity", false);
+
+
+
+				relation.AddEntityFieldPair(BusinessEntityFields.BusinessEntityId, VendorFields.VendorId);
+
+				relation.InheritanceInfoPkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("BusinessEntityEntity", false);
+				relation.InheritanceInfoFkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("VendorEntity", true);
 				return relation;
 			}
 		}
-
-		/// <summary>Returns a new IEntityRelation object, between VendorEntity and VendorContactEntity over the 1:n relation they have, using the relation between the fields:
-		/// Vendor.VendorId - VendorContact.VendorId
-		/// </summary>
-		public virtual IEntityRelation VendorContactEntityUsingVendorId
-		{
-			get
-			{
-				IEntityRelation relation = new EntityRelation(SD.LLBLGen.Pro.ORMSupportClasses.RelationType.OneToMany, "VendorContacts" , true);
-				relation.AddEntityFieldPair(VendorFields.VendorId, VendorContactFields.VendorId);
-				relation.InheritanceInfoPkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("VendorEntity", true);
-				relation.InheritanceInfoFkSideEntity = InheritanceInfoProviderSingleton.GetInstance().GetInheritanceInfo("VendorContactEntity", false);
-				return relation;
-			}
-		}
-
 
 		/// <summary>stub, not used in this entity, only for TargetPerEntity entities.</summary>
 		public virtual IEntityRelation GetSubTypeRelation(string subTypeEntityName) { return null; }
@@ -116,8 +103,7 @@ namespace AdventureWorks.Dal.Adapter.v41.RelationClasses
 	{
 		internal static readonly IEntityRelation ProductVendorEntityUsingVendorIdStatic = new VendorRelations().ProductVendorEntityUsingVendorId;
 		internal static readonly IEntityRelation PurchaseOrderHeaderEntityUsingVendorIdStatic = new VendorRelations().PurchaseOrderHeaderEntityUsingVendorId;
-		internal static readonly IEntityRelation VendorAddressEntityUsingVendorIdStatic = new VendorRelations().VendorAddressEntityUsingVendorId;
-		internal static readonly IEntityRelation VendorContactEntityUsingVendorIdStatic = new VendorRelations().VendorContactEntityUsingVendorId;
+		internal static readonly IEntityRelation BusinessEntityEntityUsingVendorIdStatic = new VendorRelations().BusinessEntityEntityUsingVendorId;
 
 		/// <summary>CTor</summary>
 		static StaticVendorRelations()

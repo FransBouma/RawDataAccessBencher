@@ -21,7 +21,7 @@ namespace L2S.Bencher.EntityClasses
 		#endregion
 		
 		#region Class Member Declarations
-		private System.Int32	_documentId;
+		private System.String	_documentNode;
 		private System.DateTime	_modifiedDate;
 		private System.Int32	_productId;
 		private EntityRef <Document> _document;
@@ -32,8 +32,8 @@ namespace L2S.Bencher.EntityClasses
 		partial void OnLoaded();
 		partial void OnValidate(System.Data.Linq.ChangeAction action);
 		partial void OnCreated();
-		partial void OnDocumentIdChanging(System.Int32 value);
-		partial void OnDocumentIdChanged();
+		partial void OnDocumentNodeChanging(System.String value);
+		partial void OnDocumentNodeChanged();
 		partial void OnModifiedDateChanging(System.DateTime value);
 		partial void OnModifiedDateChanged();
 		partial void OnProductIdChanging(System.Int32 value);
@@ -70,24 +70,24 @@ namespace L2S.Bencher.EntityClasses
 		
 
 		#region Class Property Declarations
-		/// <summary>Gets or sets the DocumentId field. Mapped on target field 'DocumentID'. </summary>
-		[Column(Name="DocumentID", Storage="_documentId", CanBeNull=false, DbType="int NOT NULL", IsPrimaryKey=true)]
-		public System.Int32 DocumentId
+		/// <summary>Gets or sets the DocumentNode field. Mapped on target field 'DocumentNode'. </summary>
+		[Column(Name="DocumentNode", Storage="_documentNode", CanBeNull=false, DbType="varchar(892) NOT NULL", IsPrimaryKey=true)]
+		public System.String DocumentNode
 		{
-			get	{ return _documentId; }
+			get	{ return _documentNode; }
 			set
 			{
-				if((_documentId != value))
+				if((_documentNode != value))
 				{
 					if(_document.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
-					OnDocumentIdChanging(value);
-					SendPropertyChanging("DocumentId");
-					_documentId = value;
-					SendPropertyChanged("DocumentId");
-					OnDocumentIdChanged();
+					OnDocumentNodeChanging(value);
+					SendPropertyChanging("DocumentNode");
+					_documentNode = value;
+					SendPropertyChanged("DocumentNode");
+					OnDocumentNodeChanged();
 				}
 			}
 		}
@@ -133,7 +133,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductDocument.Document - Document.ProductDocuments (m:1)'</summary>
-		[Association(Name="ProductDocument_Document7d25a883933044f3ac84d05bb0f3c88c", Storage="_document", ThisKey="DocumentId", IsForeignKey=true)] 
+		[Association(Name="ProductDocument_Document2b53484260ec4f40b66df266668c97af", Storage="_document", ThisKey="DocumentNode", IsForeignKey=true)] 
 		public Document Document
 		{
 			get { return _document.Entity; }
@@ -151,12 +151,12 @@ namespace L2S.Bencher.EntityClasses
 					_document.Entity = value;
 					if(value == null)
 					{
-						_documentId = default(System.Int32);
+						_documentNode = default(System.String);
 					}
 					else
 					{
 						value.ProductDocuments.Add(this);
-						_documentId = value.DocumentId;
+						_documentNode = value.DocumentNode;
 					}
 					this.SendPropertyChanged("Document");
 				}
@@ -164,7 +164,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductDocument.Product - Product.ProductDocuments (m:1)'</summary>
-		[Association(Name="ProductDocument_Product46c98069a63a4944b252e6984f4c4ce9", Storage="_product", ThisKey="ProductId", IsForeignKey=true)] 
+		[Association(Name="ProductDocument_Productfc4642fc06fb4679b3d9771eb56ab7d9", Storage="_product", ThisKey="ProductId", IsForeignKey=true)] 
 		public Product Product
 		{
 			get { return _product.Entity; }

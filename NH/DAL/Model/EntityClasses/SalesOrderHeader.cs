@@ -13,7 +13,6 @@ namespace NH.Bencher.EntityClasses
 		#region Class Member Declarations
 		private Address _address;
 		private Address _address1;
-		private Contact _contact;
 		private CreditCard _creditCard;
 		private CurrencyRate _currencyRate;
 		private Customer _customer;
@@ -215,13 +214,6 @@ namespace NH.Bencher.EntityClasses
 		{
 			get { return _address1; }
 			set { _address1 = value; }
-		}
-		
-		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderHeader.Contact - Contact.SalesOrderHeaders (m:1)'</summary>
-		public virtual Contact Contact
-		{
-			get { return _contact; }
-			set { _contact = value; }
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderHeader.CreditCard - CreditCard.SalesOrderHeaders (m:1)'</summary>

@@ -24,7 +24,7 @@ namespace EF6.Bencher.EntityClasses
 		#region Class Property Declarations
 		/// <summary>Gets or sets the EndTime field. </summary>
 		[DataMember]
-		public System.DateTime EndTime { get; set;}
+		public System.TimeSpan EndTime { get; set;}
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
 		[DataMember]
 		public System.DateTime ModifiedDate { get; set;}
@@ -36,7 +36,7 @@ namespace EF6.Bencher.EntityClasses
 		public System.Byte ShiftId { get; set;}
 		/// <summary>Gets or sets the StartTime field. </summary>
 		[DataMember]
-		public System.DateTime StartTime { get; set;}
+		public System.TimeSpan StartTime { get; set;}
 		/// <summary>Represents the navigator which is mapped onto the association 'EmployeeDepartmentHistory.Shift - Shift.EmployeeDepartmentHistories (m:1)'</summary>
 		[DataMember]
 		public virtual ICollection<EmployeeDepartmentHistory> EmployeeDepartmentHistories { get; set;}

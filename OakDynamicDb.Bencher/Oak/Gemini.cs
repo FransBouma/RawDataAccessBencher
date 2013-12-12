@@ -660,11 +660,11 @@ namespace Oak
         {
             var dictionary = new Prototype() as IDictionary<string, object>;
 
-            var delegates = Delegates();
+            var hashset = new HashSet<string>(Delegates().Select(s => s.Key));
 
             Hash().ForEach<KeyValuePair<string, object>>(s =>
             {
-                if (!delegates.Contains(s)) dictionary.Add(s.Key, s.Value);
+                if (!hashset.Contains(s.Key)) dictionary.Add(s.Key, s.Value);
             });
 
             return dictionary;

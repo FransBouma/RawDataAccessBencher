@@ -25,8 +25,7 @@ namespace L2S.Bencher.EntityClasses
 		private System.DateTime	_modifiedDate;
 		private System.String	_name;
 		private System.Guid	_rowguid;
-		private EntitySet <CustomerAddress> _customerAddresses;
-		private EntitySet <VendorAddress> _vendorAddresses;
+		private EntitySet <BusinessEntityAddress> _businessEntityAddresses;
 		#endregion
 		
 		#region Extensibility Method Definitions
@@ -46,8 +45,7 @@ namespace L2S.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="AddressType"/> class.</summary>
 		public AddressType()
 		{
-			_customerAddresses = new EntitySet<CustomerAddress>(new Action<CustomerAddress>(this.Attach_CustomerAddresses), new Action<CustomerAddress>(this.Detach_CustomerAddresses) );
-			_vendorAddresses = new EntitySet<VendorAddress>(new Action<VendorAddress>(this.Attach_VendorAddresses), new Action<VendorAddress>(this.Detach_VendorAddresses) );
+			_businessEntityAddresses = new EntitySet<BusinessEntityAddress>(new Action<BusinessEntityAddress>(this.Attach_BusinessEntityAddresses), new Action<BusinessEntityAddress>(this.Detach_BusinessEntityAddresses) );
 			OnCreated();
 		}
 
@@ -73,33 +71,17 @@ namespace L2S.Bencher.EntityClasses
 		
 		/// <summary>Attaches this instance to the entity specified as an associated entity</summary>
 		/// <param name="entity">The related entity to attach to</param>
-		private void Attach_CustomerAddresses(CustomerAddress entity)
+		private void Attach_BusinessEntityAddresses(BusinessEntityAddress entity)
 		{
-			this.SendPropertyChanging("CustomerAddresses");
+			this.SendPropertyChanging("BusinessEntityAddresses");
 			entity.AddressType = this;
 		}
 		
 		/// <summary>Detaches this instance from the entity specified so it's no longer an associated entity</summary>
 		/// <param name="entity">The related entity to detach from</param>
-		private void Detach_CustomerAddresses(CustomerAddress entity)
+		private void Detach_BusinessEntityAddresses(BusinessEntityAddress entity)
 		{
-			this.SendPropertyChanging("CustomerAddresses");
-			entity.AddressType = null;
-		}
-
-		/// <summary>Attaches this instance to the entity specified as an associated entity</summary>
-		/// <param name="entity">The related entity to attach to</param>
-		private void Attach_VendorAddresses(VendorAddress entity)
-		{
-			this.SendPropertyChanging("VendorAddresses");
-			entity.AddressType = this;
-		}
-		
-		/// <summary>Detaches this instance from the entity specified so it's no longer an associated entity</summary>
-		/// <param name="entity">The related entity to detach from</param>
-		private void Detach_VendorAddresses(VendorAddress entity)
-		{
-			this.SendPropertyChanging("VendorAddresses");
+			this.SendPropertyChanging("BusinessEntityAddresses");
 			entity.AddressType = null;
 		}
 
@@ -177,20 +159,12 @@ namespace L2S.Bencher.EntityClasses
 			}
 		}
 
-		/// <summary>Represents the navigator which is mapped onto the association 'CustomerAddress.AddressType - AddressType.CustomerAddresses (m:1)'</summary>
-		[Association(Name="CustomerAddress_AddressTyped15bff5c97da4943bfdcbb7825f58f3e", Storage="_customerAddresses", OtherKey="AddressTypeId")]
-		public EntitySet<CustomerAddress> CustomerAddresses
+		/// <summary>Represents the navigator which is mapped onto the association 'BusinessEntityAddress.AddressType - AddressType.BusinessEntityAddresses (m:1)'</summary>
+		[Association(Name="BusinessEntityAddress_AddressType5ec0a375c8eb47e7b118dcbd7a83fd44", Storage="_businessEntityAddresses", OtherKey="AddressTypeId")]
+		public EntitySet<BusinessEntityAddress> BusinessEntityAddresses
 		{
-			get { return this._customerAddresses; }
-			set { this._customerAddresses.Assign(value); }
-		}
-		
-		/// <summary>Represents the navigator which is mapped onto the association 'VendorAddress.AddressType - AddressType.VendorAddresses (m:1)'</summary>
-		[Association(Name="VendorAddress_AddressTypec9f4bec903224c8ca948f66a07cf84e8", Storage="_vendorAddresses", OtherKey="AddressTypeId")]
-		public EntitySet<VendorAddress> VendorAddresses
-		{
-			get { return this._vendorAddresses; }
-			set { this._vendorAddresses.Assign(value); }
+			get { return this._businessEntityAddresses; }
+			set { this._businessEntityAddresses.Assign(value); }
 		}
 		
 		#endregion

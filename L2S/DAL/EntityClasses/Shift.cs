@@ -21,11 +21,11 @@ namespace L2S.Bencher.EntityClasses
 		#endregion
 		
 		#region Class Member Declarations
-		private System.DateTime	_endTime;
+		private System.TimeSpan	_endTime;
 		private System.DateTime	_modifiedDate;
 		private System.String	_name;
 		private System.Byte	_shiftId;
-		private System.DateTime	_startTime;
+		private System.TimeSpan	_startTime;
 		private EntitySet <EmployeeDepartmentHistory> _employeeDepartmentHistories;
 		#endregion
 		
@@ -33,7 +33,7 @@ namespace L2S.Bencher.EntityClasses
 		partial void OnLoaded();
 		partial void OnValidate(System.Data.Linq.ChangeAction action);
 		partial void OnCreated();
-		partial void OnEndTimeChanging(System.DateTime value);
+		partial void OnEndTimeChanging(System.TimeSpan value);
 		partial void OnEndTimeChanged();
 		partial void OnModifiedDateChanging(System.DateTime value);
 		partial void OnModifiedDateChanged();
@@ -41,7 +41,7 @@ namespace L2S.Bencher.EntityClasses
 		partial void OnNameChanged();
 		partial void OnShiftIdChanging(System.Byte value);
 		partial void OnShiftIdChanged();
-		partial void OnStartTimeChanging(System.DateTime value);
+		partial void OnStartTimeChanging(System.TimeSpan value);
 		partial void OnStartTimeChanged();
 		#endregion
 		
@@ -91,8 +91,8 @@ namespace L2S.Bencher.EntityClasses
 
 		#region Class Property Declarations
 		/// <summary>Gets or sets the EndTime field. Mapped on target field 'EndTime'. </summary>
-		[Column(Name="EndTime", Storage="_endTime", CanBeNull=false, DbType="datetime NOT NULL")]
-		public System.DateTime EndTime
+		[Column(Name="EndTime", Storage="_endTime", CanBeNull=false, DbType="time NOT NULL")]
+		public System.TimeSpan EndTime
 		{
 			get	{ return _endTime; }
 			set
@@ -163,8 +163,8 @@ namespace L2S.Bencher.EntityClasses
 		}
 
 		/// <summary>Gets or sets the StartTime field. Mapped on target field 'StartTime'. </summary>
-		[Column(Name="StartTime", Storage="_startTime", CanBeNull=false, DbType="datetime NOT NULL")]
-		public System.DateTime StartTime
+		[Column(Name="StartTime", Storage="_startTime", CanBeNull=false, DbType="time NOT NULL")]
+		public System.TimeSpan StartTime
 		{
 			get	{ return _startTime; }
 			set
@@ -181,7 +181,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'EmployeeDepartmentHistory.Shift - Shift.EmployeeDepartmentHistories (m:1)'</summary>
-		[Association(Name="EmployeeDepartmentHistory_Shiftb93a61ff77474cbfa1ffc06971d2d6aa", Storage="_employeeDepartmentHistories", OtherKey="ShiftId")]
+		[Association(Name="EmployeeDepartmentHistory_Shift69689a92082d4e5fa4ee9c25fbffa5af", Storage="_employeeDepartmentHistories", OtherKey="ShiftId")]
 		public EntitySet<EmployeeDepartmentHistory> EmployeeDepartmentHistories
 		{
 			get { return this._employeeDepartmentHistories; }

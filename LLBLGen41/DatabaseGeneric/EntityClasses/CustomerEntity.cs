@@ -25,24 +25,20 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 {
 	// __LLBLGENPRO_USER_CODE_REGION_START AdditionalNamespaces
 	// __LLBLGENPRO_USER_CODE_REGION_END
-	
 	/// <summary>Entity class which represents the entity 'Customer'.<br/><br/></summary>
 	[Serializable]
 	public partial class CustomerEntity : CommonEntityBase
 		// __LLBLGENPRO_USER_CODE_REGION_START AdditionalInterfaces
-		// __LLBLGENPRO_USER_CODE_REGION_END
-			
+		// __LLBLGENPRO_USER_CODE_REGION_END	
 	{
 		#region Class Member Declarations
-		private EntityCollection<CustomerAddressEntity> _customerAddresses;
 		private EntityCollection<SalesOrderHeaderEntity> _salesOrderHeaders;
+		private PersonEntity _person;
 		private SalesTerritoryEntity _salesTerritory;
-		private IndividualEntity _individual;
 		private StoreEntity _store;
 
 		// __LLBLGENPRO_USER_CODE_REGION_START PrivateMembers
 		// __LLBLGENPRO_USER_CODE_REGION_END
-		
 		#endregion
 
 		#region Statics
@@ -52,16 +48,14 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		/// <summary>All names of fields mapped onto a relation. Usable for in-memory filtering</summary>
 		public static partial class MemberNames
 		{
+			/// <summary>Member name Person</summary>
+			public static readonly string Person = "Person";
 			/// <summary>Member name SalesTerritory</summary>
 			public static readonly string SalesTerritory = "SalesTerritory";
-			/// <summary>Member name CustomerAddresses</summary>
-			public static readonly string CustomerAddresses = "CustomerAddresses";
-			/// <summary>Member name SalesOrderHeaders</summary>
-			public static readonly string SalesOrderHeaders = "SalesOrderHeaders";
-			/// <summary>Member name Individual</summary>
-			public static readonly string Individual = "Individual";
 			/// <summary>Member name Store</summary>
 			public static readonly string Store = "Store";
+			/// <summary>Member name SalesOrderHeaders</summary>
+			public static readonly string SalesOrderHeaders = "SalesOrderHeaders";
 		}
 		#endregion
 		
@@ -119,17 +113,16 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		{
 			if(SerializationHelper.Optimization != SerializationOptimization.Fast) 
 			{
-				_customerAddresses = (EntityCollection<CustomerAddressEntity>)info.GetValue("_customerAddresses", typeof(EntityCollection<CustomerAddressEntity>));
 				_salesOrderHeaders = (EntityCollection<SalesOrderHeaderEntity>)info.GetValue("_salesOrderHeaders", typeof(EntityCollection<SalesOrderHeaderEntity>));
+				_person = (PersonEntity)info.GetValue("_person", typeof(PersonEntity));
+				if(_person!=null)
+				{
+					_person.AfterSave+=new EventHandler(OnEntityAfterSave);
+				}
 				_salesTerritory = (SalesTerritoryEntity)info.GetValue("_salesTerritory", typeof(SalesTerritoryEntity));
 				if(_salesTerritory!=null)
 				{
 					_salesTerritory.AfterSave+=new EventHandler(OnEntityAfterSave);
-				}
-				_individual = (IndividualEntity)info.GetValue("_individual", typeof(IndividualEntity));
-				if(_individual!=null)
-				{
-					_individual.AfterSave+=new EventHandler(OnEntityAfterSave);
 				}
 				_store = (StoreEntity)info.GetValue("_store", typeof(StoreEntity));
 				if(_store!=null)
@@ -140,7 +133,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			}
 			// __LLBLGENPRO_USER_CODE_REGION_START DeserializationConstructor
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 		}
 
 		
@@ -150,6 +142,12 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		{
 			switch((CustomerFieldIndex)fieldIndex)
 			{
+				case CustomerFieldIndex.PersonId:
+					DesetupSyncPerson(true, false);
+					break;
+				case CustomerFieldIndex.StoreId:
+					DesetupSyncStore(true, false);
+					break;
 				case CustomerFieldIndex.TerritoryId:
 					DesetupSyncSalesTerritory(true, false);
 					break;
@@ -167,20 +165,17 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		{
 			switch(propertyName)
 			{
+				case "Person":
+					this.Person = (PersonEntity)entity;
+					break;
 				case "SalesTerritory":
 					this.SalesTerritory = (SalesTerritoryEntity)entity;
 					break;
-				case "CustomerAddresses":
-					this.CustomerAddresses.Add((CustomerAddressEntity)entity);
+				case "Store":
+					this.Store = (StoreEntity)entity;
 					break;
 				case "SalesOrderHeaders":
 					this.SalesOrderHeaders.Add((SalesOrderHeaderEntity)entity);
-					break;
-				case "Individual":
-					this.Individual = (IndividualEntity)entity;
-					break;
-				case "Store":
-					this.Store = (StoreEntity)entity;
 					break;
 				default:
 					this.OnSetRelatedEntityProperty(propertyName, entity);
@@ -204,20 +199,17 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			RelationCollection toReturn = new RelationCollection();
 			switch(fieldName)
 			{
+				case "Person":
+					toReturn.Add(Relations.PersonEntityUsingPersonId);
+					break;
 				case "SalesTerritory":
 					toReturn.Add(Relations.SalesTerritoryEntityUsingTerritoryId);
 					break;
-				case "CustomerAddresses":
-					toReturn.Add(Relations.CustomerAddressEntityUsingCustomerId);
+				case "Store":
+					toReturn.Add(Relations.StoreEntityUsingStoreId);
 					break;
 				case "SalesOrderHeaders":
 					toReturn.Add(Relations.SalesOrderHeaderEntityUsingCustomerId);
-					break;
-				case "Individual":
-					toReturn.Add(Relations.IndividualEntityUsingCustomerId);
-					break;
-				case "Store":
-					toReturn.Add(Relations.StoreEntityUsingCustomerId);
 					break;
 				default:
 					break;				
@@ -247,20 +239,17 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		{
 			switch(fieldName)
 			{
+				case "Person":
+					SetupSyncPerson(relatedEntity);
+					break;
 				case "SalesTerritory":
 					SetupSyncSalesTerritory(relatedEntity);
 					break;
-				case "CustomerAddresses":
-					this.CustomerAddresses.Add((CustomerAddressEntity)relatedEntity);
+				case "Store":
+					SetupSyncStore(relatedEntity);
 					break;
 				case "SalesOrderHeaders":
 					this.SalesOrderHeaders.Add((SalesOrderHeaderEntity)relatedEntity);
-					break;
-				case "Individual":
-					SetupSyncIndividual(relatedEntity);
-					break;
-				case "Store":
-					SetupSyncStore(relatedEntity);
 					break;
 				default:
 					break;
@@ -275,20 +264,17 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		{
 			switch(fieldName)
 			{
+				case "Person":
+					DesetupSyncPerson(false, true);
+					break;
 				case "SalesTerritory":
 					DesetupSyncSalesTerritory(false, true);
 					break;
-				case "CustomerAddresses":
-					this.PerformRelatedEntityRemoval(this.CustomerAddresses, relatedEntity, signalRelatedEntityManyToOne);
+				case "Store":
+					DesetupSyncStore(false, true);
 					break;
 				case "SalesOrderHeaders":
 					this.PerformRelatedEntityRemoval(this.SalesOrderHeaders, relatedEntity, signalRelatedEntityManyToOne);
-					break;
-				case "Individual":
-					DesetupSyncIndividual(false, true);
-					break;
-				case "Store":
-					DesetupSyncStore(false, true);
 					break;
 				default:
 					break;
@@ -300,16 +286,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		protected override List<IEntity2> GetDependingRelatedEntities()
 		{
 			List<IEntity2> toReturn = new List<IEntity2>();
-			if(_individual!=null)
-			{
-				toReturn.Add(_individual);
-			}
-
-			if(_store!=null)
-			{
-				toReturn.Add(_store);
-			}
-
 			return toReturn;
 		}
 		
@@ -319,14 +295,18 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		protected override List<IEntity2> GetDependentRelatedEntities()
 		{
 			List<IEntity2> toReturn = new List<IEntity2>();
+			if(_person!=null)
+			{
+				toReturn.Add(_person);
+			}
 			if(_salesTerritory!=null)
 			{
 				toReturn.Add(_salesTerritory);
 			}
-
-
-
-
+			if(_store!=null)
+			{
+				toReturn.Add(_store);
+			}
 			return toReturn;
 		}
 		
@@ -335,7 +315,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		protected override List<IEntityCollection2> GetMemberEntityCollections()
 		{
 			List<IEntityCollection2> toReturn = new List<IEntityCollection2>();
-			toReturn.Add(this.CustomerAddresses);
 			toReturn.Add(this.SalesOrderHeaders);
 			return toReturn;
 		}
@@ -348,15 +327,13 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		{
 			if (SerializationHelper.Optimization != SerializationOptimization.Fast) 
 			{
-				info.AddValue("_customerAddresses", ((_customerAddresses!=null) && (_customerAddresses.Count>0) && !this.MarkedForDeletion)?_customerAddresses:null);
 				info.AddValue("_salesOrderHeaders", ((_salesOrderHeaders!=null) && (_salesOrderHeaders.Count>0) && !this.MarkedForDeletion)?_salesOrderHeaders:null);
+				info.AddValue("_person", (!this.MarkedForDeletion?_person:null));
 				info.AddValue("_salesTerritory", (!this.MarkedForDeletion?_salesTerritory:null));
-				info.AddValue("_individual", (!this.MarkedForDeletion?_individual:null));
 				info.AddValue("_store", (!this.MarkedForDeletion?_store:null));
 			}
 			// __LLBLGENPRO_USER_CODE_REGION_START GetObjectInfo
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			base.GetObjectData(info, context);
 		}
 
@@ -369,21 +346,21 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			return new CustomerRelations().GetAllRelations();
 		}
 
-		/// <summary> Creates a new IRelationPredicateBucket object which contains the predicate expression and relation collection to fetch the related entities of type 'CustomerAddress' to this entity.</summary>
-		/// <returns></returns>
-		public virtual IRelationPredicateBucket GetRelationInfoCustomerAddresses()
-		{
-			IRelationPredicateBucket bucket = new RelationPredicateBucket();
-			bucket.PredicateExpression.Add(new FieldCompareValuePredicate(CustomerAddressFields.CustomerId, null, ComparisonOperator.Equal, this.CustomerId));
-			return bucket;
-		}
-
 		/// <summary> Creates a new IRelationPredicateBucket object which contains the predicate expression and relation collection to fetch the related entities of type 'SalesOrderHeader' to this entity.</summary>
 		/// <returns></returns>
 		public virtual IRelationPredicateBucket GetRelationInfoSalesOrderHeaders()
 		{
 			IRelationPredicateBucket bucket = new RelationPredicateBucket();
 			bucket.PredicateExpression.Add(new FieldCompareValuePredicate(SalesOrderHeaderFields.CustomerId, null, ComparisonOperator.Equal, this.CustomerId));
+			return bucket;
+		}
+
+		/// <summary> Creates a new IRelationPredicateBucket object which contains the predicate expression and relation collection to fetch the related entity of type 'Person' to this entity.</summary>
+		/// <returns></returns>
+		public virtual IRelationPredicateBucket GetRelationInfoPerson()
+		{
+			IRelationPredicateBucket bucket = new RelationPredicateBucket();
+			bucket.PredicateExpression.Add(new FieldCompareValuePredicate(PersonFields.BusinessEntityId, null, ComparisonOperator.Equal, this.PersonId));
 			return bucket;
 		}
 
@@ -396,21 +373,12 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			return bucket;
 		}
 
-		/// <summary> Creates a new IRelationPredicateBucket object which contains the predicate expression and relation collection to fetch the related entity of type 'Individual' to this entity.</summary>
-		/// <returns></returns>
-		public virtual IRelationPredicateBucket GetRelationInfoIndividual()
-		{
-			IRelationPredicateBucket bucket = new RelationPredicateBucket();
-			bucket.PredicateExpression.Add(new FieldCompareValuePredicate(IndividualFields.CustomerId, null, ComparisonOperator.Equal, this.CustomerId));
-			return bucket;
-		}
-
 		/// <summary> Creates a new IRelationPredicateBucket object which contains the predicate expression and relation collection to fetch the related entity of type 'Store' to this entity.</summary>
 		/// <returns></returns>
 		public virtual IRelationPredicateBucket GetRelationInfoStore()
 		{
 			IRelationPredicateBucket bucket = new RelationPredicateBucket();
-			bucket.PredicateExpression.Add(new FieldCompareValuePredicate(StoreFields.CustomerId, null, ComparisonOperator.Equal, this.CustomerId));
+			bucket.PredicateExpression.Add(new FieldCompareValuePredicate(StoreFields.CustomerId, null, ComparisonOperator.Equal, this.StoreId));
 			return bucket;
 		}
 		
@@ -426,7 +394,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		protected override void AddToMemberEntityCollectionsQueue(Queue<IEntityCollection2> collectionsQueue) 
 		{
 			base.AddToMemberEntityCollectionsQueue(collectionsQueue);
-			collectionsQueue.Enqueue(this._customerAddresses);
 			collectionsQueue.Enqueue(this._salesOrderHeaders);
 		}
 		
@@ -435,7 +402,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		protected override void GetFromMemberEntityCollectionsQueue(Queue<IEntityCollection2> collectionsQueue)
 		{
 			base.GetFromMemberEntityCollectionsQueue(collectionsQueue);
-			this._customerAddresses = (EntityCollection<CustomerAddressEntity>) collectionsQueue.Dequeue();
 			this._salesOrderHeaders = (EntityCollection<SalesOrderHeaderEntity>) collectionsQueue.Dequeue();
 
 		}
@@ -445,7 +411,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		protected override bool HasPopulatedMemberEntityCollections()
 		{
 			bool toReturn = false;
-			toReturn |=(this._customerAddresses != null);
 			toReturn |=(this._salesOrderHeaders != null);
 			return toReturn ? true : base.HasPopulatedMemberEntityCollections();
 		}
@@ -456,7 +421,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		protected override void CreateMemberEntityCollectionsQueue(Queue<IEntityCollection2> collectionsQueue, Queue<bool> requiredQueue) 
 		{
 			base.CreateMemberEntityCollectionsQueue(collectionsQueue, requiredQueue);
-			collectionsQueue.Enqueue(requiredQueue.Dequeue() ? new EntityCollection<CustomerAddressEntity>(EntityFactoryCache2.GetEntityFactory(typeof(CustomerAddressEntityFactory))) : null);
 			collectionsQueue.Enqueue(requiredQueue.Dequeue() ? new EntityCollection<SalesOrderHeaderEntity>(EntityFactoryCache2.GetEntityFactory(typeof(SalesOrderHeaderEntityFactory))) : null);
 		}
 #endif
@@ -465,11 +429,10 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		protected override Dictionary<string, object> GetRelatedData()
 		{
 			Dictionary<string, object> toReturn = new Dictionary<string, object>();
+			toReturn.Add("Person", _person);
 			toReturn.Add("SalesTerritory", _salesTerritory);
-			toReturn.Add("CustomerAddresses", _customerAddresses);
-			toReturn.Add("SalesOrderHeaders", _salesOrderHeaders);
-			toReturn.Add("Individual", _individual);
 			toReturn.Add("Store", _store);
+			toReturn.Add("SalesOrderHeaders", _salesOrderHeaders);
 			return toReturn;
 		}
 
@@ -480,7 +443,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			
 			// __LLBLGENPRO_USER_CODE_REGION_START InitClassMembers
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			OnInitClassMembersComplete();
 		}
 
@@ -497,15 +459,50 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			fieldHashtable = new Dictionary<string, string>();
 			_fieldsCustomProperties.Add("CustomerId", fieldHashtable);
 			fieldHashtable = new Dictionary<string, string>();
-			_fieldsCustomProperties.Add("CustomerType", fieldHashtable);
-			fieldHashtable = new Dictionary<string, string>();
 			_fieldsCustomProperties.Add("ModifiedDate", fieldHashtable);
 			fieldHashtable = new Dictionary<string, string>();
+			_fieldsCustomProperties.Add("PersonId", fieldHashtable);
+			fieldHashtable = new Dictionary<string, string>();
 			_fieldsCustomProperties.Add("Rowguid", fieldHashtable);
+			fieldHashtable = new Dictionary<string, string>();
+			_fieldsCustomProperties.Add("StoreId", fieldHashtable);
 			fieldHashtable = new Dictionary<string, string>();
 			_fieldsCustomProperties.Add("TerritoryId", fieldHashtable);
 		}
 		#endregion
+
+		/// <summary> Removes the sync logic for member _person</summary>
+		/// <param name="signalRelatedEntity">If set to true, it will call the related entity's UnsetRelatedEntity method</param>
+		/// <param name="resetFKFields">if set to true it will also reset the FK fields pointing to the related entity</param>
+		private void DesetupSyncPerson(bool signalRelatedEntity, bool resetFKFields)
+		{
+			this.PerformDesetupSyncRelatedEntity( _person, new PropertyChangedEventHandler( OnPersonPropertyChanged ), "Person", AdventureWorks.Dal.Adapter.v41.RelationClasses.StaticCustomerRelations.PersonEntityUsingPersonIdStatic, true, signalRelatedEntity, "Customers", resetFKFields, new int[] { (int)CustomerFieldIndex.PersonId } );
+			_person = null;
+		}
+
+		/// <summary> setups the sync logic for member _person</summary>
+		/// <param name="relatedEntity">Instance to set as the related entity of type entityType</param>
+		private void SetupSyncPerson(IEntityCore relatedEntity)
+		{
+			if(_person!=relatedEntity)
+			{
+				DesetupSyncPerson(true, true);
+				_person = (PersonEntity)relatedEntity;
+				this.PerformSetupSyncRelatedEntity( _person, new PropertyChangedEventHandler( OnPersonPropertyChanged ), "Person", AdventureWorks.Dal.Adapter.v41.RelationClasses.StaticCustomerRelations.PersonEntityUsingPersonIdStatic, true, new string[] {  } );
+			}
+		}
+		
+		/// <summary>Handles property change events of properties in a related entity.</summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void OnPersonPropertyChanged( object sender, PropertyChangedEventArgs e )
+		{
+			switch( e.PropertyName )
+			{
+				default:
+					break;
+			}
+		}
 
 		/// <summary> Removes the sync logic for member _salesTerritory</summary>
 		/// <param name="signalRelatedEntity">If set to true, it will call the related entity's UnsetRelatedEntity method</param>
@@ -540,48 +537,15 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			}
 		}
 
-		/// <summary> Removes the sync logic for member _individual</summary>
-		/// <param name="signalRelatedEntity">If set to true, it will call the related entity's UnsetRelatedEntity method</param>
-		/// <param name="resetFKFields">if set to true it will also reset the FK fields pointing to the related entity</param>
-		private void DesetupSyncIndividual(bool signalRelatedEntity, bool resetFKFields)
-		{
-			this.PerformDesetupSyncRelatedEntity( _individual, new PropertyChangedEventHandler( OnIndividualPropertyChanged ), "Individual", AdventureWorks.Dal.Adapter.v41.RelationClasses.StaticCustomerRelations.IndividualEntityUsingCustomerIdStatic, false, signalRelatedEntity, "Customer", false, new int[] { (int)CustomerFieldIndex.CustomerId } );
-			_individual = null;
-		}
-		
-		/// <summary> setups the sync logic for member _individual</summary>
-		/// <param name="relatedEntity">Instance to set as the related entity of type entityType</param>
-		private void SetupSyncIndividual(IEntityCore relatedEntity)
-		{
-			if(_individual!=relatedEntity)
-			{
-				DesetupSyncIndividual(true, true);
-				_individual = (IndividualEntity)relatedEntity;
-				this.PerformSetupSyncRelatedEntity( _individual, new PropertyChangedEventHandler( OnIndividualPropertyChanged ), "Individual", AdventureWorks.Dal.Adapter.v41.RelationClasses.StaticCustomerRelations.IndividualEntityUsingCustomerIdStatic, false, new string[] {  } );
-			}
-		}
-		
-		/// <summary>Handles property change events of properties in a related entity.</summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void OnIndividualPropertyChanged( object sender, PropertyChangedEventArgs e )
-		{
-			switch( e.PropertyName )
-			{
-				default:
-					break;
-			}
-		}
-
 		/// <summary> Removes the sync logic for member _store</summary>
 		/// <param name="signalRelatedEntity">If set to true, it will call the related entity's UnsetRelatedEntity method</param>
 		/// <param name="resetFKFields">if set to true it will also reset the FK fields pointing to the related entity</param>
 		private void DesetupSyncStore(bool signalRelatedEntity, bool resetFKFields)
 		{
-			this.PerformDesetupSyncRelatedEntity( _store, new PropertyChangedEventHandler( OnStorePropertyChanged ), "Store", AdventureWorks.Dal.Adapter.v41.RelationClasses.StaticCustomerRelations.StoreEntityUsingCustomerIdStatic, false, signalRelatedEntity, "Customer", false, new int[] { (int)CustomerFieldIndex.CustomerId } );
+			this.PerformDesetupSyncRelatedEntity( _store, new PropertyChangedEventHandler( OnStorePropertyChanged ), "Store", AdventureWorks.Dal.Adapter.v41.RelationClasses.StaticCustomerRelations.StoreEntityUsingStoreIdStatic, true, signalRelatedEntity, "Customers", resetFKFields, new int[] { (int)CustomerFieldIndex.StoreId } );
 			_store = null;
 		}
-		
+
 		/// <summary> setups the sync logic for member _store</summary>
 		/// <param name="relatedEntity">Instance to set as the related entity of type entityType</param>
 		private void SetupSyncStore(IEntityCore relatedEntity)
@@ -590,7 +554,7 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			{
 				DesetupSyncStore(true, true);
 				_store = (StoreEntity)relatedEntity;
-				this.PerformSetupSyncRelatedEntity( _store, new PropertyChangedEventHandler( OnStorePropertyChanged ), "Store", AdventureWorks.Dal.Adapter.v41.RelationClasses.StaticCustomerRelations.StoreEntityUsingCustomerIdStatic, false, new string[] {  } );
+				this.PerformSetupSyncRelatedEntity( _store, new PropertyChangedEventHandler( OnStorePropertyChanged ), "Store", AdventureWorks.Dal.Adapter.v41.RelationClasses.StaticCustomerRelations.StoreEntityUsingStoreIdStatic, true, new string[] {  } );
 			}
 		}
 		
@@ -618,7 +582,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 
 			// __LLBLGENPRO_USER_CODE_REGION_START InitClassEmpty
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 
 			OnInitialized();
 
@@ -638,18 +601,18 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			get { return _customProperties;}
 		}
 
-		/// <summary> Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'CustomerAddress' for this entity.</summary>
-		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathCustomerAddresses
-		{
-			get	{ return new PrefetchPathElement2( new EntityCollection<CustomerAddressEntity>(EntityFactoryCache2.GetEntityFactory(typeof(CustomerAddressEntityFactory))), (IEntityRelation)GetRelationsForField("CustomerAddresses")[0], (int)AdventureWorks.Dal.Adapter.v41.EntityType.CustomerEntity, (int)AdventureWorks.Dal.Adapter.v41.EntityType.CustomerAddressEntity, 0, null, null, null, null, "CustomerAddresses", SD.LLBLGen.Pro.ORMSupportClasses.RelationType.OneToMany);	}
-		}
-
 		/// <summary> Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'SalesOrderHeader' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
 		public static IPrefetchPathElement2 PrefetchPathSalesOrderHeaders
 		{
 			get	{ return new PrefetchPathElement2( new EntityCollection<SalesOrderHeaderEntity>(EntityFactoryCache2.GetEntityFactory(typeof(SalesOrderHeaderEntityFactory))), (IEntityRelation)GetRelationsForField("SalesOrderHeaders")[0], (int)AdventureWorks.Dal.Adapter.v41.EntityType.CustomerEntity, (int)AdventureWorks.Dal.Adapter.v41.EntityType.SalesOrderHeaderEntity, 0, null, null, null, null, "SalesOrderHeaders", SD.LLBLGen.Pro.ORMSupportClasses.RelationType.OneToMany);	}
+		}
+
+		/// <summary> Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'Person' for this entity.</summary>
+		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
+		public static IPrefetchPathElement2 PrefetchPathPerson
+		{
+			get	{ return new PrefetchPathElement2(new EntityCollection(EntityFactoryCache2.GetEntityFactory(typeof(PersonEntityFactory))),	(IEntityRelation)GetRelationsForField("Person")[0], (int)AdventureWorks.Dal.Adapter.v41.EntityType.CustomerEntity, (int)AdventureWorks.Dal.Adapter.v41.EntityType.PersonEntity, 0, null, null, null, null, "Person", SD.LLBLGen.Pro.ORMSupportClasses.RelationType.ManyToOne); }
 		}
 
 		/// <summary> Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'SalesTerritory' for this entity.</summary>
@@ -659,18 +622,11 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			get	{ return new PrefetchPathElement2(new EntityCollection(EntityFactoryCache2.GetEntityFactory(typeof(SalesTerritoryEntityFactory))),	(IEntityRelation)GetRelationsForField("SalesTerritory")[0], (int)AdventureWorks.Dal.Adapter.v41.EntityType.CustomerEntity, (int)AdventureWorks.Dal.Adapter.v41.EntityType.SalesTerritoryEntity, 0, null, null, null, null, "SalesTerritory", SD.LLBLGen.Pro.ORMSupportClasses.RelationType.ManyToOne); }
 		}
 
-		/// <summary> Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'Individual' for this entity.</summary>
-		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathIndividual
-		{
-			get { return new PrefetchPathElement2(new EntityCollection(EntityFactoryCache2.GetEntityFactory(typeof(IndividualEntityFactory))), (IEntityRelation)GetRelationsForField("Individual")[0], (int)AdventureWorks.Dal.Adapter.v41.EntityType.CustomerEntity, (int)AdventureWorks.Dal.Adapter.v41.EntityType.IndividualEntity, 0, null, null, null, null, "Individual", SD.LLBLGen.Pro.ORMSupportClasses.RelationType.OneToOne);	}
-		}
-
 		/// <summary> Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'Store' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
 		public static IPrefetchPathElement2 PrefetchPathStore
 		{
-			get { return new PrefetchPathElement2(new EntityCollection(EntityFactoryCache2.GetEntityFactory(typeof(StoreEntityFactory))), (IEntityRelation)GetRelationsForField("Store")[0], (int)AdventureWorks.Dal.Adapter.v41.EntityType.CustomerEntity, (int)AdventureWorks.Dal.Adapter.v41.EntityType.StoreEntity, 0, null, null, null, null, "Store", SD.LLBLGen.Pro.ORMSupportClasses.RelationType.OneToOne);	}
+			get	{ return new PrefetchPathElement2(new EntityCollection(EntityFactoryCache2.GetEntityFactory(typeof(StoreEntityFactory))),	(IEntityRelation)GetRelationsForField("Store")[0], (int)AdventureWorks.Dal.Adapter.v41.EntityType.CustomerEntity, (int)AdventureWorks.Dal.Adapter.v41.EntityType.StoreEntity, 0, null, null, null, null, "Store", SD.LLBLGen.Pro.ORMSupportClasses.RelationType.ManyToOne); }
 		}
 
 
@@ -717,16 +673,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			set	{ SetValue((int)CustomerFieldIndex.CustomerId, value); }
 		}
 
-		/// <summary> The CustomerType property of the Entity Customer<br/><br/></summary>
-		/// <remarks>Mapped on  table field: "Customer"."CustomerType"<br/>
-		/// Table field type characteristics (type, precision, scale, length): NChar, 0, 0, 1<br/>
-		/// Table field behavior characteristics (is nullable, is PK, is identity): false, false, false</remarks>
-		public virtual System.String CustomerType
-		{
-			get { return (System.String)GetValue((int)CustomerFieldIndex.CustomerType, true); }
-			set	{ SetValue((int)CustomerFieldIndex.CustomerType, value); }
-		}
-
 		/// <summary> The ModifiedDate property of the Entity Customer<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "Customer"."ModifiedDate"<br/>
 		/// Table field type characteristics (type, precision, scale, length): DateTime, 0, 0, 0<br/>
@@ -735,6 +681,16 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		{
 			get { return (System.DateTime)GetValue((int)CustomerFieldIndex.ModifiedDate, true); }
 			set	{ SetValue((int)CustomerFieldIndex.ModifiedDate, value); }
+		}
+
+		/// <summary> The PersonId property of the Entity Customer<br/><br/></summary>
+		/// <remarks>Mapped on  table field: "Customer"."PersonID"<br/>
+		/// Table field type characteristics (type, precision, scale, length): Int, 10, 0, 0<br/>
+		/// Table field behavior characteristics (is nullable, is PK, is identity): true, false, false</remarks>
+		public virtual Nullable<System.Int32> PersonId
+		{
+			get { return (Nullable<System.Int32>)GetValue((int)CustomerFieldIndex.PersonId, false); }
+			set	{ SetValue((int)CustomerFieldIndex.PersonId, value); }
 		}
 
 		/// <summary> The Rowguid property of the Entity Customer<br/><br/></summary>
@@ -747,6 +703,16 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			set	{ SetValue((int)CustomerFieldIndex.Rowguid, value); }
 		}
 
+		/// <summary> The StoreId property of the Entity Customer<br/><br/></summary>
+		/// <remarks>Mapped on  table field: "Customer"."StoreID"<br/>
+		/// Table field type characteristics (type, precision, scale, length): Int, 10, 0, 0<br/>
+		/// Table field behavior characteristics (is nullable, is PK, is identity): true, false, false</remarks>
+		public virtual Nullable<System.Int32> StoreId
+		{
+			get { return (Nullable<System.Int32>)GetValue((int)CustomerFieldIndex.StoreId, false); }
+			set	{ SetValue((int)CustomerFieldIndex.StoreId, value); }
+		}
+
 		/// <summary> The TerritoryId property of the Entity Customer<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "Customer"."TerritoryID"<br/>
 		/// Table field type characteristics (type, precision, scale, length): Int, 10, 0, 0<br/>
@@ -757,18 +723,29 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			set	{ SetValue((int)CustomerFieldIndex.TerritoryId, value); }
 		}
 
-		/// <summary> Gets the EntityCollection with the related entities of type 'CustomerAddressEntity' which are related to this entity via a relation of type '1:n'. If the EntityCollection hasn't been fetched yet, the collection returned will be empty.<br/><br/></summary>
-		[TypeContainedAttribute(typeof(CustomerAddressEntity))]
-		public virtual EntityCollection<CustomerAddressEntity> CustomerAddresses
-		{
-			get { return GetOrCreateEntityCollection<CustomerAddressEntity, CustomerAddressEntityFactory>("Customer", true, false, ref _customerAddresses);	}
-		}
-
 		/// <summary> Gets the EntityCollection with the related entities of type 'SalesOrderHeaderEntity' which are related to this entity via a relation of type '1:n'. If the EntityCollection hasn't been fetched yet, the collection returned will be empty.<br/><br/></summary>
 		[TypeContainedAttribute(typeof(SalesOrderHeaderEntity))]
 		public virtual EntityCollection<SalesOrderHeaderEntity> SalesOrderHeaders
 		{
 			get { return GetOrCreateEntityCollection<SalesOrderHeaderEntity, SalesOrderHeaderEntityFactory>("Customer", true, false, ref _salesOrderHeaders);	}
+		}
+
+		/// <summary> Gets / sets related entity of type 'PersonEntity' which has to be set using a fetch action earlier. If no related entity is set for this property, null is returned..<br/><br/></summary>
+		[Browsable(false)]
+		public virtual PersonEntity Person
+		{
+			get	{ return _person; }
+			set
+			{
+				if(this.IsDeserializing)
+				{
+					SetupSyncPerson(value);
+				}
+				else
+				{
+					SetSingleRelatedEntityNavigator(value, "Customers", "Person", _person, true); 
+				}
+			}
 		}
 
 		/// <summary> Gets / sets related entity of type 'SalesTerritoryEntity' which has to be set using a fetch action earlier. If no related entity is set for this property, null is returned..<br/><br/></summary>
@@ -789,74 +766,20 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 			}
 		}
 
-		/// <summary> Gets / sets related entity of type 'IndividualEntity' which has to be set using a fetch action earlier. If no related entity is set for this property, null is returned.<br/><br/>
-		/// </summary>
-		[Browsable(false)]
-		public virtual IndividualEntity Individual
-		{
-			get { return _individual; }
-			set
-			{
-				if(this.IsDeserializing)
-				{
-					SetupSyncIndividual(value);
-					CallSetRelatedEntityDuringDeserialization(value, "Customer");
-				}
-				else
-				{
-					if(value==null)
-					{
-						bool raisePropertyChanged = (_individual !=null);
-						DesetupSyncIndividual(true, true);
-						if(raisePropertyChanged)
-						{
-							OnPropertyChanged("Individual");
-						}
-					}
-					else
-					{
-						if(_individual!=value)
-						{
-							((IEntity2)value).SetRelatedEntity(this, "Customer");
-							SetupSyncIndividual(value);
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary> Gets / sets related entity of type 'StoreEntity' which has to be set using a fetch action earlier. If no related entity is set for this property, null is returned.<br/><br/>
-		/// </summary>
+		/// <summary> Gets / sets related entity of type 'StoreEntity' which has to be set using a fetch action earlier. If no related entity is set for this property, null is returned..<br/><br/></summary>
 		[Browsable(false)]
 		public virtual StoreEntity Store
 		{
-			get { return _store; }
+			get	{ return _store; }
 			set
 			{
 				if(this.IsDeserializing)
 				{
 					SetupSyncStore(value);
-					CallSetRelatedEntityDuringDeserialization(value, "Customer");
 				}
 				else
 				{
-					if(value==null)
-					{
-						bool raisePropertyChanged = (_store !=null);
-						DesetupSyncStore(true, true);
-						if(raisePropertyChanged)
-						{
-							OnPropertyChanged("Store");
-						}
-					}
-					else
-					{
-						if(_store!=value)
-						{
-							((IEntity2)value).SetRelatedEntity(this, "Customer");
-							SetupSyncStore(value);
-						}
-					}
+					SetSingleRelatedEntityNavigator(value, "Customers", "Store", _store, true); 
 				}
 			}
 		}
@@ -887,7 +810,6 @@ namespace AdventureWorks.Dal.Adapter.v41.EntityClasses
 		
 		// __LLBLGENPRO_USER_CODE_REGION_START CustomEntityCode
 		// __LLBLGENPRO_USER_CODE_REGION_END
-		
 		#endregion
 
 		#region Included code

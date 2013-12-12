@@ -21,10 +21,10 @@ namespace L2S.Bencher.EntityClasses
 		#endregion
 		
 		#region Class Member Declarations
+		private System.Int32	_businessEntityId;
 		private System.DateTime	_modifiedDate;
 		private System.DateTime	_quotaDate;
 		private System.Guid	_rowguid;
-		private System.Int32	_salesPersonId;
 		private System.Decimal	_salesQuota;
 		private EntityRef <SalesPerson> _salesPerson;
 		#endregion
@@ -33,14 +33,14 @@ namespace L2S.Bencher.EntityClasses
 		partial void OnLoaded();
 		partial void OnValidate(System.Data.Linq.ChangeAction action);
 		partial void OnCreated();
+		partial void OnBusinessEntityIdChanging(System.Int32 value);
+		partial void OnBusinessEntityIdChanged();
 		partial void OnModifiedDateChanging(System.DateTime value);
 		partial void OnModifiedDateChanged();
 		partial void OnQuotaDateChanging(System.DateTime value);
 		partial void OnQuotaDateChanged();
 		partial void OnRowguidChanging(System.Guid value);
 		partial void OnRowguidChanged();
-		partial void OnSalesPersonIdChanging(System.Int32 value);
-		partial void OnSalesPersonIdChanged();
 		partial void OnSalesQuotaChanging(System.Decimal value);
 		partial void OnSalesQuotaChanged();
 		#endregion
@@ -74,6 +74,28 @@ namespace L2S.Bencher.EntityClasses
 		
 
 		#region Class Property Declarations
+		/// <summary>Gets or sets the BusinessEntityId field. Mapped on target field 'BusinessEntityID'. </summary>
+		[Column(Name="BusinessEntityID", Storage="_businessEntityId", CanBeNull=false, DbType="int NOT NULL", IsPrimaryKey=true)]
+		public System.Int32 BusinessEntityId
+		{
+			get	{ return _businessEntityId; }
+			set
+			{
+				if((_businessEntityId != value))
+				{
+					if(_salesPerson.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					OnBusinessEntityIdChanging(value);
+					SendPropertyChanging("BusinessEntityId");
+					_businessEntityId = value;
+					SendPropertyChanged("BusinessEntityId");
+					OnBusinessEntityIdChanged();
+				}
+			}
+		}
+
 		/// <summary>Gets or sets the ModifiedDate field. Mapped on target field 'ModifiedDate'. </summary>
 		[Column(Name="ModifiedDate", Storage="_modifiedDate", CanBeNull=false, DbType="datetime NOT NULL")]
 		public System.DateTime ModifiedDate
@@ -128,28 +150,6 @@ namespace L2S.Bencher.EntityClasses
 			}
 		}
 
-		/// <summary>Gets or sets the SalesPersonId field. Mapped on target field 'SalesPersonID'. </summary>
-		[Column(Name="SalesPersonID", Storage="_salesPersonId", CanBeNull=false, DbType="int NOT NULL", IsPrimaryKey=true)]
-		public System.Int32 SalesPersonId
-		{
-			get	{ return _salesPersonId; }
-			set
-			{
-				if((_salesPersonId != value))
-				{
-					if(_salesPerson.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					OnSalesPersonIdChanging(value);
-					SendPropertyChanging("SalesPersonId");
-					_salesPersonId = value;
-					SendPropertyChanged("SalesPersonId");
-					OnSalesPersonIdChanged();
-				}
-			}
-		}
-
 		/// <summary>Gets or sets the SalesQuota field. Mapped on target field 'SalesQuota'. </summary>
 		[Column(Name="SalesQuota", Storage="_salesQuota", CanBeNull=false, DbType="money NOT NULL")]
 		public System.Decimal SalesQuota
@@ -169,7 +169,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesPersonQuotaHistory.SalesPerson - SalesPerson.SalesPersonQuotaHistories (m:1)'</summary>
-		[Association(Name="SalesPersonQuotaHistory_SalesPersonb35ee7c559514d8d8eb072559f8bb641", Storage="_salesPerson", ThisKey="SalesPersonId", IsForeignKey=true)] 
+		[Association(Name="SalesPersonQuotaHistory_SalesPersonf0ec214666cb4b8096c6d793afe6c1ba", Storage="_salesPerson", ThisKey="BusinessEntityId", IsForeignKey=true)] 
 		public SalesPerson SalesPerson
 		{
 			get { return _salesPerson.Entity; }
@@ -187,12 +187,12 @@ namespace L2S.Bencher.EntityClasses
 					_salesPerson.Entity = value;
 					if(value == null)
 					{
-						_salesPersonId = default(System.Int32);
+						_businessEntityId = default(System.Int32);
 					}
 					else
 					{
 						value.SalesPersonQuotaHistories.Add(this);
-						_salesPersonId = value.SalesPersonId;
+						_businessEntityId = value.BusinessEntityId;
 					}
 					this.SendPropertyChanged("SalesPerson");
 				}

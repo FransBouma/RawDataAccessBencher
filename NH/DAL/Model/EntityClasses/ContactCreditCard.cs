@@ -11,8 +11,8 @@ namespace NH.Bencher.EntityClasses
 	public partial class ContactCreditCard
 	{
 		#region Class Member Declarations
-		private Contact _contact;
 		private CreditCard _creditCard;
+		private Person _person;
 		private System.DateTime _modifiedDate;
 		#endregion
 
@@ -50,18 +50,18 @@ namespace NH.Bencher.EntityClasses
 			set { _modifiedDate = value; }
 		}
 
-		/// <summary>Represents the navigator which is mapped onto the association 'ContactCreditCard.Contact - Contact.ContactCreditCards (m:1)'</summary>
-		public virtual Contact Contact
-		{
-			get { return _contact; }
-			set { _contact = value; }
-		}
-		
 		/// <summary>Represents the navigator which is mapped onto the association 'ContactCreditCard.CreditCard - CreditCard.ContactCreditCards (m:1)'</summary>
 		public virtual CreditCard CreditCard
 		{
 			get { return _creditCard; }
 			set { _creditCard = value; }
+		}
+		
+		/// <summary>Represents the navigator which is mapped onto the association 'ContactCreditCard.Person - Person.ContactCreditCards (m:1)'</summary>
+		public virtual Person Person
+		{
+			get { return _person; }
+			set { _person = value; }
 		}
 		
 		#endregion

@@ -190,7 +190,7 @@ namespace L2S.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'ShoppingCartItem.Product - Product.ShoppingCartItems (m:1)'</summary>
-		[Association(Name="ShoppingCartItem_Product8aae5cee1d734699b568ce5c339a534b", Storage="_product", ThisKey="ProductId", IsForeignKey=true)] 
+		[Association(Name="ShoppingCartItem_Producta5751febdf9c4b43b64d7c423831400f", Storage="_product", ThisKey="ProductId", IsForeignKey=true)] 
 		public Product Product
 		{
 			get { return _product.Entity; }

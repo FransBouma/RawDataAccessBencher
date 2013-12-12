@@ -13,17 +13,12 @@
 		<property name="ModifiedDate" column="[ModifiedDate]" access="field.camelcase-underscore" not-null="true"/>
 		<property name="PostalCode" column="[PostalCode]" access="field.camelcase-underscore" not-null="true"/>
 		<property name="Rowguid" column="[rowguid]" access="field.camelcase-underscore" not-null="true"/>
-		<set name="CustomerAddresses" access="field.camelcase-underscore" cascade="all-delete-orphan" inverse="true" fetch="select">
+		<property name="SpatialLocation" column="[SpatialLocation]" access="field.camelcase-underscore"/>
+		<set name="BusinessEntityAddresses" access="field.camelcase-underscore" cascade="all-delete-orphan" inverse="true" fetch="select">
 			<key>
 				<column name="[AddressID]"/>
 			</key>
-			<one-to-many class="CustomerAddress"/>
-		</set>
-		<set name="EmployeeAddresses" access="field.camelcase-underscore" cascade="all-delete-orphan" inverse="true" fetch="select">
-			<key>
-				<column name="[AddressID]"/>
-			</key>
-			<one-to-many class="EmployeeAddress"/>
+			<one-to-many class="BusinessEntityAddress"/>
 		</set>
 		<set name="SalesOrderHeaders" access="field.camelcase-underscore" cascade="all-delete-orphan" inverse="true" fetch="select">
 			<key>
@@ -40,12 +35,6 @@
 		<many-to-one name="StateProvince" access="field.camelcase-underscore" fetch="select" cascade="all">
 			<column name="[StateProvinceID]"/>
 		</many-to-one>
-		<set name="VendorAddresses" access="field.camelcase-underscore" cascade="all-delete-orphan" inverse="true" fetch="select">
-			<key>
-				<column name="[AddressID]"/>
-			</key>
-			<one-to-many class="VendorAddress"/>
-		</set>
 	<!-- __LLBLGENPRO_USER_CODE_REGION_START EntityMappingCustomCode -->
 	<!-- __LLBLGENPRO_USER_CODE_REGION_END -->
 	</class>
