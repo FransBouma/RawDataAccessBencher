@@ -68,7 +68,7 @@ namespace RawBencher.Benchers
 		private IEnumerable<SalesOrderHeader> MaterializeSet(SqlCommand toExecute)
 		{
 			var headers = new List<SalesOrderHeader>();
-			using(var con = new SqlConnection(this.ConnectionString))
+			using(var con = new SqlConnection(this.ConnectionStringToUse))
 			{
 				toExecute.Connection = con;
 				con.Open();
@@ -130,7 +130,7 @@ namespace RawBencher.Benchers
 		/// <summary>
 		/// Gets or sets the connection string to use
 		/// </summary>
-		public string ConnectionString { get; set; }
+		public string ConnectionStringToUse { get; set; }
 		/// <summary>
 		/// Gets or sets the command text.
 		/// </summary>

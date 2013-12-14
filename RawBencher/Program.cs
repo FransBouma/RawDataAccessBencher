@@ -33,13 +33,12 @@ namespace RawBencher
 
 		static void Main(string[] args)
 		{
-            // Use the connection string from app.config instead of the static variable if the connection string exists
-            var connectionStringFromConfig = ConfigurationManager.AppSettings[DataAccessAdapter.ConnectionStringKeyName];
-            ConnectionString = string.IsNullOrEmpty(connectionStringFromConfig) ? ConnectionString : connectionStringFromConfig;
+			InitConnectionString();
+
             CacheController.RegisterCache(ConnectionString, new ResultsetCache());
 
-			RegisteredBenchers.Add(new HandCodedBencher() { CommandText = SqlSelectCommandText, ConnectionString = connectionStringFromConfig });
-			RegisteredBenchers.Add(new DataTableBencher() { CommandText = SqlSelectCommandText, ConnectionString = ConnectionString });
+			RegisteredBenchers.Add(new HandCodedBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+			RegisteredBenchers.Add(new DataTableBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new DapperBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new EntityFrameworkNormalBencher());
 			RegisteredBenchers.Add(new EntityFrameworkNoChangeTrackingBencher());
@@ -62,6 +61,17 @@ namespace RawBencher
 			CalculateFinalResultAverages();
             Console.WriteLine("\nComplete. Press enter to exit.");
             Console.ReadLine();
+		}
+
+
+		private static void InitConnectionString()
+		{
+			// Use the connection string from app.config instead of the static variable if the connection string exists
+			var connectionStringFromConfig = ConfigurationManager.ConnectionStrings[DataAccessAdapter.ConnectionStringKeyName];
+			if(connectionStringFromConfig != null)
+			{
+				ConnectionString = string.IsNullOrEmpty(connectionStringFromConfig.ConnectionString) ? ConnectionString : connectionStringFromConfig.ConnectionString;
+			}
 		}
 
 
@@ -125,7 +135,7 @@ namespace RawBencher
 
 		private static void WarmupDB()
 		{
-			var dbWarmer = new DataTableBencher() { CommandText = SqlSelectCommandText, ConnectionString = ConnectionString };
+			var dbWarmer = new DataTableBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString };
 
 			Console.WriteLine("\nWarming up DB, DB client code and CLR");
 			Console.WriteLine("==========================================================");

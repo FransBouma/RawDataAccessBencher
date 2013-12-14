@@ -68,7 +68,7 @@ namespace RawBencher.Benchers
 		private IEnumerable<DataRow> MaterializeSet(SqlCommand toExecute)
 		{
 			var headers = new DataTable();
-			using(var con = new SqlConnection(ConnectionString))
+			using(var con = new SqlConnection(ConnectionStringToUse))
 			{
 				toExecute.Connection = con;
 				var adapter = new SqlDataAdapter(toExecute);
@@ -82,7 +82,7 @@ namespace RawBencher.Benchers
 		/// <summary>
 		/// Gets or sets the connection string to use
 		/// </summary>
-		public string ConnectionString { get; set; }
+		public string ConnectionStringToUse { get; set; }
 		/// <summary>
 		/// Gets or sets the command text.
 		/// </summary>

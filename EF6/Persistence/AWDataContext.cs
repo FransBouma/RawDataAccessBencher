@@ -26,7 +26,7 @@ namespace EF6.Bencher
 		#endregion
 		
 		/// <summary>Initializes a new instance of the <see cref="AWDataContext"/> class using the connection string found in the 'AW' section of the application configuration file.</summary>
-		public AWDataContext() : base("name=ConnectionString.SQL Server (SqlClient)")
+		public AWDataContext() : base("name=EF.ConnectionString.SQL Server (SqlClient)")
 		{
 			Initialize();
 		}
