@@ -23,12 +23,15 @@ namespace RawBencher
 {
 	class Program
 	{
+		private const int LoopAmount = 10;
+		private const int IndividualKeysAmount = 100;
+		private const bool PerformSetBenchmarks = true;			// flag to signal whether the set fetch benchmarks have to be run.
+		private const bool PerformIndividualBenchMarks = false; // flag to signal whether the single element fetch benchmarks have to be run.
+
 		private static Dictionary<string, List<long>> _rawResultsPerORM = new Dictionary<string, List<long>>();
 		private static string ConnectionString = @"data source=WIN2008SQL2012\SQLEXPRESS;initial catalog=AdventureWorks;integrated security=SSPI;persist security info=False;packet size=4096";
         private static string SqlSelectCommandText = @"SELECT [SalesOrderID],[RevisionNumber],[OrderDate],[DueDate],[ShipDate],[Status],[OnlineOrderFlag],[SalesOrderNumber],[PurchaseOrderNumber],[AccountNumber],[CustomerID],[SalesPersonID],[TerritoryID],[BillToAddressID],[ShipToAddressID],[ShipMethodID],[CreditCardID],[CreditCardApprovalCode],[CurrencyRateID],[SubTotal],[TaxAmt],[Freight],[TotalDue],[Comment],[rowguid],[ModifiedDate]  FROM [Sales].[SalesOrderHeader]";
 		private static List<IBencher> RegisteredBenchers = new List<IBencher>();
-		private static int LoopAmount = 10;
-		private static int IndividualKeysAmount = 100;
 		private static List<int> KeysForIndividualFetches = new List<int>();
 
 		static void Main(string[] args)
@@ -38,10 +41,11 @@ namespace RawBencher
             CacheController.RegisterCache(ConnectionString, new ResultsetCache());
 
 			RegisteredBenchers.Add(new HandCodedBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+			RegisteredBenchers.Add(new RawDbDataReaderBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+			RegisteredBenchers.Add(new EntityFrameworkNoChangeTrackingBencher());
 			RegisteredBenchers.Add(new DataTableBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new DapperBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new EntityFrameworkNormalBencher());
-			RegisteredBenchers.Add(new EntityFrameworkNoChangeTrackingBencher());
 			RegisteredBenchers.Add(new LinqToSqlNoChangeTrackingBencher());
 			RegisteredBenchers.Add(new LinqToSqlNormalBencher());
 			RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingBencher());
@@ -53,6 +57,9 @@ namespace RawBencher
 
 			WarmupDB();
 			FetchKeysForIndividualFetches();
+
+			//ProfileBenchers(RegisteredBenchers.FirstOrDefault(b=>b.GetType()==typeof(EntityFrameworkNoChangeTrackingBencher)));
+
 			RunRegisteredBenchers();
 
 #warning REFACTOR
@@ -61,6 +68,31 @@ namespace RawBencher
 			CalculateFinalResultAverages();
             Console.WriteLine("\nComplete. Press enter to exit.");
             Console.ReadLine();
+		}
+
+
+		/// <summary>
+		/// Displays a pre-amble so the user can attach the .net profiler, then runs the benchers specified and then displays a text to stop profiling. 
+		/// </summary>
+		/// <param name="benchersToProfile">The benchers to profile.</param>
+		private static void ProfileBenchers(params IBencher[] benchersToProfile)
+		{
+			// run the benchers before profiling. 
+			foreach(var b in benchersToProfile)
+			{
+				Console.WriteLine("Running set benchmark for bencher '{0}' before profiling to warm up constructs", b.CreateFrameworkName());
+				b.PerformSetBenchmark();
+			}
+
+			Console.WriteLine("Attach profiler and press ENTER to continue");
+			Console.ReadLine();
+			foreach(var b in benchersToProfile)
+			{
+				Console.WriteLine("Running set benchmark for profile for bencher: {0}. Change tracking: {1}", b.CreateFrameworkName(), b.UsesChangeTracking);
+				b.PerformSetBenchmark();
+			}
+			Console.WriteLine("Done. Grab snapshot and stop profiler. Press ENTER to continue.");
+			Console.ReadLine();
 		}
 
 
@@ -92,7 +124,8 @@ namespace RawBencher
 		private static void RunRegisteredBenchers()
 		{
 			Console.WriteLine("\nStarting benchmarks.");
-			Console.WriteLine("==========================================================");
+			Console.WriteLine("====================================================================");
+			Console.WriteLine("Do set benchmarks: {0}.\nDo single element benchmarks: {1}", PerformSetBenchmarks, PerformIndividualBenchMarks);
 			_rawResultsPerORM.Clear();
 
 			foreach(var bencher in RegisteredBenchers)
@@ -105,30 +138,35 @@ namespace RawBencher
 
 		private static void RunBencher(IBencher bencher)
 		{
-			// set benches
-			Console.WriteLine("Set fetches");
-			Console.WriteLine("------------");
-			for(int i = 0; i < LoopAmount; i++)
+			if(PerformSetBenchmarks)
 			{
-				var result = bencher.PerformSetBenchmark();
-				ReportSetResult(bencher, result);
+				// set benches
+				Console.WriteLine("Set fetches");
+				Console.WriteLine("-------------------------");
+				for(int i = 0; i < LoopAmount; i++)
+				{
+					var result = bencher.PerformSetBenchmark();
+					ReportSetResult(bencher, result);
 
-				// avoid having the GC collect in the middle of a run.
-				GC.Collect();
-				Thread.Sleep(1000);
+					// avoid having the GC collect in the middle of a run.
+					GC.Collect();
+					Thread.Sleep(1000);
+				}
 			}
-
-			// individual benches
-			Console.WriteLine("Single element fetches");
-			Console.WriteLine("------------");
-			for(int i = 0; i < LoopAmount; i++)
+			if(PerformIndividualBenchMarks)
 			{
-				var result = bencher.PerformIndividualBenchMark(KeysForIndividualFetches);
-				ReportIndividualResult(bencher, result);
+				// individual benches
+				Console.WriteLine("Single element fetches");
+				Console.WriteLine("-------------------------");
+				for(int i = 0; i < LoopAmount; i++)
+				{
+					var result = bencher.PerformIndividualBenchMark(KeysForIndividualFetches);
+					ReportIndividualResult(bencher, result);
 
-				// avoid having the GC collect in the middle of a run.
-				GC.Collect();
-				Thread.Sleep(1000);
+					// avoid having the GC collect in the middle of a run.
+					GC.Collect();
+					Thread.Sleep(1000);
+				}
 			}
 		}
 
@@ -138,9 +176,8 @@ namespace RawBencher
 			var dbWarmer = new DataTableBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString };
 
 			Console.WriteLine("\nWarming up DB, DB client code and CLR");
-			Console.WriteLine("==========================================================");
+			Console.WriteLine("====================================================================");
 			DisplayBencherInfo(dbWarmer);
-
 			for(int i = 0; i < LoopAmount; i++)
 			{
 				var result = dbWarmer.PerformSetBenchmark();
@@ -152,7 +189,7 @@ namespace RawBencher
 		private static void DisplayBencherInfo(IBencher bencher)
 		{
 			Console.WriteLine("\n{0}. Change tracking: {1}. Caching: {2}.", bencher.CreateFrameworkName(), bencher.UsesChangeTracking, bencher.UsesCaching);
-			Console.WriteLine("-------------------------------------------------------");
+			Console.WriteLine("--------------------------------------------------------------------------------------------");
 		}
 
 

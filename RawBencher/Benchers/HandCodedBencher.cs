@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -75,50 +76,66 @@ namespace RawBencher.Benchers
 				var reader = toExecute.ExecuteReader();
 				while(reader.Read())
 				{
-					object fieldValue = null;
 					var soh = new SalesOrderHeader();
-					soh.SalesOrderId = (int)reader.GetValue(0);
-					soh.RevisionNumber = (byte)reader.GetValue(1);
-					soh.OrderDate = (DateTime)reader.GetValue(2);
-					soh.DueDate = (DateTime)reader.GetValue(3);
-					fieldValue = reader.GetValue(4);
-					soh.ShipDate = (DateTime)(fieldValue == DBNull.Value ? null : fieldValue);
-					soh.Status = (byte)reader.GetValue(5);
-					soh.OnlineOrderFlag = (bool)reader.GetValue(6);
-					soh.SalesOrderNumber = (string)reader.GetValue(7);
-					fieldValue = reader.GetValue(8);
-					soh.PurchaseOrderNumber = (string)(fieldValue == DBNull.Value ? null : fieldValue);
-					fieldValue = reader.GetValue(9);
-					soh.AccountNumber = (string)(fieldValue == DBNull.Value ? null : fieldValue);
-					soh.CustomerID = (int)reader.GetValue(10);
-					fieldValue = reader.GetValue(11);
-					soh.SalesPersonID = (int?)(fieldValue == DBNull.Value ? null : fieldValue);
-					fieldValue = reader.GetValue(12);
-					soh.TerritoryID = (int?)(fieldValue == DBNull.Value ? null : fieldValue);
-					soh.BillToAddressID = (int)reader.GetValue(13);
-					soh.ShipToAddressID = (int)reader.GetValue(14);
-					soh.ShipMethodID = (int)reader.GetValue(15);
-					fieldValue = reader.GetValue(16);
-					soh.CreditCardID = (int?)(fieldValue == DBNull.Value ? null : fieldValue);
-					fieldValue = reader.GetValue(17);
-					soh.CreditCardApprovalCode = (string)(fieldValue == DBNull.Value ? null : fieldValue);
-					fieldValue = reader.GetValue(18);
-					soh.CurrencyRateID = (int?)(fieldValue == DBNull.Value ? null : fieldValue);
-					soh.SubTotal = (decimal)reader.GetValue(19);
-					soh.TaxAmt = (decimal)reader.GetValue(20);
-					soh.Freight = (decimal)reader.GetValue(21);
-					soh.TotalDue = (decimal)reader.GetValue(22);
-					fieldValue = reader.GetValue(23);
-					soh.Comment = (string)(fieldValue == DBNull.Value ? null : fieldValue);
-					soh.Rowguid = (Guid)reader.GetValue(24);
-					soh.ModifiedDate = (DateTime)reader.GetValue(25);
+					// using IsDBNull(ordinal) is slow, however it allows the usage of the typed Get<type>(ordinal) methods. This avoids
+					// boxing / unboxing of the value again, which enhances performance more than IsDBNull can slow it down. 
+					soh.SalesOrderId = reader.GetInt32(0);
+					soh.RevisionNumber = reader.GetByte(1);
+					soh.OrderDate = reader.GetDateTime(2);
+					soh.DueDate = reader.GetDateTime(3);
+					if(!reader.IsDBNull(4))
+					{
+						soh.ShipDate = reader.GetDateTime(4);
+					}
+					soh.Status = reader.GetByte(5);
+					soh.OnlineOrderFlag = reader.GetBoolean(6);
+					soh.SalesOrderNumber = reader.GetString(7);
+					if(!reader.IsDBNull(8))
+					{
+						soh.PurchaseOrderNumber =  reader.GetString(8);
+					}
+					if(!reader.IsDBNull(9))
+					{
+						soh.AccountNumber = reader.GetString(9);
+					}
+					soh.CustomerID = reader.GetInt32(10);
+					if(!reader.IsDBNull(11))
+					{
+						soh.SalesPersonID = reader.GetInt32(11);
+					}
+					if(!reader.IsDBNull(12))
+					{
+						soh.TerritoryID = reader.GetInt32(12);
+					}
+					soh.BillToAddressID = reader.GetInt32(13);
+					soh.ShipToAddressID = reader.GetInt32(14);
+					soh.ShipMethodID = reader.GetInt32(15);
+					if(!reader.IsDBNull(16))
+					{
+						soh.CreditCardID = reader.GetInt32(16);
+					}
+					if(!reader.IsDBNull(17))
+					{
+						soh.CreditCardApprovalCode = reader.GetString(17);
+					}
+					if(!reader.IsDBNull(18))
+					{
+						soh.CurrencyRateID = reader.GetInt32(18);
+					}
+					soh.SubTotal = reader.GetDecimal(19);
+					soh.TaxAmt = reader.GetDecimal(20);
+					soh.Freight = reader.GetDecimal(21);
+					soh.TotalDue = reader.GetDecimal(22);
+					if(!reader.IsDBNull(23))
+					{
+						soh.Comment = reader.GetString(23);
+					}
+					soh.Rowguid = reader.GetGuid(24);
+					soh.ModifiedDate = reader.GetDateTime(25);
 					headers.Add(soh);
 				}
-				// optimization: call cancel first, this will greatly reduce the time it takes to Close the datareader as we're not interested in
-				// any statistics gathered by Close anyway. Required for SqlServer, other providers don't have a slow Close() method.
-				// Every ORM should utilize this trick to get fast individual fetches. Most do, not all of them though.
 				toExecute.Cancel();
-				reader.Close();
+				reader.Dispose();
 				con.Close();
 			}
 			return headers;

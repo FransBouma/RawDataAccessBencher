@@ -16,7 +16,7 @@ namespace RawBencher.Benchers
 		/// Initializes a new instance of the <see cref="OakDynamicDbNormalBencher"/> class.
 		/// </summary>
 		public OakDynamicDbNormalBencher()
-			: base(e => e.SalesOrderId, usesChangeTracking:false, usesCaching:false)
+			: base(e => e.SalesOrderId, usesChangeTracking:true, usesCaching:false)
 		{
 		}
 
