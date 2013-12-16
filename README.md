@@ -33,5 +33,5 @@ Including data-table fetches might look like an apple/oranges comparison, but so
 I wrote [LLBLGen Pro](http://www.llblgen.com/), though I tried to keep this benchmark as honest and open as possible.
 
 ### Further reading ###
-
+[First blogpost about this subject](http://weblogs.asp.net/fbouma/archive/2013/12/09/fetch-performance-of-various-net-orm-data-access-frameworks.aspx)
 

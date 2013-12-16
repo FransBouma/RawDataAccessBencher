@@ -13,107 +13,56 @@ using AdventureWorks.Dal.Adapter.v41.DatabaseSpecific;
 using AdventureWorks.Dal.Adapter.v41.EntityClasses;
 using AdventureWorks.Dal.Adapter.v41.HelperClasses;
 using AdventureWorks.Dal.Adapter.v41.FactoryClasses;
-using EF6.Bencher;
-using L2S.Bencher;
-using NH.Bencher;
-using NHibernate;
-using NHibernate.Linq;
-using Dapper;
 using SD.LLBLGen.Pro.QuerySpec;
 using SD.LLBLGen.Pro.QuerySpec.Adapter;
 using SD.LLBLGen.Pro.ORMSupportClasses;
-using ServiceStack.OrmLite;
-using ServiceStack.OrmLite.SqlServer;
-using AdventureWorks.Dal.Adapter.v41.TypedViewClasses;
+using RawBencher.Benchers;
+using System.Threading;
 
 namespace RawBencher
 {
 	class Program
 	{
+		private const int LoopAmount = 10;
+		private const int IndividualKeysAmount = 100;
+		private const bool PerformSetBenchmarks = true;			// flag to signal whether the set fetch benchmarks have to be run.
+		private const bool PerformIndividualBenchMarks = false; // flag to signal whether the single element fetch benchmarks have to be run.
+
 		private static Dictionary<string, List<long>> _rawResultsPerORM = new Dictionary<string, List<long>>();
 		private static string ConnectionString = @"data source=WIN2008SQL2012\SQLEXPRESS;initial catalog=AdventureWorks;integrated security=SSPI;persist security info=False;packet size=4096";
         private static string SqlSelectCommandText = @"SELECT [SalesOrderID],[RevisionNumber],[OrderDate],[DueDate],[ShipDate],[Status],[OnlineOrderFlag],[SalesOrderNumber],[PurchaseOrderNumber],[AccountNumber],[CustomerID],[SalesPersonID],[TerritoryID],[BillToAddressID],[ShipToAddressID],[ShipMethodID],[CreditCardID],[CreditCardApprovalCode],[CurrencyRateID],[SubTotal],[TaxAmt],[Freight],[TotalDue],[Comment],[rowguid],[ModifiedDate]  FROM [Sales].[SalesOrderHeader]";
-
-		private static bool PrintEnumerationTimings = false;	// if true, it will show the time it took to enumerate the resultset.
+		private static List<IBencher> RegisteredBenchers = new List<IBencher>();
+		private static List<int> KeysForIndividualFetches = new List<int>();
 
 		static void Main(string[] args)
 		{
-            // Use the connection string from app.config instead of the static variable if the connection string exists
-            var connectionStringFromConfig = ConfigurationManager.AppSettings[DataAccessAdapter.ConnectionStringKeyName];
-            ConnectionString = string.IsNullOrEmpty(connectionStringFromConfig) ? ConnectionString : connectionStringFromConfig;
-            
+			InitConnectionString();
+
             CacheController.RegisterCache(ConnectionString, new ResultsetCache());
-			int loopAmount = 10;
-			
-			Console.WriteLine("\nWarming up DB, DB client code and CLR");
-			Console.WriteLine("------------------------------------------");
-			for(int i = 0; i < loopAmount; i++)
-			{
-				FetchSalesOrderHeaderHandCoded();
-			}
 
-			Console.WriteLine("\nStarting benchmarks. Reported times are materialization only.");
-			Console.WriteLine("---------------------------------------------------------------------------");
-			_rawResultsPerORM.Clear();
+			RegisteredBenchers.Add(new HandCodedBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+			RegisteredBenchers.Add(new RawDbDataReaderBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+			RegisteredBenchers.Add(new EntityFrameworkNoChangeTrackingBencher());
+			RegisteredBenchers.Add(new DataTableBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+			RegisteredBenchers.Add(new DapperBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+			RegisteredBenchers.Add(new EntityFrameworkNormalBencher());
+			RegisteredBenchers.Add(new LinqToSqlNoChangeTrackingBencher());
+			RegisteredBenchers.Add(new LinqToSqlNormalBencher());
+			RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingBencher());
+			RegisteredBenchers.Add(new LLBLGenProNormalBencher());
+			RegisteredBenchers.Add(new LLBLGenProResultsetCachingBencher());
+			RegisteredBenchers.Add(new NHibernateNormalBencher());
+			RegisteredBenchers.Add(new OakDynamicDbNormalBencher());
+			RegisteredBenchers.Add(new OrmLiteBencher() { ConnectionStringToUse = ConnectionString} );
 
-			for(int i = 0; i < loopAmount; i++)
-			{
-				FetchSalesOrderHeaderEF();
-			}
-			for(int i = 0; i < loopAmount; i++)
-			{
-				FetchSalesOrderHeaderEFNoTracking();
-			}
-			for(int i = 0; i < loopAmount; i++)
-			{
-				FetchSalesOrderHeaderL2S();
-			}
-			for(int i = 0; i < loopAmount; i++)
-			{
-				FetchSalesOrderHeaderL2SNoTracking();
-			}
-			for(int i = 0; i < loopAmount; i++)
-			{
-				FetchSalesOrderHeaderLLBLGenPro();
-			}
-			for(int i = 0; i < loopAmount; i++)
-			{
-				FetchSalesOrderHeaderLLBLGenProWithCaching();
-			}
-			for(int i = 0; i < loopAmount; i++)
-			{
-				FetchSalesOrderHeaderLLBLGenProNoTracking();
-			}
-			for(int i = 0; i < loopAmount; i++)
-			{
-				FetchSalesOrderHeaderDapper();
-            }
-            for (int i = 0; i < loopAmount; i++)
-            {
-                FetchSalesOrderHeaderOrmLite();
-            }
-			for(int i = 0; i < loopAmount; i++)
-			{
-				FetchSalesOrderHeaderNH();
-			}
-			for(int i = 0; i < loopAmount; i++)
-			{
-				FetchSalesOrderHeaderHandCoded();
-			}
-			for(int i = 0; i < loopAmount; i++)
-			{
-				FetchSalesOrderHeaderDataTable();
-			}
-			for(int i = 0; i < loopAmount; i++)
-			{
-				FetchSalesOrderHeaderOakDynamicDb();
-			}
+			WarmupDB();
+			FetchKeysForIndividualFetches();
 
-			Console.WriteLine("\nIndividual entity fetch benches");
-			Console.WriteLine("------------------------------------------");
-			FetchSalesOrderHeaderLLBLGenProIndividually();
-			FetchSalesOrderHeaderEFIndividually();
+			//ProfileBenchers(RegisteredBenchers.FirstOrDefault(b=>b.GetType()==typeof(EntityFrameworkNoChangeTrackingBencher)));
 
+			RunRegisteredBenchers();
+
+#warning REFACTOR
 			Console.WriteLine("\nAveraged total results per framework");
 			Console.WriteLine("------------------------------------------");
 			CalculateFinalResultAverages();
@@ -122,360 +71,146 @@ namespace RawBencher
 		}
 
 
-		private static void FetchSalesOrderHeaderDataTable()
+		/// <summary>
+		/// Displays a pre-amble so the user can attach the .net profiler, then runs the benchers specified and then displays a text to stop profiling. 
+		/// </summary>
+		/// <param name="benchersToProfile">The benchers to profile.</param>
+		private static void ProfileBenchers(params IBencher[] benchersToProfile)
 		{
-			var frameworkName = "DbDataAdapter into DataTable, with change tracking";
-			var sw = new Stopwatch();
-			sw.Start();
-			var headers = new DataTable();
-			using(var con = new SqlConnection(ConnectionString))
+			// run the benchers before profiling. 
+			foreach(var b in benchersToProfile)
 			{
-				var cmd = con.CreateCommand();
-                cmd.CommandText = SqlSelectCommandText;
-				var adapter = new SqlDataAdapter(cmd);
-				adapter.Fill(headers);
+				Console.WriteLine("Running set benchmark for bencher '{0}' before profiling to warm up constructs", b.CreateFrameworkName());
+				b.PerformSetBenchmark();
 			}
-			sw.Stop();
-			ReportResult(frameworkName, sw.ElapsedMilliseconds, headers.Rows.Count);
-			VerifyData(headers.AsEnumerable(), r =>Convert.ToInt32(r["SalesOrderID"]), frameworkName);
-		}
 
-
-		private static void FetchSalesOrderHeaderHandCoded()
-		{
-			var frameworkName = "DbDataReader, handcoded, no change tracking";
-
-			var sw = new Stopwatch();
-			sw.Start();
-			var headers = new List<SalesOrderHeader>();
-			using(var con = new SqlConnection(ConnectionString))
+			Console.WriteLine("Attach profiler and press ENTER to continue");
+			Console.ReadLine();
+			foreach(var b in benchersToProfile)
 			{
-				var cmd = con.CreateCommand();
-                cmd.CommandText = SqlSelectCommandText;
-				con.Open();
-				var reader = cmd.ExecuteReader();
-				while(reader.Read())
-				{
-					object fieldValue = null;
-					var soh = new SalesOrderHeader();
-					soh.SalesOrderId = (int)reader.GetValue(0);
-					soh.RevisionNumber = (byte)reader.GetValue(1);
-					soh.OrderDate = (DateTime)reader.GetValue(2);
-					soh.DueDate = (DateTime)reader.GetValue(3);
-					fieldValue = reader.GetValue(4);
-					soh.ShipDate = (DateTime)(fieldValue == DBNull.Value ? null : fieldValue);
-					soh.Status = (byte)reader.GetValue(5);
-					soh.OnlineOrderFlag = (bool)reader.GetValue(6);
-					soh.SalesOrderNumber = (string)reader.GetValue(7);
-					fieldValue = reader.GetValue(8);
-					soh.PurchaseOrderNumber = (string)(fieldValue == DBNull.Value ? null : fieldValue);
-					fieldValue = reader.GetValue(9);
-					soh.AccountNumber = (string)(fieldValue == DBNull.Value ? null : fieldValue);
-					soh.CustomerID = (int)reader.GetValue(10);
-					fieldValue = reader.GetValue(11);
-					soh.SalesPersonID = (int?)(fieldValue == DBNull.Value ? null : fieldValue);
-					fieldValue = reader.GetValue(12);
-					soh.TerritoryID = (int?)(fieldValue == DBNull.Value ? null : fieldValue);
-					soh.BillToAddressID = (int)reader.GetValue(13);
-					soh.ShipToAddressID = (int)reader.GetValue(14);
-					soh.ShipMethodID = (int)reader.GetValue(15);
-					fieldValue = reader.GetValue(16);
-					soh.CreditCardID = (int?)(fieldValue == DBNull.Value ? null : fieldValue);
-					fieldValue = reader.GetValue(17);
-					soh.CreditCardApprovalCode = (string)(fieldValue == DBNull.Value ? null : fieldValue);
-					fieldValue = reader.GetValue(18);
-					soh.CurrencyRateID = (int?)(fieldValue == DBNull.Value?null : fieldValue);
-					soh.SubTotal = (decimal)reader.GetValue(19);
-					soh.TaxAmt = (decimal)reader.GetValue(20);
-					soh.Freight = (decimal)reader.GetValue(21);
-					soh.TotalDue = (decimal)reader.GetValue(22);
-					fieldValue = reader.GetValue(23);
-					soh.Comment = (string)(fieldValue==DBNull.Value ? null : fieldValue);
-					soh.Rowguid = (Guid)reader.GetValue(24);
-					soh.ModifiedDate = (DateTime)reader.GetValue(25);
-					headers.Add(soh);
-				}
-				reader.Close();
-				con.Close();
+				Console.WriteLine("Running set benchmark for profile for bencher: {0}. Change tracking: {1}", b.CreateFrameworkName(), b.UsesChangeTracking);
+				b.PerformSetBenchmark();
 			}
-			sw.Stop();
-			ReportResult(frameworkName, sw.ElapsedMilliseconds, headers.Count);
-			VerifyData(headers, v => v.SalesOrderId, frameworkName);
+			Console.WriteLine("Done. Grab snapshot and stop profiler. Press ENTER to continue.");
+			Console.ReadLine();
 		}
 
 
-		private static void FetchSalesOrderHeaderDapper()
+		private static void InitConnectionString()
 		{
-			var frameworkName = "Dapper, no change tracking";
-
-			var sw = new Stopwatch();
-			sw.Start();
-			var headers = new List<SalesOrderHeader>();
-			using(var con = new SqlConnection(ConnectionString))
+			// Use the connection string from app.config instead of the static variable if the connection string exists
+			var connectionStringFromConfig = ConfigurationManager.ConnectionStrings[DataAccessAdapter.ConnectionStringKeyName];
+			if(connectionStringFromConfig != null)
 			{
-				con.Open();
-                headers = con.Query<SalesOrderHeader>(SqlSelectCommandText).ToList();
-				con.Close();
+				ConnectionString = string.IsNullOrEmpty(connectionStringFromConfig.ConnectionString) ? ConnectionString : connectionStringFromConfig.ConnectionString;
 			}
-			sw.Stop();
-			ReportResult(frameworkName, sw.ElapsedMilliseconds, headers.Count);
-			VerifyData(headers, v => v.SalesOrderId, frameworkName);
 		}
 
 
-        private static void FetchSalesOrderHeaderOrmLite()
-        {
-            var frameworkName = "ServiceStack OrmLite v4.0, no change tracking";
-
-            var sw = new Stopwatch();
-            sw.Start();
-            var headers = new List<SalesOrderHeader>();
-            var dbFactory = new OrmLiteConnectionFactory(ConnectionString, SqlServerOrmLiteDialectProvider.Instance);
-            using(var con = dbFactory.OpenDbConnection())
-            {
-                headers = con.Select<SalesOrderHeader>();
-                con.Close();
-            }
-            sw.Stop();
-            ReportResult(frameworkName, sw.ElapsedMilliseconds, headers.Count);
-			VerifyData(headers, v => v.SalesOrderId, frameworkName);
-		}
-
-
-		private static void FetchSalesOrderHeaderLLBLGenProWithCaching()
+		private static void FetchKeysForIndividualFetches()
 		{
-			var frameworkName = CreateFrameworkName("LLBLGen Pro v{0} (v{1}), with resultset caching, change tracking", typeof(DataAccessAdapterBase));
-			var sw = new Stopwatch();
-			sw.Start();
 			var qf = new QueryFactory();
-			var q = qf.SalesOrderHeader.CacheResultset(5);
-			var headers = new EntityCollection<SalesOrderHeaderEntity>();
-			using(var adapter = new DataAccessAdapter())
+			var q = qf.SalesOrderHeader
+						.Select(()=>SalesOrderHeaderFields.SalesOrderId.ToValue<int>())
+						.Limit(IndividualKeysAmount);
+			KeysForIndividualFetches = new DataAccessAdapter().FetchQuery(q);
+			if(KeysForIndividualFetches.Count < IndividualKeysAmount)
 			{
-				adapter.FetchQuery(q, headers);
+				throw new InvalidOperationException("Can't fetch the keys for the individual benchmarks");
 			}
-			sw.Stop();
-			ReportResult(frameworkName, sw.ElapsedMilliseconds, headers.Count);
-			VerifyData(headers, v => v.SalesOrderId, frameworkName);
 		}
 
 
-		private static void FetchSalesOrderHeaderLLBLGenProIndividually()
+		private static void RunRegisteredBenchers()
 		{
-			Console.WriteLine("Fetching entities individually, LLBLGen Pro v4.1");
-			var headers = FetchSalesOrderHeaderLLBLGenPro();
-			int count = 0;
-			var sw = new Stopwatch();
-			sw.Start();
-			foreach(var fetched in headers)
+			Console.WriteLine("\nStarting benchmarks.");
+			Console.WriteLine("====================================================================");
+			Console.WriteLine("Do set benchmarks: {0}.\nDo single element benchmarks: {1}", PerformSetBenchmarks, PerformIndividualBenchMarks);
+			_rawResultsPerORM.Clear();
+
+			foreach(var bencher in RegisteredBenchers)
 			{
-				var toFetch = new SalesOrderHeaderEntity(fetched.SalesOrderId);
-				using(var adapter = new DataAccessAdapter())
+				DisplayBencherInfo(bencher);
+				RunBencher(bencher);
+			}
+		}
+
+
+		private static void RunBencher(IBencher bencher)
+		{
+			if(PerformSetBenchmarks)
+			{
+				// set benches
+				Console.WriteLine("Set fetches");
+				Console.WriteLine("-------------------------");
+				for(int i = 0; i < LoopAmount; i++)
 				{
-					adapter.FetchEntity(toFetch);
-					if(toFetch.Fields.State != SD.LLBLGen.Pro.ORMSupportClasses.EntityState.Fetched)
-					{
-						Console.WriteLine("Not fetched. Aborting");
-						return;
-					}
-					count++;
-				}
-				if(count > 1000)
-				{
-					break;
-				}
-			}
-			sw.Stop();
-			double average = (double)sw.ElapsedMilliseconds / (double)count;
-			Console.WriteLine("Fetching {0} entities individually through CTor/PK fetch took {1}ms, or {2}ms/entity", count, sw.ElapsedMilliseconds, average);
-		}
-		
+					var result = bencher.PerformSetBenchmark();
+					ReportSetResult(bencher, result);
 
-		private static EntityCollection<SalesOrderHeaderEntity> FetchSalesOrderHeaderLLBLGenPro()
-		{
-			var frameworkName = CreateFrameworkName("LLBLGen Pro v{0} (v{1}), with change tracking", typeof(DataAccessAdapterBase));
-			var sw = new Stopwatch();
-			sw.Start();
-			var headers = new EntityCollection<SalesOrderHeaderEntity>();
-			using(var adapter = new DataAccessAdapter())
-			{
-				adapter.FetchEntityCollection(headers, null);
-			}
-			sw.Stop();
-			ReportResult(frameworkName, sw.ElapsedMilliseconds, headers.Count);
-			VerifyData(headers, v => v.SalesOrderId, frameworkName);
-			return headers;
-		}
-
-
-		private static void FetchSalesOrderHeaderLLBLGenProNoTracking()
-		{
-			var frameworkName = CreateFrameworkName("LLBLGen Pro v{0} (v{1}), typed view, no change tracking", typeof(DataAccessAdapterBase));
-			var sw = new Stopwatch();
-			sw.Start();
-			var headers = new SohTypedView();
-			using(var adapter = new DataAccessAdapter())
-			{
-				adapter.FetchTypedView(headers, allowDuplicates:true);
-			}
-			sw.Stop();
-			ReportResult(frameworkName, sw.ElapsedMilliseconds, headers.Count);
-			VerifyData(headers, v => v.SalesOrderId, frameworkName);
-		}
-
-
-		private static List<EF6.Bencher.EntityClasses.SalesOrderHeader>  FetchSalesOrderHeaderEF()
-		{
-			var frameworkName = CreateFrameworkName("Entity Framework v{0} (v{1}), with change tracking", typeof(System.Data.Entity.DbContext));
-			var sw = new Stopwatch();
-			sw.Start();
-			List<EF6.Bencher.EntityClasses.SalesOrderHeader> headers = null;
-			using(var ctx = new AWDataContext())
-			{
-				headers = ctx.SalesOrderHeaders.ToList();
-			}
-			sw.Stop();
-			ReportResult(frameworkName, sw.ElapsedMilliseconds, headers.Count);
-			VerifyData(headers, v => v.SalesOrderId, frameworkName);
-			return headers;
-		}
-
-
-		private static List<EF6.Bencher.EntityClasses.SalesOrderHeader> FetchSalesOrderHeaderEFNoTracking()
-		{
-			var frameworkName = CreateFrameworkName("Entity Framework v{0} (v{1}), no change tracking", typeof(System.Data.Entity.DbContext));
-			var sw = new Stopwatch();
-			sw.Start();
-			List<EF6.Bencher.EntityClasses.SalesOrderHeader> headers = null;
-			using(var ctx = new AWDataContext())
-			{
-				headers = ctx.SalesOrderHeaders.AsNoTracking().ToList();
-			}
-			sw.Stop();
-			ReportResult(frameworkName, sw.ElapsedMilliseconds, headers.Count);
-			VerifyData(headers, v => v.SalesOrderId, frameworkName);
-			return headers;
-		}
-
-
-		private static void FetchSalesOrderHeaderEFIndividually()
-		{
-			Console.WriteLine("Fetching entities individually, EF6.0.1");
-			var headers = FetchSalesOrderHeaderEF();
-			int count = 0;
-			var sw = new Stopwatch();
-			sw.Start();
-			foreach(var fetched in headers)
-			{
-				using(var ctx = new AWDataContext())
-				{
-					var toFetch = ctx.SalesOrderHeaders.Single(soh => soh.SalesOrderId == fetched.SalesOrderId);
-					count++;
-				}
-				if(count > 1000)
-				{
-					break;
+					// avoid having the GC collect in the middle of a run.
+					GC.Collect();
+					Thread.Sleep(1000);
 				}
 			}
-			sw.Stop();
-			double average = (double)sw.ElapsedMilliseconds / (double)count;
-			Console.WriteLine("Fetching {0} entities individually through CTor/PK fetch took {1}ms, or {2}ms/entity", count, sw.ElapsedMilliseconds, average);
-		}
-
-
-		private static void FetchSalesOrderHeaderL2S()
-		{
-			var frameworkName = CreateFrameworkName("Linq to Sql v{0} (v{1}), with change tracking", typeof(System.Data.Linq.DataContext));
-			var sw = new Stopwatch();
-			sw.Start();
-			List<L2S.Bencher.EntityClasses.SalesOrderHeader> headers = null;
-			var ctx = new L2SBencherDataContext();
-			headers = ctx.SalesOrderHeaders.ToList();
-			sw.Stop();
-			ReportResult(frameworkName, sw.ElapsedMilliseconds, headers.Count);
-			VerifyData(headers, v => v.SalesOrderId, frameworkName);
-		}
-
-
-		private static void FetchSalesOrderHeaderL2SNoTracking()
-		{
-			var frameworkName = CreateFrameworkName("Linq to Sql v{0} (v{1}), no tracking", typeof(System.Data.Linq.DataContext));
-			var sw = new Stopwatch();
-			sw.Start();
-			List<L2S.Bencher.EntityClasses.SalesOrderHeader> headers = null;
-			var ctx = new L2SBencherDataContext();
-			ctx.ObjectTrackingEnabled = false;
-			headers = ctx.SalesOrderHeaders.ToList();
-			sw.Stop();
-			ReportResult(frameworkName, sw.ElapsedMilliseconds, headers.Count);
-			VerifyData(headers, v => v.SalesOrderId, frameworkName);
-		}
-
-
-		private static void FetchSalesOrderHeaderNH()
-		{
-			var frameworkName = CreateFrameworkName("NHibernate v{0} (v{1}), with change tracking", typeof(ISession));
-			var sw = new Stopwatch();
-			sw.Start();
-			List<NH.Bencher.EntityClasses.SalesOrderHeader> headers = null;
-			using(var session = SessionManager.OpenSession())
+			if(PerformIndividualBenchMarks)
 			{
-				headers = session.Query<NH.Bencher.EntityClasses.SalesOrderHeader>().ToList();
-			}
-			sw.Stop();
-			ReportResult(frameworkName, sw.ElapsedMilliseconds, headers.Count);
-			VerifyData(headers, v => v.SalesOrderId, frameworkName);
-		}
-
-
-        private static void FetchSalesOrderHeaderOakDynamicDb()
-        {
-			var frameworkName = "Oak.DynamicDb using dynamic class, with change tracking";
-            var sw = new Stopwatch();
-            sw.Start();
-            var db = new OakDynamicDb.Bencher.SalesOrderHeaders();
-			db.Projection = d => new OakDynamicDb.Bencher.SalesOrderHeader(d);
-            var headers = db.All();
-            sw.Stop();
-            ReportResult(frameworkName, sw.ElapsedMilliseconds, headers.Count());
-			VerifyData(headers, v => v.SalesOrderID, frameworkName);
-        }
-
-
-		private static void VerifyData<T>(IEnumerable<T> toEnumerate, Func<T, int> idRetriever, string frameworkName)
-		{
-			var sw = new Stopwatch();
-			sw.Start();
-			foreach(var v in toEnumerate)
-			{
-				if(idRetriever(v) <= 0)
+				// individual benches
+				Console.WriteLine("Single element fetches");
+				Console.WriteLine("-------------------------");
+				for(int i = 0; i < LoopAmount; i++)
 				{
-					Console.WriteLine("{0}: data is empty.");
-					break;
+					var result = bencher.PerformIndividualBenchMark(KeysForIndividualFetches);
+					ReportIndividualResult(bencher, result);
+
+					// avoid having the GC collect in the middle of a run.
+					GC.Collect();
+					Thread.Sleep(1000);
 				}
 			}
-			sw.Stop();
-			if(PrintEnumerationTimings)
+		}
+
+
+		private static void WarmupDB()
+		{
+			var dbWarmer = new DataTableBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString };
+
+			Console.WriteLine("\nWarming up DB, DB client code and CLR");
+			Console.WriteLine("====================================================================");
+			DisplayBencherInfo(dbWarmer);
+			for(int i = 0; i < LoopAmount; i++)
 			{
-				Console.WriteLine("Enumerating all rows in the resultset of '{0}' took: {1}ms", frameworkName, sw.ElapsedMilliseconds);
+				var result = dbWarmer.PerformSetBenchmark();
+				ReportSetResult(dbWarmer, result);
 			}
 		}
 
 
-		private static void GetVersionStrings(Assembly a, out string fileVersion, out string assemblyVersion)
+		private static void DisplayBencherInfo(IBencher bencher)
 		{
-			fileVersion = string.Empty;
-			assemblyVersion = string.Empty;
-			if(a != null)
-			{
-				assemblyVersion = a.GetName().Version.ToString();
-				fileVersion = FileVersionInfo.GetVersionInfo(a.Location).FileVersion;
-			}
+			Console.WriteLine("\n{0}. Change tracking: {1}. Caching: {2}.", bencher.CreateFrameworkName(), bencher.UsesChangeTracking, bencher.UsesCaching);
+			Console.WriteLine("--------------------------------------------------------------------------------------------");
+		}
+
+
+		private static void ReportSetResult(IBencher bencher, BenchResult result)
+		{
+			Console.WriteLine("Number of elements fetched: {0}.\tFetch took: {1}ms.\tEnumerating result took: {2}ms",
+								result.NumberOfRowsFetched, result.FetchTimeInMilliseconds, result.EnumerationTimeInMilliseconds);
+		}
+
+
+		private static void ReportIndividualResult(IBencher bencher, BenchResult result)
+		{
+			Console.WriteLine("Number of elements fetched individually: {0}.\tTotal time: {1}ms.\tTime per element: {2}ms",
+								KeysForIndividualFetches.Count, result.FetchTimeInMilliseconds, 
+								(double)result.FetchTimeInMilliseconds / (double)KeysForIndividualFetches.Count);
 		}
 
 
 		private static void ReportResult(string frameworkName, long elapsedTimeInMs, int amountFetched)
 		{
+#warning REFACTOR
 			Console.WriteLine("Fetched {0} objects using: '{1}'. Took: {2}ms", amountFetched, frameworkName, elapsedTimeInMs);
 			List<long> container;
 			if(!_rawResultsPerORM.TryGetValue(frameworkName, out container))
@@ -484,15 +219,6 @@ namespace RawBencher
 				_rawResultsPerORM.Add(frameworkName, container);
 			}
 			container.Add(elapsedTimeInMs);
-		}
-
-
-		private static string CreateFrameworkName(string formatString, Type t)
-		{
-			string assemblyVersion;
-			string fileVersion;
-			GetVersionStrings(t.Assembly, out fileVersion, out assemblyVersion);
-			return string.Format(formatString, assemblyVersion, fileVersion);
 		}
 
 
