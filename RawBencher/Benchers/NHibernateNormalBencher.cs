@@ -55,7 +55,7 @@ namespace RawBencher.Benchers
 		/// specific version
 		/// </summary>
 		/// <returns>the framework name.</returns>
-		public override string CreateFrameworkName()
+		protected override string CreateFrameworkNameImpl()
 		{
 			return CreateFrameworkName("NHibernate v{0} (v{1})", typeof(ISession));
 		}

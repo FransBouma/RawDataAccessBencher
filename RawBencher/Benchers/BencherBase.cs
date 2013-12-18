@@ -16,6 +16,9 @@ namespace RawBencher.Benchers
 	{
 		#region Member declarations
 		private Func<T, int> _salesOrderIdRetriever;
+		private List<BenchResult> _individualBenchmarkResults, _setBenchmarkResults;
+		private double _individualFetchAverage, _setFetchAverage, _enumerationAverage;
+		private string _frameworkName;
 		#endregion
 
 
@@ -35,6 +38,9 @@ namespace RawBencher.Benchers
 			_salesOrderIdRetriever = salesOrderIdRetriever;
 			this.UsesCaching = usesCaching;
 			this.UsesChangeTracking = usesChangeTracking;
+			_individualBenchmarkResults = new List<BenchResult>();
+			_setBenchmarkResults = new List<BenchResult>();
+			_frameworkName = string.Empty;
 		}
 
 
@@ -53,11 +59,52 @@ namespace RawBencher.Benchers
 		/// </returns>
 		public abstract IEnumerable<T> FetchSet();
 		/// <summary>
+		/// Implements the CreateFrameworkName method. Done this way so caching of the name is performed in the caller and overrides have no influence
+		/// on this.
+		/// </summary>
+		/// <returns>the framework name.</returns>
+		protected abstract string CreateFrameworkNameImpl();
+
+
+		/// <summary>
 		/// Creates the name of the framework this bencher is for. Use the overload which accepts a format string and a type to create a name based on a
 		/// specific version
 		/// </summary>
 		/// <returns>the framework name.</returns>
-		public abstract string CreateFrameworkName();
+		public string CreateFrameworkName()
+		{
+			if(string.IsNullOrEmpty(_frameworkName))
+			{
+				_frameworkName = CreateFrameworkNameImpl();
+			}
+			return _frameworkName;
+		}
+
+
+		/// <summary>
+		/// Resets the result containers of this bencher.
+		/// </summary>
+		public void ResetResults()
+		{
+			_individualBenchmarkResults.Clear();
+			_setBenchmarkResults.Clear();
+			_setFetchAverage = 0.0;
+			_individualFetchAverage = 0.0;
+			_enumerationAverage = 0.0;
+		}
+
+
+		/// <summary>
+		/// Calculates the averages from the results obtained through the benchmark methods. Requires at least 3 runs of the benchmark methods to produce
+		/// valid results. Results are obtainable through the properties <see cref="IndividualFetchAverage"/>, <see cref="SetFetchAverage"/> and
+		/// <see cref="EnumerationAverage"/>.
+		/// </summary>
+		public void CalculateAverages()
+		{
+			_individualFetchAverage = CalculateAverage(_individualBenchmarkResults.Select(r => r.FetchTimeInMilliseconds).ToList());
+			_setFetchAverage = CalculateAverage(_setBenchmarkResults.Select(r => r.FetchTimeInMilliseconds).ToList());
+			_enumerationAverage = CalculateAverage(_setBenchmarkResults.Select(r => r.EnumerationTimeInMilliseconds).ToList());
+		}
 
 
 		/// <summary>
@@ -85,6 +132,8 @@ namespace RawBencher.Benchers
 			sw.Stop();
 			toReturn.FetchTimeInMilliseconds = sw.ElapsedMilliseconds;
 			toReturn.NumberOfRowsFetched = numberOfElementsFetched;
+			_individualBenchmarkResults.Add(toReturn);
+
 			return toReturn;
 		}
 
@@ -107,6 +156,7 @@ namespace RawBencher.Benchers
 			toReturn.NumberOfRowsFetched = VerifyData(headers);
 			sw.Stop();
 			toReturn.EnumerationTimeInMilliseconds = sw.ElapsedMilliseconds;
+			_setBenchmarkResults.Add(toReturn);
 			return toReturn;
 		}
 
@@ -181,7 +231,48 @@ namespace RawBencher.Benchers
 		}
 
 
+		/// <summary>
+		/// Calculates the average of the set of values given, excluding the fastest and slowest value.
+		/// </summary>
+		/// <param name="resultsToAverage">The results to average.</param>
+		/// <returns></returns>
+		/// <exception cref="System.ArgumentException">Not enough results to calculate average. Thrown when the set specified has 2 or less values</exception>
+		private double CalculateAverage(List<long> resultsToAverage)
+		{
+			if(resultsToAverage.Count <= 2)
+			{
+				throw new ArgumentException("Not enough results to calculate average");
+			}
+			// ignore slowest and fastest result, then calculate the average.
+			return resultsToAverage.OrderBy(p => p).Skip(1).Take(resultsToAverage.Count - 2).Average();
+		}
+
+
 		#region Properties
+		/// <summary>
+		/// Gets the individual fetch average, calculated by <see cref="CalculateAverages"/>
+		/// </summary>
+		public double IndividualFetchAverage
+		{
+			get { return _individualFetchAverage; }
+		}
+
+		/// <summary>
+		/// Gets the set fetch average, calculated by <see cref="CalculateAverages"/>
+		/// </summary>
+		public double SetFetchAverage
+		{
+			get { return _setFetchAverage; }
+		}
+
+		/// <summary>
+		/// Gets the enumeration average, calculated by <see cref="CalculateAverages"/>
+		/// </summary>
+		public double EnumerationAverage
+		{
+			get { return _enumerationAverage; }
+		}
+		
 		/// <summary>
 		/// Gets a value indicating whether the fetch uses some form of caching (resultset caching, element caching)
 		/// </summary>

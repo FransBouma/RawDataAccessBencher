@@ -63,7 +63,7 @@ namespace RawBencher.Benchers
 		/// specific version
 		/// </summary>
 		/// <returns>the framework name.</returns>
-		public override string CreateFrameworkName()
+		protected override string CreateFrameworkNameImpl()
 		{
 			return CreateFrameworkName("ServiceStack OrmLite v{0} (v{1})", typeof(OrmLiteConnectionFactory));
 		}

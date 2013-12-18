@@ -31,7 +31,29 @@ namespace RawBencher.Benchers
 		/// </summary>
 		/// <returns>A filled in benchmark result object</returns>
 		BenchResult PerformSetBenchmark();
-
+		/// <summary>
+		/// Resets the result containers of this bencher.
+		/// </summary>
+		void ResetResults();
+		/// <summary>
+		/// Calculates the averages from the results obtained through the benchmark methods. Requires at least 3 runs of the benchmark methods to produce
+		/// valid results. Results are obtainable through the properties <see cref="IndividualFetchAverage"/>, <see cref="SetFetchAverage"/> and
+		/// <see cref="EnumerationAverage"/>.
+		/// </summary>
+		void CalculateAverages();
+		
+		/// <summary>
+		/// Gets the individual fetch average, calculated by <see cref="CalculateAverages"/>
+		/// </summary>
+		double IndividualFetchAverage { get;}
+		/// <summary>
+		/// Gets the set fetch average, calculated by <see cref="CalculateAverages"/>
+		/// </summary>
+		double SetFetchAverage { get; }
+		/// <summary>
+		/// Gets the enumeration average, calculated by <see cref="CalculateAverages"/>
+		/// </summary>
+		double EnumerationAverage { get; }
 		/// <summary>
 		/// Gets a value indicating whether the fetch uses some form of caching (resultset caching, element caching)
 		/// </summary>

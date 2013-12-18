@@ -53,7 +53,7 @@ namespace RawBencher.Benchers
 		/// specific version
 		/// </summary>
 		/// <returns>the framework name.</returns>
-		public override string CreateFrameworkName()
+		protected override string CreateFrameworkNameImpl()
 		{
 			return CreateFrameworkName("Linq to Sql v{0} (v{1})", typeof(System.Data.Linq.DataContext));
 		}

@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 namespace RawBencher.Benchers
 {
 	/// <summary>
-	/// Specific bencher for Oak, doing change tracking fetch
+	/// Specific bencher for Oak, doing no-change tracking fetch, using a typed dynamic type. 
 	/// </summary>
-	public class OakDynamicDbNormalBencher : BencherBase<dynamic>
+	public class OakDynamicDbDtoBencher : BencherBase<dynamic>
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="OakDynamicDbNormalBencher"/> class.
+		/// Initializes a new instance of the <see cref="OakDynamicDbDtoBencher"/> class.
 		/// </summary>
-		public OakDynamicDbNormalBencher()
-			: base(e => e.SalesOrderId, usesChangeTracking:true, usesCaching:false)
+		public OakDynamicDbDtoBencher()
+			: base(e => e.SalesOrderId, usesChangeTracking:false, usesCaching:false)
 		{
 		}
 
@@ -29,7 +29,7 @@ namespace RawBencher.Benchers
 		public override dynamic FetchIndividual(int key)
 		{
 			var db = new OakDynamicDb.Bencher.SalesOrderHeaders();
-			db.Projection = d => new OakDynamicDb.Bencher.SalesOrderHeader(d);
+			db.Projection = d => new OakDynamicDb.Bencher.SalesOrderHeaderDto(d);
 			db.PrimaryKeyField = "SalesOrderID";
 			return db.Single(key);
 		}
@@ -42,7 +42,7 @@ namespace RawBencher.Benchers
 		public override IEnumerable<dynamic> FetchSet()
 		{
 			var db = new OakDynamicDb.Bencher.SalesOrderHeaders();
-			db.Projection = d => new OakDynamicDb.Bencher.SalesOrderHeader(d);
+			db.Projection = d => new OakDynamicDb.Bencher.SalesOrderHeaderDto(d);
 			return db.All();
 		}
 
@@ -54,7 +54,7 @@ namespace RawBencher.Benchers
 		/// <returns>the framework name.</returns>
 		protected override string CreateFrameworkNameImpl()
 		{
-			return "Oak.DynamicDb using typed dynamic class";
+			return "Oak.DynamicDb using dynamic Dto class";
 		}
 
 

@@ -62,7 +62,7 @@ namespace RawBencher.Benchers
 		/// specific version
 		/// </summary>
 		/// <returns>the framework name.</returns>
-		public override string CreateFrameworkName()
+		protected override string CreateFrameworkNameImpl()
 		{
 			return "Dapper";
 		}

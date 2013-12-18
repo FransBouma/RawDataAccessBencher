@@ -26,9 +26,8 @@ namespace RawBencher
 		private const int LoopAmount = 10;
 		private const int IndividualKeysAmount = 100;
 		private const bool PerformSetBenchmarks = true;			// flag to signal whether the set fetch benchmarks have to be run.
-		private const bool PerformIndividualBenchMarks = false; // flag to signal whether the single element fetch benchmarks have to be run.
+		private const bool PerformIndividualBenchMarks = true;  // flag to signal whether the single element fetch benchmarks have to be run.
 
-		private static Dictionary<string, List<long>> _rawResultsPerORM = new Dictionary<string, List<long>>();
 		private static string ConnectionString = @"data source=WIN2008SQL2012\SQLEXPRESS;initial catalog=AdventureWorks;integrated security=SSPI;persist security info=False;packet size=4096";
 		private static string SqlSelectCommandText = @"SELECT [SalesOrderID],[RevisionNumber],[OrderDate],[DueDate],[ShipDate],[Status],[OnlineOrderFlag],[SalesOrderNumber],[PurchaseOrderNumber],[AccountNumber],[CustomerID],[SalesPersonID],[TerritoryID],[BillToAddressID],[ShipToAddressID],[ShipMethodID],[CreditCardID],[CreditCardApprovalCode],[CurrencyRateID],[SubTotal],[TaxAmt],[Freight],[TotalDue],[Comment],[rowguid],[ModifiedDate]	FROM [Sales].[SalesOrderHeader]";
 		private static List<IBencher> RegisteredBenchers = new List<IBencher>();
@@ -41,17 +40,17 @@ namespace RawBencher
 			CacheController.RegisterCache(ConnectionString, new ResultsetCache());
 
 			RegisteredBenchers.Add(new HandCodedBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
-			RegisteredBenchers.Add(new RawDbDataReaderBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
-			RegisteredBenchers.Add(new EntityFrameworkNoChangeTrackingBencher());
 			RegisteredBenchers.Add(new DataTableBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new DapperBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+			RegisteredBenchers.Add(new EntityFrameworkNoChangeTrackingBencher());
 			RegisteredBenchers.Add(new EntityFrameworkNormalBencher());
 			RegisteredBenchers.Add(new LinqToSqlNoChangeTrackingBencher());
 			RegisteredBenchers.Add(new LinqToSqlNormalBencher());
 			RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingBencher());
-			RegisteredBenchers.Add(new LLBLGenProNormalBencher());
 			RegisteredBenchers.Add(new LLBLGenProResultsetCachingBencher());
+			RegisteredBenchers.Add(new LLBLGenProNormalBencher());
 			RegisteredBenchers.Add(new NHibernateNormalBencher());
+			RegisteredBenchers.Add(new OakDynamicDbDtoBencher());
 			RegisteredBenchers.Add(new OakDynamicDbNormalBencher());
 			RegisteredBenchers.Add(new OrmLiteBencher() { ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new PetaPocoBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
@@ -59,16 +58,11 @@ namespace RawBencher
 			WarmupDB();
 			FetchKeysForIndividualFetches();
 
+			// Uncomment the line below if you want to profile a bencher. Specify the bencher instance and follow the guides on the screen.
 			//ProfileBenchers(RegisteredBenchers.FirstOrDefault(b=>b.GetType()==typeof(EntityFrameworkNoChangeTrackingBencher)));
 
 			RunRegisteredBenchers();
-
-#warning REFACTOR
-			Console.WriteLine("\nAveraged total results per framework");
-			Console.WriteLine("------------------------------------------");
-			CalculateFinalResultAverages();
-			Console.WriteLine("\nComplete. Press enter to exit.");
-			Console.ReadLine();
+			ReportAverageResults();
 		}
 
 
@@ -127,7 +121,6 @@ namespace RawBencher
 			Console.WriteLine("\nStarting benchmarks.");
 			Console.WriteLine("====================================================================");
 			Console.WriteLine("Do set benchmarks: {0}.\nDo single element benchmarks: {1}", PerformSetBenchmarks, PerformIndividualBenchMarks);
-			_rawResultsPerORM.Clear();
 
 			foreach (var bencher in RegisteredBenchers)
 			{
@@ -139,6 +132,7 @@ namespace RawBencher
 
 		private static void RunBencher(IBencher bencher)
 		{
+			bencher.ResetResults();
 			if (PerformSetBenchmarks)
 			{
 				// set benches
@@ -198,7 +192,6 @@ namespace RawBencher
 		{
 			Console.WriteLine("Number of elements fetched: {0}.\tFetch took: {1}ms.\tEnumerating result took: {2}ms",
 								result.NumberOfRowsFetched, result.FetchTimeInMilliseconds, result.EnumerationTimeInMilliseconds);
-			ReportResult(bencher.CreateFrameworkName(), result.FetchTimeInMilliseconds, result.NumberOfRowsFetched);
 		}
 
 
@@ -210,51 +203,65 @@ namespace RawBencher
 		}
 
 
-		private static void ReportResult(string frameworkName, long elapsedTimeInMs, int amountFetched)
+		private static void ReportAverageResults()
 		{
-#warning REFACTOR. It should group results per bencher instance, not name (as values of non-changed tracked fetches are now merged with change tracked fetches)
-			//Console.WriteLine("Fetched {0} objects using: '{1}'. Took: {2}ms", amountFetched, frameworkName, elapsedTimeInMs);
-			List<long> container;
-			if (!_rawResultsPerORM.TryGetValue(frameworkName, out container))
+			Console.WriteLine("\nAveraged total results per framework. Fastest and slowest result omited");
+			Console.WriteLine("==============================================================================");
+			int longestNameLength = 0;
+			foreach(var bencher in RegisteredBenchers)
 			{
-				container = new List<long>();
-				_rawResultsPerORM.Add(frameworkName, container);
-			}
-			container.Add(elapsedTimeInMs);
-		}
-
-		private static void CalculateFinalResultAverages()
-		{
-			var sortedList = new Dictionary<string, double>();
-			foreach (var kvp in _rawResultsPerORM)
-			{
-				var results = kvp.Value;
-				if (results.Count <= 2)
+				string name = bencher.CreateFrameworkName();
+				if(name.Length > longestNameLength)
 				{
-					sortedList.Add(kvp.Key, -1);
-					continue;
+					longestNameLength = name.Length;
 				}
-
-				// ignore slowest and fastest result, then calculate the average.
-				var average = results.OrderBy(p => p).Skip(1).Take(results.Count - 2).Average();
-
-				// safe, 2 or less results are not accepted as we have to skip fastest and slowest.
-				//var average = (double)total / (double)(results.Count - 2);
-				sortedList.Add(kvp.Key, average);
+				bencher.CalculateAverages();
 			}
 
-			var sorted = sortedList.OrderBy(p => p.Value);
-			foreach (var kvp in sorted)
+			Console.WriteLine("Non-change tracking fetches, set fetches ({0} runs), no caching", LoopAmount);
+			Console.WriteLine("------------------------------------------------------------------------------");
+			foreach(var bencher in RegisteredBenchers.Where(b => !b.UsesChangeTracking && !b.UsesCaching).OrderBy(b => b.SetFetchAverage))
 			{
-				if(kvp.Value < 0)
-				{
-					Console.WriteLine("Not enough results: '{0}'", kvp.Key);
-				}
-				else
-				{
-					Console.WriteLine("Average results of '{0}' is: {1:N2}ms", kvp.Key, kvp.Value);
-				}
+				Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms.\tEnumeration average: {2:N2}ms", bencher.CreateFrameworkName(), bencher.SetFetchAverage, bencher.EnumerationAverage);
 			}
+
+			Console.WriteLine("\nChange tracking fetches, set fetches ({0} runs), no caching", LoopAmount);
+			Console.WriteLine("------------------------------------------------------------------------------");
+			foreach(var bencher in RegisteredBenchers.Where(b => b.UsesChangeTracking && !b.UsesCaching).OrderBy(b => b.SetFetchAverage))
+			{
+				Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms.\tEnumeration average: {2:N2}ms", bencher.CreateFrameworkName(), bencher.SetFetchAverage, bencher.EnumerationAverage);
+			}
+
+			Console.WriteLine("\nNon-change tracking individual fetches ({0} elements, {1} runs), no caching", IndividualKeysAmount, LoopAmount);
+			Console.WriteLine("------------------------------------------------------------------------------");
+			foreach(var bencher in RegisteredBenchers.Where(b => !b.UsesChangeTracking && !b.UsesCaching).OrderBy(b => b.IndividualFetchAverage))
+			{
+				Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms per individual fetch", bencher.CreateFrameworkName(), bencher.IndividualFetchAverage / IndividualKeysAmount);
+			}
+
+			Console.WriteLine("\nChange tracking individual fetches ({0} elements, {1} runs), no caching", IndividualKeysAmount, LoopAmount);
+			Console.WriteLine("------------------------------------------------------------------------------");
+			foreach(var bencher in RegisteredBenchers.Where(b => b.UsesChangeTracking && !b.UsesCaching).OrderBy(b => b.IndividualFetchAverage))
+			{
+				Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms per individual fetch", bencher.CreateFrameworkName(), bencher.IndividualFetchAverage / IndividualKeysAmount);
+			}
+
+			Console.WriteLine("\nChange tracking fetches, set fetches ({0} runs), caching", LoopAmount);
+			Console.WriteLine("------------------------------------------------------------------------------");
+			foreach(var bencher in RegisteredBenchers.Where(b => b.UsesChangeTracking && b.UsesCaching).OrderBy(b => b.SetFetchAverage))
+			{
+				Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms.\tEnumeration average: {2:N2}ms", bencher.CreateFrameworkName(), bencher.SetFetchAverage, bencher.EnumerationAverage);
+			}
+
+			Console.WriteLine("\nChange tracking individual fetches ({0} elements, {1} runs), caching", IndividualKeysAmount, LoopAmount);
+			Console.WriteLine("------------------------------------------------------------------------------");
+			foreach(var bencher in RegisteredBenchers.Where(b => b.UsesChangeTracking && b.UsesCaching).OrderBy(b => b.IndividualFetchAverage))
+			{
+				Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms per individual fetch", bencher.CreateFrameworkName(), bencher.IndividualFetchAverage / IndividualKeysAmount);
+			}
+
+			Console.WriteLine("\nComplete. Press enter to exit.");
+			Console.ReadLine();
 		}
 	}
 }
