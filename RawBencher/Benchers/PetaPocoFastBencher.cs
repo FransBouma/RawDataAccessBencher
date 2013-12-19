@@ -33,7 +33,7 @@ namespace RawBencher.Benchers
 			dbFactory.EnableAutoSelect = false;
 			dbFactory.EnableNamedParams = false;
 			dbFactory.ForceDateTimesToUtc = false;
-			toReturn = dbFactory.First<SalesOrderHeader>(CommandText + " where SalesOrderId=@p ", key);
+			toReturn = dbFactory.First<SalesOrderHeader>(CommandText + " where SalesOrderId=@0 ", key);
 			dbFactory.CloseSharedConnection();
 			return toReturn;
 		}

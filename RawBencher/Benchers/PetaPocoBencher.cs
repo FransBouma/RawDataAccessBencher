@@ -31,7 +31,7 @@ namespace RawBencher.Benchers
 			
 			var dbFactory = new PetaPoco.Database(ConnectionStringToUse, "System.Data.SqlClient");
 			dbFactory.OpenSharedConnection();
-			toReturn = dbFactory.First<SalesOrderHeader>(CommandText + " where SalesOrderId=@p ", key);
+			toReturn = dbFactory.First<SalesOrderHeader>(CommandText + " where SalesOrderId=@0", key);
 			dbFactory.CloseSharedConnection();
 			return toReturn;
 		}
