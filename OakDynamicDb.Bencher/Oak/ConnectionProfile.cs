@@ -10,7 +10,7 @@ namespace Oak
     {
         public ConnectionProfile()
         {
-            ConnectionString = ConfigurationManager.ConnectionStrings["Oak"].ConnectionString;
+			ConnectionString = ConfigurationManager.ConnectionStrings["AdventureWorks.ConnectionString.SQL Server (SqlClient)"].ConnectionString;
         }
 
         public string ConnectionString { get; set; }

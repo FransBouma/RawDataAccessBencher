@@ -26,16 +26,16 @@ namespace L2S.Bencher
 		#endregion
 		
 		/// <summary>Initializes a new instance of the <see cref="L2SBencherDataContext"/> class.</summary>
-		public L2SBencherDataContext() : 
-				base(ConfigurationManager.ConnectionStrings["L2SConnectionString.SQL Server (SqlClient)"].ConnectionString, _mappingSource)
+		public L2SBencherDataContext() :
+			base(ConfigurationManager.ConnectionStrings["AdventureWorks.ConnectionString.SQL Server (SqlClient)"].ConnectionString, _mappingSource)
 		{
 			OnCreated();
 		}
 
 		/// <summary>Initializes a new instance of the <see cref="L2SBencherDataContext"/> class.</summary>
 		/// <param name="mappingSource">The mapping source.</param>
-		public L2SBencherDataContext(System.Data.Linq.Mapping.MappingSource mappingSource) : 
-				base(ConfigurationManager.ConnectionStrings["L2SConnectionString.SQL Server (SqlClient)"].ConnectionString, mappingSource)
+		public L2SBencherDataContext(System.Data.Linq.Mapping.MappingSource mappingSource) :
+			base(ConfigurationManager.ConnectionStrings["AdventureWorks.ConnectionString.SQL Server (SqlClient)"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
