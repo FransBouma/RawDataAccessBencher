@@ -11,6 +11,7 @@
 // Define PETAPOCO_NO_DYNAMIC in your project settings on .NET 3.5
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -186,7 +187,7 @@ namespace PetaPoco
 			MySql,
 			PostgreSQL,
 			Oracle,
-            SQLite
+			SQLite
 		}
 		DBType _dbType = DBType.SqlServer;
 
@@ -331,10 +332,10 @@ namespace PetaPoco
 		}
 
 		// Helper to handle named parameters from object properties
-		static Regex rxParams = new Regex(@"(?<!@)@\w+", RegexOptions.Compiled);
-		public static string ProcessParams(string _sql, object[] args_src, List<object> args_dest)
+        static Regex rxParams = new Regex(@"(?<!@)@\w+", RegexOptions.Compiled);
+        public static string ProcessParams(string _sql, object[] args_src, List<object> args_dest)
 		{
-			return rxParams.Replace(_sql, m =>
+            return rxParams.Replace(_sql, m =>
 			{
 				string param = m.Value.Substring(1);
 
@@ -580,8 +581,8 @@ namespace PetaPoco
 			return ExecuteScalar<T>(sql.SQL, sql.Arguments);
 		}
 
-		Regex rxSelect = new Regex(@"\A\s*(SELECT|EXECUTE|CALL)\s", RegexOptions.Compiled | RegexOptions.Singleline | RegexOptions.IgnoreCase | RegexOptions.Multiline);
-		Regex rxFrom = new Regex(@"\A\s*FROM\s", RegexOptions.Compiled | RegexOptions.Singleline | RegexOptions.IgnoreCase | RegexOptions.Multiline);
+		static Regex rxSelect = new Regex(@"\A\s*(SELECT|EXECUTE|CALL)\s", RegexOptions.Compiled | RegexOptions.Singleline | RegexOptions.IgnoreCase | RegexOptions.Multiline);
+		static Regex rxFrom = new Regex(@"\A\s*FROM\s", RegexOptions.Compiled | RegexOptions.Singleline | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 		string AddSelectClause<T>(string sql)
 		{
 			if (sql.StartsWith(";"))
@@ -618,7 +619,7 @@ namespace PetaPoco
 		static Regex rxColumns = new Regex(@"\A\s*SELECT\s+((?:\((?>\((?<depth>)|\)(?<-depth>)|.?)*(?(depth)(?!))\)|.)*?)(?<!,\s+)\bFROM\b", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline | RegexOptions.Compiled);
 		static Regex rxOrderBy = new Regex(@"\bORDER\s+BY\s+(?:\((?>\((?<depth>)|\)(?<-depth>)|.?)*(?(depth)(?!))\)|[\w\(\)\.])+(?:\s+(?:ASC|DESC))?(?:\s*,\s*(?:\((?>\((?<depth>)|\)(?<-depth>)|.?)*(?(depth)(?!))\)|[\w\(\)\.])+(?:\s+(?:ASC|DESC))?)*", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline | RegexOptions.Compiled);
 		static Regex rxDistinct = new Regex(@"\ADISTINCT\s", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline | RegexOptions.Compiled);
-		public static bool SplitSqlForPaging(string sql, out string sqlCount, out string sqlSelectRemoved, out string sqlOrderBy)
+		public bool SplitSqlForPaging(string sql, out string sqlCount, out string sqlSelectRemoved, out string sqlOrderBy)
 		{
 			sqlSelectRemoved = null;
 			sqlCount = null;
@@ -666,7 +667,7 @@ namespace PetaPoco
 			if (!SplitSqlForPaging(sql, out sqlCount, out sqlSelectRemoved, out sqlOrderBy))
 				throw new Exception("Unable to parse SQL statement for paged query");
 			if (_dbType == DBType.Oracle && sqlSelectRemoved.StartsWith("*"))
-                throw new Exception("Query must alias '*' when performing a paged query.\neg. select t.* from table t order by t.id");
+				throw new Exception("Query must alias '*' when performing a paged query.\neg. select t.* from table t order by t.id");
 
 			// Build the SQL for the actual final result
 			if (_dbType == DBType.SqlServer || _dbType == DBType.Oracle)
@@ -853,24 +854,15 @@ namespace PetaPoco
 			var key = kb.ToString();
 
 			// Check cache
-			RWLock.EnterReadLock();
-			try
-			{
-				object mapper;
-				if (AutoMappers.TryGetValue(key, out mapper))
-					return mapper;
-			}
-			finally
-			{
-				RWLock.ExitReadLock();
-			}
+			object mapper;
+			if (AutoMappers.TryGetValue(key, out mapper))
+				return mapper;
 
 			// Create it
 			RWLock.EnterWriteLock();
 			try
 			{
 				// Try again
-				object mapper;
 				if (AutoMappers.TryGetValue(key, out mapper))
 					return mapper;
 
@@ -906,7 +898,7 @@ namespace PetaPoco
 
 				// Cache it
 				var del = m.CreateDelegate(Expression.GetFuncType(types.Concat(types.Take(1)).ToArray()));
-				AutoMappers.Add(key, del);
+				AutoMappers.TryAdd(key, del);
 				return del;
 			}
 			finally
@@ -988,9 +980,10 @@ namespace PetaPoco
 		}
 
 		// Various cached stuff
-		static Dictionary<string, object> MultiPocoFactories = new Dictionary<string, object>();
-		static Dictionary<string, object> AutoMappers = new Dictionary<string, object>();
-		static System.Threading.ReaderWriterLockSlim RWLock = new System.Threading.ReaderWriterLockSlim();
+        static ConcurrentDictionary<string, object> MultiPocoFactories = new ConcurrentDictionary<string, object>();
+        static ConcurrentDictionary<string, object> AutoMappers = new ConcurrentDictionary<string, object>();
+
+        static System.Threading.ReaderWriterLockSlim RWLock = new System.Threading.ReaderWriterLockSlim();
 
 		// Get (or create) the multi-poco factory for a query
 		Func<IDataReader, object, TRet> GetMultiPocoFactory<TRet>(Type[] types, string sql, IDataReader r)
@@ -1010,32 +1003,23 @@ namespace PetaPoco
 			string key = kb.ToString();
 
 			// Check cache
-			RWLock.EnterReadLock();
-			try
-			{
-				object oFactory;
-				if (MultiPocoFactories.TryGetValue(key, out oFactory))
-					return (Func<IDataReader, object, TRet>)oFactory;
-			}
-			finally
-			{
-				RWLock.ExitReadLock();
-			}
+			object oFactory;
+			if (MultiPocoFactories.TryGetValue(key, out oFactory))
+				return (Func<IDataReader, object, TRet>)oFactory;
 
 			// Cache it
 			RWLock.EnterWriteLock();
 			try
 			{
 				// Check again
-				object oFactory;
 				if (MultiPocoFactories.TryGetValue(key, out oFactory))
 					return (Func<IDataReader, object, TRet>)oFactory;
 
 				// Create the factory
-				var Factory = CreateMultiPocoFactory<TRet>(types, sql, r);
+				var factory = CreateMultiPocoFactory<TRet>(types, sql, r);
 
-				MultiPocoFactories.Add(key, Factory);
-				return Factory;
+				MultiPocoFactories.TryAdd(key, factory);
+				return factory;
 			}
 			finally
 			{
@@ -1291,21 +1275,21 @@ namespace PetaPoco
 								}
 								OnExecutedCommand(cmd);
 								break;
-                            case DBType.SQLite:
-                                if (primaryKeyName != null)
-                                {
-                                    cmd.CommandText += ";\nSELECT last_insert_rowid();";
-                                    DoPreExecute(cmd);
-                                    id = cmd.ExecuteScalar();
-                                }
-                                else
-                                {
-                                    id = -1;
-                                    DoPreExecute(cmd);
-                                    cmd.ExecuteNonQuery();
-                                }
-                                OnExecutedCommand(cmd);
-                                break;
+							case DBType.SQLite:
+								if (primaryKeyName != null)
+								{
+									cmd.CommandText += ";\nSELECT last_insert_rowid();";
+									DoPreExecute(cmd);
+									id = cmd.ExecuteScalar();
+								}
+								else
+								{
+									id = -1;
+									DoPreExecute(cmd);
+									cmd.ExecuteNonQuery();
+								}
+								OnExecutedCommand(cmd);
+								break;
 							default:
 								cmd.CommandText += ";\nSELECT @@IDENTITY AS NewID;";
 								DoPreExecute(cmd);

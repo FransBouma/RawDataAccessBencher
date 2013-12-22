@@ -28,7 +28,7 @@ namespace RawBencher
 		private const bool PerformSetBenchmarks = true;			// flag to signal whether the set fetch benchmarks have to be run.
 		private const bool PerformIndividualBenchMarks = true;  // flag to signal whether the single element fetch benchmarks have to be run.
 
-		private static string ConnectionString = @"data source=WIN2008SQL2012\SQLEXPRESS;initial catalog=AdventureWorks;integrated security=SSPI;persist security info=False;packet size=4096";
+		private static string ConnectionString = @"data source=(LocalDB)\v11.0;initial catalog=AdventureWorks;integrated security=SSPI;persist security info=False;packet size=4096";
 		private static string SqlSelectCommandText = @"SELECT [SalesOrderID],[RevisionNumber],[OrderDate],[DueDate],[ShipDate],[Status],[OnlineOrderFlag],[SalesOrderNumber],[PurchaseOrderNumber],[AccountNumber],[CustomerID],[SalesPersonID],[TerritoryID],[BillToAddressID],[ShipToAddressID],[ShipMethodID],[CreditCardID],[CreditCardApprovalCode],[CurrencyRateID],[SubTotal],[TaxAmt],[Freight],[TotalDue],[Comment],[rowguid],[ModifiedDate]	FROM [Sales].[SalesOrderHeader]";
 		private static List<IBencher> RegisteredBenchers = new List<IBencher>();
 		private static List<int> KeysForIndividualFetches = new List<int>();
@@ -39,23 +39,24 @@ namespace RawBencher
 
 			CacheController.RegisterCache(ConnectionString, new ResultsetCache());
 
-			RegisteredBenchers.Add(new HandCodedBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
-			RegisteredBenchers.Add(new DataTableBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
-			RegisteredBenchers.Add(new DapperBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
-			RegisteredBenchers.Add(new EntityFrameworkNoChangeTrackingBencher());
-			RegisteredBenchers.Add(new EntityFrameworkNormalBencher());
-			RegisteredBenchers.Add(new LinqToSqlNoChangeTrackingBencher());
-			RegisteredBenchers.Add(new LinqToSqlNormalBencher());
-			RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingBencher());
-			RegisteredBenchers.Add(new LLBLGenProResultsetCachingBencher());
-			RegisteredBenchers.Add(new LLBLGenProNormalBencher());
-			RegisteredBenchers.Add(new NHibernateNormalBencher());
-			RegisteredBenchers.Add(new OakDynamicDbDtoBencher());
-			RegisteredBenchers.Add(new OakDynamicDbNormalBencher());
-			RegisteredBenchers.Add(new OrmLiteBencher() { ConnectionStringToUse = ConnectionString });
-			RegisteredBenchers.Add(new PetaPocoBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
-			RegisteredBenchers.Add(new PetaPocoFastBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
-			WarmupDB();
+            //RegisteredBenchers.Add(new HandCodedBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+            //RegisteredBenchers.Add(new DataTableBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+            //RegisteredBenchers.Add(new DapperBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+            //RegisteredBenchers.Add(new EntityFrameworkNoChangeTrackingBencher());
+            //RegisteredBenchers.Add(new EntityFrameworkNormalBencher());
+            //RegisteredBenchers.Add(new LinqToSqlNoChangeTrackingBencher());
+            //RegisteredBenchers.Add(new LinqToSqlNormalBencher());
+            //RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingBencher());
+            //RegisteredBenchers.Add(new LLBLGenProResultsetCachingBencher());
+            //RegisteredBenchers.Add(new LLBLGenProNormalBencher());
+            //RegisteredBenchers.Add(new NHibernateNormalBencher());
+            //RegisteredBenchers.Add(new OakDynamicDbDtoBencher());
+            //RegisteredBenchers.Add(new OakDynamicDbNormalBencher());
+            //RegisteredBenchers.Add(new OrmLiteBencher() { ConnectionStringToUse = ConnectionString });
+            RegisteredBenchers.Add(new PetaPocoBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+            RegisteredBenchers.Add(new PetaPocoFastBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+
+            //WarmupDB();
 			FetchKeysForIndividualFetches();
 
 			// Uncomment the line below if you want to profile a bencher. Specify the bencher instance and follow the guides on the screen.
@@ -145,7 +146,9 @@ namespace RawBencher
 
 					// avoid having the GC collect in the middle of a run.
 					GC.Collect();
-					Thread.Sleep(1000);
+					GC.WaitForPendingFinalizers();
+					GC.Collect();
+					//Thread.Sleep(1000);
 				}
 			}
 			if (PerformIndividualBenchMarks)
@@ -160,7 +163,9 @@ namespace RawBencher
 
 					// avoid having the GC collect in the middle of a run.
 					GC.Collect();
-					Thread.Sleep(1000);
+					GC.WaitForPendingFinalizers();
+					GC.Collect();
+					//Thread.Sleep(1000);
 				}
 			}
 		}

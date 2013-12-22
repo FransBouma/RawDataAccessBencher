@@ -28,13 +28,13 @@ namespace RawBencher.Benchers
 		public override SalesOrderHeader FetchIndividual(int key)
 		{
 			SalesOrderHeader toReturn = null;
-			var dbFactory = new PetaPoco.Database(ConnectionStringToUse, "System.Data.SqlClient");
-			dbFactory.OpenSharedConnection();
-			dbFactory.EnableAutoSelect = false;
-			dbFactory.EnableNamedParams = false;
-			dbFactory.ForceDateTimesToUtc = false;
-			toReturn = dbFactory.First<SalesOrderHeader>(CommandText + " where SalesOrderId=@0 ", key);
-			dbFactory.CloseSharedConnection();
+			var dbFactory = new PetaPoco.Database(ConnectionStringToUse, "System.Data.SqlClient")
+			{
+			    EnableAutoSelect = false,
+			    EnableNamedParams = false,
+			    ForceDateTimesToUtc = false
+			};
+		    toReturn = dbFactory.First<SalesOrderHeader>(CommandText + " where SalesOrderId=@0 ", key);
 			return toReturn;
 		}
 
@@ -45,14 +45,14 @@ namespace RawBencher.Benchers
 		/// <returns>the set fetched</returns>
 		public override IEnumerable<SalesOrderHeader> FetchSet()
 		{
-			var headers = new List<SalesOrderHeader>();
-			var dbFactory = new PetaPoco.Database(ConnectionStringToUse, "System.Data.SqlClient");
-			dbFactory.OpenSharedConnection();
-			dbFactory.EnableAutoSelect = false;
-			dbFactory.EnableNamedParams = false;
-			dbFactory.ForceDateTimesToUtc = false;
-			headers = dbFactory.Fetch<SalesOrderHeader>(CommandText);
-			dbFactory.CloseSharedConnection();
+			List<SalesOrderHeader> headers;
+			var dbFactory = new PetaPoco.Database(ConnectionStringToUse, "System.Data.SqlClient")
+			{
+			    EnableAutoSelect = false,
+			    EnableNamedParams = false,
+			    ForceDateTimesToUtc = false
+			};
+		    headers = dbFactory.Fetch<SalesOrderHeader>(CommandText);
 			return headers;
 		}
 
