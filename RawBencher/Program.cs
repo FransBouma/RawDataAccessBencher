@@ -27,6 +27,7 @@ namespace RawBencher
 		private const int IndividualKeysAmount = 100;
 		private const bool PerformSetBenchmarks = true;			// flag to signal whether the set fetch benchmarks have to be run.
 		private const bool PerformIndividualBenchMarks = true;  // flag to signal whether the single element fetch benchmarks have to be run.
+		private const bool ApplyAntiFloodForVMUsage = true;		// set to false if your target DB server is not a VM, otherwise leave it to true. Used in individual fetch bench.
 
 		private static string ConnectionString = @"data source=WIN2008SQL2012\SQLEXPRESS;initial catalog=AdventureWorks;integrated security=SSPI;persist security info=False;packet size=4096";
 		private static string SqlSelectCommandText = @"SELECT [SalesOrderID],[RevisionNumber],[OrderDate],[DueDate],[ShipDate],[Status],[OnlineOrderFlag],[SalesOrderNumber],[PurchaseOrderNumber],[AccountNumber],[CustomerID],[SalesPersonID],[TerritoryID],[BillToAddressID],[ShipToAddressID],[ShipMethodID],[CreditCardID],[CreditCardApprovalCode],[CurrencyRateID],[SubTotal],[TaxAmt],[Freight],[TotalDue],[Comment],[rowguid],[ModifiedDate]	FROM [Sales].[SalesOrderHeader]";
@@ -145,7 +146,8 @@ namespace RawBencher
 
 					// avoid having the GC collect in the middle of a run.
 					GC.Collect();
-					Thread.Sleep(1000);
+					GC.WaitForPendingFinalizers();
+					GC.Collect();
 				}
 			}
 			if (PerformIndividualBenchMarks)
@@ -160,7 +162,17 @@ namespace RawBencher
 
 					// avoid having the GC collect in the middle of a run.
 					GC.Collect();
-					Thread.Sleep(1000);
+					GC.WaitForPendingFinalizers();
+					GC.Collect();
+
+					if(ApplyAntiFloodForVMUsage)
+					{
+						// sleep is to avoid hammering the network layer on the target server. If the target server is a VM, it might stall once or twice
+						// during benching, which is not what we want at it can skew the results a lot. In a very short time, a lot of queries are executed
+						// on the target server (LoopAmount * IndividualKeysAmount), which will hurt performance on VMs with very fast frameworks in some
+						// cases in some runs (so more than 2 runs are slow). 
+						Thread.Sleep(1000);
+					}
 				}
 			}
 		}
