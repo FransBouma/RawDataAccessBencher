@@ -1,0 +1,22 @@
+﻿<#+
+public class Sequence
+{
+	public string SequenceSchema { get; set;}
+	public string SequenceName { get; set;}
+
+	public string FullSequenceName 
+	{
+		get
+		{
+			if (string.IsNullOrEmpty(SequenceSchema))
+			{
+				return SequenceName;
+			}
+			else
+			{
+				return SequenceSchema + "." + SequenceName;
+			}
+		}
+	}
+}
+#>

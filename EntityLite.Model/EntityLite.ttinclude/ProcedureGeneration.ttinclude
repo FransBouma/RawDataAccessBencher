@@ -1,0 +1,76 @@
+﻿<#+ 
+void ProcedureGeneration_Render(DataLayerGeneration generation)
+{	
+    if (generation.ProcedureSettings == null || generation.ProcedureSettings.Count == 0) return;
+#>
+namespace <#= generation.RootNamespace #>
+{
+	public static partial class <#= generation.ProceduresClassName #>
+	{
+<#+
+	foreach(var procedure in generation.ProcedureSettings)
+	{
+		var proc = generation.GetProcedure(procedure);
+#>
+		public static DbCommand <#= procedure.GetCreateProcedureMethodName(generation.DefaultSchema) #>(DbConnection connection, string parameterPrefix)
+		{
+			var cmd = connection.CreateCommand();
+			cmd.CommandText = "<#= procedure.GetFullProcedureName() #>";
+			cmd.CommandType = CommandType.StoredProcedure;
+			IDbDataParameter p = null;
+<#+
+		foreach(IDbDataParameter p in proc.Parameters)
+		{
+			string sourceColumn = p.ParameterName;
+			if (!string.IsNullOrEmpty(sourceColumn) && (sourceColumn[0] == '@' || sourceColumn[0] == ':'))
+			{
+				sourceColumn = sourceColumn.Substring(1);
+			}
+#>
+
+			p = cmd.CreateParameter();
+			p.ParameterName = parameterPrefix + "<#= sourceColumn #>";
+			p.DbType = DbType.<#= p.DbType.ToString() #>;
+			p.Direction = ParameterDirection.<#= p.Direction.ToString() #>;
+<#+
+			if (p.Size != 0) 
+			{
+#>
+			p.Size = <#= p.Size.ToString() #>;
+<#+
+			}
+			if (p.Precision != 0)
+			{
+#>
+			p.Precision = <#= p.Precision.ToString() #>;
+<#+
+			}
+			if (p.Scale != 0)
+			{
+#>
+			p.Scale = <#= p.Scale.ToString() #>;
+<#+
+			}
+			if (!string.IsNullOrEmpty(sourceColumn))
+			{
+#>
+			p.SourceColumn = "<#= sourceColumn #>";
+<#+
+			}
+#>
+			cmd.Parameters.Add(p);
+<#+
+		}
+#>
+
+			return cmd;
+		}
+
+<#+
+	}
+#>
+	}
+}
+<#+
+}
+#>

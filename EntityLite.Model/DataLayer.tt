@@ -1,0 +1,22 @@
+﻿<#@ include file ="EntityLite.ttinclude\EntityLite.ttinclude" #>
+<#
+	var generation = new DataLayerGeneration
+	{
+		ConnectionStringName = "AdventureWorks.ConnectionString.SQL Server (SqlClient)",
+		ProviderName = "System.Data.SqlClient",
+		ConnectionString = @"Data Source=(LocalDb)\V11.0;Initial Catalog=AdventureWorks",
+		DefaultSchema = "Sales",
+		RootNamespace = "EntityLite.Model",
+		DataServiceName = "AdventureWorksDataService",
+		EntitySettings = new List<EntitySetting>
+		{
+			new EntitySetting 
+			{
+				BaseTableName = "SalesOrderHeader",
+				EntityName = "SalesOrderHeader"  
+			}
+		}
+	};
+	// Uncomment this line to generate the data layer
+	Render(generation);
+#>

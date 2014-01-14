@@ -1,0 +1,112 @@
+﻿<#+
+public class EntitySetting
+{
+    public string BaseTableName { get; set; }
+    public string Schema { get; set; }
+    public string ReadOnlyFields { get; set; }
+    public string EntityName { get; set; }
+
+    public int EntityTypeId { get; internal set; }
+
+    private string _parentPropertyName;
+    public string ParentPropertyName
+    {
+        get { return _parentPropertyName; }
+        set
+        {
+            if (value == "Application") _parentPropertyName = "__Application__";
+            else { _parentPropertyName = value; }
+        }
+    }
+
+	public string GetSqlEntityParameters(string defaultSchema)
+	{
+		string parameters = string.Empty;
+		if (!string.IsNullOrEmpty(BaseTableName))
+		{
+			parameters = "BaseTableName=\"" + BaseTableName + "\"";
+		}
+		if (!string.IsNullOrEmpty(Schema) && Schema != defaultSchema )
+		{
+			if (!string.IsNullOrEmpty(parameters)) parameters += ", ";
+			parameters += "SchemaName=\"" + Schema + "\"";
+		}
+		return parameters;
+	}
+
+    public string GetFullTableName(string defaultSchema)
+    {
+        if (string.IsNullOrEmpty(BaseTableName)) return string.Empty;
+		string schema = this.Schema;
+		if (string.IsNullOrEmpty(schema)) schema = defaultSchema;
+		return string.IsNullOrEmpty(schema) ? BaseTableName : schema + "." + BaseTableName;
+    }
+
+    public static string GetFullEntityName(string entityName, string schema, string defaultSchema)
+    {
+		
+        if (string.IsNullOrEmpty(schema) || schema == defaultSchema)
+        {
+            return entityName;
+        }
+        else
+        {
+            return schema + "." + entityName;
+        }
+    }
+
+    public string FullEntityName
+    {
+        get
+        {
+            return GetFullEntityName(EntityName, Schema, null);
+        }
+    }
+
+    public string GetNamespaceName(string rootNamespace)
+    {
+        string namespaceName = rootNamespace;
+        if (!string.IsNullOrEmpty(this.Schema))
+        {
+            namespaceName += "." + this.Schema;
+        }
+        return namespaceName;
+    }
+
+    public string GetRepositoryPropertyName()
+    {
+        if (!string.IsNullOrEmpty(this.Schema))
+        {
+            return this.Schema + this.EntityName + "Repository";
+        }
+        else
+        {
+            return this.EntityName + "Repository";
+        }
+    }
+
+    public HashSet<string> GetReadOnlyFields()
+    {
+        HashSet<string> readOnlyFields = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+        if (this.ReadOnlyFields == null) return readOnlyFields;
+        foreach (string token in this.ReadOnlyFields.Split(','))
+        {
+            string fieldName = token.Trim();
+            if (!string.IsNullOrEmpty(fieldName))
+            {
+                readOnlyFields.Add(fieldName);
+            }
+        }
+        return readOnlyFields;
+    }
+
+
+    public FieldGeneration FieldGeneration { get; set; }
+
+    public EntitySetting()
+    {
+        FieldGeneration = FieldGeneration.ForBaseTableAndViews;
+    }
+}
+#>
+

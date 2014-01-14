@@ -1,0 +1,48 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="Microsoft.CSharp" #>
+<#@ assembly name="System.Data" #>
+<#@ assembly name="System.Xml" #>
+<#@ assembly name="$(SolutionDir)packages\EntityLite.Core.1.0.10-Beta\lib\net35-client\inercya.EntityLite.dll" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Reflection" #>
+<#@ import namespace="System.Data" #>
+<#@ import namespace="System.Data.Common" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace= "System.Data.SqlClient" #>
+<#@ import namespace= "System.Data.SqlTypes" #>
+<#@ import namespace="inercya.EntityLite" #>
+<#@ import namespace="inercya.EntityLite.Extensions" #>
+<#@ import namespace="inercya.EntityLite.Templates" #>
+
+<#@ output extension=".cs" #>
+<#@ include file ="Sequence.ttinclude" #>
+<#@ include file ="DataLayerGeneration.ttinclude" #>
+<#@ include file ="DataServiceGeneration.ttinclude" #>
+<#@ include file ="EntityGeneration.ttinclude" #>
+<#@ include file ="EntitySetting.ttinclude" #>
+<#@ include file ="FieldGeneration.ttinclude" #>
+<#@ include file ="FieldMetadata.ttinclude" #>
+<#@ include file ="MemberVisibility.ttinclude" #>
+<#@ include file ="ProcedureGeneration.ttinclude" #>
+<#@ include file ="ProcedureResultSetKind.ttinclude" #>
+<#@ include file ="ProcedureSetting.ttinclude" #>
+<#+ 
+	void Render(DataLayerGeneration generation)
+	{
+		try
+		{
+			generation.Initialize();
+			EntityGeneration_Render(generation);
+			DataServiceGeneration_Render(generation);
+			ProcedureGeneration_Render(generation);
+			generation.Dispose();
+		}
+		finally
+		{
+			generation.Dispose();
+		}
+	}
+#>

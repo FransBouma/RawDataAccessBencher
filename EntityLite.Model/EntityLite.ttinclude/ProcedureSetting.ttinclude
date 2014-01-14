@@ -1,0 +1,64 @@
+﻿<#+
+public class ProcedureSetting
+{
+    public string ProcedureName { get; set; }
+    public string ProcedureSchema { get; set; }
+
+    public Type ScalarReturnType { get; set; }
+
+    public MemberVisibility MemberVisibility { get; set; }
+
+    public string GetFullProcedureName()
+    {
+        if (string.IsNullOrEmpty(ProcedureName)) return string.Empty;
+        if (!string.IsNullOrEmpty(ProcedureSchema))
+        {
+            return ProcedureSchema + "." + ProcedureName;
+        }
+        else
+        {
+            return ProcedureName;
+        }
+    }
+
+    public string GetCreateProcedureMethodName(string defaultSchema)
+    {
+        if (!string.IsNullOrEmpty(this.ProcedureSchema) && this.ProcedureSchema != defaultSchema)
+        {
+            return "Create" + (this.ProcedureSchema.ToPascalNamingConvention() + this.ProcedureName.ToPascalNamingConvention()) + "Procedure";
+        }
+        else
+        {
+            return "Create" +  this.ProcedureName.ToPascalNamingConvention() + "Procedure";
+        }
+    }
+
+    public ProcedureResultSetKind ResultSetKind { get; set; }
+
+    public string RelatedEntityName { get; set; }
+    public string RelatedEntitySchema { get; set; }
+
+    public ProcedureSetting()
+    {
+    }
+
+    public string GetReturnTypeName(string entityName)
+    {
+
+        switch (ResultSetKind)
+        {
+            case ProcedureResultSetKind.None:
+                return "void";
+            case ProcedureResultSetKind.Scalar:                 
+                return ScalarReturnType.ActualName();
+            case ProcedureResultSetKind.SingleRow:
+                return entityName;
+            case ProcedureResultSetKind.MultipleRows:
+                return "IList<" + entityName + ">";
+            default:
+                throw new NotSupportedException("ResultSetKind not supported");
+        }
+
+    }
+}
+#>

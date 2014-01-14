@@ -46,9 +46,19 @@
     <Reference Include="Iesi.Collections">
       <HintPath>..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
     </Reference>
+    <Reference Include="inercya.EntityLite">
+      <HintPath>..\packages\EntityLite.Core.1.0.10-Beta\lib\net35-client\inercya.EntityLite.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.SqlServer.Types.10.50.1600.1\lib\Net20\Microsoft.SqlServer.Types.dll</HintPath>
+    </Reference>
     <Reference Include="NHibernate, Version=3.3.1.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\NHibernate.3.3.3.4001\lib\Net35\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.2.1.0\lib\net45\NLog.dll</HintPath>
     </Reference>
     <Reference Include="SD.LLBLGen.Pro.ORMSupportClasses, Version=4.0.0.0, Culture=neutral, PublicKeyToken=ca73b74ba4e3ff27, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -79,6 +89,7 @@
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -87,6 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Benchers\BencherBase.cs" />
+    <Compile Include="Benchers\EntityLiteBencher.cs" />
     <Compile Include="Benchers\OakDynamicDbDtoBencher.cs" />
     <Compile Include="Benchers\PetaPocoFastBencher.cs" />
     <Compile Include="Benchers\RawDbDataReaderBencher.cs" />
@@ -127,6 +139,10 @@
     <ProjectReference Include="..\EF6\Persistence\EF6.Bencher.Persistence.csproj">
       <Project>{ac909e22-26d0-47cf-98bc-dd07309d3a77}</Project>
       <Name>EF6.Bencher.Persistence</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EntityLite.Model\EntityLite.Model.csproj">
+      <Project>{f238f741-81cb-446a-8597-5fee554ee79a}</Project>
+      <Name>EntityLite.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\L2S\DAL\L2S.Bencher.csproj">
       <Project>{59322c25-fcc6-4635-a7ad-dc811f2fd1e0}</Project>

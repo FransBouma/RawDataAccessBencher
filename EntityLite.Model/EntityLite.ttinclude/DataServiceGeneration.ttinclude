@@ -1,0 +1,59 @@
+﻿<#+ 
+void DataServiceGeneration_Render(DataLayerGeneration generation)
+{			
+#>
+
+namespace <#= generation.RootNamespace #>
+{
+	public partial class <#= generation.DataServiceName #> : DataService
+	{
+		partial void OnCreated();
+
+		private void Init()
+		{
+			EntityNameToEntityViewTransform = TextTransform.<#= generation.EntityNameToEntityViewTransform #>;
+<#+	if (! string.IsNullOrEmpty(generation.DefaultSchema)) { #>
+			EntityLiteProvider.DefaultSchema = "<#= generation.DefaultSchema #>";
+<#+	} #>
+			OnCreated();
+		}
+
+        public <#= generation.DataServiceName #>() : base("<#= generation.ConnectionStringName #>")
+        {
+			Init();
+        }
+
+        public <#= generation.DataServiceName #>(string connectionStringName) : base(connectionStringName)
+        {
+			Init();
+        }
+
+        public <#= generation.DataServiceName #>(string connectionString, string providerName) : base(connectionString, providerName)
+        {
+			Init();
+        }
+<#+
+	foreach (var entity in generation.EntitySettings)
+    {
+#>
+
+		private <#= entity.GetNamespaceName(generation.RootNamespace) + "." + entity.EntityName #>Repository _<#= entity.GetRepositoryPropertyName() #>;
+		public <#= entity.GetNamespaceName(generation.RootNamespace) + "." + entity.EntityName #>Repository <#= entity.GetRepositoryPropertyName() #>
+		{
+			get 
+			{
+				if ( _<#= entity.GetRepositoryPropertyName() #> == null)
+				{
+					_<#= entity.GetRepositoryPropertyName() #> = new <#= entity.GetNamespaceName(generation.RootNamespace) + "." + entity.EntityName #>Repository(this);
+				}
+				return _<#= entity.GetRepositoryPropertyName() #>;
+			}
+		}
+<#+
+    }
+#>
+	}
+}
+<#+ 
+}
+#>
