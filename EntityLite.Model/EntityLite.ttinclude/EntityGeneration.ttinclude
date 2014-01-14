@@ -1,0 +1,272 @@
+﻿<#+ 
+void EntityGeneration_Render(DataLayerGeneration generation)
+{			
+#>
+using System;
+using System.Linq;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
+<#+
+if (generation.ProviderName == "System.Data.SqlClient")
+{
+#>
+using Microsoft.SqlServer.Types;
+<#+
+}
+#>
+using System.Runtime.Serialization;
+using inercya.EntityLite;	
+using inercya.EntityLite.Extensions;		
+<#+
+	var nsgs = from entity in generation.EntitySettings
+			group entity by entity.GetNamespaceName(generation.RootNamespace) into g
+			select g;
+	foreach (var g in nsgs)
+    {
+		string namespaceName = g.Key;
+#>
+
+namespace <#= namespaceName #>
+{
+<#+
+		foreach (var entity in g)
+        {
+			RenderEntityClass(generation, entity);
+			RenderEntityRepositoryClass(generation, entity);
+			RenderEntityFieldsClass(generation, entity);
+		}
+#>
+}
+<#+
+    }
+}	
+#>
+
+<#+ /****************************************************************************************************************************/
+public void RenderEntityClass(DataLayerGeneration generation, EntitySetting entity)
+{
+#>
+	[Serializable]
+	[DataContract]
+	[SqlEntity(<#= entity.GetSqlEntityParameters(generation.DefaultSchema) #>)]
+<#+ if (!string.IsNullOrEmpty(entity.ParentPropertyName)) 
+	{ 
+#>
+	[ParentPropertyName("<#= entity.ParentPropertyName #>")]
+<#+ 
+	} 
+#>
+	public partial class <#= entity.EntityName.EscapeKeyword() #>
+	{
+<#+
+			foreach (var field in generation.GetFieldsMetadata(entity))
+            {
+				if (field.IsLocalizedField)
+                {
+#>
+		[LocalizedField]
+		public <#= field.PropertyType.Name + (field.IsNullable && !typeof(INullable).IsAssignableFrom(field.PropertyType) ? "?" : string.Empty) #> <#= field.PropertyName.EscapeKeyword() #> 
+		{ 
+			get
+			{
+				return CurrentLanguageService.GetLocalizedValue(this, "<#= field.PropertyName #>");
+			} 
+		}
+<#+ 
+                }
+				else
+                {
+#>
+		[DataMember]
+		[SqlField(DbType.<#= field.DbType #>, <#= field.ColumnSize #><#= field.Precision == 0 || field.Precision == 255 ? string.Empty : ", Precision = " + field.Precision.ToString() #><#= field.Scale == 0 || field.Scale == 255 ? string.Empty : ", Scale=" + field.Scale.ToString() #><#= field.IsKey ? ", IsKey=true": string.Empty #><#= field.SequenceName == null ? string.Empty : ", SequenceName = \"" + field.SequenceName + "\"" #><#= field.IsAutoIncrement ? ", IsAutoincrement=true": string.Empty #><#= field.IsNullable ? ", AllowNull = true" : string.Empty#><#= field.IsReadOnly ? ", IsReadOnly = true" : string.Empty  #><#= field.ColumnName == null ? string.Empty : ", ColumnName =\"" + field.ColumnName + "\"" #><#= field.BaseColumnName == null ? string.Empty : ", BaseColumnName =\"" + field.BaseColumnName + "\"" #><#= field.BaseTableName == null ? string.Empty : ", BaseTableName = \"" + field.BaseTableName + "\"" #> )]
+		public <#= field.PropertyType.Name + (field.IsNullable && !typeof(INullable).IsAssignableFrom(field.PropertyType) ? "?" : string.Empty) #> <#= field.PropertyName.EscapeKeyword() #> { get; set; }
+
+<#+
+				}
+			}
+#>
+
+	}
+<#+
+}
+#>
+
+<#+  /****************************************************************************************************************************/
+void RenderProcedureMethodInRepository(DataLayerGeneration generation, EntitySetting entity, ProcedureSetting procedure)
+{
+	var proc = generation.GetProcedure(procedure);
+	string returnTypeName = procedure.GetReturnTypeName(entity.EntityName);
+	string parametersDefinition = DataLayerGeneration.GetProcedureParametersDefinition(proc);
+#>
+
+		<#= procedure.MemberVisibility.ToString().ToLower() #> <#= returnTypeName #> <#= procedure.ProcedureName.ToPascalNamingConvention() #>(<#= parametersDefinition #>)
+		{
+			using (var proc = <#= generation.RootNamespace #>.<#= generation.ProceduresClassName #>.<#= procedure.GetCreateProcedureMethodName(generation.DefaultSchema) #>(this.DataService.Connection, this.DataService.EntityLiteProvider.ParameterPrefix))
+			{
+				this.DataService.OpenConnection();
+				if (this.DataService.IsActiveTransaction) proc.Transaction = this.DataService.Transaction;
+<#+
+	foreach (var p in proc.Parameters.Cast<IDbDataParameter>().Where( x => (x.Direction & ParameterDirection.Input) == ParameterDirection.Input))
+	{ 
+		string sourceColumn = p.ParameterName;
+		if (sourceColumn[0] == '@' || sourceColumn[0] == ':')
+		{
+			sourceColumn = sourceColumn.Substring(1);
+		}
+		string argumentName = sourceColumn.ToPascalNamingConvention().ToParameterName().EscapeKeyword();
+#>
+				proc.Parameters[this.DataService.EntityLiteProvider.ParameterPrefix + "<#= sourceColumn #>"].Value = <#= argumentName #> == null ? (object) DBNull.Value : <#= argumentName #><#= DataLayerGeneration.GetTypeFromDbType(p.DbType).IsValueType ? ".Value" : string.Empty #>;
+<#+
+	}
+	if (procedure.ResultSetKind == ProcedureResultSetKind.SingleRow	|| procedure.ResultSetKind == ProcedureResultSetKind.MultipleRows)
+	{	
+#>
+				IList<<#= entity.EntityName #>> list = null;
+                using (var reader = proc.ExecuteReader())
+                {
+                    list = reader.ToList<<#= entity.EntityName #>>();
+                }
+<#+
+	}
+	else if (procedure.ResultSetKind == ProcedureResultSetKind.Scalar)
+	{
+#>
+				object result = proc.ExecuteScalar();	
+<#+
+	}
+	else
+	{
+#>
+				proc.ExecuteNonQuery();
+<#+
+	}
+	foreach (var p in proc.Parameters.Cast<IDbDataParameter>().Where( x => (x.Direction & ParameterDirection.Output) == ParameterDirection.Output && x.Direction != ParameterDirection.ReturnValue))
+	{
+		Type paramType = DataLayerGeneration.GetTypeFromDbType(p.DbType);
+		string paramTypeName = paramType.Name;
+		string nullableParamTypeName = paramTypeName + (paramType.IsValueType ? "?" : string.Empty);
+#>
+				<#= p.SourceColumn #> = proc.Parameters["<#= p.ParameterName #>"].Value == DBNull.Value ? (<#= nullableParamTypeName #>) null : (<#= nullableParamTypeName #>) Convert.ChangeType(proc.Parameters["<#= p.ParameterName #>"].Value, typeof(<#= paramTypeName #>)); 
+<#+
+	}				
+	switch (procedure.ResultSetKind)
+	{	
+		case ProcedureResultSetKind.MultipleRows:
+#>
+				return list;
+<#+
+		break;
+		case ProcedureResultSetKind.SingleRow:
+#>
+				return list.FirstOrDefault();
+<#+
+		break;
+		case ProcedureResultSetKind.Scalar:
+						
+#>
+				return (result == DBNull.Value || result == null) ? default(<#= procedure.ScalarReturnType.ActualName() #>) : (<#= procedure.ScalarReturnType.ActualName() #>) Convert.ChangeType(result, typeof(<#= procedure.ScalarReturnType.UndelyingType().Name #>));
+<#+
+		break;
+	}
+#>
+			}
+		}
+<#+
+}
+#>
+
+<#+ /****************************************************************************************************************************/
+void RenderEntityRepositoryClass(DataLayerGeneration generation, EntitySetting entity)
+{
+#>
+
+	public partial class <#=  entity.EntityName #>Repository : Repository<<#= entity.EntityName #>> 
+	{
+		public <#= entity.EntityName #>Repository(DataService DataService) : base(DataService)
+		{
+		}
+
+		public new <#= generation.DataServiceName #>  DataService  
+		{
+			get { return (<#= generation.DataServiceName #>) base.DataService; }
+			set { base.DataService = value; }
+		}
+
+<#+ 
+	var primaryKey = generation.GetPrimaryKey(entity);
+	FieldMetadata primaryKeyField = primaryKey.Count == 1 ? primaryKey[0] : null;
+	if (primaryKeyField != null)
+    {
+#>
+		public <#= entity.EntityName #> Get(string projectionName, <#=primaryKeyField.PropertyType.ToString() #> <#=primaryKeyField.PropertyName.ToParameterName() #>)
+		{
+			return ((IRepository<<#= entity.EntityName #>>)this).Get(projectionName, <#=primaryKeyField.PropertyName.ToParameterName() #>, FetchMode.UseIdentityMap);
+		}
+
+		public <#= entity.EntityName #> Get(string projectionName, <#=primaryKeyField.PropertyType.ToString() #> <#=primaryKeyField.PropertyName.ToParameterName() #>, FetchMode fetchMode = FetchMode.UseIdentityMap)
+		{
+			return ((IRepository<<#= entity.EntityName #>>)this).Get(projectionName, <#=primaryKeyField.PropertyName.ToParameterName() #>, fetchMode);
+		}
+
+		public <#= entity.EntityName #> Get(Projection projection, <#=primaryKeyField.PropertyType.ToString() #> <#=primaryKeyField.PropertyName.ToParameterName() #>)
+		{
+			return ((IRepository<<#= entity.EntityName #>>)this).Get(projection, <#=primaryKeyField.PropertyName.ToParameterName() #>, FetchMode.UseIdentityMap);
+		}
+
+		public <#= entity.EntityName #> Get(Projection projection, <#=primaryKeyField.PropertyType.ToString() #> <#=primaryKeyField.PropertyName.ToParameterName() #>, FetchMode fetchMode = FetchMode.UseIdentityMap)
+		{
+			return ((IRepository<<#= entity.EntityName #>>)this).Get(projection, <#=primaryKeyField.PropertyName.ToParameterName() #>, fetchMode);
+		}
+
+		public <#= entity.EntityName #> Get(string projectionName, <#=primaryKeyField.PropertyType.ToString() #> <#=primaryKeyField.PropertyName.ToParameterName() #>, params string[] fields)
+		{
+			return ((IRepository<<#= entity.EntityName #>>)this).Get(projectionName, <#=primaryKeyField.PropertyName.ToParameterName() #>, fields);
+		}
+
+		public <#= entity.EntityName #> Get(Projection projection, <#=primaryKeyField.PropertyType.ToString() #> <#=primaryKeyField.PropertyName.ToParameterName() #>, params string[] fields)
+		{
+			return ((IRepository<<#= entity.EntityName #>>)this).Get(projection, <#=primaryKeyField.PropertyName.ToParameterName() #>, fields);
+		}
+
+		public void Delete(<#=primaryKeyField.PropertyType.ToString() #> <#=primaryKeyField.PropertyName.ToParameterName() #>)
+		{
+			var entity = new <#= entity.EntityName #> { <#=primaryKeyField.PropertyName #> = <#=primaryKeyField.PropertyName.ToParameterName() #> };
+			this.Delete(entity);
+		}
+<#+
+    }
+		var procedures = generation.GetRelatedProcedures(entity.EntityName, entity.Schema);
+		if (procedures != null && procedures.Count > 0)
+		{
+			foreach (var procedure in procedures)
+			{
+				RenderProcedureMethodInRepository(generation, entity, procedure);
+			}
+		}
+#>
+	}
+<#+
+}
+#>
+
+<#+ /****************************************************************************************************************************/
+void RenderEntityFieldsClass(DataLayerGeneration generation, EntitySetting entity)
+{
+#>
+
+	public static partial class <#= entity.EntityName #>Fields
+	{
+<#+ 
+	foreach (var field in generation.GetFieldsMetadata(entity))
+    {
+#>
+		public const string <#= field.PropertyName.EscapeKeyword() #> = "<#= field.PropertyName #>";
+<#+
+    }
+#>
+	}
+
+<#+
+}
+#>
