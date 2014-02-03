@@ -53,49 +53,50 @@ namespace RawBencher
 
             CacheController.RegisterCache(ConnectionString, new ResultsetCache());
 
-            RegisteredBenchers.Add(new HandCodedBencher()
-            {
-                CommandText = SqlSelectCommandText,
-                ConnectionStringToUse = ConnectionString
-            });
-            RegisteredBenchers.Add(new DataTableBencher()
-            {
-                CommandText = SqlSelectCommandText,
-                ConnectionStringToUse = ConnectionString
-            });
-            RegisteredBenchers.Add(new DapperBencher()
-            {
-                CommandText = SqlSelectCommandText,
-                ConnectionStringToUse = ConnectionString
-            });
-            RegisteredBenchers.Add(new EntityFrameworkNoChangeTrackingBencher());
-            RegisteredBenchers.Add(new EntityFrameworkNormalBencher());
-            RegisteredBenchers.Add(new LinqToSqlNoChangeTrackingBencher());
-            RegisteredBenchers.Add(new LinqToSqlNormalBencher());
-            RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingBencher());
-            RegisteredBenchers.Add(new LLBLGenProResultsetCachingBencher());
+            //RegisteredBenchers.Add(new HandCodedBencher()
+            //{
+            //    CommandText = SqlSelectCommandText,
+            //    ConnectionStringToUse = ConnectionString
+            //});
+            //RegisteredBenchers.Add(new DataTableBencher()
+            //{
+            //    CommandText = SqlSelectCommandText,
+            //    ConnectionStringToUse = ConnectionString
+            //});
+            //RegisteredBenchers.Add(new DapperBencher()
+            //{
+            //    CommandText = SqlSelectCommandText,
+            //    ConnectionStringToUse = ConnectionString
+            //});
+            //RegisteredBenchers.Add(new EntityFrameworkNoChangeTrackingBencher());
+            //RegisteredBenchers.Add(new EntityFrameworkNormalBencher());
+            //RegisteredBenchers.Add(new LinqToSqlNoChangeTrackingBencher());
+            //RegisteredBenchers.Add(new LinqToSqlNormalBencher());
+            //RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingBencher());
+            //RegisteredBenchers.Add(new LLBLGenProResultsetCachingBencher());
             RegisteredBenchers.Add(new LLBLGenProNormalBencher());
-            RegisteredBenchers.Add(new NHibernateNormalBencher());
-            RegisteredBenchers.Add(new OakDynamicDbDtoBencher());
-            RegisteredBenchers.Add(new OakDynamicDbNormalBencher());
-            RegisteredBenchers.Add(new OrmLiteBencher() { ConnectionStringToUse = ConnectionString });
-            RegisteredBenchers.Add(new TelerikBencher());
-            RegisteredBenchers.Add(new PetaPocoBencher()
-            {
-                CommandText = SqlSelectCommandText,
-                ConnectionStringToUse = ConnectionString
-            });
-            RegisteredBenchers.Add(new PetaPocoFastBencher()
-            {
-                CommandText = SqlSelectCommandText,
-                ConnectionStringToUse = ConnectionString
-            });
+            //RegisteredBenchers.Add(new NHibernateNormalBencher());
+            //RegisteredBenchers.Add(new OakDynamicDbDtoBencher());
+            //RegisteredBenchers.Add(new OakDynamicDbNormalBencher());
+            //RegisteredBenchers.Add(new OrmLiteBencher() { ConnectionStringToUse = ConnectionString });
+            RegisteredBenchers.Add(new TelerikDomainBencher() { ConnectionStringToUse = "AdventureWorksConnection" });
+            RegisteredBenchers.Add(new TelerikFluentBencher() { ConnectionStringToUse = ConnectionString });
+            //RegisteredBenchers.Add(new PetaPocoBencher()
+            //{
+            //    CommandText = SqlSelectCommandText,
+            //    ConnectionStringToUse = ConnectionString
+            //});
+            //RegisteredBenchers.Add(new PetaPocoFastBencher()
+            //{
+            //    CommandText = SqlSelectCommandText,
+            //    ConnectionStringToUse = ConnectionString
+            //});
 
             WarmupDB();
             FetchKeysForIndividualFetches();
 
             // Uncomment the line below if you want to profile a bencher. Specify the bencher instance and follow the guides on the screen.
-            //ProfileBenchers(RegisteredBenchers.FirstOrDefault(b=>b.GetType()==typeof(EntityFrameworkNoChangeTrackingBencher)));
+            //ProfileBenchers(RegisteredBenchers.FirstOrDefault(b => b.GetType() == typeof(TelerikBencher)));
 
             RunRegisteredBenchers();
             ReportAverageResults();
@@ -106,16 +107,14 @@ namespace RawBencher
         /// Displays a pre-amble so the user can attach the .net profiler, then runs the benchers specified and then displays a text to stop profiling. 
         /// </summary>
         /// <param name="benchersToProfile">The benchers to profile.</param>
-        private static
-            void ProfileBenchers
-            (params IBencher[] benchersToProfile)
+        private static void ProfileBenchers(params IBencher[] benchersToProfile)
         {
             // run the benchers before profiling. 
             foreach (var b in benchersToProfile)
             {
                 Console.WriteLine("Running set benchmark for bencher '{0}' before profiling to warm up constructs",
                     b.CreateFrameworkName());
-                b.PerformSetBenchmark();
+                b.PerformIndividualBenchMark(KeysForIndividualFetches);
             }
 
             Console.WriteLine("Attach profiler and press ENTER to continue");
@@ -124,15 +123,14 @@ namespace RawBencher
             {
                 Console.WriteLine("Running set benchmark for profile for bencher: {0}. Change tracking: {1}",
                     b.CreateFrameworkName(), b.UsesChangeTracking);
-                b.PerformSetBenchmark();
+                b.PerformIndividualBenchMark(KeysForIndividualFetches);
             }
             Console.WriteLine("Done. Grab snapshot and stop profiler. Press ENTER to continue.");
             Console.ReadLine();
         }
 
 
-        private static
-            void InitConnectionString
+        private static void InitConnectionString
             ()
         {
             // Use the connection string from app.config instead of the static variable if the connection string exists
@@ -147,8 +145,7 @@ namespace RawBencher
         }
 
 
-        private static
-            void FetchKeysForIndividualFetches
+        private static void FetchKeysForIndividualFetches
             ()
         {
             var qf = new QueryFactory();
