@@ -32,7 +32,7 @@ namespace RawBencher.Benchers
 			{
 			    EnableAutoSelect = false,
 			    EnableNamedParams = false,
-			    ForceDateTimesToUtc = false
+                ForceDateTimesToUtc = false
 			};
 		    toReturn = dbFactory.First<SalesOrderHeader>(CommandText + " where SalesOrderId=@0 ", key);
 			return toReturn;
@@ -50,7 +50,7 @@ namespace RawBencher.Benchers
 			{
 			    EnableAutoSelect = false,
 			    EnableNamedParams = false,
-			    ForceDateTimesToUtc = false
+                ForceDateTimesToUtc = false
 			};
 		    headers = dbFactory.Fetch<SalesOrderHeader>(CommandText);
 			return headers;

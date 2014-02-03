@@ -11,7 +11,7 @@ namespace NH.Bencher.EntityClasses
 	public partial class ProductDescription
 	{
 		#region Class Member Declarations
-		private Iesi.Collections.Generic.ISet<ProductModelProductDescriptionCulture> _productModelProductDescriptionCultures;
+		private System.Collections.Generic.ISet<ProductModelProductDescriptionCulture> _productModelProductDescriptionCultures;
 		private System.String _description;
 		private System.DateTime _modifiedDate;
 		private System.Int32 _productDescriptionId;
@@ -21,7 +21,7 @@ namespace NH.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="ProductDescription"/> class.</summary>
 		public ProductDescription() : base()
 		{
-			_productModelProductDescriptionCultures = new Iesi.Collections.Generic.HashedSet<ProductModelProductDescriptionCulture>();
+			_productModelProductDescriptionCultures = new Iesi.Collections.Generic.LinkedHashSet<ProductModelProductDescriptionCulture>();
 			_productDescriptionId = default(System.Int32);
 			OnCreated();
 		}
@@ -81,7 +81,7 @@ namespace NH.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductModelProductDescriptionCulture.ProductDescription - ProductDescription.ProductModelProductDescriptionCultures (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<ProductModelProductDescriptionCulture> ProductModelProductDescriptionCultures
+		public virtual System.Collections.Generic.ISet<ProductModelProductDescriptionCulture> ProductModelProductDescriptionCultures
 		{
 			get { return _productModelProductDescriptionCultures; }
 			set { _productModelProductDescriptionCultures = value; }

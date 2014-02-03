@@ -11,7 +11,7 @@ namespace NH.Bencher.EntityClasses
 	public partial class ProductSubcategory
 	{
 		#region Class Member Declarations
-		private Iesi.Collections.Generic.ISet<Product> _products;
+		private System.Collections.Generic.ISet<Product> _products;
 		private ProductCategory _productCategory;
 		private System.DateTime _modifiedDate;
 		private System.String _name;
@@ -22,7 +22,7 @@ namespace NH.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="ProductSubcategory"/> class.</summary>
 		public ProductSubcategory() : base()
 		{
-			_products = new Iesi.Collections.Generic.HashedSet<Product>();
+			_products = new Iesi.Collections.Generic.LinkedHashSet<Product>();
 			_productSubcategoryId = default(System.Int32);
 			OnCreated();
 		}
@@ -82,7 +82,7 @@ namespace NH.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'Product.ProductSubcategory - ProductSubcategory.Products (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<Product> Products
+		public virtual System.Collections.Generic.ISet<Product> Products
 		{
 			get { return _products; }
 			set { _products = value; }

@@ -11,7 +11,7 @@ namespace NH.Bencher.EntityClasses
 	public partial class ScrapReason
 	{
 		#region Class Member Declarations
-		private Iesi.Collections.Generic.ISet<WorkOrder> _workOrders;
+		private System.Collections.Generic.ISet<WorkOrder> _workOrders;
 		private System.DateTime _modifiedDate;
 		private System.String _name;
 		private System.Int16 _scrapReasonId;
@@ -20,7 +20,7 @@ namespace NH.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="ScrapReason"/> class.</summary>
 		public ScrapReason() : base()
 		{
-			_workOrders = new Iesi.Collections.Generic.HashedSet<WorkOrder>();
+			_workOrders = new Iesi.Collections.Generic.LinkedHashSet<WorkOrder>();
 			_scrapReasonId = default(System.Int16);
 			OnCreated();
 		}
@@ -73,7 +73,7 @@ namespace NH.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'WorkOrder.ScrapReason - ScrapReason.WorkOrders (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<WorkOrder> WorkOrders
+		public virtual System.Collections.Generic.ISet<WorkOrder> WorkOrders
 		{
 			get { return _workOrders; }
 			set { _workOrders = value; }

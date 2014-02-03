@@ -11,9 +11,9 @@ namespace NH.Bencher.EntityClasses
 	public partial class Address
 	{
 		#region Class Member Declarations
-		private Iesi.Collections.Generic.ISet<BusinessEntityAddress> _businessEntityAddresses;
-		private Iesi.Collections.Generic.ISet<SalesOrderHeader> _salesOrderHeaders;
-		private Iesi.Collections.Generic.ISet<SalesOrderHeader> _salesOrderHeaders1;
+		private System.Collections.Generic.ISet<BusinessEntityAddress> _businessEntityAddresses;
+		private System.Collections.Generic.ISet<SalesOrderHeader> _salesOrderHeaders;
+		private System.Collections.Generic.ISet<SalesOrderHeader> _salesOrderHeaders1;
 		private StateProvince _stateProvince;
 		private System.Int32 _addressId;
 		private System.String _addressLine1;
@@ -28,9 +28,9 @@ namespace NH.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="Address"/> class.</summary>
 		public Address() : base()
 		{
-			_businessEntityAddresses = new Iesi.Collections.Generic.HashedSet<BusinessEntityAddress>();
-			_salesOrderHeaders = new Iesi.Collections.Generic.HashedSet<SalesOrderHeader>();
-			_salesOrderHeaders1 = new Iesi.Collections.Generic.HashedSet<SalesOrderHeader>();
+			_businessEntityAddresses = new Iesi.Collections.Generic.LinkedHashSet<BusinessEntityAddress>();
+			_salesOrderHeaders = new Iesi.Collections.Generic.LinkedHashSet<SalesOrderHeader>();
+			_salesOrderHeaders1 = new Iesi.Collections.Generic.LinkedHashSet<SalesOrderHeader>();
 			_addressId = default(System.Int32);
 			OnCreated();
 		}
@@ -118,21 +118,21 @@ namespace NH.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'BusinessEntityAddress.Address - Address.BusinessEntityAddresses (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<BusinessEntityAddress> BusinessEntityAddresses
+		public virtual System.Collections.Generic.ISet<BusinessEntityAddress> BusinessEntityAddresses
 		{
 			get { return _businessEntityAddresses; }
 			set { _businessEntityAddresses = value; }
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderHeader.Address - Address.SalesOrderHeaders (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<SalesOrderHeader> SalesOrderHeaders
+		public virtual System.Collections.Generic.ISet<SalesOrderHeader> SalesOrderHeaders
 		{
 			get { return _salesOrderHeaders; }
 			set { _salesOrderHeaders = value; }
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderHeader.Address1 - Address.SalesOrderHeaders1 (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<SalesOrderHeader> SalesOrderHeaders1
+		public virtual System.Collections.Generic.ISet<SalesOrderHeader> SalesOrderHeaders1
 		{
 			get { return _salesOrderHeaders1; }
 			set { _salesOrderHeaders1 = value; }

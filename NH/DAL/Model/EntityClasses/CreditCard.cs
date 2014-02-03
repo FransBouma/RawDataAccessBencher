@@ -11,8 +11,8 @@ namespace NH.Bencher.EntityClasses
 	public partial class CreditCard
 	{
 		#region Class Member Declarations
-		private Iesi.Collections.Generic.ISet<ContactCreditCard> _contactCreditCards;
-		private Iesi.Collections.Generic.ISet<SalesOrderHeader> _salesOrderHeaders;
+		private System.Collections.Generic.ISet<ContactCreditCard> _contactCreditCards;
+		private System.Collections.Generic.ISet<SalesOrderHeader> _salesOrderHeaders;
 		private System.String _cardNumber;
 		private System.String _cardType;
 		private System.Int32 _creditCardId;
@@ -24,8 +24,8 @@ namespace NH.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="CreditCard"/> class.</summary>
 		public CreditCard() : base()
 		{
-			_contactCreditCards = new Iesi.Collections.Generic.HashedSet<ContactCreditCard>();
-			_salesOrderHeaders = new Iesi.Collections.Generic.HashedSet<SalesOrderHeader>();
+			_contactCreditCards = new Iesi.Collections.Generic.LinkedHashSet<ContactCreditCard>();
+			_salesOrderHeaders = new Iesi.Collections.Generic.LinkedHashSet<SalesOrderHeader>();
 			_creditCardId = default(System.Int32);
 			OnCreated();
 		}
@@ -99,14 +99,14 @@ namespace NH.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'ContactCreditCard.CreditCard - CreditCard.ContactCreditCards (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<ContactCreditCard> ContactCreditCards
+		public virtual System.Collections.Generic.ISet<ContactCreditCard> ContactCreditCards
 		{
 			get { return _contactCreditCards; }
 			set { _contactCreditCards = value; }
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderHeader.CreditCard - CreditCard.SalesOrderHeaders (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<SalesOrderHeader> SalesOrderHeaders
+		public virtual System.Collections.Generic.ISet<SalesOrderHeader> SalesOrderHeaders
 		{
 			get { return _salesOrderHeaders; }
 			set { _salesOrderHeaders = value; }

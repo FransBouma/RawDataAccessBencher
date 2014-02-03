@@ -13,7 +13,7 @@ namespace NH.Bencher.EntityClasses
 		#region Class Member Declarations
 		private Currency _currency;
 		private Currency _currency1;
-		private Iesi.Collections.Generic.ISet<SalesOrderHeader> _salesOrderHeaders;
+		private System.Collections.Generic.ISet<SalesOrderHeader> _salesOrderHeaders;
 		private System.Decimal _averageRate;
 		private System.DateTime _currencyRateDate;
 		private System.Int32 _currencyRateId;
@@ -24,7 +24,7 @@ namespace NH.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="CurrencyRate"/> class.</summary>
 		public CurrencyRate() : base()
 		{
-			_salesOrderHeaders = new Iesi.Collections.Generic.HashedSet<SalesOrderHeader>();
+			_salesOrderHeaders = new Iesi.Collections.Generic.LinkedHashSet<SalesOrderHeader>();
 			_currencyRateId = default(System.Int32);
 			OnCreated();
 		}
@@ -105,7 +105,7 @@ namespace NH.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderHeader.CurrencyRate - CurrencyRate.SalesOrderHeaders (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<SalesOrderHeader> SalesOrderHeaders
+		public virtual System.Collections.Generic.ISet<SalesOrderHeader> SalesOrderHeaders
 		{
 			get { return _salesOrderHeaders; }
 			set { _salesOrderHeaders = value; }

@@ -11,7 +11,7 @@ namespace NH.Bencher.EntityClasses
 	public partial class Illustration
 	{
 		#region Class Member Declarations
-		private Iesi.Collections.Generic.ISet<ProductModelIllustration> _productModelIllustrations;
+		private System.Collections.Generic.ISet<ProductModelIllustration> _productModelIllustrations;
 		private System.String _diagram;
 		private System.Int32 _illustrationId;
 		private System.DateTime _modifiedDate;
@@ -20,7 +20,7 @@ namespace NH.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="Illustration"/> class.</summary>
 		public Illustration() : base()
 		{
-			_productModelIllustrations = new Iesi.Collections.Generic.HashedSet<ProductModelIllustration>();
+			_productModelIllustrations = new Iesi.Collections.Generic.LinkedHashSet<ProductModelIllustration>();
 			_illustrationId = default(System.Int32);
 			OnCreated();
 		}
@@ -73,7 +73,7 @@ namespace NH.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductModelIllustration.Illustration - Illustration.ProductModelIllustrations (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<ProductModelIllustration> ProductModelIllustrations
+		public virtual System.Collections.Generic.ISet<ProductModelIllustration> ProductModelIllustrations
 		{
 			get { return _productModelIllustrations; }
 			set { _productModelIllustrations = value; }

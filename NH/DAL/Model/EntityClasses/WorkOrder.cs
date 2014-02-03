@@ -13,7 +13,7 @@ namespace NH.Bencher.EntityClasses
 		#region Class Member Declarations
 		private Product _product;
 		private ScrapReason _scrapReason;
-		private Iesi.Collections.Generic.ISet<WorkOrderRouting> _workOrderRoutings;
+		private System.Collections.Generic.ISet<WorkOrderRouting> _workOrderRoutings;
 		private System.DateTime _dueDate;
 		private Nullable<System.DateTime> _endDate;
 		private System.DateTime _modifiedDate;
@@ -27,7 +27,7 @@ namespace NH.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="WorkOrder"/> class.</summary>
 		public WorkOrder() : base()
 		{
-			_workOrderRoutings = new Iesi.Collections.Generic.HashedSet<WorkOrderRouting>();
+			_workOrderRoutings = new Iesi.Collections.Generic.LinkedHashSet<WorkOrderRouting>();
 			_stockedQty = default(System.Int32);
 			_workOrderId = default(System.Int32);
 			OnCreated();
@@ -129,7 +129,7 @@ namespace NH.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'WorkOrderRouting.WorkOrder - WorkOrder.WorkOrderRoutings (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<WorkOrderRouting> WorkOrderRoutings
+		public virtual System.Collections.Generic.ISet<WorkOrderRouting> WorkOrderRoutings
 		{
 			get { return _workOrderRoutings; }
 			set { _workOrderRoutings = value; }

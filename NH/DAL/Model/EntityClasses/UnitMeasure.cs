@@ -11,10 +11,10 @@ namespace NH.Bencher.EntityClasses
 	public partial class UnitMeasure
 	{
 		#region Class Member Declarations
-		private Iesi.Collections.Generic.ISet<BillOfMaterial> _billOfMaterials;
-		private Iesi.Collections.Generic.ISet<Product> _products;
-		private Iesi.Collections.Generic.ISet<Product> _products1;
-		private Iesi.Collections.Generic.ISet<ProductVendor> _productVendors;
+		private System.Collections.Generic.ISet<BillOfMaterial> _billOfMaterials;
+		private System.Collections.Generic.ISet<Product> _products;
+		private System.Collections.Generic.ISet<Product> _products1;
+		private System.Collections.Generic.ISet<ProductVendor> _productVendors;
 		private System.DateTime _modifiedDate;
 		private System.String _name;
 		private System.String _unitMeasureCode;
@@ -23,10 +23,10 @@ namespace NH.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="UnitMeasure"/> class.</summary>
 		public UnitMeasure() : base()
 		{
-			_billOfMaterials = new Iesi.Collections.Generic.HashedSet<BillOfMaterial>();
-			_products = new Iesi.Collections.Generic.HashedSet<Product>();
-			_products1 = new Iesi.Collections.Generic.HashedSet<Product>();
-			_productVendors = new Iesi.Collections.Generic.HashedSet<ProductVendor>();
+			_billOfMaterials = new Iesi.Collections.Generic.LinkedHashSet<BillOfMaterial>();
+			_products = new Iesi.Collections.Generic.LinkedHashSet<Product>();
+			_products1 = new Iesi.Collections.Generic.LinkedHashSet<Product>();
+			_productVendors = new Iesi.Collections.Generic.LinkedHashSet<ProductVendor>();
 			OnCreated();
 		}
 
@@ -79,28 +79,28 @@ namespace NH.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'BillOfMaterial.UnitMeasure - UnitMeasure.BillOfMaterials (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<BillOfMaterial> BillOfMaterials
+		public virtual System.Collections.Generic.ISet<BillOfMaterial> BillOfMaterials
 		{
 			get { return _billOfMaterials; }
 			set { _billOfMaterials = value; }
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'Product.UnitMeasure - UnitMeasure.Products (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<Product> Products
+		public virtual System.Collections.Generic.ISet<Product> Products
 		{
 			get { return _products; }
 			set { _products = value; }
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'Product.UnitMeasure1 - UnitMeasure.Products1 (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<Product> Products1
+		public virtual System.Collections.Generic.ISet<Product> Products1
 		{
 			get { return _products1; }
 			set { _products1 = value; }
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductVendor.UnitMeasure - UnitMeasure.ProductVendors (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<ProductVendor> ProductVendors
+		public virtual System.Collections.Generic.ISet<ProductVendor> ProductVendors
 		{
 			get { return _productVendors; }
 			set { _productVendors = value; }

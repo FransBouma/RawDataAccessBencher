@@ -11,7 +11,7 @@ namespace NH.Bencher.EntityClasses
 	public partial class Department
 	{
 		#region Class Member Declarations
-		private Iesi.Collections.Generic.ISet<EmployeeDepartmentHistory> _employeeDepartmentHistories;
+		private System.Collections.Generic.ISet<EmployeeDepartmentHistory> _employeeDepartmentHistories;
 		private System.Int16 _departmentId;
 		private System.String _groupName;
 		private System.DateTime _modifiedDate;
@@ -21,7 +21,7 @@ namespace NH.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="Department"/> class.</summary>
 		public Department() : base()
 		{
-			_employeeDepartmentHistories = new Iesi.Collections.Generic.HashedSet<EmployeeDepartmentHistory>();
+			_employeeDepartmentHistories = new Iesi.Collections.Generic.LinkedHashSet<EmployeeDepartmentHistory>();
 			_departmentId = default(System.Int16);
 			OnCreated();
 		}
@@ -81,7 +81,7 @@ namespace NH.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'EmployeeDepartmentHistory.Department - Department.EmployeeDepartmentHistories (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<EmployeeDepartmentHistory> EmployeeDepartmentHistories
+		public virtual System.Collections.Generic.ISet<EmployeeDepartmentHistory> EmployeeDepartmentHistories
 		{
 			get { return _employeeDepartmentHistories; }
 			set { _employeeDepartmentHistories = value; }

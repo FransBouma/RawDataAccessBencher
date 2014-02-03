@@ -11,9 +11,9 @@ namespace NH.Bencher.EntityClasses
 	public partial class Currency
 	{
 		#region Class Member Declarations
-		private Iesi.Collections.Generic.ISet<CountryRegionCurrency> _countryRegionCurrencies;
-		private Iesi.Collections.Generic.ISet<CurrencyRate> _currencyRates;
-		private Iesi.Collections.Generic.ISet<CurrencyRate> _currencyRates1;
+		private System.Collections.Generic.ISet<CountryRegionCurrency> _countryRegionCurrencies;
+		private System.Collections.Generic.ISet<CurrencyRate> _currencyRates;
+		private System.Collections.Generic.ISet<CurrencyRate> _currencyRates1;
 		private System.String _currencyCode;
 		private System.DateTime _modifiedDate;
 		private System.String _name;
@@ -22,9 +22,9 @@ namespace NH.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="Currency"/> class.</summary>
 		public Currency() : base()
 		{
-			_countryRegionCurrencies = new Iesi.Collections.Generic.HashedSet<CountryRegionCurrency>();
-			_currencyRates = new Iesi.Collections.Generic.HashedSet<CurrencyRate>();
-			_currencyRates1 = new Iesi.Collections.Generic.HashedSet<CurrencyRate>();
+			_countryRegionCurrencies = new Iesi.Collections.Generic.LinkedHashSet<CountryRegionCurrency>();
+			_currencyRates = new Iesi.Collections.Generic.LinkedHashSet<CurrencyRate>();
+			_currencyRates1 = new Iesi.Collections.Generic.LinkedHashSet<CurrencyRate>();
 			OnCreated();
 		}
 
@@ -77,21 +77,21 @@ namespace NH.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'CountryRegionCurrency.Currency - Currency.CountryRegionCurrencies (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<CountryRegionCurrency> CountryRegionCurrencies
+		public virtual System.Collections.Generic.ISet<CountryRegionCurrency> CountryRegionCurrencies
 		{
 			get { return _countryRegionCurrencies; }
 			set { _countryRegionCurrencies = value; }
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'CurrencyRate.Currency - Currency.CurrencyRates (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<CurrencyRate> CurrencyRates
+		public virtual System.Collections.Generic.ISet<CurrencyRate> CurrencyRates
 		{
 			get { return _currencyRates; }
 			set { _currencyRates = value; }
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'CurrencyRate.Currency1 - Currency.CurrencyRates1 (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<CurrencyRate> CurrencyRates1
+		public virtual System.Collections.Generic.ISet<CurrencyRate> CurrencyRates1
 		{
 			get { return _currencyRates1; }
 			set { _currencyRates1 = value; }

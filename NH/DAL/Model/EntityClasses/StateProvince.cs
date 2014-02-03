@@ -11,9 +11,9 @@ namespace NH.Bencher.EntityClasses
 	public partial class StateProvince
 	{
 		#region Class Member Declarations
-		private Iesi.Collections.Generic.ISet<Address> _addresses;
+		private System.Collections.Generic.ISet<Address> _addresses;
 		private CountryRegion _countryRegion;
-		private Iesi.Collections.Generic.ISet<SalesTaxRate> _salesTaxRates;
+		private System.Collections.Generic.ISet<SalesTaxRate> _salesTaxRates;
 		private SalesTerritory _salesTerritory;
 		private System.Boolean _isOnlyStateProvinceFlag;
 		private System.DateTime _modifiedDate;
@@ -26,8 +26,8 @@ namespace NH.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="StateProvince"/> class.</summary>
 		public StateProvince() : base()
 		{
-			_addresses = new Iesi.Collections.Generic.HashedSet<Address>();
-			_salesTaxRates = new Iesi.Collections.Generic.HashedSet<SalesTaxRate>();
+			_addresses = new Iesi.Collections.Generic.LinkedHashSet<Address>();
+			_salesTaxRates = new Iesi.Collections.Generic.LinkedHashSet<SalesTaxRate>();
 			_stateProvinceId = default(System.Int32);
 			OnCreated();
 		}
@@ -101,7 +101,7 @@ namespace NH.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'Address.StateProvince - StateProvince.Addresses (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<Address> Addresses
+		public virtual System.Collections.Generic.ISet<Address> Addresses
 		{
 			get { return _addresses; }
 			set { _addresses = value; }
@@ -115,7 +115,7 @@ namespace NH.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesTaxRate.StateProvince - StateProvince.SalesTaxRates (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<SalesTaxRate> SalesTaxRates
+		public virtual System.Collections.Generic.ISet<SalesTaxRate> SalesTaxRates
 		{
 			get { return _salesTaxRates; }
 			set { _salesTaxRates = value; }

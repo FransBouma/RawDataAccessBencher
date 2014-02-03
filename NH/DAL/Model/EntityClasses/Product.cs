@@ -11,24 +11,24 @@ namespace NH.Bencher.EntityClasses
 	public partial class Product
 	{
 		#region Class Member Declarations
-		private Iesi.Collections.Generic.ISet<BillOfMaterial> _billOfMaterials;
-		private Iesi.Collections.Generic.ISet<BillOfMaterial> _billOfMaterials1;
-		private Iesi.Collections.Generic.ISet<ProductCostHistory> _productCostHistories;
-		private Iesi.Collections.Generic.ISet<ProductDocument> _productDocuments;
-		private Iesi.Collections.Generic.ISet<ProductInventory> _productInventories;
-		private Iesi.Collections.Generic.ISet<ProductListPriceHistory> _productListPriceHistories;
+		private System.Collections.Generic.ISet<BillOfMaterial> _billOfMaterials;
+		private System.Collections.Generic.ISet<BillOfMaterial> _billOfMaterials1;
+		private System.Collections.Generic.ISet<ProductCostHistory> _productCostHistories;
+		private System.Collections.Generic.ISet<ProductDocument> _productDocuments;
+		private System.Collections.Generic.ISet<ProductInventory> _productInventories;
+		private System.Collections.Generic.ISet<ProductListPriceHistory> _productListPriceHistories;
 		private ProductModel _productModel;
-		private Iesi.Collections.Generic.ISet<ProductProductPhoto> _productProductPhotos;
-		private Iesi.Collections.Generic.ISet<ProductReview> _productReviews;
+		private System.Collections.Generic.ISet<ProductProductPhoto> _productProductPhotos;
+		private System.Collections.Generic.ISet<ProductReview> _productReviews;
 		private ProductSubcategory _productSubcategory;
-		private Iesi.Collections.Generic.ISet<ProductVendor> _productVendors;
-		private Iesi.Collections.Generic.ISet<PurchaseOrderDetail> _purchaseOrderDetails;
-		private Iesi.Collections.Generic.ISet<ShoppingCartItem> _shoppingCartItems;
-		private Iesi.Collections.Generic.ISet<SpecialOfferProduct> _specialOfferProducts;
-		private Iesi.Collections.Generic.ISet<TransactionHistory> _transactionHistories;
+		private System.Collections.Generic.ISet<ProductVendor> _productVendors;
+		private System.Collections.Generic.ISet<PurchaseOrderDetail> _purchaseOrderDetails;
+		private System.Collections.Generic.ISet<ShoppingCartItem> _shoppingCartItems;
+		private System.Collections.Generic.ISet<SpecialOfferProduct> _specialOfferProducts;
+		private System.Collections.Generic.ISet<TransactionHistory> _transactionHistories;
 		private UnitMeasure _unitMeasure;
 		private UnitMeasure _unitMeasure1;
-		private Iesi.Collections.Generic.ISet<WorkOrder> _workOrders;
+		private System.Collections.Generic.ISet<WorkOrder> _workOrders;
 		private System.String _class;
 		private System.String _color;
 		private System.Int32 _daysToManufacture;
@@ -55,20 +55,20 @@ namespace NH.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="Product"/> class.</summary>
 		public Product() : base()
 		{
-			_billOfMaterials = new Iesi.Collections.Generic.HashedSet<BillOfMaterial>();
-			_billOfMaterials1 = new Iesi.Collections.Generic.HashedSet<BillOfMaterial>();
-			_productCostHistories = new Iesi.Collections.Generic.HashedSet<ProductCostHistory>();
-			_productDocuments = new Iesi.Collections.Generic.HashedSet<ProductDocument>();
-			_productInventories = new Iesi.Collections.Generic.HashedSet<ProductInventory>();
-			_productListPriceHistories = new Iesi.Collections.Generic.HashedSet<ProductListPriceHistory>();
-			_productProductPhotos = new Iesi.Collections.Generic.HashedSet<ProductProductPhoto>();
-			_productReviews = new Iesi.Collections.Generic.HashedSet<ProductReview>();
-			_productVendors = new Iesi.Collections.Generic.HashedSet<ProductVendor>();
-			_purchaseOrderDetails = new Iesi.Collections.Generic.HashedSet<PurchaseOrderDetail>();
-			_shoppingCartItems = new Iesi.Collections.Generic.HashedSet<ShoppingCartItem>();
-			_specialOfferProducts = new Iesi.Collections.Generic.HashedSet<SpecialOfferProduct>();
-			_transactionHistories = new Iesi.Collections.Generic.HashedSet<TransactionHistory>();
-			_workOrders = new Iesi.Collections.Generic.HashedSet<WorkOrder>();
+			_billOfMaterials = new Iesi.Collections.Generic.LinkedHashSet<BillOfMaterial>();
+			_billOfMaterials1 = new Iesi.Collections.Generic.LinkedHashSet<BillOfMaterial>();
+			_productCostHistories = new Iesi.Collections.Generic.LinkedHashSet<ProductCostHistory>();
+			_productDocuments = new Iesi.Collections.Generic.LinkedHashSet<ProductDocument>();
+			_productInventories = new Iesi.Collections.Generic.LinkedHashSet<ProductInventory>();
+			_productListPriceHistories = new Iesi.Collections.Generic.LinkedHashSet<ProductListPriceHistory>();
+			_productProductPhotos = new Iesi.Collections.Generic.LinkedHashSet<ProductProductPhoto>();
+			_productReviews = new Iesi.Collections.Generic.LinkedHashSet<ProductReview>();
+			_productVendors = new Iesi.Collections.Generic.LinkedHashSet<ProductVendor>();
+			_purchaseOrderDetails = new Iesi.Collections.Generic.LinkedHashSet<PurchaseOrderDetail>();
+			_shoppingCartItems = new Iesi.Collections.Generic.LinkedHashSet<ShoppingCartItem>();
+			_specialOfferProducts = new Iesi.Collections.Generic.LinkedHashSet<SpecialOfferProduct>();
+			_transactionHistories = new Iesi.Collections.Generic.LinkedHashSet<TransactionHistory>();
+			_workOrders = new Iesi.Collections.Generic.LinkedHashSet<WorkOrder>();
 			_productId = default(System.Int32);
 			OnCreated();
 		}
@@ -247,42 +247,42 @@ namespace NH.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'BillOfMaterial.Product - Product.BillOfMaterials (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<BillOfMaterial> BillOfMaterials
+		public virtual System.Collections.Generic.ISet<BillOfMaterial> BillOfMaterials
 		{
 			get { return _billOfMaterials; }
 			set { _billOfMaterials = value; }
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'BillOfMaterial.Product1 - Product.BillOfMaterials1 (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<BillOfMaterial> BillOfMaterials1
+		public virtual System.Collections.Generic.ISet<BillOfMaterial> BillOfMaterials1
 		{
 			get { return _billOfMaterials1; }
 			set { _billOfMaterials1 = value; }
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductCostHistory.Product - Product.ProductCostHistories (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<ProductCostHistory> ProductCostHistories
+		public virtual System.Collections.Generic.ISet<ProductCostHistory> ProductCostHistories
 		{
 			get { return _productCostHistories; }
 			set { _productCostHistories = value; }
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductDocument.Product - Product.ProductDocuments (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<ProductDocument> ProductDocuments
+		public virtual System.Collections.Generic.ISet<ProductDocument> ProductDocuments
 		{
 			get { return _productDocuments; }
 			set { _productDocuments = value; }
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductInventory.Product - Product.ProductInventories (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<ProductInventory> ProductInventories
+		public virtual System.Collections.Generic.ISet<ProductInventory> ProductInventories
 		{
 			get { return _productInventories; }
 			set { _productInventories = value; }
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductListPriceHistory.Product - Product.ProductListPriceHistories (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<ProductListPriceHistory> ProductListPriceHistories
+		public virtual System.Collections.Generic.ISet<ProductListPriceHistory> ProductListPriceHistories
 		{
 			get { return _productListPriceHistories; }
 			set { _productListPriceHistories = value; }
@@ -296,14 +296,14 @@ namespace NH.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductProductPhoto.Product - Product.ProductProductPhotos (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<ProductProductPhoto> ProductProductPhotos
+		public virtual System.Collections.Generic.ISet<ProductProductPhoto> ProductProductPhotos
 		{
 			get { return _productProductPhotos; }
 			set { _productProductPhotos = value; }
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductReview.Product - Product.ProductReviews (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<ProductReview> ProductReviews
+		public virtual System.Collections.Generic.ISet<ProductReview> ProductReviews
 		{
 			get { return _productReviews; }
 			set { _productReviews = value; }
@@ -317,35 +317,35 @@ namespace NH.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductVendor.Product - Product.ProductVendors (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<ProductVendor> ProductVendors
+		public virtual System.Collections.Generic.ISet<ProductVendor> ProductVendors
 		{
 			get { return _productVendors; }
 			set { _productVendors = value; }
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'PurchaseOrderDetail.Product - Product.PurchaseOrderDetails (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<PurchaseOrderDetail> PurchaseOrderDetails
+		public virtual System.Collections.Generic.ISet<PurchaseOrderDetail> PurchaseOrderDetails
 		{
 			get { return _purchaseOrderDetails; }
 			set { _purchaseOrderDetails = value; }
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'ShoppingCartItem.Product - Product.ShoppingCartItems (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<ShoppingCartItem> ShoppingCartItems
+		public virtual System.Collections.Generic.ISet<ShoppingCartItem> ShoppingCartItems
 		{
 			get { return _shoppingCartItems; }
 			set { _shoppingCartItems = value; }
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'SpecialOfferProduct.Product - Product.SpecialOfferProducts (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<SpecialOfferProduct> SpecialOfferProducts
+		public virtual System.Collections.Generic.ISet<SpecialOfferProduct> SpecialOfferProducts
 		{
 			get { return _specialOfferProducts; }
 			set { _specialOfferProducts = value; }
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'TransactionHistory.Product - Product.TransactionHistories (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<TransactionHistory> TransactionHistories
+		public virtual System.Collections.Generic.ISet<TransactionHistory> TransactionHistories
 		{
 			get { return _transactionHistories; }
 			set { _transactionHistories = value; }
@@ -366,7 +366,7 @@ namespace NH.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'WorkOrder.Product - Product.WorkOrders (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<WorkOrder> WorkOrders
+		public virtual System.Collections.Generic.ISet<WorkOrder> WorkOrders
 		{
 			get { return _workOrders; }
 			set { _workOrders = value; }

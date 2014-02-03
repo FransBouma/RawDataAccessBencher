@@ -11,8 +11,8 @@ namespace NH.Bencher.EntityClasses
 	public partial class BusinessEntity
 	{
 		#region Class Member Declarations
-		private Iesi.Collections.Generic.ISet<BusinessEntityAddress> _businessEntityAddresses;
-		private Iesi.Collections.Generic.ISet<BusinessEntityContact> _businessEntityContacts;
+		private System.Collections.Generic.ISet<BusinessEntityAddress> _businessEntityAddresses;
+		private System.Collections.Generic.ISet<BusinessEntityContact> _businessEntityContacts;
 		private Person _person;
 		private Store _store;
 		private Vendor _vendor;
@@ -24,8 +24,8 @@ namespace NH.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="BusinessEntity"/> class.</summary>
 		public BusinessEntity() : base()
 		{
-			_businessEntityAddresses = new Iesi.Collections.Generic.HashedSet<BusinessEntityAddress>();
-			_businessEntityContacts = new Iesi.Collections.Generic.HashedSet<BusinessEntityContact>();
+			_businessEntityAddresses = new Iesi.Collections.Generic.LinkedHashSet<BusinessEntityAddress>();
+			_businessEntityContacts = new Iesi.Collections.Generic.LinkedHashSet<BusinessEntityContact>();
 			_businessEntityId = default(System.Int32);
 			OnCreated();
 		}
@@ -78,14 +78,14 @@ namespace NH.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'BusinessEntityAddress.BusinessEntity - BusinessEntity.BusinessEntityAddresses (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<BusinessEntityAddress> BusinessEntityAddresses
+		public virtual System.Collections.Generic.ISet<BusinessEntityAddress> BusinessEntityAddresses
 		{
 			get { return _businessEntityAddresses; }
 			set { _businessEntityAddresses = value; }
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'BusinessEntityContact.BusinessEntity - BusinessEntity.BusinessEntityContacts (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<BusinessEntityContact> BusinessEntityContacts
+		public virtual System.Collections.Generic.ISet<BusinessEntityContact> BusinessEntityContacts
 		{
 			get { return _businessEntityContacts; }
 			set { _businessEntityContacts = value; }

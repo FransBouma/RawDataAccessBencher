@@ -11,7 +11,7 @@ namespace NH.Bencher.EntityClasses
 	public partial class SpecialOffer
 	{
 		#region Class Member Declarations
-		private Iesi.Collections.Generic.ISet<SpecialOfferProduct> _specialOfferProducts;
+		private System.Collections.Generic.ISet<SpecialOfferProduct> _specialOfferProducts;
 		private System.String _category;
 		private System.String _description;
 		private System.Decimal _discountPct;
@@ -28,7 +28,7 @@ namespace NH.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="SpecialOffer"/> class.</summary>
 		public SpecialOffer() : base()
 		{
-			_specialOfferProducts = new Iesi.Collections.Generic.HashedSet<SpecialOfferProduct>();
+			_specialOfferProducts = new Iesi.Collections.Generic.LinkedHashSet<SpecialOfferProduct>();
 			_specialOfferId = default(System.Int32);
 			OnCreated();
 		}
@@ -137,7 +137,7 @@ namespace NH.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'SpecialOfferProduct.SpecialOffer - SpecialOffer.SpecialOfferProducts (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<SpecialOfferProduct> SpecialOfferProducts
+		public virtual System.Collections.Generic.ISet<SpecialOfferProduct> SpecialOfferProducts
 		{
 			get { return _specialOfferProducts; }
 			set { _specialOfferProducts = value; }

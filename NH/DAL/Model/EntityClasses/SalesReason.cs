@@ -11,7 +11,7 @@ namespace NH.Bencher.EntityClasses
 	public partial class SalesReason
 	{
 		#region Class Member Declarations
-		private Iesi.Collections.Generic.ISet<SalesOrderHeaderSalesReason> _salesOrderHeaderSalesReasons;
+		private System.Collections.Generic.ISet<SalesOrderHeaderSalesReason> _salesOrderHeaderSalesReasons;
 		private System.DateTime _modifiedDate;
 		private System.String _name;
 		private System.String _reasonType;
@@ -21,7 +21,7 @@ namespace NH.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="SalesReason"/> class.</summary>
 		public SalesReason() : base()
 		{
-			_salesOrderHeaderSalesReasons = new Iesi.Collections.Generic.HashedSet<SalesOrderHeaderSalesReason>();
+			_salesOrderHeaderSalesReasons = new Iesi.Collections.Generic.LinkedHashSet<SalesOrderHeaderSalesReason>();
 			_salesReasonId = default(System.Int32);
 			OnCreated();
 		}
@@ -81,7 +81,7 @@ namespace NH.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderHeaderSalesReason.SalesReason - SalesReason.SalesOrderHeaderSalesReasons (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<SalesOrderHeaderSalesReason> SalesOrderHeaderSalesReasons
+		public virtual System.Collections.Generic.ISet<SalesOrderHeaderSalesReason> SalesOrderHeaderSalesReasons
 		{
 			get { return _salesOrderHeaderSalesReasons; }
 			set { _salesOrderHeaderSalesReasons = value; }

@@ -11,9 +11,9 @@ namespace NH.Bencher.EntityClasses
 	public partial class ProductModel
 	{
 		#region Class Member Declarations
-		private Iesi.Collections.Generic.ISet<Product> _products;
-		private Iesi.Collections.Generic.ISet<ProductModelIllustration> _productModelIllustrations;
-		private Iesi.Collections.Generic.ISet<ProductModelProductDescriptionCulture> _productModelProductDescriptionCultures;
+		private System.Collections.Generic.ISet<Product> _products;
+		private System.Collections.Generic.ISet<ProductModelIllustration> _productModelIllustrations;
+		private System.Collections.Generic.ISet<ProductModelProductDescriptionCulture> _productModelProductDescriptionCultures;
 		private System.String _catalogDescription;
 		private System.String _instructions;
 		private System.DateTime _modifiedDate;
@@ -25,9 +25,9 @@ namespace NH.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="ProductModel"/> class.</summary>
 		public ProductModel() : base()
 		{
-			_products = new Iesi.Collections.Generic.HashedSet<Product>();
-			_productModelIllustrations = new Iesi.Collections.Generic.HashedSet<ProductModelIllustration>();
-			_productModelProductDescriptionCultures = new Iesi.Collections.Generic.HashedSet<ProductModelProductDescriptionCulture>();
+			_products = new Iesi.Collections.Generic.LinkedHashSet<Product>();
+			_productModelIllustrations = new Iesi.Collections.Generic.LinkedHashSet<ProductModelIllustration>();
+			_productModelProductDescriptionCultures = new Iesi.Collections.Generic.LinkedHashSet<ProductModelProductDescriptionCulture>();
 			_productModelId = default(System.Int32);
 			OnCreated();
 		}
@@ -101,21 +101,21 @@ namespace NH.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'Product.ProductModel - ProductModel.Products (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<Product> Products
+		public virtual System.Collections.Generic.ISet<Product> Products
 		{
 			get { return _products; }
 			set { _products = value; }
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductModelIllustration.ProductModel - ProductModel.ProductModelIllustrations (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<ProductModelIllustration> ProductModelIllustrations
+		public virtual System.Collections.Generic.ISet<ProductModelIllustration> ProductModelIllustrations
 		{
 			get { return _productModelIllustrations; }
 			set { _productModelIllustrations = value; }
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductModelProductDescriptionCulture.ProductModel - ProductModel.ProductModelProductDescriptionCultures (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<ProductModelProductDescriptionCulture> ProductModelProductDescriptionCultures
+		public virtual System.Collections.Generic.ISet<ProductModelProductDescriptionCulture> ProductModelProductDescriptionCultures
 		{
 			get { return _productModelProductDescriptionCultures; }
 			set { _productModelProductDescriptionCultures = value; }

@@ -11,9 +11,9 @@ namespace NH.Bencher.EntityClasses
 	public partial class CountryRegion
 	{
 		#region Class Member Declarations
-		private Iesi.Collections.Generic.ISet<CountryRegionCurrency> _countryRegionCurrencies;
-		private Iesi.Collections.Generic.ISet<SalesTerritory> _salesTerritories;
-		private Iesi.Collections.Generic.ISet<StateProvince> _stateProvinces;
+		private System.Collections.Generic.ISet<CountryRegionCurrency> _countryRegionCurrencies;
+		private System.Collections.Generic.ISet<SalesTerritory> _salesTerritories;
+		private System.Collections.Generic.ISet<StateProvince> _stateProvinces;
 		private System.String _countryRegionCode;
 		private System.DateTime _modifiedDate;
 		private System.String _name;
@@ -22,9 +22,9 @@ namespace NH.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="CountryRegion"/> class.</summary>
 		public CountryRegion() : base()
 		{
-			_countryRegionCurrencies = new Iesi.Collections.Generic.HashedSet<CountryRegionCurrency>();
-			_salesTerritories = new Iesi.Collections.Generic.HashedSet<SalesTerritory>();
-			_stateProvinces = new Iesi.Collections.Generic.HashedSet<StateProvince>();
+			_countryRegionCurrencies = new Iesi.Collections.Generic.LinkedHashSet<CountryRegionCurrency>();
+			_salesTerritories = new Iesi.Collections.Generic.LinkedHashSet<SalesTerritory>();
+			_stateProvinces = new Iesi.Collections.Generic.LinkedHashSet<StateProvince>();
 			OnCreated();
 		}
 
@@ -77,21 +77,21 @@ namespace NH.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'CountryRegionCurrency.CountryRegion - CountryRegion.CountryRegionCurrencies (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<CountryRegionCurrency> CountryRegionCurrencies
+		public virtual System.Collections.Generic.ISet<CountryRegionCurrency> CountryRegionCurrencies
 		{
 			get { return _countryRegionCurrencies; }
 			set { _countryRegionCurrencies = value; }
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesTerritory.CountryRegion - CountryRegion.SalesTerritories (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<SalesTerritory> SalesTerritories
+		public virtual System.Collections.Generic.ISet<SalesTerritory> SalesTerritories
 		{
 			get { return _salesTerritories; }
 			set { _salesTerritories = value; }
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'StateProvince.CountryRegion - CountryRegion.StateProvinces (m:1)'</summary>
-		public virtual Iesi.Collections.Generic.ISet<StateProvince> StateProvinces
+		public virtual System.Collections.Generic.ISet<StateProvince> StateProvinces
 		{
 			get { return _stateProvinces; }
 			set { _stateProvinces = value; }
