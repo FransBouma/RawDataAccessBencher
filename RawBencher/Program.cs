@@ -58,38 +58,38 @@ namespace RawBencher
                 CommandText = SqlSelectCommandText,
                 ConnectionStringToUse = ConnectionString
             });
-            //RegisteredBenchers.Add(new DataTableBencher()
-            //{
-            //    CommandText = SqlSelectCommandText,
-            //    ConnectionStringToUse = ConnectionString
-            //});
-            //RegisteredBenchers.Add(new DapperBencher()
-            //{
-            //    CommandText = SqlSelectCommandText,
-            //    ConnectionStringToUse = ConnectionString
-            //});
-            //RegisteredBenchers.Add(new EntityFrameworkNoChangeTrackingBencher());
-            //RegisteredBenchers.Add(new EntityFrameworkNormalBencher());
-            //RegisteredBenchers.Add(new LinqToSqlNoChangeTrackingBencher());
+            RegisteredBenchers.Add(new DataTableBencher()
+            {
+                CommandText = SqlSelectCommandText,
+                ConnectionStringToUse = ConnectionString
+            });
+            RegisteredBenchers.Add(new DapperBencher()
+            {
+                CommandText = SqlSelectCommandText,
+                ConnectionStringToUse = ConnectionString
+            });
+            RegisteredBenchers.Add(new EntityFrameworkNoChangeTrackingBencher());
+            RegisteredBenchers.Add(new EntityFrameworkNormalBencher());
+            RegisteredBenchers.Add(new LinqToSqlNoChangeTrackingBencher());
             RegisteredBenchers.Add(new LinqToSqlNormalBencher());
             RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingBencher());
             RegisteredBenchers.Add(new LLBLGenProResultsetCachingBencher());
             RegisteredBenchers.Add(new LLBLGenProNormalBencher());
             RegisteredBenchers.Add(new NHibernateNormalBencher());
-            //RegisteredBenchers.Add(new OakDynamicDbDtoBencher());
-            //RegisteredBenchers.Add(new OakDynamicDbNormalBencher());
-            //RegisteredBenchers.Add(new OrmLiteBencher() {ConnectionStringToUse = ConnectionString});
+            RegisteredBenchers.Add(new OakDynamicDbDtoBencher());
+            RegisteredBenchers.Add(new OakDynamicDbNormalBencher());
+            RegisteredBenchers.Add(new OrmLiteBencher() { ConnectionStringToUse = ConnectionString });
             RegisteredBenchers.Add(new TelerikBencher());
-            //RegisteredBenchers.Add(new PetaPocoBencher()
-            //{
-            //    CommandText = SqlSelectCommandText,
-            //    ConnectionStringToUse = ConnectionString
-            //});
-            //RegisteredBenchers.Add(new PetaPocoFastBencher()
-            //{
-            //    CommandText = SqlSelectCommandText,
-            //    ConnectionStringToUse = ConnectionString
-            //});
+            RegisteredBenchers.Add(new PetaPocoBencher()
+            {
+                CommandText = SqlSelectCommandText,
+                ConnectionStringToUse = ConnectionString
+            });
+            RegisteredBenchers.Add(new PetaPocoFastBencher()
+            {
+                CommandText = SqlSelectCommandText,
+                ConnectionStringToUse = ConnectionString
+            });
 
             WarmupDB();
             FetchKeysForIndividualFetches();
