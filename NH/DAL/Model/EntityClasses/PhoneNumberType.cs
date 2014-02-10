@@ -11,7 +11,7 @@ namespace NH.Bencher.EntityClasses
 	public partial class PhoneNumberType
 	{
 		#region Class Member Declarations
-		private System.Collections.Generic.ISet<PersonPhone> _personPhones;
+		private Iesi.Collections.Generic.ISet<PersonPhone> _personPhones;
 		private System.DateTime _modifiedDate;
 		private System.String _name;
 		private System.Int32 _phoneNumberTypeId;
@@ -20,7 +20,7 @@ namespace NH.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="PhoneNumberType"/> class.</summary>
 		public PhoneNumberType() : base()
 		{
-			_personPhones = new Iesi.Collections.Generic.LinkedHashSet<PersonPhone>();
+			_personPhones = new Iesi.Collections.Generic.HashedSet<PersonPhone>();
 			_phoneNumberTypeId = default(System.Int32);
 			OnCreated();
 		}
@@ -73,7 +73,7 @@ namespace NH.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'PersonPhone.PhoneNumberType - PhoneNumberType.PersonPhones (m:1)'</summary>
-		public virtual System.Collections.Generic.ISet<PersonPhone> PersonPhones
+		public virtual Iesi.Collections.Generic.ISet<PersonPhone> PersonPhones
 		{
 			get { return _personPhones; }
 			set { _personPhones = value; }

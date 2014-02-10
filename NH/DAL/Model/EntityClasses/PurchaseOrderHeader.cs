@@ -12,7 +12,7 @@ namespace NH.Bencher.EntityClasses
 	{
 		#region Class Member Declarations
 		private Employee _employee;
-		private System.Collections.Generic.ISet<PurchaseOrderDetail> _purchaseOrderDetails;
+		private Iesi.Collections.Generic.ISet<PurchaseOrderDetail> _purchaseOrderDetails;
 		private ShipMethod _shipMethod;
 		private Vendor _vendor;
 		private System.Decimal _freight;
@@ -30,7 +30,7 @@ namespace NH.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="PurchaseOrderHeader"/> class.</summary>
 		public PurchaseOrderHeader() : base()
 		{
-			_purchaseOrderDetails = new Iesi.Collections.Generic.LinkedHashSet<PurchaseOrderDetail>();
+			_purchaseOrderDetails = new Iesi.Collections.Generic.HashedSet<PurchaseOrderDetail>();
 			_purchaseOrderId = default(System.Int32);
 			_totalDue = default(System.Decimal);
 			OnCreated();
@@ -139,7 +139,7 @@ namespace NH.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'PurchaseOrderDetail.PurchaseOrderHeader - PurchaseOrderHeader.PurchaseOrderDetails (m:1)'</summary>
-		public virtual System.Collections.Generic.ISet<PurchaseOrderDetail> PurchaseOrderDetails
+		public virtual Iesi.Collections.Generic.ISet<PurchaseOrderDetail> PurchaseOrderDetails
 		{
 			get { return _purchaseOrderDetails; }
 			set { _purchaseOrderDetails = value; }

@@ -11,8 +11,8 @@ namespace NH.Bencher.EntityClasses
 	public partial class Location
 	{
 		#region Class Member Declarations
-		private System.Collections.Generic.ISet<ProductInventory> _productInventories;
-		private System.Collections.Generic.ISet<WorkOrderRouting> _workOrderRoutings;
+		private Iesi.Collections.Generic.ISet<ProductInventory> _productInventories;
+		private Iesi.Collections.Generic.ISet<WorkOrderRouting> _workOrderRoutings;
 		private System.Decimal _availability;
 		private System.Decimal _costRate;
 		private System.Int16 _locationId;
@@ -23,8 +23,8 @@ namespace NH.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="Location"/> class.</summary>
 		public Location() : base()
 		{
-			_productInventories = new Iesi.Collections.Generic.LinkedHashSet<ProductInventory>();
-			_workOrderRoutings = new Iesi.Collections.Generic.LinkedHashSet<WorkOrderRouting>();
+			_productInventories = new Iesi.Collections.Generic.HashedSet<ProductInventory>();
+			_workOrderRoutings = new Iesi.Collections.Generic.HashedSet<WorkOrderRouting>();
 			_locationId = default(System.Int16);
 			OnCreated();
 		}
@@ -91,14 +91,14 @@ namespace NH.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductInventory.Location - Location.ProductInventories (m:1)'</summary>
-		public virtual System.Collections.Generic.ISet<ProductInventory> ProductInventories
+		public virtual Iesi.Collections.Generic.ISet<ProductInventory> ProductInventories
 		{
 			get { return _productInventories; }
 			set { _productInventories = value; }
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'WorkOrderRouting.Location - Location.WorkOrderRoutings (m:1)'</summary>
-		public virtual System.Collections.Generic.ISet<WorkOrderRouting> WorkOrderRoutings
+		public virtual Iesi.Collections.Generic.ISet<WorkOrderRouting> WorkOrderRoutings
 		{
 			get { return _workOrderRoutings; }
 			set { _workOrderRoutings = value; }

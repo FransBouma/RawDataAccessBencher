@@ -12,13 +12,13 @@ namespace NH.Bencher.EntityClasses
 	{
 		#region Class Member Declarations
 		private BusinessEntity _businessEntity;
-		private System.Collections.Generic.ISet<BusinessEntityContact> _businessEntityContacts;
-		private System.Collections.Generic.ISet<ContactCreditCard> _contactCreditCards;
-		private System.Collections.Generic.ISet<Customer> _customers;
-		private System.Collections.Generic.ISet<EmailAddress> _emailAddresses;
+		private Iesi.Collections.Generic.ISet<BusinessEntityContact> _businessEntityContacts;
+		private Iesi.Collections.Generic.ISet<ContactCreditCard> _contactCreditCards;
+		private Iesi.Collections.Generic.ISet<Customer> _customers;
+		private Iesi.Collections.Generic.ISet<EmailAddress> _emailAddresses;
 		private Employee _employee;
 		private Password _password;
-		private System.Collections.Generic.ISet<PersonPhone> _personPhones;
+		private Iesi.Collections.Generic.ISet<PersonPhone> _personPhones;
 		private System.String _additionalContactInfo;
 		private System.Int32 _businessEntityId;
 		private System.String _demographics;
@@ -37,11 +37,11 @@ namespace NH.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="Person"/> class.</summary>
 		public Person() : base()
 		{
-			_businessEntityContacts = new Iesi.Collections.Generic.LinkedHashSet<BusinessEntityContact>();
-			_contactCreditCards = new Iesi.Collections.Generic.LinkedHashSet<ContactCreditCard>();
-			_customers = new Iesi.Collections.Generic.LinkedHashSet<Customer>();
-			_emailAddresses = new Iesi.Collections.Generic.LinkedHashSet<EmailAddress>();
-			_personPhones = new Iesi.Collections.Generic.LinkedHashSet<PersonPhone>();
+			_businessEntityContacts = new Iesi.Collections.Generic.HashedSet<BusinessEntityContact>();
+			_contactCreditCards = new Iesi.Collections.Generic.HashedSet<ContactCreditCard>();
+			_customers = new Iesi.Collections.Generic.HashedSet<Customer>();
+			_emailAddresses = new Iesi.Collections.Generic.HashedSet<EmailAddress>();
+			_personPhones = new Iesi.Collections.Generic.HashedSet<PersonPhone>();
 			OnCreated();
 		}
 
@@ -166,28 +166,28 @@ namespace NH.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'BusinessEntityContact.Person - Person.BusinessEntityContacts (m:1)'</summary>
-		public virtual System.Collections.Generic.ISet<BusinessEntityContact> BusinessEntityContacts
+		public virtual Iesi.Collections.Generic.ISet<BusinessEntityContact> BusinessEntityContacts
 		{
 			get { return _businessEntityContacts; }
 			set { _businessEntityContacts = value; }
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'ContactCreditCard.Person - Person.ContactCreditCards (m:1)'</summary>
-		public virtual System.Collections.Generic.ISet<ContactCreditCard> ContactCreditCards
+		public virtual Iesi.Collections.Generic.ISet<ContactCreditCard> ContactCreditCards
 		{
 			get { return _contactCreditCards; }
 			set { _contactCreditCards = value; }
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'Customer.Person - Person.Customers (m:1)'</summary>
-		public virtual System.Collections.Generic.ISet<Customer> Customers
+		public virtual Iesi.Collections.Generic.ISet<Customer> Customers
 		{
 			get { return _customers; }
 			set { _customers = value; }
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'EmailAddress.Person - Person.EmailAddresses (m:1)'</summary>
-		public virtual System.Collections.Generic.ISet<EmailAddress> EmailAddresses
+		public virtual Iesi.Collections.Generic.ISet<EmailAddress> EmailAddresses
 		{
 			get { return _emailAddresses; }
 			set { _emailAddresses = value; }
@@ -208,7 +208,7 @@ namespace NH.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'PersonPhone.Person - Person.PersonPhones (m:1)'</summary>
-		public virtual System.Collections.Generic.ISet<PersonPhone> PersonPhones
+		public virtual Iesi.Collections.Generic.ISet<PersonPhone> PersonPhones
 		{
 			get { return _personPhones; }
 			set { _personPhones = value; }

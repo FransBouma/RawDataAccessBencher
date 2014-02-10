@@ -16,8 +16,8 @@ namespace NH.Bencher.EntityClasses
 		private CreditCard _creditCard;
 		private CurrencyRate _currencyRate;
 		private Customer _customer;
-		private System.Collections.Generic.ISet<SalesOrderDetail> _salesOrderDetails;
-		private System.Collections.Generic.ISet<SalesOrderHeaderSalesReason> _salesOrderHeaderSalesReasons;
+		private Iesi.Collections.Generic.ISet<SalesOrderDetail> _salesOrderDetails;
+		private Iesi.Collections.Generic.ISet<SalesOrderHeaderSalesReason> _salesOrderHeaderSalesReasons;
 		private SalesPerson _salesPerson;
 		private SalesTerritory _salesTerritory;
 		private ShipMethod _shipMethod;
@@ -44,8 +44,8 @@ namespace NH.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="SalesOrderHeader"/> class.</summary>
 		public SalesOrderHeader() : base()
 		{
-			_salesOrderDetails = new Iesi.Collections.Generic.LinkedHashSet<SalesOrderDetail>();
-			_salesOrderHeaderSalesReasons = new Iesi.Collections.Generic.LinkedHashSet<SalesOrderHeaderSalesReason>();
+			_salesOrderDetails = new Iesi.Collections.Generic.HashedSet<SalesOrderDetail>();
+			_salesOrderHeaderSalesReasons = new Iesi.Collections.Generic.HashedSet<SalesOrderHeaderSalesReason>();
 			_salesOrderId = default(System.Int32);
 			_salesOrderNumber = default(System.String);
 			_totalDue = default(System.Decimal);
@@ -238,14 +238,14 @@ namespace NH.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderDetail.SalesOrderHeader - SalesOrderHeader.SalesOrderDetails (m:1)'</summary>
-		public virtual System.Collections.Generic.ISet<SalesOrderDetail> SalesOrderDetails
+		public virtual Iesi.Collections.Generic.ISet<SalesOrderDetail> SalesOrderDetails
 		{
 			get { return _salesOrderDetails; }
 			set { _salesOrderDetails = value; }
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderHeaderSalesReason.SalesOrderHeader - SalesOrderHeader.SalesOrderHeaderSalesReasons (m:1)'</summary>
-		public virtual System.Collections.Generic.ISet<SalesOrderHeaderSalesReason> SalesOrderHeaderSalesReasons
+		public virtual Iesi.Collections.Generic.ISet<SalesOrderHeaderSalesReason> SalesOrderHeaderSalesReasons
 		{
 			get { return _salesOrderHeaderSalesReasons; }
 			set { _salesOrderHeaderSalesReasons = value; }

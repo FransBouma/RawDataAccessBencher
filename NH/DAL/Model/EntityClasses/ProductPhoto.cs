@@ -11,7 +11,7 @@ namespace NH.Bencher.EntityClasses
 	public partial class ProductPhoto
 	{
 		#region Class Member Declarations
-		private System.Collections.Generic.ISet<ProductProductPhoto> _productProductPhotos;
+		private Iesi.Collections.Generic.ISet<ProductProductPhoto> _productProductPhotos;
 		private System.Byte[] _largePhoto;
 		private System.String _largePhotoFileName;
 		private System.DateTime _modifiedDate;
@@ -23,7 +23,7 @@ namespace NH.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="ProductPhoto"/> class.</summary>
 		public ProductPhoto() : base()
 		{
-			_productProductPhotos = new Iesi.Collections.Generic.LinkedHashSet<ProductProductPhoto>();
+			_productProductPhotos = new Iesi.Collections.Generic.HashedSet<ProductProductPhoto>();
 			_productPhotoId = default(System.Int32);
 			OnCreated();
 		}
@@ -97,7 +97,7 @@ namespace NH.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductProductPhoto.ProductPhoto - ProductPhoto.ProductProductPhotos (m:1)'</summary>
-		public virtual System.Collections.Generic.ISet<ProductProductPhoto> ProductProductPhotos
+		public virtual Iesi.Collections.Generic.ISet<ProductProductPhoto> ProductProductPhotos
 		{
 			get { return _productProductPhotos; }
 			set { _productProductPhotos = value; }

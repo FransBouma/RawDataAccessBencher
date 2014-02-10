@@ -11,7 +11,7 @@ namespace NH.Bencher.EntityClasses
 	public partial class ContactType
 	{
 		#region Class Member Declarations
-		private System.Collections.Generic.ISet<BusinessEntityContact> _businessEntityContacts;
+		private Iesi.Collections.Generic.ISet<BusinessEntityContact> _businessEntityContacts;
 		private System.Int32 _contactTypeId;
 		private System.DateTime _modifiedDate;
 		private System.String _name;
@@ -20,7 +20,7 @@ namespace NH.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="ContactType"/> class.</summary>
 		public ContactType() : base()
 		{
-			_businessEntityContacts = new Iesi.Collections.Generic.LinkedHashSet<BusinessEntityContact>();
+			_businessEntityContacts = new Iesi.Collections.Generic.HashedSet<BusinessEntityContact>();
 			_contactTypeId = default(System.Int32);
 			OnCreated();
 		}
@@ -73,7 +73,7 @@ namespace NH.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'BusinessEntityContact.ContactType - ContactType.BusinessEntityContacts (m:1)'</summary>
-		public virtual System.Collections.Generic.ISet<BusinessEntityContact> BusinessEntityContacts
+		public virtual Iesi.Collections.Generic.ISet<BusinessEntityContact> BusinessEntityContacts
 		{
 			get { return _businessEntityContacts; }
 			set { _businessEntityContacts = value; }

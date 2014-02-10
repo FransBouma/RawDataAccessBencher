@@ -11,7 +11,7 @@ namespace NH.Bencher.EntityClasses
 	public partial class Shift
 	{
 		#region Class Member Declarations
-		private System.Collections.Generic.ISet<EmployeeDepartmentHistory> _employeeDepartmentHistories;
+		private Iesi.Collections.Generic.ISet<EmployeeDepartmentHistory> _employeeDepartmentHistories;
 		private System.TimeSpan _endTime;
 		private System.DateTime _modifiedDate;
 		private System.String _name;
@@ -22,7 +22,7 @@ namespace NH.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="Shift"/> class.</summary>
 		public Shift() : base()
 		{
-			_employeeDepartmentHistories = new Iesi.Collections.Generic.LinkedHashSet<EmployeeDepartmentHistory>();
+			_employeeDepartmentHistories = new Iesi.Collections.Generic.HashedSet<EmployeeDepartmentHistory>();
 			_shiftId = default(System.Byte);
 			OnCreated();
 		}
@@ -89,7 +89,7 @@ namespace NH.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'EmployeeDepartmentHistory.Shift - Shift.EmployeeDepartmentHistories (m:1)'</summary>
-		public virtual System.Collections.Generic.ISet<EmployeeDepartmentHistory> EmployeeDepartmentHistories
+		public virtual Iesi.Collections.Generic.ISet<EmployeeDepartmentHistory> EmployeeDepartmentHistories
 		{
 			get { return _employeeDepartmentHistories; }
 			set { _employeeDepartmentHistories = value; }

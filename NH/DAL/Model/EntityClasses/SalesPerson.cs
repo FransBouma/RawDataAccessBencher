@@ -12,11 +12,11 @@ namespace NH.Bencher.EntityClasses
 	{
 		#region Class Member Declarations
 		private Employee _employee;
-		private System.Collections.Generic.ISet<SalesOrderHeader> _salesOrderHeaders;
-		private System.Collections.Generic.ISet<SalesPersonQuotaHistory> _salesPersonQuotaHistories;
+		private Iesi.Collections.Generic.ISet<SalesOrderHeader> _salesOrderHeaders;
+		private Iesi.Collections.Generic.ISet<SalesPersonQuotaHistory> _salesPersonQuotaHistories;
 		private SalesTerritory _salesTerritory;
-		private System.Collections.Generic.ISet<SalesTerritoryHistory> _salesTerritoryHistories;
-		private System.Collections.Generic.ISet<Store> _stores;
+		private Iesi.Collections.Generic.ISet<SalesTerritoryHistory> _salesTerritoryHistories;
+		private Iesi.Collections.Generic.ISet<Store> _stores;
 		private System.Decimal _bonus;
 		private System.Decimal _commissionPct;
 		private System.DateTime _modifiedDate;
@@ -30,10 +30,10 @@ namespace NH.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="SalesPerson"/> class.</summary>
 		public SalesPerson() : base()
 		{
-			_salesOrderHeaders = new Iesi.Collections.Generic.LinkedHashSet<SalesOrderHeader>();
-			_salesPersonQuotaHistories = new Iesi.Collections.Generic.LinkedHashSet<SalesPersonQuotaHistory>();
-			_salesTerritoryHistories = new Iesi.Collections.Generic.LinkedHashSet<SalesTerritoryHistory>();
-			_stores = new Iesi.Collections.Generic.LinkedHashSet<Store>();
+			_salesOrderHeaders = new Iesi.Collections.Generic.HashedSet<SalesOrderHeader>();
+			_salesPersonQuotaHistories = new Iesi.Collections.Generic.HashedSet<SalesPersonQuotaHistory>();
+			_salesTerritoryHistories = new Iesi.Collections.Generic.HashedSet<SalesTerritoryHistory>();
+			_stores = new Iesi.Collections.Generic.HashedSet<Store>();
 			OnCreated();
 		}
 
@@ -123,14 +123,14 @@ namespace NH.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderHeader.SalesPerson - SalesPerson.SalesOrderHeaders (m:1)'</summary>
-		public virtual System.Collections.Generic.ISet<SalesOrderHeader> SalesOrderHeaders
+		public virtual Iesi.Collections.Generic.ISet<SalesOrderHeader> SalesOrderHeaders
 		{
 			get { return _salesOrderHeaders; }
 			set { _salesOrderHeaders = value; }
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesPersonQuotaHistory.SalesPerson - SalesPerson.SalesPersonQuotaHistories (m:1)'</summary>
-		public virtual System.Collections.Generic.ISet<SalesPersonQuotaHistory> SalesPersonQuotaHistories
+		public virtual Iesi.Collections.Generic.ISet<SalesPersonQuotaHistory> SalesPersonQuotaHistories
 		{
 			get { return _salesPersonQuotaHistories; }
 			set { _salesPersonQuotaHistories = value; }
@@ -144,14 +144,14 @@ namespace NH.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesTerritoryHistory.SalesPerson - SalesPerson.SalesTerritoryHistories (m:1)'</summary>
-		public virtual System.Collections.Generic.ISet<SalesTerritoryHistory> SalesTerritoryHistories
+		public virtual Iesi.Collections.Generic.ISet<SalesTerritoryHistory> SalesTerritoryHistories
 		{
 			get { return _salesTerritoryHistories; }
 			set { _salesTerritoryHistories = value; }
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'Store.SalesPerson - SalesPerson.Stores (m:1)'</summary>
-		public virtual System.Collections.Generic.ISet<Store> Stores
+		public virtual Iesi.Collections.Generic.ISet<Store> Stores
 		{
 			get { return _stores; }
 			set { _stores = value; }

@@ -12,11 +12,11 @@ namespace NH.Bencher.EntityClasses
 	{
 		#region Class Member Declarations
 		private CountryRegion _countryRegion;
-		private System.Collections.Generic.ISet<Customer> _customers;
-		private System.Collections.Generic.ISet<SalesOrderHeader> _salesOrderHeaders;
-		private System.Collections.Generic.ISet<SalesPerson> _salesPeople;
-		private System.Collections.Generic.ISet<SalesTerritoryHistory> _salesTerritoryHistories;
-		private System.Collections.Generic.ISet<StateProvince> _stateProvinces;
+		private Iesi.Collections.Generic.ISet<Customer> _customers;
+		private Iesi.Collections.Generic.ISet<SalesOrderHeader> _salesOrderHeaders;
+		private Iesi.Collections.Generic.ISet<SalesPerson> _salesPeople;
+		private Iesi.Collections.Generic.ISet<SalesTerritoryHistory> _salesTerritoryHistories;
+		private Iesi.Collections.Generic.ISet<StateProvince> _stateProvinces;
 		private System.Decimal _costLastYear;
 		private System.Decimal _costYtd;
 		private System.String _group;
@@ -31,11 +31,11 @@ namespace NH.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="SalesTerritory"/> class.</summary>
 		public SalesTerritory() : base()
 		{
-			_customers = new Iesi.Collections.Generic.LinkedHashSet<Customer>();
-			_salesOrderHeaders = new Iesi.Collections.Generic.LinkedHashSet<SalesOrderHeader>();
-			_salesPeople = new Iesi.Collections.Generic.LinkedHashSet<SalesPerson>();
-			_salesTerritoryHistories = new Iesi.Collections.Generic.LinkedHashSet<SalesTerritoryHistory>();
-			_stateProvinces = new Iesi.Collections.Generic.LinkedHashSet<StateProvince>();
+			_customers = new Iesi.Collections.Generic.HashedSet<Customer>();
+			_salesOrderHeaders = new Iesi.Collections.Generic.HashedSet<SalesOrderHeader>();
+			_salesPeople = new Iesi.Collections.Generic.HashedSet<SalesPerson>();
+			_salesTerritoryHistories = new Iesi.Collections.Generic.HashedSet<SalesTerritoryHistory>();
+			_stateProvinces = new Iesi.Collections.Generic.HashedSet<StateProvince>();
 			_territoryId = default(System.Int32);
 			OnCreated();
 		}
@@ -137,35 +137,35 @@ namespace NH.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'Customer.SalesTerritory - SalesTerritory.Customers (m:1)'</summary>
-		public virtual System.Collections.Generic.ISet<Customer> Customers
+		public virtual Iesi.Collections.Generic.ISet<Customer> Customers
 		{
 			get { return _customers; }
 			set { _customers = value; }
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderHeader.SalesTerritory - SalesTerritory.SalesOrderHeaders (m:1)'</summary>
-		public virtual System.Collections.Generic.ISet<SalesOrderHeader> SalesOrderHeaders
+		public virtual Iesi.Collections.Generic.ISet<SalesOrderHeader> SalesOrderHeaders
 		{
 			get { return _salesOrderHeaders; }
 			set { _salesOrderHeaders = value; }
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesPerson.SalesTerritory - SalesTerritory.SalesPeople (m:1)'</summary>
-		public virtual System.Collections.Generic.ISet<SalesPerson> SalesPeople
+		public virtual Iesi.Collections.Generic.ISet<SalesPerson> SalesPeople
 		{
 			get { return _salesPeople; }
 			set { _salesPeople = value; }
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesTerritoryHistory.SalesTerritory - SalesTerritory.SalesTerritoryHistories (m:1)'</summary>
-		public virtual System.Collections.Generic.ISet<SalesTerritoryHistory> SalesTerritoryHistories
+		public virtual Iesi.Collections.Generic.ISet<SalesTerritoryHistory> SalesTerritoryHistories
 		{
 			get { return _salesTerritoryHistories; }
 			set { _salesTerritoryHistories = value; }
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'StateProvince.SalesTerritory - SalesTerritory.StateProvinces (m:1)'</summary>
-		public virtual System.Collections.Generic.ISet<StateProvince> StateProvinces
+		public virtual Iesi.Collections.Generic.ISet<StateProvince> StateProvinces
 		{
 			get { return _stateProvinces; }
 			set { _stateProvinces = value; }

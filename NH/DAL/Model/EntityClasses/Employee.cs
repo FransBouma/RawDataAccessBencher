@@ -11,12 +11,12 @@ namespace NH.Bencher.EntityClasses
 	public partial class Employee
 	{
 		#region Class Member Declarations
-		private System.Collections.Generic.ISet<Document> _documents;
-		private System.Collections.Generic.ISet<EmployeeDepartmentHistory> _employeeDepartmentHistories;
-		private System.Collections.Generic.ISet<EmployeePayHistory> _employeePayHistories;
-		private System.Collections.Generic.ISet<JobCandidate> _jobCandidates;
+		private Iesi.Collections.Generic.ISet<Document> _documents;
+		private Iesi.Collections.Generic.ISet<EmployeeDepartmentHistory> _employeeDepartmentHistories;
+		private Iesi.Collections.Generic.ISet<EmployeePayHistory> _employeePayHistories;
+		private Iesi.Collections.Generic.ISet<JobCandidate> _jobCandidates;
 		private Person _person;
-		private System.Collections.Generic.ISet<PurchaseOrderHeader> _purchaseOrderHeaders;
+		private Iesi.Collections.Generic.ISet<PurchaseOrderHeader> _purchaseOrderHeaders;
 		private SalesPerson _salesPerson;
 		private System.DateTime _birthDate;
 		private System.Boolean _currentFlag;
@@ -39,11 +39,11 @@ namespace NH.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="Employee"/> class.</summary>
 		public Employee() : base()
 		{
-			_documents = new Iesi.Collections.Generic.LinkedHashSet<Document>();
-			_employeeDepartmentHistories = new Iesi.Collections.Generic.LinkedHashSet<EmployeeDepartmentHistory>();
-			_employeePayHistories = new Iesi.Collections.Generic.LinkedHashSet<EmployeePayHistory>();
-			_jobCandidates = new Iesi.Collections.Generic.LinkedHashSet<JobCandidate>();
-			_purchaseOrderHeaders = new Iesi.Collections.Generic.LinkedHashSet<PurchaseOrderHeader>();
+			_documents = new Iesi.Collections.Generic.HashedSet<Document>();
+			_employeeDepartmentHistories = new Iesi.Collections.Generic.HashedSet<EmployeeDepartmentHistory>();
+			_employeePayHistories = new Iesi.Collections.Generic.HashedSet<EmployeePayHistory>();
+			_jobCandidates = new Iesi.Collections.Generic.HashedSet<JobCandidate>();
+			_purchaseOrderHeaders = new Iesi.Collections.Generic.HashedSet<PurchaseOrderHeader>();
 			_employeeId = default(System.Int32);
 			_organizationLevel = default(Nullable<System.Int16>);
 			OnCreated();
@@ -182,28 +182,28 @@ namespace NH.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'Document.Employee - Employee.Documents (m:1)'</summary>
-		public virtual System.Collections.Generic.ISet<Document> Documents
+		public virtual Iesi.Collections.Generic.ISet<Document> Documents
 		{
 			get { return _documents; }
 			set { _documents = value; }
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'EmployeeDepartmentHistory.Employee - Employee.EmployeeDepartmentHistories (m:1)'</summary>
-		public virtual System.Collections.Generic.ISet<EmployeeDepartmentHistory> EmployeeDepartmentHistories
+		public virtual Iesi.Collections.Generic.ISet<EmployeeDepartmentHistory> EmployeeDepartmentHistories
 		{
 			get { return _employeeDepartmentHistories; }
 			set { _employeeDepartmentHistories = value; }
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'EmployeePayHistory.Employee - Employee.EmployeePayHistories (m:1)'</summary>
-		public virtual System.Collections.Generic.ISet<EmployeePayHistory> EmployeePayHistories
+		public virtual Iesi.Collections.Generic.ISet<EmployeePayHistory> EmployeePayHistories
 		{
 			get { return _employeePayHistories; }
 			set { _employeePayHistories = value; }
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'JobCandidate.Employee - Employee.JobCandidates (m:1)'</summary>
-		public virtual System.Collections.Generic.ISet<JobCandidate> JobCandidates
+		public virtual Iesi.Collections.Generic.ISet<JobCandidate> JobCandidates
 		{
 			get { return _jobCandidates; }
 			set { _jobCandidates = value; }
@@ -217,7 +217,7 @@ namespace NH.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'PurchaseOrderHeader.Employee - Employee.PurchaseOrderHeaders (m:1)'</summary>
-		public virtual System.Collections.Generic.ISet<PurchaseOrderHeader> PurchaseOrderHeaders
+		public virtual Iesi.Collections.Generic.ISet<PurchaseOrderHeader> PurchaseOrderHeaders
 		{
 			get { return _purchaseOrderHeaders; }
 			set { _purchaseOrderHeaders = value; }

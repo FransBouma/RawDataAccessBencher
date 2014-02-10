@@ -11,7 +11,7 @@ namespace NH.Bencher.EntityClasses
 	public partial class AddressType
 	{
 		#region Class Member Declarations
-		private System.Collections.Generic.ISet<BusinessEntityAddress> _businessEntityAddresses;
+		private Iesi.Collections.Generic.ISet<BusinessEntityAddress> _businessEntityAddresses;
 		private System.Int32 _addressTypeId;
 		private System.DateTime _modifiedDate;
 		private System.String _name;
@@ -21,7 +21,7 @@ namespace NH.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="AddressType"/> class.</summary>
 		public AddressType() : base()
 		{
-			_businessEntityAddresses = new Iesi.Collections.Generic.LinkedHashSet<BusinessEntityAddress>();
+			_businessEntityAddresses = new Iesi.Collections.Generic.HashedSet<BusinessEntityAddress>();
 			_addressTypeId = default(System.Int32);
 			OnCreated();
 		}
@@ -81,7 +81,7 @@ namespace NH.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'BusinessEntityAddress.AddressType - AddressType.BusinessEntityAddresses (m:1)'</summary>
-		public virtual System.Collections.Generic.ISet<BusinessEntityAddress> BusinessEntityAddresses
+		public virtual Iesi.Collections.Generic.ISet<BusinessEntityAddress> BusinessEntityAddresses
 		{
 			get { return _businessEntityAddresses; }
 			set { _businessEntityAddresses = value; }

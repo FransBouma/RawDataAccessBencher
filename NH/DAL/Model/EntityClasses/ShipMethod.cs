@@ -11,8 +11,8 @@ namespace NH.Bencher.EntityClasses
 	public partial class ShipMethod
 	{
 		#region Class Member Declarations
-		private System.Collections.Generic.ISet<PurchaseOrderHeader> _purchaseOrderHeaders;
-		private System.Collections.Generic.ISet<SalesOrderHeader> _salesOrderHeaders;
+		private Iesi.Collections.Generic.ISet<PurchaseOrderHeader> _purchaseOrderHeaders;
+		private Iesi.Collections.Generic.ISet<SalesOrderHeader> _salesOrderHeaders;
 		private System.DateTime _modifiedDate;
 		private System.String _name;
 		private System.Guid _rowguid;
@@ -24,8 +24,8 @@ namespace NH.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="ShipMethod"/> class.</summary>
 		public ShipMethod() : base()
 		{
-			_purchaseOrderHeaders = new Iesi.Collections.Generic.LinkedHashSet<PurchaseOrderHeader>();
-			_salesOrderHeaders = new Iesi.Collections.Generic.LinkedHashSet<SalesOrderHeader>();
+			_purchaseOrderHeaders = new Iesi.Collections.Generic.HashedSet<PurchaseOrderHeader>();
+			_salesOrderHeaders = new Iesi.Collections.Generic.HashedSet<SalesOrderHeader>();
 			_shipMethodId = default(System.Int32);
 			OnCreated();
 		}
@@ -99,14 +99,14 @@ namespace NH.Bencher.EntityClasses
 		}
 
 		/// <summary>Represents the navigator which is mapped onto the association 'PurchaseOrderHeader.ShipMethod - ShipMethod.PurchaseOrderHeaders (m:1)'</summary>
-		public virtual System.Collections.Generic.ISet<PurchaseOrderHeader> PurchaseOrderHeaders
+		public virtual Iesi.Collections.Generic.ISet<PurchaseOrderHeader> PurchaseOrderHeaders
 		{
 			get { return _purchaseOrderHeaders; }
 			set { _purchaseOrderHeaders = value; }
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderHeader.ShipMethod - ShipMethod.SalesOrderHeaders (m:1)'</summary>
-		public virtual System.Collections.Generic.ISet<SalesOrderHeader> SalesOrderHeaders
+		public virtual Iesi.Collections.Generic.ISet<SalesOrderHeader> SalesOrderHeaders
 		{
 			get { return _salesOrderHeaders; }
 			set { _salesOrderHeaders = value; }

@@ -12,7 +12,7 @@ namespace NH.Bencher.EntityClasses
 	{
 		#region Class Member Declarations
 		private Person _person;
-		private System.Collections.Generic.ISet<SalesOrderHeader> _salesOrderHeaders;
+		private Iesi.Collections.Generic.ISet<SalesOrderHeader> _salesOrderHeaders;
 		private SalesTerritory _salesTerritory;
 		private Store _store;
 		private System.String _accountNumber;
@@ -24,7 +24,7 @@ namespace NH.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="Customer"/> class.</summary>
 		public Customer() : base()
 		{
-			_salesOrderHeaders = new Iesi.Collections.Generic.LinkedHashSet<SalesOrderHeader>();
+			_salesOrderHeaders = new Iesi.Collections.Generic.HashedSet<SalesOrderHeader>();
 			_accountNumber = default(System.String);
 			_customerId = default(System.Int32);
 			OnCreated();
@@ -91,7 +91,7 @@ namespace NH.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderHeader.Customer - Customer.SalesOrderHeaders (m:1)'</summary>
-		public virtual System.Collections.Generic.ISet<SalesOrderHeader> SalesOrderHeaders
+		public virtual Iesi.Collections.Generic.ISet<SalesOrderHeader> SalesOrderHeaders
 		{
 			get { return _salesOrderHeaders; }
 			set { _salesOrderHeaders = value; }

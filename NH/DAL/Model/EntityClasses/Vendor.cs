@@ -12,8 +12,8 @@ namespace NH.Bencher.EntityClasses
 	{
 		#region Class Member Declarations
 		private BusinessEntity _businessEntity;
-		private System.Collections.Generic.ISet<ProductVendor> _productVendors;
-		private System.Collections.Generic.ISet<PurchaseOrderHeader> _purchaseOrderHeaders;
+		private Iesi.Collections.Generic.ISet<ProductVendor> _productVendors;
+		private Iesi.Collections.Generic.ISet<PurchaseOrderHeader> _purchaseOrderHeaders;
 		private System.String _accountNumber;
 		private System.Boolean _activeFlag;
 		private System.Byte _creditRating;
@@ -27,8 +27,8 @@ namespace NH.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="Vendor"/> class.</summary>
 		public Vendor() : base()
 		{
-			_productVendors = new Iesi.Collections.Generic.LinkedHashSet<ProductVendor>();
-			_purchaseOrderHeaders = new Iesi.Collections.Generic.LinkedHashSet<PurchaseOrderHeader>();
+			_productVendors = new Iesi.Collections.Generic.HashedSet<ProductVendor>();
+			_purchaseOrderHeaders = new Iesi.Collections.Generic.HashedSet<PurchaseOrderHeader>();
 			_vendorId = default(System.Int32);
 			OnCreated();
 		}
@@ -118,14 +118,14 @@ namespace NH.Bencher.EntityClasses
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductVendor.Vendor - Vendor.ProductVendors (m:1)'</summary>
-		public virtual System.Collections.Generic.ISet<ProductVendor> ProductVendors
+		public virtual Iesi.Collections.Generic.ISet<ProductVendor> ProductVendors
 		{
 			get { return _productVendors; }
 			set { _productVendors = value; }
 		}
 		
 		/// <summary>Represents the navigator which is mapped onto the association 'PurchaseOrderHeader.Vendor - Vendor.PurchaseOrderHeaders (m:1)'</summary>
-		public virtual System.Collections.Generic.ISet<PurchaseOrderHeader> PurchaseOrderHeaders
+		public virtual Iesi.Collections.Generic.ISet<PurchaseOrderHeader> PurchaseOrderHeaders
 		{
 			get { return _purchaseOrderHeaders; }
 			set { _purchaseOrderHeaders = value; }
