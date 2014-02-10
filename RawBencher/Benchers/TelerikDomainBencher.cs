@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace RawBencher.Benchers
 {
-    public class TelerikDomainBencher : BencherBase<Telerik.Bencher.Model.SalesOrderHeader>
+	public class TelerikDomainBencher : BencherBase<Telerik.Bencher.Model.SalesOrderHeader>
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="PetaPocoBencher" /> class.
 		/// </summary>
-        public TelerikDomainBencher()
-			: base(e => e.SalesOrderID, usesChangeTracking:true, usesCaching:false)
+		public TelerikDomainBencher()
+			: base(e => e.SalesOrderID, usesChangeTracking: true, usesCaching: false)
 		{
 		}
-		
+
 		/// <summary>
 		/// Fetches the individual element
 		/// </summary>
@@ -23,11 +23,18 @@ namespace RawBencher.Benchers
 		/// <returns>The fetched element, or null if not found</returns>
 		public override Telerik.Bencher.Model.SalesOrderHeader FetchIndividual(int key)
 		{
-            Telerik.Bencher.Model.SalesOrderHeader toReturn = null;
-            using (var dbFactory = new Telerik.Bencher.Model.DomainModel(ConnectionStringToUse))
-            {
-                toReturn = dbFactory.SalesOrderHeaders.First<Telerik.Bencher.Model.SalesOrderHeader>(p => p.SalesOrderID == key);
-            }
+			Telerik.Bencher.Model.SalesOrderHeader toReturn = null;
+			try
+			{
+				using (var dbFactory = new Telerik.Bencher.Model.DomainModel(ConnectionStringToUse))
+				{
+					toReturn = dbFactory.SalesOrderHeaders.First<Telerik.Bencher.Model.SalesOrderHeader>(p => p.SalesOrderID == key);
+				}
+			}
+			catch (TypeInitializationException ex)
+			{
+				throw new Exception("Error initializing context. See README.txt in Telerik.Bencher.Model project", ex);
+			}
 			return toReturn;
 		}
 
@@ -36,14 +43,21 @@ namespace RawBencher.Benchers
 		/// Fetches the complete set of elements and returns this set as an IEnumerable.
 		/// </summary>
 		/// <returns>the set fetched</returns>
-        public override IEnumerable<Telerik.Bencher.Model.SalesOrderHeader> FetchSet()
+		public override IEnumerable<Telerik.Bencher.Model.SalesOrderHeader> FetchSet()
 		{
-            List<Telerik.Bencher.Model.SalesOrderHeader> headers;
-            using (var dbFactory = new Telerik.Bencher.Model.DomainModel(ConnectionStringToUse))
-            {
-                dbFactory.ContextOptions.IsolationLevel = System.Data.IsolationLevel.ReadCommitted;
-                headers = dbFactory.SalesOrderHeaders.ToList<Telerik.Bencher.Model.SalesOrderHeader>();
-            }
+			List<Telerik.Bencher.Model.SalesOrderHeader> headers;
+			try
+			{
+				using (var dbFactory = new Telerik.Bencher.Model.DomainModel(ConnectionStringToUse))
+				{
+					dbFactory.ContextOptions.IsolationLevel = System.Data.IsolationLevel.ReadCommitted;
+					headers = dbFactory.SalesOrderHeaders.ToList<Telerik.Bencher.Model.SalesOrderHeader>();
+				}
+			}
+			catch (TypeInitializationException ex)
+			{
+				throw new Exception("Error initializing context. See README.txt in Telerik.Bencher.Model project", ex);
+			}
 			return headers;
 		}
 
@@ -58,11 +72,11 @@ namespace RawBencher.Benchers
 			return "Telerik DataAccess Domain v4.0.3";
 		}
 
-        #region Properties
-        /// <summary>
-        /// Gets or sets the connection string to use
-        /// </summary>
-        public string ConnectionStringToUse { get; set; }
-        #endregion
+		#region Properties
+		/// <summary>
+		/// Gets or sets the connection string to use
+		/// </summary>
+		public string ConnectionStringToUse { get; set; }
+		#endregion
 	}
 }
