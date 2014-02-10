@@ -53,6 +53,54 @@ namespace Telerik.Bencher.Model.Fluent
 			:base(connection, backendConfiguration, metadataSource)
 		{ }
 			
+		public IQueryable<WorkOrderRouting> WorkOrderRoutings 
+		{
+			get
+			{
+				return this.GetAll<WorkOrderRouting>();
+			}
+		}
+		
+		public IQueryable<WorkOrder> WorkOrders 
+		{
+			get
+			{
+				return this.GetAll<WorkOrder>();
+			}
+		}
+		
+		public IQueryable<Vendor> Vendors 
+		{
+			get
+			{
+				return this.GetAll<Vendor>();
+			}
+		}
+		
+		public IQueryable<UnitMeasure> UnitMeasures 
+		{
+			get
+			{
+				return this.GetAll<UnitMeasure>();
+			}
+		}
+		
+		public IQueryable<TransactionHistoryArchive> TransactionHistoryArchives 
+		{
+			get
+			{
+				return this.GetAll<TransactionHistoryArchive>();
+			}
+		}
+		
+		public IQueryable<TransactionHistory> TransactionHistories 
+		{
+			get
+			{
+				return this.GetAll<TransactionHistory>();
+			}
+		}
+		
 		public IQueryable<Store> Stores 
 		{
 			get
@@ -90,6 +138,30 @@ namespace Telerik.Bencher.Model.Fluent
 			get
 			{
 				return this.GetAll<ShoppingCartItem>();
+			}
+		}
+		
+		public IQueryable<ShipMethod> ShipMethods 
+		{
+			get
+			{
+				return this.GetAll<ShipMethod>();
+			}
+		}
+		
+		public IQueryable<Shift> Shifts 
+		{
+			get
+			{
+				return this.GetAll<Shift>();
+			}
+		}
+		
+		public IQueryable<ScrapReason> ScrapReasons 
+		{
+			get
+			{
+				return this.GetAll<ScrapReason>();
 			}
 		}
 		
@@ -165,6 +237,134 @@ namespace Telerik.Bencher.Model.Fluent
 			}
 		}
 		
+		public IQueryable<PurchaseOrderHeader> PurchaseOrderHeaders 
+		{
+			get
+			{
+				return this.GetAll<PurchaseOrderHeader>();
+			}
+		}
+		
+		public IQueryable<PurchaseOrderDetail> PurchaseOrderDetails 
+		{
+			get
+			{
+				return this.GetAll<PurchaseOrderDetail>();
+			}
+		}
+		
+		public IQueryable<ProductVendor> ProductVendors 
+		{
+			get
+			{
+				return this.GetAll<ProductVendor>();
+			}
+		}
+		
+		public IQueryable<ProductSubcategory> ProductSubcategories 
+		{
+			get
+			{
+				return this.GetAll<ProductSubcategory>();
+			}
+		}
+		
+		public IQueryable<ProductReview> ProductReviews 
+		{
+			get
+			{
+				return this.GetAll<ProductReview>();
+			}
+		}
+		
+		public IQueryable<ProductProductPhoto> ProductProductPhotos 
+		{
+			get
+			{
+				return this.GetAll<ProductProductPhoto>();
+			}
+		}
+		
+		public IQueryable<ProductPhoto> ProductPhotos 
+		{
+			get
+			{
+				return this.GetAll<ProductPhoto>();
+			}
+		}
+		
+		public IQueryable<ProductModelProductDescriptionCulture> ProductModelProductDescriptionCultures 
+		{
+			get
+			{
+				return this.GetAll<ProductModelProductDescriptionCulture>();
+			}
+		}
+		
+		public IQueryable<ProductModelIllustration> ProductModelIllustrations 
+		{
+			get
+			{
+				return this.GetAll<ProductModelIllustration>();
+			}
+		}
+		
+		public IQueryable<ProductModel> ProductModels 
+		{
+			get
+			{
+				return this.GetAll<ProductModel>();
+			}
+		}
+		
+		public IQueryable<ProductListPriceHistory> ProductListPriceHistories 
+		{
+			get
+			{
+				return this.GetAll<ProductListPriceHistory>();
+			}
+		}
+		
+		public IQueryable<ProductInventory> ProductInventories 
+		{
+			get
+			{
+				return this.GetAll<ProductInventory>();
+			}
+		}
+		
+		public IQueryable<ProductDescription> ProductDescriptions 
+		{
+			get
+			{
+				return this.GetAll<ProductDescription>();
+			}
+		}
+		
+		public IQueryable<ProductCostHistory> ProductCostHistories 
+		{
+			get
+			{
+				return this.GetAll<ProductCostHistory>();
+			}
+		}
+		
+		public IQueryable<ProductCategory> ProductCategories 
+		{
+			get
+			{
+				return this.GetAll<ProductCategory>();
+			}
+		}
+		
+		public IQueryable<Product> Products 
+		{
+			get
+			{
+				return this.GetAll<Product>();
+			}
+		}
+		
 		public IQueryable<PhoneNumberType> PhoneNumberTypes 
 		{
 			get
@@ -205,11 +405,67 @@ namespace Telerik.Bencher.Model.Fluent
 			}
 		}
 		
+		public IQueryable<Location> Locations 
+		{
+			get
+			{
+				return this.GetAll<Location>();
+			}
+		}
+		
+		public IQueryable<JobCandidate> JobCandidates 
+		{
+			get
+			{
+				return this.GetAll<JobCandidate>();
+			}
+		}
+		
+		public IQueryable<Illustration> Illustrations 
+		{
+			get
+			{
+				return this.GetAll<Illustration>();
+			}
+		}
+		
+		public IQueryable<EmployeePayHistory> EmployeePayHistories 
+		{
+			get
+			{
+				return this.GetAll<EmployeePayHistory>();
+			}
+		}
+		
+		public IQueryable<EmployeeDepartmentHistory> EmployeeDepartmentHistories 
+		{
+			get
+			{
+				return this.GetAll<EmployeeDepartmentHistory>();
+			}
+		}
+		
+		public IQueryable<Employee> Employees 
+		{
+			get
+			{
+				return this.GetAll<Employee>();
+			}
+		}
+		
 		public IQueryable<EmailAddress> EmailAddresses 
 		{
 			get
 			{
 				return this.GetAll<EmailAddress>();
+			}
+		}
+		
+		public IQueryable<Department> Departments 
+		{
+			get
+			{
+				return this.GetAll<Department>();
 			}
 		}
 		
@@ -234,6 +490,14 @@ namespace Telerik.Bencher.Model.Fluent
 			get
 			{
 				return this.GetAll<Currency>();
+			}
+		}
+		
+		public IQueryable<Culture> Cultures 
+		{
+			get
+			{
+				return this.GetAll<Culture>();
 			}
 		}
 		
@@ -293,6 +557,14 @@ namespace Telerik.Bencher.Model.Fluent
 			}
 		}
 		
+		public IQueryable<BillOfMaterial> BillOfMaterials 
+		{
+			get
+			{
+				return this.GetAll<BillOfMaterial>();
+			}
+		}
+		
 		public IQueryable<AddressType> AddressTypes 
 		{
 			get
@@ -320,6 +592,30 @@ namespace Telerik.Bencher.Model.Fluent
 	
 	public interface IFluentModelUnitOfWork : IUnitOfWork
 	{
+		IQueryable<WorkOrderRouting> WorkOrderRoutings
+		{
+			get;
+		}
+		IQueryable<WorkOrder> WorkOrders
+		{
+			get;
+		}
+		IQueryable<Vendor> Vendors
+		{
+			get;
+		}
+		IQueryable<UnitMeasure> UnitMeasures
+		{
+			get;
+		}
+		IQueryable<TransactionHistoryArchive> TransactionHistoryArchives
+		{
+			get;
+		}
+		IQueryable<TransactionHistory> TransactionHistories
+		{
+			get;
+		}
 		IQueryable<Store> Stores
 		{
 			get;
@@ -337,6 +633,18 @@ namespace Telerik.Bencher.Model.Fluent
 			get;
 		}
 		IQueryable<ShoppingCartItem> ShoppingCartItems
+		{
+			get;
+		}
+		IQueryable<ShipMethod> ShipMethods
+		{
+			get;
+		}
+		IQueryable<Shift> Shifts
+		{
+			get;
+		}
+		IQueryable<ScrapReason> ScrapReasons
 		{
 			get;
 		}
@@ -376,6 +684,70 @@ namespace Telerik.Bencher.Model.Fluent
 		{
 			get;
 		}
+		IQueryable<PurchaseOrderHeader> PurchaseOrderHeaders
+		{
+			get;
+		}
+		IQueryable<PurchaseOrderDetail> PurchaseOrderDetails
+		{
+			get;
+		}
+		IQueryable<ProductVendor> ProductVendors
+		{
+			get;
+		}
+		IQueryable<ProductSubcategory> ProductSubcategories
+		{
+			get;
+		}
+		IQueryable<ProductReview> ProductReviews
+		{
+			get;
+		}
+		IQueryable<ProductProductPhoto> ProductProductPhotos
+		{
+			get;
+		}
+		IQueryable<ProductPhoto> ProductPhotos
+		{
+			get;
+		}
+		IQueryable<ProductModelProductDescriptionCulture> ProductModelProductDescriptionCultures
+		{
+			get;
+		}
+		IQueryable<ProductModelIllustration> ProductModelIllustrations
+		{
+			get;
+		}
+		IQueryable<ProductModel> ProductModels
+		{
+			get;
+		}
+		IQueryable<ProductListPriceHistory> ProductListPriceHistories
+		{
+			get;
+		}
+		IQueryable<ProductInventory> ProductInventories
+		{
+			get;
+		}
+		IQueryable<ProductDescription> ProductDescriptions
+		{
+			get;
+		}
+		IQueryable<ProductCostHistory> ProductCostHistories
+		{
+			get;
+		}
+		IQueryable<ProductCategory> ProductCategories
+		{
+			get;
+		}
+		IQueryable<Product> Products
+		{
+			get;
+		}
 		IQueryable<PhoneNumberType> PhoneNumberTypes
 		{
 			get;
@@ -396,7 +768,35 @@ namespace Telerik.Bencher.Model.Fluent
 		{
 			get;
 		}
+		IQueryable<Location> Locations
+		{
+			get;
+		}
+		IQueryable<JobCandidate> JobCandidates
+		{
+			get;
+		}
+		IQueryable<Illustration> Illustrations
+		{
+			get;
+		}
+		IQueryable<EmployeePayHistory> EmployeePayHistories
+		{
+			get;
+		}
+		IQueryable<EmployeeDepartmentHistory> EmployeeDepartmentHistories
+		{
+			get;
+		}
+		IQueryable<Employee> Employees
+		{
+			get;
+		}
 		IQueryable<EmailAddress> EmailAddresses
+		{
+			get;
+		}
+		IQueryable<Department> Departments
 		{
 			get;
 		}
@@ -409,6 +809,10 @@ namespace Telerik.Bencher.Model.Fluent
 			get;
 		}
 		IQueryable<Currency> Currencies
+		{
+			get;
+		}
+		IQueryable<Culture> Cultures
 		{
 			get;
 		}
@@ -440,6 +844,10 @@ namespace Telerik.Bencher.Model.Fluent
 		{
 			get;
 		}
+		IQueryable<BillOfMaterial> BillOfMaterials
+		{
+			get;
+		}
 		IQueryable<AddressType> AddressTypes
 		{
 			get;
@@ -448,6 +856,846 @@ namespace Telerik.Bencher.Model.Fluent
 		{
 			get;
 		}
+	}
+}
+namespace Telerik.Bencher.Model.Fluent	
+{
+	public partial class WorkOrderRouting
+	{
+		private int _workOrderID;
+		public virtual int WorkOrderID
+		{
+			get
+			{
+				return this._workOrderID;
+			}
+			set
+			{
+				this._workOrderID = value;
+			}
+		}
+		
+		private int _productID;
+		public virtual int ProductID
+		{
+			get
+			{
+				return this._productID;
+			}
+			set
+			{
+				this._productID = value;
+			}
+		}
+		
+		private short _operationSequence;
+		public virtual short OperationSequence
+		{
+			get
+			{
+				return this._operationSequence;
+			}
+			set
+			{
+				this._operationSequence = value;
+			}
+		}
+		
+		private short _locationID;
+		public virtual short LocationID
+		{
+			get
+			{
+				return this._locationID;
+			}
+			set
+			{
+				this._locationID = value;
+			}
+		}
+		
+		private DateTime _scheduledStartDate;
+		public virtual DateTime ScheduledStartDate
+		{
+			get
+			{
+				return this._scheduledStartDate;
+			}
+			set
+			{
+				this._scheduledStartDate = value;
+			}
+		}
+		
+		private DateTime _scheduledEndDate;
+		public virtual DateTime ScheduledEndDate
+		{
+			get
+			{
+				return this._scheduledEndDate;
+			}
+			set
+			{
+				this._scheduledEndDate = value;
+			}
+		}
+		
+		private DateTime? _actualStartDate;
+		public virtual DateTime? ActualStartDate
+		{
+			get
+			{
+				return this._actualStartDate;
+			}
+			set
+			{
+				this._actualStartDate = value;
+			}
+		}
+		
+		private DateTime? _actualEndDate;
+		public virtual DateTime? ActualEndDate
+		{
+			get
+			{
+				return this._actualEndDate;
+			}
+			set
+			{
+				this._actualEndDate = value;
+			}
+		}
+		
+		private decimal? _actualResourceHrs;
+		public virtual decimal? ActualResourceHrs
+		{
+			get
+			{
+				return this._actualResourceHrs;
+			}
+			set
+			{
+				this._actualResourceHrs = value;
+			}
+		}
+		
+		private decimal _plannedCost;
+		public virtual decimal PlannedCost
+		{
+			get
+			{
+				return this._plannedCost;
+			}
+			set
+			{
+				this._plannedCost = value;
+			}
+		}
+		
+		private decimal? _actualCost;
+		public virtual decimal? ActualCost
+		{
+			get
+			{
+				return this._actualCost;
+			}
+			set
+			{
+				this._actualCost = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private Location _location;
+		public virtual Location Location
+		{
+			get
+			{
+				return this._location;
+			}
+			set
+			{
+				this._location = value;
+			}
+		}
+		
+		private WorkOrder _workOrder;
+		public virtual WorkOrder WorkOrder
+		{
+			get
+			{
+				return this._workOrder;
+			}
+			set
+			{
+				this._workOrder = value;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model.Fluent	
+{
+	public partial class WorkOrder
+	{
+		private int _workOrderID;
+		public virtual int WorkOrderID
+		{
+			get
+			{
+				return this._workOrderID;
+			}
+			set
+			{
+				this._workOrderID = value;
+			}
+		}
+		
+		private int _productID;
+		public virtual int ProductID
+		{
+			get
+			{
+				return this._productID;
+			}
+			set
+			{
+				this._productID = value;
+			}
+		}
+		
+		private int _orderQty;
+		public virtual int OrderQty
+		{
+			get
+			{
+				return this._orderQty;
+			}
+			set
+			{
+				this._orderQty = value;
+			}
+		}
+		
+		private int _stockedQty;
+		public virtual int StockedQty
+		{
+			get
+			{
+				return this._stockedQty;
+			}
+			set
+			{
+				this._stockedQty = value;
+			}
+		}
+		
+		private short _scrappedQty;
+		public virtual short ScrappedQty
+		{
+			get
+			{
+				return this._scrappedQty;
+			}
+			set
+			{
+				this._scrappedQty = value;
+			}
+		}
+		
+		private DateTime _startDate;
+		public virtual DateTime StartDate
+		{
+			get
+			{
+				return this._startDate;
+			}
+			set
+			{
+				this._startDate = value;
+			}
+		}
+		
+		private DateTime? _endDate;
+		public virtual DateTime? EndDate
+		{
+			get
+			{
+				return this._endDate;
+			}
+			set
+			{
+				this._endDate = value;
+			}
+		}
+		
+		private DateTime _dueDate;
+		public virtual DateTime DueDate
+		{
+			get
+			{
+				return this._dueDate;
+			}
+			set
+			{
+				this._dueDate = value;
+			}
+		}
+		
+		private short? _scrapReasonID;
+		public virtual short? ScrapReasonID
+		{
+			get
+			{
+				return this._scrapReasonID;
+			}
+			set
+			{
+				this._scrapReasonID = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private IList<WorkOrderRouting> _workOrderRoutings = new List<WorkOrderRouting>();
+		public virtual IList<WorkOrderRouting> WorkOrderRoutings
+		{
+			get
+			{
+				return this._workOrderRoutings;
+			}
+		}
+		
+		private Product _product;
+		public virtual Product Product
+		{
+			get
+			{
+				return this._product;
+			}
+			set
+			{
+				this._product = value;
+			}
+		}
+		
+		private ScrapReason _scrapReason;
+		public virtual ScrapReason ScrapReason
+		{
+			get
+			{
+				return this._scrapReason;
+			}
+			set
+			{
+				this._scrapReason = value;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model.Fluent	
+{
+	public partial class Vendor
+	{
+		private int _businessEntityID;
+		public virtual int BusinessEntityID
+		{
+			get
+			{
+				return this._businessEntityID;
+			}
+			set
+			{
+				this._businessEntityID = value;
+			}
+		}
+		
+		private string _accountNumber;
+		public virtual string AccountNumber
+		{
+			get
+			{
+				return this._accountNumber;
+			}
+			set
+			{
+				this._accountNumber = value;
+			}
+		}
+		
+		private string _name;
+		public virtual string Name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				this._name = value;
+			}
+		}
+		
+		private byte _creditRating;
+		public virtual byte CreditRating
+		{
+			get
+			{
+				return this._creditRating;
+			}
+			set
+			{
+				this._creditRating = value;
+			}
+		}
+		
+		private bool _preferredVendorStatus;
+		public virtual bool PreferredVendorStatus
+		{
+			get
+			{
+				return this._preferredVendorStatus;
+			}
+			set
+			{
+				this._preferredVendorStatus = value;
+			}
+		}
+		
+		private bool _activeFlag;
+		public virtual bool ActiveFlag
+		{
+			get
+			{
+				return this._activeFlag;
+			}
+			set
+			{
+				this._activeFlag = value;
+			}
+		}
+		
+		private string _purchasingWebServiceURL;
+		public virtual string PurchasingWebServiceURL
+		{
+			get
+			{
+				return this._purchasingWebServiceURL;
+			}
+			set
+			{
+				this._purchasingWebServiceURL = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private BusinessEntity _businessEntity;
+		public virtual BusinessEntity BusinessEntity
+		{
+			get
+			{
+				return this._businessEntity;
+			}
+			set
+			{
+				this._businessEntity = value;
+			}
+		}
+		
+		private IList<PurchaseOrderHeader> _purchaseOrderHeaders = new List<PurchaseOrderHeader>();
+		public virtual IList<PurchaseOrderHeader> PurchaseOrderHeaders
+		{
+			get
+			{
+				return this._purchaseOrderHeaders;
+			}
+		}
+		
+		private IList<ProductVendor> _productVendors = new List<ProductVendor>();
+		public virtual IList<ProductVendor> ProductVendors
+		{
+			get
+			{
+				return this._productVendors;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model.Fluent	
+{
+	public partial class UnitMeasure
+	{
+		private string _unitMeasureCode;
+		public virtual string UnitMeasureCode
+		{
+			get
+			{
+				return this._unitMeasureCode;
+			}
+			set
+			{
+				this._unitMeasureCode = value;
+			}
+		}
+		
+		private string _name;
+		public virtual string Name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				this._name = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private IList<ProductVendor> _productVendors = new List<ProductVendor>();
+		public virtual IList<ProductVendor> ProductVendors
+		{
+			get
+			{
+				return this._productVendors;
+			}
+		}
+		
+		private IList<Product> _products = new List<Product>();
+		public virtual IList<Product> Products
+		{
+			get
+			{
+				return this._products;
+			}
+		}
+		
+		private IList<Product> _products1 = new List<Product>();
+		public virtual IList<Product> Products1
+		{
+			get
+			{
+				return this._products1;
+			}
+		}
+		
+		private IList<BillOfMaterial> _billOfMaterials = new List<BillOfMaterial>();
+		public virtual IList<BillOfMaterial> BillOfMaterials
+		{
+			get
+			{
+				return this._billOfMaterials;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model.Fluent	
+{
+	public partial class TransactionHistoryArchive
+	{
+		private int _transactionID;
+		public virtual int TransactionID
+		{
+			get
+			{
+				return this._transactionID;
+			}
+			set
+			{
+				this._transactionID = value;
+			}
+		}
+		
+		private int _productID;
+		public virtual int ProductID
+		{
+			get
+			{
+				return this._productID;
+			}
+			set
+			{
+				this._productID = value;
+			}
+		}
+		
+		private int _referenceOrderID;
+		public virtual int ReferenceOrderID
+		{
+			get
+			{
+				return this._referenceOrderID;
+			}
+			set
+			{
+				this._referenceOrderID = value;
+			}
+		}
+		
+		private int _referenceOrderLineID;
+		public virtual int ReferenceOrderLineID
+		{
+			get
+			{
+				return this._referenceOrderLineID;
+			}
+			set
+			{
+				this._referenceOrderLineID = value;
+			}
+		}
+		
+		private DateTime _transactionDate;
+		public virtual DateTime TransactionDate
+		{
+			get
+			{
+				return this._transactionDate;
+			}
+			set
+			{
+				this._transactionDate = value;
+			}
+		}
+		
+		private Char _transactionType;
+		public virtual Char TransactionType
+		{
+			get
+			{
+				return this._transactionType;
+			}
+			set
+			{
+				this._transactionType = value;
+			}
+		}
+		
+		private int _quantity;
+		public virtual int Quantity
+		{
+			get
+			{
+				return this._quantity;
+			}
+			set
+			{
+				this._quantity = value;
+			}
+		}
+		
+		private decimal _actualCost;
+		public virtual decimal ActualCost
+		{
+			get
+			{
+				return this._actualCost;
+			}
+			set
+			{
+				this._actualCost = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model.Fluent	
+{
+	public partial class TransactionHistory
+	{
+		private int _transactionID;
+		public virtual int TransactionID
+		{
+			get
+			{
+				return this._transactionID;
+			}
+			set
+			{
+				this._transactionID = value;
+			}
+		}
+		
+		private int _productID;
+		public virtual int ProductID
+		{
+			get
+			{
+				return this._productID;
+			}
+			set
+			{
+				this._productID = value;
+			}
+		}
+		
+		private int _referenceOrderID;
+		public virtual int ReferenceOrderID
+		{
+			get
+			{
+				return this._referenceOrderID;
+			}
+			set
+			{
+				this._referenceOrderID = value;
+			}
+		}
+		
+		private int _referenceOrderLineID;
+		public virtual int ReferenceOrderLineID
+		{
+			get
+			{
+				return this._referenceOrderLineID;
+			}
+			set
+			{
+				this._referenceOrderLineID = value;
+			}
+		}
+		
+		private DateTime _transactionDate;
+		public virtual DateTime TransactionDate
+		{
+			get
+			{
+				return this._transactionDate;
+			}
+			set
+			{
+				this._transactionDate = value;
+			}
+		}
+		
+		private Char _transactionType;
+		public virtual Char TransactionType
+		{
+			get
+			{
+				return this._transactionType;
+			}
+			set
+			{
+				this._transactionType = value;
+			}
+		}
+		
+		private int _quantity;
+		public virtual int Quantity
+		{
+			get
+			{
+				return this._quantity;
+			}
+			set
+			{
+				this._quantity = value;
+			}
+		}
+		
+		private decimal _actualCost;
+		public virtual decimal ActualCost
+		{
+			get
+			{
+				return this._actualCost;
+			}
+			set
+			{
+				this._actualCost = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private Product _product;
+		public virtual Product Product
+		{
+			get
+			{
+				return this._product;
+			}
+			set
+			{
+				this._product = value;
+			}
+		}
+		
 	}
 }
 namespace Telerik.Bencher.Model.Fluent	
@@ -779,6 +2027,19 @@ namespace Telerik.Bencher.Model.Fluent
 			}
 		}
 		
+		private Product _product;
+		public virtual Product Product
+		{
+			get
+			{
+				return this._product;
+			}
+			set
+			{
+				this._product = value;
+			}
+		}
+		
 		private SpecialOffer _specialOffer;
 		public virtual SpecialOffer SpecialOffer
 		{
@@ -1040,6 +2301,255 @@ namespace Telerik.Bencher.Model.Fluent
 			set
 			{
 				this._modifiedDate = value;
+			}
+		}
+		
+		private Product _product;
+		public virtual Product Product
+		{
+			get
+			{
+				return this._product;
+			}
+			set
+			{
+				this._product = value;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model.Fluent	
+{
+	public partial class ShipMethod
+	{
+		private int _shipMethodID;
+		public virtual int ShipMethodID
+		{
+			get
+			{
+				return this._shipMethodID;
+			}
+			set
+			{
+				this._shipMethodID = value;
+			}
+		}
+		
+		private string _name;
+		public virtual string Name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				this._name = value;
+			}
+		}
+		
+		private decimal _shipBase;
+		public virtual decimal ShipBase
+		{
+			get
+			{
+				return this._shipBase;
+			}
+			set
+			{
+				this._shipBase = value;
+			}
+		}
+		
+		private decimal _shipRate;
+		public virtual decimal ShipRate
+		{
+			get
+			{
+				return this._shipRate;
+			}
+			set
+			{
+				this._shipRate = value;
+			}
+		}
+		
+		private Guid _rowguid;
+		public virtual Guid Rowguid
+		{
+			get
+			{
+				return this._rowguid;
+			}
+			set
+			{
+				this._rowguid = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private IList<SalesOrderHeader> _salesOrderHeaders = new List<SalesOrderHeader>();
+		public virtual IList<SalesOrderHeader> SalesOrderHeaders
+		{
+			get
+			{
+				return this._salesOrderHeaders;
+			}
+		}
+		
+		private IList<PurchaseOrderHeader> _purchaseOrderHeaders = new List<PurchaseOrderHeader>();
+		public virtual IList<PurchaseOrderHeader> PurchaseOrderHeaders
+		{
+			get
+			{
+				return this._purchaseOrderHeaders;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model.Fluent	
+{
+	public partial class Shift
+	{
+		private byte _shiftID;
+		public virtual byte ShiftID
+		{
+			get
+			{
+				return this._shiftID;
+			}
+			set
+			{
+				this._shiftID = value;
+			}
+		}
+		
+		private string _name;
+		public virtual string Name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				this._name = value;
+			}
+		}
+		
+		private DateTime _startTime;
+		public virtual DateTime StartTime
+		{
+			get
+			{
+				return this._startTime;
+			}
+			set
+			{
+				this._startTime = value;
+			}
+		}
+		
+		private DateTime _endTime;
+		public virtual DateTime EndTime
+		{
+			get
+			{
+				return this._endTime;
+			}
+			set
+			{
+				this._endTime = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private IList<EmployeeDepartmentHistory> _employeeDepartmentHistories = new List<EmployeeDepartmentHistory>();
+		public virtual IList<EmployeeDepartmentHistory> EmployeeDepartmentHistories
+		{
+			get
+			{
+				return this._employeeDepartmentHistories;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model.Fluent	
+{
+	public partial class ScrapReason
+	{
+		private short _scrapReasonID;
+		public virtual short ScrapReasonID
+		{
+			get
+			{
+				return this._scrapReasonID;
+			}
+			set
+			{
+				this._scrapReasonID = value;
+			}
+		}
+		
+		private string _name;
+		public virtual string Name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				this._name = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private IList<WorkOrder> _workOrders = new List<WorkOrder>();
+		public virtual IList<WorkOrder> WorkOrders
+		{
+			get
+			{
+				return this._workOrders;
 			}
 		}
 		
@@ -1758,6 +3268,19 @@ namespace Telerik.Bencher.Model.Fluent
 			}
 		}
 		
+		private Employee _employee;
+		public virtual Employee Employee
+		{
+			get
+			{
+				return this._employee;
+			}
+			set
+			{
+				this._employee = value;
+			}
+		}
+		
 		private SalesTerritory _salesTerritory;
 		public virtual SalesTerritory SalesTerritory
 		{
@@ -2295,6 +3818,19 @@ namespace Telerik.Bencher.Model.Fluent
 			}
 		}
 		
+		private ShipMethod _shipMethod;
+		public virtual ShipMethod ShipMethod
+		{
+			get
+			{
+				return this._shipMethod;
+			}
+			set
+			{
+				this._shipMethod = value;
+			}
+		}
+		
 		private IList<SalesOrderDetail> _salesOrderDetails = new List<SalesOrderDetail>();
 		public virtual IList<SalesOrderDetail> SalesOrderDetails
 		{
@@ -2476,6 +4012,2189 @@ namespace Telerik.Bencher.Model.Fluent
 			set
 			{
 				this._specialOfferProduct = value;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model.Fluent	
+{
+	public partial class PurchaseOrderHeader
+	{
+		private int _purchaseOrderID;
+		public virtual int PurchaseOrderID
+		{
+			get
+			{
+				return this._purchaseOrderID;
+			}
+			set
+			{
+				this._purchaseOrderID = value;
+			}
+		}
+		
+		private byte _revisionNumber;
+		public virtual byte RevisionNumber
+		{
+			get
+			{
+				return this._revisionNumber;
+			}
+			set
+			{
+				this._revisionNumber = value;
+			}
+		}
+		
+		private byte _status;
+		public virtual byte Status
+		{
+			get
+			{
+				return this._status;
+			}
+			set
+			{
+				this._status = value;
+			}
+		}
+		
+		private int _employeeID;
+		public virtual int EmployeeID
+		{
+			get
+			{
+				return this._employeeID;
+			}
+			set
+			{
+				this._employeeID = value;
+			}
+		}
+		
+		private int _vendorID;
+		public virtual int VendorID
+		{
+			get
+			{
+				return this._vendorID;
+			}
+			set
+			{
+				this._vendorID = value;
+			}
+		}
+		
+		private int _shipMethodID;
+		public virtual int ShipMethodID
+		{
+			get
+			{
+				return this._shipMethodID;
+			}
+			set
+			{
+				this._shipMethodID = value;
+			}
+		}
+		
+		private DateTime _orderDate;
+		public virtual DateTime OrderDate
+		{
+			get
+			{
+				return this._orderDate;
+			}
+			set
+			{
+				this._orderDate = value;
+			}
+		}
+		
+		private DateTime? _shipDate;
+		public virtual DateTime? ShipDate
+		{
+			get
+			{
+				return this._shipDate;
+			}
+			set
+			{
+				this._shipDate = value;
+			}
+		}
+		
+		private decimal _subTotal;
+		public virtual decimal SubTotal
+		{
+			get
+			{
+				return this._subTotal;
+			}
+			set
+			{
+				this._subTotal = value;
+			}
+		}
+		
+		private decimal _taxAmt;
+		public virtual decimal TaxAmt
+		{
+			get
+			{
+				return this._taxAmt;
+			}
+			set
+			{
+				this._taxAmt = value;
+			}
+		}
+		
+		private decimal _freight;
+		public virtual decimal Freight
+		{
+			get
+			{
+				return this._freight;
+			}
+			set
+			{
+				this._freight = value;
+			}
+		}
+		
+		private decimal _totalDue;
+		public virtual decimal TotalDue
+		{
+			get
+			{
+				return this._totalDue;
+			}
+			set
+			{
+				this._totalDue = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private Employee _employee;
+		public virtual Employee Employee
+		{
+			get
+			{
+				return this._employee;
+			}
+			set
+			{
+				this._employee = value;
+			}
+		}
+		
+		private ShipMethod _shipMethod;
+		public virtual ShipMethod ShipMethod
+		{
+			get
+			{
+				return this._shipMethod;
+			}
+			set
+			{
+				this._shipMethod = value;
+			}
+		}
+		
+		private Vendor _vendor;
+		public virtual Vendor Vendor
+		{
+			get
+			{
+				return this._vendor;
+			}
+			set
+			{
+				this._vendor = value;
+			}
+		}
+		
+		private IList<PurchaseOrderDetail> _purchaseOrderDetails = new List<PurchaseOrderDetail>();
+		public virtual IList<PurchaseOrderDetail> PurchaseOrderDetails
+		{
+			get
+			{
+				return this._purchaseOrderDetails;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model.Fluent	
+{
+	public partial class PurchaseOrderDetail
+	{
+		private int _purchaseOrderID;
+		public virtual int PurchaseOrderID
+		{
+			get
+			{
+				return this._purchaseOrderID;
+			}
+			set
+			{
+				this._purchaseOrderID = value;
+			}
+		}
+		
+		private int _purchaseOrderDetailID;
+		public virtual int PurchaseOrderDetailID
+		{
+			get
+			{
+				return this._purchaseOrderDetailID;
+			}
+			set
+			{
+				this._purchaseOrderDetailID = value;
+			}
+		}
+		
+		private DateTime _dueDate;
+		public virtual DateTime DueDate
+		{
+			get
+			{
+				return this._dueDate;
+			}
+			set
+			{
+				this._dueDate = value;
+			}
+		}
+		
+		private short _orderQty;
+		public virtual short OrderQty
+		{
+			get
+			{
+				return this._orderQty;
+			}
+			set
+			{
+				this._orderQty = value;
+			}
+		}
+		
+		private int _productID;
+		public virtual int ProductID
+		{
+			get
+			{
+				return this._productID;
+			}
+			set
+			{
+				this._productID = value;
+			}
+		}
+		
+		private decimal _unitPrice;
+		public virtual decimal UnitPrice
+		{
+			get
+			{
+				return this._unitPrice;
+			}
+			set
+			{
+				this._unitPrice = value;
+			}
+		}
+		
+		private decimal _lineTotal;
+		public virtual decimal LineTotal
+		{
+			get
+			{
+				return this._lineTotal;
+			}
+			set
+			{
+				this._lineTotal = value;
+			}
+		}
+		
+		private decimal _receivedQty;
+		public virtual decimal ReceivedQty
+		{
+			get
+			{
+				return this._receivedQty;
+			}
+			set
+			{
+				this._receivedQty = value;
+			}
+		}
+		
+		private decimal _rejectedQty;
+		public virtual decimal RejectedQty
+		{
+			get
+			{
+				return this._rejectedQty;
+			}
+			set
+			{
+				this._rejectedQty = value;
+			}
+		}
+		
+		private decimal _stockedQty;
+		public virtual decimal StockedQty
+		{
+			get
+			{
+				return this._stockedQty;
+			}
+			set
+			{
+				this._stockedQty = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private Product _product;
+		public virtual Product Product
+		{
+			get
+			{
+				return this._product;
+			}
+			set
+			{
+				this._product = value;
+			}
+		}
+		
+		private PurchaseOrderHeader _purchaseOrderHeader;
+		public virtual PurchaseOrderHeader PurchaseOrderHeader
+		{
+			get
+			{
+				return this._purchaseOrderHeader;
+			}
+			set
+			{
+				this._purchaseOrderHeader = value;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model.Fluent	
+{
+	public partial class ProductVendor
+	{
+		private int _productID;
+		public virtual int ProductID
+		{
+			get
+			{
+				return this._productID;
+			}
+			set
+			{
+				this._productID = value;
+			}
+		}
+		
+		private int _businessEntityID;
+		public virtual int BusinessEntityID
+		{
+			get
+			{
+				return this._businessEntityID;
+			}
+			set
+			{
+				this._businessEntityID = value;
+			}
+		}
+		
+		private int _averageLeadTime;
+		public virtual int AverageLeadTime
+		{
+			get
+			{
+				return this._averageLeadTime;
+			}
+			set
+			{
+				this._averageLeadTime = value;
+			}
+		}
+		
+		private decimal _standardPrice;
+		public virtual decimal StandardPrice
+		{
+			get
+			{
+				return this._standardPrice;
+			}
+			set
+			{
+				this._standardPrice = value;
+			}
+		}
+		
+		private decimal? _lastReceiptCost;
+		public virtual decimal? LastReceiptCost
+		{
+			get
+			{
+				return this._lastReceiptCost;
+			}
+			set
+			{
+				this._lastReceiptCost = value;
+			}
+		}
+		
+		private DateTime? _lastReceiptDate;
+		public virtual DateTime? LastReceiptDate
+		{
+			get
+			{
+				return this._lastReceiptDate;
+			}
+			set
+			{
+				this._lastReceiptDate = value;
+			}
+		}
+		
+		private int _minOrderQty;
+		public virtual int MinOrderQty
+		{
+			get
+			{
+				return this._minOrderQty;
+			}
+			set
+			{
+				this._minOrderQty = value;
+			}
+		}
+		
+		private int _maxOrderQty;
+		public virtual int MaxOrderQty
+		{
+			get
+			{
+				return this._maxOrderQty;
+			}
+			set
+			{
+				this._maxOrderQty = value;
+			}
+		}
+		
+		private int? _onOrderQty;
+		public virtual int? OnOrderQty
+		{
+			get
+			{
+				return this._onOrderQty;
+			}
+			set
+			{
+				this._onOrderQty = value;
+			}
+		}
+		
+		private string _unitMeasureCode;
+		public virtual string UnitMeasureCode
+		{
+			get
+			{
+				return this._unitMeasureCode;
+			}
+			set
+			{
+				this._unitMeasureCode = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private Product _product;
+		public virtual Product Product
+		{
+			get
+			{
+				return this._product;
+			}
+			set
+			{
+				this._product = value;
+			}
+		}
+		
+		private UnitMeasure _unitMeasure;
+		public virtual UnitMeasure UnitMeasure
+		{
+			get
+			{
+				return this._unitMeasure;
+			}
+			set
+			{
+				this._unitMeasure = value;
+			}
+		}
+		
+		private Vendor _vendor;
+		public virtual Vendor Vendor
+		{
+			get
+			{
+				return this._vendor;
+			}
+			set
+			{
+				this._vendor = value;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model.Fluent	
+{
+	public partial class ProductSubcategory
+	{
+		private int _productSubcategoryID;
+		public virtual int ProductSubcategoryID
+		{
+			get
+			{
+				return this._productSubcategoryID;
+			}
+			set
+			{
+				this._productSubcategoryID = value;
+			}
+		}
+		
+		private int _productCategoryID;
+		public virtual int ProductCategoryID
+		{
+			get
+			{
+				return this._productCategoryID;
+			}
+			set
+			{
+				this._productCategoryID = value;
+			}
+		}
+		
+		private string _name;
+		public virtual string Name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				this._name = value;
+			}
+		}
+		
+		private Guid _rowguid;
+		public virtual Guid Rowguid
+		{
+			get
+			{
+				return this._rowguid;
+			}
+			set
+			{
+				this._rowguid = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private ProductCategory _productCategory;
+		public virtual ProductCategory ProductCategory
+		{
+			get
+			{
+				return this._productCategory;
+			}
+			set
+			{
+				this._productCategory = value;
+			}
+		}
+		
+		private IList<Product> _products = new List<Product>();
+		public virtual IList<Product> Products
+		{
+			get
+			{
+				return this._products;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model.Fluent	
+{
+	public partial class ProductReview
+	{
+		private int _productReviewID;
+		public virtual int ProductReviewID
+		{
+			get
+			{
+				return this._productReviewID;
+			}
+			set
+			{
+				this._productReviewID = value;
+			}
+		}
+		
+		private int _productID;
+		public virtual int ProductID
+		{
+			get
+			{
+				return this._productID;
+			}
+			set
+			{
+				this._productID = value;
+			}
+		}
+		
+		private string _reviewerName;
+		public virtual string ReviewerName
+		{
+			get
+			{
+				return this._reviewerName;
+			}
+			set
+			{
+				this._reviewerName = value;
+			}
+		}
+		
+		private DateTime _reviewDate;
+		public virtual DateTime ReviewDate
+		{
+			get
+			{
+				return this._reviewDate;
+			}
+			set
+			{
+				this._reviewDate = value;
+			}
+		}
+		
+		private string _emailAddress;
+		public virtual string EmailAddress
+		{
+			get
+			{
+				return this._emailAddress;
+			}
+			set
+			{
+				this._emailAddress = value;
+			}
+		}
+		
+		private int _rating;
+		public virtual int Rating
+		{
+			get
+			{
+				return this._rating;
+			}
+			set
+			{
+				this._rating = value;
+			}
+		}
+		
+		private string _comments;
+		public virtual string Comments
+		{
+			get
+			{
+				return this._comments;
+			}
+			set
+			{
+				this._comments = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private Product _product;
+		public virtual Product Product
+		{
+			get
+			{
+				return this._product;
+			}
+			set
+			{
+				this._product = value;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model.Fluent	
+{
+	public partial class ProductProductPhoto
+	{
+		private int _productID;
+		public virtual int ProductID
+		{
+			get
+			{
+				return this._productID;
+			}
+			set
+			{
+				this._productID = value;
+			}
+		}
+		
+		private int _productPhotoID;
+		public virtual int ProductPhotoID
+		{
+			get
+			{
+				return this._productPhotoID;
+			}
+			set
+			{
+				this._productPhotoID = value;
+			}
+		}
+		
+		private bool _primary;
+		public virtual bool Primary
+		{
+			get
+			{
+				return this._primary;
+			}
+			set
+			{
+				this._primary = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private Product _product;
+		public virtual Product Product
+		{
+			get
+			{
+				return this._product;
+			}
+			set
+			{
+				this._product = value;
+			}
+		}
+		
+		private ProductPhoto _productPhoto;
+		public virtual ProductPhoto ProductPhoto
+		{
+			get
+			{
+				return this._productPhoto;
+			}
+			set
+			{
+				this._productPhoto = value;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model.Fluent	
+{
+	public partial class ProductPhoto
+	{
+		private int _productPhotoID;
+		public virtual int ProductPhotoID
+		{
+			get
+			{
+				return this._productPhotoID;
+			}
+			set
+			{
+				this._productPhotoID = value;
+			}
+		}
+		
+		private byte[] _thumbNailPhoto;
+		public virtual byte[] ThumbNailPhoto
+		{
+			get
+			{
+				return this._thumbNailPhoto;
+			}
+			set
+			{
+				this._thumbNailPhoto = value;
+			}
+		}
+		
+		private string _thumbnailPhotoFileName;
+		public virtual string ThumbnailPhotoFileName
+		{
+			get
+			{
+				return this._thumbnailPhotoFileName;
+			}
+			set
+			{
+				this._thumbnailPhotoFileName = value;
+			}
+		}
+		
+		private byte[] _largePhoto;
+		public virtual byte[] LargePhoto
+		{
+			get
+			{
+				return this._largePhoto;
+			}
+			set
+			{
+				this._largePhoto = value;
+			}
+		}
+		
+		private string _largePhotoFileName;
+		public virtual string LargePhotoFileName
+		{
+			get
+			{
+				return this._largePhotoFileName;
+			}
+			set
+			{
+				this._largePhotoFileName = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private IList<ProductProductPhoto> _productProductPhotos = new List<ProductProductPhoto>();
+		public virtual IList<ProductProductPhoto> ProductProductPhotos
+		{
+			get
+			{
+				return this._productProductPhotos;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model.Fluent	
+{
+	public partial class ProductModelProductDescriptionCulture
+	{
+		private int _productModelID;
+		public virtual int ProductModelID
+		{
+			get
+			{
+				return this._productModelID;
+			}
+			set
+			{
+				this._productModelID = value;
+			}
+		}
+		
+		private int _productDescriptionID;
+		public virtual int ProductDescriptionID
+		{
+			get
+			{
+				return this._productDescriptionID;
+			}
+			set
+			{
+				this._productDescriptionID = value;
+			}
+		}
+		
+		private string _cultureID;
+		public virtual string CultureID
+		{
+			get
+			{
+				return this._cultureID;
+			}
+			set
+			{
+				this._cultureID = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private Culture _culture;
+		public virtual Culture Culture
+		{
+			get
+			{
+				return this._culture;
+			}
+			set
+			{
+				this._culture = value;
+			}
+		}
+		
+		private ProductDescription _productDescription;
+		public virtual ProductDescription ProductDescription
+		{
+			get
+			{
+				return this._productDescription;
+			}
+			set
+			{
+				this._productDescription = value;
+			}
+		}
+		
+		private ProductModel _productModel;
+		public virtual ProductModel ProductModel
+		{
+			get
+			{
+				return this._productModel;
+			}
+			set
+			{
+				this._productModel = value;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model.Fluent	
+{
+	public partial class ProductModelIllustration
+	{
+		private int _productModelID;
+		public virtual int ProductModelID
+		{
+			get
+			{
+				return this._productModelID;
+			}
+			set
+			{
+				this._productModelID = value;
+			}
+		}
+		
+		private int _illustrationID;
+		public virtual int IllustrationID
+		{
+			get
+			{
+				return this._illustrationID;
+			}
+			set
+			{
+				this._illustrationID = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private Illustration _illustration;
+		public virtual Illustration Illustration
+		{
+			get
+			{
+				return this._illustration;
+			}
+			set
+			{
+				this._illustration = value;
+			}
+		}
+		
+		private ProductModel _productModel;
+		public virtual ProductModel ProductModel
+		{
+			get
+			{
+				return this._productModel;
+			}
+			set
+			{
+				this._productModel = value;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model.Fluent	
+{
+	public partial class ProductModel
+	{
+		private int _productModelID;
+		public virtual int ProductModelID
+		{
+			get
+			{
+				return this._productModelID;
+			}
+			set
+			{
+				this._productModelID = value;
+			}
+		}
+		
+		private string _name;
+		public virtual string Name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				this._name = value;
+			}
+		}
+		
+		private string _catalogDescription;
+		public virtual string CatalogDescription
+		{
+			get
+			{
+				return this._catalogDescription;
+			}
+			set
+			{
+				this._catalogDescription = value;
+			}
+		}
+		
+		private string _instructions;
+		public virtual string Instructions
+		{
+			get
+			{
+				return this._instructions;
+			}
+			set
+			{
+				this._instructions = value;
+			}
+		}
+		
+		private Guid _rowguid;
+		public virtual Guid Rowguid
+		{
+			get
+			{
+				return this._rowguid;
+			}
+			set
+			{
+				this._rowguid = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private IList<ProductModelProductDescriptionCulture> _productModelProductDescriptionCultures = new List<ProductModelProductDescriptionCulture>();
+		public virtual IList<ProductModelProductDescriptionCulture> ProductModelProductDescriptionCultures
+		{
+			get
+			{
+				return this._productModelProductDescriptionCultures;
+			}
+		}
+		
+		private IList<ProductModelIllustration> _productModelIllustrations = new List<ProductModelIllustration>();
+		public virtual IList<ProductModelIllustration> ProductModelIllustrations
+		{
+			get
+			{
+				return this._productModelIllustrations;
+			}
+		}
+		
+		private IList<Product> _products = new List<Product>();
+		public virtual IList<Product> Products
+		{
+			get
+			{
+				return this._products;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model.Fluent	
+{
+	public partial class ProductListPriceHistory
+	{
+		private int _productID;
+		public virtual int ProductID
+		{
+			get
+			{
+				return this._productID;
+			}
+			set
+			{
+				this._productID = value;
+			}
+		}
+		
+		private DateTime _startDate;
+		public virtual DateTime StartDate
+		{
+			get
+			{
+				return this._startDate;
+			}
+			set
+			{
+				this._startDate = value;
+			}
+		}
+		
+		private DateTime? _endDate;
+		public virtual DateTime? EndDate
+		{
+			get
+			{
+				return this._endDate;
+			}
+			set
+			{
+				this._endDate = value;
+			}
+		}
+		
+		private decimal _listPrice;
+		public virtual decimal ListPrice
+		{
+			get
+			{
+				return this._listPrice;
+			}
+			set
+			{
+				this._listPrice = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private Product _product;
+		public virtual Product Product
+		{
+			get
+			{
+				return this._product;
+			}
+			set
+			{
+				this._product = value;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model.Fluent	
+{
+	public partial class ProductInventory
+	{
+		private int _productID;
+		public virtual int ProductID
+		{
+			get
+			{
+				return this._productID;
+			}
+			set
+			{
+				this._productID = value;
+			}
+		}
+		
+		private short _locationID;
+		public virtual short LocationID
+		{
+			get
+			{
+				return this._locationID;
+			}
+			set
+			{
+				this._locationID = value;
+			}
+		}
+		
+		private string _shelf;
+		public virtual string Shelf
+		{
+			get
+			{
+				return this._shelf;
+			}
+			set
+			{
+				this._shelf = value;
+			}
+		}
+		
+		private byte _bin;
+		public virtual byte Bin
+		{
+			get
+			{
+				return this._bin;
+			}
+			set
+			{
+				this._bin = value;
+			}
+		}
+		
+		private short _quantity;
+		public virtual short Quantity
+		{
+			get
+			{
+				return this._quantity;
+			}
+			set
+			{
+				this._quantity = value;
+			}
+		}
+		
+		private Guid _rowguid;
+		public virtual Guid Rowguid
+		{
+			get
+			{
+				return this._rowguid;
+			}
+			set
+			{
+				this._rowguid = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private Location _location;
+		public virtual Location Location
+		{
+			get
+			{
+				return this._location;
+			}
+			set
+			{
+				this._location = value;
+			}
+		}
+		
+		private Product _product;
+		public virtual Product Product
+		{
+			get
+			{
+				return this._product;
+			}
+			set
+			{
+				this._product = value;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model.Fluent	
+{
+	public partial class ProductDescription
+	{
+		private int _productDescriptionID;
+		public virtual int ProductDescriptionID
+		{
+			get
+			{
+				return this._productDescriptionID;
+			}
+			set
+			{
+				this._productDescriptionID = value;
+			}
+		}
+		
+		private string _description;
+		public virtual string Description
+		{
+			get
+			{
+				return this._description;
+			}
+			set
+			{
+				this._description = value;
+			}
+		}
+		
+		private Guid _rowguid;
+		public virtual Guid Rowguid
+		{
+			get
+			{
+				return this._rowguid;
+			}
+			set
+			{
+				this._rowguid = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private IList<ProductModelProductDescriptionCulture> _productModelProductDescriptionCultures = new List<ProductModelProductDescriptionCulture>();
+		public virtual IList<ProductModelProductDescriptionCulture> ProductModelProductDescriptionCultures
+		{
+			get
+			{
+				return this._productModelProductDescriptionCultures;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model.Fluent	
+{
+	public partial class ProductCostHistory
+	{
+		private int _productID;
+		public virtual int ProductID
+		{
+			get
+			{
+				return this._productID;
+			}
+			set
+			{
+				this._productID = value;
+			}
+		}
+		
+		private DateTime _startDate;
+		public virtual DateTime StartDate
+		{
+			get
+			{
+				return this._startDate;
+			}
+			set
+			{
+				this._startDate = value;
+			}
+		}
+		
+		private DateTime? _endDate;
+		public virtual DateTime? EndDate
+		{
+			get
+			{
+				return this._endDate;
+			}
+			set
+			{
+				this._endDate = value;
+			}
+		}
+		
+		private decimal _standardCost;
+		public virtual decimal StandardCost
+		{
+			get
+			{
+				return this._standardCost;
+			}
+			set
+			{
+				this._standardCost = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private Product _product;
+		public virtual Product Product
+		{
+			get
+			{
+				return this._product;
+			}
+			set
+			{
+				this._product = value;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model.Fluent	
+{
+	public partial class ProductCategory
+	{
+		private int _productCategoryID;
+		public virtual int ProductCategoryID
+		{
+			get
+			{
+				return this._productCategoryID;
+			}
+			set
+			{
+				this._productCategoryID = value;
+			}
+		}
+		
+		private string _name;
+		public virtual string Name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				this._name = value;
+			}
+		}
+		
+		private Guid _rowguid;
+		public virtual Guid Rowguid
+		{
+			get
+			{
+				return this._rowguid;
+			}
+			set
+			{
+				this._rowguid = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private IList<ProductSubcategory> _productSubcategories = new List<ProductSubcategory>();
+		public virtual IList<ProductSubcategory> ProductSubcategories
+		{
+			get
+			{
+				return this._productSubcategories;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model.Fluent	
+{
+	public partial class Product
+	{
+		private int _productID;
+		public virtual int ProductID
+		{
+			get
+			{
+				return this._productID;
+			}
+			set
+			{
+				this._productID = value;
+			}
+		}
+		
+		private string _name;
+		public virtual string Name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				this._name = value;
+			}
+		}
+		
+		private string _productNumber;
+		public virtual string ProductNumber
+		{
+			get
+			{
+				return this._productNumber;
+			}
+			set
+			{
+				this._productNumber = value;
+			}
+		}
+		
+		private bool _makeFlag;
+		public virtual bool MakeFlag
+		{
+			get
+			{
+				return this._makeFlag;
+			}
+			set
+			{
+				this._makeFlag = value;
+			}
+		}
+		
+		private bool _finishedGoodsFlag;
+		public virtual bool FinishedGoodsFlag
+		{
+			get
+			{
+				return this._finishedGoodsFlag;
+			}
+			set
+			{
+				this._finishedGoodsFlag = value;
+			}
+		}
+		
+		private string _color;
+		public virtual string Color
+		{
+			get
+			{
+				return this._color;
+			}
+			set
+			{
+				this._color = value;
+			}
+		}
+		
+		private short _safetyStockLevel;
+		public virtual short SafetyStockLevel
+		{
+			get
+			{
+				return this._safetyStockLevel;
+			}
+			set
+			{
+				this._safetyStockLevel = value;
+			}
+		}
+		
+		private short _reorderPoint;
+		public virtual short ReorderPoint
+		{
+			get
+			{
+				return this._reorderPoint;
+			}
+			set
+			{
+				this._reorderPoint = value;
+			}
+		}
+		
+		private decimal _standardCost;
+		public virtual decimal StandardCost
+		{
+			get
+			{
+				return this._standardCost;
+			}
+			set
+			{
+				this._standardCost = value;
+			}
+		}
+		
+		private decimal _listPrice;
+		public virtual decimal ListPrice
+		{
+			get
+			{
+				return this._listPrice;
+			}
+			set
+			{
+				this._listPrice = value;
+			}
+		}
+		
+		private string _size;
+		public virtual string Size
+		{
+			get
+			{
+				return this._size;
+			}
+			set
+			{
+				this._size = value;
+			}
+		}
+		
+		private string _sizeUnitMeasureCode;
+		public virtual string SizeUnitMeasureCode
+		{
+			get
+			{
+				return this._sizeUnitMeasureCode;
+			}
+			set
+			{
+				this._sizeUnitMeasureCode = value;
+			}
+		}
+		
+		private string _weightUnitMeasureCode;
+		public virtual string WeightUnitMeasureCode
+		{
+			get
+			{
+				return this._weightUnitMeasureCode;
+			}
+			set
+			{
+				this._weightUnitMeasureCode = value;
+			}
+		}
+		
+		private decimal? _weight;
+		public virtual decimal? Weight
+		{
+			get
+			{
+				return this._weight;
+			}
+			set
+			{
+				this._weight = value;
+			}
+		}
+		
+		private int _daysToManufacture;
+		public virtual int DaysToManufacture
+		{
+			get
+			{
+				return this._daysToManufacture;
+			}
+			set
+			{
+				this._daysToManufacture = value;
+			}
+		}
+		
+		private string _productLine;
+		public virtual string ProductLine
+		{
+			get
+			{
+				return this._productLine;
+			}
+			set
+			{
+				this._productLine = value;
+			}
+		}
+		
+		private string _class;
+		public virtual string Class
+		{
+			get
+			{
+				return this._class;
+			}
+			set
+			{
+				this._class = value;
+			}
+		}
+		
+		private string _style;
+		public virtual string Style
+		{
+			get
+			{
+				return this._style;
+			}
+			set
+			{
+				this._style = value;
+			}
+		}
+		
+		private int? _productSubcategoryID;
+		public virtual int? ProductSubcategoryID
+		{
+			get
+			{
+				return this._productSubcategoryID;
+			}
+			set
+			{
+				this._productSubcategoryID = value;
+			}
+		}
+		
+		private int? _productModelID;
+		public virtual int? ProductModelID
+		{
+			get
+			{
+				return this._productModelID;
+			}
+			set
+			{
+				this._productModelID = value;
+			}
+		}
+		
+		private DateTime _sellStartDate;
+		public virtual DateTime SellStartDate
+		{
+			get
+			{
+				return this._sellStartDate;
+			}
+			set
+			{
+				this._sellStartDate = value;
+			}
+		}
+		
+		private DateTime? _sellEndDate;
+		public virtual DateTime? SellEndDate
+		{
+			get
+			{
+				return this._sellEndDate;
+			}
+			set
+			{
+				this._sellEndDate = value;
+			}
+		}
+		
+		private DateTime? _discontinuedDate;
+		public virtual DateTime? DiscontinuedDate
+		{
+			get
+			{
+				return this._discontinuedDate;
+			}
+			set
+			{
+				this._discontinuedDate = value;
+			}
+		}
+		
+		private Guid _rowguid;
+		public virtual Guid Rowguid
+		{
+			get
+			{
+				return this._rowguid;
+			}
+			set
+			{
+				this._rowguid = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private IList<WorkOrder> _workOrders = new List<WorkOrder>();
+		public virtual IList<WorkOrder> WorkOrders
+		{
+			get
+			{
+				return this._workOrders;
+			}
+		}
+		
+		private IList<TransactionHistory> _transactionHistories = new List<TransactionHistory>();
+		public virtual IList<TransactionHistory> TransactionHistories
+		{
+			get
+			{
+				return this._transactionHistories;
+			}
+		}
+		
+		private IList<SpecialOfferProduct> _specialOfferProducts = new List<SpecialOfferProduct>();
+		public virtual IList<SpecialOfferProduct> SpecialOfferProducts
+		{
+			get
+			{
+				return this._specialOfferProducts;
+			}
+		}
+		
+		private IList<ShoppingCartItem> _shoppingCartItems = new List<ShoppingCartItem>();
+		public virtual IList<ShoppingCartItem> ShoppingCartItems
+		{
+			get
+			{
+				return this._shoppingCartItems;
+			}
+		}
+		
+		private IList<PurchaseOrderDetail> _purchaseOrderDetails = new List<PurchaseOrderDetail>();
+		public virtual IList<PurchaseOrderDetail> PurchaseOrderDetails
+		{
+			get
+			{
+				return this._purchaseOrderDetails;
+			}
+		}
+		
+		private IList<ProductVendor> _productVendors = new List<ProductVendor>();
+		public virtual IList<ProductVendor> ProductVendors
+		{
+			get
+			{
+				return this._productVendors;
+			}
+		}
+		
+		private IList<ProductReview> _productReviews = new List<ProductReview>();
+		public virtual IList<ProductReview> ProductReviews
+		{
+			get
+			{
+				return this._productReviews;
+			}
+		}
+		
+		private IList<ProductProductPhoto> _productProductPhotos = new List<ProductProductPhoto>();
+		public virtual IList<ProductProductPhoto> ProductProductPhotos
+		{
+			get
+			{
+				return this._productProductPhotos;
+			}
+		}
+		
+		private IList<ProductListPriceHistory> _productListPriceHistories = new List<ProductListPriceHistory>();
+		public virtual IList<ProductListPriceHistory> ProductListPriceHistories
+		{
+			get
+			{
+				return this._productListPriceHistories;
+			}
+		}
+		
+		private IList<ProductInventory> _productInventories = new List<ProductInventory>();
+		public virtual IList<ProductInventory> ProductInventories
+		{
+			get
+			{
+				return this._productInventories;
+			}
+		}
+		
+		private IList<ProductCostHistory> _productCostHistories = new List<ProductCostHistory>();
+		public virtual IList<ProductCostHistory> ProductCostHistories
+		{
+			get
+			{
+				return this._productCostHistories;
+			}
+		}
+		
+		private ProductModel _productModel;
+		public virtual ProductModel ProductModel
+		{
+			get
+			{
+				return this._productModel;
+			}
+			set
+			{
+				this._productModel = value;
+			}
+		}
+		
+		private ProductSubcategory _productSubcategory;
+		public virtual ProductSubcategory ProductSubcategory
+		{
+			get
+			{
+				return this._productSubcategory;
+			}
+			set
+			{
+				this._productSubcategory = value;
+			}
+		}
+		
+		private UnitMeasure _unitMeasure;
+		public virtual UnitMeasure UnitMeasure
+		{
+			get
+			{
+				return this._unitMeasure;
+			}
+			set
+			{
+				this._unitMeasure = value;
+			}
+		}
+		
+		private UnitMeasure _unitMeasure1;
+		public virtual UnitMeasure UnitMeasure1
+		{
+			get
+			{
+				return this._unitMeasure1;
+			}
+			set
+			{
+				this._unitMeasure1 = value;
+			}
+		}
+		
+		private IList<BillOfMaterial> _billOfMaterials = new List<BillOfMaterial>();
+		public virtual IList<BillOfMaterial> BillOfMaterials
+		{
+			get
+			{
+				return this._billOfMaterials;
+			}
+		}
+		
+		private IList<BillOfMaterial> _billOfMaterials1 = new List<BillOfMaterial>();
+		public virtual IList<BillOfMaterial> BillOfMaterials1
+		{
+			get
+			{
+				return this._billOfMaterials1;
 			}
 		}
 		
@@ -2907,6 +6626,19 @@ namespace Telerik.Bencher.Model.Fluent
 			}
 		}
 		
+		private Employee _employee;
+		public virtual Employee Employee
+		{
+			get
+			{
+				return this._employee;
+			}
+			set
+			{
+				this._employee = value;
+			}
+		}
+		
 		private IList<EmailAddress> _emailAddresses = new List<EmailAddress>();
 		public virtual IList<EmailAddress> EmailAddresses
 		{
@@ -3022,6 +6754,703 @@ namespace Telerik.Bencher.Model.Fluent
 }
 namespace Telerik.Bencher.Model.Fluent	
 {
+	public partial class Location
+	{
+		private short _locationID;
+		public virtual short LocationID
+		{
+			get
+			{
+				return this._locationID;
+			}
+			set
+			{
+				this._locationID = value;
+			}
+		}
+		
+		private string _name;
+		public virtual string Name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				this._name = value;
+			}
+		}
+		
+		private decimal _costRate;
+		public virtual decimal CostRate
+		{
+			get
+			{
+				return this._costRate;
+			}
+			set
+			{
+				this._costRate = value;
+			}
+		}
+		
+		private decimal _availability;
+		public virtual decimal Availability
+		{
+			get
+			{
+				return this._availability;
+			}
+			set
+			{
+				this._availability = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private IList<WorkOrderRouting> _workOrderRoutings = new List<WorkOrderRouting>();
+		public virtual IList<WorkOrderRouting> WorkOrderRoutings
+		{
+			get
+			{
+				return this._workOrderRoutings;
+			}
+		}
+		
+		private IList<ProductInventory> _productInventories = new List<ProductInventory>();
+		public virtual IList<ProductInventory> ProductInventories
+		{
+			get
+			{
+				return this._productInventories;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model.Fluent	
+{
+	public partial class JobCandidate
+	{
+		private int _jobCandidateID;
+		public virtual int JobCandidateID
+		{
+			get
+			{
+				return this._jobCandidateID;
+			}
+			set
+			{
+				this._jobCandidateID = value;
+			}
+		}
+		
+		private int? _businessEntityID;
+		public virtual int? BusinessEntityID
+		{
+			get
+			{
+				return this._businessEntityID;
+			}
+			set
+			{
+				this._businessEntityID = value;
+			}
+		}
+		
+		private string _resume;
+		public virtual string Resume
+		{
+			get
+			{
+				return this._resume;
+			}
+			set
+			{
+				this._resume = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private Employee _employee;
+		public virtual Employee Employee
+		{
+			get
+			{
+				return this._employee;
+			}
+			set
+			{
+				this._employee = value;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model.Fluent	
+{
+	public partial class Illustration
+	{
+		private int _illustrationID;
+		public virtual int IllustrationID
+		{
+			get
+			{
+				return this._illustrationID;
+			}
+			set
+			{
+				this._illustrationID = value;
+			}
+		}
+		
+		private string _diagram;
+		public virtual string Diagram
+		{
+			get
+			{
+				return this._diagram;
+			}
+			set
+			{
+				this._diagram = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private IList<ProductModelIllustration> _productModelIllustrations = new List<ProductModelIllustration>();
+		public virtual IList<ProductModelIllustration> ProductModelIllustrations
+		{
+			get
+			{
+				return this._productModelIllustrations;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model.Fluent	
+{
+	public partial class EmployeePayHistory
+	{
+		private int _businessEntityID;
+		public virtual int BusinessEntityID
+		{
+			get
+			{
+				return this._businessEntityID;
+			}
+			set
+			{
+				this._businessEntityID = value;
+			}
+		}
+		
+		private DateTime _rateChangeDate;
+		public virtual DateTime RateChangeDate
+		{
+			get
+			{
+				return this._rateChangeDate;
+			}
+			set
+			{
+				this._rateChangeDate = value;
+			}
+		}
+		
+		private decimal _rate;
+		public virtual decimal Rate
+		{
+			get
+			{
+				return this._rate;
+			}
+			set
+			{
+				this._rate = value;
+			}
+		}
+		
+		private byte _payFrequency;
+		public virtual byte PayFrequency
+		{
+			get
+			{
+				return this._payFrequency;
+			}
+			set
+			{
+				this._payFrequency = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private Employee _employee;
+		public virtual Employee Employee
+		{
+			get
+			{
+				return this._employee;
+			}
+			set
+			{
+				this._employee = value;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model.Fluent	
+{
+	public partial class EmployeeDepartmentHistory
+	{
+		private int _businessEntityID;
+		public virtual int BusinessEntityID
+		{
+			get
+			{
+				return this._businessEntityID;
+			}
+			set
+			{
+				this._businessEntityID = value;
+			}
+		}
+		
+		private short _departmentID;
+		public virtual short DepartmentID
+		{
+			get
+			{
+				return this._departmentID;
+			}
+			set
+			{
+				this._departmentID = value;
+			}
+		}
+		
+		private byte _shiftID;
+		public virtual byte ShiftID
+		{
+			get
+			{
+				return this._shiftID;
+			}
+			set
+			{
+				this._shiftID = value;
+			}
+		}
+		
+		private DateTime _startDate;
+		public virtual DateTime StartDate
+		{
+			get
+			{
+				return this._startDate;
+			}
+			set
+			{
+				this._startDate = value;
+			}
+		}
+		
+		private DateTime? _endDate;
+		public virtual DateTime? EndDate
+		{
+			get
+			{
+				return this._endDate;
+			}
+			set
+			{
+				this._endDate = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private Department _department;
+		public virtual Department Department
+		{
+			get
+			{
+				return this._department;
+			}
+			set
+			{
+				this._department = value;
+			}
+		}
+		
+		private Employee _employee;
+		public virtual Employee Employee
+		{
+			get
+			{
+				return this._employee;
+			}
+			set
+			{
+				this._employee = value;
+			}
+		}
+		
+		private Shift _shift;
+		public virtual Shift Shift
+		{
+			get
+			{
+				return this._shift;
+			}
+			set
+			{
+				this._shift = value;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model.Fluent	
+{
+	public partial class Employee
+	{
+		private int _businessEntityID;
+		public virtual int BusinessEntityID
+		{
+			get
+			{
+				return this._businessEntityID;
+			}
+			set
+			{
+				this._businessEntityID = value;
+			}
+		}
+		
+		private string _nationalIDNumber;
+		public virtual string NationalIDNumber
+		{
+			get
+			{
+				return this._nationalIDNumber;
+			}
+			set
+			{
+				this._nationalIDNumber = value;
+			}
+		}
+		
+		private string _loginID;
+		public virtual string LoginID
+		{
+			get
+			{
+				return this._loginID;
+			}
+			set
+			{
+				this._loginID = value;
+			}
+		}
+		
+		private SqlHierarchyId _organizationNode;
+		public virtual SqlHierarchyId OrganizationNode
+		{
+			get
+			{
+				return this._organizationNode;
+			}
+			set
+			{
+				this._organizationNode = value;
+			}
+		}
+		
+		private short? _organizationLevel;
+		public virtual short? OrganizationLevel
+		{
+			get
+			{
+				return this._organizationLevel;
+			}
+			set
+			{
+				this._organizationLevel = value;
+			}
+		}
+		
+		private string _jobTitle;
+		public virtual string JobTitle
+		{
+			get
+			{
+				return this._jobTitle;
+			}
+			set
+			{
+				this._jobTitle = value;
+			}
+		}
+		
+		private DateTime _birthDate;
+		public virtual DateTime BirthDate
+		{
+			get
+			{
+				return this._birthDate;
+			}
+			set
+			{
+				this._birthDate = value;
+			}
+		}
+		
+		private Char _maritalStatus;
+		public virtual Char MaritalStatus
+		{
+			get
+			{
+				return this._maritalStatus;
+			}
+			set
+			{
+				this._maritalStatus = value;
+			}
+		}
+		
+		private Char _gender;
+		public virtual Char Gender
+		{
+			get
+			{
+				return this._gender;
+			}
+			set
+			{
+				this._gender = value;
+			}
+		}
+		
+		private DateTime _hireDate;
+		public virtual DateTime HireDate
+		{
+			get
+			{
+				return this._hireDate;
+			}
+			set
+			{
+				this._hireDate = value;
+			}
+		}
+		
+		private bool _salariedFlag;
+		public virtual bool SalariedFlag
+		{
+			get
+			{
+				return this._salariedFlag;
+			}
+			set
+			{
+				this._salariedFlag = value;
+			}
+		}
+		
+		private short _vacationHours;
+		public virtual short VacationHours
+		{
+			get
+			{
+				return this._vacationHours;
+			}
+			set
+			{
+				this._vacationHours = value;
+			}
+		}
+		
+		private short _sickLeaveHours;
+		public virtual short SickLeaveHours
+		{
+			get
+			{
+				return this._sickLeaveHours;
+			}
+			set
+			{
+				this._sickLeaveHours = value;
+			}
+		}
+		
+		private bool _currentFlag;
+		public virtual bool CurrentFlag
+		{
+			get
+			{
+				return this._currentFlag;
+			}
+			set
+			{
+				this._currentFlag = value;
+			}
+		}
+		
+		private Guid _rowguid;
+		public virtual Guid Rowguid
+		{
+			get
+			{
+				return this._rowguid;
+			}
+			set
+			{
+				this._rowguid = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private SalesPerson _salesPerson;
+		public virtual SalesPerson SalesPerson
+		{
+			get
+			{
+				return this._salesPerson;
+			}
+			set
+			{
+				this._salesPerson = value;
+			}
+		}
+		
+		private IList<PurchaseOrderHeader> _purchaseOrderHeaders = new List<PurchaseOrderHeader>();
+		public virtual IList<PurchaseOrderHeader> PurchaseOrderHeaders
+		{
+			get
+			{
+				return this._purchaseOrderHeaders;
+			}
+		}
+		
+		private IList<JobCandidate> _jobCandidates = new List<JobCandidate>();
+		public virtual IList<JobCandidate> JobCandidates
+		{
+			get
+			{
+				return this._jobCandidates;
+			}
+		}
+		
+		private IList<EmployeePayHistory> _employeePayHistories = new List<EmployeePayHistory>();
+		public virtual IList<EmployeePayHistory> EmployeePayHistories
+		{
+			get
+			{
+				return this._employeePayHistories;
+			}
+		}
+		
+		private IList<EmployeeDepartmentHistory> _employeeDepartmentHistories = new List<EmployeeDepartmentHistory>();
+		public virtual IList<EmployeeDepartmentHistory> EmployeeDepartmentHistories
+		{
+			get
+			{
+				return this._employeeDepartmentHistories;
+			}
+		}
+		
+		private Person _person;
+		public virtual Person Person
+		{
+			get
+			{
+				return this._person;
+			}
+			set
+			{
+				this._person = value;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model.Fluent	
+{
 	public partial class EmailAddress
 	{
 		private int _businessEntityID;
@@ -3099,6 +7528,73 @@ namespace Telerik.Bencher.Model.Fluent
 			set
 			{
 				this._person = value;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model.Fluent	
+{
+	public partial class Department
+	{
+		private short _departmentID;
+		public virtual short DepartmentID
+		{
+			get
+			{
+				return this._departmentID;
+			}
+			set
+			{
+				this._departmentID = value;
+			}
+		}
+		
+		private string _name;
+		public virtual string Name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				this._name = value;
+			}
+		}
+		
+		private string _groupName;
+		public virtual string GroupName
+		{
+			get
+			{
+				return this._groupName;
+			}
+			set
+			{
+				this._groupName = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private IList<EmployeeDepartmentHistory> _employeeDepartmentHistories = new List<EmployeeDepartmentHistory>();
+		public virtual IList<EmployeeDepartmentHistory> EmployeeDepartmentHistories
+		{
+			get
+			{
+				return this._employeeDepartmentHistories;
 			}
 		}
 		
@@ -3448,6 +7944,60 @@ namespace Telerik.Bencher.Model.Fluent
 			get
 			{
 				return this._countryRegionCurrencies;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model.Fluent	
+{
+	public partial class Culture
+	{
+		private string _cultureID;
+		public virtual string CultureID
+		{
+			get
+			{
+				return this._cultureID;
+			}
+			set
+			{
+				this._cultureID = value;
+			}
+		}
+		
+		private string _name;
+		public virtual string Name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				this._name = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private IList<ProductModelProductDescriptionCulture> _productModelProductDescriptionCultures = new List<ProductModelProductDescriptionCulture>();
+		public virtual IList<ProductModelProductDescriptionCulture> ProductModelProductDescriptionCultures
+		{
+			get
+			{
+				return this._productModelProductDescriptionCultures;
 			}
 		}
 		
@@ -4015,6 +8565,19 @@ namespace Telerik.Bencher.Model.Fluent
 			}
 		}
 		
+		private Vendor _vendor;
+		public virtual Vendor Vendor
+		{
+			get
+			{
+				return this._vendor;
+			}
+			set
+			{
+				this._vendor = value;
+			}
+		}
+		
 		private Store _store;
 		public virtual Store Store
 		{
@@ -4056,6 +8619,168 @@ namespace Telerik.Bencher.Model.Fluent
 			get
 			{
 				return this._businessEntityAddresses;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model.Fluent	
+{
+	public partial class BillOfMaterial
+	{
+		private int _billOfMaterialsID;
+		public virtual int BillOfMaterialsID
+		{
+			get
+			{
+				return this._billOfMaterialsID;
+			}
+			set
+			{
+				this._billOfMaterialsID = value;
+			}
+		}
+		
+		private int? _productAssemblyID;
+		public virtual int? ProductAssemblyID
+		{
+			get
+			{
+				return this._productAssemblyID;
+			}
+			set
+			{
+				this._productAssemblyID = value;
+			}
+		}
+		
+		private int _componentID;
+		public virtual int ComponentID
+		{
+			get
+			{
+				return this._componentID;
+			}
+			set
+			{
+				this._componentID = value;
+			}
+		}
+		
+		private DateTime _startDate;
+		public virtual DateTime StartDate
+		{
+			get
+			{
+				return this._startDate;
+			}
+			set
+			{
+				this._startDate = value;
+			}
+		}
+		
+		private DateTime? _endDate;
+		public virtual DateTime? EndDate
+		{
+			get
+			{
+				return this._endDate;
+			}
+			set
+			{
+				this._endDate = value;
+			}
+		}
+		
+		private string _unitMeasureCode;
+		public virtual string UnitMeasureCode
+		{
+			get
+			{
+				return this._unitMeasureCode;
+			}
+			set
+			{
+				this._unitMeasureCode = value;
+			}
+		}
+		
+		private short _bOMLevel;
+		public virtual short BOMLevel
+		{
+			get
+			{
+				return this._bOMLevel;
+			}
+			set
+			{
+				this._bOMLevel = value;
+			}
+		}
+		
+		private decimal _perAssemblyQty;
+		public virtual decimal PerAssemblyQty
+		{
+			get
+			{
+				return this._perAssemblyQty;
+			}
+			set
+			{
+				this._perAssemblyQty = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private Product _product;
+		public virtual Product Product
+		{
+			get
+			{
+				return this._product;
+			}
+			set
+			{
+				this._product = value;
+			}
+		}
+		
+		private Product _product1;
+		public virtual Product Product1
+		{
+			get
+			{
+				return this._product1;
+			}
+			set
+			{
+				this._product1 = value;
+			}
+		}
+		
+		private UnitMeasure _unitMeasure;
+		public virtual UnitMeasure UnitMeasure
+		{
+			get
+			{
+				return this._unitMeasure;
+			}
+			set
+			{
+				this._unitMeasure = value;
 			}
 		}
 		
@@ -4301,6 +9026,24 @@ namespace Telerik.Bencher.Model.Fluent
 		{
 			List<MappingConfiguration> mappingConfigurations = new List<MappingConfiguration>();
 			
+			MappingConfiguration<WorkOrderRouting> workorderroutingConfiguration = this.GetWorkOrderRoutingMappingConfiguration();
+			mappingConfigurations.Add(workorderroutingConfiguration);
+			
+			MappingConfiguration<WorkOrder> workorderConfiguration = this.GetWorkOrderMappingConfiguration();
+			mappingConfigurations.Add(workorderConfiguration);
+			
+			MappingConfiguration<Vendor> vendorConfiguration = this.GetVendorMappingConfiguration();
+			mappingConfigurations.Add(vendorConfiguration);
+			
+			MappingConfiguration<UnitMeasure> unitmeasureConfiguration = this.GetUnitMeasureMappingConfiguration();
+			mappingConfigurations.Add(unitmeasureConfiguration);
+			
+			MappingConfiguration<TransactionHistoryArchive> transactionhistoryarchiveConfiguration = this.GetTransactionHistoryArchiveMappingConfiguration();
+			mappingConfigurations.Add(transactionhistoryarchiveConfiguration);
+			
+			MappingConfiguration<TransactionHistory> transactionhistoryConfiguration = this.GetTransactionHistoryMappingConfiguration();
+			mappingConfigurations.Add(transactionhistoryConfiguration);
+			
 			MappingConfiguration<Store> storeConfiguration = this.GetStoreMappingConfiguration();
 			mappingConfigurations.Add(storeConfiguration);
 			
@@ -4315,6 +9058,15 @@ namespace Telerik.Bencher.Model.Fluent
 			
 			MappingConfiguration<ShoppingCartItem> shoppingcartitemConfiguration = this.GetShoppingCartItemMappingConfiguration();
 			mappingConfigurations.Add(shoppingcartitemConfiguration);
+			
+			MappingConfiguration<ShipMethod> shipmethodConfiguration = this.GetShipMethodMappingConfiguration();
+			mappingConfigurations.Add(shipmethodConfiguration);
+			
+			MappingConfiguration<Shift> shiftConfiguration = this.GetShiftMappingConfiguration();
+			mappingConfigurations.Add(shiftConfiguration);
+			
+			MappingConfiguration<ScrapReason> scrapreasonConfiguration = this.GetScrapReasonMappingConfiguration();
+			mappingConfigurations.Add(scrapreasonConfiguration);
 			
 			MappingConfiguration<SalesTerritoryHistory> salesterritoryhistoryConfiguration = this.GetSalesTerritoryHistoryMappingConfiguration();
 			mappingConfigurations.Add(salesterritoryhistoryConfiguration);
@@ -4343,6 +9095,54 @@ namespace Telerik.Bencher.Model.Fluent
 			MappingConfiguration<SalesOrderDetail> salesorderdetailConfiguration = this.GetSalesOrderDetailMappingConfiguration();
 			mappingConfigurations.Add(salesorderdetailConfiguration);
 			
+			MappingConfiguration<PurchaseOrderHeader> purchaseorderheaderConfiguration = this.GetPurchaseOrderHeaderMappingConfiguration();
+			mappingConfigurations.Add(purchaseorderheaderConfiguration);
+			
+			MappingConfiguration<PurchaseOrderDetail> purchaseorderdetailConfiguration = this.GetPurchaseOrderDetailMappingConfiguration();
+			mappingConfigurations.Add(purchaseorderdetailConfiguration);
+			
+			MappingConfiguration<ProductVendor> productvendorConfiguration = this.GetProductVendorMappingConfiguration();
+			mappingConfigurations.Add(productvendorConfiguration);
+			
+			MappingConfiguration<ProductSubcategory> productsubcategoryConfiguration = this.GetProductSubcategoryMappingConfiguration();
+			mappingConfigurations.Add(productsubcategoryConfiguration);
+			
+			MappingConfiguration<ProductReview> productreviewConfiguration = this.GetProductReviewMappingConfiguration();
+			mappingConfigurations.Add(productreviewConfiguration);
+			
+			MappingConfiguration<ProductProductPhoto> productproductphotoConfiguration = this.GetProductProductPhotoMappingConfiguration();
+			mappingConfigurations.Add(productproductphotoConfiguration);
+			
+			MappingConfiguration<ProductPhoto> productphotoConfiguration = this.GetProductPhotoMappingConfiguration();
+			mappingConfigurations.Add(productphotoConfiguration);
+			
+			MappingConfiguration<ProductModelProductDescriptionCulture> productmodelproductdescriptioncultureConfiguration = this.GetProductModelProductDescriptionCultureMappingConfiguration();
+			mappingConfigurations.Add(productmodelproductdescriptioncultureConfiguration);
+			
+			MappingConfiguration<ProductModelIllustration> productmodelillustrationConfiguration = this.GetProductModelIllustrationMappingConfiguration();
+			mappingConfigurations.Add(productmodelillustrationConfiguration);
+			
+			MappingConfiguration<ProductModel> productmodelConfiguration = this.GetProductModelMappingConfiguration();
+			mappingConfigurations.Add(productmodelConfiguration);
+			
+			MappingConfiguration<ProductListPriceHistory> productlistpricehistoryConfiguration = this.GetProductListPriceHistoryMappingConfiguration();
+			mappingConfigurations.Add(productlistpricehistoryConfiguration);
+			
+			MappingConfiguration<ProductInventory> productinventoryConfiguration = this.GetProductInventoryMappingConfiguration();
+			mappingConfigurations.Add(productinventoryConfiguration);
+			
+			MappingConfiguration<ProductDescription> productdescriptionConfiguration = this.GetProductDescriptionMappingConfiguration();
+			mappingConfigurations.Add(productdescriptionConfiguration);
+			
+			MappingConfiguration<ProductCostHistory> productcosthistoryConfiguration = this.GetProductCostHistoryMappingConfiguration();
+			mappingConfigurations.Add(productcosthistoryConfiguration);
+			
+			MappingConfiguration<ProductCategory> productcategoryConfiguration = this.GetProductCategoryMappingConfiguration();
+			mappingConfigurations.Add(productcategoryConfiguration);
+			
+			MappingConfiguration<Product> productConfiguration = this.GetProductMappingConfiguration();
+			mappingConfigurations.Add(productConfiguration);
+			
 			MappingConfiguration<PhoneNumberType> phonenumbertypeConfiguration = this.GetPhoneNumberTypeMappingConfiguration();
 			mappingConfigurations.Add(phonenumbertypeConfiguration);
 			
@@ -4358,8 +9158,29 @@ namespace Telerik.Bencher.Model.Fluent
 			MappingConfiguration<Password> passwordConfiguration = this.GetPasswordMappingConfiguration();
 			mappingConfigurations.Add(passwordConfiguration);
 			
+			MappingConfiguration<Location> locationConfiguration = this.GetLocationMappingConfiguration();
+			mappingConfigurations.Add(locationConfiguration);
+			
+			MappingConfiguration<JobCandidate> jobcandidateConfiguration = this.GetJobCandidateMappingConfiguration();
+			mappingConfigurations.Add(jobcandidateConfiguration);
+			
+			MappingConfiguration<Illustration> illustrationConfiguration = this.GetIllustrationMappingConfiguration();
+			mappingConfigurations.Add(illustrationConfiguration);
+			
+			MappingConfiguration<EmployeePayHistory> employeepayhistoryConfiguration = this.GetEmployeePayHistoryMappingConfiguration();
+			mappingConfigurations.Add(employeepayhistoryConfiguration);
+			
+			MappingConfiguration<EmployeeDepartmentHistory> employeedepartmenthistoryConfiguration = this.GetEmployeeDepartmentHistoryMappingConfiguration();
+			mappingConfigurations.Add(employeedepartmenthistoryConfiguration);
+			
+			MappingConfiguration<Employee> employeeConfiguration = this.GetEmployeeMappingConfiguration();
+			mappingConfigurations.Add(employeeConfiguration);
+			
 			MappingConfiguration<EmailAddress> emailaddressConfiguration = this.GetEmailAddressMappingConfiguration();
 			mappingConfigurations.Add(emailaddressConfiguration);
+			
+			MappingConfiguration<Department> departmentConfiguration = this.GetDepartmentMappingConfiguration();
+			mappingConfigurations.Add(departmentConfiguration);
 			
 			MappingConfiguration<Customer> customerConfiguration = this.GetCustomerMappingConfiguration();
 			mappingConfigurations.Add(customerConfiguration);
@@ -4369,6 +9190,9 @@ namespace Telerik.Bencher.Model.Fluent
 			
 			MappingConfiguration<Currency> currencyConfiguration = this.GetCurrencyMappingConfiguration();
 			mappingConfigurations.Add(currencyConfiguration);
+			
+			MappingConfiguration<Culture> cultureConfiguration = this.GetCultureMappingConfiguration();
+			mappingConfigurations.Add(cultureConfiguration);
 			
 			MappingConfiguration<CreditCard> creditcardConfiguration = this.GetCreditCardMappingConfiguration();
 			mappingConfigurations.Add(creditcardConfiguration);
@@ -4391,6 +9215,9 @@ namespace Telerik.Bencher.Model.Fluent
 			MappingConfiguration<BusinessEntity> businessentityConfiguration = this.GetBusinessEntityMappingConfiguration();
 			mappingConfigurations.Add(businessentityConfiguration);
 			
+			MappingConfiguration<BillOfMaterial> billofmaterialConfiguration = this.GetBillOfMaterialMappingConfiguration();
+			mappingConfigurations.Add(billofmaterialConfiguration);
+			
 			MappingConfiguration<AddressType> addresstypeConfiguration = this.GetAddressTypeMappingConfiguration();
 			mappingConfigurations.Add(addresstypeConfiguration);
 			
@@ -4407,6 +9234,214 @@ namespace Telerik.Bencher.Model.Fluent
 			container.NameGenerator.SourceStrategy = Telerik.OpenAccess.Metadata.NamingSourceStrategy.Property;
 			container.NameGenerator.RemoveCamelCase = false;
 		}
+		public MappingConfiguration<WorkOrderRouting> GetWorkOrderRoutingMappingConfiguration()
+		{
+			MappingConfiguration<WorkOrderRouting> configuration = this.GetWorkOrderRoutingClassConfiguration();
+			this.PrepareWorkOrderRoutingPropertyConfigurations(configuration);
+			this.PrepareWorkOrderRoutingAssociationConfigurations(configuration);
+
+			return configuration;
+		}
+
+		public MappingConfiguration<WorkOrderRouting> GetWorkOrderRoutingClassConfiguration()
+		{
+			MappingConfiguration<WorkOrderRouting> configuration = new MappingConfiguration<WorkOrderRouting>();
+			configuration.MapType(x => new { }).WithConcurencyControl(OptimisticConcurrencyControlStrategy.Changed).ToTable("Production.WorkOrderRouting");
+	
+			return configuration;
+		}
+	
+		public void PrepareWorkOrderRoutingPropertyConfigurations(MappingConfiguration<WorkOrderRouting> configuration)
+		{
+			configuration.HasProperty(x => x.WorkOrderID).IsIdentity().HasFieldName("_workOrderID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("WorkOrderID").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.ProductID).IsIdentity().HasFieldName("_productID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ProductID").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.OperationSequence).IsIdentity().HasFieldName("_operationSequence").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("OperationSequence").IsNotNullable().HasColumnType("smallint").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.LocationID).HasFieldName("_locationID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("LocationID").IsNotNullable().HasColumnType("smallint").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.ScheduledStartDate).HasFieldName("_scheduledStartDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ScheduledStartDate").IsNotNullable().HasColumnType("datetime");
+			configuration.HasProperty(x => x.ScheduledEndDate).HasFieldName("_scheduledEndDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ScheduledEndDate").IsNotNullable().HasColumnType("datetime");
+			configuration.HasProperty(x => x.ActualStartDate).HasFieldName("_actualStartDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ActualStartDate").IsNullable().HasColumnType("datetime");
+			configuration.HasProperty(x => x.ActualEndDate).HasFieldName("_actualEndDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ActualEndDate").IsNullable().HasColumnType("datetime");
+			configuration.HasProperty(x => x.ActualResourceHrs).HasFieldName("_actualResourceHrs").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ActualResourceHrs").IsNullable().HasColumnType("decimal").HasPrecision(9).HasScale(4);
+			configuration.HasProperty(x => x.PlannedCost).HasFieldName("_plannedCost").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("PlannedCost").IsNotNullable().HasColumnType("money").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.ActualCost).HasFieldName("_actualCost").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ActualCost").IsNullable().HasColumnType("money").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.ModifiedDate).HasFieldName("_modifiedDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ModifiedDate").IsNotNullable().HasColumnType("datetime");
+		}
+	
+		public void PrepareWorkOrderRoutingAssociationConfigurations(MappingConfiguration<WorkOrderRouting> configuration)
+		{
+			configuration.HasAssociation(x => x.Location).HasFieldName("_location").WithOpposite(x => x.WorkOrderRoutings).ToColumn("LocationID").HasConstraint((x, y) =>  x.LocationID == y.LocationID ).IsRequired().WithDataAccessKind(DataAccessKind.ReadWrite);
+			configuration.HasAssociation(x => x.WorkOrder).HasFieldName("_workOrder").WithOpposite(x => x.WorkOrderRoutings).ToColumn("WorkOrderID").HasConstraint((x, y) =>  x.WorkOrderID == y.WorkOrderID ).IsRequired().WithDataAccessKind(DataAccessKind.ReadWrite);
+		}
+		
+		public MappingConfiguration<WorkOrder> GetWorkOrderMappingConfiguration()
+		{
+			MappingConfiguration<WorkOrder> configuration = this.GetWorkOrderClassConfiguration();
+			this.PrepareWorkOrderPropertyConfigurations(configuration);
+			this.PrepareWorkOrderAssociationConfigurations(configuration);
+
+			return configuration;
+		}
+
+		public MappingConfiguration<WorkOrder> GetWorkOrderClassConfiguration()
+		{
+			MappingConfiguration<WorkOrder> configuration = new MappingConfiguration<WorkOrder>();
+			configuration.MapType(x => new { }).WithConcurencyControl(OptimisticConcurrencyControlStrategy.Changed).ToTable("Production.WorkOrder");
+	
+			return configuration;
+		}
+	
+		public void PrepareWorkOrderPropertyConfigurations(MappingConfiguration<WorkOrder> configuration)
+		{
+			configuration.HasProperty(x => x.WorkOrderID).IsIdentity(KeyGenerator.Autoinc).HasFieldName("_workOrderID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("WorkOrderID").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.ProductID).HasFieldName("_productID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ProductID").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.OrderQty).HasFieldName("_orderQty").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("OrderQty").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.StockedQty).HasFieldName("_stockedQty").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("StockedQty").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.ScrappedQty).HasFieldName("_scrappedQty").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ScrappedQty").IsNotNullable().HasColumnType("smallint").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.StartDate).HasFieldName("_startDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("StartDate").IsNotNullable().HasColumnType("datetime");
+			configuration.HasProperty(x => x.EndDate).HasFieldName("_endDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("EndDate").IsNullable().HasColumnType("datetime");
+			configuration.HasProperty(x => x.DueDate).HasFieldName("_dueDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("DueDate").IsNotNullable().HasColumnType("datetime");
+			configuration.HasProperty(x => x.ScrapReasonID).HasFieldName("_scrapReasonID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ScrapReasonID").IsNullable().HasColumnType("smallint").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.ModifiedDate).HasFieldName("_modifiedDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ModifiedDate").IsNotNullable().HasColumnType("datetime");
+		}
+	
+		public void PrepareWorkOrderAssociationConfigurations(MappingConfiguration<WorkOrder> configuration)
+		{
+			configuration.HasAssociation(x => x.WorkOrderRoutings).HasFieldName("_workOrderRoutings").WithOpposite(x => x.WorkOrder).ToColumn("WorkOrderID").HasConstraint((y, x) =>  x.WorkOrderID == y.WorkOrderID ).WithDataAccessKind(DataAccessKind.ReadWrite);
+			configuration.HasAssociation(x => x.Product).HasFieldName("_product").WithOpposite(x => x.WorkOrders).ToColumn("ProductID").HasConstraint((x, y) =>  x.ProductID == y.ProductID ).IsRequired().WithDataAccessKind(DataAccessKind.ReadWrite);
+			configuration.HasAssociation(x => x.ScrapReason).HasFieldName("_scrapReason").WithOpposite(x => x.WorkOrders).ToColumn("ScrapReasonID").HasConstraint((x, y) =>  x.ScrapReasonID == y.ScrapReasonID ).WithDataAccessKind(DataAccessKind.ReadWrite);
+		}
+		
+		public MappingConfiguration<Vendor> GetVendorMappingConfiguration()
+		{
+			MappingConfiguration<Vendor> configuration = this.GetVendorClassConfiguration();
+			this.PrepareVendorPropertyConfigurations(configuration);
+			this.PrepareVendorAssociationConfigurations(configuration);
+
+			return configuration;
+		}
+
+		public MappingConfiguration<Vendor> GetVendorClassConfiguration()
+		{
+			MappingConfiguration<Vendor> configuration = new MappingConfiguration<Vendor>();
+			configuration.MapType(x => new { }).WithConcurencyControl(OptimisticConcurrencyControlStrategy.Changed).ToTable("Purchasing.Vendor");
+	
+			return configuration;
+		}
+	
+		public void PrepareVendorPropertyConfigurations(MappingConfiguration<Vendor> configuration)
+		{
+			configuration.HasProperty(x => x.BusinessEntityID).IsIdentity().HasFieldName("_businessEntityID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("BusinessEntityID").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.AccountNumber).HasFieldName("_accountNumber").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("AccountNumber").IsNotNullable().HasColumnType("'AccountNumber'").HasLength(15);
+			configuration.HasProperty(x => x.Name).HasFieldName("_name").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("Name").IsNotNullable().HasColumnType("'Name'").HasLength(50);
+			configuration.HasProperty(x => x.CreditRating).HasFieldName("_creditRating").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("CreditRating").IsNotNullable().HasColumnType("tinyint").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.PreferredVendorStatus).HasFieldName("_preferredVendorStatus").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("PreferredVendorStatus").IsNotNullable().HasColumnType("'Flag'").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.ActiveFlag).HasFieldName("_activeFlag").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ActiveFlag").IsNotNullable().HasColumnType("'Flag'").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.PurchasingWebServiceURL).HasFieldName("_purchasingWebServiceURL").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("PurchasingWebServiceURL").IsNullable().HasColumnType("nvarchar").HasLength(1024);
+			configuration.HasProperty(x => x.ModifiedDate).HasFieldName("_modifiedDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ModifiedDate").IsNotNullable().HasColumnType("datetime");
+		}
+	
+		public void PrepareVendorAssociationConfigurations(MappingConfiguration<Vendor> configuration)
+		{
+			configuration.HasAssociation(x => x.BusinessEntity).HasFieldName("_businessEntity").WithOpposite(x => x.Vendor).ToColumn("BusinessEntityID").HasConstraint((x, y) =>  x.BusinessEntityID == y.BusinessEntityID ).IsManaged().IsRequired().WithDataAccessKind(DataAccessKind.ReadWrite);
+			configuration.HasAssociation(x => x.PurchaseOrderHeaders).HasFieldName("_purchaseOrderHeaders").WithOpposite(x => x.Vendor).ToColumn("VendorID").HasConstraint((y, x) =>  x.VendorID == y.BusinessEntityID ).WithDataAccessKind(DataAccessKind.ReadWrite);
+			configuration.HasAssociation(x => x.ProductVendors).HasFieldName("_productVendors").WithOpposite(x => x.Vendor).ToColumn("BusinessEntityID").HasConstraint((y, x) =>  x.BusinessEntityID == y.BusinessEntityID ).WithDataAccessKind(DataAccessKind.ReadWrite);
+		}
+		
+		public MappingConfiguration<UnitMeasure> GetUnitMeasureMappingConfiguration()
+		{
+			MappingConfiguration<UnitMeasure> configuration = this.GetUnitMeasureClassConfiguration();
+			this.PrepareUnitMeasurePropertyConfigurations(configuration);
+			this.PrepareUnitMeasureAssociationConfigurations(configuration);
+
+			return configuration;
+		}
+
+		public MappingConfiguration<UnitMeasure> GetUnitMeasureClassConfiguration()
+		{
+			MappingConfiguration<UnitMeasure> configuration = new MappingConfiguration<UnitMeasure>();
+			configuration.MapType(x => new { }).WithConcurencyControl(OptimisticConcurrencyControlStrategy.Changed).ToTable("Production.UnitMeasure");
+	
+			return configuration;
+		}
+	
+		public void PrepareUnitMeasurePropertyConfigurations(MappingConfiguration<UnitMeasure> configuration)
+		{
+			configuration.HasProperty(x => x.UnitMeasureCode).IsIdentity().HasFieldName("_unitMeasureCode").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("UnitMeasureCode").IsNotNullable().HasColumnType("nchar").HasLength(3);
+			configuration.HasProperty(x => x.Name).HasFieldName("_name").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("Name").IsNotNullable().HasColumnType("'Name'").HasLength(50);
+			configuration.HasProperty(x => x.ModifiedDate).HasFieldName("_modifiedDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ModifiedDate").IsNotNullable().HasColumnType("datetime");
+		}
+	
+		public void PrepareUnitMeasureAssociationConfigurations(MappingConfiguration<UnitMeasure> configuration)
+		{
+			configuration.HasAssociation(x => x.ProductVendors).HasFieldName("_productVendors").WithOpposite(x => x.UnitMeasure).ToColumn("UnitMeasureCode").HasConstraint((y, x) =>  x.UnitMeasureCode == y.UnitMeasureCode ).WithDataAccessKind(DataAccessKind.ReadWrite);
+			configuration.HasAssociation(x => x.Products).HasFieldName("_products").WithOpposite(x => x.UnitMeasure).ToColumn("SizeUnitMeasureCode").HasConstraint((y, x) =>  x.SizeUnitMeasureCode == y.UnitMeasureCode ).WithDataAccessKind(DataAccessKind.ReadWrite);
+			configuration.HasAssociation(x => x.Products1).HasFieldName("_products1").WithOpposite(x => x.UnitMeasure1).ToColumn("WeightUnitMeasureCode").HasConstraint((y, x) =>  x.WeightUnitMeasureCode == y.UnitMeasureCode ).WithDataAccessKind(DataAccessKind.ReadWrite);
+			configuration.HasAssociation(x => x.BillOfMaterials).HasFieldName("_billOfMaterials").WithOpposite(x => x.UnitMeasure).ToColumn("UnitMeasureCode").HasConstraint((y, x) =>  x.UnitMeasureCode == y.UnitMeasureCode ).WithDataAccessKind(DataAccessKind.ReadWrite);
+		}
+		
+		public MappingConfiguration<TransactionHistoryArchive> GetTransactionHistoryArchiveMappingConfiguration()
+		{
+			MappingConfiguration<TransactionHistoryArchive> configuration = this.GetTransactionHistoryArchiveClassConfiguration();
+			this.PrepareTransactionHistoryArchivePropertyConfigurations(configuration);
+
+			return configuration;
+		}
+
+		public MappingConfiguration<TransactionHistoryArchive> GetTransactionHistoryArchiveClassConfiguration()
+		{
+			MappingConfiguration<TransactionHistoryArchive> configuration = new MappingConfiguration<TransactionHistoryArchive>();
+			configuration.MapType(x => new { }).WithConcurencyControl(OptimisticConcurrencyControlStrategy.Changed).ToTable("Production.TransactionHistoryArchive");
+	
+			return configuration;
+		}
+	
+		public void PrepareTransactionHistoryArchivePropertyConfigurations(MappingConfiguration<TransactionHistoryArchive> configuration)
+		{
+			configuration.HasProperty(x => x.TransactionID).IsIdentity().HasFieldName("_transactionID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("TransactionID").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.ProductID).HasFieldName("_productID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ProductID").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.ReferenceOrderID).HasFieldName("_referenceOrderID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ReferenceOrderID").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.ReferenceOrderLineID).HasFieldName("_referenceOrderLineID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ReferenceOrderLineID").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.TransactionDate).HasFieldName("_transactionDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("TransactionDate").IsNotNullable().HasColumnType("datetime");
+			configuration.HasProperty(x => x.TransactionType).HasFieldName("_transactionType").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("TransactionType").IsNotNullable().HasColumnType("nchar").HasPrecision(1);
+			configuration.HasProperty(x => x.Quantity).HasFieldName("_quantity").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("Quantity").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.ActualCost).HasFieldName("_actualCost").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ActualCost").IsNotNullable().HasColumnType("money").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.ModifiedDate).HasFieldName("_modifiedDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ModifiedDate").IsNotNullable().HasColumnType("datetime");
+		}
+		public MappingConfiguration<TransactionHistory> GetTransactionHistoryMappingConfiguration()
+		{
+			MappingConfiguration<TransactionHistory> configuration = this.GetTransactionHistoryClassConfiguration();
+			this.PrepareTransactionHistoryPropertyConfigurations(configuration);
+			this.PrepareTransactionHistoryAssociationConfigurations(configuration);
+
+			return configuration;
+		}
+
+		public MappingConfiguration<TransactionHistory> GetTransactionHistoryClassConfiguration()
+		{
+			MappingConfiguration<TransactionHistory> configuration = new MappingConfiguration<TransactionHistory>();
+			configuration.MapType(x => new { }).WithConcurencyControl(OptimisticConcurrencyControlStrategy.Changed).ToTable("Production.TransactionHistory");
+	
+			return configuration;
+		}
+	
+		public void PrepareTransactionHistoryPropertyConfigurations(MappingConfiguration<TransactionHistory> configuration)
+		{
+			configuration.HasProperty(x => x.TransactionID).IsIdentity(KeyGenerator.Autoinc).HasFieldName("_transactionID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("TransactionID").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.ProductID).HasFieldName("_productID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ProductID").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.ReferenceOrderID).HasFieldName("_referenceOrderID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ReferenceOrderID").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.ReferenceOrderLineID).HasFieldName("_referenceOrderLineID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ReferenceOrderLineID").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.TransactionDate).HasFieldName("_transactionDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("TransactionDate").IsNotNullable().HasColumnType("datetime");
+			configuration.HasProperty(x => x.TransactionType).HasFieldName("_transactionType").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("TransactionType").IsNotNullable().HasColumnType("nchar").HasPrecision(1);
+			configuration.HasProperty(x => x.Quantity).HasFieldName("_quantity").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("Quantity").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.ActualCost).HasFieldName("_actualCost").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ActualCost").IsNotNullable().HasColumnType("money").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.ModifiedDate).HasFieldName("_modifiedDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ModifiedDate").IsNotNullable().HasColumnType("datetime");
+		}
+	
+		public void PrepareTransactionHistoryAssociationConfigurations(MappingConfiguration<TransactionHistory> configuration)
+		{
+			configuration.HasAssociation(x => x.Product).HasFieldName("_product").WithOpposite(x => x.TransactionHistories).ToColumn("ProductID").HasConstraint((x, y) =>  x.ProductID == y.ProductID ).IsRequired().WithDataAccessKind(DataAccessKind.ReadWrite);
+		}
+		
 		public MappingConfiguration<Store> GetStoreMappingConfiguration()
 		{
 			MappingConfiguration<Store> configuration = this.GetStoreClassConfiguration();
@@ -4505,6 +9540,7 @@ namespace Telerik.Bencher.Model.Fluent
 	
 		public void PrepareSpecialOfferProductAssociationConfigurations(MappingConfiguration<SpecialOfferProduct> configuration)
 		{
+			configuration.HasAssociation(x => x.Product).HasFieldName("_product").WithOpposite(x => x.SpecialOfferProducts).ToColumn("ProductID").HasConstraint((x, y) =>  x.ProductID == y.ProductID ).IsRequired().WithDataAccessKind(DataAccessKind.ReadWrite);
 			configuration.HasAssociation(x => x.SpecialOffer).HasFieldName("_specialOffer").WithOpposite(x => x.SpecialOfferProducts).ToColumn("SpecialOfferID").HasConstraint((x, y) =>  x.SpecialOfferID == y.SpecialOfferID ).IsRequired().WithDataAccessKind(DataAccessKind.ReadWrite);
 			configuration.HasAssociation(x => x.SalesOrderDetails).HasFieldName("_salesOrderDetails").WithOpposite(x => x.SpecialOfferProduct).HasConstraint((y, x) =>  x.SpecialOfferID == y.SpecialOfferID && x.ProductID == y.ProductID ).WithDataAccessKind(DataAccessKind.ReadWrite);
 		}
@@ -4550,6 +9586,7 @@ namespace Telerik.Bencher.Model.Fluent
 		{
 			MappingConfiguration<ShoppingCartItem> configuration = this.GetShoppingCartItemClassConfiguration();
 			this.PrepareShoppingCartItemPropertyConfigurations(configuration);
+			this.PrepareShoppingCartItemAssociationConfigurations(configuration);
 
 			return configuration;
 		}
@@ -4571,6 +9608,105 @@ namespace Telerik.Bencher.Model.Fluent
 			configuration.HasProperty(x => x.DateCreated).HasFieldName("_dateCreated").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("DateCreated").IsNotNullable().HasColumnType("datetime");
 			configuration.HasProperty(x => x.ModifiedDate).HasFieldName("_modifiedDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ModifiedDate").IsNotNullable().HasColumnType("datetime");
 		}
+	
+		public void PrepareShoppingCartItemAssociationConfigurations(MappingConfiguration<ShoppingCartItem> configuration)
+		{
+			configuration.HasAssociation(x => x.Product).HasFieldName("_product").WithOpposite(x => x.ShoppingCartItems).ToColumn("ProductID").HasConstraint((x, y) =>  x.ProductID == y.ProductID ).IsRequired().WithDataAccessKind(DataAccessKind.ReadWrite);
+		}
+		
+		public MappingConfiguration<ShipMethod> GetShipMethodMappingConfiguration()
+		{
+			MappingConfiguration<ShipMethod> configuration = this.GetShipMethodClassConfiguration();
+			this.PrepareShipMethodPropertyConfigurations(configuration);
+			this.PrepareShipMethodAssociationConfigurations(configuration);
+
+			return configuration;
+		}
+
+		public MappingConfiguration<ShipMethod> GetShipMethodClassConfiguration()
+		{
+			MappingConfiguration<ShipMethod> configuration = new MappingConfiguration<ShipMethod>();
+			configuration.MapType(x => new { }).WithConcurencyControl(OptimisticConcurrencyControlStrategy.Changed).ToTable("Purchasing.ShipMethod");
+	
+			return configuration;
+		}
+	
+		public void PrepareShipMethodPropertyConfigurations(MappingConfiguration<ShipMethod> configuration)
+		{
+			configuration.HasProperty(x => x.ShipMethodID).IsIdentity(KeyGenerator.Autoinc).HasFieldName("_shipMethodID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ShipMethodID").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.Name).HasFieldName("_name").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("Name").IsNotNullable().HasColumnType("'Name'").HasLength(50);
+			configuration.HasProperty(x => x.ShipBase).HasFieldName("_shipBase").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ShipBase").IsNotNullable().HasColumnType("money").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.ShipRate).HasFieldName("_shipRate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ShipRate").IsNotNullable().HasColumnType("money").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.Rowguid).HasFieldName("_rowguid").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("rowguid").IsNotNullable().HasColumnType("uniqueidentifier").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.ModifiedDate).HasFieldName("_modifiedDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ModifiedDate").IsNotNullable().HasColumnType("datetime");
+		}
+	
+		public void PrepareShipMethodAssociationConfigurations(MappingConfiguration<ShipMethod> configuration)
+		{
+			configuration.HasAssociation(x => x.SalesOrderHeaders).HasFieldName("_salesOrderHeaders").WithOpposite(x => x.ShipMethod).ToColumn("ShipMethodID").HasConstraint((y, x) =>  x.ShipMethodID == y.ShipMethodID ).WithDataAccessKind(DataAccessKind.ReadWrite);
+			configuration.HasAssociation(x => x.PurchaseOrderHeaders).HasFieldName("_purchaseOrderHeaders").WithOpposite(x => x.ShipMethod).ToColumn("ShipMethodID").HasConstraint((y, x) =>  x.ShipMethodID == y.ShipMethodID ).WithDataAccessKind(DataAccessKind.ReadWrite);
+		}
+		
+		public MappingConfiguration<Shift> GetShiftMappingConfiguration()
+		{
+			MappingConfiguration<Shift> configuration = this.GetShiftClassConfiguration();
+			this.PrepareShiftPropertyConfigurations(configuration);
+			this.PrepareShiftAssociationConfigurations(configuration);
+
+			return configuration;
+		}
+
+		public MappingConfiguration<Shift> GetShiftClassConfiguration()
+		{
+			MappingConfiguration<Shift> configuration = new MappingConfiguration<Shift>();
+			configuration.MapType(x => new { }).WithConcurencyControl(OptimisticConcurrencyControlStrategy.Changed).ToTable("HumanResources.Shift");
+	
+			return configuration;
+		}
+	
+		public void PrepareShiftPropertyConfigurations(MappingConfiguration<Shift> configuration)
+		{
+			configuration.HasProperty(x => x.ShiftID).IsIdentity(KeyGenerator.Autoinc).HasFieldName("_shiftID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ShiftID").IsNotNullable().HasColumnType("tinyint").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.Name).HasFieldName("_name").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("Name").IsNotNullable().HasColumnType("'Name'").HasLength(50);
+			configuration.HasProperty(x => x.StartTime).HasFieldName("_startTime").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("StartTime").IsNotNullable().HasColumnType("time");
+			configuration.HasProperty(x => x.EndTime).HasFieldName("_endTime").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("EndTime").IsNotNullable().HasColumnType("time");
+			configuration.HasProperty(x => x.ModifiedDate).HasFieldName("_modifiedDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ModifiedDate").IsNotNullable().HasColumnType("datetime");
+		}
+	
+		public void PrepareShiftAssociationConfigurations(MappingConfiguration<Shift> configuration)
+		{
+			configuration.HasAssociation(x => x.EmployeeDepartmentHistories).HasFieldName("_employeeDepartmentHistories").WithOpposite(x => x.Shift).ToColumn("ShiftID").HasConstraint((y, x) =>  x.ShiftID == y.ShiftID ).WithDataAccessKind(DataAccessKind.ReadWrite);
+		}
+		
+		public MappingConfiguration<ScrapReason> GetScrapReasonMappingConfiguration()
+		{
+			MappingConfiguration<ScrapReason> configuration = this.GetScrapReasonClassConfiguration();
+			this.PrepareScrapReasonPropertyConfigurations(configuration);
+			this.PrepareScrapReasonAssociationConfigurations(configuration);
+
+			return configuration;
+		}
+
+		public MappingConfiguration<ScrapReason> GetScrapReasonClassConfiguration()
+		{
+			MappingConfiguration<ScrapReason> configuration = new MappingConfiguration<ScrapReason>();
+			configuration.MapType(x => new { }).WithConcurencyControl(OptimisticConcurrencyControlStrategy.Changed).ToTable("Production.ScrapReason");
+	
+			return configuration;
+		}
+	
+		public void PrepareScrapReasonPropertyConfigurations(MappingConfiguration<ScrapReason> configuration)
+		{
+			configuration.HasProperty(x => x.ScrapReasonID).IsIdentity(KeyGenerator.Autoinc).HasFieldName("_scrapReasonID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ScrapReasonID").IsNotNullable().HasColumnType("smallint").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.Name).HasFieldName("_name").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("Name").IsNotNullable().HasColumnType("'Name'").HasLength(50);
+			configuration.HasProperty(x => x.ModifiedDate).HasFieldName("_modifiedDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ModifiedDate").IsNotNullable().HasColumnType("datetime");
+		}
+	
+		public void PrepareScrapReasonAssociationConfigurations(MappingConfiguration<ScrapReason> configuration)
+		{
+			configuration.HasAssociation(x => x.WorkOrders).HasFieldName("_workOrders").WithOpposite(x => x.ScrapReason).ToColumn("ScrapReasonID").HasConstraint((y, x) =>  x.ScrapReasonID == y.ScrapReasonID ).WithDataAccessKind(DataAccessKind.ReadWrite);
+		}
+		
 		public MappingConfiguration<SalesTerritoryHistory> GetSalesTerritoryHistoryMappingConfiguration()
 		{
 			MappingConfiguration<SalesTerritoryHistory> configuration = this.GetSalesTerritoryHistoryClassConfiguration();
@@ -4774,6 +9910,7 @@ namespace Telerik.Bencher.Model.Fluent
 			configuration.HasAssociation(x => x.Stores).HasFieldName("_stores").WithOpposite(x => x.SalesPerson).ToColumn("SalesPersonID").HasConstraint((y, x) =>  x.SalesPersonID == y.BusinessEntityID ).WithDataAccessKind(DataAccessKind.ReadWrite);
 			configuration.HasAssociation(x => x.SalesTerritoryHistories).HasFieldName("_salesTerritoryHistories").WithOpposite(x => x.SalesPerson).ToColumn("BusinessEntityID").HasConstraint((y, x) =>  x.BusinessEntityID == y.BusinessEntityID ).WithDataAccessKind(DataAccessKind.ReadWrite);
 			configuration.HasAssociation(x => x.SalesPersonQuotaHistories).HasFieldName("_salesPersonQuotaHistories").WithOpposite(x => x.SalesPerson).ToColumn("BusinessEntityID").HasConstraint((y, x) =>  x.BusinessEntityID == y.BusinessEntityID ).WithDataAccessKind(DataAccessKind.ReadWrite);
+			configuration.HasAssociation(x => x.Employee).HasFieldName("_employee").WithOpposite(x => x.SalesPerson).ToColumn("BusinessEntityID").HasConstraint((x, y) =>  x.BusinessEntityID == y.BusinessEntityID ).IsManaged().IsRequired().WithDataAccessKind(DataAccessKind.ReadWrite);
 			configuration.HasAssociation(x => x.SalesTerritory).HasFieldName("_salesTerritory").WithOpposite(x => x.SalesPeople).ToColumn("TerritoryID").HasConstraint((x, y) =>  x.TerritoryID == y.TerritoryID ).WithDataAccessKind(DataAccessKind.ReadWrite);
 			configuration.HasAssociation(x => x.SalesOrderHeaders).HasFieldName("_salesOrderHeaders").WithOpposite(x => x.SalesPerson).ToColumn("SalesPersonID").HasConstraint((y, x) =>  x.SalesPersonID == y.BusinessEntityID ).WithDataAccessKind(DataAccessKind.ReadWrite);
 		}
@@ -4865,6 +10002,7 @@ namespace Telerik.Bencher.Model.Fluent
 			configuration.HasAssociation(x => x.Customer).HasFieldName("_customer").WithOpposite(x => x.SalesOrderHeaders).ToColumn("CustomerID").HasConstraint((x, y) =>  x.CustomerID == y.CustomerID ).IsRequired().WithDataAccessKind(DataAccessKind.ReadWrite);
 			configuration.HasAssociation(x => x.SalesPerson).HasFieldName("_salesPerson").WithOpposite(x => x.SalesOrderHeaders).ToColumn("SalesPersonID").HasConstraint((x, y) =>  x.SalesPersonID == y.BusinessEntityID ).WithDataAccessKind(DataAccessKind.ReadWrite);
 			configuration.HasAssociation(x => x.SalesTerritory).HasFieldName("_salesTerritory").WithOpposite(x => x.SalesOrderHeaders).ToColumn("TerritoryID").HasConstraint((x, y) =>  x.TerritoryID == y.TerritoryID ).WithDataAccessKind(DataAccessKind.ReadWrite);
+			configuration.HasAssociation(x => x.ShipMethod).HasFieldName("_shipMethod").WithOpposite(x => x.SalesOrderHeaders).ToColumn("ShipMethodID").HasConstraint((x, y) =>  x.ShipMethodID == y.ShipMethodID ).IsRequired().WithDataAccessKind(DataAccessKind.ReadWrite);
 			configuration.HasAssociation(x => x.SalesOrderDetails).HasFieldName("_salesOrderDetails").WithOpposite(x => x.SalesOrderHeader).ToColumn("SalesOrderID").HasConstraint((y, x) =>  x.SalesOrderID == y.SalesOrderID ).WithDataAccessKind(DataAccessKind.ReadWrite);
 		}
 		
@@ -4904,6 +10042,573 @@ namespace Telerik.Bencher.Model.Fluent
 		{
 			configuration.HasAssociation(x => x.SalesOrderHeader).HasFieldName("_salesOrderHeader").WithOpposite(x => x.SalesOrderDetails).ToColumn("SalesOrderID").HasConstraint((x, y) =>  x.SalesOrderID == y.SalesOrderID ).IsRequired().WithDataAccessKind(DataAccessKind.ReadWrite);
 			configuration.HasAssociation(x => x.SpecialOfferProduct).HasFieldName("_specialOfferProduct").WithOpposite(x => x.SalesOrderDetails).HasConstraint((x, y) =>  x.SpecialOfferID == y.SpecialOfferID && x.ProductID == y.ProductID ).IsRequired().WithDataAccessKind(DataAccessKind.ReadWrite);
+		}
+		
+		public MappingConfiguration<PurchaseOrderHeader> GetPurchaseOrderHeaderMappingConfiguration()
+		{
+			MappingConfiguration<PurchaseOrderHeader> configuration = this.GetPurchaseOrderHeaderClassConfiguration();
+			this.PreparePurchaseOrderHeaderPropertyConfigurations(configuration);
+			this.PreparePurchaseOrderHeaderAssociationConfigurations(configuration);
+
+			return configuration;
+		}
+
+		public MappingConfiguration<PurchaseOrderHeader> GetPurchaseOrderHeaderClassConfiguration()
+		{
+			MappingConfiguration<PurchaseOrderHeader> configuration = new MappingConfiguration<PurchaseOrderHeader>();
+			configuration.MapType(x => new { }).WithConcurencyControl(OptimisticConcurrencyControlStrategy.Changed).ToTable("Purchasing.PurchaseOrderHeader");
+	
+			return configuration;
+		}
+	
+		public void PreparePurchaseOrderHeaderPropertyConfigurations(MappingConfiguration<PurchaseOrderHeader> configuration)
+		{
+			configuration.HasProperty(x => x.PurchaseOrderID).IsIdentity(KeyGenerator.Autoinc).HasFieldName("_purchaseOrderID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("PurchaseOrderID").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.RevisionNumber).HasFieldName("_revisionNumber").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("RevisionNumber").IsNotNullable().HasColumnType("tinyint").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.Status).HasFieldName("_status").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("Status").IsNotNullable().HasColumnType("tinyint").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.EmployeeID).HasFieldName("_employeeID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("EmployeeID").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.VendorID).HasFieldName("_vendorID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("VendorID").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.ShipMethodID).HasFieldName("_shipMethodID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ShipMethodID").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.OrderDate).HasFieldName("_orderDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("OrderDate").IsNotNullable().HasColumnType("datetime");
+			configuration.HasProperty(x => x.ShipDate).HasFieldName("_shipDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ShipDate").IsNullable().HasColumnType("datetime");
+			configuration.HasProperty(x => x.SubTotal).HasFieldName("_subTotal").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("SubTotal").IsNotNullable().HasColumnType("money").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.TaxAmt).HasFieldName("_taxAmt").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("TaxAmt").IsNotNullable().HasColumnType("money").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.Freight).HasFieldName("_freight").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("Freight").IsNotNullable().HasColumnType("money").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.TotalDue).HasFieldName("_totalDue").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("TotalDue").IsNotNullable().HasColumnType("money").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.ModifiedDate).HasFieldName("_modifiedDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ModifiedDate").IsNotNullable().HasColumnType("datetime");
+		}
+	
+		public void PreparePurchaseOrderHeaderAssociationConfigurations(MappingConfiguration<PurchaseOrderHeader> configuration)
+		{
+			configuration.HasAssociation(x => x.Employee).HasFieldName("_employee").WithOpposite(x => x.PurchaseOrderHeaders).ToColumn("EmployeeID").HasConstraint((x, y) =>  x.EmployeeID == y.BusinessEntityID ).IsRequired().WithDataAccessKind(DataAccessKind.ReadWrite);
+			configuration.HasAssociation(x => x.ShipMethod).HasFieldName("_shipMethod").WithOpposite(x => x.PurchaseOrderHeaders).ToColumn("ShipMethodID").HasConstraint((x, y) =>  x.ShipMethodID == y.ShipMethodID ).IsRequired().WithDataAccessKind(DataAccessKind.ReadWrite);
+			configuration.HasAssociation(x => x.Vendor).HasFieldName("_vendor").WithOpposite(x => x.PurchaseOrderHeaders).ToColumn("VendorID").HasConstraint((x, y) =>  x.VendorID == y.BusinessEntityID ).IsRequired().WithDataAccessKind(DataAccessKind.ReadWrite);
+			configuration.HasAssociation(x => x.PurchaseOrderDetails).HasFieldName("_purchaseOrderDetails").WithOpposite(x => x.PurchaseOrderHeader).ToColumn("PurchaseOrderID").HasConstraint((y, x) =>  x.PurchaseOrderID == y.PurchaseOrderID ).WithDataAccessKind(DataAccessKind.ReadWrite);
+		}
+		
+		public MappingConfiguration<PurchaseOrderDetail> GetPurchaseOrderDetailMappingConfiguration()
+		{
+			MappingConfiguration<PurchaseOrderDetail> configuration = this.GetPurchaseOrderDetailClassConfiguration();
+			this.PreparePurchaseOrderDetailPropertyConfigurations(configuration);
+			this.PreparePurchaseOrderDetailAssociationConfigurations(configuration);
+
+			return configuration;
+		}
+
+		public MappingConfiguration<PurchaseOrderDetail> GetPurchaseOrderDetailClassConfiguration()
+		{
+			MappingConfiguration<PurchaseOrderDetail> configuration = new MappingConfiguration<PurchaseOrderDetail>();
+			configuration.MapType(x => new { }).WithConcurencyControl(OptimisticConcurrencyControlStrategy.Changed).ToTable("Purchasing.PurchaseOrderDetail");
+	
+			return configuration;
+		}
+	
+		public void PreparePurchaseOrderDetailPropertyConfigurations(MappingConfiguration<PurchaseOrderDetail> configuration)
+		{
+			configuration.HasProperty(x => x.PurchaseOrderID).IsIdentity().HasFieldName("_purchaseOrderID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("PurchaseOrderID").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.PurchaseOrderDetailID).IsIdentity(KeyGenerator.Autoinc).HasFieldName("_purchaseOrderDetailID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("PurchaseOrderDetailID").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.DueDate).HasFieldName("_dueDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("DueDate").IsNotNullable().HasColumnType("datetime");
+			configuration.HasProperty(x => x.OrderQty).HasFieldName("_orderQty").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("OrderQty").IsNotNullable().HasColumnType("smallint").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.ProductID).HasFieldName("_productID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ProductID").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.UnitPrice).HasFieldName("_unitPrice").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("UnitPrice").IsNotNullable().HasColumnType("money").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.LineTotal).HasFieldName("_lineTotal").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("LineTotal").IsNotNullable().HasColumnType("money").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.ReceivedQty).HasFieldName("_receivedQty").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ReceivedQty").IsNotNullable().HasColumnType("decimal").HasPrecision(8).HasScale(2);
+			configuration.HasProperty(x => x.RejectedQty).HasFieldName("_rejectedQty").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("RejectedQty").IsNotNullable().HasColumnType("decimal").HasPrecision(8).HasScale(2);
+			configuration.HasProperty(x => x.StockedQty).HasFieldName("_stockedQty").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("StockedQty").IsNotNullable().HasColumnType("decimal").HasPrecision(9).HasScale(2);
+			configuration.HasProperty(x => x.ModifiedDate).HasFieldName("_modifiedDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ModifiedDate").IsNotNullable().HasColumnType("datetime");
+		}
+	
+		public void PreparePurchaseOrderDetailAssociationConfigurations(MappingConfiguration<PurchaseOrderDetail> configuration)
+		{
+			configuration.HasAssociation(x => x.Product).HasFieldName("_product").WithOpposite(x => x.PurchaseOrderDetails).ToColumn("ProductID").HasConstraint((x, y) =>  x.ProductID == y.ProductID ).IsRequired().WithDataAccessKind(DataAccessKind.ReadWrite);
+			configuration.HasAssociation(x => x.PurchaseOrderHeader).HasFieldName("_purchaseOrderHeader").WithOpposite(x => x.PurchaseOrderDetails).ToColumn("PurchaseOrderID").HasConstraint((x, y) =>  x.PurchaseOrderID == y.PurchaseOrderID ).IsRequired().WithDataAccessKind(DataAccessKind.ReadWrite);
+		}
+		
+		public MappingConfiguration<ProductVendor> GetProductVendorMappingConfiguration()
+		{
+			MappingConfiguration<ProductVendor> configuration = this.GetProductVendorClassConfiguration();
+			this.PrepareProductVendorPropertyConfigurations(configuration);
+			this.PrepareProductVendorAssociationConfigurations(configuration);
+
+			return configuration;
+		}
+
+		public MappingConfiguration<ProductVendor> GetProductVendorClassConfiguration()
+		{
+			MappingConfiguration<ProductVendor> configuration = new MappingConfiguration<ProductVendor>();
+			configuration.MapType(x => new { }).WithConcurencyControl(OptimisticConcurrencyControlStrategy.Changed).ToTable("Purchasing.ProductVendor");
+	
+			return configuration;
+		}
+	
+		public void PrepareProductVendorPropertyConfigurations(MappingConfiguration<ProductVendor> configuration)
+		{
+			configuration.HasProperty(x => x.ProductID).IsIdentity().HasFieldName("_productID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ProductID").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.BusinessEntityID).IsIdentity().HasFieldName("_businessEntityID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("BusinessEntityID").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.AverageLeadTime).HasFieldName("_averageLeadTime").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("AverageLeadTime").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.StandardPrice).HasFieldName("_standardPrice").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("StandardPrice").IsNotNullable().HasColumnType("money").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.LastReceiptCost).HasFieldName("_lastReceiptCost").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("LastReceiptCost").IsNullable().HasColumnType("money").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.LastReceiptDate).HasFieldName("_lastReceiptDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("LastReceiptDate").IsNullable().HasColumnType("datetime");
+			configuration.HasProperty(x => x.MinOrderQty).HasFieldName("_minOrderQty").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("MinOrderQty").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.MaxOrderQty).HasFieldName("_maxOrderQty").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("MaxOrderQty").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.OnOrderQty).HasFieldName("_onOrderQty").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("OnOrderQty").IsNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.UnitMeasureCode).HasFieldName("_unitMeasureCode").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("UnitMeasureCode").IsNotNullable().HasColumnType("nchar").HasLength(3);
+			configuration.HasProperty(x => x.ModifiedDate).HasFieldName("_modifiedDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ModifiedDate").IsNotNullable().HasColumnType("datetime");
+		}
+	
+		public void PrepareProductVendorAssociationConfigurations(MappingConfiguration<ProductVendor> configuration)
+		{
+			configuration.HasAssociation(x => x.Product).HasFieldName("_product").WithOpposite(x => x.ProductVendors).ToColumn("ProductID").HasConstraint((x, y) =>  x.ProductID == y.ProductID ).IsRequired().WithDataAccessKind(DataAccessKind.ReadWrite);
+			configuration.HasAssociation(x => x.UnitMeasure).HasFieldName("_unitMeasure").WithOpposite(x => x.ProductVendors).ToColumn("UnitMeasureCode").HasConstraint((x, y) =>  x.UnitMeasureCode == y.UnitMeasureCode ).IsRequired().WithDataAccessKind(DataAccessKind.ReadWrite);
+			configuration.HasAssociation(x => x.Vendor).HasFieldName("_vendor").WithOpposite(x => x.ProductVendors).ToColumn("BusinessEntityID").HasConstraint((x, y) =>  x.BusinessEntityID == y.BusinessEntityID ).IsRequired().WithDataAccessKind(DataAccessKind.ReadWrite);
+		}
+		
+		public MappingConfiguration<ProductSubcategory> GetProductSubcategoryMappingConfiguration()
+		{
+			MappingConfiguration<ProductSubcategory> configuration = this.GetProductSubcategoryClassConfiguration();
+			this.PrepareProductSubcategoryPropertyConfigurations(configuration);
+			this.PrepareProductSubcategoryAssociationConfigurations(configuration);
+
+			return configuration;
+		}
+
+		public MappingConfiguration<ProductSubcategory> GetProductSubcategoryClassConfiguration()
+		{
+			MappingConfiguration<ProductSubcategory> configuration = new MappingConfiguration<ProductSubcategory>();
+			configuration.MapType(x => new { }).WithConcurencyControl(OptimisticConcurrencyControlStrategy.Changed).ToTable("Production.ProductSubcategory");
+	
+			return configuration;
+		}
+	
+		public void PrepareProductSubcategoryPropertyConfigurations(MappingConfiguration<ProductSubcategory> configuration)
+		{
+			configuration.HasProperty(x => x.ProductSubcategoryID).IsIdentity(KeyGenerator.Autoinc).HasFieldName("_productSubcategoryID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ProductSubcategoryID").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.ProductCategoryID).HasFieldName("_productCategoryID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ProductCategoryID").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.Name).HasFieldName("_name").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("Name").IsNotNullable().HasColumnType("'Name'").HasLength(50);
+			configuration.HasProperty(x => x.Rowguid).HasFieldName("_rowguid").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("rowguid").IsNotNullable().HasColumnType("uniqueidentifier").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.ModifiedDate).HasFieldName("_modifiedDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ModifiedDate").IsNotNullable().HasColumnType("datetime");
+		}
+	
+		public void PrepareProductSubcategoryAssociationConfigurations(MappingConfiguration<ProductSubcategory> configuration)
+		{
+			configuration.HasAssociation(x => x.ProductCategory).HasFieldName("_productCategory").WithOpposite(x => x.ProductSubcategories).ToColumn("ProductCategoryID").HasConstraint((x, y) =>  x.ProductCategoryID == y.ProductCategoryID ).IsRequired().WithDataAccessKind(DataAccessKind.ReadWrite);
+			configuration.HasAssociation(x => x.Products).HasFieldName("_products").WithOpposite(x => x.ProductSubcategory).ToColumn("ProductSubcategoryID").HasConstraint((y, x) =>  x.ProductSubcategoryID == y.ProductSubcategoryID ).WithDataAccessKind(DataAccessKind.ReadWrite);
+		}
+		
+		public MappingConfiguration<ProductReview> GetProductReviewMappingConfiguration()
+		{
+			MappingConfiguration<ProductReview> configuration = this.GetProductReviewClassConfiguration();
+			this.PrepareProductReviewPropertyConfigurations(configuration);
+			this.PrepareProductReviewAssociationConfigurations(configuration);
+
+			return configuration;
+		}
+
+		public MappingConfiguration<ProductReview> GetProductReviewClassConfiguration()
+		{
+			MappingConfiguration<ProductReview> configuration = new MappingConfiguration<ProductReview>();
+			configuration.MapType(x => new { }).WithConcurencyControl(OptimisticConcurrencyControlStrategy.Changed).ToTable("Production.ProductReview");
+	
+			return configuration;
+		}
+	
+		public void PrepareProductReviewPropertyConfigurations(MappingConfiguration<ProductReview> configuration)
+		{
+			configuration.HasProperty(x => x.ProductReviewID).IsIdentity(KeyGenerator.Autoinc).HasFieldName("_productReviewID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ProductReviewID").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.ProductID).HasFieldName("_productID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ProductID").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.ReviewerName).HasFieldName("_reviewerName").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ReviewerName").IsNotNullable().HasColumnType("'Name'").HasLength(50);
+			configuration.HasProperty(x => x.ReviewDate).HasFieldName("_reviewDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ReviewDate").IsNotNullable().HasColumnType("datetime");
+			configuration.HasProperty(x => x.EmailAddress).HasFieldName("_emailAddress").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("EmailAddress").IsNotNullable().HasColumnType("nvarchar").HasLength(50);
+			configuration.HasProperty(x => x.Rating).HasFieldName("_rating").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("Rating").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.Comments).HasFieldName("_comments").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("Comments").IsNullable().HasColumnType("nvarchar").HasLength(3850);
+			configuration.HasProperty(x => x.ModifiedDate).HasFieldName("_modifiedDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ModifiedDate").IsNotNullable().HasColumnType("datetime");
+		}
+	
+		public void PrepareProductReviewAssociationConfigurations(MappingConfiguration<ProductReview> configuration)
+		{
+			configuration.HasAssociation(x => x.Product).HasFieldName("_product").WithOpposite(x => x.ProductReviews).ToColumn("ProductID").HasConstraint((x, y) =>  x.ProductID == y.ProductID ).IsRequired().WithDataAccessKind(DataAccessKind.ReadWrite);
+		}
+		
+		public MappingConfiguration<ProductProductPhoto> GetProductProductPhotoMappingConfiguration()
+		{
+			MappingConfiguration<ProductProductPhoto> configuration = this.GetProductProductPhotoClassConfiguration();
+			this.PrepareProductProductPhotoPropertyConfigurations(configuration);
+			this.PrepareProductProductPhotoAssociationConfigurations(configuration);
+
+			return configuration;
+		}
+
+		public MappingConfiguration<ProductProductPhoto> GetProductProductPhotoClassConfiguration()
+		{
+			MappingConfiguration<ProductProductPhoto> configuration = new MappingConfiguration<ProductProductPhoto>();
+			configuration.MapType(x => new { }).WithConcurencyControl(OptimisticConcurrencyControlStrategy.Changed).ToTable("Production.ProductProductPhoto");
+	
+			return configuration;
+		}
+	
+		public void PrepareProductProductPhotoPropertyConfigurations(MappingConfiguration<ProductProductPhoto> configuration)
+		{
+			configuration.HasProperty(x => x.ProductID).IsIdentity().HasFieldName("_productID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ProductID").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.ProductPhotoID).IsIdentity().HasFieldName("_productPhotoID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ProductPhotoID").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.Primary).HasFieldName("_primary").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("Primary").IsNotNullable().HasColumnType("'Flag'").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.ModifiedDate).HasFieldName("_modifiedDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ModifiedDate").IsNotNullable().HasColumnType("datetime");
+		}
+	
+		public void PrepareProductProductPhotoAssociationConfigurations(MappingConfiguration<ProductProductPhoto> configuration)
+		{
+			configuration.HasAssociation(x => x.Product).HasFieldName("_product").WithOpposite(x => x.ProductProductPhotos).ToColumn("ProductID").HasConstraint((x, y) =>  x.ProductID == y.ProductID ).IsRequired().WithDataAccessKind(DataAccessKind.ReadWrite);
+			configuration.HasAssociation(x => x.ProductPhoto).HasFieldName("_productPhoto").WithOpposite(x => x.ProductProductPhotos).ToColumn("ProductPhotoID").HasConstraint((x, y) =>  x.ProductPhotoID == y.ProductPhotoID ).IsRequired().WithDataAccessKind(DataAccessKind.ReadWrite);
+		}
+		
+		public MappingConfiguration<ProductPhoto> GetProductPhotoMappingConfiguration()
+		{
+			MappingConfiguration<ProductPhoto> configuration = this.GetProductPhotoClassConfiguration();
+			this.PrepareProductPhotoPropertyConfigurations(configuration);
+			this.PrepareProductPhotoAssociationConfigurations(configuration);
+
+			return configuration;
+		}
+
+		public MappingConfiguration<ProductPhoto> GetProductPhotoClassConfiguration()
+		{
+			MappingConfiguration<ProductPhoto> configuration = new MappingConfiguration<ProductPhoto>();
+			configuration.MapType(x => new { }).WithConcurencyControl(OptimisticConcurrencyControlStrategy.Changed).ToTable("Production.ProductPhoto");
+	
+			return configuration;
+		}
+	
+		public void PrepareProductPhotoPropertyConfigurations(MappingConfiguration<ProductPhoto> configuration)
+		{
+			configuration.HasProperty(x => x.ProductPhotoID).IsIdentity(KeyGenerator.Autoinc).HasFieldName("_productPhotoID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ProductPhotoID").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.ThumbNailPhoto).HasFieldName("_thumbNailPhoto").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ThumbNailPhoto").IsNullable().HasColumnType("varbinary(max)");
+			configuration.HasProperty(x => x.ThumbnailPhotoFileName).HasFieldName("_thumbnailPhotoFileName").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ThumbnailPhotoFileName").IsNullable().HasColumnType("nvarchar").HasLength(50);
+			configuration.HasProperty(x => x.LargePhoto).HasFieldName("_largePhoto").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("LargePhoto").IsNullable().HasColumnType("varbinary(max)");
+			configuration.HasProperty(x => x.LargePhotoFileName).HasFieldName("_largePhotoFileName").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("LargePhotoFileName").IsNullable().HasColumnType("nvarchar").HasLength(50);
+			configuration.HasProperty(x => x.ModifiedDate).HasFieldName("_modifiedDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ModifiedDate").IsNotNullable().HasColumnType("datetime");
+		}
+	
+		public void PrepareProductPhotoAssociationConfigurations(MappingConfiguration<ProductPhoto> configuration)
+		{
+			configuration.HasAssociation(x => x.ProductProductPhotos).HasFieldName("_productProductPhotos").WithOpposite(x => x.ProductPhoto).ToColumn("ProductPhotoID").HasConstraint((y, x) =>  x.ProductPhotoID == y.ProductPhotoID ).WithDataAccessKind(DataAccessKind.ReadWrite);
+		}
+		
+		public MappingConfiguration<ProductModelProductDescriptionCulture> GetProductModelProductDescriptionCultureMappingConfiguration()
+		{
+			MappingConfiguration<ProductModelProductDescriptionCulture> configuration = this.GetProductModelProductDescriptionCultureClassConfiguration();
+			this.PrepareProductModelProductDescriptionCulturePropertyConfigurations(configuration);
+			this.PrepareProductModelProductDescriptionCultureAssociationConfigurations(configuration);
+
+			return configuration;
+		}
+
+		public MappingConfiguration<ProductModelProductDescriptionCulture> GetProductModelProductDescriptionCultureClassConfiguration()
+		{
+			MappingConfiguration<ProductModelProductDescriptionCulture> configuration = new MappingConfiguration<ProductModelProductDescriptionCulture>();
+			configuration.MapType(x => new { }).WithConcurencyControl(OptimisticConcurrencyControlStrategy.Changed).ToTable("Production.ProductModelProductDescriptionCulture");
+	
+			return configuration;
+		}
+	
+		public void PrepareProductModelProductDescriptionCulturePropertyConfigurations(MappingConfiguration<ProductModelProductDescriptionCulture> configuration)
+		{
+			configuration.HasProperty(x => x.ProductModelID).IsIdentity().HasFieldName("_productModelID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ProductModelID").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.ProductDescriptionID).IsIdentity().HasFieldName("_productDescriptionID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ProductDescriptionID").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.CultureID).IsIdentity().HasFieldName("_cultureID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("CultureID").IsNotNullable().HasColumnType("nchar").HasLength(6);
+			configuration.HasProperty(x => x.ModifiedDate).HasFieldName("_modifiedDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ModifiedDate").IsNotNullable().HasColumnType("datetime");
+		}
+	
+		public void PrepareProductModelProductDescriptionCultureAssociationConfigurations(MappingConfiguration<ProductModelProductDescriptionCulture> configuration)
+		{
+			configuration.HasAssociation(x => x.Culture).HasFieldName("_culture").WithOpposite(x => x.ProductModelProductDescriptionCultures).ToColumn("CultureID").HasConstraint((x, y) =>  x.CultureID == y.CultureID ).IsRequired().WithDataAccessKind(DataAccessKind.ReadWrite);
+			configuration.HasAssociation(x => x.ProductDescription).HasFieldName("_productDescription").WithOpposite(x => x.ProductModelProductDescriptionCultures).ToColumn("ProductDescriptionID").HasConstraint((x, y) =>  x.ProductDescriptionID == y.ProductDescriptionID ).IsRequired().WithDataAccessKind(DataAccessKind.ReadWrite);
+			configuration.HasAssociation(x => x.ProductModel).HasFieldName("_productModel").WithOpposite(x => x.ProductModelProductDescriptionCultures).ToColumn("ProductModelID").HasConstraint((x, y) =>  x.ProductModelID == y.ProductModelID ).IsRequired().WithDataAccessKind(DataAccessKind.ReadWrite);
+		}
+		
+		public MappingConfiguration<ProductModelIllustration> GetProductModelIllustrationMappingConfiguration()
+		{
+			MappingConfiguration<ProductModelIllustration> configuration = this.GetProductModelIllustrationClassConfiguration();
+			this.PrepareProductModelIllustrationPropertyConfigurations(configuration);
+			this.PrepareProductModelIllustrationAssociationConfigurations(configuration);
+
+			return configuration;
+		}
+
+		public MappingConfiguration<ProductModelIllustration> GetProductModelIllustrationClassConfiguration()
+		{
+			MappingConfiguration<ProductModelIllustration> configuration = new MappingConfiguration<ProductModelIllustration>();
+			configuration.MapType(x => new { }).WithConcurencyControl(OptimisticConcurrencyControlStrategy.Changed).ToTable("Production.ProductModelIllustration");
+	
+			return configuration;
+		}
+	
+		public void PrepareProductModelIllustrationPropertyConfigurations(MappingConfiguration<ProductModelIllustration> configuration)
+		{
+			configuration.HasProperty(x => x.ProductModelID).IsIdentity().HasFieldName("_productModelID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ProductModelID").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.IllustrationID).IsIdentity().HasFieldName("_illustrationID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("IllustrationID").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.ModifiedDate).HasFieldName("_modifiedDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ModifiedDate").IsNotNullable().HasColumnType("datetime");
+		}
+	
+		public void PrepareProductModelIllustrationAssociationConfigurations(MappingConfiguration<ProductModelIllustration> configuration)
+		{
+			configuration.HasAssociation(x => x.Illustration).HasFieldName("_illustration").WithOpposite(x => x.ProductModelIllustrations).ToColumn("IllustrationID").HasConstraint((x, y) =>  x.IllustrationID == y.IllustrationID ).IsRequired().WithDataAccessKind(DataAccessKind.ReadWrite);
+			configuration.HasAssociation(x => x.ProductModel).HasFieldName("_productModel").WithOpposite(x => x.ProductModelIllustrations).ToColumn("ProductModelID").HasConstraint((x, y) =>  x.ProductModelID == y.ProductModelID ).IsRequired().WithDataAccessKind(DataAccessKind.ReadWrite);
+		}
+		
+		public MappingConfiguration<ProductModel> GetProductModelMappingConfiguration()
+		{
+			MappingConfiguration<ProductModel> configuration = this.GetProductModelClassConfiguration();
+			this.PrepareProductModelPropertyConfigurations(configuration);
+			this.PrepareProductModelAssociationConfigurations(configuration);
+
+			return configuration;
+		}
+
+		public MappingConfiguration<ProductModel> GetProductModelClassConfiguration()
+		{
+			MappingConfiguration<ProductModel> configuration = new MappingConfiguration<ProductModel>();
+			configuration.MapType(x => new { }).WithConcurencyControl(OptimisticConcurrencyControlStrategy.Changed).ToTable("Production.ProductModel");
+	
+			return configuration;
+		}
+	
+		public void PrepareProductModelPropertyConfigurations(MappingConfiguration<ProductModel> configuration)
+		{
+			configuration.HasProperty(x => x.ProductModelID).IsIdentity(KeyGenerator.Autoinc).HasFieldName("_productModelID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ProductModelID").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.Name).HasFieldName("_name").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("Name").IsNotNullable().HasColumnType("'Name'").HasLength(50);
+			configuration.HasProperty(x => x.CatalogDescription).HasFieldName("_catalogDescription").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("CatalogDescription").IsNullable().HasColumnType("xml").HasLength(0);
+			configuration.HasProperty(x => x.Instructions).HasFieldName("_instructions").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("Instructions").IsNullable().HasColumnType("xml").HasLength(0);
+			configuration.HasProperty(x => x.Rowguid).HasFieldName("_rowguid").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("rowguid").IsNotNullable().HasColumnType("uniqueidentifier").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.ModifiedDate).HasFieldName("_modifiedDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ModifiedDate").IsNotNullable().HasColumnType("datetime");
+		}
+	
+		public void PrepareProductModelAssociationConfigurations(MappingConfiguration<ProductModel> configuration)
+		{
+			configuration.HasAssociation(x => x.ProductModelProductDescriptionCultures).HasFieldName("_productModelProductDescriptionCultures").WithOpposite(x => x.ProductModel).ToColumn("ProductModelID").HasConstraint((y, x) =>  x.ProductModelID == y.ProductModelID ).WithDataAccessKind(DataAccessKind.ReadWrite);
+			configuration.HasAssociation(x => x.ProductModelIllustrations).HasFieldName("_productModelIllustrations").WithOpposite(x => x.ProductModel).ToColumn("ProductModelID").HasConstraint((y, x) =>  x.ProductModelID == y.ProductModelID ).WithDataAccessKind(DataAccessKind.ReadWrite);
+			configuration.HasAssociation(x => x.Products).HasFieldName("_products").WithOpposite(x => x.ProductModel).ToColumn("ProductModelID").HasConstraint((y, x) =>  x.ProductModelID == y.ProductModelID ).WithDataAccessKind(DataAccessKind.ReadWrite);
+		}
+		
+		public MappingConfiguration<ProductListPriceHistory> GetProductListPriceHistoryMappingConfiguration()
+		{
+			MappingConfiguration<ProductListPriceHistory> configuration = this.GetProductListPriceHistoryClassConfiguration();
+			this.PrepareProductListPriceHistoryPropertyConfigurations(configuration);
+			this.PrepareProductListPriceHistoryAssociationConfigurations(configuration);
+
+			return configuration;
+		}
+
+		public MappingConfiguration<ProductListPriceHistory> GetProductListPriceHistoryClassConfiguration()
+		{
+			MappingConfiguration<ProductListPriceHistory> configuration = new MappingConfiguration<ProductListPriceHistory>();
+			configuration.MapType(x => new { }).WithConcurencyControl(OptimisticConcurrencyControlStrategy.Changed).ToTable("Production.ProductListPriceHistory");
+	
+			return configuration;
+		}
+	
+		public void PrepareProductListPriceHistoryPropertyConfigurations(MappingConfiguration<ProductListPriceHistory> configuration)
+		{
+			configuration.HasProperty(x => x.ProductID).IsIdentity().HasFieldName("_productID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ProductID").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.StartDate).IsIdentity().HasFieldName("_startDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("StartDate").IsNotNullable().HasColumnType("datetime");
+			configuration.HasProperty(x => x.EndDate).HasFieldName("_endDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("EndDate").IsNullable().HasColumnType("datetime");
+			configuration.HasProperty(x => x.ListPrice).HasFieldName("_listPrice").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ListPrice").IsNotNullable().HasColumnType("money").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.ModifiedDate).HasFieldName("_modifiedDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ModifiedDate").IsNotNullable().HasColumnType("datetime");
+		}
+	
+		public void PrepareProductListPriceHistoryAssociationConfigurations(MappingConfiguration<ProductListPriceHistory> configuration)
+		{
+			configuration.HasAssociation(x => x.Product).HasFieldName("_product").WithOpposite(x => x.ProductListPriceHistories).ToColumn("ProductID").HasConstraint((x, y) =>  x.ProductID == y.ProductID ).IsRequired().WithDataAccessKind(DataAccessKind.ReadWrite);
+		}
+		
+		public MappingConfiguration<ProductInventory> GetProductInventoryMappingConfiguration()
+		{
+			MappingConfiguration<ProductInventory> configuration = this.GetProductInventoryClassConfiguration();
+			this.PrepareProductInventoryPropertyConfigurations(configuration);
+			this.PrepareProductInventoryAssociationConfigurations(configuration);
+
+			return configuration;
+		}
+
+		public MappingConfiguration<ProductInventory> GetProductInventoryClassConfiguration()
+		{
+			MappingConfiguration<ProductInventory> configuration = new MappingConfiguration<ProductInventory>();
+			configuration.MapType(x => new { }).WithConcurencyControl(OptimisticConcurrencyControlStrategy.Changed).ToTable("Production.ProductInventory");
+	
+			return configuration;
+		}
+	
+		public void PrepareProductInventoryPropertyConfigurations(MappingConfiguration<ProductInventory> configuration)
+		{
+			configuration.HasProperty(x => x.ProductID).IsIdentity().HasFieldName("_productID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ProductID").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.LocationID).IsIdentity().HasFieldName("_locationID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("LocationID").IsNotNullable().HasColumnType("smallint").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.Shelf).HasFieldName("_shelf").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("Shelf").IsNotNullable().HasColumnType("nvarchar").HasLength(10);
+			configuration.HasProperty(x => x.Bin).HasFieldName("_bin").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("Bin").IsNotNullable().HasColumnType("tinyint").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.Quantity).HasFieldName("_quantity").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("Quantity").IsNotNullable().HasColumnType("smallint").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.Rowguid).HasFieldName("_rowguid").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("rowguid").IsNotNullable().HasColumnType("uniqueidentifier").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.ModifiedDate).HasFieldName("_modifiedDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ModifiedDate").IsNotNullable().HasColumnType("datetime");
+		}
+	
+		public void PrepareProductInventoryAssociationConfigurations(MappingConfiguration<ProductInventory> configuration)
+		{
+			configuration.HasAssociation(x => x.Location).HasFieldName("_location").WithOpposite(x => x.ProductInventories).ToColumn("LocationID").HasConstraint((x, y) =>  x.LocationID == y.LocationID ).IsRequired().WithDataAccessKind(DataAccessKind.ReadWrite);
+			configuration.HasAssociation(x => x.Product).HasFieldName("_product").WithOpposite(x => x.ProductInventories).ToColumn("ProductID").HasConstraint((x, y) =>  x.ProductID == y.ProductID ).IsRequired().WithDataAccessKind(DataAccessKind.ReadWrite);
+		}
+		
+		public MappingConfiguration<ProductDescription> GetProductDescriptionMappingConfiguration()
+		{
+			MappingConfiguration<ProductDescription> configuration = this.GetProductDescriptionClassConfiguration();
+			this.PrepareProductDescriptionPropertyConfigurations(configuration);
+			this.PrepareProductDescriptionAssociationConfigurations(configuration);
+
+			return configuration;
+		}
+
+		public MappingConfiguration<ProductDescription> GetProductDescriptionClassConfiguration()
+		{
+			MappingConfiguration<ProductDescription> configuration = new MappingConfiguration<ProductDescription>();
+			configuration.MapType(x => new { }).WithConcurencyControl(OptimisticConcurrencyControlStrategy.Changed).ToTable("Production.ProductDescription");
+	
+			return configuration;
+		}
+	
+		public void PrepareProductDescriptionPropertyConfigurations(MappingConfiguration<ProductDescription> configuration)
+		{
+			configuration.HasProperty(x => x.ProductDescriptionID).IsIdentity(KeyGenerator.Autoinc).HasFieldName("_productDescriptionID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ProductDescriptionID").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.Description).HasFieldName("_description").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("Description").IsNotNullable().HasColumnType("nvarchar").HasLength(400);
+			configuration.HasProperty(x => x.Rowguid).HasFieldName("_rowguid").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("rowguid").IsNotNullable().HasColumnType("uniqueidentifier").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.ModifiedDate).HasFieldName("_modifiedDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ModifiedDate").IsNotNullable().HasColumnType("datetime");
+		}
+	
+		public void PrepareProductDescriptionAssociationConfigurations(MappingConfiguration<ProductDescription> configuration)
+		{
+			configuration.HasAssociation(x => x.ProductModelProductDescriptionCultures).HasFieldName("_productModelProductDescriptionCultures").WithOpposite(x => x.ProductDescription).ToColumn("ProductDescriptionID").HasConstraint((y, x) =>  x.ProductDescriptionID == y.ProductDescriptionID ).WithDataAccessKind(DataAccessKind.ReadWrite);
+		}
+		
+		public MappingConfiguration<ProductCostHistory> GetProductCostHistoryMappingConfiguration()
+		{
+			MappingConfiguration<ProductCostHistory> configuration = this.GetProductCostHistoryClassConfiguration();
+			this.PrepareProductCostHistoryPropertyConfigurations(configuration);
+			this.PrepareProductCostHistoryAssociationConfigurations(configuration);
+
+			return configuration;
+		}
+
+		public MappingConfiguration<ProductCostHistory> GetProductCostHistoryClassConfiguration()
+		{
+			MappingConfiguration<ProductCostHistory> configuration = new MappingConfiguration<ProductCostHistory>();
+			configuration.MapType(x => new { }).WithConcurencyControl(OptimisticConcurrencyControlStrategy.Changed).ToTable("Production.ProductCostHistory");
+	
+			return configuration;
+		}
+	
+		public void PrepareProductCostHistoryPropertyConfigurations(MappingConfiguration<ProductCostHistory> configuration)
+		{
+			configuration.HasProperty(x => x.ProductID).IsIdentity().HasFieldName("_productID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ProductID").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.StartDate).IsIdentity().HasFieldName("_startDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("StartDate").IsNotNullable().HasColumnType("datetime");
+			configuration.HasProperty(x => x.EndDate).HasFieldName("_endDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("EndDate").IsNullable().HasColumnType("datetime");
+			configuration.HasProperty(x => x.StandardCost).HasFieldName("_standardCost").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("StandardCost").IsNotNullable().HasColumnType("money").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.ModifiedDate).HasFieldName("_modifiedDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ModifiedDate").IsNotNullable().HasColumnType("datetime");
+		}
+	
+		public void PrepareProductCostHistoryAssociationConfigurations(MappingConfiguration<ProductCostHistory> configuration)
+		{
+			configuration.HasAssociation(x => x.Product).HasFieldName("_product").WithOpposite(x => x.ProductCostHistories).ToColumn("ProductID").HasConstraint((x, y) =>  x.ProductID == y.ProductID ).IsRequired().WithDataAccessKind(DataAccessKind.ReadWrite);
+		}
+		
+		public MappingConfiguration<ProductCategory> GetProductCategoryMappingConfiguration()
+		{
+			MappingConfiguration<ProductCategory> configuration = this.GetProductCategoryClassConfiguration();
+			this.PrepareProductCategoryPropertyConfigurations(configuration);
+			this.PrepareProductCategoryAssociationConfigurations(configuration);
+
+			return configuration;
+		}
+
+		public MappingConfiguration<ProductCategory> GetProductCategoryClassConfiguration()
+		{
+			MappingConfiguration<ProductCategory> configuration = new MappingConfiguration<ProductCategory>();
+			configuration.MapType(x => new { }).WithConcurencyControl(OptimisticConcurrencyControlStrategy.Changed).ToTable("Production.ProductCategory");
+	
+			return configuration;
+		}
+	
+		public void PrepareProductCategoryPropertyConfigurations(MappingConfiguration<ProductCategory> configuration)
+		{
+			configuration.HasProperty(x => x.ProductCategoryID).IsIdentity(KeyGenerator.Autoinc).HasFieldName("_productCategoryID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ProductCategoryID").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.Name).HasFieldName("_name").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("Name").IsNotNullable().HasColumnType("'Name'").HasLength(50);
+			configuration.HasProperty(x => x.Rowguid).HasFieldName("_rowguid").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("rowguid").IsNotNullable().HasColumnType("uniqueidentifier").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.ModifiedDate).HasFieldName("_modifiedDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ModifiedDate").IsNotNullable().HasColumnType("datetime");
+		}
+	
+		public void PrepareProductCategoryAssociationConfigurations(MappingConfiguration<ProductCategory> configuration)
+		{
+			configuration.HasAssociation(x => x.ProductSubcategories).HasFieldName("_productSubcategories").WithOpposite(x => x.ProductCategory).ToColumn("ProductCategoryID").HasConstraint((y, x) =>  x.ProductCategoryID == y.ProductCategoryID ).WithDataAccessKind(DataAccessKind.ReadWrite);
+		}
+		
+		public MappingConfiguration<Product> GetProductMappingConfiguration()
+		{
+			MappingConfiguration<Product> configuration = this.GetProductClassConfiguration();
+			this.PrepareProductPropertyConfigurations(configuration);
+			this.PrepareProductAssociationConfigurations(configuration);
+
+			return configuration;
+		}
+
+		public MappingConfiguration<Product> GetProductClassConfiguration()
+		{
+			MappingConfiguration<Product> configuration = new MappingConfiguration<Product>();
+			configuration.MapType(x => new { }).WithConcurencyControl(OptimisticConcurrencyControlStrategy.Changed).ToTable("Production.Product");
+	
+			return configuration;
+		}
+	
+		public void PrepareProductPropertyConfigurations(MappingConfiguration<Product> configuration)
+		{
+			configuration.HasProperty(x => x.ProductID).IsIdentity(KeyGenerator.Autoinc).HasFieldName("_productID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ProductID").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.Name).HasFieldName("_name").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("Name").IsNotNullable().HasColumnType("'Name'").HasLength(50);
+			configuration.HasProperty(x => x.ProductNumber).HasFieldName("_productNumber").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ProductNumber").IsNotNullable().HasColumnType("nvarchar").HasLength(25);
+			configuration.HasProperty(x => x.MakeFlag).HasFieldName("_makeFlag").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("MakeFlag").IsNotNullable().HasColumnType("'Flag'").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.FinishedGoodsFlag).HasFieldName("_finishedGoodsFlag").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("FinishedGoodsFlag").IsNotNullable().HasColumnType("'Flag'").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.Color).HasFieldName("_color").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("Color").IsNullable().HasColumnType("nvarchar").HasLength(15);
+			configuration.HasProperty(x => x.SafetyStockLevel).HasFieldName("_safetyStockLevel").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("SafetyStockLevel").IsNotNullable().HasColumnType("smallint").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.ReorderPoint).HasFieldName("_reorderPoint").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ReorderPoint").IsNotNullable().HasColumnType("smallint").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.StandardCost).HasFieldName("_standardCost").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("StandardCost").IsNotNullable().HasColumnType("money").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.ListPrice).HasFieldName("_listPrice").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ListPrice").IsNotNullable().HasColumnType("money").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.Size).HasFieldName("_size").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("Size").IsNullable().HasColumnType("nvarchar").HasLength(5);
+			configuration.HasProperty(x => x.SizeUnitMeasureCode).HasFieldName("_sizeUnitMeasureCode").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("SizeUnitMeasureCode").IsNullable().HasColumnType("nchar").HasLength(3);
+			configuration.HasProperty(x => x.WeightUnitMeasureCode).HasFieldName("_weightUnitMeasureCode").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("WeightUnitMeasureCode").IsNullable().HasColumnType("nchar").HasLength(3);
+			configuration.HasProperty(x => x.Weight).HasFieldName("_weight").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("Weight").IsNullable().HasColumnType("decimal").HasPrecision(8).HasScale(2);
+			configuration.HasProperty(x => x.DaysToManufacture).HasFieldName("_daysToManufacture").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("DaysToManufacture").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.ProductLine).HasFieldName("_productLine").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ProductLine").IsNullable().HasColumnType("nchar").HasLength(2);
+			configuration.HasProperty(x => x.Class).HasFieldName("_class").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("Class").IsNullable().HasColumnType("nchar").HasLength(2);
+			configuration.HasProperty(x => x.Style).HasFieldName("_style").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("Style").IsNullable().HasColumnType("nchar").HasLength(2);
+			configuration.HasProperty(x => x.ProductSubcategoryID).HasFieldName("_productSubcategoryID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ProductSubcategoryID").IsNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.ProductModelID).HasFieldName("_productModelID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ProductModelID").IsNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.SellStartDate).HasFieldName("_sellStartDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("SellStartDate").IsNotNullable().HasColumnType("datetime");
+			configuration.HasProperty(x => x.SellEndDate).HasFieldName("_sellEndDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("SellEndDate").IsNullable().HasColumnType("datetime");
+			configuration.HasProperty(x => x.DiscontinuedDate).HasFieldName("_discontinuedDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("DiscontinuedDate").IsNullable().HasColumnType("datetime");
+			configuration.HasProperty(x => x.Rowguid).HasFieldName("_rowguid").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("rowguid").IsNotNullable().HasColumnType("uniqueidentifier").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.ModifiedDate).HasFieldName("_modifiedDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ModifiedDate").IsNotNullable().HasColumnType("datetime");
+		}
+	
+		public void PrepareProductAssociationConfigurations(MappingConfiguration<Product> configuration)
+		{
+			configuration.HasAssociation(x => x.WorkOrders).HasFieldName("_workOrders").WithOpposite(x => x.Product).ToColumn("ProductID").HasConstraint((y, x) =>  x.ProductID == y.ProductID ).WithDataAccessKind(DataAccessKind.ReadWrite);
+			configuration.HasAssociation(x => x.TransactionHistories).HasFieldName("_transactionHistories").WithOpposite(x => x.Product).ToColumn("ProductID").HasConstraint((y, x) =>  x.ProductID == y.ProductID ).WithDataAccessKind(DataAccessKind.ReadWrite);
+			configuration.HasAssociation(x => x.SpecialOfferProducts).HasFieldName("_specialOfferProducts").WithOpposite(x => x.Product).ToColumn("ProductID").HasConstraint((y, x) =>  x.ProductID == y.ProductID ).WithDataAccessKind(DataAccessKind.ReadWrite);
+			configuration.HasAssociation(x => x.ShoppingCartItems).HasFieldName("_shoppingCartItems").WithOpposite(x => x.Product).ToColumn("ProductID").HasConstraint((y, x) =>  x.ProductID == y.ProductID ).WithDataAccessKind(DataAccessKind.ReadWrite);
+			configuration.HasAssociation(x => x.PurchaseOrderDetails).HasFieldName("_purchaseOrderDetails").WithOpposite(x => x.Product).ToColumn("ProductID").HasConstraint((y, x) =>  x.ProductID == y.ProductID ).WithDataAccessKind(DataAccessKind.ReadWrite);
+			configuration.HasAssociation(x => x.ProductVendors).HasFieldName("_productVendors").WithOpposite(x => x.Product).ToColumn("ProductID").HasConstraint((y, x) =>  x.ProductID == y.ProductID ).WithDataAccessKind(DataAccessKind.ReadWrite);
+			configuration.HasAssociation(x => x.ProductReviews).HasFieldName("_productReviews").WithOpposite(x => x.Product).ToColumn("ProductID").HasConstraint((y, x) =>  x.ProductID == y.ProductID ).WithDataAccessKind(DataAccessKind.ReadWrite);
+			configuration.HasAssociation(x => x.ProductProductPhotos).HasFieldName("_productProductPhotos").WithOpposite(x => x.Product).ToColumn("ProductID").HasConstraint((y, x) =>  x.ProductID == y.ProductID ).WithDataAccessKind(DataAccessKind.ReadWrite);
+			configuration.HasAssociation(x => x.ProductListPriceHistories).HasFieldName("_productListPriceHistories").WithOpposite(x => x.Product).ToColumn("ProductID").HasConstraint((y, x) =>  x.ProductID == y.ProductID ).WithDataAccessKind(DataAccessKind.ReadWrite);
+			configuration.HasAssociation(x => x.ProductInventories).HasFieldName("_productInventories").WithOpposite(x => x.Product).ToColumn("ProductID").HasConstraint((y, x) =>  x.ProductID == y.ProductID ).WithDataAccessKind(DataAccessKind.ReadWrite);
+			configuration.HasAssociation(x => x.ProductCostHistories).HasFieldName("_productCostHistories").WithOpposite(x => x.Product).ToColumn("ProductID").HasConstraint((y, x) =>  x.ProductID == y.ProductID ).WithDataAccessKind(DataAccessKind.ReadWrite);
+			configuration.HasAssociation(x => x.ProductModel).HasFieldName("_productModel").WithOpposite(x => x.Products).ToColumn("ProductModelID").HasConstraint((x, y) =>  x.ProductModelID == y.ProductModelID ).WithDataAccessKind(DataAccessKind.ReadWrite);
+			configuration.HasAssociation(x => x.ProductSubcategory).HasFieldName("_productSubcategory").WithOpposite(x => x.Products).ToColumn("ProductSubcategoryID").HasConstraint((x, y) =>  x.ProductSubcategoryID == y.ProductSubcategoryID ).WithDataAccessKind(DataAccessKind.ReadWrite);
+			configuration.HasAssociation(x => x.UnitMeasure).HasFieldName("_unitMeasure").WithOpposite(x => x.Products).ToColumn("SizeUnitMeasureCode").HasConstraint((x, y) =>  x.SizeUnitMeasureCode == y.UnitMeasureCode ).WithDataAccessKind(DataAccessKind.ReadWrite);
+			configuration.HasAssociation(x => x.UnitMeasure1).HasFieldName("_unitMeasure1").WithOpposite(x => x.Products1).ToColumn("WeightUnitMeasureCode").HasConstraint((x, y) =>  x.WeightUnitMeasureCode == y.UnitMeasureCode ).WithDataAccessKind(DataAccessKind.ReadWrite);
+			configuration.HasAssociation(x => x.BillOfMaterials).HasFieldName("_billOfMaterials").WithOpposite(x => x.Product).ToColumn("ComponentID").HasConstraint((y, x) =>  x.ComponentID == y.ProductID ).WithDataAccessKind(DataAccessKind.ReadWrite);
+			configuration.HasAssociation(x => x.BillOfMaterials1).HasFieldName("_billOfMaterials1").WithOpposite(x => x.Product1).ToColumn("ProductAssemblyID").HasConstraint((y, x) =>  x.ProductAssemblyID == y.ProductID ).WithDataAccessKind(DataAccessKind.ReadWrite);
 		}
 		
 		public MappingConfiguration<PhoneNumberType> GetPhoneNumberTypeMappingConfiguration()
@@ -5036,6 +10741,7 @@ namespace Telerik.Bencher.Model.Fluent
 			configuration.HasAssociation(x => x.PersonCreditCards).HasFieldName("_personCreditCards").WithOpposite(x => x.Person).ToColumn("BusinessEntityID").HasConstraint((y, x) =>  x.BusinessEntityID == y.BusinessEntityID ).WithDataAccessKind(DataAccessKind.ReadWrite);
 			configuration.HasAssociation(x => x.BusinessEntity).HasFieldName("_businessEntity").WithOpposite(x => x.Person).ToColumn("BusinessEntityID").HasConstraint((x, y) =>  x.BusinessEntityID == y.BusinessEntityID ).IsManaged().IsRequired().WithDataAccessKind(DataAccessKind.ReadWrite);
 			configuration.HasAssociation(x => x.Password).HasFieldName("_password").WithOpposite(x => x.Person).ToColumn("BusinessEntityID").HasConstraint((y, x) =>  x.BusinessEntityID == y.BusinessEntityID ).IsManaged().WithDataAccessKind(DataAccessKind.ReadWrite);
+			configuration.HasAssociation(x => x.Employee).HasFieldName("_employee").WithOpposite(x => x.Person).ToColumn("BusinessEntityID").HasConstraint((y, x) =>  x.BusinessEntityID == y.BusinessEntityID ).IsManaged().WithDataAccessKind(DataAccessKind.ReadWrite);
 			configuration.HasAssociation(x => x.EmailAddresses).HasFieldName("_emailAddresses").WithOpposite(x => x.Person).ToColumn("BusinessEntityID").HasConstraint((y, x) =>  x.BusinessEntityID == y.BusinessEntityID ).WithDataAccessKind(DataAccessKind.ReadWrite);
 			configuration.HasAssociation(x => x.Customers).HasFieldName("_customers").WithOpposite(x => x.Person).ToColumn("PersonID").HasConstraint((y, x) =>  x.PersonID == y.BusinessEntityID ).WithDataAccessKind(DataAccessKind.ReadWrite);
 			configuration.HasAssociation(x => x.BusinessEntityContacts).HasFieldName("_businessEntityContacts").WithOpposite(x => x.Person).ToColumn("PersonID").HasConstraint((y, x) =>  x.PersonID == y.BusinessEntityID ).WithDataAccessKind(DataAccessKind.ReadWrite);
@@ -5072,6 +10778,209 @@ namespace Telerik.Bencher.Model.Fluent
 			configuration.HasAssociation(x => x.Person).HasFieldName("_person").WithOpposite(x => x.Password).ToColumn("BusinessEntityID").HasConstraint((x, y) =>  x.BusinessEntityID == y.BusinessEntityID ).IsManaged().IsRequired().WithDataAccessKind(DataAccessKind.ReadWrite);
 		}
 		
+		public MappingConfiguration<Location> GetLocationMappingConfiguration()
+		{
+			MappingConfiguration<Location> configuration = this.GetLocationClassConfiguration();
+			this.PrepareLocationPropertyConfigurations(configuration);
+			this.PrepareLocationAssociationConfigurations(configuration);
+
+			return configuration;
+		}
+
+		public MappingConfiguration<Location> GetLocationClassConfiguration()
+		{
+			MappingConfiguration<Location> configuration = new MappingConfiguration<Location>();
+			configuration.MapType(x => new { }).WithConcurencyControl(OptimisticConcurrencyControlStrategy.Changed).ToTable("Production.Location");
+	
+			return configuration;
+		}
+	
+		public void PrepareLocationPropertyConfigurations(MappingConfiguration<Location> configuration)
+		{
+			configuration.HasProperty(x => x.LocationID).IsIdentity(KeyGenerator.Autoinc).HasFieldName("_locationID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("LocationID").IsNotNullable().HasColumnType("smallint").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.Name).HasFieldName("_name").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("Name").IsNotNullable().HasColumnType("'Name'").HasLength(50);
+			configuration.HasProperty(x => x.CostRate).HasFieldName("_costRate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("CostRate").IsNotNullable().HasColumnType("smallmoney").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.Availability).HasFieldName("_availability").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("Availability").IsNotNullable().HasColumnType("decimal").HasPrecision(8).HasScale(2);
+			configuration.HasProperty(x => x.ModifiedDate).HasFieldName("_modifiedDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ModifiedDate").IsNotNullable().HasColumnType("datetime");
+		}
+	
+		public void PrepareLocationAssociationConfigurations(MappingConfiguration<Location> configuration)
+		{
+			configuration.HasAssociation(x => x.WorkOrderRoutings).HasFieldName("_workOrderRoutings").WithOpposite(x => x.Location).ToColumn("LocationID").HasConstraint((y, x) =>  x.LocationID == y.LocationID ).WithDataAccessKind(DataAccessKind.ReadWrite);
+			configuration.HasAssociation(x => x.ProductInventories).HasFieldName("_productInventories").WithOpposite(x => x.Location).ToColumn("LocationID").HasConstraint((y, x) =>  x.LocationID == y.LocationID ).WithDataAccessKind(DataAccessKind.ReadWrite);
+		}
+		
+		public MappingConfiguration<JobCandidate> GetJobCandidateMappingConfiguration()
+		{
+			MappingConfiguration<JobCandidate> configuration = this.GetJobCandidateClassConfiguration();
+			this.PrepareJobCandidatePropertyConfigurations(configuration);
+			this.PrepareJobCandidateAssociationConfigurations(configuration);
+
+			return configuration;
+		}
+
+		public MappingConfiguration<JobCandidate> GetJobCandidateClassConfiguration()
+		{
+			MappingConfiguration<JobCandidate> configuration = new MappingConfiguration<JobCandidate>();
+			configuration.MapType(x => new { }).WithConcurencyControl(OptimisticConcurrencyControlStrategy.Changed).ToTable("HumanResources.JobCandidate");
+	
+			return configuration;
+		}
+	
+		public void PrepareJobCandidatePropertyConfigurations(MappingConfiguration<JobCandidate> configuration)
+		{
+			configuration.HasProperty(x => x.JobCandidateID).IsIdentity(KeyGenerator.Autoinc).HasFieldName("_jobCandidateID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("JobCandidateID").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.BusinessEntityID).HasFieldName("_businessEntityID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("BusinessEntityID").IsNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.Resume).HasFieldName("_resume").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("Resume").IsNullable().HasColumnType("xml").HasLength(0);
+			configuration.HasProperty(x => x.ModifiedDate).HasFieldName("_modifiedDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ModifiedDate").IsNotNullable().HasColumnType("datetime");
+		}
+	
+		public void PrepareJobCandidateAssociationConfigurations(MappingConfiguration<JobCandidate> configuration)
+		{
+			configuration.HasAssociation(x => x.Employee).HasFieldName("_employee").WithOpposite(x => x.JobCandidates).ToColumn("BusinessEntityID").HasConstraint((x, y) =>  x.BusinessEntityID == y.BusinessEntityID ).WithDataAccessKind(DataAccessKind.ReadWrite);
+		}
+		
+		public MappingConfiguration<Illustration> GetIllustrationMappingConfiguration()
+		{
+			MappingConfiguration<Illustration> configuration = this.GetIllustrationClassConfiguration();
+			this.PrepareIllustrationPropertyConfigurations(configuration);
+			this.PrepareIllustrationAssociationConfigurations(configuration);
+
+			return configuration;
+		}
+
+		public MappingConfiguration<Illustration> GetIllustrationClassConfiguration()
+		{
+			MappingConfiguration<Illustration> configuration = new MappingConfiguration<Illustration>();
+			configuration.MapType(x => new { }).WithConcurencyControl(OptimisticConcurrencyControlStrategy.Changed).ToTable("Production.Illustration");
+	
+			return configuration;
+		}
+	
+		public void PrepareIllustrationPropertyConfigurations(MappingConfiguration<Illustration> configuration)
+		{
+			configuration.HasProperty(x => x.IllustrationID).IsIdentity(KeyGenerator.Autoinc).HasFieldName("_illustrationID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("IllustrationID").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.Diagram).HasFieldName("_diagram").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("Diagram").IsNullable().HasColumnType("xml").HasLength(0);
+			configuration.HasProperty(x => x.ModifiedDate).HasFieldName("_modifiedDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ModifiedDate").IsNotNullable().HasColumnType("datetime");
+		}
+	
+		public void PrepareIllustrationAssociationConfigurations(MappingConfiguration<Illustration> configuration)
+		{
+			configuration.HasAssociation(x => x.ProductModelIllustrations).HasFieldName("_productModelIllustrations").WithOpposite(x => x.Illustration).ToColumn("IllustrationID").HasConstraint((y, x) =>  x.IllustrationID == y.IllustrationID ).WithDataAccessKind(DataAccessKind.ReadWrite);
+		}
+		
+		public MappingConfiguration<EmployeePayHistory> GetEmployeePayHistoryMappingConfiguration()
+		{
+			MappingConfiguration<EmployeePayHistory> configuration = this.GetEmployeePayHistoryClassConfiguration();
+			this.PrepareEmployeePayHistoryPropertyConfigurations(configuration);
+			this.PrepareEmployeePayHistoryAssociationConfigurations(configuration);
+
+			return configuration;
+		}
+
+		public MappingConfiguration<EmployeePayHistory> GetEmployeePayHistoryClassConfiguration()
+		{
+			MappingConfiguration<EmployeePayHistory> configuration = new MappingConfiguration<EmployeePayHistory>();
+			configuration.MapType(x => new { }).WithConcurencyControl(OptimisticConcurrencyControlStrategy.Changed).ToTable("HumanResources.EmployeePayHistory");
+	
+			return configuration;
+		}
+	
+		public void PrepareEmployeePayHistoryPropertyConfigurations(MappingConfiguration<EmployeePayHistory> configuration)
+		{
+			configuration.HasProperty(x => x.BusinessEntityID).IsIdentity().HasFieldName("_businessEntityID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("BusinessEntityID").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.RateChangeDate).IsIdentity().HasFieldName("_rateChangeDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("RateChangeDate").IsNotNullable().HasColumnType("datetime");
+			configuration.HasProperty(x => x.Rate).HasFieldName("_rate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("Rate").IsNotNullable().HasColumnType("money").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.PayFrequency).HasFieldName("_payFrequency").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("PayFrequency").IsNotNullable().HasColumnType("tinyint").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.ModifiedDate).HasFieldName("_modifiedDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ModifiedDate").IsNotNullable().HasColumnType("datetime");
+		}
+	
+		public void PrepareEmployeePayHistoryAssociationConfigurations(MappingConfiguration<EmployeePayHistory> configuration)
+		{
+			configuration.HasAssociation(x => x.Employee).HasFieldName("_employee").WithOpposite(x => x.EmployeePayHistories).ToColumn("BusinessEntityID").HasConstraint((x, y) =>  x.BusinessEntityID == y.BusinessEntityID ).IsRequired().WithDataAccessKind(DataAccessKind.ReadWrite);
+		}
+		
+		public MappingConfiguration<EmployeeDepartmentHistory> GetEmployeeDepartmentHistoryMappingConfiguration()
+		{
+			MappingConfiguration<EmployeeDepartmentHistory> configuration = this.GetEmployeeDepartmentHistoryClassConfiguration();
+			this.PrepareEmployeeDepartmentHistoryPropertyConfigurations(configuration);
+			this.PrepareEmployeeDepartmentHistoryAssociationConfigurations(configuration);
+
+			return configuration;
+		}
+
+		public MappingConfiguration<EmployeeDepartmentHistory> GetEmployeeDepartmentHistoryClassConfiguration()
+		{
+			MappingConfiguration<EmployeeDepartmentHistory> configuration = new MappingConfiguration<EmployeeDepartmentHistory>();
+			configuration.MapType(x => new { }).WithConcurencyControl(OptimisticConcurrencyControlStrategy.Changed).ToTable("HumanResources.EmployeeDepartmentHistory");
+	
+			return configuration;
+		}
+	
+		public void PrepareEmployeeDepartmentHistoryPropertyConfigurations(MappingConfiguration<EmployeeDepartmentHistory> configuration)
+		{
+			configuration.HasProperty(x => x.BusinessEntityID).IsIdentity().HasFieldName("_businessEntityID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("BusinessEntityID").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.DepartmentID).IsIdentity().HasFieldName("_departmentID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("DepartmentID").IsNotNullable().HasColumnType("smallint").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.ShiftID).IsIdentity().HasFieldName("_shiftID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ShiftID").IsNotNullable().HasColumnType("tinyint").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.StartDate).IsIdentity().HasFieldName("_startDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("StartDate").IsNotNullable().HasColumnType("date");
+			configuration.HasProperty(x => x.EndDate).HasFieldName("_endDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("EndDate").IsNullable().HasColumnType("date");
+			configuration.HasProperty(x => x.ModifiedDate).HasFieldName("_modifiedDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ModifiedDate").IsNotNullable().HasColumnType("datetime");
+		}
+	
+		public void PrepareEmployeeDepartmentHistoryAssociationConfigurations(MappingConfiguration<EmployeeDepartmentHistory> configuration)
+		{
+			configuration.HasAssociation(x => x.Department).HasFieldName("_department").WithOpposite(x => x.EmployeeDepartmentHistories).ToColumn("DepartmentID").HasConstraint((x, y) =>  x.DepartmentID == y.DepartmentID ).IsRequired().WithDataAccessKind(DataAccessKind.ReadWrite);
+			configuration.HasAssociation(x => x.Employee).HasFieldName("_employee").WithOpposite(x => x.EmployeeDepartmentHistories).ToColumn("BusinessEntityID").HasConstraint((x, y) =>  x.BusinessEntityID == y.BusinessEntityID ).IsRequired().WithDataAccessKind(DataAccessKind.ReadWrite);
+			configuration.HasAssociation(x => x.Shift).HasFieldName("_shift").WithOpposite(x => x.EmployeeDepartmentHistories).ToColumn("ShiftID").HasConstraint((x, y) =>  x.ShiftID == y.ShiftID ).IsRequired().WithDataAccessKind(DataAccessKind.ReadWrite);
+		}
+		
+		public MappingConfiguration<Employee> GetEmployeeMappingConfiguration()
+		{
+			MappingConfiguration<Employee> configuration = this.GetEmployeeClassConfiguration();
+			this.PrepareEmployeePropertyConfigurations(configuration);
+			this.PrepareEmployeeAssociationConfigurations(configuration);
+
+			return configuration;
+		}
+
+		public MappingConfiguration<Employee> GetEmployeeClassConfiguration()
+		{
+			MappingConfiguration<Employee> configuration = new MappingConfiguration<Employee>();
+			configuration.MapType(x => new { }).WithConcurencyControl(OptimisticConcurrencyControlStrategy.Changed).ToTable("HumanResources.Employee");
+	
+			return configuration;
+		}
+	
+		public void PrepareEmployeePropertyConfigurations(MappingConfiguration<Employee> configuration)
+		{
+			configuration.HasProperty(x => x.BusinessEntityID).IsIdentity().HasFieldName("_businessEntityID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("BusinessEntityID").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.NationalIDNumber).HasFieldName("_nationalIDNumber").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("NationalIDNumber").IsNotNullable().HasColumnType("nvarchar").HasLength(15);
+			configuration.HasProperty(x => x.LoginID).HasFieldName("_loginID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("LoginID").IsNotNullable().HasColumnType("nvarchar").HasLength(256);
+			configuration.HasProperty(x => x.OrganizationNode).HasFieldName("_organizationNode").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("OrganizationNode").IsNullable().HasColumnType("hierarchyid");
+			configuration.HasProperty(x => x.OrganizationLevel).HasFieldName("_organizationLevel").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("OrganizationLevel").IsNullable().HasColumnType("smallint").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.JobTitle).HasFieldName("_jobTitle").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("JobTitle").IsNotNullable().HasColumnType("nvarchar").HasLength(50);
+			configuration.HasProperty(x => x.BirthDate).HasFieldName("_birthDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("BirthDate").IsNotNullable().HasColumnType("date");
+			configuration.HasProperty(x => x.MaritalStatus).HasFieldName("_maritalStatus").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("MaritalStatus").IsNotNullable().HasColumnType("nchar").HasPrecision(1);
+			configuration.HasProperty(x => x.Gender).HasFieldName("_gender").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("Gender").IsNotNullable().HasColumnType("nchar").HasPrecision(1);
+			configuration.HasProperty(x => x.HireDate).HasFieldName("_hireDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("HireDate").IsNotNullable().HasColumnType("date");
+			configuration.HasProperty(x => x.SalariedFlag).HasFieldName("_salariedFlag").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("SalariedFlag").IsNotNullable().HasColumnType("'Flag'").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.VacationHours).HasFieldName("_vacationHours").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("VacationHours").IsNotNullable().HasColumnType("smallint").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.SickLeaveHours).HasFieldName("_sickLeaveHours").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("SickLeaveHours").IsNotNullable().HasColumnType("smallint").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.CurrentFlag).HasFieldName("_currentFlag").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("CurrentFlag").IsNotNullable().HasColumnType("'Flag'").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.Rowguid).HasFieldName("_rowguid").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("rowguid").IsNotNullable().HasColumnType("uniqueidentifier").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.ModifiedDate).HasFieldName("_modifiedDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ModifiedDate").IsNotNullable().HasColumnType("datetime");
+		}
+	
+		public void PrepareEmployeeAssociationConfigurations(MappingConfiguration<Employee> configuration)
+		{
+			configuration.HasAssociation(x => x.SalesPerson).HasFieldName("_salesPerson").WithOpposite(x => x.Employee).ToColumn("BusinessEntityID").HasConstraint((y, x) =>  x.BusinessEntityID == y.BusinessEntityID ).IsManaged().WithDataAccessKind(DataAccessKind.ReadWrite);
+			configuration.HasAssociation(x => x.PurchaseOrderHeaders).HasFieldName("_purchaseOrderHeaders").WithOpposite(x => x.Employee).ToColumn("EmployeeID").HasConstraint((y, x) =>  x.EmployeeID == y.BusinessEntityID ).WithDataAccessKind(DataAccessKind.ReadWrite);
+			configuration.HasAssociation(x => x.JobCandidates).HasFieldName("_jobCandidates").WithOpposite(x => x.Employee).ToColumn("BusinessEntityID").HasConstraint((y, x) =>  x.BusinessEntityID == y.BusinessEntityID ).WithDataAccessKind(DataAccessKind.ReadWrite);
+			configuration.HasAssociation(x => x.EmployeePayHistories).HasFieldName("_employeePayHistories").WithOpposite(x => x.Employee).ToColumn("BusinessEntityID").HasConstraint((y, x) =>  x.BusinessEntityID == y.BusinessEntityID ).WithDataAccessKind(DataAccessKind.ReadWrite);
+			configuration.HasAssociation(x => x.EmployeeDepartmentHistories).HasFieldName("_employeeDepartmentHistories").WithOpposite(x => x.Employee).ToColumn("BusinessEntityID").HasConstraint((y, x) =>  x.BusinessEntityID == y.BusinessEntityID ).WithDataAccessKind(DataAccessKind.ReadWrite);
+			configuration.HasAssociation(x => x.Person).HasFieldName("_person").WithOpposite(x => x.Employee).ToColumn("BusinessEntityID").HasConstraint((x, y) =>  x.BusinessEntityID == y.BusinessEntityID ).IsManaged().IsRequired().WithDataAccessKind(DataAccessKind.ReadWrite);
+		}
+		
 		public MappingConfiguration<EmailAddress> GetEmailAddressMappingConfiguration()
 		{
 			MappingConfiguration<EmailAddress> configuration = this.GetEmailAddressClassConfiguration();
@@ -5101,6 +11010,36 @@ namespace Telerik.Bencher.Model.Fluent
 		public void PrepareEmailAddressAssociationConfigurations(MappingConfiguration<EmailAddress> configuration)
 		{
 			configuration.HasAssociation(x => x.Person).HasFieldName("_person").WithOpposite(x => x.EmailAddresses).ToColumn("BusinessEntityID").HasConstraint((x, y) =>  x.BusinessEntityID == y.BusinessEntityID ).IsRequired().WithDataAccessKind(DataAccessKind.ReadWrite);
+		}
+		
+		public MappingConfiguration<Department> GetDepartmentMappingConfiguration()
+		{
+			MappingConfiguration<Department> configuration = this.GetDepartmentClassConfiguration();
+			this.PrepareDepartmentPropertyConfigurations(configuration);
+			this.PrepareDepartmentAssociationConfigurations(configuration);
+
+			return configuration;
+		}
+
+		public MappingConfiguration<Department> GetDepartmentClassConfiguration()
+		{
+			MappingConfiguration<Department> configuration = new MappingConfiguration<Department>();
+			configuration.MapType(x => new { }).WithConcurencyControl(OptimisticConcurrencyControlStrategy.Changed).ToTable("HumanResources.Department");
+	
+			return configuration;
+		}
+	
+		public void PrepareDepartmentPropertyConfigurations(MappingConfiguration<Department> configuration)
+		{
+			configuration.HasProperty(x => x.DepartmentID).IsIdentity(KeyGenerator.Autoinc).HasFieldName("_departmentID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("DepartmentID").IsNotNullable().HasColumnType("smallint").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.Name).HasFieldName("_name").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("Name").IsNotNullable().HasColumnType("'Name'").HasLength(50);
+			configuration.HasProperty(x => x.GroupName).HasFieldName("_groupName").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("GroupName").IsNotNullable().HasColumnType("'Name'").HasLength(50);
+			configuration.HasProperty(x => x.ModifiedDate).HasFieldName("_modifiedDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ModifiedDate").IsNotNullable().HasColumnType("datetime");
+		}
+	
+		public void PrepareDepartmentAssociationConfigurations(MappingConfiguration<Department> configuration)
+		{
+			configuration.HasAssociation(x => x.EmployeeDepartmentHistories).HasFieldName("_employeeDepartmentHistories").WithOpposite(x => x.Department).ToColumn("DepartmentID").HasConstraint((y, x) =>  x.DepartmentID == y.DepartmentID ).WithDataAccessKind(DataAccessKind.ReadWrite);
 		}
 		
 		public MappingConfiguration<Customer> GetCustomerMappingConfiguration()
@@ -5203,6 +11142,35 @@ namespace Telerik.Bencher.Model.Fluent
 			configuration.HasAssociation(x => x.CurrencyRates).HasFieldName("_currencyRates").WithOpposite(x => x.Currency).ToColumn("FromCurrencyCode").HasConstraint((y, x) =>  x.FromCurrencyCode == y.CurrencyCode ).WithDataAccessKind(DataAccessKind.ReadWrite);
 			configuration.HasAssociation(x => x.CurrencyRates1).HasFieldName("_currencyRates1").WithOpposite(x => x.Currency1).ToColumn("ToCurrencyCode").HasConstraint((y, x) =>  x.ToCurrencyCode == y.CurrencyCode ).WithDataAccessKind(DataAccessKind.ReadWrite);
 			configuration.HasAssociation(x => x.CountryRegionCurrencies).HasFieldName("_countryRegionCurrencies").WithOpposite(x => x.Currency).ToColumn("CurrencyCode").HasConstraint((y, x) =>  x.CurrencyCode == y.CurrencyCode ).WithDataAccessKind(DataAccessKind.ReadWrite);
+		}
+		
+		public MappingConfiguration<Culture> GetCultureMappingConfiguration()
+		{
+			MappingConfiguration<Culture> configuration = this.GetCultureClassConfiguration();
+			this.PrepareCulturePropertyConfigurations(configuration);
+			this.PrepareCultureAssociationConfigurations(configuration);
+
+			return configuration;
+		}
+
+		public MappingConfiguration<Culture> GetCultureClassConfiguration()
+		{
+			MappingConfiguration<Culture> configuration = new MappingConfiguration<Culture>();
+			configuration.MapType(x => new { }).WithConcurencyControl(OptimisticConcurrencyControlStrategy.Changed).ToTable("Production.Culture");
+	
+			return configuration;
+		}
+	
+		public void PrepareCulturePropertyConfigurations(MappingConfiguration<Culture> configuration)
+		{
+			configuration.HasProperty(x => x.CultureID).IsIdentity().HasFieldName("_cultureID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("CultureID").IsNotNullable().HasColumnType("nchar").HasLength(6);
+			configuration.HasProperty(x => x.Name).HasFieldName("_name").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("Name").IsNotNullable().HasColumnType("'Name'").HasLength(50);
+			configuration.HasProperty(x => x.ModifiedDate).HasFieldName("_modifiedDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ModifiedDate").IsNotNullable().HasColumnType("datetime");
+		}
+	
+		public void PrepareCultureAssociationConfigurations(MappingConfiguration<Culture> configuration)
+		{
+			configuration.HasAssociation(x => x.ProductModelProductDescriptionCultures).HasFieldName("_productModelProductDescriptionCultures").WithOpposite(x => x.Culture).ToColumn("CultureID").HasConstraint((y, x) =>  x.CultureID == y.CultureID ).WithDataAccessKind(DataAccessKind.ReadWrite);
 		}
 		
 		public MappingConfiguration<CreditCard> GetCreditCardMappingConfiguration()
@@ -5420,10 +11388,48 @@ namespace Telerik.Bencher.Model.Fluent
 	
 		public void PrepareBusinessEntityAssociationConfigurations(MappingConfiguration<BusinessEntity> configuration)
 		{
+			configuration.HasAssociation(x => x.Vendor).HasFieldName("_vendor").WithOpposite(x => x.BusinessEntity).ToColumn("BusinessEntityID").HasConstraint((y, x) =>  x.BusinessEntityID == y.BusinessEntityID ).IsManaged().WithDataAccessKind(DataAccessKind.ReadWrite);
 			configuration.HasAssociation(x => x.Store).HasFieldName("_store").WithOpposite(x => x.BusinessEntity).ToColumn("BusinessEntityID").HasConstraint((y, x) =>  x.BusinessEntityID == y.BusinessEntityID ).IsManaged().WithDataAccessKind(DataAccessKind.ReadWrite);
 			configuration.HasAssociation(x => x.Person).HasFieldName("_person").WithOpposite(x => x.BusinessEntity).ToColumn("BusinessEntityID").HasConstraint((y, x) =>  x.BusinessEntityID == y.BusinessEntityID ).IsManaged().WithDataAccessKind(DataAccessKind.ReadWrite);
 			configuration.HasAssociation(x => x.BusinessEntityContacts).HasFieldName("_businessEntityContacts").WithOpposite(x => x.BusinessEntity).ToColumn("BusinessEntityID").HasConstraint((y, x) =>  x.BusinessEntityID == y.BusinessEntityID ).WithDataAccessKind(DataAccessKind.ReadWrite);
 			configuration.HasAssociation(x => x.BusinessEntityAddresses).HasFieldName("_businessEntityAddresses").WithOpposite(x => x.BusinessEntity).ToColumn("BusinessEntityID").HasConstraint((y, x) =>  x.BusinessEntityID == y.BusinessEntityID ).WithDataAccessKind(DataAccessKind.ReadWrite);
+		}
+		
+		public MappingConfiguration<BillOfMaterial> GetBillOfMaterialMappingConfiguration()
+		{
+			MappingConfiguration<BillOfMaterial> configuration = this.GetBillOfMaterialClassConfiguration();
+			this.PrepareBillOfMaterialPropertyConfigurations(configuration);
+			this.PrepareBillOfMaterialAssociationConfigurations(configuration);
+
+			return configuration;
+		}
+
+		public MappingConfiguration<BillOfMaterial> GetBillOfMaterialClassConfiguration()
+		{
+			MappingConfiguration<BillOfMaterial> configuration = new MappingConfiguration<BillOfMaterial>();
+			configuration.MapType(x => new { }).WithConcurencyControl(OptimisticConcurrencyControlStrategy.Changed).ToTable("Production.BillOfMaterials");
+	
+			return configuration;
+		}
+	
+		public void PrepareBillOfMaterialPropertyConfigurations(MappingConfiguration<BillOfMaterial> configuration)
+		{
+			configuration.HasProperty(x => x.BillOfMaterialsID).IsIdentity(KeyGenerator.Autoinc).HasFieldName("_billOfMaterialsID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("BillOfMaterialsID").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.ProductAssemblyID).HasFieldName("_productAssemblyID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ProductAssemblyID").IsNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.ComponentID).HasFieldName("_componentID").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ComponentID").IsNotNullable().HasColumnType("int").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.StartDate).HasFieldName("_startDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("StartDate").IsNotNullable().HasColumnType("datetime");
+			configuration.HasProperty(x => x.EndDate).HasFieldName("_endDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("EndDate").IsNullable().HasColumnType("datetime");
+			configuration.HasProperty(x => x.UnitMeasureCode).HasFieldName("_unitMeasureCode").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("UnitMeasureCode").IsNotNullable().HasColumnType("nchar").HasLength(3);
+			configuration.HasProperty(x => x.BOMLevel).HasFieldName("_bOMLevel").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("BOMLevel").IsNotNullable().HasColumnType("smallint").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.PerAssemblyQty).HasFieldName("_perAssemblyQty").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("PerAssemblyQty").IsNotNullable().HasColumnType("decimal").HasPrecision(8).HasScale(2);
+			configuration.HasProperty(x => x.ModifiedDate).HasFieldName("_modifiedDate").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ModifiedDate").IsNotNullable().HasColumnType("datetime");
+		}
+	
+		public void PrepareBillOfMaterialAssociationConfigurations(MappingConfiguration<BillOfMaterial> configuration)
+		{
+			configuration.HasAssociation(x => x.Product).HasFieldName("_product").WithOpposite(x => x.BillOfMaterials).ToColumn("ComponentID").HasConstraint((x, y) =>  x.ComponentID == y.ProductID ).IsRequired().WithDataAccessKind(DataAccessKind.ReadWrite);
+			configuration.HasAssociation(x => x.Product1).HasFieldName("_product1").WithOpposite(x => x.BillOfMaterials1).ToColumn("ProductAssemblyID").HasConstraint((x, y) =>  x.ProductAssemblyID == y.ProductID ).WithDataAccessKind(DataAccessKind.ReadWrite);
+			configuration.HasAssociation(x => x.UnitMeasure).HasFieldName("_unitMeasure").WithOpposite(x => x.BillOfMaterials).ToColumn("UnitMeasureCode").HasConstraint((x, y) =>  x.UnitMeasureCode == y.UnitMeasureCode ).IsRequired().WithDataAccessKind(DataAccessKind.ReadWrite);
 		}
 		
 		public MappingConfiguration<AddressType> GetAddressTypeMappingConfiguration()

@@ -51,6 +51,54 @@ namespace Telerik.Bencher.Model
 			:base(connection, backendConfiguration, metadataSource)
 		{ }
 			
+		public IQueryable<WorkOrderRouting> WorkOrderRoutings 
+		{
+			get
+			{
+				return this.GetAll<WorkOrderRouting>();
+			}
+		}
+		
+		public IQueryable<WorkOrder> WorkOrders 
+		{
+			get
+			{
+				return this.GetAll<WorkOrder>();
+			}
+		}
+		
+		public IQueryable<Vendor> Vendors 
+		{
+			get
+			{
+				return this.GetAll<Vendor>();
+			}
+		}
+		
+		public IQueryable<UnitMeasure> UnitMeasures 
+		{
+			get
+			{
+				return this.GetAll<UnitMeasure>();
+			}
+		}
+		
+		public IQueryable<TransactionHistoryArchive> TransactionHistoryArchives 
+		{
+			get
+			{
+				return this.GetAll<TransactionHistoryArchive>();
+			}
+		}
+		
+		public IQueryable<TransactionHistory> TransactionHistories 
+		{
+			get
+			{
+				return this.GetAll<TransactionHistory>();
+			}
+		}
+		
 		public IQueryable<Store> Stores 
 		{
 			get
@@ -88,6 +136,30 @@ namespace Telerik.Bencher.Model
 			get
 			{
 				return this.GetAll<ShoppingCartItem>();
+			}
+		}
+		
+		public IQueryable<ShipMethod> ShipMethods 
+		{
+			get
+			{
+				return this.GetAll<ShipMethod>();
+			}
+		}
+		
+		public IQueryable<Shift> Shifts 
+		{
+			get
+			{
+				return this.GetAll<Shift>();
+			}
+		}
+		
+		public IQueryable<ScrapReason> ScrapReasons 
+		{
+			get
+			{
+				return this.GetAll<ScrapReason>();
 			}
 		}
 		
@@ -163,6 +235,134 @@ namespace Telerik.Bencher.Model
 			}
 		}
 		
+		public IQueryable<PurchaseOrderHeader> PurchaseOrderHeaders 
+		{
+			get
+			{
+				return this.GetAll<PurchaseOrderHeader>();
+			}
+		}
+		
+		public IQueryable<PurchaseOrderDetail> PurchaseOrderDetails 
+		{
+			get
+			{
+				return this.GetAll<PurchaseOrderDetail>();
+			}
+		}
+		
+		public IQueryable<ProductVendor> ProductVendors 
+		{
+			get
+			{
+				return this.GetAll<ProductVendor>();
+			}
+		}
+		
+		public IQueryable<ProductSubcategory> ProductSubcategories 
+		{
+			get
+			{
+				return this.GetAll<ProductSubcategory>();
+			}
+		}
+		
+		public IQueryable<ProductReview> ProductReviews 
+		{
+			get
+			{
+				return this.GetAll<ProductReview>();
+			}
+		}
+		
+		public IQueryable<ProductProductPhoto> ProductProductPhotos 
+		{
+			get
+			{
+				return this.GetAll<ProductProductPhoto>();
+			}
+		}
+		
+		public IQueryable<ProductPhoto> ProductPhotos 
+		{
+			get
+			{
+				return this.GetAll<ProductPhoto>();
+			}
+		}
+		
+		public IQueryable<ProductModelProductDescriptionCulture> ProductModelProductDescriptionCultures 
+		{
+			get
+			{
+				return this.GetAll<ProductModelProductDescriptionCulture>();
+			}
+		}
+		
+		public IQueryable<ProductModelIllustration> ProductModelIllustrations 
+		{
+			get
+			{
+				return this.GetAll<ProductModelIllustration>();
+			}
+		}
+		
+		public IQueryable<ProductModel> ProductModels 
+		{
+			get
+			{
+				return this.GetAll<ProductModel>();
+			}
+		}
+		
+		public IQueryable<ProductListPriceHistory> ProductListPriceHistories 
+		{
+			get
+			{
+				return this.GetAll<ProductListPriceHistory>();
+			}
+		}
+		
+		public IQueryable<ProductInventory> ProductInventories 
+		{
+			get
+			{
+				return this.GetAll<ProductInventory>();
+			}
+		}
+		
+		public IQueryable<ProductDescription> ProductDescriptions 
+		{
+			get
+			{
+				return this.GetAll<ProductDescription>();
+			}
+		}
+		
+		public IQueryable<ProductCostHistory> ProductCostHistories 
+		{
+			get
+			{
+				return this.GetAll<ProductCostHistory>();
+			}
+		}
+		
+		public IQueryable<ProductCategory> ProductCategories 
+		{
+			get
+			{
+				return this.GetAll<ProductCategory>();
+			}
+		}
+		
+		public IQueryable<Product> Products 
+		{
+			get
+			{
+				return this.GetAll<Product>();
+			}
+		}
+		
 		public IQueryable<PhoneNumberType> PhoneNumberTypes 
 		{
 			get
@@ -203,11 +403,51 @@ namespace Telerik.Bencher.Model
 			}
 		}
 		
-		public IQueryable<ErrorLog> ErrorLogs 
+		public IQueryable<Location> Locations 
 		{
 			get
 			{
-				return this.GetAll<ErrorLog>();
+				return this.GetAll<Location>();
+			}
+		}
+		
+		public IQueryable<JobCandidate> JobCandidates 
+		{
+			get
+			{
+				return this.GetAll<JobCandidate>();
+			}
+		}
+		
+		public IQueryable<Illustration> Illustrations 
+		{
+			get
+			{
+				return this.GetAll<Illustration>();
+			}
+		}
+		
+		public IQueryable<EmployeePayHistory> EmployeePayHistories 
+		{
+			get
+			{
+				return this.GetAll<EmployeePayHistory>();
+			}
+		}
+		
+		public IQueryable<EmployeeDepartmentHistory> EmployeeDepartmentHistories 
+		{
+			get
+			{
+				return this.GetAll<EmployeeDepartmentHistory>();
+			}
+		}
+		
+		public IQueryable<Employee> Employees 
+		{
+			get
+			{
+				return this.GetAll<Employee>();
 			}
 		}
 		
@@ -219,11 +459,11 @@ namespace Telerik.Bencher.Model
 			}
 		}
 		
-		public IQueryable<DatabaseLog> DatabaseLogs 
+		public IQueryable<Department> Departments 
 		{
 			get
 			{
-				return this.GetAll<DatabaseLog>();
+				return this.GetAll<Department>();
 			}
 		}
 		
@@ -248,6 +488,14 @@ namespace Telerik.Bencher.Model
 			get
 			{
 				return this.GetAll<Currency>();
+			}
+		}
+		
+		public IQueryable<Culture> Cultures 
+		{
+			get
+			{
+				return this.GetAll<Culture>();
 			}
 		}
 		
@@ -307,11 +555,11 @@ namespace Telerik.Bencher.Model
 			}
 		}
 		
-		public IQueryable<AWBuildVersion> AWBuildVersions 
+		public IQueryable<BillOfMaterial> BillOfMaterials 
 		{
 			get
 			{
-				return this.GetAll<AWBuildVersion>();
+				return this.GetAll<BillOfMaterial>();
 			}
 		}
 		
@@ -336,12 +584,37 @@ namespace Telerik.Bencher.Model
 			BackendConfiguration backend = new BackendConfiguration();
 			backend.Backend = "MsSql";
 			backend.ProviderName = "System.Data.SqlClient";
+			backend.Logging.MetricStoreSnapshotInterval = 0;
 			return backend;
 		}
 	}
 	
 	public interface IDomainModelUnitOfWork : IUnitOfWork
 	{
+		IQueryable<WorkOrderRouting> WorkOrderRoutings
+		{
+			get;
+		}
+		IQueryable<WorkOrder> WorkOrders
+		{
+			get;
+		}
+		IQueryable<Vendor> Vendors
+		{
+			get;
+		}
+		IQueryable<UnitMeasure> UnitMeasures
+		{
+			get;
+		}
+		IQueryable<TransactionHistoryArchive> TransactionHistoryArchives
+		{
+			get;
+		}
+		IQueryable<TransactionHistory> TransactionHistories
+		{
+			get;
+		}
 		IQueryable<Store> Stores
 		{
 			get;
@@ -359,6 +632,18 @@ namespace Telerik.Bencher.Model
 			get;
 		}
 		IQueryable<ShoppingCartItem> ShoppingCartItems
+		{
+			get;
+		}
+		IQueryable<ShipMethod> ShipMethods
+		{
+			get;
+		}
+		IQueryable<Shift> Shifts
+		{
+			get;
+		}
+		IQueryable<ScrapReason> ScrapReasons
 		{
 			get;
 		}
@@ -398,6 +683,70 @@ namespace Telerik.Bencher.Model
 		{
 			get;
 		}
+		IQueryable<PurchaseOrderHeader> PurchaseOrderHeaders
+		{
+			get;
+		}
+		IQueryable<PurchaseOrderDetail> PurchaseOrderDetails
+		{
+			get;
+		}
+		IQueryable<ProductVendor> ProductVendors
+		{
+			get;
+		}
+		IQueryable<ProductSubcategory> ProductSubcategories
+		{
+			get;
+		}
+		IQueryable<ProductReview> ProductReviews
+		{
+			get;
+		}
+		IQueryable<ProductProductPhoto> ProductProductPhotos
+		{
+			get;
+		}
+		IQueryable<ProductPhoto> ProductPhotos
+		{
+			get;
+		}
+		IQueryable<ProductModelProductDescriptionCulture> ProductModelProductDescriptionCultures
+		{
+			get;
+		}
+		IQueryable<ProductModelIllustration> ProductModelIllustrations
+		{
+			get;
+		}
+		IQueryable<ProductModel> ProductModels
+		{
+			get;
+		}
+		IQueryable<ProductListPriceHistory> ProductListPriceHistories
+		{
+			get;
+		}
+		IQueryable<ProductInventory> ProductInventories
+		{
+			get;
+		}
+		IQueryable<ProductDescription> ProductDescriptions
+		{
+			get;
+		}
+		IQueryable<ProductCostHistory> ProductCostHistories
+		{
+			get;
+		}
+		IQueryable<ProductCategory> ProductCategories
+		{
+			get;
+		}
+		IQueryable<Product> Products
+		{
+			get;
+		}
 		IQueryable<PhoneNumberType> PhoneNumberTypes
 		{
 			get;
@@ -418,7 +767,27 @@ namespace Telerik.Bencher.Model
 		{
 			get;
 		}
-		IQueryable<ErrorLog> ErrorLogs
+		IQueryable<Location> Locations
+		{
+			get;
+		}
+		IQueryable<JobCandidate> JobCandidates
+		{
+			get;
+		}
+		IQueryable<Illustration> Illustrations
+		{
+			get;
+		}
+		IQueryable<EmployeePayHistory> EmployeePayHistories
+		{
+			get;
+		}
+		IQueryable<EmployeeDepartmentHistory> EmployeeDepartmentHistories
+		{
+			get;
+		}
+		IQueryable<Employee> Employees
 		{
 			get;
 		}
@@ -426,7 +795,7 @@ namespace Telerik.Bencher.Model
 		{
 			get;
 		}
-		IQueryable<DatabaseLog> DatabaseLogs
+		IQueryable<Department> Departments
 		{
 			get;
 		}
@@ -439,6 +808,10 @@ namespace Telerik.Bencher.Model
 			get;
 		}
 		IQueryable<Currency> Currencies
+		{
+			get;
+		}
+		IQueryable<Culture> Cultures
 		{
 			get;
 		}
@@ -470,7 +843,7 @@ namespace Telerik.Bencher.Model
 		{
 			get;
 		}
-		IQueryable<AWBuildVersion> AWBuildVersions
+		IQueryable<BillOfMaterial> BillOfMaterials
 		{
 			get;
 		}
@@ -482,6 +855,846 @@ namespace Telerik.Bencher.Model
 		{
 			get;
 		}
+	}
+}
+namespace Telerik.Bencher.Model	
+{
+	public partial class WorkOrderRouting
+	{
+		private int _workOrderID;
+		public virtual int WorkOrderID
+		{
+			get
+			{
+				return this._workOrderID;
+			}
+			set
+			{
+				this._workOrderID = value;
+			}
+		}
+		
+		private int _productID;
+		public virtual int ProductID
+		{
+			get
+			{
+				return this._productID;
+			}
+			set
+			{
+				this._productID = value;
+			}
+		}
+		
+		private short _operationSequence;
+		public virtual short OperationSequence
+		{
+			get
+			{
+				return this._operationSequence;
+			}
+			set
+			{
+				this._operationSequence = value;
+			}
+		}
+		
+		private short _locationID;
+		public virtual short LocationID
+		{
+			get
+			{
+				return this._locationID;
+			}
+			set
+			{
+				this._locationID = value;
+			}
+		}
+		
+		private DateTime _scheduledStartDate;
+		public virtual DateTime ScheduledStartDate
+		{
+			get
+			{
+				return this._scheduledStartDate;
+			}
+			set
+			{
+				this._scheduledStartDate = value;
+			}
+		}
+		
+		private DateTime _scheduledEndDate;
+		public virtual DateTime ScheduledEndDate
+		{
+			get
+			{
+				return this._scheduledEndDate;
+			}
+			set
+			{
+				this._scheduledEndDate = value;
+			}
+		}
+		
+		private DateTime? _actualStartDate;
+		public virtual DateTime? ActualStartDate
+		{
+			get
+			{
+				return this._actualStartDate;
+			}
+			set
+			{
+				this._actualStartDate = value;
+			}
+		}
+		
+		private DateTime? _actualEndDate;
+		public virtual DateTime? ActualEndDate
+		{
+			get
+			{
+				return this._actualEndDate;
+			}
+			set
+			{
+				this._actualEndDate = value;
+			}
+		}
+		
+		private decimal? _actualResourceHrs;
+		public virtual decimal? ActualResourceHrs
+		{
+			get
+			{
+				return this._actualResourceHrs;
+			}
+			set
+			{
+				this._actualResourceHrs = value;
+			}
+		}
+		
+		private decimal _plannedCost;
+		public virtual decimal PlannedCost
+		{
+			get
+			{
+				return this._plannedCost;
+			}
+			set
+			{
+				this._plannedCost = value;
+			}
+		}
+		
+		private decimal? _actualCost;
+		public virtual decimal? ActualCost
+		{
+			get
+			{
+				return this._actualCost;
+			}
+			set
+			{
+				this._actualCost = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private Location _location;
+		public virtual Location Location
+		{
+			get
+			{
+				return this._location;
+			}
+			set
+			{
+				this._location = value;
+			}
+		}
+		
+		private WorkOrder _workOrder;
+		public virtual WorkOrder WorkOrder
+		{
+			get
+			{
+				return this._workOrder;
+			}
+			set
+			{
+				this._workOrder = value;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model	
+{
+	public partial class WorkOrder
+	{
+		private int _workOrderID;
+		public virtual int WorkOrderID
+		{
+			get
+			{
+				return this._workOrderID;
+			}
+			set
+			{
+				this._workOrderID = value;
+			}
+		}
+		
+		private int _productID;
+		public virtual int ProductID
+		{
+			get
+			{
+				return this._productID;
+			}
+			set
+			{
+				this._productID = value;
+			}
+		}
+		
+		private int _orderQty;
+		public virtual int OrderQty
+		{
+			get
+			{
+				return this._orderQty;
+			}
+			set
+			{
+				this._orderQty = value;
+			}
+		}
+		
+		private int _stockedQty;
+		public virtual int StockedQty
+		{
+			get
+			{
+				return this._stockedQty;
+			}
+			set
+			{
+				this._stockedQty = value;
+			}
+		}
+		
+		private short _scrappedQty;
+		public virtual short ScrappedQty
+		{
+			get
+			{
+				return this._scrappedQty;
+			}
+			set
+			{
+				this._scrappedQty = value;
+			}
+		}
+		
+		private DateTime _startDate;
+		public virtual DateTime StartDate
+		{
+			get
+			{
+				return this._startDate;
+			}
+			set
+			{
+				this._startDate = value;
+			}
+		}
+		
+		private DateTime? _endDate;
+		public virtual DateTime? EndDate
+		{
+			get
+			{
+				return this._endDate;
+			}
+			set
+			{
+				this._endDate = value;
+			}
+		}
+		
+		private DateTime _dueDate;
+		public virtual DateTime DueDate
+		{
+			get
+			{
+				return this._dueDate;
+			}
+			set
+			{
+				this._dueDate = value;
+			}
+		}
+		
+		private short? _scrapReasonID;
+		public virtual short? ScrapReasonID
+		{
+			get
+			{
+				return this._scrapReasonID;
+			}
+			set
+			{
+				this._scrapReasonID = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private Product _product;
+		public virtual Product Product
+		{
+			get
+			{
+				return this._product;
+			}
+			set
+			{
+				this._product = value;
+			}
+		}
+		
+		private ScrapReason _scrapReason;
+		public virtual ScrapReason ScrapReason
+		{
+			get
+			{
+				return this._scrapReason;
+			}
+			set
+			{
+				this._scrapReason = value;
+			}
+		}
+		
+		private IList<WorkOrderRouting> _workOrderRoutings = new List<WorkOrderRouting>();
+		public virtual IList<WorkOrderRouting> WorkOrderRoutings
+		{
+			get
+			{
+				return this._workOrderRoutings;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model	
+{
+	public partial class Vendor
+	{
+		private int _businessEntityID;
+		public virtual int BusinessEntityID
+		{
+			get
+			{
+				return this._businessEntityID;
+			}
+			set
+			{
+				this._businessEntityID = value;
+			}
+		}
+		
+		private string _accountNumber;
+		public virtual string AccountNumber
+		{
+			get
+			{
+				return this._accountNumber;
+			}
+			set
+			{
+				this._accountNumber = value;
+			}
+		}
+		
+		private string _name;
+		public virtual string Name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				this._name = value;
+			}
+		}
+		
+		private byte _creditRating;
+		public virtual byte CreditRating
+		{
+			get
+			{
+				return this._creditRating;
+			}
+			set
+			{
+				this._creditRating = value;
+			}
+		}
+		
+		private bool _preferredVendorStatus;
+		public virtual bool PreferredVendorStatus
+		{
+			get
+			{
+				return this._preferredVendorStatus;
+			}
+			set
+			{
+				this._preferredVendorStatus = value;
+			}
+		}
+		
+		private bool _activeFlag;
+		public virtual bool ActiveFlag
+		{
+			get
+			{
+				return this._activeFlag;
+			}
+			set
+			{
+				this._activeFlag = value;
+			}
+		}
+		
+		private string _purchasingWebServiceURL;
+		public virtual string PurchasingWebServiceURL
+		{
+			get
+			{
+				return this._purchasingWebServiceURL;
+			}
+			set
+			{
+				this._purchasingWebServiceURL = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private BusinessEntity _businessEntity;
+		public virtual BusinessEntity BusinessEntity
+		{
+			get
+			{
+				return this._businessEntity;
+			}
+			set
+			{
+				this._businessEntity = value;
+			}
+		}
+		
+		private IList<PurchaseOrderHeader> _purchaseOrderHeaders = new List<PurchaseOrderHeader>();
+		public virtual IList<PurchaseOrderHeader> PurchaseOrderHeaders
+		{
+			get
+			{
+				return this._purchaseOrderHeaders;
+			}
+		}
+		
+		private IList<ProductVendor> _productVendors = new List<ProductVendor>();
+		public virtual IList<ProductVendor> ProductVendors
+		{
+			get
+			{
+				return this._productVendors;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model	
+{
+	public partial class UnitMeasure
+	{
+		private string _unitMeasureCode;
+		public virtual string UnitMeasureCode
+		{
+			get
+			{
+				return this._unitMeasureCode;
+			}
+			set
+			{
+				this._unitMeasureCode = value;
+			}
+		}
+		
+		private string _name;
+		public virtual string Name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				this._name = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private IList<ProductVendor> _productVendors = new List<ProductVendor>();
+		public virtual IList<ProductVendor> ProductVendors
+		{
+			get
+			{
+				return this._productVendors;
+			}
+		}
+		
+		private IList<Product> _products = new List<Product>();
+		public virtual IList<Product> Products
+		{
+			get
+			{
+				return this._products;
+			}
+		}
+		
+		private IList<Product> _products1 = new List<Product>();
+		public virtual IList<Product> Products1
+		{
+			get
+			{
+				return this._products1;
+			}
+		}
+		
+		private IList<BillOfMaterial> _billOfMaterials = new List<BillOfMaterial>();
+		public virtual IList<BillOfMaterial> BillOfMaterials
+		{
+			get
+			{
+				return this._billOfMaterials;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model	
+{
+	public partial class TransactionHistoryArchive
+	{
+		private int _transactionID;
+		public virtual int TransactionID
+		{
+			get
+			{
+				return this._transactionID;
+			}
+			set
+			{
+				this._transactionID = value;
+			}
+		}
+		
+		private int _productID;
+		public virtual int ProductID
+		{
+			get
+			{
+				return this._productID;
+			}
+			set
+			{
+				this._productID = value;
+			}
+		}
+		
+		private int _referenceOrderID;
+		public virtual int ReferenceOrderID
+		{
+			get
+			{
+				return this._referenceOrderID;
+			}
+			set
+			{
+				this._referenceOrderID = value;
+			}
+		}
+		
+		private int _referenceOrderLineID;
+		public virtual int ReferenceOrderLineID
+		{
+			get
+			{
+				return this._referenceOrderLineID;
+			}
+			set
+			{
+				this._referenceOrderLineID = value;
+			}
+		}
+		
+		private DateTime _transactionDate;
+		public virtual DateTime TransactionDate
+		{
+			get
+			{
+				return this._transactionDate;
+			}
+			set
+			{
+				this._transactionDate = value;
+			}
+		}
+		
+		private Char _transactionType;
+		public virtual Char TransactionType
+		{
+			get
+			{
+				return this._transactionType;
+			}
+			set
+			{
+				this._transactionType = value;
+			}
+		}
+		
+		private int _quantity;
+		public virtual int Quantity
+		{
+			get
+			{
+				return this._quantity;
+			}
+			set
+			{
+				this._quantity = value;
+			}
+		}
+		
+		private decimal _actualCost;
+		public virtual decimal ActualCost
+		{
+			get
+			{
+				return this._actualCost;
+			}
+			set
+			{
+				this._actualCost = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model	
+{
+	public partial class TransactionHistory
+	{
+		private int _transactionID;
+		public virtual int TransactionID
+		{
+			get
+			{
+				return this._transactionID;
+			}
+			set
+			{
+				this._transactionID = value;
+			}
+		}
+		
+		private int _productID;
+		public virtual int ProductID
+		{
+			get
+			{
+				return this._productID;
+			}
+			set
+			{
+				this._productID = value;
+			}
+		}
+		
+		private int _referenceOrderID;
+		public virtual int ReferenceOrderID
+		{
+			get
+			{
+				return this._referenceOrderID;
+			}
+			set
+			{
+				this._referenceOrderID = value;
+			}
+		}
+		
+		private int _referenceOrderLineID;
+		public virtual int ReferenceOrderLineID
+		{
+			get
+			{
+				return this._referenceOrderLineID;
+			}
+			set
+			{
+				this._referenceOrderLineID = value;
+			}
+		}
+		
+		private DateTime _transactionDate;
+		public virtual DateTime TransactionDate
+		{
+			get
+			{
+				return this._transactionDate;
+			}
+			set
+			{
+				this._transactionDate = value;
+			}
+		}
+		
+		private Char _transactionType;
+		public virtual Char TransactionType
+		{
+			get
+			{
+				return this._transactionType;
+			}
+			set
+			{
+				this._transactionType = value;
+			}
+		}
+		
+		private int _quantity;
+		public virtual int Quantity
+		{
+			get
+			{
+				return this._quantity;
+			}
+			set
+			{
+				this._quantity = value;
+			}
+		}
+		
+		private decimal _actualCost;
+		public virtual decimal ActualCost
+		{
+			get
+			{
+				return this._actualCost;
+			}
+			set
+			{
+				this._actualCost = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private Product _product;
+		public virtual Product Product
+		{
+			get
+			{
+				return this._product;
+			}
+			set
+			{
+				this._product = value;
+			}
+		}
+		
 	}
 }
 namespace Telerik.Bencher.Model	
@@ -813,6 +2026,19 @@ namespace Telerik.Bencher.Model
 			}
 		}
 		
+		private Product _product;
+		public virtual Product Product
+		{
+			get
+			{
+				return this._product;
+			}
+			set
+			{
+				this._product = value;
+			}
+		}
+		
 		private SpecialOffer _specialOffer;
 		public virtual SpecialOffer SpecialOffer
 		{
@@ -1074,6 +2300,255 @@ namespace Telerik.Bencher.Model
 			set
 			{
 				this._modifiedDate = value;
+			}
+		}
+		
+		private Product _product;
+		public virtual Product Product
+		{
+			get
+			{
+				return this._product;
+			}
+			set
+			{
+				this._product = value;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model	
+{
+	public partial class ShipMethod
+	{
+		private int _shipMethodID;
+		public virtual int ShipMethodID
+		{
+			get
+			{
+				return this._shipMethodID;
+			}
+			set
+			{
+				this._shipMethodID = value;
+			}
+		}
+		
+		private string _name;
+		public virtual string Name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				this._name = value;
+			}
+		}
+		
+		private decimal _shipBase;
+		public virtual decimal ShipBase
+		{
+			get
+			{
+				return this._shipBase;
+			}
+			set
+			{
+				this._shipBase = value;
+			}
+		}
+		
+		private decimal _shipRate;
+		public virtual decimal ShipRate
+		{
+			get
+			{
+				return this._shipRate;
+			}
+			set
+			{
+				this._shipRate = value;
+			}
+		}
+		
+		private Guid _rowguid;
+		public virtual Guid Rowguid
+		{
+			get
+			{
+				return this._rowguid;
+			}
+			set
+			{
+				this._rowguid = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private IList<SalesOrderHeader> _salesOrderHeaders = new List<SalesOrderHeader>();
+		public virtual IList<SalesOrderHeader> SalesOrderHeaders
+		{
+			get
+			{
+				return this._salesOrderHeaders;
+			}
+		}
+		
+		private IList<PurchaseOrderHeader> _purchaseOrderHeaders = new List<PurchaseOrderHeader>();
+		public virtual IList<PurchaseOrderHeader> PurchaseOrderHeaders
+		{
+			get
+			{
+				return this._purchaseOrderHeaders;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model	
+{
+	public partial class Shift
+	{
+		private byte _shiftID;
+		public virtual byte ShiftID
+		{
+			get
+			{
+				return this._shiftID;
+			}
+			set
+			{
+				this._shiftID = value;
+			}
+		}
+		
+		private string _name;
+		public virtual string Name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				this._name = value;
+			}
+		}
+		
+		private DateTime _startTime;
+		public virtual DateTime StartTime
+		{
+			get
+			{
+				return this._startTime;
+			}
+			set
+			{
+				this._startTime = value;
+			}
+		}
+		
+		private DateTime _endTime;
+		public virtual DateTime EndTime
+		{
+			get
+			{
+				return this._endTime;
+			}
+			set
+			{
+				this._endTime = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private IList<EmployeeDepartmentHistory> _employeeDepartmentHistories = new List<EmployeeDepartmentHistory>();
+		public virtual IList<EmployeeDepartmentHistory> EmployeeDepartmentHistories
+		{
+			get
+			{
+				return this._employeeDepartmentHistories;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model	
+{
+	public partial class ScrapReason
+	{
+		private short _scrapReasonID;
+		public virtual short ScrapReasonID
+		{
+			get
+			{
+				return this._scrapReasonID;
+			}
+			set
+			{
+				this._scrapReasonID = value;
+			}
+		}
+		
+		private string _name;
+		public virtual string Name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				this._name = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private IList<WorkOrder> _workOrders = new List<WorkOrder>();
+		public virtual IList<WorkOrder> WorkOrders
+		{
+			get
+			{
+				return this._workOrders;
 			}
 		}
 		
@@ -1765,6 +3240,19 @@ namespace Telerik.Bencher.Model
 			}
 		}
 		
+		private Employee _employee;
+		public virtual Employee Employee
+		{
+			get
+			{
+				return this._employee;
+			}
+			set
+			{
+				this._employee = value;
+			}
+		}
+		
 		private SalesTerritory _salesTerritory;
 		public virtual SalesTerritory SalesTerritory
 		{
@@ -2320,6 +3808,19 @@ namespace Telerik.Bencher.Model
 			}
 		}
 		
+		private ShipMethod _shipMethod;
+		public virtual ShipMethod ShipMethod
+		{
+			get
+			{
+				return this._shipMethod;
+			}
+			set
+			{
+				this._shipMethod = value;
+			}
+		}
+		
 		private IList<SalesOrderHeaderSalesReason> _salesOrderHeaderSalesReasons = new List<SalesOrderHeaderSalesReason>();
 		public virtual IList<SalesOrderHeaderSalesReason> SalesOrderHeaderSalesReasons
 		{
@@ -2510,6 +4011,2189 @@ namespace Telerik.Bencher.Model
 			set
 			{
 				this._specialOfferProduct = value;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model	
+{
+	public partial class PurchaseOrderHeader
+	{
+		private int _purchaseOrderID;
+		public virtual int PurchaseOrderID
+		{
+			get
+			{
+				return this._purchaseOrderID;
+			}
+			set
+			{
+				this._purchaseOrderID = value;
+			}
+		}
+		
+		private byte _revisionNumber;
+		public virtual byte RevisionNumber
+		{
+			get
+			{
+				return this._revisionNumber;
+			}
+			set
+			{
+				this._revisionNumber = value;
+			}
+		}
+		
+		private byte _status;
+		public virtual byte Status
+		{
+			get
+			{
+				return this._status;
+			}
+			set
+			{
+				this._status = value;
+			}
+		}
+		
+		private int _employeeID;
+		public virtual int EmployeeID
+		{
+			get
+			{
+				return this._employeeID;
+			}
+			set
+			{
+				this._employeeID = value;
+			}
+		}
+		
+		private int _vendorID;
+		public virtual int VendorID
+		{
+			get
+			{
+				return this._vendorID;
+			}
+			set
+			{
+				this._vendorID = value;
+			}
+		}
+		
+		private int _shipMethodID;
+		public virtual int ShipMethodID
+		{
+			get
+			{
+				return this._shipMethodID;
+			}
+			set
+			{
+				this._shipMethodID = value;
+			}
+		}
+		
+		private DateTime _orderDate;
+		public virtual DateTime OrderDate
+		{
+			get
+			{
+				return this._orderDate;
+			}
+			set
+			{
+				this._orderDate = value;
+			}
+		}
+		
+		private DateTime? _shipDate;
+		public virtual DateTime? ShipDate
+		{
+			get
+			{
+				return this._shipDate;
+			}
+			set
+			{
+				this._shipDate = value;
+			}
+		}
+		
+		private decimal _subTotal;
+		public virtual decimal SubTotal
+		{
+			get
+			{
+				return this._subTotal;
+			}
+			set
+			{
+				this._subTotal = value;
+			}
+		}
+		
+		private decimal _taxAmt;
+		public virtual decimal TaxAmt
+		{
+			get
+			{
+				return this._taxAmt;
+			}
+			set
+			{
+				this._taxAmt = value;
+			}
+		}
+		
+		private decimal _freight;
+		public virtual decimal Freight
+		{
+			get
+			{
+				return this._freight;
+			}
+			set
+			{
+				this._freight = value;
+			}
+		}
+		
+		private decimal _totalDue;
+		public virtual decimal TotalDue
+		{
+			get
+			{
+				return this._totalDue;
+			}
+			set
+			{
+				this._totalDue = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private Employee _employee;
+		public virtual Employee Employee
+		{
+			get
+			{
+				return this._employee;
+			}
+			set
+			{
+				this._employee = value;
+			}
+		}
+		
+		private ShipMethod _shipMethod;
+		public virtual ShipMethod ShipMethod
+		{
+			get
+			{
+				return this._shipMethod;
+			}
+			set
+			{
+				this._shipMethod = value;
+			}
+		}
+		
+		private Vendor _vendor;
+		public virtual Vendor Vendor
+		{
+			get
+			{
+				return this._vendor;
+			}
+			set
+			{
+				this._vendor = value;
+			}
+		}
+		
+		private IList<PurchaseOrderDetail> _purchaseOrderDetails = new List<PurchaseOrderDetail>();
+		public virtual IList<PurchaseOrderDetail> PurchaseOrderDetails
+		{
+			get
+			{
+				return this._purchaseOrderDetails;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model	
+{
+	public partial class PurchaseOrderDetail
+	{
+		private int _purchaseOrderID;
+		public virtual int PurchaseOrderID
+		{
+			get
+			{
+				return this._purchaseOrderID;
+			}
+			set
+			{
+				this._purchaseOrderID = value;
+			}
+		}
+		
+		private int _purchaseOrderDetailID;
+		public virtual int PurchaseOrderDetailID
+		{
+			get
+			{
+				return this._purchaseOrderDetailID;
+			}
+			set
+			{
+				this._purchaseOrderDetailID = value;
+			}
+		}
+		
+		private DateTime _dueDate;
+		public virtual DateTime DueDate
+		{
+			get
+			{
+				return this._dueDate;
+			}
+			set
+			{
+				this._dueDate = value;
+			}
+		}
+		
+		private short _orderQty;
+		public virtual short OrderQty
+		{
+			get
+			{
+				return this._orderQty;
+			}
+			set
+			{
+				this._orderQty = value;
+			}
+		}
+		
+		private int _productID;
+		public virtual int ProductID
+		{
+			get
+			{
+				return this._productID;
+			}
+			set
+			{
+				this._productID = value;
+			}
+		}
+		
+		private decimal _unitPrice;
+		public virtual decimal UnitPrice
+		{
+			get
+			{
+				return this._unitPrice;
+			}
+			set
+			{
+				this._unitPrice = value;
+			}
+		}
+		
+		private decimal _lineTotal;
+		public virtual decimal LineTotal
+		{
+			get
+			{
+				return this._lineTotal;
+			}
+			set
+			{
+				this._lineTotal = value;
+			}
+		}
+		
+		private decimal _receivedQty;
+		public virtual decimal ReceivedQty
+		{
+			get
+			{
+				return this._receivedQty;
+			}
+			set
+			{
+				this._receivedQty = value;
+			}
+		}
+		
+		private decimal _rejectedQty;
+		public virtual decimal RejectedQty
+		{
+			get
+			{
+				return this._rejectedQty;
+			}
+			set
+			{
+				this._rejectedQty = value;
+			}
+		}
+		
+		private decimal _stockedQty;
+		public virtual decimal StockedQty
+		{
+			get
+			{
+				return this._stockedQty;
+			}
+			set
+			{
+				this._stockedQty = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private Product _product;
+		public virtual Product Product
+		{
+			get
+			{
+				return this._product;
+			}
+			set
+			{
+				this._product = value;
+			}
+		}
+		
+		private PurchaseOrderHeader _purchaseOrderHeader;
+		public virtual PurchaseOrderHeader PurchaseOrderHeader
+		{
+			get
+			{
+				return this._purchaseOrderHeader;
+			}
+			set
+			{
+				this._purchaseOrderHeader = value;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model	
+{
+	public partial class ProductVendor
+	{
+		private int _productID;
+		public virtual int ProductID
+		{
+			get
+			{
+				return this._productID;
+			}
+			set
+			{
+				this._productID = value;
+			}
+		}
+		
+		private int _businessEntityID;
+		public virtual int BusinessEntityID
+		{
+			get
+			{
+				return this._businessEntityID;
+			}
+			set
+			{
+				this._businessEntityID = value;
+			}
+		}
+		
+		private int _averageLeadTime;
+		public virtual int AverageLeadTime
+		{
+			get
+			{
+				return this._averageLeadTime;
+			}
+			set
+			{
+				this._averageLeadTime = value;
+			}
+		}
+		
+		private decimal _standardPrice;
+		public virtual decimal StandardPrice
+		{
+			get
+			{
+				return this._standardPrice;
+			}
+			set
+			{
+				this._standardPrice = value;
+			}
+		}
+		
+		private decimal? _lastReceiptCost;
+		public virtual decimal? LastReceiptCost
+		{
+			get
+			{
+				return this._lastReceiptCost;
+			}
+			set
+			{
+				this._lastReceiptCost = value;
+			}
+		}
+		
+		private DateTime? _lastReceiptDate;
+		public virtual DateTime? LastReceiptDate
+		{
+			get
+			{
+				return this._lastReceiptDate;
+			}
+			set
+			{
+				this._lastReceiptDate = value;
+			}
+		}
+		
+		private int _minOrderQty;
+		public virtual int MinOrderQty
+		{
+			get
+			{
+				return this._minOrderQty;
+			}
+			set
+			{
+				this._minOrderQty = value;
+			}
+		}
+		
+		private int _maxOrderQty;
+		public virtual int MaxOrderQty
+		{
+			get
+			{
+				return this._maxOrderQty;
+			}
+			set
+			{
+				this._maxOrderQty = value;
+			}
+		}
+		
+		private int? _onOrderQty;
+		public virtual int? OnOrderQty
+		{
+			get
+			{
+				return this._onOrderQty;
+			}
+			set
+			{
+				this._onOrderQty = value;
+			}
+		}
+		
+		private string _unitMeasureCode;
+		public virtual string UnitMeasureCode
+		{
+			get
+			{
+				return this._unitMeasureCode;
+			}
+			set
+			{
+				this._unitMeasureCode = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private Product _product;
+		public virtual Product Product
+		{
+			get
+			{
+				return this._product;
+			}
+			set
+			{
+				this._product = value;
+			}
+		}
+		
+		private UnitMeasure _unitMeasure;
+		public virtual UnitMeasure UnitMeasure
+		{
+			get
+			{
+				return this._unitMeasure;
+			}
+			set
+			{
+				this._unitMeasure = value;
+			}
+		}
+		
+		private Vendor _vendor;
+		public virtual Vendor Vendor
+		{
+			get
+			{
+				return this._vendor;
+			}
+			set
+			{
+				this._vendor = value;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model	
+{
+	public partial class ProductSubcategory
+	{
+		private int _productSubcategoryID;
+		public virtual int ProductSubcategoryID
+		{
+			get
+			{
+				return this._productSubcategoryID;
+			}
+			set
+			{
+				this._productSubcategoryID = value;
+			}
+		}
+		
+		private int _productCategoryID;
+		public virtual int ProductCategoryID
+		{
+			get
+			{
+				return this._productCategoryID;
+			}
+			set
+			{
+				this._productCategoryID = value;
+			}
+		}
+		
+		private string _name;
+		public virtual string Name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				this._name = value;
+			}
+		}
+		
+		private Guid _rowguid;
+		public virtual Guid Rowguid
+		{
+			get
+			{
+				return this._rowguid;
+			}
+			set
+			{
+				this._rowguid = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private ProductCategory _productCategory;
+		public virtual ProductCategory ProductCategory
+		{
+			get
+			{
+				return this._productCategory;
+			}
+			set
+			{
+				this._productCategory = value;
+			}
+		}
+		
+		private IList<Product> _products = new List<Product>();
+		public virtual IList<Product> Products
+		{
+			get
+			{
+				return this._products;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model	
+{
+	public partial class ProductReview
+	{
+		private int _productReviewID;
+		public virtual int ProductReviewID
+		{
+			get
+			{
+				return this._productReviewID;
+			}
+			set
+			{
+				this._productReviewID = value;
+			}
+		}
+		
+		private int _productID;
+		public virtual int ProductID
+		{
+			get
+			{
+				return this._productID;
+			}
+			set
+			{
+				this._productID = value;
+			}
+		}
+		
+		private string _reviewerName;
+		public virtual string ReviewerName
+		{
+			get
+			{
+				return this._reviewerName;
+			}
+			set
+			{
+				this._reviewerName = value;
+			}
+		}
+		
+		private DateTime _reviewDate;
+		public virtual DateTime ReviewDate
+		{
+			get
+			{
+				return this._reviewDate;
+			}
+			set
+			{
+				this._reviewDate = value;
+			}
+		}
+		
+		private string _emailAddress;
+		public virtual string EmailAddress
+		{
+			get
+			{
+				return this._emailAddress;
+			}
+			set
+			{
+				this._emailAddress = value;
+			}
+		}
+		
+		private int _rating;
+		public virtual int Rating
+		{
+			get
+			{
+				return this._rating;
+			}
+			set
+			{
+				this._rating = value;
+			}
+		}
+		
+		private string _comments;
+		public virtual string Comments
+		{
+			get
+			{
+				return this._comments;
+			}
+			set
+			{
+				this._comments = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private Product _product;
+		public virtual Product Product
+		{
+			get
+			{
+				return this._product;
+			}
+			set
+			{
+				this._product = value;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model	
+{
+	public partial class ProductProductPhoto
+	{
+		private int _productID;
+		public virtual int ProductID
+		{
+			get
+			{
+				return this._productID;
+			}
+			set
+			{
+				this._productID = value;
+			}
+		}
+		
+		private int _productPhotoID;
+		public virtual int ProductPhotoID
+		{
+			get
+			{
+				return this._productPhotoID;
+			}
+			set
+			{
+				this._productPhotoID = value;
+			}
+		}
+		
+		private bool _primary;
+		public virtual bool Primary
+		{
+			get
+			{
+				return this._primary;
+			}
+			set
+			{
+				this._primary = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private Product _product;
+		public virtual Product Product
+		{
+			get
+			{
+				return this._product;
+			}
+			set
+			{
+				this._product = value;
+			}
+		}
+		
+		private ProductPhoto _productPhoto;
+		public virtual ProductPhoto ProductPhoto
+		{
+			get
+			{
+				return this._productPhoto;
+			}
+			set
+			{
+				this._productPhoto = value;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model	
+{
+	public partial class ProductPhoto
+	{
+		private int _productPhotoID;
+		public virtual int ProductPhotoID
+		{
+			get
+			{
+				return this._productPhotoID;
+			}
+			set
+			{
+				this._productPhotoID = value;
+			}
+		}
+		
+		private byte[] _thumbNailPhoto;
+		public virtual byte[] ThumbNailPhoto
+		{
+			get
+			{
+				return this._thumbNailPhoto;
+			}
+			set
+			{
+				this._thumbNailPhoto = value;
+			}
+		}
+		
+		private string _thumbnailPhotoFileName;
+		public virtual string ThumbnailPhotoFileName
+		{
+			get
+			{
+				return this._thumbnailPhotoFileName;
+			}
+			set
+			{
+				this._thumbnailPhotoFileName = value;
+			}
+		}
+		
+		private byte[] _largePhoto;
+		public virtual byte[] LargePhoto
+		{
+			get
+			{
+				return this._largePhoto;
+			}
+			set
+			{
+				this._largePhoto = value;
+			}
+		}
+		
+		private string _largePhotoFileName;
+		public virtual string LargePhotoFileName
+		{
+			get
+			{
+				return this._largePhotoFileName;
+			}
+			set
+			{
+				this._largePhotoFileName = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private IList<ProductProductPhoto> _productProductPhotos = new List<ProductProductPhoto>();
+		public virtual IList<ProductProductPhoto> ProductProductPhotos
+		{
+			get
+			{
+				return this._productProductPhotos;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model	
+{
+	public partial class ProductModelProductDescriptionCulture
+	{
+		private int _productModelID;
+		public virtual int ProductModelID
+		{
+			get
+			{
+				return this._productModelID;
+			}
+			set
+			{
+				this._productModelID = value;
+			}
+		}
+		
+		private int _productDescriptionID;
+		public virtual int ProductDescriptionID
+		{
+			get
+			{
+				return this._productDescriptionID;
+			}
+			set
+			{
+				this._productDescriptionID = value;
+			}
+		}
+		
+		private string _cultureID;
+		public virtual string CultureID
+		{
+			get
+			{
+				return this._cultureID;
+			}
+			set
+			{
+				this._cultureID = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private Culture _culture;
+		public virtual Culture Culture
+		{
+			get
+			{
+				return this._culture;
+			}
+			set
+			{
+				this._culture = value;
+			}
+		}
+		
+		private ProductDescription _productDescription;
+		public virtual ProductDescription ProductDescription
+		{
+			get
+			{
+				return this._productDescription;
+			}
+			set
+			{
+				this._productDescription = value;
+			}
+		}
+		
+		private ProductModel _productModel;
+		public virtual ProductModel ProductModel
+		{
+			get
+			{
+				return this._productModel;
+			}
+			set
+			{
+				this._productModel = value;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model	
+{
+	public partial class ProductModelIllustration
+	{
+		private int _productModelID;
+		public virtual int ProductModelID
+		{
+			get
+			{
+				return this._productModelID;
+			}
+			set
+			{
+				this._productModelID = value;
+			}
+		}
+		
+		private int _illustrationID;
+		public virtual int IllustrationID
+		{
+			get
+			{
+				return this._illustrationID;
+			}
+			set
+			{
+				this._illustrationID = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private Illustration _illustration;
+		public virtual Illustration Illustration
+		{
+			get
+			{
+				return this._illustration;
+			}
+			set
+			{
+				this._illustration = value;
+			}
+		}
+		
+		private ProductModel _productModel;
+		public virtual ProductModel ProductModel
+		{
+			get
+			{
+				return this._productModel;
+			}
+			set
+			{
+				this._productModel = value;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model	
+{
+	public partial class ProductModel
+	{
+		private int _productModelID;
+		public virtual int ProductModelID
+		{
+			get
+			{
+				return this._productModelID;
+			}
+			set
+			{
+				this._productModelID = value;
+			}
+		}
+		
+		private string _name;
+		public virtual string Name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				this._name = value;
+			}
+		}
+		
+		private string _catalogDescription;
+		public virtual string CatalogDescription
+		{
+			get
+			{
+				return this._catalogDescription;
+			}
+			set
+			{
+				this._catalogDescription = value;
+			}
+		}
+		
+		private string _instructions;
+		public virtual string Instructions
+		{
+			get
+			{
+				return this._instructions;
+			}
+			set
+			{
+				this._instructions = value;
+			}
+		}
+		
+		private Guid _rowguid;
+		public virtual Guid Rowguid
+		{
+			get
+			{
+				return this._rowguid;
+			}
+			set
+			{
+				this._rowguid = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private IList<ProductModelProductDescriptionCulture> _productModelProductDescriptionCultures = new List<ProductModelProductDescriptionCulture>();
+		public virtual IList<ProductModelProductDescriptionCulture> ProductModelProductDescriptionCultures
+		{
+			get
+			{
+				return this._productModelProductDescriptionCultures;
+			}
+		}
+		
+		private IList<ProductModelIllustration> _productModelIllustrations = new List<ProductModelIllustration>();
+		public virtual IList<ProductModelIllustration> ProductModelIllustrations
+		{
+			get
+			{
+				return this._productModelIllustrations;
+			}
+		}
+		
+		private IList<Product> _products = new List<Product>();
+		public virtual IList<Product> Products
+		{
+			get
+			{
+				return this._products;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model	
+{
+	public partial class ProductListPriceHistory
+	{
+		private int _productID;
+		public virtual int ProductID
+		{
+			get
+			{
+				return this._productID;
+			}
+			set
+			{
+				this._productID = value;
+			}
+		}
+		
+		private DateTime _startDate;
+		public virtual DateTime StartDate
+		{
+			get
+			{
+				return this._startDate;
+			}
+			set
+			{
+				this._startDate = value;
+			}
+		}
+		
+		private DateTime? _endDate;
+		public virtual DateTime? EndDate
+		{
+			get
+			{
+				return this._endDate;
+			}
+			set
+			{
+				this._endDate = value;
+			}
+		}
+		
+		private decimal _listPrice;
+		public virtual decimal ListPrice
+		{
+			get
+			{
+				return this._listPrice;
+			}
+			set
+			{
+				this._listPrice = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private Product _product;
+		public virtual Product Product
+		{
+			get
+			{
+				return this._product;
+			}
+			set
+			{
+				this._product = value;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model	
+{
+	public partial class ProductInventory
+	{
+		private int _productID;
+		public virtual int ProductID
+		{
+			get
+			{
+				return this._productID;
+			}
+			set
+			{
+				this._productID = value;
+			}
+		}
+		
+		private short _locationID;
+		public virtual short LocationID
+		{
+			get
+			{
+				return this._locationID;
+			}
+			set
+			{
+				this._locationID = value;
+			}
+		}
+		
+		private string _shelf;
+		public virtual string Shelf
+		{
+			get
+			{
+				return this._shelf;
+			}
+			set
+			{
+				this._shelf = value;
+			}
+		}
+		
+		private byte _bin;
+		public virtual byte Bin
+		{
+			get
+			{
+				return this._bin;
+			}
+			set
+			{
+				this._bin = value;
+			}
+		}
+		
+		private short _quantity;
+		public virtual short Quantity
+		{
+			get
+			{
+				return this._quantity;
+			}
+			set
+			{
+				this._quantity = value;
+			}
+		}
+		
+		private Guid _rowguid;
+		public virtual Guid Rowguid
+		{
+			get
+			{
+				return this._rowguid;
+			}
+			set
+			{
+				this._rowguid = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private Location _location;
+		public virtual Location Location
+		{
+			get
+			{
+				return this._location;
+			}
+			set
+			{
+				this._location = value;
+			}
+		}
+		
+		private Product _product;
+		public virtual Product Product
+		{
+			get
+			{
+				return this._product;
+			}
+			set
+			{
+				this._product = value;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model	
+{
+	public partial class ProductDescription
+	{
+		private int _productDescriptionID;
+		public virtual int ProductDescriptionID
+		{
+			get
+			{
+				return this._productDescriptionID;
+			}
+			set
+			{
+				this._productDescriptionID = value;
+			}
+		}
+		
+		private string _description;
+		public virtual string Description
+		{
+			get
+			{
+				return this._description;
+			}
+			set
+			{
+				this._description = value;
+			}
+		}
+		
+		private Guid _rowguid;
+		public virtual Guid Rowguid
+		{
+			get
+			{
+				return this._rowguid;
+			}
+			set
+			{
+				this._rowguid = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private IList<ProductModelProductDescriptionCulture> _productModelProductDescriptionCultures = new List<ProductModelProductDescriptionCulture>();
+		public virtual IList<ProductModelProductDescriptionCulture> ProductModelProductDescriptionCultures
+		{
+			get
+			{
+				return this._productModelProductDescriptionCultures;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model	
+{
+	public partial class ProductCostHistory
+	{
+		private int _productID;
+		public virtual int ProductID
+		{
+			get
+			{
+				return this._productID;
+			}
+			set
+			{
+				this._productID = value;
+			}
+		}
+		
+		private DateTime _startDate;
+		public virtual DateTime StartDate
+		{
+			get
+			{
+				return this._startDate;
+			}
+			set
+			{
+				this._startDate = value;
+			}
+		}
+		
+		private DateTime? _endDate;
+		public virtual DateTime? EndDate
+		{
+			get
+			{
+				return this._endDate;
+			}
+			set
+			{
+				this._endDate = value;
+			}
+		}
+		
+		private decimal _standardCost;
+		public virtual decimal StandardCost
+		{
+			get
+			{
+				return this._standardCost;
+			}
+			set
+			{
+				this._standardCost = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private Product _product;
+		public virtual Product Product
+		{
+			get
+			{
+				return this._product;
+			}
+			set
+			{
+				this._product = value;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model	
+{
+	public partial class ProductCategory
+	{
+		private int _productCategoryID;
+		public virtual int ProductCategoryID
+		{
+			get
+			{
+				return this._productCategoryID;
+			}
+			set
+			{
+				this._productCategoryID = value;
+			}
+		}
+		
+		private string _name;
+		public virtual string Name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				this._name = value;
+			}
+		}
+		
+		private Guid _rowguid;
+		public virtual Guid Rowguid
+		{
+			get
+			{
+				return this._rowguid;
+			}
+			set
+			{
+				this._rowguid = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private IList<ProductSubcategory> _productSubcategories = new List<ProductSubcategory>();
+		public virtual IList<ProductSubcategory> ProductSubcategories
+		{
+			get
+			{
+				return this._productSubcategories;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model	
+{
+	public partial class Product
+	{
+		private int _productID;
+		public virtual int ProductID
+		{
+			get
+			{
+				return this._productID;
+			}
+			set
+			{
+				this._productID = value;
+			}
+		}
+		
+		private string _name;
+		public virtual string Name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				this._name = value;
+			}
+		}
+		
+		private string _productNumber;
+		public virtual string ProductNumber
+		{
+			get
+			{
+				return this._productNumber;
+			}
+			set
+			{
+				this._productNumber = value;
+			}
+		}
+		
+		private bool _makeFlag;
+		public virtual bool MakeFlag
+		{
+			get
+			{
+				return this._makeFlag;
+			}
+			set
+			{
+				this._makeFlag = value;
+			}
+		}
+		
+		private bool _finishedGoodsFlag;
+		public virtual bool FinishedGoodsFlag
+		{
+			get
+			{
+				return this._finishedGoodsFlag;
+			}
+			set
+			{
+				this._finishedGoodsFlag = value;
+			}
+		}
+		
+		private string _color;
+		public virtual string Color
+		{
+			get
+			{
+				return this._color;
+			}
+			set
+			{
+				this._color = value;
+			}
+		}
+		
+		private short _safetyStockLevel;
+		public virtual short SafetyStockLevel
+		{
+			get
+			{
+				return this._safetyStockLevel;
+			}
+			set
+			{
+				this._safetyStockLevel = value;
+			}
+		}
+		
+		private short _reorderPoint;
+		public virtual short ReorderPoint
+		{
+			get
+			{
+				return this._reorderPoint;
+			}
+			set
+			{
+				this._reorderPoint = value;
+			}
+		}
+		
+		private decimal _standardCost;
+		public virtual decimal StandardCost
+		{
+			get
+			{
+				return this._standardCost;
+			}
+			set
+			{
+				this._standardCost = value;
+			}
+		}
+		
+		private decimal _listPrice;
+		public virtual decimal ListPrice
+		{
+			get
+			{
+				return this._listPrice;
+			}
+			set
+			{
+				this._listPrice = value;
+			}
+		}
+		
+		private string _size;
+		public virtual string Size
+		{
+			get
+			{
+				return this._size;
+			}
+			set
+			{
+				this._size = value;
+			}
+		}
+		
+		private string _sizeUnitMeasureCode;
+		public virtual string SizeUnitMeasureCode
+		{
+			get
+			{
+				return this._sizeUnitMeasureCode;
+			}
+			set
+			{
+				this._sizeUnitMeasureCode = value;
+			}
+		}
+		
+		private string _weightUnitMeasureCode;
+		public virtual string WeightUnitMeasureCode
+		{
+			get
+			{
+				return this._weightUnitMeasureCode;
+			}
+			set
+			{
+				this._weightUnitMeasureCode = value;
+			}
+		}
+		
+		private decimal? _weight;
+		public virtual decimal? Weight
+		{
+			get
+			{
+				return this._weight;
+			}
+			set
+			{
+				this._weight = value;
+			}
+		}
+		
+		private int _daysToManufacture;
+		public virtual int DaysToManufacture
+		{
+			get
+			{
+				return this._daysToManufacture;
+			}
+			set
+			{
+				this._daysToManufacture = value;
+			}
+		}
+		
+		private string _productLine;
+		public virtual string ProductLine
+		{
+			get
+			{
+				return this._productLine;
+			}
+			set
+			{
+				this._productLine = value;
+			}
+		}
+		
+		private string _class;
+		public virtual string Class
+		{
+			get
+			{
+				return this._class;
+			}
+			set
+			{
+				this._class = value;
+			}
+		}
+		
+		private string _style;
+		public virtual string Style
+		{
+			get
+			{
+				return this._style;
+			}
+			set
+			{
+				this._style = value;
+			}
+		}
+		
+		private int? _productSubcategoryID;
+		public virtual int? ProductSubcategoryID
+		{
+			get
+			{
+				return this._productSubcategoryID;
+			}
+			set
+			{
+				this._productSubcategoryID = value;
+			}
+		}
+		
+		private int? _productModelID;
+		public virtual int? ProductModelID
+		{
+			get
+			{
+				return this._productModelID;
+			}
+			set
+			{
+				this._productModelID = value;
+			}
+		}
+		
+		private DateTime _sellStartDate;
+		public virtual DateTime SellStartDate
+		{
+			get
+			{
+				return this._sellStartDate;
+			}
+			set
+			{
+				this._sellStartDate = value;
+			}
+		}
+		
+		private DateTime? _sellEndDate;
+		public virtual DateTime? SellEndDate
+		{
+			get
+			{
+				return this._sellEndDate;
+			}
+			set
+			{
+				this._sellEndDate = value;
+			}
+		}
+		
+		private DateTime? _discontinuedDate;
+		public virtual DateTime? DiscontinuedDate
+		{
+			get
+			{
+				return this._discontinuedDate;
+			}
+			set
+			{
+				this._discontinuedDate = value;
+			}
+		}
+		
+		private Guid _rowguid;
+		public virtual Guid Rowguid
+		{
+			get
+			{
+				return this._rowguid;
+			}
+			set
+			{
+				this._rowguid = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private ProductModel _productModel;
+		public virtual ProductModel ProductModel
+		{
+			get
+			{
+				return this._productModel;
+			}
+			set
+			{
+				this._productModel = value;
+			}
+		}
+		
+		private ProductSubcategory _productSubcategory;
+		public virtual ProductSubcategory ProductSubcategory
+		{
+			get
+			{
+				return this._productSubcategory;
+			}
+			set
+			{
+				this._productSubcategory = value;
+			}
+		}
+		
+		private UnitMeasure _unitMeasure;
+		public virtual UnitMeasure UnitMeasure
+		{
+			get
+			{
+				return this._unitMeasure;
+			}
+			set
+			{
+				this._unitMeasure = value;
+			}
+		}
+		
+		private UnitMeasure _unitMeasure1;
+		public virtual UnitMeasure UnitMeasure1
+		{
+			get
+			{
+				return this._unitMeasure1;
+			}
+			set
+			{
+				this._unitMeasure1 = value;
+			}
+		}
+		
+		private IList<WorkOrder> _workOrders = new List<WorkOrder>();
+		public virtual IList<WorkOrder> WorkOrders
+		{
+			get
+			{
+				return this._workOrders;
+			}
+		}
+		
+		private IList<TransactionHistory> _transactionHistories = new List<TransactionHistory>();
+		public virtual IList<TransactionHistory> TransactionHistories
+		{
+			get
+			{
+				return this._transactionHistories;
+			}
+		}
+		
+		private IList<SpecialOfferProduct> _specialOfferProducts = new List<SpecialOfferProduct>();
+		public virtual IList<SpecialOfferProduct> SpecialOfferProducts
+		{
+			get
+			{
+				return this._specialOfferProducts;
+			}
+		}
+		
+		private IList<ShoppingCartItem> _shoppingCartItems = new List<ShoppingCartItem>();
+		public virtual IList<ShoppingCartItem> ShoppingCartItems
+		{
+			get
+			{
+				return this._shoppingCartItems;
+			}
+		}
+		
+		private IList<PurchaseOrderDetail> _purchaseOrderDetails = new List<PurchaseOrderDetail>();
+		public virtual IList<PurchaseOrderDetail> PurchaseOrderDetails
+		{
+			get
+			{
+				return this._purchaseOrderDetails;
+			}
+		}
+		
+		private IList<ProductVendor> _productVendors = new List<ProductVendor>();
+		public virtual IList<ProductVendor> ProductVendors
+		{
+			get
+			{
+				return this._productVendors;
+			}
+		}
+		
+		private IList<ProductReview> _productReviews = new List<ProductReview>();
+		public virtual IList<ProductReview> ProductReviews
+		{
+			get
+			{
+				return this._productReviews;
+			}
+		}
+		
+		private IList<ProductProductPhoto> _productProductPhotos = new List<ProductProductPhoto>();
+		public virtual IList<ProductProductPhoto> ProductProductPhotos
+		{
+			get
+			{
+				return this._productProductPhotos;
+			}
+		}
+		
+		private IList<ProductListPriceHistory> _productListPriceHistories = new List<ProductListPriceHistory>();
+		public virtual IList<ProductListPriceHistory> ProductListPriceHistories
+		{
+			get
+			{
+				return this._productListPriceHistories;
+			}
+		}
+		
+		private IList<ProductInventory> _productInventories = new List<ProductInventory>();
+		public virtual IList<ProductInventory> ProductInventories
+		{
+			get
+			{
+				return this._productInventories;
+			}
+		}
+		
+		private IList<ProductCostHistory> _productCostHistories = new List<ProductCostHistory>();
+		public virtual IList<ProductCostHistory> ProductCostHistories
+		{
+			get
+			{
+				return this._productCostHistories;
+			}
+		}
+		
+		private IList<BillOfMaterial> _billOfMaterials = new List<BillOfMaterial>();
+		public virtual IList<BillOfMaterial> BillOfMaterials
+		{
+			get
+			{
+				return this._billOfMaterials;
+			}
+		}
+		
+		private IList<BillOfMaterial> _billOfMaterials1 = new List<BillOfMaterial>();
+		public virtual IList<BillOfMaterial> BillOfMaterials1
+		{
+			get
+			{
+				return this._billOfMaterials1;
 			}
 		}
 		
@@ -2968,6 +6652,19 @@ namespace Telerik.Bencher.Model
 			}
 		}
 		
+		private Employee _employee;
+		public virtual Employee Employee
+		{
+			get
+			{
+				return this._employee;
+			}
+			set
+			{
+				this._employee = value;
+			}
+		}
+		
 	}
 }
 namespace Telerik.Bencher.Model	
@@ -3056,122 +6753,696 @@ namespace Telerik.Bencher.Model
 }
 namespace Telerik.Bencher.Model	
 {
-	public partial class ErrorLog
+	public partial class Location
 	{
-		private int _errorLogID;
-		public virtual int ErrorLogID
+		private short _locationID;
+		public virtual short LocationID
 		{
 			get
 			{
-				return this._errorLogID;
+				return this._locationID;
 			}
 			set
 			{
-				this._errorLogID = value;
+				this._locationID = value;
 			}
 		}
 		
-		private DateTime _errorTime;
-		public virtual DateTime ErrorTime
+		private string _name;
+		public virtual string Name
 		{
 			get
 			{
-				return this._errorTime;
+				return this._name;
 			}
 			set
 			{
-				this._errorTime = value;
+				this._name = value;
 			}
 		}
 		
-		private string _userName;
-		public virtual string UserName
+		private decimal _costRate;
+		public virtual decimal CostRate
 		{
 			get
 			{
-				return this._userName;
+				return this._costRate;
 			}
 			set
 			{
-				this._userName = value;
+				this._costRate = value;
 			}
 		}
 		
-		private int _errorNumber;
-		public virtual int ErrorNumber
+		private decimal _availability;
+		public virtual decimal Availability
 		{
 			get
 			{
-				return this._errorNumber;
+				return this._availability;
 			}
 			set
 			{
-				this._errorNumber = value;
+				this._availability = value;
 			}
 		}
 		
-		private int? _errorSeverity;
-		public virtual int? ErrorSeverity
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
 		{
 			get
 			{
-				return this._errorSeverity;
+				return this._modifiedDate;
 			}
 			set
 			{
-				this._errorSeverity = value;
+				this._modifiedDate = value;
 			}
 		}
 		
-		private int? _errorState;
-		public virtual int? ErrorState
+		private IList<WorkOrderRouting> _workOrderRoutings = new List<WorkOrderRouting>();
+		public virtual IList<WorkOrderRouting> WorkOrderRoutings
 		{
 			get
 			{
-				return this._errorState;
-			}
-			set
-			{
-				this._errorState = value;
+				return this._workOrderRoutings;
 			}
 		}
 		
-		private string _errorProcedure;
-		public virtual string ErrorProcedure
+		private IList<ProductInventory> _productInventories = new List<ProductInventory>();
+		public virtual IList<ProductInventory> ProductInventories
 		{
 			get
 			{
-				return this._errorProcedure;
-			}
-			set
-			{
-				this._errorProcedure = value;
+				return this._productInventories;
 			}
 		}
 		
-		private int? _errorLine;
-		public virtual int? ErrorLine
+	}
+}
+namespace Telerik.Bencher.Model	
+{
+	public partial class JobCandidate
+	{
+		private int _jobCandidateID;
+		public virtual int JobCandidateID
 		{
 			get
 			{
-				return this._errorLine;
+				return this._jobCandidateID;
 			}
 			set
 			{
-				this._errorLine = value;
+				this._jobCandidateID = value;
 			}
 		}
 		
-		private string _errorMessage;
-		public virtual string ErrorMessage
+		private int? _businessEntityID;
+		public virtual int? BusinessEntityID
 		{
 			get
 			{
-				return this._errorMessage;
+				return this._businessEntityID;
 			}
 			set
 			{
-				this._errorMessage = value;
+				this._businessEntityID = value;
+			}
+		}
+		
+		private string _resume;
+		public virtual string Resume
+		{
+			get
+			{
+				return this._resume;
+			}
+			set
+			{
+				this._resume = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private Employee _employee;
+		public virtual Employee Employee
+		{
+			get
+			{
+				return this._employee;
+			}
+			set
+			{
+				this._employee = value;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model	
+{
+	public partial class Illustration
+	{
+		private int _illustrationID;
+		public virtual int IllustrationID
+		{
+			get
+			{
+				return this._illustrationID;
+			}
+			set
+			{
+				this._illustrationID = value;
+			}
+		}
+		
+		private string _diagram;
+		public virtual string Diagram
+		{
+			get
+			{
+				return this._diagram;
+			}
+			set
+			{
+				this._diagram = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private IList<ProductModelIllustration> _productModelIllustrations = new List<ProductModelIllustration>();
+		public virtual IList<ProductModelIllustration> ProductModelIllustrations
+		{
+			get
+			{
+				return this._productModelIllustrations;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model	
+{
+	public partial class EmployeePayHistory
+	{
+		private int _businessEntityID;
+		public virtual int BusinessEntityID
+		{
+			get
+			{
+				return this._businessEntityID;
+			}
+			set
+			{
+				this._businessEntityID = value;
+			}
+		}
+		
+		private DateTime _rateChangeDate;
+		public virtual DateTime RateChangeDate
+		{
+			get
+			{
+				return this._rateChangeDate;
+			}
+			set
+			{
+				this._rateChangeDate = value;
+			}
+		}
+		
+		private decimal _rate;
+		public virtual decimal Rate
+		{
+			get
+			{
+				return this._rate;
+			}
+			set
+			{
+				this._rate = value;
+			}
+		}
+		
+		private byte _payFrequency;
+		public virtual byte PayFrequency
+		{
+			get
+			{
+				return this._payFrequency;
+			}
+			set
+			{
+				this._payFrequency = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private Employee _employee;
+		public virtual Employee Employee
+		{
+			get
+			{
+				return this._employee;
+			}
+			set
+			{
+				this._employee = value;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model	
+{
+	public partial class EmployeeDepartmentHistory
+	{
+		private int _businessEntityID;
+		public virtual int BusinessEntityID
+		{
+			get
+			{
+				return this._businessEntityID;
+			}
+			set
+			{
+				this._businessEntityID = value;
+			}
+		}
+		
+		private short _departmentID;
+		public virtual short DepartmentID
+		{
+			get
+			{
+				return this._departmentID;
+			}
+			set
+			{
+				this._departmentID = value;
+			}
+		}
+		
+		private byte _shiftID;
+		public virtual byte ShiftID
+		{
+			get
+			{
+				return this._shiftID;
+			}
+			set
+			{
+				this._shiftID = value;
+			}
+		}
+		
+		private DateTime _startDate;
+		public virtual DateTime StartDate
+		{
+			get
+			{
+				return this._startDate;
+			}
+			set
+			{
+				this._startDate = value;
+			}
+		}
+		
+		private DateTime? _endDate;
+		public virtual DateTime? EndDate
+		{
+			get
+			{
+				return this._endDate;
+			}
+			set
+			{
+				this._endDate = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private Department _department;
+		public virtual Department Department
+		{
+			get
+			{
+				return this._department;
+			}
+			set
+			{
+				this._department = value;
+			}
+		}
+		
+		private Employee _employee;
+		public virtual Employee Employee
+		{
+			get
+			{
+				return this._employee;
+			}
+			set
+			{
+				this._employee = value;
+			}
+		}
+		
+		private Shift _shift;
+		public virtual Shift Shift
+		{
+			get
+			{
+				return this._shift;
+			}
+			set
+			{
+				this._shift = value;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model	
+{
+	public partial class Employee
+	{
+		private int _businessEntityID;
+		public virtual int BusinessEntityID
+		{
+			get
+			{
+				return this._businessEntityID;
+			}
+			set
+			{
+				this._businessEntityID = value;
+			}
+		}
+		
+		private string _nationalIDNumber;
+		public virtual string NationalIDNumber
+		{
+			get
+			{
+				return this._nationalIDNumber;
+			}
+			set
+			{
+				this._nationalIDNumber = value;
+			}
+		}
+		
+		private string _loginID;
+		public virtual string LoginID
+		{
+			get
+			{
+				return this._loginID;
+			}
+			set
+			{
+				this._loginID = value;
+			}
+		}
+		
+		private SqlHierarchyId _organizationNode;
+		public virtual SqlHierarchyId OrganizationNode
+		{
+			get
+			{
+				return this._organizationNode;
+			}
+			set
+			{
+				this._organizationNode = value;
+			}
+		}
+		
+		private short? _organizationLevel;
+		public virtual short? OrganizationLevel
+		{
+			get
+			{
+				return this._organizationLevel;
+			}
+			set
+			{
+				this._organizationLevel = value;
+			}
+		}
+		
+		private string _jobTitle;
+		public virtual string JobTitle
+		{
+			get
+			{
+				return this._jobTitle;
+			}
+			set
+			{
+				this._jobTitle = value;
+			}
+		}
+		
+		private DateTime _birthDate;
+		public virtual DateTime BirthDate
+		{
+			get
+			{
+				return this._birthDate;
+			}
+			set
+			{
+				this._birthDate = value;
+			}
+		}
+		
+		private Char _maritalStatus;
+		public virtual Char MaritalStatus
+		{
+			get
+			{
+				return this._maritalStatus;
+			}
+			set
+			{
+				this._maritalStatus = value;
+			}
+		}
+		
+		private Char _gender;
+		public virtual Char Gender
+		{
+			get
+			{
+				return this._gender;
+			}
+			set
+			{
+				this._gender = value;
+			}
+		}
+		
+		private DateTime _hireDate;
+		public virtual DateTime HireDate
+		{
+			get
+			{
+				return this._hireDate;
+			}
+			set
+			{
+				this._hireDate = value;
+			}
+		}
+		
+		private bool _salariedFlag;
+		public virtual bool SalariedFlag
+		{
+			get
+			{
+				return this._salariedFlag;
+			}
+			set
+			{
+				this._salariedFlag = value;
+			}
+		}
+		
+		private short _vacationHours;
+		public virtual short VacationHours
+		{
+			get
+			{
+				return this._vacationHours;
+			}
+			set
+			{
+				this._vacationHours = value;
+			}
+		}
+		
+		private short _sickLeaveHours;
+		public virtual short SickLeaveHours
+		{
+			get
+			{
+				return this._sickLeaveHours;
+			}
+			set
+			{
+				this._sickLeaveHours = value;
+			}
+		}
+		
+		private bool _currentFlag;
+		public virtual bool CurrentFlag
+		{
+			get
+			{
+				return this._currentFlag;
+			}
+			set
+			{
+				this._currentFlag = value;
+			}
+		}
+		
+		private Guid _rowguid;
+		public virtual Guid Rowguid
+		{
+			get
+			{
+				return this._rowguid;
+			}
+			set
+			{
+				this._rowguid = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private Person _person;
+		public virtual Person Person
+		{
+			get
+			{
+				return this._person;
+			}
+			set
+			{
+				this._person = value;
+			}
+		}
+		
+		private IList<PurchaseOrderHeader> _purchaseOrderHeaders = new List<PurchaseOrderHeader>();
+		public virtual IList<PurchaseOrderHeader> PurchaseOrderHeaders
+		{
+			get
+			{
+				return this._purchaseOrderHeaders;
+			}
+		}
+		
+		private IList<JobCandidate> _jobCandidates = new List<JobCandidate>();
+		public virtual IList<JobCandidate> JobCandidates
+		{
+			get
+			{
+				return this._jobCandidates;
+			}
+		}
+		
+		private IList<EmployeePayHistory> _employeePayHistories = new List<EmployeePayHistory>();
+		public virtual IList<EmployeePayHistory> EmployeePayHistories
+		{
+			get
+			{
+				return this._employeePayHistories;
+			}
+		}
+		
+		private IList<EmployeeDepartmentHistory> _employeeDepartmentHistories = new List<EmployeeDepartmentHistory>();
+		public virtual IList<EmployeeDepartmentHistory> EmployeeDepartmentHistories
+		{
+			get
+			{
+				return this._employeeDepartmentHistories;
+			}
+		}
+		
+		private SalesPerson _salesPerson;
+		public virtual SalesPerson SalesPerson
+		{
+			get
+			{
+				return this._salesPerson;
+			}
+			set
+			{
+				this._salesPerson = value;
 			}
 		}
 		
@@ -3263,109 +7534,66 @@ namespace Telerik.Bencher.Model
 }
 namespace Telerik.Bencher.Model	
 {
-	public partial class DatabaseLog
+	public partial class Department
 	{
-		private int _databaseLogID;
-		public virtual int DatabaseLogID
+		private short _departmentID;
+		public virtual short DepartmentID
 		{
 			get
 			{
-				return this._databaseLogID;
+				return this._departmentID;
 			}
 			set
 			{
-				this._databaseLogID = value;
+				this._departmentID = value;
 			}
 		}
 		
-		private DateTime _postTime;
-		public virtual DateTime PostTime
+		private string _name;
+		public virtual string Name
 		{
 			get
 			{
-				return this._postTime;
+				return this._name;
 			}
 			set
 			{
-				this._postTime = value;
+				this._name = value;
 			}
 		}
 		
-		private string _databaseUser;
-		public virtual string DatabaseUser
+		private string _groupName;
+		public virtual string GroupName
 		{
 			get
 			{
-				return this._databaseUser;
+				return this._groupName;
 			}
 			set
 			{
-				this._databaseUser = value;
+				this._groupName = value;
 			}
 		}
 		
-		private string _event;
-		public virtual string Event
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
 		{
 			get
 			{
-				return this._event;
+				return this._modifiedDate;
 			}
 			set
 			{
-				this._event = value;
+				this._modifiedDate = value;
 			}
 		}
 		
-		private string _schema;
-		public virtual string Schema
+		private IList<EmployeeDepartmentHistory> _employeeDepartmentHistories = new List<EmployeeDepartmentHistory>();
+		public virtual IList<EmployeeDepartmentHistory> EmployeeDepartmentHistories
 		{
 			get
 			{
-				return this._schema;
-			}
-			set
-			{
-				this._schema = value;
-			}
-		}
-		
-		private string _object;
-		public virtual string Object
-		{
-			get
-			{
-				return this._object;
-			}
-			set
-			{
-				this._object = value;
-			}
-		}
-		
-		private string _tSQL;
-		public virtual string TSQL
-		{
-			get
-			{
-				return this._tSQL;
-			}
-			set
-			{
-				this._tSQL = value;
-			}
-		}
-		
-		private string _xmlEvent;
-		public virtual string XmlEvent
-		{
-			get
-			{
-				return this._xmlEvent;
-			}
-			set
-			{
-				this._xmlEvent = value;
+				return this._employeeDepartmentHistories;
 			}
 		}
 		
@@ -3715,6 +7943,60 @@ namespace Telerik.Bencher.Model
 			get
 			{
 				return this._countryRegionCurrencies;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model	
+{
+	public partial class Culture
+	{
+		private string _cultureID;
+		public virtual string CultureID
+		{
+			get
+			{
+				return this._cultureID;
+			}
+			set
+			{
+				this._cultureID = value;
+			}
+		}
+		
+		private string _name;
+		public virtual string Name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				this._name = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+		private IList<ProductModelProductDescriptionCulture> _productModelProductDescriptionCultures = new List<ProductModelProductDescriptionCulture>();
+		public virtual IList<ProductModelProductDescriptionCulture> ProductModelProductDescriptionCultures
+		{
+			get
+			{
+				return this._productModelProductDescriptionCultures;
 			}
 		}
 		
@@ -4300,6 +8582,19 @@ namespace Telerik.Bencher.Model
 			}
 		}
 		
+		private Vendor _vendor;
+		public virtual Vendor Vendor
+		{
+			get
+			{
+				return this._vendor;
+			}
+			set
+			{
+				this._vendor = value;
+			}
+		}
+		
 		private Store _store;
 		public virtual Store Store
 		{
@@ -4330,44 +8625,109 @@ namespace Telerik.Bencher.Model
 }
 namespace Telerik.Bencher.Model	
 {
-	public partial class AWBuildVersion
+	public partial class BillOfMaterial
 	{
-		private byte _systemInformationID;
-		public virtual byte SystemInformationID
+		private int _billOfMaterialsID;
+		public virtual int BillOfMaterialsID
 		{
 			get
 			{
-				return this._systemInformationID;
+				return this._billOfMaterialsID;
 			}
 			set
 			{
-				this._systemInformationID = value;
+				this._billOfMaterialsID = value;
 			}
 		}
 		
-		private string _databaseVersion;
-		public virtual string DatabaseVersion
+		private int? _productAssemblyID;
+		public virtual int? ProductAssemblyID
 		{
 			get
 			{
-				return this._databaseVersion;
+				return this._productAssemblyID;
 			}
 			set
 			{
-				this._databaseVersion = value;
+				this._productAssemblyID = value;
 			}
 		}
 		
-		private DateTime _versionDate;
-		public virtual DateTime VersionDate
+		private int _componentID;
+		public virtual int ComponentID
 		{
 			get
 			{
-				return this._versionDate;
+				return this._componentID;
 			}
 			set
 			{
-				this._versionDate = value;
+				this._componentID = value;
+			}
+		}
+		
+		private DateTime _startDate;
+		public virtual DateTime StartDate
+		{
+			get
+			{
+				return this._startDate;
+			}
+			set
+			{
+				this._startDate = value;
+			}
+		}
+		
+		private DateTime? _endDate;
+		public virtual DateTime? EndDate
+		{
+			get
+			{
+				return this._endDate;
+			}
+			set
+			{
+				this._endDate = value;
+			}
+		}
+		
+		private string _unitMeasureCode;
+		public virtual string UnitMeasureCode
+		{
+			get
+			{
+				return this._unitMeasureCode;
+			}
+			set
+			{
+				this._unitMeasureCode = value;
+			}
+		}
+		
+		private short _bOMLevel;
+		public virtual short BOMLevel
+		{
+			get
+			{
+				return this._bOMLevel;
+			}
+			set
+			{
+				this._bOMLevel = value;
+			}
+		}
+		
+		private decimal _perAssemblyQty;
+		public virtual decimal PerAssemblyQty
+		{
+			get
+			{
+				return this._perAssemblyQty;
+			}
+			set
+			{
+				this._perAssemblyQty = value;
 			}
 		}
 		
@@ -4381,6 +8741,45 @@ namespace Telerik.Bencher.Model
 			set
 			{
 				this._modifiedDate = value;
+			}
+		}
+		
+		private Product _product;
+		public virtual Product Product
+		{
+			get
+			{
+				return this._product;
+			}
+			set
+			{
+				this._product = value;
+			}
+		}
+		
+		private Product _product1;
+		public virtual Product Product1
+		{
+			get
+			{
+				return this._product1;
+			}
+			set
+			{
+				this._product1 = value;
+			}
+		}
+		
+		private UnitMeasure _unitMeasure;
+		public virtual UnitMeasure UnitMeasure
+		{
+			get
+			{
+				return this._unitMeasure;
+			}
+			set
+			{
+				this._unitMeasure = value;
 			}
 		}
 		
