@@ -30,11 +30,11 @@ namespace RawBencher.Benchers
 			SalesOrderHeader toReturn = null;
 			var dbFactory = new PetaPoco.Database(ConnectionStringToUse, "System.Data.SqlClient")
 			{
-			    EnableAutoSelect = false,
-			    EnableNamedParams = false,
-                ForceDateTimesToUtc = false
+				EnableAutoSelect = false,
+				EnableNamedParams = false,
+				ForceDateTimesToUtc = false
 			};
-		    toReturn = dbFactory.First<SalesOrderHeader>(CommandText + " where SalesOrderId=@0 ", key);
+			toReturn = dbFactory.First<SalesOrderHeader>(CommandText + " where SalesOrderId=@0 ", key);
 			return toReturn;
 		}
 
@@ -48,11 +48,11 @@ namespace RawBencher.Benchers
 			List<SalesOrderHeader> headers;
 			var dbFactory = new PetaPoco.Database(ConnectionStringToUse, "System.Data.SqlClient")
 			{
-			    EnableAutoSelect = false,
-			    EnableNamedParams = false,
-                ForceDateTimesToUtc = false
+				EnableAutoSelect = false,
+				EnableNamedParams = false,
+				ForceDateTimesToUtc = false
 			};
-		    headers = dbFactory.Fetch<SalesOrderHeader>(CommandText);
+			headers = dbFactory.Fetch<SalesOrderHeader>(CommandText);
 			return headers;
 		}
 

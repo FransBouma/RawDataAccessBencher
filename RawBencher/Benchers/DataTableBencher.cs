@@ -86,7 +86,7 @@ namespace RawBencher.Benchers
 		/// <summary>
 		/// Gets or sets the command text.
 		/// </summary>
-        public string CommandText { get; set; }
+		public string CommandText { get; set; }
 		#endregion
 	}
 }
