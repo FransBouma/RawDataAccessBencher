@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RawBencher.Benchers
 {
-    public class TelerikDomainBencher : BencherBase<TDA.Bencher.Domain.SalesOrderHeader>
+    public class TelerikDomainBencher : BencherBase<Telerik.Bencher.Model.SalesOrderHeader>
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="PetaPocoBencher" /> class.
@@ -21,12 +21,12 @@ namespace RawBencher.Benchers
 		/// </summary>
 		/// <param name="key">The key of the element to fetch.</param>
 		/// <returns>The fetched element, or null if not found</returns>
-		public override TDA.Bencher.Domain.SalesOrderHeader FetchIndividual(int key)
+		public override Telerik.Bencher.Model.SalesOrderHeader FetchIndividual(int key)
 		{
-            TDA.Bencher.Domain.SalesOrderHeader toReturn = null;
-            using (var dbFactory = new TDA.Bencher.Domain.DomainModel(ConnectionStringToUse))
+            Telerik.Bencher.Model.SalesOrderHeader toReturn = null;
+            using (var dbFactory = new Telerik.Bencher.Model.DomainModel(ConnectionStringToUse))
             {
-                toReturn = dbFactory.SalesOrderHeaders.First<TDA.Bencher.Domain.SalesOrderHeader>(p => p.SalesOrderID == key);
+                toReturn = dbFactory.SalesOrderHeaders.First<Telerik.Bencher.Model.SalesOrderHeader>(p => p.SalesOrderID == key);
             }
 			return toReturn;
 		}
@@ -36,13 +36,13 @@ namespace RawBencher.Benchers
 		/// Fetches the complete set of elements and returns this set as an IEnumerable.
 		/// </summary>
 		/// <returns>the set fetched</returns>
-        public override IEnumerable<TDA.Bencher.Domain.SalesOrderHeader> FetchSet()
+        public override IEnumerable<Telerik.Bencher.Model.SalesOrderHeader> FetchSet()
 		{
-            List<TDA.Bencher.Domain.SalesOrderHeader> headers;
-            using (var dbFactory = new TDA.Bencher.Domain.DomainModel(ConnectionStringToUse))
+            List<Telerik.Bencher.Model.SalesOrderHeader> headers;
+            using (var dbFactory = new Telerik.Bencher.Model.DomainModel(ConnectionStringToUse))
             {
                 dbFactory.ContextOptions.IsolationLevel = System.Data.IsolationLevel.ReadCommitted;
-                headers = dbFactory.SalesOrderHeaders.ToList<TDA.Bencher.Domain.SalesOrderHeader>();
+                headers = dbFactory.SalesOrderHeaders.ToList<Telerik.Bencher.Model.SalesOrderHeader>();
             }
 			return headers;
 		}

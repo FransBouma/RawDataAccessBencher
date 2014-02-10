@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RawBencher.Benchers
 {
-    public class TelerikFluentBencher : BencherBase<TDA.Bencher.Fluent.SalesOrderHeader>
+    public class TelerikFluentBencher : BencherBase<Telerik.Bencher.Model.Fluent.SalesOrderHeader>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PetaPocoBencher" /> class.
@@ -21,12 +21,12 @@ namespace RawBencher.Benchers
         /// </summary>
         /// <param name="key">The key of the element to fetch.</param>
         /// <returns>The fetched element, or null if not found</returns>
-        public override TDA.Bencher.Fluent.SalesOrderHeader FetchIndividual(int key)
+        public override Telerik.Bencher.Model.Fluent.SalesOrderHeader FetchIndividual(int key)
         {
-            TDA.Bencher.Fluent.SalesOrderHeader toReturn = null;
-            using (var dbFactory = new TDA.Bencher.Fluent.FluentModel(ConnectionStringToUse))
+            Telerik.Bencher.Model.Fluent.SalesOrderHeader toReturn = null;
+            using (var dbFactory = new Telerik.Bencher.Model.Fluent.FluentModel(ConnectionStringToUse))
             {
-                toReturn = dbFactory.SalesOrderHeaders.First<TDA.Bencher.Fluent.SalesOrderHeader>(p => p.SalesOrderID == key);
+                toReturn = dbFactory.SalesOrderHeaders.First<Telerik.Bencher.Model.Fluent.SalesOrderHeader>(p => p.SalesOrderID == key);
             }
             return toReturn;
         }
@@ -36,12 +36,12 @@ namespace RawBencher.Benchers
         /// Fetches the complete set of elements and returns this set as an IEnumerable.
         /// </summary>
         /// <returns>the set fetched</returns>
-        public override IEnumerable<TDA.Bencher.Fluent.SalesOrderHeader> FetchSet()
+        public override IEnumerable<Telerik.Bencher.Model.Fluent.SalesOrderHeader> FetchSet()
         {
-            List<TDA.Bencher.Fluent.SalesOrderHeader> headers;
-            using (var dbFactory = new TDA.Bencher.Fluent.FluentModel(ConnectionStringToUse))
+            List<Telerik.Bencher.Model.Fluent.SalesOrderHeader> headers;
+            using (var dbFactory = new Telerik.Bencher.Model.Fluent.FluentModel(ConnectionStringToUse))
             {
-                headers = dbFactory.SalesOrderHeaders.ToList<TDA.Bencher.Fluent.SalesOrderHeader>();
+                headers = dbFactory.SalesOrderHeaders.ToList<Telerik.Bencher.Model.Fluent.SalesOrderHeader>();
             }
             return headers;
         }

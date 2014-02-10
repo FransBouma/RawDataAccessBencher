@@ -20,10 +20,10 @@ using Telerik.OpenAccess.Metadata;
 using Telerik.OpenAccess.Data.Common;
 using Telerik.OpenAccess.Metadata.Fluent;
 using Telerik.OpenAccess.Metadata.Fluent.Advanced;
-using TDA.Bencher.Fluent;
+using Telerik.Bencher.Model.Fluent;
 using Microsoft.SqlServer.Types;
 
-namespace TDA.Bencher.Fluent	
+namespace Telerik.Bencher.Model.Fluent	
 {
 	public partial class FluentModel : OpenAccessContext, IFluentModelUnitOfWork
 	{
@@ -450,7 +450,7 @@ namespace TDA.Bencher.Fluent
 		}
 	}
 }
-namespace TDA.Bencher.Fluent	
+namespace Telerik.Bencher.Model.Fluent	
 {
 	public partial class Store
 	{
@@ -569,7 +569,7 @@ namespace TDA.Bencher.Fluent
 		
 	}
 }
-namespace TDA.Bencher.Fluent	
+namespace Telerik.Bencher.Model.Fluent	
 {
 	public partial class StateProvince
 	{
@@ -723,7 +723,7 @@ namespace TDA.Bencher.Fluent
 		
 	}
 }
-namespace TDA.Bencher.Fluent	
+namespace Telerik.Bencher.Model.Fluent	
 {
 	public partial class SpecialOfferProduct
 	{
@@ -803,7 +803,7 @@ namespace TDA.Bencher.Fluent
 		
 	}
 }
-namespace TDA.Bencher.Fluent	
+namespace Telerik.Bencher.Model.Fluent	
 {
 	public partial class SpecialOffer
 	{
@@ -961,7 +961,7 @@ namespace TDA.Bencher.Fluent
 		
 	}
 }
-namespace TDA.Bencher.Fluent	
+namespace Telerik.Bencher.Model.Fluent	
 {
 	public partial class ShoppingCartItem
 	{
@@ -1045,7 +1045,7 @@ namespace TDA.Bencher.Fluent
 		
 	}
 }
-namespace TDA.Bencher.Fluent	
+namespace Telerik.Bencher.Model.Fluent	
 {
 	public partial class SalesTerritoryHistory
 	{
@@ -1155,7 +1155,7 @@ namespace TDA.Bencher.Fluent
 		
 	}
 }
-namespace TDA.Bencher.Fluent	
+namespace Telerik.Bencher.Model.Fluent	
 {
 	public partial class SalesTerritory
 	{
@@ -1349,7 +1349,7 @@ namespace TDA.Bencher.Fluent
 		
 	}
 }
-namespace TDA.Bencher.Fluent	
+namespace Telerik.Bencher.Model.Fluent	
 {
 	public partial class SalesTaxRate
 	{
@@ -1459,7 +1459,7 @@ namespace TDA.Bencher.Fluent
 		
 	}
 }
-namespace TDA.Bencher.Fluent	
+namespace Telerik.Bencher.Model.Fluent	
 {
 	public partial class SalesReason
 	{
@@ -1526,7 +1526,7 @@ namespace TDA.Bencher.Fluent
 		
 	}
 }
-namespace TDA.Bencher.Fluent	
+namespace Telerik.Bencher.Model.Fluent	
 {
 	public partial class SalesPersonQuotaHistory
 	{
@@ -1610,7 +1610,7 @@ namespace TDA.Bencher.Fluent
 		
 	}
 }
-namespace TDA.Bencher.Fluent	
+namespace Telerik.Bencher.Model.Fluent	
 {
 	public partial class SalesPerson
 	{
@@ -1782,7 +1782,7 @@ namespace TDA.Bencher.Fluent
 		
 	}
 }
-namespace TDA.Bencher.Fluent	
+namespace Telerik.Bencher.Model.Fluent	
 {
 	public partial class SalesOrderHeaderSalesReason
 	{
@@ -1853,7 +1853,7 @@ namespace TDA.Bencher.Fluent
 		
 	}
 }
-namespace TDA.Bencher.Fluent	
+namespace Telerik.Bencher.Model.Fluent	
 {
 	public partial class SalesOrderHeader
 	{
@@ -2306,7 +2306,7 @@ namespace TDA.Bencher.Fluent
 		
 	}
 }
-namespace TDA.Bencher.Fluent	
+namespace Telerik.Bencher.Model.Fluent	
 {
 	public partial class SalesOrderDetail
 	{
@@ -2481,7 +2481,7 @@ namespace TDA.Bencher.Fluent
 		
 	}
 }
-namespace TDA.Bencher.Fluent	
+namespace Telerik.Bencher.Model.Fluent	
 {
 	public partial class PhoneNumberType
 	{
@@ -2535,7 +2535,7 @@ namespace TDA.Bencher.Fluent
 		
 	}
 }
-namespace TDA.Bencher.Fluent	
+namespace Telerik.Bencher.Model.Fluent	
 {
 	public partial class PersonPhone
 	{
@@ -2619,7 +2619,7 @@ namespace TDA.Bencher.Fluent
 		
 	}
 }
-namespace TDA.Bencher.Fluent	
+namespace Telerik.Bencher.Model.Fluent	
 {
 	public partial class PersonCreditCard
 	{
@@ -2690,7 +2690,7 @@ namespace TDA.Bencher.Fluent
 		
 	}
 }
-namespace TDA.Bencher.Fluent	
+namespace Telerik.Bencher.Model.Fluent	
 {
 	public partial class Person
 	{
@@ -2936,7 +2936,7 @@ namespace TDA.Bencher.Fluent
 		
 	}
 }
-namespace TDA.Bencher.Fluent	
+namespace Telerik.Bencher.Model.Fluent	
 {
 	public partial class Password
 	{
@@ -3020,7 +3020,7 @@ namespace TDA.Bencher.Fluent
 		
 	}
 }
-namespace TDA.Bencher.Fluent	
+namespace Telerik.Bencher.Model.Fluent	
 {
 	public partial class EmailAddress
 	{
@@ -3104,7 +3104,7 @@ namespace TDA.Bencher.Fluent
 		
 	}
 }
-namespace TDA.Bencher.Fluent	
+namespace Telerik.Bencher.Model.Fluent	
 {
 	public partial class Customer
 	{
@@ -3249,7 +3249,7 @@ namespace TDA.Bencher.Fluent
 		
 	}
 }
-namespace TDA.Bencher.Fluent	
+namespace Telerik.Bencher.Model.Fluent	
 {
 	public partial class CurrencyRate
 	{
@@ -3381,7 +3381,7 @@ namespace TDA.Bencher.Fluent
 		
 	}
 }
-namespace TDA.Bencher.Fluent	
+namespace Telerik.Bencher.Model.Fluent	
 {
 	public partial class Currency
 	{
@@ -3453,7 +3453,7 @@ namespace TDA.Bencher.Fluent
 		
 	}
 }
-namespace TDA.Bencher.Fluent	
+namespace Telerik.Bencher.Model.Fluent	
 {
 	public partial class CreditCard
 	{
@@ -3555,7 +3555,7 @@ namespace TDA.Bencher.Fluent
 		
 	}
 }
-namespace TDA.Bencher.Fluent	
+namespace Telerik.Bencher.Model.Fluent	
 {
 	public partial class CountryRegionCurrency
 	{
@@ -3626,7 +3626,7 @@ namespace TDA.Bencher.Fluent
 		
 	}
 }
-namespace TDA.Bencher.Fluent	
+namespace Telerik.Bencher.Model.Fluent	
 {
 	public partial class CountryRegion
 	{
@@ -3698,7 +3698,7 @@ namespace TDA.Bencher.Fluent
 		
 	}
 }
-namespace TDA.Bencher.Fluent	
+namespace Telerik.Bencher.Model.Fluent	
 {
 	public partial class ContactType
 	{
@@ -3752,7 +3752,7 @@ namespace TDA.Bencher.Fluent
 		
 	}
 }
-namespace TDA.Bencher.Fluent	
+namespace Telerik.Bencher.Model.Fluent	
 {
 	public partial class BusinessEntityContact
 	{
@@ -3862,7 +3862,7 @@ namespace TDA.Bencher.Fluent
 		
 	}
 }
-namespace TDA.Bencher.Fluent	
+namespace Telerik.Bencher.Model.Fluent	
 {
 	public partial class BusinessEntityAddress
 	{
@@ -3972,7 +3972,7 @@ namespace TDA.Bencher.Fluent
 		
 	}
 }
-namespace TDA.Bencher.Fluent	
+namespace Telerik.Bencher.Model.Fluent	
 {
 	public partial class BusinessEntity
 	{
@@ -4061,7 +4061,7 @@ namespace TDA.Bencher.Fluent
 		
 	}
 }
-namespace TDA.Bencher.Fluent	
+namespace Telerik.Bencher.Model.Fluent	
 {
 	public partial class AddressType
 	{
@@ -4128,7 +4128,7 @@ namespace TDA.Bencher.Fluent
 		
 	}
 }
-namespace TDA.Bencher.Fluent	
+namespace Telerik.Bencher.Model.Fluent	
 {
 	public partial class Address
 	{
@@ -4291,7 +4291,7 @@ namespace TDA.Bencher.Fluent
 		
 	}
 }
-namespace TDA.Bencher.Fluent
+namespace Telerik.Bencher.Model.Fluent
 {
 
 	public partial class FluentModelMetadataSource : FluentMetadataSource
@@ -4403,7 +4403,7 @@ namespace TDA.Bencher.Fluent
 		protected override void SetContainerSettings(MetadataContainer container)
 		{
 			container.Name = "FluentModel";
-			container.DefaultNamespace = "TDA.Bencher.Fluent";
+			container.DefaultNamespace = "Telerik.Bencher.Model.Fluent";
 			container.NameGenerator.SourceStrategy = Telerik.OpenAccess.Metadata.NamingSourceStrategy.Property;
 			container.NameGenerator.RemoveCamelCase = false;
 		}

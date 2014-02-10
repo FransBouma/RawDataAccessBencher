@@ -18,10 +18,10 @@ using Telerik.OpenAccess.Metadata;
 using Telerik.OpenAccess.Data.Common;
 using Telerik.OpenAccess.Metadata.Fluent;
 using Telerik.OpenAccess.Metadata.Fluent.Advanced;
-using TDA.Bencher.Domain;
+using Telerik.Bencher.Model;
 using Microsoft.SqlServer.Types;
 
-namespace TDA.Bencher.Domain	
+namespace Telerik.Bencher.Model	
 {
 	public partial class DomainModel : OpenAccessContext, IDomainModelUnitOfWork
 	{
@@ -203,11 +203,27 @@ namespace TDA.Bencher.Domain
 			}
 		}
 		
+		public IQueryable<ErrorLog> ErrorLogs 
+		{
+			get
+			{
+				return this.GetAll<ErrorLog>();
+			}
+		}
+		
 		public IQueryable<EmailAddress> EmailAddresses 
 		{
 			get
 			{
 				return this.GetAll<EmailAddress>();
+			}
+		}
+		
+		public IQueryable<DatabaseLog> DatabaseLogs 
+		{
+			get
+			{
+				return this.GetAll<DatabaseLog>();
 			}
 		}
 		
@@ -288,6 +304,14 @@ namespace TDA.Bencher.Domain
 			get
 			{
 				return this.GetAll<BusinessEntity>();
+			}
+		}
+		
+		public IQueryable<AWBuildVersion> AWBuildVersions 
+		{
+			get
+			{
+				return this.GetAll<AWBuildVersion>();
 			}
 		}
 		
@@ -394,7 +418,15 @@ namespace TDA.Bencher.Domain
 		{
 			get;
 		}
+		IQueryable<ErrorLog> ErrorLogs
+		{
+			get;
+		}
 		IQueryable<EmailAddress> EmailAddresses
+		{
+			get;
+		}
+		IQueryable<DatabaseLog> DatabaseLogs
 		{
 			get;
 		}
@@ -438,6 +470,10 @@ namespace TDA.Bencher.Domain
 		{
 			get;
 		}
+		IQueryable<AWBuildVersion> AWBuildVersions
+		{
+			get;
+		}
 		IQueryable<AddressType> AddressTypes
 		{
 			get;
@@ -448,7 +484,7 @@ namespace TDA.Bencher.Domain
 		}
 	}
 }
-namespace TDA.Bencher.Domain	
+namespace Telerik.Bencher.Model	
 {
 	public partial class Store
 	{
@@ -567,7 +603,7 @@ namespace TDA.Bencher.Domain
 		
 	}
 }
-namespace TDA.Bencher.Domain	
+namespace Telerik.Bencher.Model	
 {
 	public partial class StateProvince
 	{
@@ -721,7 +757,7 @@ namespace TDA.Bencher.Domain
 		
 	}
 }
-namespace TDA.Bencher.Domain	
+namespace Telerik.Bencher.Model	
 {
 	public partial class SpecialOfferProduct
 	{
@@ -801,7 +837,7 @@ namespace TDA.Bencher.Domain
 		
 	}
 }
-namespace TDA.Bencher.Domain	
+namespace Telerik.Bencher.Model	
 {
 	public partial class SpecialOffer
 	{
@@ -959,7 +995,7 @@ namespace TDA.Bencher.Domain
 		
 	}
 }
-namespace TDA.Bencher.Domain	
+namespace Telerik.Bencher.Model	
 {
 	public partial class ShoppingCartItem
 	{
@@ -1043,7 +1079,7 @@ namespace TDA.Bencher.Domain
 		
 	}
 }
-namespace TDA.Bencher.Domain	
+namespace Telerik.Bencher.Model	
 {
 	public partial class SalesTerritoryHistory
 	{
@@ -1153,7 +1189,7 @@ namespace TDA.Bencher.Domain
 		
 	}
 }
-namespace TDA.Bencher.Domain	
+namespace Telerik.Bencher.Model	
 {
 	public partial class SalesTerritory
 	{
@@ -1347,7 +1383,7 @@ namespace TDA.Bencher.Domain
 		
 	}
 }
-namespace TDA.Bencher.Domain	
+namespace Telerik.Bencher.Model	
 {
 	public partial class SalesTaxRate
 	{
@@ -1457,7 +1493,7 @@ namespace TDA.Bencher.Domain
 		
 	}
 }
-namespace TDA.Bencher.Domain	
+namespace Telerik.Bencher.Model	
 {
 	public partial class SalesReason
 	{
@@ -1524,7 +1560,7 @@ namespace TDA.Bencher.Domain
 		
 	}
 }
-namespace TDA.Bencher.Domain	
+namespace Telerik.Bencher.Model	
 {
 	public partial class SalesPersonQuotaHistory
 	{
@@ -1608,7 +1644,7 @@ namespace TDA.Bencher.Domain
 		
 	}
 }
-namespace TDA.Bencher.Domain	
+namespace Telerik.Bencher.Model	
 {
 	public partial class SalesPerson
 	{
@@ -1780,7 +1816,7 @@ namespace TDA.Bencher.Domain
 		
 	}
 }
-namespace TDA.Bencher.Domain	
+namespace Telerik.Bencher.Model	
 {
 	public partial class SalesOrderHeaderSalesReason
 	{
@@ -1851,7 +1887,7 @@ namespace TDA.Bencher.Domain
 		
 	}
 }
-namespace TDA.Bencher.Domain	
+namespace Telerik.Bencher.Model	
 {
 	public partial class SalesOrderHeader
 	{
@@ -2304,7 +2340,7 @@ namespace TDA.Bencher.Domain
 		
 	}
 }
-namespace TDA.Bencher.Domain	
+namespace Telerik.Bencher.Model	
 {
 	public partial class SalesOrderDetail
 	{
@@ -2479,7 +2515,7 @@ namespace TDA.Bencher.Domain
 		
 	}
 }
-namespace TDA.Bencher.Domain	
+namespace Telerik.Bencher.Model	
 {
 	public partial class PhoneNumberType
 	{
@@ -2533,7 +2569,7 @@ namespace TDA.Bencher.Domain
 		
 	}
 }
-namespace TDA.Bencher.Domain	
+namespace Telerik.Bencher.Model	
 {
 	public partial class PersonPhone
 	{
@@ -2617,7 +2653,7 @@ namespace TDA.Bencher.Domain
 		
 	}
 }
-namespace TDA.Bencher.Domain	
+namespace Telerik.Bencher.Model	
 {
 	public partial class PersonCreditCard
 	{
@@ -2688,7 +2724,7 @@ namespace TDA.Bencher.Domain
 		
 	}
 }
-namespace TDA.Bencher.Domain	
+namespace Telerik.Bencher.Model	
 {
 	public partial class Person
 	{
@@ -2934,7 +2970,7 @@ namespace TDA.Bencher.Domain
 		
 	}
 }
-namespace TDA.Bencher.Domain	
+namespace Telerik.Bencher.Model	
 {
 	public partial class Password
 	{
@@ -3018,7 +3054,130 @@ namespace TDA.Bencher.Domain
 		
 	}
 }
-namespace TDA.Bencher.Domain	
+namespace Telerik.Bencher.Model	
+{
+	public partial class ErrorLog
+	{
+		private int _errorLogID;
+		public virtual int ErrorLogID
+		{
+			get
+			{
+				return this._errorLogID;
+			}
+			set
+			{
+				this._errorLogID = value;
+			}
+		}
+		
+		private DateTime _errorTime;
+		public virtual DateTime ErrorTime
+		{
+			get
+			{
+				return this._errorTime;
+			}
+			set
+			{
+				this._errorTime = value;
+			}
+		}
+		
+		private string _userName;
+		public virtual string UserName
+		{
+			get
+			{
+				return this._userName;
+			}
+			set
+			{
+				this._userName = value;
+			}
+		}
+		
+		private int _errorNumber;
+		public virtual int ErrorNumber
+		{
+			get
+			{
+				return this._errorNumber;
+			}
+			set
+			{
+				this._errorNumber = value;
+			}
+		}
+		
+		private int? _errorSeverity;
+		public virtual int? ErrorSeverity
+		{
+			get
+			{
+				return this._errorSeverity;
+			}
+			set
+			{
+				this._errorSeverity = value;
+			}
+		}
+		
+		private int? _errorState;
+		public virtual int? ErrorState
+		{
+			get
+			{
+				return this._errorState;
+			}
+			set
+			{
+				this._errorState = value;
+			}
+		}
+		
+		private string _errorProcedure;
+		public virtual string ErrorProcedure
+		{
+			get
+			{
+				return this._errorProcedure;
+			}
+			set
+			{
+				this._errorProcedure = value;
+			}
+		}
+		
+		private int? _errorLine;
+		public virtual int? ErrorLine
+		{
+			get
+			{
+				return this._errorLine;
+			}
+			set
+			{
+				this._errorLine = value;
+			}
+		}
+		
+		private string _errorMessage;
+		public virtual string ErrorMessage
+		{
+			get
+			{
+				return this._errorMessage;
+			}
+			set
+			{
+				this._errorMessage = value;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model	
 {
 	public partial class EmailAddress
 	{
@@ -3102,7 +3261,117 @@ namespace TDA.Bencher.Domain
 		
 	}
 }
-namespace TDA.Bencher.Domain	
+namespace Telerik.Bencher.Model	
+{
+	public partial class DatabaseLog
+	{
+		private int _databaseLogID;
+		public virtual int DatabaseLogID
+		{
+			get
+			{
+				return this._databaseLogID;
+			}
+			set
+			{
+				this._databaseLogID = value;
+			}
+		}
+		
+		private DateTime _postTime;
+		public virtual DateTime PostTime
+		{
+			get
+			{
+				return this._postTime;
+			}
+			set
+			{
+				this._postTime = value;
+			}
+		}
+		
+		private string _databaseUser;
+		public virtual string DatabaseUser
+		{
+			get
+			{
+				return this._databaseUser;
+			}
+			set
+			{
+				this._databaseUser = value;
+			}
+		}
+		
+		private string _event;
+		public virtual string Event
+		{
+			get
+			{
+				return this._event;
+			}
+			set
+			{
+				this._event = value;
+			}
+		}
+		
+		private string _schema;
+		public virtual string Schema
+		{
+			get
+			{
+				return this._schema;
+			}
+			set
+			{
+				this._schema = value;
+			}
+		}
+		
+		private string _object;
+		public virtual string Object
+		{
+			get
+			{
+				return this._object;
+			}
+			set
+			{
+				this._object = value;
+			}
+		}
+		
+		private string _tSQL;
+		public virtual string TSQL
+		{
+			get
+			{
+				return this._tSQL;
+			}
+			set
+			{
+				this._tSQL = value;
+			}
+		}
+		
+		private string _xmlEvent;
+		public virtual string XmlEvent
+		{
+			get
+			{
+				return this._xmlEvent;
+			}
+			set
+			{
+				this._xmlEvent = value;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model	
 {
 	public partial class Customer
 	{
@@ -3247,7 +3516,7 @@ namespace TDA.Bencher.Domain
 		
 	}
 }
-namespace TDA.Bencher.Domain	
+namespace Telerik.Bencher.Model	
 {
 	public partial class CurrencyRate
 	{
@@ -3379,7 +3648,7 @@ namespace TDA.Bencher.Domain
 		
 	}
 }
-namespace TDA.Bencher.Domain	
+namespace Telerik.Bencher.Model	
 {
 	public partial class Currency
 	{
@@ -3451,7 +3720,7 @@ namespace TDA.Bencher.Domain
 		
 	}
 }
-namespace TDA.Bencher.Domain	
+namespace Telerik.Bencher.Model	
 {
 	public partial class CreditCard
 	{
@@ -3553,7 +3822,7 @@ namespace TDA.Bencher.Domain
 		
 	}
 }
-namespace TDA.Bencher.Domain	
+namespace Telerik.Bencher.Model	
 {
 	public partial class CountryRegionCurrency
 	{
@@ -3624,7 +3893,7 @@ namespace TDA.Bencher.Domain
 		
 	}
 }
-namespace TDA.Bencher.Domain	
+namespace Telerik.Bencher.Model	
 {
 	public partial class CountryRegion
 	{
@@ -3696,7 +3965,7 @@ namespace TDA.Bencher.Domain
 		
 	}
 }
-namespace TDA.Bencher.Domain	
+namespace Telerik.Bencher.Model	
 {
 	public partial class ContactType
 	{
@@ -3750,7 +4019,7 @@ namespace TDA.Bencher.Domain
 		
 	}
 }
-namespace TDA.Bencher.Domain	
+namespace Telerik.Bencher.Model	
 {
 	public partial class BusinessEntityContact
 	{
@@ -3860,7 +4129,7 @@ namespace TDA.Bencher.Domain
 		
 	}
 }
-namespace TDA.Bencher.Domain	
+namespace Telerik.Bencher.Model	
 {
 	public partial class BusinessEntityAddress
 	{
@@ -3970,7 +4239,7 @@ namespace TDA.Bencher.Domain
 		
 	}
 }
-namespace TDA.Bencher.Domain	
+namespace Telerik.Bencher.Model	
 {
 	public partial class BusinessEntity
 	{
@@ -4059,7 +4328,65 @@ namespace TDA.Bencher.Domain
 		
 	}
 }
-namespace TDA.Bencher.Domain	
+namespace Telerik.Bencher.Model	
+{
+	public partial class AWBuildVersion
+	{
+		private byte _systemInformationID;
+		public virtual byte SystemInformationID
+		{
+			get
+			{
+				return this._systemInformationID;
+			}
+			set
+			{
+				this._systemInformationID = value;
+			}
+		}
+		
+		private string _databaseVersion;
+		public virtual string DatabaseVersion
+		{
+			get
+			{
+				return this._databaseVersion;
+			}
+			set
+			{
+				this._databaseVersion = value;
+			}
+		}
+		
+		private DateTime _versionDate;
+		public virtual DateTime VersionDate
+		{
+			get
+			{
+				return this._versionDate;
+			}
+			set
+			{
+				this._versionDate = value;
+			}
+		}
+		
+		private DateTime _modifiedDate;
+		public virtual DateTime ModifiedDate
+		{
+			get
+			{
+				return this._modifiedDate;
+			}
+			set
+			{
+				this._modifiedDate = value;
+			}
+		}
+		
+	}
+}
+namespace Telerik.Bencher.Model	
 {
 	public partial class AddressType
 	{
@@ -4126,7 +4453,7 @@ namespace TDA.Bencher.Domain
 		
 	}
 }
-namespace TDA.Bencher.Domain	
+namespace Telerik.Bencher.Model	
 {
 	public partial class Address
 	{
