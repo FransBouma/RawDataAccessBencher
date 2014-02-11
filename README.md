@@ -4,7 +4,9 @@ RawDataAccessBencher
 Bench code which tests entity materialization speed of various .NET data access / ORM implementations. The tests focus solely on entity / object materialization and therefore don't do any fancy queries, graph fetches or other nice things which one expects from ORMs. 
 
 ### Results ###
-Results obtained on 8-dec-2013: http://pastebin.com/KhcauUN3. See the link for details about results.
+Results obtained on 11-feb-2014: http://pastebin.com/AAqRhH4X. 
+Results obtained on 8-dec-2013 : http://pastebin.com/KhcauUN3. 
+See the links for details about results.
 
 ### Requirements ###
 
@@ -20,12 +22,12 @@ Install SQL Server 2008 or higher and download the 2008 version of the database 
 
 Please run the benchmarks on a DB accessed over a network to avoid having the DB consume performance of the CPU / memory which thus doesn't give a real-life scenario overview of the real fetch speed of the used Data-access / ORM framework. The entity SalesOrderHeader was chosen as it has more than a couple of fields, a variety of types, many rows in the table and several relationships with other entities which could or could not affect the ORM's internal performance. 
 
+If you want to export the results to a file directly, run the RawBencher.exe from the command line and specify /a at the end so it will exit immediately when it's done. Example: RawBencher.exe /a > results.txt
+
 ### Remarks per used framework ###
 NHibernate uses .hbm mappings, as this is of no relevance to the fetch speed and it avoids a dependency on FluentNHibernate.
 
-Entity Framework has two sets of results, one without change tracking. This is to show the difference in performance when change tracking is used with fetching entities (which is the default). 
-
-The Dapper code might be slightly outdated with the latest and greatest, the one included is from October 23rd, 2013.
+Entity Framework has two sets of results, one with and one without change tracking. This is to show the difference in performance when change tracking is used with fetching entities (which is the default). Foreign key fields are present in the code base, as other frameworks fetch them too. This makes Entity Framework become slow in 6.0.2 and earlier. With 6.1 this should be partially fixed with 20%-30% faster code (see: http://entityframework.codeplex.com/workitem/1829) however it's still slower than NHibernate with FK fields in Entity Framework v6.1. Without Foreign key fields present, Entity Framework takes roughly half the performance of 6.0.2 and ~70% of 6.1. 
 
 Including data-table fetches might look like an apple/oranges comparison, but so is Full ORM vs. Micro 'ORM', as a souped up object materializer like Dapper has less things to worry about than, say NHibernate or LLBLGen Pro. The inclusion of these frameworks is done to show what can be achieved if there's little overhead between the DbDataReader and the materialized object. The closer an ORM gets to these lower-level object materializers, the better it is in fetching data with inclusion of the extra features if has to offer to the developer and the application it is used in. 
 
