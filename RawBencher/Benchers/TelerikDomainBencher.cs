@@ -69,7 +69,7 @@ namespace RawBencher.Benchers
 		/// <returns>the framework name.</returns>
 		protected override string CreateFrameworkNameImpl()
 		{
-			return "Telerik DataAccess Domain v4.0.3";
+			return "Telerik DataAccess/OpenAccess Domain v4.0.3";
 		}
 
 		#region Properties

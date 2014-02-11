@@ -21,7 +21,11 @@ using System.Threading;
 
 namespace RawBencher
 {
-	class Program
+	/// <summary>
+	/// The actual bencher management code. Pass '/a' on the command line as argument to make the program exit automatically. If no argument
+	/// is specified it will wait for ENTER after reporting the results. 
+	/// </summary>
+	public class Program
 	{
 		private const int LoopAmount = 10;
 		private const int IndividualKeysAmount = 100;
@@ -36,10 +40,19 @@ namespace RawBencher
 
 		static void Main(string[] args)
 		{
+			bool autoExit = false;
+			if(args.Length > 0)
+			{
+				autoExit = args[0] == "/a";
+			}
+
 			InitConnectionString();
 
 			CacheController.RegisterCache(ConnectionString, new ResultsetCache());
 
+			// need to supply different connection string names to Telerik benchers for different "cached" contexts 
+			RegisteredBenchers.Add(new TelerikDomainBencher() { ConnectionStringToUse = "AdventureWorks.ConnectionString.SQL Server (SqlClient)" });
+			RegisteredBenchers.Add(new TelerikFluentBencher() { ConnectionStringToUse = "AdventureWorksConnectionTelerikFluent" });
 			RegisteredBenchers.Add(new HandCodedBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new DataTableBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new DapperBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
@@ -56,9 +69,9 @@ namespace RawBencher
 			RegisteredBenchers.Add(new OrmLiteBencher() { ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new PetaPocoBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new PetaPocoFastBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
-						// need to supply different connection string names to Telerik benhers for different "cached" contexts 
-			RegisteredBenchers.Add(new TelerikDomainBencher() { ConnectionStringToUse = "AdventureWorksConnectionTelerikDomain" });
-			RegisteredBenchers.Add(new TelerikFluentBencher() { ConnectionStringToUse = "AdventureWorksConnectionTelerikFluent" });
+
+			DisplayHeader();
+	
 			WarmupDB();
 			FetchKeysForIndividualFetches();
 
@@ -66,7 +79,48 @@ namespace RawBencher
 			//ProfileBenchers(RegisteredBenchers.FirstOrDefault(b=>b.GetType()==typeof(EntityFrameworkNoChangeTrackingBencher)));
 
 			RunRegisteredBenchers();
-			ReportAverageResults();
+			ReportAveragedResults(autoExit);
+		}
+
+
+		private static void DisplayHeader()
+		{
+			bool releaseBuild = true;
+#if DEBUG
+			releaseBuild = false;
+#endif
+			var conBuilder = new SqlConnectionStringBuilder(ConnectionString);
+			string sqlServerVersion = "Unknown";
+			using(var conForHeader = new SqlConnection(ConnectionString))
+			{
+				conForHeader.Open();
+				sqlServerVersion = conForHeader.ServerVersion;
+				conForHeader.Close();
+			}
+
+			
+			Console.WriteLine( "+-------------------------------------------------------------------------------------------");
+			Console.WriteLine( "| Raw Data Access / ORM Benchmarks.");
+			Console.WriteLine(@"| Code available at              : https://github.com/FransBouma/RawDataAccessBencher");
+			Console.WriteLine( "| Benchmarks run on              : {0}", DateTime.Now.ToString("F"));
+			Console.WriteLine( "| Registered benchmarks          :");
+			foreach(var bencher in RegisteredBenchers)
+			{
+				DisplayBencherInfo(bencher, "| \t", suffixWithDashLine:false);
+			}
+			Console.WriteLine( "| Run set benchmarks             : {0}", PerformSetBenchmarks);
+			Console.WriteLine( "| Run individual fetch benchmarks: {0}", PerformIndividualBenchMarks);
+			Console.WriteLine( "| Number of set fetches          : {0}", LoopAmount);
+			Console.WriteLine( "| Number of individual keys      : {0}", IndividualKeysAmount);
+			Console.WriteLine( "| Release build                  : {0}", releaseBuild);
+			Console.WriteLine( "| Client OS                      : {0} ({1}bit)", Environment.OSVersion, Environment.Is64BitOperatingSystem ? "64" : "32" );
+			Console.WriteLine( "| Bencher runs as 64bit          : {0}", Environment.Is64BitProcess);
+			Console.WriteLine( "| CLR version                    : {0}", Environment.Version);
+			Console.WriteLine( "| Number of CPUs                 : {0}", Environment.ProcessorCount);
+			Console.WriteLine( "| Server used                    : {0}", conBuilder.DataSource);
+			Console.WriteLine( "| Catalog used                   : {0}", conBuilder.InitialCatalog);
+			Console.WriteLine( "| SQL Server version used        : {0}", sqlServerVersion);
+			Console.WriteLine( "+-------------------------------------------------------------------------------------------\n");
 		}
 
 
@@ -87,8 +141,16 @@ namespace RawBencher
 			Console.ReadLine();
 			foreach (var b in benchersToProfile)
 			{
-				Console.WriteLine("Running set benchmark for profile for bencher: {0}. Change tracking: {1}", b.CreateFrameworkName(), b.UsesChangeTracking);
-				b.PerformSetBenchmark();
+				if(PerformSetBenchmarks)
+				{
+					Console.WriteLine("Running set benchmark for profile for bencher: {0}. Change tracking: {1}", b.CreateFrameworkName(), b.UsesChangeTracking);
+					b.PerformSetBenchmark();
+				}
+				if(PerformIndividualBenchMarks)
+				{
+					Console.WriteLine("Running individual fetch benchmark for profile for bencher: {0}. Change tracking: {1}", b.CreateFrameworkName(), b.UsesChangeTracking);
+					b.PerformIndividualBenchMark(KeysForIndividualFetches);
+				}
 			}
 			Console.WriteLine("Done. Grab snapshot and stop profiler. Press ENTER to continue.");
 			Console.ReadLine();
@@ -124,7 +186,6 @@ namespace RawBencher
 		{
 			Console.WriteLine("\nStarting benchmarks.");
 			Console.WriteLine("====================================================================");
-			Console.WriteLine("Do set benchmarks: {0}.\nDo single element benchmarks: {1}", PerformSetBenchmarks, PerformIndividualBenchMarks);
 
 			foreach (var bencher in RegisteredBenchers)
 			{
@@ -198,8 +259,18 @@ namespace RawBencher
 
 		private static void DisplayBencherInfo(IBencher bencher)
 		{
-			Console.WriteLine("\n{0}. Change tracking: {1}. Caching: {2}.", bencher.CreateFrameworkName(), bencher.UsesChangeTracking, bencher.UsesCaching);
-			Console.WriteLine("--------------------------------------------------------------------------------------------");
+			DisplayBencherInfo(bencher, "\n", suffixWithDashLine: true);
+		}
+
+
+		private static void DisplayBencherInfo(IBencher bencher, string linePrefix, bool suffixWithDashLine)
+		{
+			Console.Write(linePrefix);
+			Console.WriteLine("{0}. Change tracking: {1}. Caching: {2}.", bencher.CreateFrameworkName(), bencher.UsesChangeTracking, bencher.UsesCaching);
+			if(suffixWithDashLine)
+			{
+				Console.WriteLine("--------------------------------------------------------------------------------------------");
+			}
 		}
 
 
@@ -218,7 +289,11 @@ namespace RawBencher
 		}
 
 
-		private static void ReportAverageResults()
+		/// <summary>
+		/// Reports the averaged results to standard out
+		/// </summary>
+		/// <param name="autoExit">if set to <c>true</c> the method won't wait for ENTER to exit but will exit immediately.</param>
+		private static void ReportAveragedResults(bool autoExit)
 		{
 			Console.WriteLine("\nAveraged total results per framework. Fastest and slowest result omited");
 			Console.WriteLine("==============================================================================");
@@ -275,7 +350,12 @@ namespace RawBencher
 				Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms per individual fetch", bencher.CreateFrameworkName(), bencher.IndividualFetchAverage / IndividualKeysAmount);
 			}
 
-			Console.WriteLine("\nComplete. Press enter to exit.");
+			Console.Write("\nComplete.");
+			if(autoExit)
+			{
+				return;
+			}
+			Console.WriteLine(" Press enter to exit.");
 			Console.ReadLine();
 		}
 	}
