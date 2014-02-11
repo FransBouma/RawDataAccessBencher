@@ -42,11 +42,11 @@ namespace RawBencher.Benchers
 		/// <returns>the set fetched</returns>
 		public override IEnumerable<L2S.Bencher.EntityClasses.SalesOrderHeader> FetchSet()
 		{
-			using(var ctx = new L2SBencherDataContext())
-			{
-				ctx.ObjectTrackingEnabled = false;
-				return ctx.SalesOrderHeaders.ToList();
-			}
+using(var ctx = new L2SBencherDataContext())
+{
+	ctx.ObjectTrackingEnabled = false;
+	return ctx.SalesOrderHeaders.ToList();
+}
 		}
 
 

@@ -13,6 +13,7 @@ using AdventureWorks.Dal.Adapter.v41.DatabaseSpecific;
 using AdventureWorks.Dal.Adapter.v41.EntityClasses;
 using AdventureWorks.Dal.Adapter.v41.HelperClasses;
 using AdventureWorks.Dal.Adapter.v41.FactoryClasses;
+using CommandLine;
 using SD.LLBLGen.Pro.QuerySpec;
 using SD.LLBLGen.Pro.QuerySpec.Adapter;
 using SD.LLBLGen.Pro.ORMSupportClasses;
@@ -21,6 +22,8 @@ using System.Threading;
 
 namespace RawBencher
 {
+
+
 	class Program
 	{
 		private const int LoopAmount = 10;
@@ -56,6 +59,9 @@ namespace RawBencher
 			RegisteredBenchers.Add(new OrmLiteBencher() { ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new PetaPocoBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new PetaPocoFastBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+			// need to supply different connection string names to Telerik benhers for different "cached" contexts 
+			RegisteredBenchers.Add(new TelerikDomainBencher() { ConnectionStringToUse = "AdventureWorksConnection" });
+			RegisteredBenchers.Add(new TelerikFluentBencher() { ConnectionStringToUse = "AdventureWorksConnection2" });
 			WarmupDB();
 			FetchKeysForIndividualFetches();
 

@@ -41,10 +41,10 @@ namespace RawBencher.Benchers
 		/// <returns>the set fetched</returns>
 		public override IEnumerable<EF6.Bencher.EntityClasses.SalesOrderHeader> FetchSet()
 		{
-			using(var ctx = new AWDataContext())
-			{
-				return ctx.SalesOrderHeaders.AsNoTracking().ToList();
-			}
+using(var ctx = new AWDataContext())
+{
+	return ctx.SalesOrderHeaders.AsNoTracking().ToList();
+}
 		}
 
 

@@ -28,11 +28,8 @@ namespace RawBencher.Benchers
 		public override SalesOrderHeader FetchIndividual(int key)
 		{
 			SalesOrderHeader toReturn = null;
-			
 			var dbFactory = new PetaPoco.Database(ConnectionStringToUse, "System.Data.SqlClient");
-			dbFactory.OpenSharedConnection();
 			toReturn = dbFactory.First<SalesOrderHeader>(CommandText + " where SalesOrderId=@0", key);
-			dbFactory.CloseSharedConnection();
 			return toReturn;
 		}
 
@@ -43,11 +40,9 @@ namespace RawBencher.Benchers
 		/// <returns>the set fetched</returns>
 		public override IEnumerable<SalesOrderHeader> FetchSet()
 		{
-			var headers = new List<SalesOrderHeader>();
+			List<SalesOrderHeader> headers;
 			var dbFactory = new PetaPoco.Database(ConnectionStringToUse, "System.Data.SqlClient");
-			dbFactory.OpenSharedConnection();
 			headers = dbFactory.Fetch<SalesOrderHeader>(CommandText);
-			dbFactory.CloseSharedConnection();
 			return headers;
 		}
 
