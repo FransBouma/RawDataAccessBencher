@@ -37,6 +37,9 @@ namespace EF6.Bencher.EntityClasses
 		/// <summary>Gets or sets the Rowguid field. </summary>
 		[DataMember]
 		public System.Guid Rowguid { get; set;}
+		/// <summary>Gets or sets the SalesPersonId field. </summary>
+		[DataMember]
+		public Nullable<System.Int32> SalesPersonId { get; set;}
 		/// <summary>Represents the navigator which is mapped onto the association 'Customer.Store - Store.Customers (m:1)'</summary>
 		[DataMember]
 		public virtual ICollection<Customer> Customers { get; set;}

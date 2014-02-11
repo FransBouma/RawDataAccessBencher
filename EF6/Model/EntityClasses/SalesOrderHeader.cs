@@ -26,12 +26,24 @@ namespace EF6.Bencher.EntityClasses
 		/// <summary>Gets or sets the AccountNumber field. </summary>
 		[DataMember]
 		public System.String AccountNumber { get; set;}
+		/// <summary>Gets or sets the BillToAddressId field. </summary>
+		[DataMember]
+		public System.Int32 BillToAddressId { get; set;}
 		/// <summary>Gets or sets the Comment field. </summary>
 		[DataMember]
 		public System.String Comment { get; set;}
 		/// <summary>Gets or sets the CreditCardApprovalCode field. </summary>
 		[DataMember]
 		public System.String CreditCardApprovalCode { get; set;}
+		/// <summary>Gets or sets the CreditCardId field. </summary>
+		[DataMember]
+		public Nullable<System.Int32> CreditCardId { get; set;}
+		/// <summary>Gets or sets the CurrencyRateId field. </summary>
+		[DataMember]
+		public Nullable<System.Int32> CurrencyRateId { get; set;}
+		/// <summary>Gets or sets the CustomerId field. </summary>
+		[DataMember]
+		public System.Int32 CustomerId { get; set;}
 		/// <summary>Gets or sets the DueDate field. </summary>
 		[DataMember]
 		public System.DateTime DueDate { get; set;}
@@ -62,9 +74,18 @@ namespace EF6.Bencher.EntityClasses
 		/// <summary>Gets or sets the SalesOrderNumber field. </summary>
 		[DataMember]
 		public System.String SalesOrderNumber { get; set;}
+		/// <summary>Gets or sets the SalesPersonId field. </summary>
+		[DataMember]
+		public Nullable<System.Int32> SalesPersonId { get; set;}
 		/// <summary>Gets or sets the ShipDate field. </summary>
 		[DataMember]
 		public Nullable<System.DateTime> ShipDate { get; set;}
+		/// <summary>Gets or sets the ShipMethodId field. </summary>
+		[DataMember]
+		public System.Int32 ShipMethodId { get; set;}
+		/// <summary>Gets or sets the ShipToAddressId field. </summary>
+		[DataMember]
+		public System.Int32 ShipToAddressId { get; set;}
 		/// <summary>Gets or sets the Status field. </summary>
 		[DataMember]
 		public System.Byte Status { get; set;}
@@ -74,6 +95,9 @@ namespace EF6.Bencher.EntityClasses
 		/// <summary>Gets or sets the TaxAmt field. </summary>
 		[DataMember]
 		public System.Decimal TaxAmt { get; set;}
+		/// <summary>Gets or sets the TerritoryId field. </summary>
+		[DataMember]
+		public Nullable<System.Int32> TerritoryId { get; set;}
 		/// <summary>Gets or sets the TotalDue field. </summary>
 		[DataMember]
 		public System.Decimal TotalDue { get; set;}

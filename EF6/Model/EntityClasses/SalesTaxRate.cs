@@ -33,6 +33,9 @@ namespace EF6.Bencher.EntityClasses
 		/// <summary>Gets or sets the SalesTaxRateId field. </summary>
 		[DataMember]
 		public System.Int32 SalesTaxRateId { get; set;}
+		/// <summary>Gets or sets the StateProvinceId field. </summary>
+		[DataMember]
+		public System.Int32 StateProvinceId { get; set;}
 		/// <summary>Gets or sets the TaxRate field. </summary>
 		[DataMember]
 		public System.Decimal TaxRate { get; set;}

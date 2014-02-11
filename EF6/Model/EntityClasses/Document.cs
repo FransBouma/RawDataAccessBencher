@@ -49,6 +49,9 @@ namespace EF6.Bencher.EntityClasses
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
 		[DataMember]
 		public System.DateTime ModifiedDate { get; set;}
+		/// <summary>Gets or sets the Owner field. </summary>
+		[DataMember]
+		public System.Int32 Owner { get; set;}
 		/// <summary>Gets or sets the Revision field. </summary>
 		[DataMember]
 		public System.String Revision { get; set;}

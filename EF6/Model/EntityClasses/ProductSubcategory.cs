@@ -28,6 +28,9 @@ namespace EF6.Bencher.EntityClasses
 		/// <summary>Gets or sets the Name field. </summary>
 		[DataMember]
 		public System.String Name { get; set;}
+		/// <summary>Gets or sets the ProductCategoryId field. </summary>
+		[DataMember]
+		public System.Int32 ProductCategoryId { get; set;}
 		/// <summary>Gets or sets the ProductSubcategoryId field. </summary>
 		[DataMember]
 		public System.Int32 ProductSubcategoryId { get; set;}

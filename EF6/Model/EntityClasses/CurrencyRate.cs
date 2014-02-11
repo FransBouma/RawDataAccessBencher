@@ -34,9 +34,15 @@ namespace EF6.Bencher.EntityClasses
 		/// <summary>Gets or sets the EndOfDayRate field. </summary>
 		[DataMember]
 		public System.Decimal EndOfDayRate { get; set;}
+		/// <summary>Gets or sets the FromCurrencyCode field. </summary>
+		[DataMember]
+		public System.String FromCurrencyCode { get; set;}
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
 		[DataMember]
 		public System.DateTime ModifiedDate { get; set;}
+		/// <summary>Gets or sets the ToCurrencyCode field. </summary>
+		[DataMember]
+		public System.String ToCurrencyCode { get; set;}
 		/// <summary>Represents the navigator which is mapped onto the association 'CurrencyRate.Currency - Currency.CurrencyRates (m:1)'</summary>
 		[DataMember]
 		public virtual Currency Currency { get; set;}

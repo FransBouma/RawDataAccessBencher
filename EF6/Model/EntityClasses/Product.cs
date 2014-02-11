@@ -68,9 +68,15 @@ namespace EF6.Bencher.EntityClasses
 		/// <summary>Gets or sets the ProductLine field. </summary>
 		[DataMember]
 		public System.String ProductLine { get; set;}
+		/// <summary>Gets or sets the ProductModelId field. </summary>
+		[DataMember]
+		public Nullable<System.Int32> ProductModelId { get; set;}
 		/// <summary>Gets or sets the ProductNumber field. </summary>
 		[DataMember]
 		public System.String ProductNumber { get; set;}
+		/// <summary>Gets or sets the ProductSubcategoryId field. </summary>
+		[DataMember]
+		public Nullable<System.Int32> ProductSubcategoryId { get; set;}
 		/// <summary>Gets or sets the ReorderPoint field. </summary>
 		[DataMember]
 		public System.Int16 ReorderPoint { get; set;}
@@ -89,6 +95,9 @@ namespace EF6.Bencher.EntityClasses
 		/// <summary>Gets or sets the Size field. </summary>
 		[DataMember]
 		public System.String Size { get; set;}
+		/// <summary>Gets or sets the SizeUnitMeasureCode field. </summary>
+		[DataMember]
+		public System.String SizeUnitMeasureCode { get; set;}
 		/// <summary>Gets or sets the StandardCost field. </summary>
 		[DataMember]
 		public System.Decimal StandardCost { get; set;}
@@ -98,6 +107,9 @@ namespace EF6.Bencher.EntityClasses
 		/// <summary>Gets or sets the Weight field. </summary>
 		[DataMember]
 		public Nullable<System.Decimal> Weight { get; set;}
+		/// <summary>Gets or sets the WeightUnitMeasureCode field. </summary>
+		[DataMember]
+		public System.String WeightUnitMeasureCode { get; set;}
 		/// <summary>Represents the navigator which is mapped onto the association 'BillOfMaterial.Product - Product.BillOfMaterials (m:1)'</summary>
 		[DataMember]
 		public virtual ICollection<BillOfMaterial> BillOfMaterials { get; set;}

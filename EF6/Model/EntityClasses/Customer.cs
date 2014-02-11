@@ -31,9 +31,18 @@ namespace EF6.Bencher.EntityClasses
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
 		[DataMember]
 		public System.DateTime ModifiedDate { get; set;}
+		/// <summary>Gets or sets the PersonId field. </summary>
+		[DataMember]
+		public Nullable<System.Int32> PersonId { get; set;}
 		/// <summary>Gets or sets the Rowguid field. </summary>
 		[DataMember]
 		public System.Guid Rowguid { get; set;}
+		/// <summary>Gets or sets the StoreId field. </summary>
+		[DataMember]
+		public Nullable<System.Int32> StoreId { get; set;}
+		/// <summary>Gets or sets the TerritoryId field. </summary>
+		[DataMember]
+		public Nullable<System.Int32> TerritoryId { get; set;}
 		/// <summary>Represents the navigator which is mapped onto the association 'Customer.Person - Person.Person.Customers (m:1)'</summary>
 		[DataMember]
 		public virtual Person Person { get; set;}

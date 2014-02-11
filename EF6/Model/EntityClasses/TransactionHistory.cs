@@ -27,6 +27,9 @@ namespace EF6.Bencher.EntityClasses
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
 		[DataMember]
 		public System.DateTime ModifiedDate { get; set;}
+		/// <summary>Gets or sets the ProductId field. </summary>
+		[DataMember]
+		public System.Int32 ProductId { get; set;}
 		/// <summary>Gets or sets the Quantity field. </summary>
 		[DataMember]
 		public System.Int32 Quantity { get; set;}

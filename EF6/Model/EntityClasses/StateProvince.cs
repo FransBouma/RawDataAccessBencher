@@ -23,6 +23,9 @@ namespace EF6.Bencher.EntityClasses
 		}
 
 		#region Class Property Declarations
+		/// <summary>Gets or sets the CountryRegionCode field. </summary>
+		[DataMember]
+		public System.String CountryRegionCode { get; set;}
 		/// <summary>Gets or sets the IsOnlyStateProvinceFlag field. </summary>
 		[DataMember]
 		public System.Boolean IsOnlyStateProvinceFlag { get; set;}
@@ -41,6 +44,9 @@ namespace EF6.Bencher.EntityClasses
 		/// <summary>Gets or sets the StateProvinceId field. </summary>
 		[DataMember]
 		public System.Int32 StateProvinceId { get; set;}
+		/// <summary>Gets or sets the TerritoryId field. </summary>
+		[DataMember]
+		public System.Int32 TerritoryId { get; set;}
 		/// <summary>Represents the navigator which is mapped onto the association 'Address.StateProvince - StateProvince.Addresses (m:1)'</summary>
 		[DataMember]
 		public virtual ICollection<Address> Addresses { get; set;}

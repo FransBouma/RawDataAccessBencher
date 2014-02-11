@@ -33,6 +33,9 @@ namespace EF6.Bencher.EntityClasses
 		/// <summary>Gets or sets the OrderQty field. </summary>
 		[DataMember]
 		public System.Int16 OrderQty { get; set;}
+		/// <summary>Gets or sets the ProductId field. </summary>
+		[DataMember]
+		public System.Int32 ProductId { get; set;}
 		/// <summary>Gets or sets the PurchaseOrderDetailId field. </summary>
 		[DataMember]
 		public System.Int32 PurchaseOrderDetailId { get; set;}

@@ -49,6 +49,9 @@ namespace EF6.Bencher.EntityClasses
 		/// <summary>Gets or sets the SalesYtd field. </summary>
 		[DataMember]
 		public System.Decimal SalesYtd { get; set;}
+		/// <summary>Gets or sets the TerritoryId field. </summary>
+		[DataMember]
+		public Nullable<System.Int32> TerritoryId { get; set;}
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesPerson.Employee - Employee.SalesPerson (1:1)'</summary>
 		[DataMember]
 		public virtual Employee Employee { get; set;}

@@ -32,6 +32,9 @@ namespace EF6.Bencher.EntityClasses
 		/// <summary>Gets or sets the CostYtd field. </summary>
 		[DataMember]
 		public System.Decimal CostYtd { get; set;}
+		/// <summary>Gets or sets the CountryRegionCode field. </summary>
+		[DataMember]
+		public System.String CountryRegionCode { get; set;}
 		/// <summary>Gets or sets the Group field. </summary>
 		[DataMember]
 		public System.String Group { get; set;}

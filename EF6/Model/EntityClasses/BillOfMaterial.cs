@@ -27,6 +27,9 @@ namespace EF6.Bencher.EntityClasses
 		/// <summary>Gets or sets the Bomlevel field. </summary>
 		[DataMember]
 		public System.Int16 Bomlevel { get; set;}
+		/// <summary>Gets or sets the ComponentId field. </summary>
+		[DataMember]
+		public System.Int32 ComponentId { get; set;}
 		/// <summary>Gets or sets the EndDate field. </summary>
 		[DataMember]
 		public Nullable<System.DateTime> EndDate { get; set;}
@@ -36,9 +39,15 @@ namespace EF6.Bencher.EntityClasses
 		/// <summary>Gets or sets the PerAssemblyQty field. </summary>
 		[DataMember]
 		public System.Decimal PerAssemblyQty { get; set;}
+		/// <summary>Gets or sets the ProductAssemblyId field. </summary>
+		[DataMember]
+		public Nullable<System.Int32> ProductAssemblyId { get; set;}
 		/// <summary>Gets or sets the StartDate field. </summary>
 		[DataMember]
 		public System.DateTime StartDate { get; set;}
+		/// <summary>Gets or sets the UnitMeasureCode field. </summary>
+		[DataMember]
+		public System.String UnitMeasureCode { get; set;}
 		/// <summary>Represents the navigator which is mapped onto the association 'BillOfMaterial.Product - Product.BillOfMaterials (m:1)'</summary>
 		[DataMember]
 		public virtual Product Product { get; set;}

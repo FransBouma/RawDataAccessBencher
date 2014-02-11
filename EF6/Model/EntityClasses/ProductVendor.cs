@@ -48,6 +48,9 @@ namespace EF6.Bencher.EntityClasses
 		/// <summary>Gets or sets the StandardPrice field. </summary>
 		[DataMember]
 		public System.Decimal StandardPrice { get; set;}
+		/// <summary>Gets or sets the UnitMeasureCode field. </summary>
+		[DataMember]
+		public System.String UnitMeasureCode { get; set;}
 		/// <summary>Gets or sets the VendorId field. </summary>
 		[DataMember]
 		public System.Int32 VendorId { get; set;}

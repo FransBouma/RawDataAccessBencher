@@ -34,9 +34,15 @@ namespace EF6.Bencher.EntityClasses
 		/// <summary>Gets or sets the OrderQty field. </summary>
 		[DataMember]
 		public System.Int32 OrderQty { get; set;}
+		/// <summary>Gets or sets the ProductId field. </summary>
+		[DataMember]
+		public System.Int32 ProductId { get; set;}
 		/// <summary>Gets or sets the ScrappedQty field. </summary>
 		[DataMember]
 		public System.Int16 ScrappedQty { get; set;}
+		/// <summary>Gets or sets the ScrapReasonId field. </summary>
+		[DataMember]
+		public Nullable<System.Int16> ScrapReasonId { get; set;}
 		/// <summary>Gets or sets the StartDate field. </summary>
 		[DataMember]
 		public System.DateTime StartDate { get; set;}

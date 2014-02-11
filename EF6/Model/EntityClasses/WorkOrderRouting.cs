@@ -33,6 +33,9 @@ namespace EF6.Bencher.EntityClasses
 		/// <summary>Gets or sets the ActualStartDate field. </summary>
 		[DataMember]
 		public Nullable<System.DateTime> ActualStartDate { get; set;}
+		/// <summary>Gets or sets the LocationId field. </summary>
+		[DataMember]
+		public System.Int16 LocationId { get; set;}
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
 		[DataMember]
 		public System.DateTime ModifiedDate { get; set;}

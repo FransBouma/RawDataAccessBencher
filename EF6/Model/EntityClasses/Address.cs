@@ -48,6 +48,9 @@ namespace EF6.Bencher.EntityClasses
 		/// <summary>Gets or sets the SpatialLocation field. </summary>
 		[DataMember]
 		public System.Data.Entity.Spatial.DbGeography SpatialLocation { get; set;}
+		/// <summary>Gets or sets the StateProvinceId field. </summary>
+		[DataMember]
+		public System.Int32 StateProvinceId { get; set;}
 		/// <summary>Represents the navigator which is mapped onto the association 'Person.BusinessEntityAddress.Address - Address.BusinessEntityAddresses (m:1)'</summary>
 		[DataMember]
 		public virtual ICollection<BusinessEntityAddress> BusinessEntityAddresses { get; set;}

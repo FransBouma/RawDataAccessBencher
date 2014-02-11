@@ -22,6 +22,9 @@ namespace EF6.Bencher.EntityClasses
 		}
 
 		#region Class Property Declarations
+		/// <summary>Gets or sets the EmployeeId field. </summary>
+		[DataMember]
+		public System.Int32 EmployeeId { get; set;}
 		/// <summary>Gets or sets the Freight field. </summary>
 		[DataMember]
 		public System.Decimal Freight { get; set;}
@@ -40,6 +43,9 @@ namespace EF6.Bencher.EntityClasses
 		/// <summary>Gets or sets the ShipDate field. </summary>
 		[DataMember]
 		public Nullable<System.DateTime> ShipDate { get; set;}
+		/// <summary>Gets or sets the ShipMethodId field. </summary>
+		[DataMember]
+		public System.Int32 ShipMethodId { get; set;}
 		/// <summary>Gets or sets the Status field. </summary>
 		[DataMember]
 		public System.Byte Status { get; set;}
@@ -52,6 +58,9 @@ namespace EF6.Bencher.EntityClasses
 		/// <summary>Gets or sets the TotalDue field. </summary>
 		[DataMember]
 		public System.Decimal TotalDue { get; set;}
+		/// <summary>Gets or sets the VendorId field. </summary>
+		[DataMember]
+		public System.Int32 VendorId { get; set;}
 		/// <summary>Represents the navigator which is mapped onto the association 'PurchaseOrderHeader.Employee - Employee.PurchaseOrderHeaders (m:1)'</summary>
 		[DataMember]
 		public virtual Employee Employee { get; set;}

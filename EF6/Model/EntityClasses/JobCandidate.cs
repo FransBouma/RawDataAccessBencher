@@ -21,6 +21,9 @@ namespace EF6.Bencher.EntityClasses
 		}
 
 		#region Class Property Declarations
+		/// <summary>Gets or sets the EmployeeId field. </summary>
+		[DataMember]
+		public Nullable<System.Int32> EmployeeId { get; set;}
 		/// <summary>Gets or sets the JobCandidateId field. </summary>
 		[DataMember]
 		public System.Int32 JobCandidateId { get; set;}
