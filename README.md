@@ -4,8 +4,10 @@ RawDataAccessBencher
 Bench code which tests entity materialization speed of various .NET data access / ORM implementations. The tests focus solely on entity / object materialization and therefore don't do any fancy queries, graph fetches or other nice things which one expects from ORMs. 
 
 ### Results ###
-Results obtained on 11-feb-2014: http://pastebin.com/AAqRhH4X. 
-Results obtained on 8-dec-2013 : http://pastebin.com/KhcauUN3. 
+
+* Results obtained on 11-feb-2014: http://pastebin.com/AAqRhH4X. 
+* Results obtained on 8-dec-2013 : http://pastebin.com/KhcauUN3. 
+
 See the links for details about results.
 
 ### Requirements ###
@@ -27,7 +29,7 @@ If you want to export the results to a file directly, run the RawBencher.exe fro
 ### Remarks per used framework ###
 NHibernate uses .hbm mappings, as this is of no relevance to the fetch speed and it avoids a dependency on FluentNHibernate.
 
-Entity Framework has two sets of results, one with and one without change tracking. This is to show the difference in performance when change tracking is used with fetching entities (which is the default). Foreign key fields are present in the code base, as other frameworks fetch them too. This makes Entity Framework become slow in 6.0.2 and earlier. With 6.1 this should be partially fixed with 20%-30% faster code (see: http://entityframework.codeplex.com/workitem/1829) however it's still slower than NHibernate with FK fields in Entity Framework v6.1. Without Foreign key fields present, Entity Framework takes roughly half the performance of 6.0.2 and ~70% of 6.1. 
+In the Entity Framework code, Foreign key fields are present in the code base, as other frameworks fetch them too. This makes Entity Framework become slow in 6.0.2 and earlier. With 6.1 this should be partially fixed with 20%-30% faster code (see: http://entityframework.codeplex.com/workitem/1829) however it's still slower than NHibernate with FK fields in Entity Framework v6.1. Without Foreign key fields present, Entity Framework takes roughly half the performance of 6.0.2 with FK fields present and ~70% of 6.1. 
 
 Including data-table fetches might look like an apple/oranges comparison, but so is Full ORM vs. Micro 'ORM', as a souped up object materializer like Dapper has less things to worry about than, say NHibernate or LLBLGen Pro. The inclusion of these frameworks is done to show what can be achieved if there's little overhead between the DbDataReader and the materialized object. The closer an ORM gets to these lower-level object materializers, the better it is in fetching data with inclusion of the extra features if has to offer to the developer and the application it is used in. 
 
