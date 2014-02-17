@@ -4,6 +4,7 @@
 using System;
 using NHibernate;
 using NHibernate.Cfg;
+using NHibernate.Event;
 
 namespace NH.Bencher
 {
@@ -19,7 +20,25 @@ namespace NH.Bencher
 		static SessionManager()
 		{
 			_configuration = new Configuration();
-			_configuration.Configure();
+			_configuration.Configure()
+				.SetProperty(NHibernate.Cfg.Environment.GenerateStatistics, Boolean.FalseString)
+				.SetProperty(NHibernate.Cfg.Environment.Hbm2ddlKeyWords, Hbm2DDLKeyWords.None.ToString())
+				.SetProperty(NHibernate.Cfg.Environment.PrepareSql, Boolean.TrueString)
+				.SetProperty(NHibernate.Cfg.Environment.PropertyBytecodeProvider, "lcg")
+				.SetProperty(NHibernate.Cfg.Environment.PropertyUseReflectionOptimizer, Boolean.TrueString)
+				.SetProperty(NHibernate.Cfg.Environment.QueryStartupChecking, Boolean.FalseString)
+				.SetProperty(NHibernate.Cfg.Environment.ShowSql, Boolean.FalseString)
+				.SetProperty(NHibernate.Cfg.Environment.StatementFetchSize, "100")
+				.SetProperty(NHibernate.Cfg.Environment.UseProxyValidator, Boolean.FalseString)
+				.SetProperty(NHibernate.Cfg.Environment.UseSecondLevelCache, Boolean.FalseString)
+				.SetProperty(NHibernate.Cfg.Environment.UseSqlComments, Boolean.FalseString)
+				.SetProperty(NHibernate.Cfg.Environment.UseQueryCache, Boolean.FalseString)
+				.SetProperty(NHibernate.Cfg.Environment.WrapResultSets, Boolean.TrueString)
+
+				.SetProperty(NHibernate.Cfg.Environment.FormatSql, Boolean.FalseString);
+
+			_configuration.EventListeners.PostLoadEventListeners = new IPostLoadEventListener[0];
+			_configuration.EventListeners.PreLoadEventListeners = new IPreLoadEventListener[0];
 			_configuration.AddAssembly(typeof(SessionManager).Assembly);
 			_sessionFactory = _configuration.BuildSessionFactory();
 		}
