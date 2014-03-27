@@ -35,6 +35,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CodeFluent.Runtime">
+      <HintPath>..\ReferencedAssemblies\CodeFluentEntities\CodeFluent.Runtime.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.dll</HintPath>
@@ -98,6 +101,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Benchers\BencherBase.cs" />
+    <Compile Include="Benchers\CodeFluentEntitiesBencher.cs" />
     <Compile Include="Benchers\OakDynamicDbDtoBencher.cs" />
     <Compile Include="Benchers\PetaPocoFastBencher.cs" />
     <Compile Include="Benchers\RawDbDataReaderBencher.cs" />
@@ -133,6 +137,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CodeFluentEntities.Bencher\CodeFluentEntities.Bencher.csproj">
+      <Project>{13ed92fe-1691-4cd5-82a4-35227d0b395c}</Project>
+      <Name>CodeFluentEntities.Bencher</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EF6\Model\EF6.Bencher.Model.csproj">
       <Project>{6524b78a-ca15-41a8-80fa-216a5c99a369}</Project>
       <Name>EF6.Bencher.Model</Name>

@@ -1,0 +1,691 @@
+﻿<cf:project defaultNamespace="CodeFluentEntities.Bencher" xmlns:cf="http://www.softfluent.com/codefluent/2005/1" xmlns:_fr="http://www.softfluent.com/codefluent/patterns/faster.reader/2014/1" xmlns:cfx="http://www.softfluent.com/codefluent/modeler/2008/1" xmlns:cfom="http://www.softfluent.com/codefluent/producers.model/2005/1" xmlns:cfps="http://www.softfluent.com/codefluent/producers.sqlserver/2005/1" defaultKeyPersistenceIdentity="false" persistenceShortNameLength="4" defaultConcurrencyMode="None" persistencePropertyNameFormat="{1}" createDefaultMethodForms="true" createDefaultApplication="false" createDefaultHints="false">
+  <cf:import path="Default.Surface.cfp" />
+  <cf:pattern path="SoftFluent.FasterReader.xml" step="Methods" name="CodeFluent FasterReader Aspect" />
+  <cf:producer name="Business Object Model (BOM)" typeName="CodeFluent.Producers.CodeDom.CodeDomProducer, CodeFluent.Producers.CodeDom">
+    <cf:configuration compileWithVisualStudio="true" compile="false" codeDomProviderTypeName="CSharp" targetDirectory="..\CodeFluentEntities.Bencher" cfx:targetProject="..\CodeFluentEntities.Bencher\CodeFluentEntities.Bencher.csproj" cfx:targetProjectLayout="Update" />
+  </cf:producer>
+  <cf:entity name="ProductInventory" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Production" namespace="CodeFluentEntities.Bencher.Production" categoryPath="/Production" persistenceName="ProductInventory">
+    <cf:property name="ProductID" persistenceIdentity="false" key="true" typeName="int" persistenceName="ProductID" />
+    <cf:property name="Shelf" nullable="false" maxLength="10" persistenceName="Shelf" />
+    <cf:property name="Bin" nullable="false" typeName="byte" persistenceName="Bin" />
+    <cf:property name="Quantity" persistenceDefaultValue="0" nullable="false" defaultValue="0" typeName="short" persistenceName="Quantity" />
+    <cf:property name="Rowguid" d3p1:rowguidcol="true" uiEnabled="false" xmlns:d3p1="http://www.softfluent.com/codefluent/producers.sqlserver/2005/1" persistenceDefaultValue="((newid()))" nullable="false" uIEnabled="false" typeName="guid" persistenceName="rowguid" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="Location" d3p1:relationKey="FK_ProductInventory_Location_LocationID" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" key="true" typeName="{0}.Production.Location" relationPropertyName="ProductInventories" persistenceName="LocationID" />
+  </cf:entity>
+  <cf:entity name="SpecialOffer" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Sales" namespace="CodeFluentEntities.Bencher.Sales" categoryPath="/Sales" persistenceName="SpecialOffer">
+    <cf:property name="SpecialOfferID" persistenceIdentity="true" key="true" typeName="int" persistenceName="SpecialOfferID" />
+    <cf:property name="Description" nullable="false" maxLength="255" persistenceName="Description" />
+    <cf:property name="DiscountPct" persistenceDefaultValue="0,00" nullable="false" defaultValue="0,00" typeName="currency" persistenceName="DiscountPct" />
+    <cf:property name="Type" nullable="false" maxLength="50" persistenceName="Type" />
+    <cf:property name="Category" nullable="false" maxLength="50" persistenceName="Category" />
+    <cf:property name="StartDate" nullable="false" typeName="datetime" persistenceName="StartDate" />
+    <cf:property name="EndDate" nullable="false" typeName="datetime" persistenceName="EndDate" />
+    <cf:property name="MinQty" persistenceDefaultValue="0" nullable="false" defaultValue="0" typeName="int" persistenceName="MinQty" />
+    <cf:property name="MaxQty" serializationNullable="true" modelNullable="true" typeName="int" persistenceName="MaxQty" />
+    <cf:property name="Rowguid" d3p1:rowguidcol="true" uiEnabled="false" xmlns:d3p1="http://www.softfluent.com/codefluent/producers.sqlserver/2005/1" persistenceDefaultValue="((newid()))" nullable="false" uIEnabled="false" typeName="guid" persistenceName="rowguid" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="SpecialOfferProducts" typeName="{0}.Sales.SpecialOfferProductCollection" relationPropertyName="SpecialOffer" />
+    <cf:property name="SalesOrderDetails" typeName="{0}.Sales.SalesOrderDetailCollection" relationPropertyName="SpecialOffer" />
+  </cf:entity>
+  <cf:entity name="Address" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Person" namespace="CodeFluentEntities.Bencher.Person" categoryPath="/Person" persistenceName="Address">
+    <cf:property name="AddressID" persistenceIdentity="true" key="true" typeName="int" persistenceName="AddressID" />
+    <cf:property name="AddressLine1" nullable="false" maxLength="60" persistenceName="AddressLine1" />
+    <cf:property name="AddressLine2" maxLength="60" persistenceName="AddressLine2" />
+    <cf:property name="City" nullable="false" maxLength="30" persistenceName="City" />
+    <cf:property name="PostalCode" nullable="false" maxLength="15" persistenceName="PostalCode" />
+    <cf:property name="SpatialLocation" d3p1:dataType="geography" xmlns:d3p1="http://www.softfluent.com/codefluent/producers.sqlserver/2005/1" typeName="byte[]" maxLength="-1" persistenceName="SpatialLocation" />
+    <cf:property name="Rowguid" d3p1:rowguidcol="true" uiEnabled="false" xmlns:d3p1="http://www.softfluent.com/codefluent/producers.sqlserver/2005/1" persistenceDefaultValue="((newid()))" nullable="false" uIEnabled="false" typeName="guid" persistenceName="rowguid" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="StateProvince" d3p1:guessed="true" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" nullable="false" typeName="{0}.Person.StateProvince" relationPropertyName="Addresses" persistenceName="StateProvinceID" />
+  </cf:entity>
+  <cf:entity name="ProductListPriceHistory" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Production" namespace="CodeFluentEntities.Bencher.Production" categoryPath="/Production" persistenceName="ProductListPriceHistory">
+    <cf:property name="ProductID" persistenceIdentity="false" key="true" typeName="int" persistenceName="ProductID" />
+    <cf:property name="StartDate" nullable="false" typeName="datetime" persistenceName="StartDate" />
+    <cf:property name="EndDate" serializationNullable="true" modelNullable="true" typeName="datetime" persistenceName="EndDate" />
+    <cf:property name="ListPrice" nullable="false" typeName="currency" persistenceName="ListPrice" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+  </cf:entity>
+  <cf:entity name="AddressType" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Person" namespace="CodeFluentEntities.Bencher.Person" categoryPath="/Person" persistenceName="AddressType">
+    <cf:property name="AddressTypeID" persistenceIdentity="true" key="true" typeName="int" persistenceName="AddressTypeID" />
+    <cf:property name="Name" nullable="false" maxLength="50" persistenceName="Name" />
+    <cf:property name="Rowguid" d3p1:rowguidcol="true" uiEnabled="false" xmlns:d3p1="http://www.softfluent.com/codefluent/producers.sqlserver/2005/1" persistenceDefaultValue="((newid()))" nullable="false" uIEnabled="false" typeName="guid" persistenceName="rowguid" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+  </cf:entity>
+  <cf:entity name="SpecialOfferProduct" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Sales" namespace="CodeFluentEntities.Bencher.Sales" categoryPath="/Sales" persistenceName="SpecialOfferProduct">
+    <cf:property name="ProductID" persistenceIdentity="false" key="true" typeName="int" persistenceName="ProductID" />
+    <cf:property name="Rowguid" d3p1:rowguidcol="true" uiEnabled="false" xmlns:d3p1="http://www.softfluent.com/codefluent/producers.sqlserver/2005/1" persistenceDefaultValue="((newid()))" nullable="false" uIEnabled="false" typeName="guid" persistenceName="rowguid" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="SpecialOffer" d3p1:relationKey="FK_SpecialOfferProduct_SpecialOffer_SpecialOfferID" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" key="true" typeName="{0}.Sales.SpecialOffer" relationPropertyName="SpecialOfferProducts" persistenceName="SpecialOfferID" />
+  </cf:entity>
+  <cf:entity name="ProductModel" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Production" namespace="CodeFluentEntities.Bencher.Production" categoryPath="/Production" persistenceName="ProductModel">
+    <cf:property name="ProductModelID" persistenceIdentity="true" key="true" typeName="int" persistenceName="ProductModelID" />
+    <cf:property name="Name" nullable="false" maxLength="50" persistenceName="Name" />
+    <cf:property name="CatalogDescription" persistenceUnicode="false" typeName="xml" maxLength="-1" persistenceName="CatalogDescription" />
+    <cf:property name="Instructions" persistenceUnicode="false" typeName="xml" maxLength="-1" persistenceName="Instructions" />
+    <cf:property name="Rowguid" d3p1:rowguidcol="true" uiEnabled="false" xmlns:d3p1="http://www.softfluent.com/codefluent/producers.sqlserver/2005/1" persistenceDefaultValue="((newid()))" nullable="false" uIEnabled="false" typeName="guid" persistenceName="rowguid" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="ProductModelIllustrations" typeName="{0}.Production.ProductModelIllustrationCollection" relationPropertyName="ProductModel" />
+    <cf:property name="ProductModelProductDescriptionCultures" typeName="{0}.Production.ProductModelProductDescriptionCultureCollection" relationPropertyName="ProductModel" />
+    <cf:property name="Products" typeName="{0}.Production.ProductCollection" relationPropertyName="ProductModel" />
+  </cf:entity>
+  <cf:entity name="AWBuildVersion" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" namespace="CodeFluentEntities.Bencher" categoryPath="/CodeFluentEntities.Bencher" persistenceName="AWBuildVersion">
+    <cf:property name="SystemInformationID" persistenceIdentity="true" key="true" typeName="byte" persistenceName="SystemInformationID" />
+    <cf:property name="DatabaseVersion" nullable="false" maxLength="25" persistenceName="Database Version" />
+    <cf:property name="VersionDate" nullable="false" typeName="datetime" persistenceName="VersionDate" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+  </cf:entity>
+  <cf:entity name="StateProvince" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Person" namespace="CodeFluentEntities.Bencher.Person" categoryPath="/Person" persistenceName="StateProvince">
+    <cf:property name="StateProvinceID" persistenceIdentity="true" key="true" typeName="int" persistenceName="StateProvinceID" />
+    <cf:property name="StateProvinceCode" nullable="false" maxLength="3" persistenceName="StateProvinceCode" />
+    <cf:property name="IsOnlyStateProvinceFlag" persistenceDefaultValue="True" nullable="false" defaultValue="True" typeName="bool" persistenceName="IsOnlyStateProvinceFlag" />
+    <cf:property name="Name" nullable="false" maxLength="50" persistenceName="Name" />
+    <cf:property name="Rowguid" d3p1:rowguidcol="true" uiEnabled="false" xmlns:d3p1="http://www.softfluent.com/codefluent/producers.sqlserver/2005/1" persistenceDefaultValue="((newid()))" nullable="false" uIEnabled="false" typeName="guid" persistenceName="rowguid" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="CountryRegion" d3p1:relationKey="FK_StateProvince_CountryRegion_CountryRegionCode" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" nullable="false" typeName="{0}.Person.CountryRegion" relationPropertyName="StateProvinces" persistenceName="CountryRegionCode" />
+    <cf:property name="SalesTerritory" d3p1:guessed="true" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" nullable="false" typeName="{0}.Sales.SalesTerritory" relationPropertyName="StateProvinces" persistenceName="TerritoryID" />
+    <cf:property name="Addresses" typeName="{0}.Person.AddressCollection" relationPropertyName="StateProvince" />
+    <cf:property name="SalesTaxRates" typeName="{0}.Sales.SalesTaxRateCollection" relationPropertyName="StateProvince" />
+  </cf:entity>
+  <cf:entity name="ProductModelIllustration" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Production" namespace="CodeFluentEntities.Bencher.Production" categoryPath="/Production" persistenceName="ProductModelIllustration">
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="Illustration" d3p1:relationKey="FK_ProductModelIllustration_Illustration_IllustrationID" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" key="true" typeName="{0}.Production.Illustration" relationPropertyName="ProductModelIllustrations" persistenceName="IllustrationID" />
+    <cf:property name="ProductModel" d3p1:relationKey="FK_ProductModelIllustration_ProductModel_ProductModelID" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" key="true" typeName="{0}.Production.ProductModel" relationPropertyName="ProductModelIllustrations" persistenceName="ProductModelID" />
+  </cf:entity>
+  <cf:entity name="BillOfMaterial" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Production" namespace="CodeFluentEntities.Bencher.Production" categoryPath="/Production" persistenceName="BillOfMaterials">
+    <cf:property name="BillOfMaterialsID" persistenceIdentity="true" key="true" typeName="int" persistenceName="BillOfMaterialsID" />
+    <cf:property name="ProductAssemblyID" serializationNullable="true" modelNullable="true" typeName="int" persistenceName="ProductAssemblyID" />
+    <cf:property name="ComponentID" nullable="false" typeName="int" persistenceName="ComponentID" />
+    <cf:property name="StartDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="StartDate" />
+    <cf:property name="EndDate" serializationNullable="true" modelNullable="true" typeName="datetime" persistenceName="EndDate" />
+    <cf:property name="BOMLevel" nullable="false" typeName="short" persistenceName="BOMLevel" />
+    <cf:property name="PerAssemblyQty" persistenceDefaultValue="1,00" nullable="false" defaultValue="1,00" typeName="decimal" persistenceName="PerAssemblyQty" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="UnitMeasure" d3p1:guessed="true" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" nullable="false" typeName="{0}.Production.UnitMeasure" relationPropertyName="BillOfMaterials" persistenceName="UnitMeasureCode" />
+  </cf:entity>
+  <cf:entity name="ProductModelProductDescriptionCulture" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Production" namespace="CodeFluentEntities.Bencher.Production" categoryPath="/Production" persistenceName="ProductModelProductDescriptionCulture">
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="Culture" d3p1:relationKey="FK_ProductModelProductDescriptionCulture_Culture_CultureID" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" key="true" typeName="{0}.Production.Culture" relationPropertyName="ProductModelProductDescriptionCultures" persistenceName="CultureID" />
+    <cf:property name="ProductDescription" d3p1:relationKey="FK_ProductModelProductDescriptionCulture_ProductDescription_ProductDescriptionID" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" key="true" typeName="{0}.Production.ProductDescription" relationPropertyName="ProductModelProductDescriptionCultures" persistenceName="ProductDescriptionID" />
+    <cf:property name="ProductModel" d3p1:relationKey="FK_ProductModelProductDescriptionCulture_ProductModel_ProductModelID" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" key="true" typeName="{0}.Production.ProductModel" relationPropertyName="ProductModelProductDescriptionCultures" persistenceName="ProductModelID" />
+  </cf:entity>
+  <cf:entity name="Store" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Sales" namespace="CodeFluentEntities.Bencher.Sales" categoryPath="/Sales" persistenceName="Store">
+    <cf:property name="Name" nullable="false" maxLength="50" persistenceName="Name" />
+    <cf:property name="SalesPersonID" serializationNullable="true" modelNullable="true" typeName="int" persistenceName="SalesPersonID" />
+    <cf:property name="Demographics" persistenceUnicode="false" typeName="xml" maxLength="-1" persistenceName="Demographics" />
+    <cf:property name="Rowguid" d3p1:rowguidcol="true" uiEnabled="false" xmlns:d3p1="http://www.softfluent.com/codefluent/producers.sqlserver/2005/1" persistenceDefaultValue="((newid()))" nullable="false" uIEnabled="false" typeName="guid" persistenceName="rowguid" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="BusinessEntity" d3p1:relationKey="FK_Store_BusinessEntity_BusinessEntityID" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" key="true" typeName="{0}.Person.BusinessEntity" relationPropertyName="Stores" persistenceName="BusinessEntityID" />
+  </cf:entity>
+  <cf:entity name="ProductPhoto" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Production" namespace="CodeFluentEntities.Bencher.Production" categoryPath="/Production" persistenceName="ProductPhoto">
+    <cf:property name="ProductPhotoID" persistenceIdentity="true" key="true" typeName="int" persistenceName="ProductPhotoID" />
+    <cf:property name="ThumbNailPhoto" typeName="byte[]" maxLength="-1" persistenceName="ThumbNailPhoto" />
+    <cf:property name="ThumbnailPhotoFileName" maxLength="50" persistenceName="ThumbnailPhotoFileName" />
+    <cf:property name="LargePhoto" typeName="byte[]" maxLength="-1" persistenceName="LargePhoto" />
+    <cf:property name="LargePhotoFileName" maxLength="50" persistenceName="LargePhotoFileName" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="ProductProductPhotoes" typeName="{0}.Production.ProductProductPhotoCollection" relationPropertyName="ProductPhoto" />
+  </cf:entity>
+  <cf:entity name="ProductProductPhoto" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Production" namespace="CodeFluentEntities.Bencher.Production" categoryPath="/Production" persistenceName="ProductProductPhoto">
+    <cf:property name="ProductID" persistenceIdentity="false" key="true" typeName="int" persistenceName="ProductID" />
+    <cf:property name="Primary" persistenceDefaultValue="False" nullable="false" defaultValue="False" typeName="bool" persistenceName="Primary" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="ProductPhoto" d3p1:relationKey="FK_ProductProductPhoto_ProductPhoto_ProductPhotoID" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" key="true" typeName="{0}.Production.ProductPhoto" relationPropertyName="ProductProductPhotoes" persistenceName="ProductPhotoID" />
+  </cf:entity>
+  <cf:entity name="TransactionHistory" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Production" namespace="CodeFluentEntities.Bencher.Production" categoryPath="/Production" persistenceName="TransactionHistory">
+    <cf:property name="TransactionID" persistenceIdentity="true" key="true" typeName="int" persistenceName="TransactionID" />
+    <cf:property name="ReferenceOrderID" nullable="false" typeName="int" persistenceName="ReferenceOrderID" />
+    <cf:property name="ReferenceOrderLineID" persistenceDefaultValue="0" nullable="false" defaultValue="0" typeName="int" persistenceName="ReferenceOrderLineID" />
+    <cf:property name="TransactionDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="TransactionDate" />
+    <cf:property name="TransactionType" nullable="false" maxLength="1" persistenceName="TransactionType" />
+    <cf:property name="Quantity" nullable="false" typeName="int" persistenceName="Quantity" />
+    <cf:property name="ActualCost" nullable="false" typeName="currency" persistenceName="ActualCost" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="Product" d3p1:guessed="true" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" nullable="false" typeName="{0}.Production.Product" relationPropertyName="TransactionHistories" persistenceName="ProductID" />
+  </cf:entity>
+  <cf:entity name="BusinessEntity" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Person" namespace="CodeFluentEntities.Bencher.Person" categoryPath="/Person" persistenceName="BusinessEntity">
+    <cf:property name="BusinessEntityID" persistenceIdentity="true" key="true" typeName="int" persistenceName="BusinessEntityID" />
+    <cf:property name="Rowguid" d3p1:rowguidcol="true" uiEnabled="false" xmlns:d3p1="http://www.softfluent.com/codefluent/producers.sqlserver/2005/1" persistenceDefaultValue="((newid()))" nullable="false" uIEnabled="false" typeName="guid" persistenceName="rowguid" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="Stores" typeName="{0}.Sales.StoreCollection" relationPropertyName="BusinessEntity" />
+    <cf:property name="BusinessEntityAddresses" typeName="{0}.Person.BusinessEntityAddressCollection" relationPropertyName="BusinessEntity" />
+    <cf:property name="BusinessEntityContacts" typeName="{0}.Person.BusinessEntityContactCollection" relationPropertyName="BusinessEntity" />
+    <cf:property name="Vendors" typeName="{0}.Purchasing.VendorCollection" relationPropertyName="BusinessEntity" />
+    <cf:property name="Persons" typeName="{0}.Person.PersonCollection" relationPropertyName="BusinessEntity" />
+  </cf:entity>
+  <cf:entity name="ProductReview" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Production" namespace="CodeFluentEntities.Bencher.Production" categoryPath="/Production" persistenceName="ProductReview">
+    <cf:property name="ProductReviewID" persistenceIdentity="true" key="true" typeName="int" persistenceName="ProductReviewID" />
+    <cf:property name="ReviewerName" nullable="false" maxLength="50" persistenceName="ReviewerName" />
+    <cf:property name="ReviewDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ReviewDate" />
+    <cf:property name="EmailAddress" nullable="false" maxLength="50" persistenceName="EmailAddress" />
+    <cf:property name="Rating" nullable="false" typeName="int" persistenceName="Rating" />
+    <cf:property name="Comments" maxLength="3850" persistenceName="Comments" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="Product" d3p1:guessed="true" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" nullable="false" typeName="{0}.Production.Product" relationPropertyName="ProductReviews" persistenceName="ProductID" />
+  </cf:entity>
+  <cf:entity name="BusinessEntityAddress" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Person" namespace="CodeFluentEntities.Bencher.Person" categoryPath="/Person" persistenceName="BusinessEntityAddress">
+    <cf:property name="AddressID" persistenceIdentity="false" key="true" typeName="int" persistenceName="AddressID" />
+    <cf:property name="AddressTypeID" persistenceIdentity="false" key="true" typeName="int" persistenceName="AddressTypeID" />
+    <cf:property name="Rowguid" d3p1:rowguidcol="true" uiEnabled="false" xmlns:d3p1="http://www.softfluent.com/codefluent/producers.sqlserver/2005/1" persistenceDefaultValue="((newid()))" nullable="false" uIEnabled="false" typeName="guid" persistenceName="rowguid" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="BusinessEntity" d3p1:relationKey="FK_BusinessEntityAddress_BusinessEntity_BusinessEntityID" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" key="true" typeName="{0}.Person.BusinessEntity" relationPropertyName="BusinessEntityAddresses" persistenceName="BusinessEntityID" />
+  </cf:entity>
+  <cf:entity name="TransactionHistoryArchive" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Production" namespace="CodeFluentEntities.Bencher.Production" categoryPath="/Production" persistenceName="TransactionHistoryArchive">
+    <cf:property name="TransactionID" persistenceIdentity="false" key="true" typeName="int" persistenceName="TransactionID" />
+    <cf:property name="ReferenceOrderID" nullable="false" typeName="int" persistenceName="ReferenceOrderID" />
+    <cf:property name="ReferenceOrderLineID" persistenceDefaultValue="0" nullable="false" defaultValue="0" typeName="int" persistenceName="ReferenceOrderLineID" />
+    <cf:property name="TransactionDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="TransactionDate" />
+    <cf:property name="TransactionType" nullable="false" maxLength="1" persistenceName="TransactionType" />
+    <cf:property name="Quantity" nullable="false" typeName="int" persistenceName="Quantity" />
+    <cf:property name="ActualCost" nullable="false" typeName="currency" persistenceName="ActualCost" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="Product" d3p1:guessed="true" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" nullable="false" typeName="{0}.Production.Product" relationPropertyName="TransactionHistoryArchives" persistenceName="ProductID" />
+  </cf:entity>
+  <cf:entity name="ProductSubcategory" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Production" namespace="CodeFluentEntities.Bencher.Production" categoryPath="/Production" persistenceName="ProductSubcategory">
+    <cf:property name="ProductSubcategoryID" persistenceIdentity="true" key="true" typeName="int" persistenceName="ProductSubcategoryID" />
+    <cf:property name="Name" nullable="false" maxLength="50" persistenceName="Name" />
+    <cf:property name="Rowguid" d3p1:rowguidcol="true" uiEnabled="false" xmlns:d3p1="http://www.softfluent.com/codefluent/producers.sqlserver/2005/1" persistenceDefaultValue="((newid()))" nullable="false" uIEnabled="false" typeName="guid" persistenceName="rowguid" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="ProductCategory" d3p1:relationKey="FK_ProductSubcategory_ProductCategory_ProductCategoryID" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" nullable="false" typeName="{0}.Production.ProductCategory" relationPropertyName="ProductSubcategories" persistenceName="ProductCategoryID" />
+    <cf:property name="Products" typeName="{0}.Production.ProductCollection" relationPropertyName="ProductSubcategory" />
+  </cf:entity>
+  <cf:entity name="BusinessEntityContact" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Person" namespace="CodeFluentEntities.Bencher.Person" categoryPath="/Person" persistenceName="BusinessEntityContact">
+    <cf:property name="PersonID" persistenceIdentity="false" key="true" typeName="int" persistenceName="PersonID" />
+    <cf:property name="Rowguid" d3p1:rowguidcol="true" uiEnabled="false" xmlns:d3p1="http://www.softfluent.com/codefluent/producers.sqlserver/2005/1" persistenceDefaultValue="((newid()))" nullable="false" uIEnabled="false" typeName="guid" persistenceName="rowguid" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="BusinessEntity" d3p1:relationKey="FK_BusinessEntityContact_BusinessEntity_BusinessEntityID" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" key="true" typeName="{0}.Person.BusinessEntity" relationPropertyName="BusinessEntityContacts" persistenceName="BusinessEntityID" />
+    <cf:property name="ContactType" d3p1:relationKey="FK_BusinessEntityContact_ContactType_ContactTypeID" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" key="true" typeName="{0}.Person.ContactType" relationPropertyName="BusinessEntityContacts" persistenceName="ContactTypeID" />
+  </cf:entity>
+  <cf:entity name="ProductVendor" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Purchasing" namespace="CodeFluentEntities.Bencher.Purchasing" categoryPath="/Purchasing" persistenceName="ProductVendor">
+    <cf:property name="ProductID" persistenceIdentity="false" key="true" typeName="int" persistenceName="ProductID" />
+    <cf:property name="BusinessEntityID" persistenceIdentity="false" key="true" typeName="int" persistenceName="BusinessEntityID" />
+    <cf:property name="AverageLeadTime" nullable="false" typeName="int" persistenceName="AverageLeadTime" />
+    <cf:property name="StandardPrice" nullable="false" typeName="currency" persistenceName="StandardPrice" />
+    <cf:property name="LastReceiptCost" serializationNullable="true" modelNullable="true" typeName="currency" persistenceName="LastReceiptCost" />
+    <cf:property name="LastReceiptDate" serializationNullable="true" modelNullable="true" typeName="datetime" persistenceName="LastReceiptDate" />
+    <cf:property name="MinOrderQty" nullable="false" typeName="int" persistenceName="MinOrderQty" />
+    <cf:property name="MaxOrderQty" nullable="false" typeName="int" persistenceName="MaxOrderQty" />
+    <cf:property name="OnOrderQty" serializationNullable="true" modelNullable="true" typeName="int" persistenceName="OnOrderQty" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="UnitMeasure" d3p1:relationKey="FK_ProductVendor_UnitMeasure_UnitMeasureCode" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" nullable="false" typeName="{0}.Production.UnitMeasure" relationPropertyName="ProductVendors" persistenceName="UnitMeasureCode" />
+  </cf:entity>
+  <cf:entity name="UnitMeasure" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Production" namespace="CodeFluentEntities.Bencher.Production" categoryPath="/Production" persistenceName="UnitMeasure">
+    <cf:property name="UnitMeasureCode" key="true" typeName="string" maxLength="3" persistenceName="UnitMeasureCode" />
+    <cf:property name="Name" nullable="false" maxLength="50" persistenceName="Name" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="BillOfMaterials" typeName="{0}.Production.BillOfMaterialCollection" relationPropertyName="UnitMeasure" />
+    <cf:property name="ProductVendors" typeName="{0}.Purchasing.ProductVendorCollection" relationPropertyName="UnitMeasure" />
+    <cf:property name="SizeProducts" typeName="{0}.Production.ProductCollection" relationPropertyName="SizeUnitMeasureCode" />
+    <cf:property name="WeightProducts" typeName="{0}.Production.ProductCollection" relationPropertyName="WeightUnitMeasureCode" />
+  </cf:entity>
+  <cf:entity name="ContactType" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Person" namespace="CodeFluentEntities.Bencher.Person" categoryPath="/Person" persistenceName="ContactType">
+    <cf:property name="ContactTypeID" persistenceIdentity="true" key="true" typeName="int" persistenceName="ContactTypeID" />
+    <cf:property name="Name" nullable="false" maxLength="50" persistenceName="Name" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="BusinessEntityContacts" typeName="{0}.Person.BusinessEntityContactCollection" relationPropertyName="ContactType" />
+  </cf:entity>
+  <cf:entity name="Vendor" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Purchasing" namespace="CodeFluentEntities.Bencher.Purchasing" categoryPath="/Purchasing" persistenceName="Vendor">
+    <cf:property name="AccountNumber" nullable="false" maxLength="15" persistenceName="AccountNumber" />
+    <cf:property name="Name" nullable="false" maxLength="50" persistenceName="Name" />
+    <cf:property name="CreditRating" nullable="false" typeName="byte" persistenceName="CreditRating" />
+    <cf:property name="PreferredVendorStatus" persistenceDefaultValue="True" nullable="false" defaultValue="True" typeName="bool" persistenceName="PreferredVendorStatus" />
+    <cf:property name="ActiveFlag" persistenceDefaultValue="True" nullable="false" defaultValue="True" typeName="bool" persistenceName="ActiveFlag" />
+    <cf:property name="PurchasingWebServiceURL" maxLength="1024" persistenceName="PurchasingWebServiceURL" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="BusinessEntity" d3p1:relationKey="FK_Vendor_BusinessEntity_BusinessEntityID" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" key="true" typeName="{0}.Person.BusinessEntity" relationPropertyName="Vendors" persistenceName="BusinessEntityID" />
+  </cf:entity>
+  <cf:entity name="CountryRegionCurrency" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Sales" namespace="CodeFluentEntities.Bencher.Sales" categoryPath="/Sales" persistenceName="CountryRegionCurrency">
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="CountryRegion" d3p1:relationKey="FK_CountryRegionCurrency_CountryRegion_CountryRegionCode" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" key="true" typeName="{0}.Person.CountryRegion" relationPropertyName="CountryRegionCurrencies" persistenceName="CountryRegionCode" />
+    <cf:property name="Currency" d3p1:relationKey="FK_CountryRegionCurrency_Currency_CurrencyCode" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" key="true" typeName="{0}.Sales.Currency" relationPropertyName="CountryRegionCurrencies" persistenceName="CurrencyCode" />
+  </cf:entity>
+  <cf:entity name="CountryRegion" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Person" namespace="CodeFluentEntities.Bencher.Person" categoryPath="/Person" persistenceName="CountryRegion">
+    <cf:property name="CountryRegionCode" key="true" typeName="string" maxLength="3" persistenceName="CountryRegionCode" />
+    <cf:property name="Name" nullable="false" maxLength="50" persistenceName="Name" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="StateProvinces" typeName="{0}.Person.StateProvinceCollection" relationPropertyName="CountryRegion" />
+    <cf:property name="CountryRegionCurrencies" typeName="{0}.Sales.CountryRegionCurrencyCollection" relationPropertyName="CountryRegion" />
+    <cf:property name="SalesTerritories" typeName="{0}.Sales.SalesTerritoryCollection" relationPropertyName="CountryRegion" />
+  </cf:entity>
+  <cf:entity name="CreditCard" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Sales" namespace="CodeFluentEntities.Bencher.Sales" categoryPath="/Sales" persistenceName="CreditCard">
+    <cf:property name="CreditCardID" persistenceIdentity="true" key="true" typeName="int" persistenceName="CreditCardID" />
+    <cf:property name="CardType" nullable="false" maxLength="50" persistenceName="CardType" />
+    <cf:property name="CardNumber" nullable="false" maxLength="25" persistenceName="CardNumber" />
+    <cf:property name="ExpMonth" nullable="false" typeName="byte" persistenceName="ExpMonth" />
+    <cf:property name="ExpYear" nullable="false" typeName="short" persistenceName="ExpYear" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="SalesOrderHeaders" typeName="{0}.Sales.SalesOrderHeaderCollection" relationPropertyName="CreditCard" />
+    <cf:property name="PersonCreditCards" typeName="{0}.Sales.PersonCreditCardCollection" relationPropertyName="CreditCard" />
+  </cf:entity>
+  <cf:entity name="WorkOrder" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Production" namespace="CodeFluentEntities.Bencher.Production" categoryPath="/Production" persistenceName="WorkOrder">
+    <cf:property name="WorkOrderID" persistenceIdentity="true" key="true" typeName="int" persistenceName="WorkOrderID" />
+    <cf:property name="OrderQty" nullable="false" typeName="int" persistenceName="OrderQty" />
+    <cf:property name="StockedQty" d3p1:compute="(isnull([OrderQty]-[ScrappedQty],(0)))" xmlns:d3p1="http://www.softfluent.com/codefluent/producers.sqlserver/2005/1" save="false" nullable="false" readOnSave="true" typeName="int" persistenceName="StockedQty" />
+    <cf:property name="ScrappedQty" nullable="false" typeName="short" persistenceName="ScrappedQty" />
+    <cf:property name="StartDate" nullable="false" typeName="datetime" persistenceName="StartDate" />
+    <cf:property name="EndDate" serializationNullable="true" modelNullable="true" typeName="datetime" persistenceName="EndDate" />
+    <cf:property name="DueDate" nullable="false" typeName="datetime" persistenceName="DueDate" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="ScrapReason" d3p1:relationKey="FK_WorkOrder_ScrapReason_ScrapReasonID" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" typeName="{0}.Production.ScrapReason" relationPropertyName="WorkOrders" persistenceName="ScrapReasonID" />
+    <cf:property name="Product" d3p1:guessed="true" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" nullable="false" typeName="{0}.Production.Product" relationPropertyName="WorkOrders" persistenceName="ProductID" />
+  </cf:entity>
+  <cf:entity name="PurchaseOrderDetail" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Purchasing" namespace="CodeFluentEntities.Bencher.Purchasing" categoryPath="/Purchasing" persistenceName="PurchaseOrderDetail">
+    <cf:property name="PurchaseOrderID" persistenceIdentity="false" key="true" typeName="int" persistenceName="PurchaseOrderID" />
+    <cf:property name="PurchaseOrderDetailID" persistenceIdentity="true" key="true" typeName="int" persistenceName="PurchaseOrderDetailID" />
+    <cf:property name="DueDate" nullable="false" typeName="datetime" persistenceName="DueDate" />
+    <cf:property name="OrderQty" nullable="false" typeName="short" persistenceName="OrderQty" />
+    <cf:property name="UnitPrice" nullable="false" typeName="currency" persistenceName="UnitPrice" />
+    <cf:property name="LineTotal" d3p1:compute="(isnull([OrderQty]*[UnitPrice],(0.00)))" xmlns:d3p1="http://www.softfluent.com/codefluent/producers.sqlserver/2005/1" save="false" nullable="false" readOnSave="true" typeName="currency" persistenceName="LineTotal" />
+    <cf:property name="ReceivedQty" nullable="false" typeName="decimal" persistenceName="ReceivedQty" />
+    <cf:property name="RejectedQty" nullable="false" typeName="decimal" persistenceName="RejectedQty" />
+    <cf:property name="StockedQty" d3p1:compute="(isnull([ReceivedQty]-[RejectedQty],(0.00)))" xmlns:d3p1="http://www.softfluent.com/codefluent/producers.sqlserver/2005/1" save="false" nullable="false" readOnSave="true" typeName="decimal" persistenceName="StockedQty" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="Product" d3p1:guessed="true" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" nullable="false" typeName="{0}.Production.Product" relationPropertyName="PurchaseOrderDetails" persistenceName="ProductID" />
+  </cf:entity>
+  <cf:entity name="Culture" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Production" namespace="CodeFluentEntities.Bencher.Production" categoryPath="/Production" persistenceName="Culture">
+    <cf:property name="CultureID" key="true" typeName="string" maxLength="6" persistenceName="CultureID" />
+    <cf:property name="Name" nullable="false" maxLength="50" persistenceName="Name" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="ProductModelProductDescriptionCultures" typeName="{0}.Production.ProductModelProductDescriptionCultureCollection" relationPropertyName="Culture" />
+  </cf:entity>
+  <cf:entity name="Currency" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Sales" namespace="CodeFluentEntities.Bencher.Sales" categoryPath="/Sales" persistenceName="Currency">
+    <cf:property name="CurrencyCode" key="true" typeName="string" maxLength="3" persistenceName="CurrencyCode" />
+    <cf:property name="Name" nullable="false" maxLength="50" persistenceName="Name" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="CountryRegionCurrencies" typeName="{0}.Sales.CountryRegionCurrencyCollection" relationPropertyName="Currency" />
+    <cf:property name="FromCurrencyRates" typeName="{0}.Sales.CurrencyRateCollection" relationPropertyName="FromCurrencyCode" />
+    <cf:property name="ToCurrencyRates" typeName="{0}.Sales.CurrencyRateCollection" relationPropertyName="ToCurrencyCode" />
+  </cf:entity>
+  <cf:entity name="WorkOrderRouting" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Production" namespace="CodeFluentEntities.Bencher.Production" categoryPath="/Production" persistenceName="WorkOrderRouting">
+    <cf:property name="WorkOrderID" persistenceIdentity="false" key="true" typeName="int" persistenceName="WorkOrderID" />
+    <cf:property name="ProductID" persistenceIdentity="false" key="true" typeName="int" persistenceName="ProductID" />
+    <cf:property name="OperationSequence" persistenceIdentity="false" key="true" typeName="short" persistenceName="OperationSequence" />
+    <cf:property name="ScheduledStartDate" nullable="false" typeName="datetime" persistenceName="ScheduledStartDate" />
+    <cf:property name="ScheduledEndDate" nullable="false" typeName="datetime" persistenceName="ScheduledEndDate" />
+    <cf:property name="ActualStartDate" serializationNullable="true" modelNullable="true" typeName="datetime" persistenceName="ActualStartDate" />
+    <cf:property name="ActualEndDate" serializationNullable="true" modelNullable="true" typeName="datetime" persistenceName="ActualEndDate" />
+    <cf:property name="ActualResourceHrs" serializationNullable="true" modelNullable="true" typeName="decimal" persistenceName="ActualResourceHrs" />
+    <cf:property name="PlannedCost" nullable="false" typeName="currency" persistenceName="PlannedCost" />
+    <cf:property name="ActualCost" serializationNullable="true" modelNullable="true" typeName="currency" persistenceName="ActualCost" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="Location" d3p1:relationKey="FK_WorkOrderRouting_Location_LocationID" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" nullable="false" typeName="{0}.Production.Location" relationPropertyName="WorkOrderRoutings" persistenceName="LocationID" />
+  </cf:entity>
+  <cf:entity name="CurrencyRate" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Sales" namespace="CodeFluentEntities.Bencher.Sales" categoryPath="/Sales" persistenceName="CurrencyRate">
+    <cf:property name="CurrencyRateID" persistenceIdentity="true" key="true" typeName="int" persistenceName="CurrencyRateID" />
+    <cf:property name="CurrencyRateDate" nullable="false" typeName="datetime" persistenceName="CurrencyRateDate" />
+    <cf:property name="AverageRate" nullable="false" typeName="currency" persistenceName="AverageRate" />
+    <cf:property name="EndOfDayRate" nullable="false" typeName="currency" persistenceName="EndOfDayRate" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="FromCurrencyCode" d3p1:relationKey="FK_CurrencyRate_Currency_FromCurrencyCode" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" nullable="false" typeName="{0}.Sales.Currency" relationPropertyName="FromCurrencyRates" persistenceName="FromCurrencyCode" />
+    <cf:property name="ToCurrencyCode" d3p1:relationKey="FK_CurrencyRate_Currency_ToCurrencyCode" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" nullable="false" typeName="{0}.Sales.Currency" relationPropertyName="ToCurrencyRates" persistenceName="ToCurrencyCode" />
+    <cf:property name="SalesOrderHeaders" typeName="{0}.Sales.SalesOrderHeaderCollection" relationPropertyName="CurrencyRate" />
+  </cf:entity>
+  <cf:entity name="PurchaseOrderHeader" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Purchasing" namespace="CodeFluentEntities.Bencher.Purchasing" categoryPath="/Purchasing" persistenceName="PurchaseOrderHeader">
+    <cf:property name="PurchaseOrderID" persistenceIdentity="true" key="true" typeName="int" persistenceName="PurchaseOrderID" />
+    <cf:property name="RevisionNumber" persistenceDefaultValue="0" nullable="false" defaultValue="0" typeName="byte" persistenceName="RevisionNumber" />
+    <cf:property name="Status" persistenceDefaultValue="1" nullable="false" defaultValue="1" typeName="byte" persistenceName="Status" />
+    <cf:property name="EmployeeID" nullable="false" typeName="int" persistenceName="EmployeeID" />
+    <cf:property name="VendorID" nullable="false" typeName="int" persistenceName="VendorID" />
+    <cf:property name="OrderDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="OrderDate" />
+    <cf:property name="ShipDate" serializationNullable="true" modelNullable="true" typeName="datetime" persistenceName="ShipDate" />
+    <cf:property name="SubTotal" persistenceDefaultValue="0,00" nullable="false" defaultValue="0,00" typeName="currency" persistenceName="SubTotal" />
+    <cf:property name="TaxAmt" persistenceDefaultValue="0,00" nullable="false" defaultValue="0,00" typeName="currency" persistenceName="TaxAmt" />
+    <cf:property name="Freight" persistenceDefaultValue="0,00" nullable="false" defaultValue="0,00" typeName="currency" persistenceName="Freight" />
+    <cf:property name="TotalDue" d3p1:compute="(isnull(([SubTotal]+[TaxAmt])+[Freight],(0)))" xmlns:d3p1="http://www.softfluent.com/codefluent/producers.sqlserver/2005/1" save="false" nullable="false" readOnSave="true" typeName="currency" persistenceName="TotalDue" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="ShipMethod" d3p1:relationKey="FK_PurchaseOrderHeader_ShipMethod_ShipMethodID" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" nullable="false" typeName="{0}.Purchasing.ShipMethod" relationPropertyName="PurchaseOrderHeaders" persistenceName="ShipMethodID" />
+  </cf:entity>
+  <cf:entity name="Customer" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Sales" namespace="CodeFluentEntities.Bencher.Sales" categoryPath="/Sales" persistenceName="Customer">
+    <cf:property name="CustomerID" persistenceIdentity="true" key="true" typeName="int" persistenceName="CustomerID" />
+    <cf:property name="PersonID" serializationNullable="true" modelNullable="true" typeName="int" persistenceName="PersonID" />
+    <cf:property name="StoreID" serializationNullable="true" modelNullable="true" typeName="int" persistenceName="StoreID" />
+    <cf:property name="AccountNumber" d3p1:compute="(isnull('AW'+[dbo].[ufnLeadingZeros]([CustomerID]),''))" xmlns:d3p1="http://www.softfluent.com/codefluent/producers.sqlserver/2005/1" save="false" nullable="false" readOnSave="true" persistenceUnicode="false" maxLength="10" persistenceName="AccountNumber" />
+    <cf:property name="Rowguid" d3p1:rowguidcol="true" uiEnabled="false" xmlns:d3p1="http://www.softfluent.com/codefluent/producers.sqlserver/2005/1" persistenceDefaultValue="((newid()))" nullable="false" uIEnabled="false" typeName="guid" persistenceName="rowguid" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="SalesTerritory" d3p1:guessed="true" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" typeName="{0}.Sales.SalesTerritory" relationPropertyName="Customers" persistenceName="TerritoryID" />
+    <cf:property name="SalesOrderHeaders" typeName="{0}.Sales.SalesOrderHeaderCollection" relationPropertyName="Customer" />
+  </cf:entity>
+  <cf:entity name="Department" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="HumanResources" namespace="CodeFluentEntities.Bencher.HumanResources" categoryPath="/HumanResources" persistenceName="Department">
+    <cf:property name="DepartmentID" persistenceIdentity="true" key="true" typeName="short" persistenceName="DepartmentID" />
+    <cf:property name="Name" nullable="false" maxLength="50" persistenceName="Name" />
+    <cf:property name="GroupName" nullable="false" maxLength="50" persistenceName="GroupName" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="EmployeeDepartmentHistories" typeName="{0}.HumanResources.EmployeeDepartmentHistoryCollection" relationPropertyName="Department" />
+  </cf:entity>
+  <cf:entity name="Document" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Production" namespace="CodeFluentEntities.Bencher.Production" categoryPath="/Production" persistenceName="Document">
+    <cf:property name="DocumentNode" d3p1:dataType="hierarchyid" xmlns:d3p1="http://www.softfluent.com/codefluent/producers.sqlserver/2005/1" nullable="false" typeName="byte[]" maxLength="892" persistenceName="DocumentNode" />
+    <cf:property name="DocumentLevel" d3p1:compute="([DocumentNode].[GetLevel]())" xmlns:d3p1="http://www.softfluent.com/codefluent/producers.sqlserver/2005/1" save="false" readOnSave="true" serializationNullable="true" modelNullable="true" typeName="short" persistenceName="DocumentLevel" />
+    <cf:property name="Title" key="true" typeName="string" maxLength="50" persistenceName="Title" />
+    <cf:property name="Owner" nullable="false" typeName="int" persistenceName="Owner" />
+    <cf:property name="FolderFlag" persistenceDefaultValue="False" nullable="false" defaultValue="False" typeName="bool" persistenceName="FolderFlag" />
+    <cf:property name="FileName" nullable="false" maxLength="400" persistenceName="FileName" />
+    <cf:property name="FileExtension" nullable="false" maxLength="8" persistenceName="FileExtension" />
+    <cf:property name="Revision" nullable="false" maxLength="5" persistenceName="Revision" />
+    <cf:property name="ChangeNumber" persistenceDefaultValue="0" nullable="false" defaultValue="0" typeName="int" persistenceName="ChangeNumber" />
+    <cf:property name="Status" nullable="false" typeName="byte" persistenceName="Status" />
+    <cf:property name="DocumentSummary" maxLength="-1" persistenceName="DocumentSummary" />
+    <cf:property name="Document1" typeName="byte[]" maxLength="-1" persistenceName="Document" />
+    <cf:property name="Rowguid" d3p1:rowguidcol="true" uiEnabled="false" xmlns:d3p1="http://www.softfluent.com/codefluent/producers.sqlserver/2005/1" persistenceDefaultValue="((newid()))" nullable="false" uIEnabled="false" typeName="guid" persistenceName="rowguid" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+  </cf:entity>
+  <cf:entity name="SalesOrderDetail" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Sales" namespace="CodeFluentEntities.Bencher.Sales" categoryPath="/Sales" persistenceName="SalesOrderDetail">
+    <cf:property name="SalesOrderID" persistenceIdentity="false" key="true" typeName="int" persistenceName="SalesOrderID" />
+    <cf:property name="SalesOrderDetailID" persistenceIdentity="true" key="true" typeName="int" persistenceName="SalesOrderDetailID" />
+    <cf:property name="CarrierTrackingNumber" maxLength="25" persistenceName="CarrierTrackingNumber" />
+    <cf:property name="OrderQty" nullable="false" typeName="short" persistenceName="OrderQty" />
+    <cf:property name="UnitPrice" nullable="false" typeName="currency" persistenceName="UnitPrice" />
+    <cf:property name="UnitPriceDiscount" persistenceDefaultValue="0,0" nullable="false" defaultValue="0,0" typeName="currency" persistenceName="UnitPriceDiscount" />
+    <cf:property name="LineTotal" d3p1:compute="(isnull(([UnitPrice]*((1.0)-[UnitPriceDiscount]))*[OrderQty],(0.0)))" xmlns:d3p1="http://www.softfluent.com/codefluent/producers.sqlserver/2005/1" save="false" nullable="false" readOnSave="true" typeName="decimal" persistenceName="LineTotal" />
+    <cf:property name="Rowguid" d3p1:rowguidcol="true" uiEnabled="false" xmlns:d3p1="http://www.softfluent.com/codefluent/producers.sqlserver/2005/1" persistenceDefaultValue="((newid()))" nullable="false" uIEnabled="false" typeName="guid" persistenceName="rowguid" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="Product" d3p1:guessed="true" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" nullable="false" typeName="{0}.Production.Product" relationPropertyName="SalesOrderDetails" persistenceName="ProductID" />
+    <cf:property name="SpecialOffer" d3p1:guessed="true" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" nullable="false" typeName="{0}.Sales.SpecialOffer" relationPropertyName="SalesOrderDetails" persistenceName="SpecialOfferID" />
+  </cf:entity>
+  <cf:entity name="EmailAddress" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Person" namespace="CodeFluentEntities.Bencher.Person" categoryPath="/Person" persistenceName="EmailAddress">
+    <cf:property name="BusinessEntityID" persistenceIdentity="false" key="true" typeName="int" persistenceName="BusinessEntityID" />
+    <cf:property name="EmailAddressID" persistenceIdentity="true" key="true" typeName="int" persistenceName="EmailAddressID" />
+    <cf:property name="EmailAddress1" maxLength="50" persistenceName="EmailAddress" />
+    <cf:property name="Rowguid" d3p1:rowguidcol="true" uiEnabled="false" xmlns:d3p1="http://www.softfluent.com/codefluent/producers.sqlserver/2005/1" persistenceDefaultValue="((newid()))" nullable="false" uIEnabled="false" typeName="guid" persistenceName="rowguid" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+  </cf:entity>
+  <cf:entity name="Employee" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="HumanResources" namespace="CodeFluentEntities.Bencher.HumanResources" categoryPath="/HumanResources" persistenceName="Employee">
+    <cf:property name="BusinessEntityID" persistenceIdentity="false" key="true" typeName="int" persistenceName="BusinessEntityID" />
+    <cf:property name="NationalIDNumber" nullable="false" maxLength="15" persistenceName="NationalIDNumber" />
+    <cf:property name="LoginID" nullable="false" maxLength="256" persistenceName="LoginID" />
+    <cf:property name="OrganizationNode" d3p1:dataType="hierarchyid" xmlns:d3p1="http://www.softfluent.com/codefluent/producers.sqlserver/2005/1" typeName="byte[]" maxLength="892" persistenceName="OrganizationNode" />
+    <cf:property name="OrganizationLevel" d3p1:compute="([OrganizationNode].[GetLevel]())" xmlns:d3p1="http://www.softfluent.com/codefluent/producers.sqlserver/2005/1" save="false" readOnSave="true" serializationNullable="true" modelNullable="true" typeName="short" persistenceName="OrganizationLevel" />
+    <cf:property name="JobTitle" nullable="false" maxLength="50" persistenceName="JobTitle" />
+    <cf:property name="BirthDate" nullable="false" typeName="date" persistenceName="BirthDate" />
+    <cf:property name="MaritalStatus" nullable="false" maxLength="1" persistenceName="MaritalStatus" />
+    <cf:property name="Gender" nullable="false" maxLength="1" persistenceName="Gender" />
+    <cf:property name="HireDate" nullable="false" typeName="date" persistenceName="HireDate" />
+    <cf:property name="SalariedFlag" persistenceDefaultValue="True" nullable="false" defaultValue="True" typeName="bool" persistenceName="SalariedFlag" />
+    <cf:property name="VacationHours" persistenceDefaultValue="0" nullable="false" defaultValue="0" typeName="short" persistenceName="VacationHours" />
+    <cf:property name="SickLeaveHours" persistenceDefaultValue="0" nullable="false" defaultValue="0" typeName="short" persistenceName="SickLeaveHours" />
+    <cf:property name="CurrentFlag" persistenceDefaultValue="True" nullable="false" defaultValue="True" typeName="bool" persistenceName="CurrentFlag" />
+    <cf:property name="Rowguid" d3p1:rowguidcol="true" uiEnabled="false" xmlns:d3p1="http://www.softfluent.com/codefluent/producers.sqlserver/2005/1" persistenceDefaultValue="((newid()))" nullable="false" uIEnabled="false" typeName="guid" persistenceName="rowguid" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+  </cf:entity>
+  <cf:entity name="SalesOrderHeader" _fr:fastReader="true" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Sales" namespace="CodeFluentEntities.Bencher.Sales" categoryPath="/Sales" persistenceName="SalesOrderHeader">
+    <cf:property name="SalesOrderID" _fr:fastReader="true" persistenceIdentity="true" key="true" typeName="int" persistenceName="SalesOrderID" />
+    <cf:property name="RevisionNumber" _fr:fastReader="true" persistenceDefaultValue="0" nullable="false" defaultValue="0" typeName="byte" persistenceName="RevisionNumber" />
+    <cf:property name="OrderDate" _fr:fastReader="true" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="OrderDate" />
+    <cf:property name="DueDate" _fr:fastReader="true" nullable="false" typeName="datetime" persistenceName="DueDate" />
+    <cf:property name="ShipDate" _fr:fastReader="true" serializationNullable="true" modelNullable="true" typeName="datetime" persistenceName="ShipDate" />
+    <cf:property name="Status" _fr:fastReader="true" persistenceDefaultValue="1" nullable="false" defaultValue="1" typeName="byte" persistenceName="Status" />
+    <cf:property name="OnlineOrderFlag" _fr:fastReader="true" persistenceDefaultValue="True" nullable="false" defaultValue="True" typeName="bool" persistenceName="OnlineOrderFlag" />
+    <cf:property name="SalesOrderNumber" d3p1:compute="(isnull(N'SO'+CONVERT([nvarchar](23),[SalesOrderID],0),N'*** ERROR ***'))" _fr:fastReader="true" xmlns:d3p1="http://www.softfluent.com/codefluent/producers.sqlserver/2005/1" save="false" nullable="false" readOnSave="true" maxLength="25" persistenceName="SalesOrderNumber" />
+    <cf:property name="PurchaseOrderNumber" _fr:fastReader="true" maxLength="25" persistenceName="PurchaseOrderNumber" />
+    <cf:property name="AccountNumber" _fr:fastReader="true" maxLength="15" persistenceName="AccountNumber" />
+    <cf:property name="SalesPersonID" _fr:fastReader="true" serializationNullable="true" modelNullable="true" typeName="int" persistenceName="SalesPersonID" />
+    <cf:property name="BillToAddressID" _fr:fastReader="true" nullable="false" typeName="int" persistenceName="BillToAddressID" />
+    <cf:property name="ShipToAddressID" _fr:fastReader="true" nullable="false" typeName="int" persistenceName="ShipToAddressID" />
+    <cf:property name="CreditCardApprovalCode" _fr:fastReader="true" persistenceUnicode="false" maxLength="15" persistenceName="CreditCardApprovalCode" />
+    <cf:property name="SubTotal" _fr:fastReader="true" persistenceDefaultValue="0,00" nullable="false" defaultValue="0,00" typeName="currency" persistenceName="SubTotal" />
+    <cf:property name="TaxAmt" _fr:fastReader="true" persistenceDefaultValue="0,00" nullable="false" defaultValue="0,00" typeName="currency" persistenceName="TaxAmt" />
+    <cf:property name="Freight" _fr:fastReader="true" persistenceDefaultValue="0,00" nullable="false" defaultValue="0,00" typeName="currency" persistenceName="Freight" />
+    <cf:property name="TotalDue" d3p1:compute="(isnull(([SubTotal]+[TaxAmt])+[Freight],(0)))" _fr:fastReader="true" xmlns:d3p1="http://www.softfluent.com/codefluent/producers.sqlserver/2005/1" save="false" nullable="false" readOnSave="true" typeName="currency" persistenceName="TotalDue" />
+    <cf:property name="Comment" _fr:fastReader="true" maxLength="128" persistenceName="Comment" />
+    <cf:property name="Rowguid" d3p1:rowguidcol="true" uiEnabled="false" _fr:fastReader="true" xmlns:d3p1="http://www.softfluent.com/codefluent/producers.sqlserver/2005/1" persistenceDefaultValue="((newid()))" nullable="false" uIEnabled="false" typeName="guid" persistenceName="rowguid" />
+    <cf:property name="ModifiedDate" _fr:fastReader="true" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="CreditCard" d3p1:relationKey="FK_SalesOrderHeader_CreditCard_CreditCardID" _fr:fastReader="true" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" typeName="{0}.Sales.CreditCard" relationPropertyName="SalesOrderHeaders" persistenceName="CreditCardID" />
+    <cf:property name="ShipMethod" d3p1:relationKey="FK_SalesOrderHeader_ShipMethod_ShipMethodID" _fr:fastReader="true" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" nullable="false" typeName="{0}.Purchasing.ShipMethod" relationPropertyName="SalesOrderHeaders" persistenceName="ShipMethodID" />
+    <cf:property name="Customer" d3p1:guessed="true" _fr:fastReader="true" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" nullable="false" typeName="{0}.Sales.Customer" relationPropertyName="SalesOrderHeaders" persistenceName="CustomerID" />
+    <cf:property name="SalesTerritory" d3p1:guessed="true" _fr:fastReader="true" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" typeName="{0}.Sales.SalesTerritory" relationPropertyName="SalesOrderHeaders" persistenceName="TerritoryID" />
+    <cf:property name="CurrencyRate" d3p1:guessed="true" _fr:fastReader="true" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" typeName="{0}.Sales.CurrencyRate" relationPropertyName="SalesOrderHeaders" persistenceName="CurrencyRateID" />
+  </cf:entity>
+  <cf:entity name="EmployeeDepartmentHistory" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="HumanResources" namespace="CodeFluentEntities.Bencher.HumanResources" categoryPath="/HumanResources" persistenceName="EmployeeDepartmentHistory">
+    <cf:property name="BusinessEntityID" persistenceIdentity="false" key="true" typeName="int" persistenceName="BusinessEntityID" />
+    <cf:property name="StartDate" nullable="false" typeName="date" persistenceName="StartDate" />
+    <cf:property name="EndDate" serializationNullable="true" modelNullable="true" typeName="date" persistenceName="EndDate" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="Department" d3p1:relationKey="FK_EmployeeDepartmentHistory_Department_DepartmentID" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" key="true" typeName="{0}.HumanResources.Department" relationPropertyName="EmployeeDepartmentHistories" persistenceName="DepartmentID" />
+    <cf:property name="Shift" d3p1:relationKey="FK_EmployeeDepartmentHistory_Shift_ShiftID" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" key="true" typeName="{0}.HumanResources.Shift" relationPropertyName="EmployeeDepartmentHistories" persistenceName="ShiftID" />
+  </cf:entity>
+  <cf:entity name="EmployeePayHistory" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="HumanResources" namespace="CodeFluentEntities.Bencher.HumanResources" categoryPath="/HumanResources" persistenceName="EmployeePayHistory">
+    <cf:property name="BusinessEntityID" persistenceIdentity="false" key="true" typeName="int" persistenceName="BusinessEntityID" />
+    <cf:property name="RateChangeDate" nullable="false" typeName="datetime" persistenceName="RateChangeDate" />
+    <cf:property name="Rate" nullable="false" typeName="currency" persistenceName="Rate" />
+    <cf:property name="PayFrequency" nullable="false" typeName="byte" persistenceName="PayFrequency" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+  </cf:entity>
+  <cf:entity name="SalesOrderHeaderSalesReason" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Sales" namespace="CodeFluentEntities.Bencher.Sales" categoryPath="/Sales" persistenceName="SalesOrderHeaderSalesReason">
+    <cf:property name="SalesOrderID" persistenceIdentity="false" key="true" typeName="int" persistenceName="SalesOrderID" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="SalesReason" d3p1:relationKey="FK_SalesOrderHeaderSalesReason_SalesReason_SalesReasonID" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" key="true" typeName="{0}.Sales.SalesReason" relationPropertyName="SalesOrderHeaderSalesReasons" persistenceName="SalesReasonID" />
+  </cf:entity>
+  <cf:entity name="SalesPerson" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Sales" namespace="CodeFluentEntities.Bencher.Sales" categoryPath="/Sales" persistenceName="SalesPerson">
+    <cf:property name="BusinessEntityID" persistenceIdentity="false" key="true" typeName="int" persistenceName="BusinessEntityID" />
+    <cf:property name="SalesQuota" serializationNullable="true" modelNullable="true" typeName="currency" persistenceName="SalesQuota" />
+    <cf:property name="Bonus" persistenceDefaultValue="0,00" nullable="false" defaultValue="0,00" typeName="currency" persistenceName="Bonus" />
+    <cf:property name="CommissionPct" persistenceDefaultValue="0,00" nullable="false" defaultValue="0,00" typeName="currency" persistenceName="CommissionPct" />
+    <cf:property name="SalesYTD" persistenceDefaultValue="0,00" nullable="false" defaultValue="0,00" typeName="currency" persistenceName="SalesYTD" />
+    <cf:property name="SalesLastYear" persistenceDefaultValue="0,00" nullable="false" defaultValue="0,00" typeName="currency" persistenceName="SalesLastYear" />
+    <cf:property name="Rowguid" d3p1:rowguidcol="true" uiEnabled="false" xmlns:d3p1="http://www.softfluent.com/codefluent/producers.sqlserver/2005/1" persistenceDefaultValue="((newid()))" nullable="false" uIEnabled="false" typeName="guid" persistenceName="rowguid" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="SalesTerritory" d3p1:guessed="true" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" typeName="{0}.Sales.SalesTerritory" relationPropertyName="SalesPersons" persistenceName="TerritoryID" />
+  </cf:entity>
+  <cf:entity name="Illustration" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Production" namespace="CodeFluentEntities.Bencher.Production" categoryPath="/Production" persistenceName="Illustration">
+    <cf:property name="IllustrationID" persistenceIdentity="true" key="true" typeName="int" persistenceName="IllustrationID" />
+    <cf:property name="Diagram" persistenceUnicode="false" typeName="xml" maxLength="-1" persistenceName="Diagram" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="ProductModelIllustrations" typeName="{0}.Production.ProductModelIllustrationCollection" relationPropertyName="Illustration" />
+  </cf:entity>
+  <cf:entity name="JobCandidate" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="HumanResources" namespace="CodeFluentEntities.Bencher.HumanResources" categoryPath="/HumanResources" persistenceName="JobCandidate">
+    <cf:property name="JobCandidateID" persistenceIdentity="true" key="true" typeName="int" persistenceName="JobCandidateID" />
+    <cf:property name="BusinessEntityID" serializationNullable="true" modelNullable="true" typeName="int" persistenceName="BusinessEntityID" />
+    <cf:property name="Resume" persistenceUnicode="false" typeName="xml" maxLength="-1" persistenceName="Resume" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+  </cf:entity>
+  <cf:entity name="Location" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Production" namespace="CodeFluentEntities.Bencher.Production" categoryPath="/Production" persistenceName="Location">
+    <cf:property name="LocationID" persistenceIdentity="true" key="true" typeName="short" persistenceName="LocationID" />
+    <cf:property name="Name" nullable="false" maxLength="50" persistenceName="Name" />
+    <cf:property name="CostRate" persistenceDefaultValue="0,00" nullable="false" defaultValue="0,00" typeName="currency" persistenceName="CostRate" />
+    <cf:property name="Availability" persistenceDefaultValue="0,00" nullable="false" defaultValue="0,00" typeName="decimal" persistenceName="Availability" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="ProductInventories" typeName="{0}.Production.ProductInventoryCollection" relationPropertyName="Location" />
+    <cf:property name="WorkOrderRoutings" typeName="{0}.Production.WorkOrderRoutingCollection" relationPropertyName="Location" />
+  </cf:entity>
+  <cf:entity name="Password" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Person" namespace="CodeFluentEntities.Bencher.Person" categoryPath="/Person" persistenceName="Password">
+    <cf:property name="BusinessEntityID" persistenceIdentity="false" key="true" typeName="int" persistenceName="BusinessEntityID" />
+    <cf:property name="PasswordHash" nullable="false" persistenceUnicode="false" maxLength="128" persistenceName="PasswordHash" />
+    <cf:property name="PasswordSalt" nullable="false" persistenceUnicode="false" maxLength="10" persistenceName="PasswordSalt" />
+    <cf:property name="Rowguid" d3p1:rowguidcol="true" uiEnabled="false" xmlns:d3p1="http://www.softfluent.com/codefluent/producers.sqlserver/2005/1" persistenceDefaultValue="((newid()))" nullable="false" uIEnabled="false" typeName="guid" persistenceName="rowguid" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+  </cf:entity>
+  <cf:entity name="SalesPersonQuotaHistory" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Sales" namespace="CodeFluentEntities.Bencher.Sales" categoryPath="/Sales" persistenceName="SalesPersonQuotaHistory">
+    <cf:property name="BusinessEntityID" persistenceIdentity="false" key="true" typeName="int" persistenceName="BusinessEntityID" />
+    <cf:property name="QuotaDate" nullable="false" typeName="datetime" persistenceName="QuotaDate" />
+    <cf:property name="SalesQuota" nullable="false" typeName="currency" persistenceName="SalesQuota" />
+    <cf:property name="Rowguid" d3p1:rowguidcol="true" uiEnabled="false" xmlns:d3p1="http://www.softfluent.com/codefluent/producers.sqlserver/2005/1" persistenceDefaultValue="((newid()))" nullable="false" uIEnabled="false" typeName="guid" persistenceName="rowguid" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+  </cf:entity>
+  <cf:entity name="Person" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Person" namespace="CodeFluentEntities.Bencher.Person" categoryPath="/Person" persistenceName="Person">
+    <cf:property name="PersonType" nullable="false" maxLength="2" persistenceName="PersonType" />
+    <cf:property name="NameStyle" persistenceDefaultValue="False" nullable="false" defaultValue="False" typeName="bool" persistenceName="NameStyle" />
+    <cf:property name="Title" maxLength="8" persistenceName="Title" />
+    <cf:property name="FirstName" nullable="false" maxLength="50" persistenceName="FirstName" />
+    <cf:property name="MiddleName" maxLength="50" persistenceName="MiddleName" />
+    <cf:property name="LastName" nullable="false" maxLength="50" persistenceName="LastName" />
+    <cf:property name="Suffix" maxLength="10" persistenceName="Suffix" />
+    <cf:property name="EmailPromotion" persistenceDefaultValue="0" nullable="false" defaultValue="0" typeName="int" persistenceName="EmailPromotion" />
+    <cf:property name="AdditionalContactInfo" persistenceUnicode="false" typeName="xml" maxLength="-1" persistenceName="AdditionalContactInfo" />
+    <cf:property name="Demographics" persistenceUnicode="false" typeName="xml" maxLength="-1" persistenceName="Demographics" />
+    <cf:property name="Rowguid" d3p1:rowguidcol="true" uiEnabled="false" xmlns:d3p1="http://www.softfluent.com/codefluent/producers.sqlserver/2005/1" persistenceDefaultValue="((newid()))" nullable="false" uIEnabled="false" typeName="guid" persistenceName="rowguid" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="BusinessEntity" d3p1:relationKey="FK_Person_BusinessEntity_BusinessEntityID" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" key="true" typeName="{0}.Person.BusinessEntity" relationPropertyName="Persons" persistenceName="BusinessEntityID" />
+  </cf:entity>
+  <cf:entity name="SalesReason" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Sales" namespace="CodeFluentEntities.Bencher.Sales" categoryPath="/Sales" persistenceName="SalesReason">
+    <cf:property name="SalesReasonID" persistenceIdentity="true" key="true" typeName="int" persistenceName="SalesReasonID" />
+    <cf:property name="Name" nullable="false" maxLength="50" persistenceName="Name" />
+    <cf:property name="ReasonType" nullable="false" maxLength="50" persistenceName="ReasonType" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="SalesOrderHeaderSalesReasons" typeName="{0}.Sales.SalesOrderHeaderSalesReasonCollection" relationPropertyName="SalesReason" />
+  </cf:entity>
+  <cf:entity name="SalesTaxRate" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Sales" namespace="CodeFluentEntities.Bencher.Sales" categoryPath="/Sales" persistenceName="SalesTaxRate">
+    <cf:property name="SalesTaxRateID" persistenceIdentity="true" key="true" typeName="int" persistenceName="SalesTaxRateID" />
+    <cf:property name="TaxType" nullable="false" typeName="byte" persistenceName="TaxType" />
+    <cf:property name="TaxRate" persistenceDefaultValue="0,00" nullable="false" defaultValue="0,00" typeName="currency" persistenceName="TaxRate" />
+    <cf:property name="Name" nullable="false" maxLength="50" persistenceName="Name" />
+    <cf:property name="Rowguid" d3p1:rowguidcol="true" uiEnabled="false" xmlns:d3p1="http://www.softfluent.com/codefluent/producers.sqlserver/2005/1" persistenceDefaultValue="((newid()))" nullable="false" uIEnabled="false" typeName="guid" persistenceName="rowguid" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="StateProvince" d3p1:guessed="true" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" nullable="false" typeName="{0}.Person.StateProvince" relationPropertyName="SalesTaxRates" persistenceName="StateProvinceID" />
+  </cf:entity>
+  <cf:entity name="PersonCreditCard" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Sales" namespace="CodeFluentEntities.Bencher.Sales" categoryPath="/Sales" persistenceName="PersonCreditCard">
+    <cf:property name="BusinessEntityID" persistenceIdentity="false" key="true" typeName="int" persistenceName="BusinessEntityID" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="CreditCard" d3p1:relationKey="FK_PersonCreditCard_CreditCard_CreditCardID" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" key="true" typeName="{0}.Sales.CreditCard" relationPropertyName="PersonCreditCards" persistenceName="CreditCardID" />
+  </cf:entity>
+  <cf:entity name="PersonPhone" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Person" namespace="CodeFluentEntities.Bencher.Person" categoryPath="/Person" persistenceName="PersonPhone">
+    <cf:property name="BusinessEntityID" persistenceIdentity="false" key="true" typeName="int" persistenceName="BusinessEntityID" />
+    <cf:property name="PhoneNumber" key="true" typeName="string" maxLength="25" persistenceName="PhoneNumber" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="PhoneNumberType" d3p1:relationKey="FK_PersonPhone_PhoneNumberType_PhoneNumberTypeID" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" key="true" typeName="{0}.Person.PhoneNumberType" relationPropertyName="PersonPhones" persistenceName="PhoneNumberTypeID" />
+  </cf:entity>
+  <cf:entity name="SalesTerritory" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Sales" namespace="CodeFluentEntities.Bencher.Sales" categoryPath="/Sales" persistenceName="SalesTerritory">
+    <cf:property name="TerritoryID" persistenceIdentity="true" key="true" typeName="int" persistenceName="TerritoryID" />
+    <cf:property name="Name" nullable="false" maxLength="50" persistenceName="Name" />
+    <cf:property name="Group" nullable="false" maxLength="50" persistenceName="Group" />
+    <cf:property name="SalesYTD" persistenceDefaultValue="0,00" nullable="false" defaultValue="0,00" typeName="currency" persistenceName="SalesYTD" />
+    <cf:property name="SalesLastYear" persistenceDefaultValue="0,00" nullable="false" defaultValue="0,00" typeName="currency" persistenceName="SalesLastYear" />
+    <cf:property name="CostYTD" persistenceDefaultValue="0,00" nullable="false" defaultValue="0,00" typeName="currency" persistenceName="CostYTD" />
+    <cf:property name="CostLastYear" persistenceDefaultValue="0,00" nullable="false" defaultValue="0,00" typeName="currency" persistenceName="CostLastYear" />
+    <cf:property name="Rowguid" d3p1:rowguidcol="true" uiEnabled="false" xmlns:d3p1="http://www.softfluent.com/codefluent/producers.sqlserver/2005/1" persistenceDefaultValue="((newid()))" nullable="false" uIEnabled="false" typeName="guid" persistenceName="rowguid" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="CountryRegion" d3p1:relationKey="FK_SalesTerritory_CountryRegion_CountryRegionCode" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" nullable="false" typeName="{0}.Person.CountryRegion" relationPropertyName="SalesTerritories" persistenceName="CountryRegionCode" />
+    <cf:property name="StateProvinces" typeName="{0}.Person.StateProvinceCollection" relationPropertyName="SalesTerritory" />
+    <cf:property name="Customers" typeName="{0}.Sales.CustomerCollection" relationPropertyName="SalesTerritory" />
+    <cf:property name="SalesOrderHeaders" typeName="{0}.Sales.SalesOrderHeaderCollection" relationPropertyName="SalesTerritory" />
+    <cf:property name="SalesPersons" typeName="{0}.Sales.SalesPersonCollection" relationPropertyName="SalesTerritory" />
+  </cf:entity>
+  <cf:entity name="PhoneNumberType" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Person" namespace="CodeFluentEntities.Bencher.Person" categoryPath="/Person" persistenceName="PhoneNumberType">
+    <cf:property name="PhoneNumberTypeID" persistenceIdentity="true" key="true" typeName="int" persistenceName="PhoneNumberTypeID" />
+    <cf:property name="Name" nullable="false" maxLength="50" persistenceName="Name" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="PersonPhones" typeName="{0}.Person.PersonPhoneCollection" relationPropertyName="PhoneNumberType" />
+  </cf:entity>
+  <cf:entity name="Product" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Production" namespace="CodeFluentEntities.Bencher.Production" categoryPath="/Production" persistenceName="Product">
+    <cf:property name="ProductID" persistenceIdentity="true" key="true" typeName="int" persistenceName="ProductID" />
+    <cf:property name="Name" nullable="false" maxLength="50" persistenceName="Name" />
+    <cf:property name="ProductNumber" nullable="false" maxLength="25" persistenceName="ProductNumber" />
+    <cf:property name="MakeFlag" persistenceDefaultValue="True" nullable="false" defaultValue="True" typeName="bool" persistenceName="MakeFlag" />
+    <cf:property name="FinishedGoodsFlag" persistenceDefaultValue="True" nullable="false" defaultValue="True" typeName="bool" persistenceName="FinishedGoodsFlag" />
+    <cf:property name="Color" maxLength="15" persistenceName="Color" />
+    <cf:property name="SafetyStockLevel" nullable="false" typeName="short" persistenceName="SafetyStockLevel" />
+    <cf:property name="ReorderPoint" nullable="false" typeName="short" persistenceName="ReorderPoint" />
+    <cf:property name="StandardCost" nullable="false" typeName="currency" persistenceName="StandardCost" />
+    <cf:property name="ListPrice" nullable="false" typeName="currency" persistenceName="ListPrice" />
+    <cf:property name="Size" maxLength="5" persistenceName="Size" />
+    <cf:property name="Weight" serializationNullable="true" modelNullable="true" typeName="decimal" persistenceName="Weight" />
+    <cf:property name="DaysToManufacture" nullable="false" typeName="int" persistenceName="DaysToManufacture" />
+    <cf:property name="ProductLine" maxLength="2" persistenceName="ProductLine" />
+    <cf:property name="Class" maxLength="2" persistenceName="Class" />
+    <cf:property name="Style" maxLength="2" persistenceName="Style" />
+    <cf:property name="SellStartDate" nullable="false" typeName="datetime" persistenceName="SellStartDate" />
+    <cf:property name="SellEndDate" serializationNullable="true" modelNullable="true" typeName="datetime" persistenceName="SellEndDate" />
+    <cf:property name="DiscontinuedDate" serializationNullable="true" modelNullable="true" typeName="datetime" persistenceName="DiscontinuedDate" />
+    <cf:property name="Rowguid" d3p1:rowguidcol="true" uiEnabled="false" xmlns:d3p1="http://www.softfluent.com/codefluent/producers.sqlserver/2005/1" persistenceDefaultValue="((newid()))" nullable="false" uIEnabled="false" typeName="guid" persistenceName="rowguid" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="ProductModel" d3p1:relationKey="FK_Product_ProductModel_ProductModelID" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" typeName="{0}.Production.ProductModel" relationPropertyName="Products" persistenceName="ProductModelID" />
+    <cf:property name="SizeUnitMeasureCode" d3p1:relationKey="FK_Product_UnitMeasure_SizeUnitMeasureCode" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" typeName="{0}.Production.UnitMeasure" relationPropertyName="SizeProducts" persistenceName="SizeUnitMeasureCode" />
+    <cf:property name="WeightUnitMeasureCode" d3p1:relationKey="FK_Product_UnitMeasure_WeightUnitMeasureCode" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" typeName="{0}.Production.UnitMeasure" relationPropertyName="WeightProducts" persistenceName="WeightUnitMeasureCode" />
+    <cf:property name="ProductSubcategory" d3p1:guessed="true" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" typeName="{0}.Production.ProductSubcategory" relationPropertyName="Products" persistenceName="ProductSubcategoryID" />
+    <cf:property name="TransactionHistories" typeName="{0}.Production.TransactionHistoryCollection" relationPropertyName="Product" />
+    <cf:property name="ProductReviews" typeName="{0}.Production.ProductReviewCollection" relationPropertyName="Product" />
+    <cf:property name="TransactionHistoryArchives" typeName="{0}.Production.TransactionHistoryArchiveCollection" relationPropertyName="Product" />
+    <cf:property name="WorkOrders" typeName="{0}.Production.WorkOrderCollection" relationPropertyName="Product" />
+    <cf:property name="PurchaseOrderDetails" typeName="{0}.Purchasing.PurchaseOrderDetailCollection" relationPropertyName="Product" />
+    <cf:property name="SalesOrderDetails" typeName="{0}.Sales.SalesOrderDetailCollection" relationPropertyName="Product" />
+    <cf:property name="ShoppingCartItems" typeName="{0}.Sales.ShoppingCartItemCollection" relationPropertyName="Product" />
+  </cf:entity>
+  <cf:entity name="SalesTerritoryHistory" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Sales" namespace="CodeFluentEntities.Bencher.Sales" categoryPath="/Sales" persistenceName="SalesTerritoryHistory">
+    <cf:property name="BusinessEntityID" persistenceIdentity="false" key="true" typeName="int" persistenceName="BusinessEntityID" />
+    <cf:property name="TerritoryID" persistenceIdentity="false" key="true" typeName="int" persistenceName="TerritoryID" />
+    <cf:property name="StartDate" nullable="false" typeName="datetime" persistenceName="StartDate" />
+    <cf:property name="EndDate" serializationNullable="true" modelNullable="true" typeName="datetime" persistenceName="EndDate" />
+    <cf:property name="Rowguid" d3p1:rowguidcol="true" uiEnabled="false" xmlns:d3p1="http://www.softfluent.com/codefluent/producers.sqlserver/2005/1" persistenceDefaultValue="((newid()))" nullable="false" uIEnabled="false" typeName="guid" persistenceName="rowguid" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+  </cf:entity>
+  <cf:entity name="ScrapReason" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Production" namespace="CodeFluentEntities.Bencher.Production" categoryPath="/Production" persistenceName="ScrapReason">
+    <cf:property name="ScrapReasonID" persistenceIdentity="true" key="true" typeName="short" persistenceName="ScrapReasonID" />
+    <cf:property name="Name" nullable="false" maxLength="50" persistenceName="Name" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="WorkOrders" typeName="{0}.Production.WorkOrderCollection" relationPropertyName="ScrapReason" />
+  </cf:entity>
+  <cf:entity name="Shift" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="HumanResources" namespace="CodeFluentEntities.Bencher.HumanResources" categoryPath="/HumanResources" persistenceName="Shift">
+    <cf:property name="ShiftID" persistenceIdentity="true" key="true" typeName="byte" persistenceName="ShiftID" />
+    <cf:property name="Name" nullable="false" maxLength="50" persistenceName="Name" />
+    <cf:property name="StartTime" nullable="false" typeName="time" persistenceName="StartTime" />
+    <cf:property name="EndTime" nullable="false" typeName="time" persistenceName="EndTime" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="EmployeeDepartmentHistories" typeName="{0}.HumanResources.EmployeeDepartmentHistoryCollection" relationPropertyName="Shift" />
+  </cf:entity>
+  <cf:entity name="ProductCategory" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Production" namespace="CodeFluentEntities.Bencher.Production" categoryPath="/Production" persistenceName="ProductCategory">
+    <cf:property name="ProductCategoryID" persistenceIdentity="true" key="true" typeName="int" persistenceName="ProductCategoryID" />
+    <cf:property name="Name" nullable="false" maxLength="50" persistenceName="Name" />
+    <cf:property name="Rowguid" d3p1:rowguidcol="true" uiEnabled="false" xmlns:d3p1="http://www.softfluent.com/codefluent/producers.sqlserver/2005/1" persistenceDefaultValue="((newid()))" nullable="false" uIEnabled="false" typeName="guid" persistenceName="rowguid" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="ProductSubcategories" typeName="{0}.Production.ProductSubcategoryCollection" relationPropertyName="ProductCategory" />
+  </cf:entity>
+  <cf:entity name="ShipMethod" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Purchasing" namespace="CodeFluentEntities.Bencher.Purchasing" categoryPath="/Purchasing" persistenceName="ShipMethod">
+    <cf:property name="ShipMethodID" persistenceIdentity="true" key="true" typeName="int" persistenceName="ShipMethodID" />
+    <cf:property name="Name" nullable="false" maxLength="50" persistenceName="Name" />
+    <cf:property name="ShipBase" persistenceDefaultValue="0,00" nullable="false" defaultValue="0,00" typeName="currency" persistenceName="ShipBase" />
+    <cf:property name="ShipRate" persistenceDefaultValue="0,00" nullable="false" defaultValue="0,00" typeName="currency" persistenceName="ShipRate" />
+    <cf:property name="Rowguid" d3p1:rowguidcol="true" uiEnabled="false" xmlns:d3p1="http://www.softfluent.com/codefluent/producers.sqlserver/2005/1" persistenceDefaultValue="((newid()))" nullable="false" uIEnabled="false" typeName="guid" persistenceName="rowguid" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="PurchaseOrderHeaders" typeName="{0}.Purchasing.PurchaseOrderHeaderCollection" relationPropertyName="ShipMethod" />
+    <cf:property name="SalesOrderHeaders" typeName="{0}.Sales.SalesOrderHeaderCollection" relationPropertyName="ShipMethod" />
+  </cf:entity>
+  <cf:entity name="ProductCostHistory" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Production" namespace="CodeFluentEntities.Bencher.Production" categoryPath="/Production" persistenceName="ProductCostHistory">
+    <cf:property name="ProductID" persistenceIdentity="false" key="true" typeName="int" persistenceName="ProductID" />
+    <cf:property name="StartDate" nullable="false" typeName="datetime" persistenceName="StartDate" />
+    <cf:property name="EndDate" serializationNullable="true" modelNullable="true" typeName="datetime" persistenceName="EndDate" />
+    <cf:property name="StandardCost" nullable="false" typeName="currency" persistenceName="StandardCost" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+  </cf:entity>
+  <cf:entity name="ProductDescription" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Production" namespace="CodeFluentEntities.Bencher.Production" categoryPath="/Production" persistenceName="ProductDescription">
+    <cf:property name="ProductDescriptionID" persistenceIdentity="true" key="true" typeName="int" persistenceName="ProductDescriptionID" />
+    <cf:property name="Description" nullable="false" maxLength="400" persistenceName="Description" />
+    <cf:property name="Rowguid" d3p1:rowguidcol="true" uiEnabled="false" xmlns:d3p1="http://www.softfluent.com/codefluent/producers.sqlserver/2005/1" persistenceDefaultValue="((newid()))" nullable="false" uIEnabled="false" typeName="guid" persistenceName="rowguid" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="ProductModelProductDescriptionCultures" typeName="{0}.Production.ProductModelProductDescriptionCultureCollection" relationPropertyName="ProductDescription" />
+  </cf:entity>
+  <cf:entity name="ShoppingCartItem" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Sales" namespace="CodeFluentEntities.Bencher.Sales" categoryPath="/Sales" persistenceName="ShoppingCartItem">
+    <cf:property name="ShoppingCartItemID" persistenceIdentity="true" key="true" typeName="int" persistenceName="ShoppingCartItemID" />
+    <cf:property name="ShoppingCartID" nullable="false" maxLength="50" persistenceName="ShoppingCartID" />
+    <cf:property name="Quantity" persistenceDefaultValue="1" nullable="false" defaultValue="1" typeName="int" persistenceName="Quantity" />
+    <cf:property name="DateCreated" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="DateCreated" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+    <cf:property name="Product" d3p1:guessed="true" xmlns:d3p1="http://www.softfluent.com/codefluent/importers.database/2008/1" nullable="false" typeName="{0}.Production.Product" relationPropertyName="ShoppingCartItems" persistenceName="ProductID" />
+  </cf:entity>
+  <cf:entity name="DatabaseLog" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" namespace="CodeFluentEntities.Bencher" categoryPath="/CodeFluentEntities.Bencher" persistenceName="DatabaseLog">
+    <cf:property name="DatabaseLogID" persistenceIdentity="true" key="true" typeName="int" persistenceName="DatabaseLogID" />
+    <cf:property name="PostTime" nullable="false" typeName="datetime" persistenceName="PostTime" />
+    <cf:property name="DatabaseUser" nullable="false" maxLength="128" persistenceName="DatabaseUser" />
+    <cf:property name="Event" nullable="false" maxLength="128" persistenceName="Event" />
+    <cf:property name="Schema" maxLength="128" persistenceName="Schema" />
+    <cf:property name="Object" maxLength="128" persistenceName="Object" />
+    <cf:property name="Tsql" nullable="false" maxLength="-1" persistenceName="TSQL" />
+    <cf:property name="XmlEvent" nullable="false" persistenceUnicode="false" typeName="xml" maxLength="-1" persistenceName="XmlEvent" />
+  </cf:entity>
+  <cf:entity name="ProductDocument" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" schema="Production" namespace="CodeFluentEntities.Bencher.Production" categoryPath="/Production" persistenceName="ProductDocument">
+    <cf:property name="ProductID" persistenceIdentity="false" key="true" typeName="int" persistenceName="ProductID" />
+    <cf:property name="DocumentNode" d3p1:dataType="hierarchyid" xmlns:d3p1="http://www.softfluent.com/codefluent/producers.sqlserver/2005/1" nullable="false" typeName="byte[]" maxLength="892" persistenceName="DocumentNode" />
+    <cf:property name="ModifiedDate" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ModifiedDate" />
+  </cf:entity>
+  <cf:entity name="ErrorLog" defaultUsePersistenceDefaultValue="false" setType="List" trackingModes="None" namespace="CodeFluentEntities.Bencher" categoryPath="/CodeFluentEntities.Bencher" persistenceName="ErrorLog">
+    <cf:property name="ErrorLogID" persistenceIdentity="true" key="true" typeName="int" persistenceName="ErrorLogID" />
+    <cf:property name="ErrorTime" persistenceDefaultValue="(GETDATE())" nullable="false" typeName="datetime" persistenceName="ErrorTime" />
+    <cf:property name="UserName" nullable="false" maxLength="128" persistenceName="UserName" />
+    <cf:property name="ErrorNumber" nullable="false" typeName="int" persistenceName="ErrorNumber" />
+    <cf:property name="ErrorSeverity" serializationNullable="true" modelNullable="true" typeName="int" persistenceName="ErrorSeverity" />
+    <cf:property name="ErrorState" serializationNullable="true" modelNullable="true" typeName="int" persistenceName="ErrorState" />
+    <cf:property name="ErrorProcedure" maxLength="126" persistenceName="ErrorProcedure" />
+    <cf:property name="ErrorLine" serializationNullable="true" modelNullable="true" typeName="int" persistenceName="ErrorLine" />
+    <cf:property name="ErrorMessage" nullable="false" maxLength="4000" persistenceName="ErrorMessage" />
+  </cf:entity>
+  <cf:producer name="SQL Server" typeName="CodeFluent.Producers.SqlServer.SqlServerProducer, CodeFluent.Producers.SqlServer">
+    <cf:configuration produceViews="true" connectionString="Server=127.0.0.1;Database=AdventureWorks;Integrated Security=true;Application Name=CodeFluentEntities.Bencher" targetDirectory="..\CodeFluentEntities.Bencher\Persistence" cfx:targetProject="..\CodeFluentEntities.Bencher\CodeFluentEntities.Bencher.csproj" cfx:targetProjectLayout="Update, DontRemove" />
+  </cf:producer>
+</cf:project>

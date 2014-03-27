@@ -1,0 +1,334 @@
+<cf:project xmlns:cf="http://www.softfluent.com/codefluent/2005/1" xmlns:cfsm="http://www.softfluent.com/codefluent/producers.servicemodel/2007/1" xmlns:cfom="http://www.softfluent.com/codefluent/producers.model/2005/1" defaultNamespace="Whatever">
+  <cf:pattern name="CodeFluent FasterReader Aspect" namespaceUri="http://www.softfluent.com/codefluent/patterns/faster.reader/2014/1" preferredPrefix="_fr" step="Methods">
+    <cf:message class="_doc">
+		CodeFluent Entities - Sample FasterReader Aspect
+		Version 1.0.0.0 - 2014/03/12
+		Copyright 2007-2014 (C) SoftFluent S.A.S. All rights reserved.
+	</cf:message>
+    <cf:descriptor name="fastReader" targets="Property, Entity" defaultValue="false" displayName="Enable Fast Reader" typeName="boolean" description="Determines if the fast reder is enabled for collection loading." category="Faster Reader Aspect" />
+  </cf:pattern>
+  <?code @reference name="CodeFluent.Producers.CodeDom.dll" ?>
+  <?code @reference name="System.Data.dll" ?>
+  <?code @reference name="System.Core.dll" ?>
+  <?code @namespace name="CodeFluent.Model" ?>
+  <?code @namespace name="CodeFluent.Model.Code" ?>
+  <?code @namespace name="CodeFluent.Model.Rules" ?>
+  <?code @namespace name="CodeFluent.Producers.CodeDom" ?>
+  <?code @namespace name="CodeFluent.Runtime" ?>
+  <?code @namespace name="CodeFluent.Runtime.Utilities" ?>
+  <?code @namespace name="System" ?>
+  <?code @namespace name="System.CodeDom" ?>
+  <?code @namespace name="System.Collections.Generic" ?>
+  <?code @namespace name="System.Linq" ?>
+  <?code @namespace name="System.Text" ?>
+
+  <?code @member
+    const string FastReaderNamespaceUri = "http://www.softfluent.com/codefluent/patterns/faster.reader/2014/1";
+  
+	public class FastProperty
+	{
+		public string Name;
+		public string ColumnName;
+		public CodeExpression Left;
+		public CodeTypeReference TypeRef;
+		public Type ClrType;
+		public int Index;
+		public bool IsNullable;
+		public Property Property;
+		
+		// resolve various properties
+		public void Resolve(CodeTypeDeclaration type)
+		{
+			// the expression can be a field or a property
+			CodeFieldReferenceExpression fieldRef = Left as CodeFieldReferenceExpression;
+			if (fieldRef != null)
+			{
+				Name = fieldRef.FieldName;
+				CodeMemberField member = type.Members.OfType<CodeMemberField>().First(f => f.Name == Name);
+				TypeRef = member.Type;
+				PropertyDefinition def = UserData.GetPropertyDefinition(member);
+				if (def != null)
+				{
+					// the expression is the key property of a related entity
+					// to determine nullability, let's get to the "real" property
+					if (def.RelationPropertyDefinition != null && def.RelationPropertyDefinition.Property != null)
+					{
+						Property = def.RelationPropertyDefinition.Property;
+					}
+					else
+					{
+						Property = def.Property;
+					}
+				}
+			}
+			else
+			{
+				Name = ((CodePropertyReferenceExpression)Left).PropertyName;
+				CodeMemberProperty member = type.Members.OfType<CodeMemberProperty>().First(p => p.Name == Name);
+				TypeRef = member.Type;
+				PropertyDefinition def = UserData.GetPropertyDefinition(member);
+				if (def != null)
+				{
+					if (def.RelationPropertyDefinition != null && def.RelationPropertyDefinition.Property != null)
+					{
+						Property = def.RelationPropertyDefinition.Property;
+					}
+					else
+					{
+						Property = def.Property;
+					}
+				}
+			}
+			
+			// NOTE: this supports only simple CLR types
+			ClrType = Type.GetType(TypeRef.BaseType, true);
+			if (ConvertUtilities.IsNullable(ClrType))
+			{
+				ClrType = Type.GetType(TypeRef.TypeArguments[0].BaseType, true);
+				IsNullable = true;
+			}
+			else
+			{
+				IsNullable = !ClrType.IsValueType || (Property != null && Property.IsNullable);
+			}
+			Console.WriteLine("prop:" + Property.Name + " nullable:" + Property.IsNullable + " mn:" + Property.IsModelNullable);
+		}
+	}
+  ?>
+
+  <?code
+
+    // determines if a method is ok for tweak
+	Func<CodeMemberMethod, bool> isLoadMethod = (m) =>
+	{
+		if (m.Parameters.Count < 4) return false;
+		if (m.Parameters[0].Type.BaseType != typeof(int).FullName) return false; // pageIndex
+		if (m.Parameters[1].Type.BaseType != typeof(int).FullName) return false; // pageSize
+		if (m.Parameters[2].Type.BaseType != typeof(PageOptions).FullName) return false; // pageOptions
+		if (m.Parameters[3].Type.BaseType != typeof(System.Data.IDataReader).FullName) return false; // reader
+		return true;
+	};
+	
+	// get the ReadRecord expression
+	Func<CodeMemberMethod, CodeMethodInvokeExpression> getReadRecord = (m) =>
+	{
+		CodeMethodInvokeExpression callReadRecord = null;
+		CodeDomUtilities.Visit(m, (obj) =>
+		{
+			if (callReadRecord != null) return;
+			CodeMethodInvokeExpression expr  = obj as CodeMethodInvokeExpression;
+			if (expr != null && expr.Method.MethodName == "ReadRecord")
+			{
+				callReadRecord = expr;
+			}
+		});
+		return callReadRecord;
+	};
+
+	// get the CanAddEntity condition
+	Func<CodeMemberMethod, CodeConditionStatement> getCanAddEntity = (m) =>
+	{
+		CodeConditionStatement canAddEntity = null;
+		CodeDomUtilities.Visit(m, (obj) =>
+		{
+			if (canAddEntity != null) return;
+			CodeConditionStatement cond = obj as CodeConditionStatement;
+			if (cond == null) return;
+			
+			CodeBinaryOperatorExpression expr = cond.Condition as CodeBinaryOperatorExpression;
+			if (expr == null) return;
+			
+			CodeMethodInvokeExpression invoke = expr.Left as CodeMethodInvokeExpression;
+			if (invoke != null && invoke.Method.MethodName == "CanAddEntity")
+			{
+				canAddEntity = cond;
+			}
+		});
+		return canAddEntity;
+	};
+	
+	// get the BaseContains condition
+	Func<CodeStatement, CodeConditionStatement> getBaseContains = (m) =>
+	{
+		CodeConditionStatement baseContains = null;
+		CodeDomUtilities.Visit(m, (obj) =>
+		{
+			if (baseContains != null) return;
+			CodeConditionStatement cond = obj as CodeConditionStatement;
+			if (cond == null) return;
+			
+			CodeBinaryOperatorExpression expr = cond.Condition as CodeBinaryOperatorExpression;
+			if (expr == null) return;
+			
+			CodeMethodInvokeExpression invoke = expr.Left as CodeMethodInvokeExpression;
+			if (invoke != null && invoke.Method.MethodName == "BaseContains")
+			{
+				baseContains = cond;
+			}
+		});
+		return baseContains;
+	};
+	
+	// extract the list of entity properties that we will load using IDataReader unprotected/raw access
+	Func<CodeTypeDeclaration, CodeMemberMethod, List<FastProperty>> extractFastProperties = (t, m) =>
+	{
+		List<FastProperty> list = new List<FastProperty>();
+		CodeDomUtilities.Visit(m, (obj) =>
+		{
+			CodeAssignStatement assign = obj as CodeAssignStatement;
+			if (assign != null)
+			{
+				CodeMethodInvokeExpression expr = assign.Right as CodeMethodInvokeExpression;
+				if (expr != null && expr.Method.MethodName == "GetReaderValue" && expr.Parameters.Count > 1 && expr.Parameters[1] is CodePrimitiveExpression)
+				{
+					FastProperty prop = new FastProperty();
+					prop.Index = list.Count;
+					prop.ColumnName = (string)((CodePrimitiveExpression)expr.Parameters[1]).Value;
+					prop.Left = assign.Left;
+					prop.Resolve(t);
+					list.Add(prop);
+				}
+			}
+		});
+		return list;
+	};
+	
+	CodeDomProducer codeDomProducer = Project.Producers.GetProducerInstance<CodeDomProducer>();
+	if (codeDomProducer != null)
+	{
+		codeDomProducer.CodeDomProduction += (sender, e) =>
+		{
+			CodeTypeDeclaration entityType;
+			CodeTypeDeclaration setType;
+			switch(e.EventType)
+			{
+				// a collection class is being written to disk. let's change it before that.
+				case CodeDomProductionEventType.SetCommitting:
+					Set set = UserData.GetBaseType((CodeCompileUnit)e.Argument) as Set; // get collection CodeDom type
+					if (!set.ItemEntity.GetAttributeValue("fastReader", FastReaderNamespaceUri, false))
+						break;
+						
+					// get the CodeDom types
+					entityType = codeDomProducer.GetType(set.ItemEntity);
+					setType = codeDomProducer.GetType(set);
+					if (setType != null)
+					{
+						// search for methods with 4 params of type int, int, PageOptions, IDataReader
+						foreach(CodeMemberMethod method in setType.Members.OfType<CodeMemberMethod>().Where(m => isLoadMethod(m)))
+						{
+							CodeMethodInvokeExpression callReadRecord = getReadRecord(method);
+							CodeConditionStatement ifCanAddEntity = getCanAddEntity(method);
+							if (callReadRecord != null && ifCanAddEntity != null)
+							{
+								// declare the 'int[] indices' variable
+								CodeVariableDeclarationStatement indices = new CodeVariableDeclarationStatement(typeof(int[]), "indices", new CodePrimitiveExpression(null));
+								method.Statements.Insert(0, indices);
+								
+								// hack the cast to do nothing, replace method name & args
+								((CodeCastExpression)callReadRecord.Method.TargetObject).TargetType = new CodeTypeReference(set.ItemEntity.ClrFullTypeName);
+								callReadRecord.Method.MethodName = "FastReadRecord";
+								CodeExpression readerArg = callReadRecord.Parameters[0];
+								callReadRecord.Parameters.Add(new CodeVariableReferenceExpression(indices.Name));
+							
+								// add the indices check & one-time only resolve
+								CodeConditionStatement ifIndicesNull = new CodeConditionStatement();
+								ifIndicesNull.Condition = new CodeBinaryOperatorExpression(
+										new CodeVariableReferenceExpression("indices"),
+									CodeBinaryOperatorType.ValueEquality,
+										new CodePrimitiveExpression(null));
+								ifCanAddEntity.TrueStatements.Insert(0, ifIndicesNull);
+								ifIndicesNull.TrueStatements.Add(new CodeAssignStatement(
+									new CodeVariableReferenceExpression(indices.Name),
+									new CodeMethodInvokeExpression(new CodeTypeReferenceExpression(set.ItemEntity.ClrFullTypeName), "GetRecordIndices", readerArg)));
+									
+								// small optimization, just remove this check
+								CodeConditionStatement baseContains = getBaseContains(ifCanAddEntity);
+								if (baseContains != null)
+								{
+									baseContains.Condition = new CodePrimitiveExpression(true);
+								}
+							}
+						}
+					}
+					break;
+
+				// an entity class is being written to disk. let's change it before that.
+				case CodeDomProductionEventType.EntityCommitting:
+					Entity entity = UserData.GetBaseType((CodeCompileUnit)e.Argument) as Entity; // get entity CodeDom type
+					if (!entity.GetAttributeValue("fastReader", FastReaderNamespaceUri, false))
+						break;
+					
+					// get the CodeDom type
+					entityType = codeDomProducer.GetType(entity);
+					if (entityType != null)
+					{
+						// get the ReadRecord CodeDom method
+						CodeMemberMethod readRecord = entityType.Members.OfType<CodeMemberMethod>().FirstOrDefault(m => m.Name == "ReadRecord");
+						if (readRecord != null)
+						{
+							// add a new "FastReadRecord" method
+							CodeMemberMethod fastReadRecord = new CodeMemberMethod();
+							fastReadRecord.Name = "FastReadRecord";
+							fastReadRecord.Attributes = MemberAttributes.FamilyAndAssembly; // internal
+							fastReadRecord.Parameters.Add(new CodeParameterDeclarationExpression(typeof(System.Data.IDataReader), "reader"));
+							fastReadRecord.Parameters.Add(new CodeParameterDeclarationExpression(typeof(int[]), "indices"));
+							entityType.Members.Add(fastReadRecord);
+							
+							// extract the interesting properties
+							List<FastProperty> props = extractFastProperties(entityType, readRecord);
+							foreach(var prop in props)
+							{
+								// if the property is nullable, we want to check reader.IsDBNull.
+								CodeStatementCollection statements;
+								if (prop.IsNullable)
+								{
+									CodeConditionStatement ifValueNotNull = new CodeConditionStatement();
+									ifValueNotNull.Condition = new CodeBinaryOperatorExpression(
+										new CodeMethodInvokeExpression(new CodeVariableReferenceExpression("reader"), "IsDBNull", new CodePrimitiveExpression(prop.Index)),
+										CodeBinaryOperatorType.ValueEquality,
+											new CodePrimitiveExpression(false));
+									fastReadRecord.Statements.Add(ifValueNotNull);
+									statements = ifValueNotNull.TrueStatements;
+								}
+								else
+								{
+									statements = fastReadRecord.Statements;
+								}
+								
+								// NOTE: this supports only standard CLR property types
+								string readerMethodName = "Get" + prop.ClrType.Name;
+								CodeAssignStatement assign = new CodeAssignStatement(prop.Left,
+									new CodeMethodInvokeExpression(new CodeVariableReferenceExpression("reader"), readerMethodName,
+											new CodeIndexerExpression(new CodeVariableReferenceExpression("indices"), new CodePrimitiveExpression(prop.Index))));
+								statements.Add(assign);
+							}
+
+							// add the static indice computation method for a given IDataReader instance
+							CodeMemberMethod getRecordIndices = new CodeMemberMethod();
+							getRecordIndices.Name = "GetRecordIndices";
+							getRecordIndices.ReturnType = new CodeTypeReference(typeof(int[]));
+							getRecordIndices.Attributes = MemberAttributes.FamilyAndAssembly | MemberAttributes.Static; // internal static
+							getRecordIndices.Parameters.Add(new CodeParameterDeclarationExpression(typeof(System.Data.IDataReader), "reader"));
+							entityType.Members.Add(getRecordIndices);
+
+							CodeVariableDeclarationStatement indices = new CodeVariableDeclarationStatement(typeof(int[]), "indices", new CodeArrayCreateExpression(typeof(int), props.Count));
+							getRecordIndices.Statements.Add(indices);
+							
+							foreach(var prop in props)
+							{
+								CodeAssignStatement assign = new CodeAssignStatement(
+									new CodeIndexerExpression(new CodeVariableReferenceExpression("indices"), new CodePrimitiveExpression(prop.Index)),
+									new CodeMethodInvokeExpression(new CodeVariableReferenceExpression("reader"), "GetOrdinal", new CodePrimitiveExpression(prop.ColumnName)));
+								getRecordIndices.Statements.Add(assign);
+							}
+							
+							getRecordIndices.Statements.Add(new CodeMethodReturnStatement(new CodeVariableReferenceExpression("indices")));
+						}
+					}
+					break;
+			}
+		};
+	}
+  ?>
+
+</cf:project>
