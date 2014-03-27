@@ -33,7 +33,7 @@ In the Entity Framework code, Foreign key fields are present in the code base, a
 
 Including data-table fetches might look like an apple/oranges comparison, but so is Full ORM vs. Micro 'ORM', as a souped up object materializer like Dapper has less things to worry about than, say NHibernate or LLBLGen Pro. The inclusion of these frameworks is done to show what can be achieved if there's little overhead between the DbDataReader and the materialized object. The closer an ORM gets to these lower-level object materializers, the better it is in fetching data with inclusion of the extra features if has to offer to the developer and the application it is used in. 
 
-[CodeFluent Entities](http://www.softfluent.com/products/codefluent-entities) is a Model-First code generator. CodeFluent Entities will access database using automatically generated stored procedures. For more information about CodeFluent Entities and this benchmark: http://blog.codefluententities.com/2014/03/27/adapting-code-generation-to-fit-your-needs.
+[CodeFluent Entities](http://www.softfluent.com/products/codefluent-entities) is a Model-First code generator. CodeFluent Entities will access database using automatically generated stored procedures. For more information about CodeFluent Entities and this benchmark: http://blog.codefluententities.com/2014/03/27/fetch-performance-of-codefluent-entities/.
 
 ### Disclaimer ###
 I wrote [LLBLGen Pro](http://www.llblgen.com/), though I tried to keep this benchmark as honest and open as possible.
