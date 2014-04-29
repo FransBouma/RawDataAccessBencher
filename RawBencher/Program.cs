@@ -52,6 +52,7 @@ namespace RawBencher
 
 			// need to supply different connection string names to Telerik benchers for different "cached" contexts 
 			RegisteredBenchers.Add(new HandCodedBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+			RegisteredBenchers.Add(new CodeFluentEntitiesBencher());
 			RegisteredBenchers.Add(new EntityFrameworkNoChangeTrackingBencher());
 			RegisteredBenchers.Add(new EntityFrameworkNormalBencher());
 			RegisteredBenchers.Add(new TelerikDomainBencher() { ConnectionStringToUse = "AdventureWorks.ConnectionString.SQL Server (SqlClient)" });
@@ -69,7 +70,6 @@ namespace RawBencher
 			RegisteredBenchers.Add(new OrmLiteBencher() { ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new PetaPocoBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new PetaPocoFastBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
-            RegisteredBenchers.Add(new CodeFluentEntitiesBencher());
 
 			DisplayHeader();
 	
@@ -191,7 +191,14 @@ namespace RawBencher
 			foreach (var bencher in RegisteredBenchers)
 			{
 				DisplayBencherInfo(bencher);
-				RunBencher(bencher);
+				try
+				{
+					RunBencher(bencher);
+				}
+				catch(Exception ex)
+				{
+					DisplayException(ex);
+				}
 			}
 		}
 
@@ -236,7 +243,7 @@ namespace RawBencher
 						// during benching, which is not what we want at it can skew the results a lot. In a very short time, a lot of queries are executed
 						// on the target server (LoopAmount * IndividualKeysAmount), which will hurt performance on VMs with very fast frameworks in some
 						// cases in some runs (so more than 2 runs are slow). 
-						Thread.Sleep(1000);
+						Thread.Sleep(200);
 					}
 				}
 			}
@@ -358,6 +365,21 @@ namespace RawBencher
 			}
 			Console.WriteLine(" Press enter to exit.");
 			Console.ReadLine();
+		}
+
+
+		private static void DisplayException(Exception toDisplay)
+		{
+			if(toDisplay == null)
+			{
+				return;
+			}
+
+			Console.WriteLine("Exception caught of type: {0}", toDisplay.GetType().FullName);
+			Console.WriteLine("Message: {0}", toDisplay.Message);
+			Console.WriteLine("Stack trace:\n{0}", toDisplay.StackTrace);
+			Console.WriteLine("Inner exception:");
+			DisplayException(toDisplay.InnerException);
 		}
 	}
 }

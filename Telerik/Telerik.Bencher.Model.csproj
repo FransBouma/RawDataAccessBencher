@@ -11,7 +11,7 @@
     <AssemblyName>Telerik.Bencher.Model</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <EnhancerAssembly>$(SolutionDir)\packages\Telerik.DataAccess.Fluent.2013.3.1320.1\tools\enhancer\enhancer.exe</EnhancerAssembly>
+    <EnhancerAssembly>$(SolutionDir)\packages\Telerik.DataAccess.Fluent.2014.1.403.2\tools\enhancer\enhancer.exe</EnhancerAssembly>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -33,7 +33,7 @@
   <ItemGroup>
     <Reference Include="Microsoft.SqlServer.Types, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <Private>True</Private>
-      <HintPath>..\packages\Microsoft.SqlServer.Types.11.0.0\lib\net20\Microsoft.SqlServer.Types.dll</HintPath>
+      <HintPath>..\packages\Microsoft.SqlServer.Types.11.0.1\lib\net20\Microsoft.SqlServer.Types.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -43,16 +43,20 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Telerik.OpenAccess, Version=2013.3.1320.1, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Telerik.DataAccess.Core.2013.3.1320.1\lib\Telerik.OpenAccess.dll</HintPath>
+    <Reference Include="Telerik.OpenAccess, Version=2014.1.403.2, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Telerik.DataAccess.Core.2014.1.403.2\lib\net40\Telerik.OpenAccess.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.OpenAccess.35.Extensions, Version=2013.3.1320.1, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342, processorArchitecture=MSIL">
-      <HintPath>..\packages\Telerik.DataAccess.Core.2013.3.1320.1\lib\Telerik.OpenAccess.35.Extensions.dll</HintPath>
+    <Reference Include="Telerik.OpenAccess.35.Extensions, Version=2014.1.403.2, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Telerik.DataAccess.Core.2014.1.403.2\lib\net40\Telerik.OpenAccess.35.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.OpenAccess.Runtime, Version=2013.3.1320.1, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Telerik.DataAccess.Core.2013.3.1320.1\lib\Telerik.OpenAccess.Runtime.dll</HintPath>
+    <Reference Include="Telerik.OpenAccess.40.Extensions">
+      <HintPath>..\packages\Telerik.DataAccess.Core.2014.1.403.2\lib\net40\Telerik.OpenAccess.40.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.OpenAccess.Runtime, Version=2014.1.403.2, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Telerik.DataAccess.Core.2014.1.403.2\lib\net40\Telerik.OpenAccess.Runtime.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -63,6 +67,7 @@
     </Compile>
     <Compile Include="Fluent\FluentModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SqlServerTypes\Loader.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
@@ -77,7 +82,16 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\packages\Microsoft.SqlServer.Types.11.0.1\nativeBinaries\x64\msvcr100.dll">
+      <Link>SqlServerTypes\x64\msvcr100.dll</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Microsoft.SqlServer.Types.11.0.1\nativeBinaries\x86\msvcr100.dll">
+      <Link>SqlServerTypes\x86\msvcr100.dll</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="OpenAccessREADME.txt" />
+    <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\SqlServerSpatial110.dll" />
     <Content Include="SqlServerTypes\x86\SqlServerSpatial110.dll" />
   </ItemGroup>
