@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AdventureWorks.Dal.Adapter.v41.DatabaseSpecific;
-using AdventureWorks.Dal.Adapter.v41.TypedViewClasses;
-using AdventureWorks.Dal.Adapter.v41.HelperClasses;
+using AdventureWorks.Dal.Adapter.v42.DatabaseSpecific;
+using AdventureWorks.Dal.Adapter.v42.TypedViewClasses;
+using AdventureWorks.Dal.Adapter.v42.HelperClasses;
 using SD.LLBLGen.Pro.ORMSupportClasses;
 
 namespace RawBencher.Benchers

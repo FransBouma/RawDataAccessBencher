@@ -9,10 +9,10 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using AdventureWorks.Dal.Adapter.v41.DatabaseSpecific;
-using AdventureWorks.Dal.Adapter.v41.EntityClasses;
-using AdventureWorks.Dal.Adapter.v41.HelperClasses;
-using AdventureWorks.Dal.Adapter.v41.FactoryClasses;
+using AdventureWorks.Dal.Adapter.v42.DatabaseSpecific;
+using AdventureWorks.Dal.Adapter.v42.EntityClasses;
+using AdventureWorks.Dal.Adapter.v42.HelperClasses;
+using AdventureWorks.Dal.Adapter.v42.FactoryClasses;
 using SD.LLBLGen.Pro.QuerySpec;
 using SD.LLBLGen.Pro.QuerySpec.Adapter;
 using SD.LLBLGen.Pro.ORMSupportClasses;
@@ -52,23 +52,25 @@ namespace RawBencher
 
 			// need to supply different connection string names to Telerik benchers for different "cached" contexts 
 			RegisteredBenchers.Add(new HandCodedBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
-			RegisteredBenchers.Add(new CodeFluentEntitiesBencher());
-			RegisteredBenchers.Add(new EntityFrameworkNoChangeTrackingBencher());
-			RegisteredBenchers.Add(new EntityFrameworkNormalBencher());
-			RegisteredBenchers.Add(new TelerikDomainBencher() { ConnectionStringToUse = "AdventureWorks.ConnectionString.SQL Server (SqlClient)" });
-			RegisteredBenchers.Add(new TelerikFluentBencher() { ConnectionStringToUse = "AdventureWorksConnectionTelerikFluent" });
-			RegisteredBenchers.Add(new DataTableBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+			RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingBencher());
+			RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingLinqPocoBencher());
+			RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingQuerySpecPocoBencher());
+			RegisteredBenchers.Add(new LLBLGenProNormalBencher());
+			//RegisteredBenchers.Add(new LLBLGenProResultsetCachingBencher());
+			//RegisteredBenchers.Add(new CodeFluentEntitiesBencher());
+			//RegisteredBenchers.Add(new EntityFrameworkNormalBencher());
+			//RegisteredBenchers.Add(new TelerikDomainBencher() { ConnectionStringToUse = "AdventureWorks.ConnectionString.SQL Server (SqlClient)" });
+			//RegisteredBenchers.Add(new TelerikFluentBencher() { ConnectionStringToUse = "AdventureWorksConnectionTelerikFluent" });
+			//RegisteredBenchers.Add(new DataTableBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+			//RegisteredBenchers.Add(new LinqToSqlNormalBencher());
+			//RegisteredBenchers.Add(new NHibernateNormalBencher());
+			//RegisteredBenchers.Add(new OakDynamicDbDtoBencher());
+			//RegisteredBenchers.Add(new OakDynamicDbNormalBencher());
+			//RegisteredBenchers.Add(new EntityFrameworkNoChangeTrackingBencher());
 			RegisteredBenchers.Add(new DapperBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new LinqToSqlNoChangeTrackingBencher());
-			RegisteredBenchers.Add(new LinqToSqlNormalBencher());
-			RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingBencher());
-			RegisteredBenchers.Add(new LLBLGenProResultsetCachingBencher());
-			RegisteredBenchers.Add(new LLBLGenProNormalBencher());
-			RegisteredBenchers.Add(new NHibernateNormalBencher());
-			RegisteredBenchers.Add(new OakDynamicDbDtoBencher());
-			RegisteredBenchers.Add(new OakDynamicDbNormalBencher());
-			RegisteredBenchers.Add(new OrmLiteBencher() { ConnectionStringToUse = ConnectionString });
-			RegisteredBenchers.Add(new PetaPocoBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+			//RegisteredBenchers.Add(new OrmLiteBencher() { ConnectionStringToUse = ConnectionString });
+			//RegisteredBenchers.Add(new PetaPocoBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new PetaPocoFastBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 
 			DisplayHeader();
@@ -77,7 +79,7 @@ namespace RawBencher
 			FetchKeysForIndividualFetches();
 
 			// Uncomment the line below if you want to profile a bencher. Specify the bencher instance and follow the guides on the screen.
-			//ProfileBenchers(RegisteredBenchers.FirstOrDefault(b=>b.GetType()==typeof(EntityFrameworkNoChangeTrackingBencher)));
+			ProfileBenchers(RegisteredBenchers.FirstOrDefault(b=>b.GetType()==typeof(LLBLGenProNoChangeTrackingQuerySpecPocoBencher)));
 
 			RunRegisteredBenchers();
 			ReportAveragedResults(autoExit);
