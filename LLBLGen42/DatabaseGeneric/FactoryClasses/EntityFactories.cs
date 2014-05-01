@@ -20,7 +20,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 	// __LLBLGENPRO_USER_CODE_REGION_START AdditionalNamespaces
 	// __LLBLGENPRO_USER_CODE_REGION_END
 	
-	
 	/// <summary>general base class for the generated factories</summary>
 	[Serializable]
 	public partial class EntityFactoryBase2<TEntity> : EntityFactoryCore2
@@ -113,7 +112,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new AddressEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewAddressUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -134,7 +132,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new AddressTypeEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewAddressTypeUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -155,7 +152,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new BillOfMaterialEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewBillOfMaterialUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -176,7 +172,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new BusinessEntityEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewBusinessEntityUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -197,7 +192,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new BusinessEntityAddressEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewBusinessEntityAddressUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -218,7 +212,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new BusinessEntityContactEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewBusinessEntityContactUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -239,7 +232,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new ContactCreditCardEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewContactCreditCardUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -260,7 +252,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new ContactTypeEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewContactTypeUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -281,7 +272,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new CountryRegionEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewCountryRegionUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -302,7 +292,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new CountryRegionCurrencyEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewCountryRegionCurrencyUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -323,7 +312,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new CreditCardEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewCreditCardUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -344,7 +332,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new CultureEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewCultureUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -365,7 +352,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new CurrencyEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewCurrencyUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -386,7 +372,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new CurrencyRateEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewCurrencyRateUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -407,7 +392,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new CustomerEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewCustomerUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -428,7 +412,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new DepartmentEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewDepartmentUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -449,7 +432,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new DocumentEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewDocumentUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -470,7 +452,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new EmailAddressEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewEmailAddressUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -491,7 +472,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new EmployeeEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewEmployeeUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -512,7 +492,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new EmployeeDepartmentHistoryEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewEmployeeDepartmentHistoryUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -533,7 +512,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new EmployeePayHistoryEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewEmployeePayHistoryUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -554,7 +532,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new IllustrationEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewIllustrationUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -575,7 +552,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new JobCandidateEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewJobCandidateUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -596,7 +572,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new LocationEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewLocationUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -617,7 +592,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new PasswordEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewPasswordUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -638,7 +612,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new PersonEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewPersonUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -659,7 +632,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new PersonPhoneEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewPersonPhoneUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -680,7 +652,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new PhoneNumberTypeEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewPhoneNumberTypeUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -701,7 +672,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new ProductEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewProductUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -722,7 +692,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new ProductCategoryEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewProductCategoryUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -743,7 +712,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new ProductCostHistoryEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewProductCostHistoryUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -764,7 +732,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new ProductDescriptionEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewProductDescriptionUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -785,7 +752,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new ProductDocumentEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewProductDocumentUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -806,7 +772,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new ProductInventoryEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewProductInventoryUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -827,7 +792,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new ProductListPriceHistoryEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewProductListPriceHistoryUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -848,7 +812,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new ProductModelEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewProductModelUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -869,7 +832,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new ProductModelIllustrationEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewProductModelIllustrationUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -890,7 +852,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new ProductModelProductDescriptionCultureEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewProductModelProductDescriptionCultureUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -911,7 +872,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new ProductPhotoEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewProductPhotoUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -932,7 +892,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new ProductProductPhotoEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewProductProductPhotoUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -953,7 +912,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new ProductReviewEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewProductReviewUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -974,7 +932,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new ProductSubcategoryEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewProductSubcategoryUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -995,7 +952,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new ProductVendorEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewProductVendorUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -1016,7 +972,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new PurchaseOrderDetailEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewPurchaseOrderDetailUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -1037,7 +992,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new PurchaseOrderHeaderEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewPurchaseOrderHeaderUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -1058,7 +1012,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new SalesOrderDetailEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewSalesOrderDetailUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -1079,7 +1032,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new SalesOrderHeaderEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewSalesOrderHeaderUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -1100,7 +1052,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new SalesOrderHeaderSalesReasonEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewSalesOrderHeaderSalesReasonUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -1121,7 +1072,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new SalesPersonEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewSalesPersonUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -1142,7 +1092,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new SalesPersonQuotaHistoryEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewSalesPersonQuotaHistoryUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -1163,7 +1112,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new SalesReasonEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewSalesReasonUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -1184,7 +1132,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new SalesTaxRateEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewSalesTaxRateUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -1205,7 +1152,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new SalesTerritoryEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewSalesTerritoryUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -1226,7 +1172,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new SalesTerritoryHistoryEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewSalesTerritoryHistoryUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -1247,7 +1192,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new ScrapReasonEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewScrapReasonUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -1268,7 +1212,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new ShiftEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewShiftUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -1289,7 +1232,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new ShipMethodEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewShipMethodUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -1310,7 +1252,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new ShoppingCartItemEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewShoppingCartItemUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -1331,7 +1272,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new SpecialOfferEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewSpecialOfferUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -1352,7 +1292,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new SpecialOfferProductEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewSpecialOfferProductUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -1373,7 +1312,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new StateProvinceEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewStateProvinceUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -1394,7 +1332,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new StoreEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewStoreUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -1415,7 +1352,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new TransactionHistoryEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewTransactionHistoryUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -1436,7 +1372,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new TransactionHistoryArchiveEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewTransactionHistoryArchiveUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -1457,7 +1392,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new UnitMeasureEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewUnitMeasureUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -1478,7 +1412,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new VendorEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewVendorUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -1499,7 +1432,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new WorkOrderEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewWorkOrderUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code
@@ -1520,7 +1452,6 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 			IEntity2 toReturn = new WorkOrderRoutingEntity(fields);
 			// __LLBLGENPRO_USER_CODE_REGION_START CreateNewWorkOrderRoutingUsingFields
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			return toReturn;
 		}
 		#region Included Code

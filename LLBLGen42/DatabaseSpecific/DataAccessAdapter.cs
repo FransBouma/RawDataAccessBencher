@@ -21,7 +21,6 @@ namespace AdventureWorks.Dal.Adapter.v42.DatabaseSpecific
 	
 	// __LLBLGENPRO_USER_CODE_REGION_START AdditionalNamespaces
 	// __LLBLGENPRO_USER_CODE_REGION_END
-	
 	/// <summary>Data access adapter class, which controls the complete database interaction with the database for all objects.</summary>
 	/// <remarks>Use a DataAccessAdapter object solely per thread, and per connection. A DataAccessAdapter object contains 1 active connection 
 	/// and no thread-access scheduling code. This means that you need to create a new DataAccessAdapter object if you want to utilize
@@ -151,7 +150,6 @@ namespace AdventureWorks.Dal.Adapter.v42.DatabaseSpecific
 		
 		// __LLBLGENPRO_USER_CODE_REGION_START CustomDataAccessAdapterCode
 		// __LLBLGENPRO_USER_CODE_REGION_END
-		
 		#endregion
 		
 		#region Included Code

@@ -1682,7 +1682,6 @@ namespace AdventureWorks.Dal.Adapter.v42
 	
 	// __LLBLGENPRO_USER_CODE_REGION_START CustomUserConstants
 	// __LLBLGENPRO_USER_CODE_REGION_END
-	
 	#endregion
 
 	#region Included code

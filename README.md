@@ -38,6 +38,8 @@ Including data-table fetches might look like an apple/oranges comparison, but so
 
 CodeFluent Entities uses generated stored procedures to access database and this is the reason they're included to show how stored procs perform against dynamic sql. This framework will append a couple of stored procedures to the database. If you don't want that, please disable the CodeFluent bencher before running the code.
 
+Dapper's individual fetches are faster than the hand-written materializer by a large margin. This isn't because the hand-written is slow, but because Dapper caches single row results, making it bypass materialization every sub-sequential time after the first batch. 
+
 ### Disclaimer ###
 I wrote [LLBLGen Pro](http://www.llblgen.com/), though I tried to keep this benchmark as honest and open as possible.
 

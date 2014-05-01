@@ -24,15 +24,13 @@ namespace AdventureWorks.Dal.Adapter.v42.TypedViewClasses
 	// __LLBLGENPRO_USER_CODE_REGION_START AdditionalNamespaces
 	// __LLBLGENPRO_USER_CODE_REGION_END
 	
-	
 	/// <summary>Typed datatable for the view 'Soh'.<br/><br/></summary>
 	[Serializable, System.ComponentModel.DesignerCategory("Code")]
 	[ToolboxItem(true)]
 	[DesignTimeVisible(true)]
 	public partial class SohTypedView : TypedViewBase<SohRow>, ITypedView2
 		// __LLBLGENPRO_USER_CODE_REGION_START AdditionalInterfacesView
-		// __LLBLGENPRO_USER_CODE_REGION_END
-			
+		// __LLBLGENPRO_USER_CODE_REGION_END	
 	{
 		#region Class Member Declarations
 		private DataColumn _columnSalesOrderId;
@@ -64,7 +62,6 @@ namespace AdventureWorks.Dal.Adapter.v42.TypedViewClasses
 		private IEntityFields2	_fields;
 		// __LLBLGENPRO_USER_CODE_REGION_START AdditionalMembers
 		// __LLBLGENPRO_USER_CODE_REGION_END
-		
 		private static Hashtable	_customProperties;
 		private static Hashtable	_fieldsCustomProperties;
 		#endregion
@@ -211,7 +208,6 @@ namespace AdventureWorks.Dal.Adapter.v42.TypedViewClasses
 			// __LLBLGENPRO_USER_CODE_REGION_START AdditionalFields
 			// be sure to call _fields.Expand(number of new fields) first. 
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 			OnInitialized();
 		}
 
@@ -247,7 +243,6 @@ namespace AdventureWorks.Dal.Adapter.v42.TypedViewClasses
 			_fields = EntityFieldsFactory.CreateTypedViewEntityFieldsObject(TypedViewType.SohTypedView);
 			// __LLBLGENPRO_USER_CODE_REGION_START InitMembers
 			// __LLBLGENPRO_USER_CODE_REGION_END
-			
 		}
 
 		/// <summary>Clones this instance.</summary>
@@ -456,14 +451,12 @@ namespace AdventureWorks.Dal.Adapter.v42.TypedViewClasses
 
 		// __LLBLGENPRO_USER_CODE_REGION_START AdditionalColumnProperties
 		// __LLBLGENPRO_USER_CODE_REGION_END
-		
  		#endregion
 
 		#region Custom TypedView code
 		
 		// __LLBLGENPRO_USER_CODE_REGION_START CustomTypedViewCode
 		// __LLBLGENPRO_USER_CODE_REGION_END
-		
 		#endregion
 
 		#region Included Code
@@ -474,8 +467,7 @@ namespace AdventureWorks.Dal.Adapter.v42.TypedViewClasses
 	/// <summary>Typed datarow for the typed datatable Soh</summary>
 	public partial class SohRow : DataRow
 		// __LLBLGENPRO_USER_CODE_REGION_START AdditionalInterfacesRow
-		// __LLBLGENPRO_USER_CODE_REGION_END
-			
+		// __LLBLGENPRO_USER_CODE_REGION_END	
 	{
 		#region Class Member Declarations
 		private SohTypedView	_parent;
@@ -1041,7 +1033,6 @@ namespace AdventureWorks.Dal.Adapter.v42.TypedViewClasses
 		
 		// __LLBLGENPRO_USER_CODE_REGION_START CustomTypedViewRowCode
 		// __LLBLGENPRO_USER_CODE_REGION_END
-		
 		#endregion
 		
 		#region Included Row Code

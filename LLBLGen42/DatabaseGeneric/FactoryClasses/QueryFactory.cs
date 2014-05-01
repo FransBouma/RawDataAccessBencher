@@ -518,7 +518,7 @@ namespace AdventureWorks.Dal.Adapter.v42.FactoryClasses
 		/// <summary>Creates and returns the query to fetch the typed view SohQuerySpecPoco</summary>
 		public DynamicQuery<AdventureWorks.Dal.Adapter.v42.TypedViewClasses.SohQuerySpecPocoRow> SohQuerySpecPoco
 		{
-			get { return this.Create().Select(ProjectionLambdaCreator.Create<AdventureWorks.Dal.Adapter.v42.TypedViewClasses.SohQuerySpecPocoRow, AdventureWorks.Dal.Adapter.v42.HelperClasses.SohQuerySpecPocoFields>()); }
+			get { return this.Create().Select<AdventureWorks.Dal.Adapter.v42.TypedViewClasses.SohQuerySpecPocoRow, AdventureWorks.Dal.Adapter.v42.HelperClasses.SohQuerySpecPocoFields>(); }
 		}
 
 

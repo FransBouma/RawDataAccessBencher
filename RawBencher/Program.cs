@@ -79,7 +79,7 @@ namespace RawBencher
 			FetchKeysForIndividualFetches();
 
 			// Uncomment the line below if you want to profile a bencher. Specify the bencher instance and follow the guides on the screen.
-			ProfileBenchers(RegisteredBenchers.FirstOrDefault(b=>b.GetType()==typeof(LLBLGenProNoChangeTrackingQuerySpecPocoBencher)));
+			//ProfileBenchers(RegisteredBenchers.FirstOrDefault(b=>b.GetType()==typeof(LLBLGenProNoChangeTrackingQuerySpecPocoBencher)));
 
 			RunRegisteredBenchers();
 			ReportAveragedResults(autoExit);
