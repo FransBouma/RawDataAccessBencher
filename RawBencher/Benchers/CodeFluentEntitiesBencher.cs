@@ -72,7 +72,7 @@ namespace RawBencher.Benchers
         /// <returns>the framework name.</returns>
         protected override string CreateFrameworkNameImpl()
         {
-            return "CodeFluentEntities";
+            return "CodeFluentEntities, using stored procedures";
         }
 
     }
