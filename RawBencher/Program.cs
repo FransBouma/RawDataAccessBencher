@@ -28,7 +28,7 @@ namespace RawBencher
 	public class Program
 	{
 		private const int LoopAmount = 10;
-		private const int IndividualKeysAmount = 1000;
+		private const int IndividualKeysAmount = 100;
 		private const bool PerformSetBenchmarks = true;			// flag to signal whether the set fetch benchmarks have to be run.
 		private const bool PerformIndividualBenchMarks = true;  // flag to signal whether the single element fetch benchmarks have to be run.
 		private const bool ApplyAntiFloodForVMUsage = false;	// set to false if your target DB server is not a VM, otherwise set it to true. Used in individual fetch bench.
