@@ -21,8 +21,6 @@ Install SQL Server 2008 or higher and download the 2008 version of the database 
 
 *Important*: it's important you attach the database as 'AdventureWorks', as the code expects it to be called that way. If you leave the name as-is, the Catalog name has '_2008' as suffix. LLBLGen Pro has the catalog name in the persistence information (so it can have multiple catalogs in one model) and to make it work you have to enable the catalog name overwriting defined in the app.config file in the rawbencher project. It's commented so it's straight forward. If you attached the database as AdventureWorks, you don't have to do anything.
 
-*Note*: CodeFluent adds a couple of stored procedures to the catalog. If you don't want this, you have to disable the CodeFluent bencher from the code. 
-
 ### How to run the benchmarks ###
 
 Please run the benchmarks on a DB accessed over a network to avoid having the DB consume performance of the CPU / memory which thus doesn't give a real-life scenario overview of the real fetch speed of the used Data-access / ORM framework. The entity SalesOrderHeader was chosen as it has more than a couple of fields, a variety of types, many rows in the table and several relationships with other entities which could or could not affect the ORM's internal performance. 
@@ -36,7 +34,7 @@ In the Entity Framework code, Foreign key fields are present in the code base, a
 
 Including data-table fetches might look like an apple/oranges comparison, but so is Full ORM vs. Micro 'ORM', as a souped up object materializer like Dapper has less things to worry about than, say NHibernate or LLBLGen Pro. The inclusion of these frameworks is done to show what can be achieved if there's little overhead between the DbDataReader and the materialized object. The closer an ORM gets to these lower-level object materializers, the better it is in fetching data with inclusion of the extra features if has to offer to the developer and the application it is used in. 
 
-CodeFluent Entities uses generated stored procedures to access database and this is the reason they're included to show how stored procs perform against dynamic sql. This framework will append a couple of stored procedures to the database. If you don't want that, please disable the CodeFluent bencher before running the code.
+Note: CodeFluent Entities was part of the code base, but has been removed, as they kept the connection open during individual fetches, which gave them an unfair advantage. 
 
 Dapper's individual fetches are faster than the hand-written materializer by a large margin. This isn't because the hand-written is slow, but because Dapper caches single row results, making it bypass materialization every sub-sequential time after the first batch. 
 

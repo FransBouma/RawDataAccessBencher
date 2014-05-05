@@ -28,10 +28,10 @@ namespace RawBencher
 	public class Program
 	{
 		private const int LoopAmount = 10;
-		private const int IndividualKeysAmount = 100;
+		private const int IndividualKeysAmount = 1000;
 		private const bool PerformSetBenchmarks = true;			// flag to signal whether the set fetch benchmarks have to be run.
 		private const bool PerformIndividualBenchMarks = true;  // flag to signal whether the single element fetch benchmarks have to be run.
-		private const bool ApplyAntiFloodForVMUsage = true;		// set to false if your target DB server is not a VM, otherwise leave it to true. Used in individual fetch bench.
+		private const bool ApplyAntiFloodForVMUsage = false;	// set to false if your target DB server is not a VM, otherwise set it to true. Used in individual fetch bench.
 
 		private static string ConnectionString = ConfigurationManager.ConnectionStrings["AdventureWorks.ConnectionString.SQL Server (SqlClient)"].ConnectionString;
 		private static string SqlSelectCommandText = @"SELECT [SalesOrderID],[RevisionNumber],[OrderDate],[DueDate],[ShipDate],[Status],[OnlineOrderFlag],[SalesOrderNumber],[PurchaseOrderNumber],[AccountNumber],[CustomerID],[SalesPersonID],[TerritoryID],[BillToAddressID],[ShipToAddressID],[ShipMethodID],[CreditCardID],[CreditCardApprovalCode],[CurrencyRateID],[SubTotal],[TaxAmt],[Freight],[TotalDue],[Comment],[rowguid],[ModifiedDate]	FROM [Sales].[SalesOrderHeader]";
@@ -52,13 +52,16 @@ namespace RawBencher
 
 			// need to supply different connection string names to Telerik benchers for different "cached" contexts 
 			RegisteredBenchers.Add(new HandCodedBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
-			RegisteredBenchers.Add(new DapperBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingLinqPocoBencher());
 			RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingQuerySpecPocoBencher());
-			RegisteredBenchers.Add(new LLBLGenProNormalBencher());
 			RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingBencher());
-			RegisteredBenchers.Add(new LLBLGenProResultsetCachingBencher());
-			RegisteredBenchers.Add(new CodeFluentEntitiesBencher());
+			RegisteredBenchers.Add(new DapperBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+			RegisteredBenchers.Add(new LinqToSqlNoChangeTrackingBencher());
+			RegisteredBenchers.Add(new EntityFrameworkNoChangeTrackingBencher());
+			RegisteredBenchers.Add(new OrmLiteBencher() { ConnectionStringToUse = ConnectionString });
+			RegisteredBenchers.Add(new PetaPocoBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+			RegisteredBenchers.Add(new PetaPocoFastBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+			RegisteredBenchers.Add(new LLBLGenProNormalBencher());
 			RegisteredBenchers.Add(new EntityFrameworkNormalBencher());
 			RegisteredBenchers.Add(new TelerikDomainBencher() { ConnectionStringToUse = "AdventureWorks.ConnectionString.SQL Server (SqlClient)" });
 			RegisteredBenchers.Add(new TelerikFluentBencher() { ConnectionStringToUse = "AdventureWorksConnectionTelerikFluent" });
@@ -67,11 +70,7 @@ namespace RawBencher
 			RegisteredBenchers.Add(new NHibernateNormalBencher());
 			RegisteredBenchers.Add(new OakDynamicDbDtoBencher());
 			RegisteredBenchers.Add(new OakDynamicDbNormalBencher());
-			RegisteredBenchers.Add(new EntityFrameworkNoChangeTrackingBencher());
-			RegisteredBenchers.Add(new LinqToSqlNoChangeTrackingBencher());
-			RegisteredBenchers.Add(new OrmLiteBencher() { ConnectionStringToUse = ConnectionString });
-			RegisteredBenchers.Add(new PetaPocoBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
-			RegisteredBenchers.Add(new PetaPocoFastBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+			RegisteredBenchers.Add(new LLBLGenProResultsetCachingBencher());
 
 			DisplayHeader();
 	
@@ -79,7 +78,7 @@ namespace RawBencher
 			FetchKeysForIndividualFetches();
 
 			// Uncomment the line below if you want to profile a bencher. Specify the bencher instance and follow the guides on the screen.
-			//ProfileBenchers(RegisteredBenchers.FirstOrDefault(b=>b.GetType()==typeof(LLBLGenProNoChangeTrackingLinqPocoBencher)));
+			//ProfileBenchers(RegisteredBenchers.FirstOrDefault(b=>b.GetType()==typeof(LLBLGenProNoChangeTrackingBencher)));
 
 			RunRegisteredBenchers();
 			ReportAveragedResults(autoExit);
@@ -136,6 +135,11 @@ namespace RawBencher
 			// run the benchers before profiling. 
 			foreach (var b in benchersToProfile)
 			{
+				if(b == null)
+				{
+					Console.WriteLine("The bencher you are trying to profile hasn't been registered. Can't continue.");
+					return;
+				}
 				Console.WriteLine("Running set benchmark for bencher '{0}' before profiling to warm up constructs", b.CreateFrameworkName());
 				b.PerformSetBenchmark();
 			}
@@ -245,7 +249,7 @@ namespace RawBencher
 						// during benching, which is not what we want at it can skew the results a lot. In a very short time, a lot of queries are executed
 						// on the target server (LoopAmount * IndividualKeysAmount), which will hurt performance on VMs with very fast frameworks in some
 						// cases in some runs (so more than 2 runs are slow). 
-						Thread.Sleep(200);
+						Thread.Sleep(400);
 					}
 				}
 			}
