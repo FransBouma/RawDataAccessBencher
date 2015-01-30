@@ -50,27 +50,28 @@ namespace RawBencher
 
 			CacheController.RegisterCache(ConnectionString, new ResultsetCache());
 
-			// need to supply different connection string names to Telerik benchers for different "cached" contexts 
-			RegisteredBenchers.Add(new HandCodedBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
-			RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingLinqPocoBencher());
-			RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingQuerySpecPocoBencher());
-			RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingBencher());
-			RegisteredBenchers.Add(new DapperBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
-			RegisteredBenchers.Add(new LinqToSqlNoChangeTrackingBencher());
-			RegisteredBenchers.Add(new EntityFrameworkNoChangeTrackingBencher());
-			RegisteredBenchers.Add(new OrmLiteBencher() { ConnectionStringToUse = ConnectionString });
-			RegisteredBenchers.Add(new PetaPocoBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
-			RegisteredBenchers.Add(new PetaPocoFastBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
-			RegisteredBenchers.Add(new LLBLGenProNormalBencher());
-			RegisteredBenchers.Add(new EntityFrameworkNormalBencher());
-			RegisteredBenchers.Add(new TelerikDomainBencher() { ConnectionStringToUse = "AdventureWorks.ConnectionString.SQL Server (SqlClient)" });
-			RegisteredBenchers.Add(new TelerikFluentBencher() { ConnectionStringToUse = "AdventureWorksConnectionTelerikFluent" });
-			RegisteredBenchers.Add(new DataTableBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
-			RegisteredBenchers.Add(new LinqToSqlNormalBencher());
-			RegisteredBenchers.Add(new NHibernateNormalBencher());
-			RegisteredBenchers.Add(new OakDynamicDbDtoBencher());
-			RegisteredBenchers.Add(new OakDynamicDbNormalBencher());
-			RegisteredBenchers.Add(new LLBLGenProResultsetCachingBencher());
+            // need to supply different connection string names to Telerik benchers for different "cached" contexts 
+            RegisteredBenchers.Add(new HandCodedBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+            RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingLinqPocoBencher());
+            RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingQuerySpecPocoBencher());
+            RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingBencher());
+            RegisteredBenchers.Add(new DapperBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+            RegisteredBenchers.Add(new LinqToSqlNoChangeTrackingBencher());
+            RegisteredBenchers.Add(new EntityFrameworkNoChangeTrackingBencher());
+            RegisteredBenchers.Add(new OrmLiteBencher() { ConnectionStringToUse = ConnectionString });
+            RegisteredBenchers.Add(new PetaPocoBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+            RegisteredBenchers.Add(new PetaPocoFastBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+            RegisteredBenchers.Add(new LLBLGenProNormalBencher());
+            RegisteredBenchers.Add(new EntityFrameworkNormalBencher());
+            RegisteredBenchers.Add(new TelerikDomainBencher() { ConnectionStringToUse = "AdventureWorks.ConnectionString.SQL Server (SqlClient)" });
+            RegisteredBenchers.Add(new TelerikFluentBencher() { ConnectionStringToUse = "AdventureWorksConnectionTelerikFluent" });
+            RegisteredBenchers.Add(new DataTableBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+            RegisteredBenchers.Add(new LinqToSqlNormalBencher());
+            RegisteredBenchers.Add(new NHibernateNormalBencher());
+            RegisteredBenchers.Add(new OakDynamicDbDtoBencher());
+            RegisteredBenchers.Add(new OakDynamicDbNormalBencher());
+            RegisteredBenchers.Add(new LLBLGenProResultsetCachingBencher());
+            RegisteredBenchers.Add(new MarrDataMapperBencher(ConnectionString, SqlSelectCommandText));
 
 			DisplayHeader();
 	
