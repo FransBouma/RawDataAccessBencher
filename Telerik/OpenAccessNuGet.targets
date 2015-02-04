@@ -92,7 +92,7 @@ Copyright (C) 2007-2014 Telerik AD. All rights reserved.
 
   <!-- The command line arguments of the enhancer.exe used for enhancing 64 bit assemblies -->
   <PropertyGroup Condition="'$(Use64BitEnhancer)'=='true'">
-    <XmlMappingResourcesArg Condition="'$(UseXmlMapping)'=='true'"> -xmlMapping:"@(OpenAccessEmbeddedResource)"</XmlMappingResourcesArg>
+    <XmlMappingResourcesArg Condition="'$(UseXmlMapping)'=='true'"> -xmlMapping:"@(OpenAccessEmbeddedResource,'" -xmlMapping:"')"</XmlMappingResourcesArg>
     <AttributesMappingArg Condition="'$(UseAttributeMapping)'=='true'"> -attributeMapping</AttributesMappingArg>
     <FluentMappingArg Condition="'$(UseFluentMapping)'=='true'"> -fluentMapping</FluentMappingArg>
     <EnhancerMappingArgs Condition="'$(EnhancerMappingArgs)'==''">$(XmlMappingResourcesArg)$(AttributesMappingArg)$(FluentMappingArg)</EnhancerMappingArgs>
@@ -107,7 +107,7 @@ Copyright (C) 2007-2014 Telerik AD. All rights reserved.
     <Exec Condition="'$(Use64BitEnhancer)'=='true'" IgnoreExitCode="false"
       Command="&quot;$(EnhancerAssembly)&quot; -verboseMode:$(EnhancerVerboseMode) -assembly:&quot;@(IntermediateAssembly-&gt;'%(FullPath)')&quot;$(AdditionalEnhancerArgs)" />
     <OpenAccessEnhancer Condition="'$(Use64BitEnhancer)'!='true'"
-        VerboseMode="$(EnhancerVerboseMode)"
+        VerboseMode="2"
         Assembly="@(IntermediateAssembly-&gt;'%(FullPath)')"
         XmlMapping="@(OpenAccessEmbeddedResource)"
         AttributeMapping="$(UseAttributeMapping)"
