@@ -13,10 +13,10 @@ namespace RawBencher.Benchers
 	/// </summary>
 	public class DapperBencher : BencherBase<SalesOrderHeader>
 	{
-		/// <summary>
-		/// Initializes a new instance of the <see cref="DapperBencher"/> class.
-		/// </summary>
-		public DapperBencher()
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DapperBencher"/> class.
+        /// </summary>
+        public DapperBencher()
 			: base(e => e.SalesOrderId, usesChangeTracking:false, usesCaching:false)
 		{
 		}
@@ -29,14 +29,14 @@ namespace RawBencher.Benchers
 		/// <returns>The fetched element, or null if not found</returns>
 		public override SalesOrderHeader FetchIndividual(int key)
 		{
-			var headers = new List<SalesOrderHeader>();
-			using(var con = new SqlConnection(this.ConnectionStringToUse))
+            SalesOrderHeader header;
+            using (var con = new SqlConnection(this.ConnectionStringToUse))
 			{
 				con.Open();
-				headers = con.Query<SalesOrderHeader>(this.CommandText + " WHERE SalesOrderId=@p", new { p = key }).ToList();
+				header = con.Query<SalesOrderHeader>(this.CommandText + " WHERE SalesOrderId=@p", new { p = key }, buffered: false).FirstOrDefault();
 				con.Close();
 			}
-			return headers.FirstOrDefault();
+            return header;
 		}
 
 
@@ -46,11 +46,11 @@ namespace RawBencher.Benchers
 		/// <returns>the set fetched</returns>
 		public override IEnumerable<SalesOrderHeader> FetchSet()
 		{
-			var headers = new List<SalesOrderHeader>();
+            List<SalesOrderHeader> headers;
 			using(var con = new SqlConnection(this.ConnectionStringToUse))
 			{
 				con.Open();
-				headers = con.Query<SalesOrderHeader>(this.CommandText).ToList();
+				headers = con.Query<SalesOrderHeader>(this.CommandText).AsList();
 				con.Close();
 			}
 			return headers;
@@ -64,7 +64,7 @@ namespace RawBencher.Benchers
 		/// <returns>the framework name.</returns>
 		protected override string CreateFrameworkNameImpl()
 		{
-			return "Dapper";
+			return "Dapper " + typeof(SqlMapper).Assembly.GetName().Version;
 		}
 
 
