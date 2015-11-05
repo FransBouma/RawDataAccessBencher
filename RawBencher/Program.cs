@@ -27,7 +27,7 @@ namespace RawBencher
 	/// </summary>
 	public class Program
 	{
-		private const int LoopAmount = 10;
+		private const int LoopAmount = 25;
 		private const int IndividualKeysAmount = 100;
 		private const bool PerformSetBenchmarks = true;			// flag to signal whether the set fetch benchmarks have to be run.
 		private const bool PerformIndividualBenchMarks = true;  // flag to signal whether the single element fetch benchmarks have to be run.
@@ -50,7 +50,6 @@ namespace RawBencher
 
 			CacheController.RegisterCache(ConnectionString, new ResultsetCache());
 
-			RegisteredBenchers.Add(new NHibernateNormalBencher());
 			RegisteredBenchers.Add(new MassiveBencher());
 			RegisteredBenchers.Add(new HandCodedBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new HandCodedBencherUsingBoxing() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
@@ -70,6 +69,7 @@ namespace RawBencher
 			RegisteredBenchers.Add(new EntityFrameworkNormalBencher());
 			RegisteredBenchers.Add(new OakDynamicDbDtoBencher());
 			RegisteredBenchers.Add(new OakDynamicDbNormalBencher());
+			RegisteredBenchers.Add(new NHibernateNormalBencher());
 
 			DisplayHeader();
 	
@@ -80,7 +80,7 @@ namespace RawBencher
 			//ProfileBenchers(RegisteredBenchers.FirstOrDefault(b => b.GetType() == typeof(MassiveBencher)));
 
 			RunRegisteredBenchers();
-			ReportAveragedResults(autoExit);
+			ReportResultStatistics(autoExit);
 		}
 
 
@@ -211,14 +211,18 @@ namespace RawBencher
 		private static void RunBencher(IBencher bencher)
 		{
 			bencher.ResetResults();
-			if (PerformSetBenchmarks)
+			Console.WriteLine("First one warm-up run to initialize constructs. Results will not be collected.");
+			var result = bencher.PerformSetBenchmark(discardResults: true);
+			ReportSetResult(bencher, result);
+			Console.WriteLine("Starting bench runs...");
+			if(PerformSetBenchmarks)
 			{
 				// set benches
 				Console.WriteLine("Set fetches");
 				Console.WriteLine("-------------------------");
-				for (int i = 0; i < LoopAmount; i++)
+				for(int i = 0; i < LoopAmount; i++)
 				{
-					var result = bencher.PerformSetBenchmark();
+					result = bencher.PerformSetBenchmark();
 					ReportSetResult(bencher, result);
 
 					// avoid having the GC collect in the middle of a run.
@@ -234,7 +238,7 @@ namespace RawBencher
 				Console.WriteLine("-------------------------");
 				for (int i = 0; i < LoopAmount; i++)
 				{
-					var result = bencher.PerformIndividualBenchMark(KeysForIndividualFetches);
+					result = bencher.PerformIndividualBenchMark(KeysForIndividualFetches);
 					ReportIndividualResult(bencher, result);
 
 					// avoid having the GC collect in the middle of a run.
@@ -303,12 +307,12 @@ namespace RawBencher
 
 
 		/// <summary>
-		/// Reports the averaged results to standard out
+		/// Reports the resulting statistics (mean/standard deviation) to standard out
 		/// </summary>
 		/// <param name="autoExit">if set to <c>true</c> the method won't wait for ENTER to exit but will exit immediately.</param>
-		private static void ReportAveragedResults(bool autoExit)
+		private static void ReportResultStatistics(bool autoExit)
 		{
-			Console.WriteLine("\nAveraged total results per framework. Fastest and slowest result omited");
+			Console.WriteLine("\nResults per framework. Values are given as: 'mean (standard deviation)'");
 			Console.WriteLine("==============================================================================");
 			int longestNameLength = 0;
 			foreach(var bencher in RegisteredBenchers)
@@ -318,51 +322,62 @@ namespace RawBencher
 				{
 					longestNameLength = name.Length;
 				}
-				bencher.CalculateAverages();
+				bencher.CalculateStatistics();
 			}
 
 			Console.WriteLine("Non-change tracking fetches, set fetches ({0} runs), no caching", LoopAmount);
 			Console.WriteLine("------------------------------------------------------------------------------");
-			foreach(var bencher in RegisteredBenchers.Where(b => !b.UsesChangeTracking && !b.UsesCaching).OrderBy(b => b.SetFetchAverage))
+			foreach(var bencher in RegisteredBenchers.Where(b => !b.UsesChangeTracking && !b.UsesCaching).OrderBy(b => b.SetFetchMean))
 			{
-				Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms.\tEnumeration average: {2:N2}ms", bencher.CreateFrameworkName(), bencher.SetFetchAverage, bencher.EnumerationAverage);
+				Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms ({2:N2}ms)\tEnum: {3:N2}ms ({4:N2}ms)", bencher.CreateFrameworkName(), bencher.SetFetchMean, 
+									bencher.SetFetchSD, bencher.EnumerationMean, bencher.EnumerationSD);
 			}
 
 			Console.WriteLine("\nChange tracking fetches, set fetches ({0} runs), no caching", LoopAmount);
 			Console.WriteLine("------------------------------------------------------------------------------");
-			foreach(var bencher in RegisteredBenchers.Where(b => b.UsesChangeTracking && !b.UsesCaching).OrderBy(b => b.SetFetchAverage))
+			foreach(var bencher in RegisteredBenchers.Where(b => b.UsesChangeTracking && !b.UsesCaching).OrderBy(b => b.SetFetchMean))
 			{
-				Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms.\tEnumeration average: {2:N2}ms", bencher.CreateFrameworkName(), bencher.SetFetchAverage, bencher.EnumerationAverage);
+				Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms ({2:N2}ms)\tEnum: {3:N2}ms ({4:N2}ms)", bencher.CreateFrameworkName(), bencher.SetFetchMean,
+									bencher.SetFetchSD, bencher.EnumerationMean, bencher.EnumerationSD);
 			}
 
-			Console.WriteLine("\nNon-change tracking individual fetches ({0} elements, {1} runs), no caching", IndividualKeysAmount, LoopAmount);
-			Console.WriteLine("------------------------------------------------------------------------------");
-			foreach(var bencher in RegisteredBenchers.Where(b => !b.UsesChangeTracking && !b.UsesCaching).OrderBy(b => b.IndividualFetchAverage))
+			if(PerformIndividualBenchMarks)
 			{
-				Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms per individual fetch", bencher.CreateFrameworkName(), bencher.IndividualFetchAverage / IndividualKeysAmount);
-			}
+				Console.WriteLine("\nNon-change tracking individual fetches ({0} elements, {1} runs), no caching", IndividualKeysAmount, LoopAmount);
+				Console.WriteLine("------------------------------------------------------------------------------");
+				foreach(var bencher in RegisteredBenchers.Where(b => !b.UsesChangeTracking && !b.UsesCaching).OrderBy(b => b.IndividualFetchMean))
+				{
+					Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms ({2:N2}ms) per individual fetch", bencher.CreateFrameworkName(), bencher.IndividualFetchMean / IndividualKeysAmount, 
+															bencher.IndividualFetchSD / IndividualKeysAmount);
+				}
 
-			Console.WriteLine("\nChange tracking individual fetches ({0} elements, {1} runs), no caching", IndividualKeysAmount, LoopAmount);
-			Console.WriteLine("------------------------------------------------------------------------------");
-			foreach(var bencher in RegisteredBenchers.Where(b => b.UsesChangeTracking && !b.UsesCaching).OrderBy(b => b.IndividualFetchAverage))
-			{
-				Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms per individual fetch", bencher.CreateFrameworkName(), bencher.IndividualFetchAverage / IndividualKeysAmount);
+				Console.WriteLine("\nChange tracking individual fetches ({0} elements, {1} runs), no caching", IndividualKeysAmount, LoopAmount);
+				Console.WriteLine("------------------------------------------------------------------------------");
+				foreach(var bencher in RegisteredBenchers.Where(b => b.UsesChangeTracking && !b.UsesCaching).OrderBy(b => b.IndividualFetchMean))
+				{
+					Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms ({2:N2}ms) per individual fetch", bencher.CreateFrameworkName(), bencher.IndividualFetchMean / IndividualKeysAmount,
+															bencher.IndividualFetchSD / IndividualKeysAmount);
+				}
 			}
 
 			Console.WriteLine("\nChange tracking fetches, set fetches ({0} runs), caching", LoopAmount);
 			Console.WriteLine("------------------------------------------------------------------------------");
-			foreach(var bencher in RegisteredBenchers.Where(b => b.UsesChangeTracking && b.UsesCaching).OrderBy(b => b.SetFetchAverage))
+			foreach(var bencher in RegisteredBenchers.Where(b => b.UsesChangeTracking && b.UsesCaching).OrderBy(b => b.SetFetchMean))
 			{
-				Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms.\tEnumeration average: {2:N2}ms", bencher.CreateFrameworkName(), bencher.SetFetchAverage, bencher.EnumerationAverage);
+				Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms ({2:N2}ms)\tEnum: {3:N2}ms ({4:N2}ms)", bencher.CreateFrameworkName(), bencher.SetFetchMean,
+									bencher.SetFetchSD, bencher.EnumerationMean, bencher.EnumerationSD);
 			}
 
-			Console.WriteLine("\nChange tracking individual fetches ({0} elements, {1} runs), caching", IndividualKeysAmount, LoopAmount);
-			Console.WriteLine("------------------------------------------------------------------------------");
-			foreach(var bencher in RegisteredBenchers.Where(b => b.UsesChangeTracking && b.UsesCaching).OrderBy(b => b.IndividualFetchAverage))
+			if(PerformIndividualBenchMarks)
 			{
-				Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms per individual fetch", bencher.CreateFrameworkName(), bencher.IndividualFetchAverage / IndividualKeysAmount);
+				Console.WriteLine("\nChange tracking individual fetches ({0} elements, {1} runs), caching", IndividualKeysAmount, LoopAmount);
+				Console.WriteLine("------------------------------------------------------------------------------");
+				foreach(var bencher in RegisteredBenchers.Where(b => b.UsesChangeTracking && b.UsesCaching).OrderBy(b => b.IndividualFetchMean))
+				{
+					Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms ({2:N2}ms) per individual fetch", bencher.CreateFrameworkName(), bencher.IndividualFetchMean / IndividualKeysAmount,
+															bencher.IndividualFetchSD / IndividualKeysAmount);
+				}
 			}
-
 			Console.Write("\nComplete.");
 			if(autoExit)
 			{

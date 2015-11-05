@@ -32,28 +32,49 @@ namespace RawBencher.Benchers
 		/// <returns>A filled in benchmark result object</returns>
 		BenchResult PerformSetBenchmark();
 		/// <summary>
+		/// Performs the set benchmark. This is a benchmark which fetches the full set of sales order headers, enumerates it and returns the times it took
+		/// to perform these actions as well as the number of rows read.
+		/// </summary>
+		/// <param name="discardResults">if set to <c>true</c> the results are returned but are not collected.</param>
+		/// <returns>
+		/// A filled in benchmark result object
+		/// </returns>
+		BenchResult PerformSetBenchmark(bool discardResults);
+		/// <summary>
 		/// Resets the result containers of this bencher.
 		/// </summary>
 		void ResetResults();
 		/// <summary>
 		/// Calculates the averages from the results obtained through the benchmark methods. Requires at least 3 runs of the benchmark methods to produce
-		/// valid results. Results are obtainable through the properties <see cref="IndividualFetchAverage"/>, <see cref="SetFetchAverage"/> and
-		/// <see cref="EnumerationAverage"/>.
+		/// valid results. Results are obtainable through the properties <see cref="IndividualFetchMean"/>, <see cref="SetFetchMean"/> and
+		/// <see cref="EnumerationMean"/>.
 		/// </summary>
-		void CalculateAverages();
+		void CalculateStatistics();
 		
 		/// <summary>
-		/// Gets the individual fetch average, calculated by <see cref="CalculateAverages"/>
+		/// Gets the individual fetch average, calculated by <see cref="CalculateStatistics"/>
 		/// </summary>
-		double IndividualFetchAverage { get;}
+		double IndividualFetchMean { get;}
 		/// <summary>
-		/// Gets the set fetch average, calculated by <see cref="CalculateAverages"/>
+		/// Gets the set fetch average, calculated by <see cref="CalculateStatistics"/>
 		/// </summary>
-		double SetFetchAverage { get; }
+		double SetFetchMean { get; }
 		/// <summary>
-		/// Gets the enumeration average, calculated by <see cref="CalculateAverages"/>
+		/// Gets the enumeration average, calculated by <see cref="CalculateStatistics"/>
 		/// </summary>
-		double EnumerationAverage { get; }
+		double EnumerationMean { get; }
+		/// <summary>
+		/// Gets the individual fetch standard deviation, calculated by <see cref="CalculateStatistics"/>
+		/// </summary>
+		double IndividualFetchSD { get; }
+		/// <summary>
+		/// Gets the set fetch standard deviation, calculated by <see cref="CalculateStatistics"/>
+		/// </summary>
+		double SetFetchSD { get;  }
+		/// <summary>
+		/// Gets the enumeration standard deviation, calculated by <see cref="CalculateStatistics"/>
+		/// </summary>
+		double EnumerationSD { get; }
 		/// <summary>
 		/// Gets a value indicating whether the fetch uses some form of caching (resultset caching, element caching)
 		/// </summary>

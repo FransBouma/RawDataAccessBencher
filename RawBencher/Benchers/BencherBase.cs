@@ -17,7 +17,6 @@ namespace RawBencher.Benchers
 		#region Member declarations
 		private Func<T, int> _salesOrderIdRetriever;
 		private List<BenchResult> _individualBenchmarkResults, _setBenchmarkResults;
-		private double _individualFetchAverage, _setFetchAverage, _enumerationAverage;
 		private string _frameworkName;
 		#endregion
 
@@ -88,22 +87,33 @@ namespace RawBencher.Benchers
 		{
 			_individualBenchmarkResults.Clear();
 			_setBenchmarkResults.Clear();
-			_setFetchAverage = 0.0;
-			_individualFetchAverage = 0.0;
-			_enumerationAverage = 0.0;
+			this.SetFetchMean = 0.0;
+			this.SetFetchSD = 0.0;
+			this.IndividualFetchMean = 0.0;
+			this.IndividualFetchSD = 0.0;
+			this.EnumerationMean = 0.0;
+			this.EnumerationSD = 0.0;
 		}
 
 
 		/// <summary>
-		/// Calculates the averages from the results obtained through the benchmark methods. Requires at least 3 runs of the benchmark methods to produce
-		/// valid results. Results are obtainable through the properties <see cref="IndividualFetchAverage"/>, <see cref="SetFetchAverage"/> and
-		/// <see cref="EnumerationAverage"/>.
+		/// Calculates the mean and standard deviation values from the results obtained through the benchmark methods. Requires at least 3 runs of the benchmark methods to produce
+		/// valid results. Results are obtainable through the properties <see cref="IndividualFetchMean"/>, <see cref="IndividualFetchSD"/>, <see cref="SetFetchMean"/>, <see cref="SetFetchMean"/>,
+		/// <see cref="EnumerationMean"/>, and <see cref="EnumerationMean"/>.
 		/// </summary>
-		public void CalculateAverages()
+		public void CalculateStatistics()
 		{
-			_individualFetchAverage = CalculateAverage(_individualBenchmarkResults.Select(r => r.FetchTimeInMilliseconds).ToList());
-			_setFetchAverage = CalculateAverage(_setBenchmarkResults.Select(r => r.FetchTimeInMilliseconds).ToList());
-			_enumerationAverage = CalculateAverage(_setBenchmarkResults.Select(r => r.EnumerationTimeInMilliseconds).ToList());
+			var individualFetchValues = _individualBenchmarkResults.Select(r => r.FetchTimeInMilliseconds).ToList();
+			this.IndividualFetchMean = individualFetchValues.Count <= 0 ? -1.0 : individualFetchValues.Average();
+			this.IndividualFetchSD = CalculateSD(individualFetchValues, this.IndividualFetchMean);
+
+			var setFetchValues = _setBenchmarkResults.Select(r => r.FetchTimeInMilliseconds).ToList();
+			this.SetFetchMean = setFetchValues.Count <= 0 ? -1.0 : setFetchValues.Average();
+			this.SetFetchSD = CalculateSD(setFetchValues, this.SetFetchMean);
+
+			var enumerationValues = _setBenchmarkResults.Select(r => r.EnumerationTimeInMilliseconds).ToList();
+			this.EnumerationMean = enumerationValues.Count <= 0 ? -1.0 : enumerationValues.Average();
+			this.EnumerationSD = CalculateSD(enumerationValues, this.EnumerationMean);
 		}
 
 
@@ -137,13 +147,27 @@ namespace RawBencher.Benchers
 			return toReturn;
 		}
 
-
+	
 		/// <summary>
 		/// Performs the set benchmark. This is a benchmark which fetches the full set of sales order headers, enumerates it and returns the times it took
 		/// to perform these actions as well as the number of rows read.
 		/// </summary>
 		/// <returns>A filled in benchmark result object</returns>
 		public BenchResult PerformSetBenchmark()
+		{
+			return PerformSetBenchmark(discardResults: false);
+		}
+
+
+		/// <summary>
+		/// Performs the set benchmark. This is a benchmark which fetches the full set of sales order headers, enumerates it and returns the times it took
+		/// to perform these actions as well as the number of rows read.
+		/// </summary>
+		/// <param name="discardResults">if set to <c>true</c> the results are returned but are not collected.</param>
+		/// <returns>
+		/// A filled in benchmark result object
+		/// </returns>
+		public BenchResult PerformSetBenchmark(bool discardResults)
 		{
 			var toReturn = new BenchResult();
 			var sw = new Stopwatch();
@@ -156,7 +180,10 @@ namespace RawBencher.Benchers
 			toReturn.NumberOfRowsFetched = VerifyData(headers);
 			sw.Stop();
 			toReturn.EnumerationTimeInMilliseconds = sw.ElapsedMilliseconds;
-			_setBenchmarkResults.Add(toReturn);
+			if(!discardResults)
+			{
+				_setBenchmarkResults.Add(toReturn);
+			}
 			return toReturn;
 		}
 
@@ -232,47 +259,44 @@ namespace RawBencher.Benchers
 
 
 		/// <summary>
-		/// Calculates the average of the set of values given, excluding the fastest and slowest value.
+		/// Calculates the standard deviation of the values specified using the mean specified.
 		/// </summary>
-		/// <param name="resultsToAverage">The results to average.</param>
+		/// <param name="values">The values.</param>
+		/// <param name="mean">The mean.</param>
 		/// <returns></returns>
-		/// <exception cref="System.ArgumentException">Not enough results to calculate average. Thrown when the set specified has 2 or less values</exception>
-		private double CalculateAverage(List<long> resultsToAverage)
+		private double CalculateSD(List<long> values, double mean)
 		{
-			if(resultsToAverage.Count <= 2)
-			{
-				throw new ArgumentException("Not enough results to calculate average");
-			}
-			// ignore slowest and fastest result, then calculate the average.
-			return resultsToAverage.OrderBy(p => p).Skip(1).Take(resultsToAverage.Count - 2).Average();
+			// see: http://www.mathsisfun.com/data/standard-deviation.html
+			var variance = values.Select(v => Convert.ToDouble(v) - mean).Select(v => v * v).Average();
+			return Math.Sqrt(variance);
 		}
 
 
 		#region Properties
 		/// <summary>
-		/// Gets the individual fetch average, calculated by <see cref="CalculateAverages"/>
+		/// Gets the individual fetch mean, calculated by <see cref="CalculateStatistics"/>
 		/// </summary>
-		public double IndividualFetchAverage
-		{
-			get { return _individualFetchAverage; }
-		}
-
+		public double IndividualFetchMean {get ; private set;}
 		/// <summary>
-		/// Gets the set fetch average, calculated by <see cref="CalculateAverages"/>
+		/// Gets the set fetch mean, calculated by <see cref="CalculateStatistics"/>
 		/// </summary>
-		public double SetFetchAverage
-		{
-			get { return _setFetchAverage; }
-		}
-
+		public double SetFetchMean {get; private set;}
 		/// <summary>
-		/// Gets the enumeration average, calculated by <see cref="CalculateAverages"/>
+		/// Gets the enumeration mean, calculated by <see cref="CalculateStatistics"/>
 		/// </summary>
-		public double EnumerationAverage
-		{
-			get { return _enumerationAverage; }
-		}
-		
+		public double EnumerationMean {get; private set;}
+		/// <summary>
+		/// Gets the individual fetch standard deviation, calculated by <see cref="CalculateStatistics"/>
+		/// </summary>
+		public double IndividualFetchSD { get; private set; }
+		/// <summary>
+		/// Gets the set fetch standard deviation, calculated by <see cref="CalculateStatistics"/>
+		/// </summary>
+		public double SetFetchSD { get; private set; }
+		/// <summary>
+		/// Gets the enumeration standard deviation, calculated by <see cref="CalculateStatistics"/>
+		/// </summary>
+		public double EnumerationSD { get; private set; }
 		/// <summary>
 		/// Gets a value indicating whether the fetch uses some form of caching (resultset caching, element caching)
 		/// </summary>

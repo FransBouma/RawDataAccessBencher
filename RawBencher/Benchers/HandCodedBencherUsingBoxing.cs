@@ -55,7 +55,7 @@ namespace RawBencher.Benchers
 		/// <returns>the framework name.</returns>
 		protected override string CreateFrameworkNameImpl()
 		{
-			return "Handcoded materializer using DbDataReader with GetValues(array) (boxing)";
+			return "Handcoded materializer using DbDataReader (GetValues(array), boxing)";
 		}
 		
 		/// <summary>
