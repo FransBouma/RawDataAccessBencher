@@ -51,27 +51,28 @@ namespace RawBencher
 			CacheController.RegisterCache(ConnectionString, new ResultsetCache());
 
 			// need to supply different connection string names to Telerik benchers for different "cached" contexts 
+			RegisteredBenchers.Add(new MassiveBencher());
 			RegisteredBenchers.Add(new HandCodedBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new HandCodedBencherUsingBoxing() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
-			RegisteredBenchers.Add(new NHibernateNormalBencher());
-			RegisteredBenchers.Add(new TelerikDomainBencher() { ConnectionStringToUse = "AdventureWorks.ConnectionString.SQL Server (SqlClient)" });
-			RegisteredBenchers.Add(new TelerikFluentBencher() { ConnectionStringToUse = "AdventureWorksConnectionTelerikFluent" });
-			RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingLinqPocoBencher());
-			RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingQuerySpecPocoBencher());
-			RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingBencher());
 			RegisteredBenchers.Add(new DapperBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new LinqToSqlNoChangeTrackingBencher());
 			RegisteredBenchers.Add(new EntityFrameworkNoChangeTrackingBencher());
 			RegisteredBenchers.Add(new OrmLiteBencher() { ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new PetaPocoBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new PetaPocoFastBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
-			RegisteredBenchers.Add(new LLBLGenProNormalBencher());
-			RegisteredBenchers.Add(new EntityFrameworkNormalBencher());
 			RegisteredBenchers.Add(new DataTableBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new LinqToSqlNormalBencher());
+			RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingLinqPocoBencher());
+			RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingQuerySpecPocoBencher());
+			RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingBencher());
+			RegisteredBenchers.Add(new LLBLGenProResultsetCachingBencher());
+			RegisteredBenchers.Add(new LLBLGenProNormalBencher());
+			RegisteredBenchers.Add(new EntityFrameworkNormalBencher());
 			RegisteredBenchers.Add(new OakDynamicDbDtoBencher());
 			RegisteredBenchers.Add(new OakDynamicDbNormalBencher());
-			RegisteredBenchers.Add(new LLBLGenProResultsetCachingBencher());
+			RegisteredBenchers.Add(new NHibernateNormalBencher());
+			//RegisteredBenchers.Add(new TelerikDomainBencher() { ConnectionStringToUse = "AdventureWorks.ConnectionString.SQL Server (SqlClient)" });
+			//RegisteredBenchers.Add(new TelerikFluentBencher() { ConnectionStringToUse = "AdventureWorksConnectionTelerikFluent" });
 
 			DisplayHeader();
 	
@@ -79,7 +80,7 @@ namespace RawBencher
 			FetchKeysForIndividualFetches();
 
 			// Uncomment the line below if you want to profile a bencher. Specify the bencher instance and follow the guides on the screen.
-			//ProfileBenchers(RegisteredBenchers.FirstOrDefault(b => b.GetType() == typeof(LLBLGenProNoChangeTrackingQuerySpecPocoBencher)));
+			//ProfileBenchers(RegisteredBenchers.FirstOrDefault(b => b.GetType() == typeof(MassiveBencher)));
 
 			RunRegisteredBenchers();
 			ReportAveragedResults(autoExit);
