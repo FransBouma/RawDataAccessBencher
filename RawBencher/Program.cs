@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
@@ -9,6 +8,13 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using RawBencher.Benchers;
+using System.Threading;
+using Dapper;
+#if !DNXCORE50
+using System.Configuration;
+#endif
+#if !(DNXCORE50 || DNX451)
 using AdventureWorks.Dal.Adapter.v42.DatabaseSpecific;
 using AdventureWorks.Dal.Adapter.v42.EntityClasses;
 using AdventureWorks.Dal.Adapter.v42.HelperClasses;
@@ -16,8 +22,7 @@ using AdventureWorks.Dal.Adapter.v42.FactoryClasses;
 using SD.LLBLGen.Pro.QuerySpec;
 using SD.LLBLGen.Pro.QuerySpec.Adapter;
 using SD.LLBLGen.Pro.ORMSupportClasses;
-using RawBencher.Benchers;
-using System.Threading;
+#endif
 
 namespace RawBencher
 {
@@ -31,9 +36,14 @@ namespace RawBencher
 		private const int IndividualKeysAmount = 100;
 		private const bool PerformSetBenchmarks = true;			// flag to signal whether the set fetch benchmarks have to be run.
 		private const bool PerformIndividualBenchMarks = true;  // flag to signal whether the single element fetch benchmarks have to be run.
-		private const bool ApplyAntiFloodForVMUsage = false;	// set to true if your target DB server is hosted on a VM, otherwise set it to false. Used in individual fetch bench.
+		private const bool ApplyAntiFloodForVMUsage = false;    // set to true if your target DB server is hosted on a VM, otherwise set it to false. Used in individual fetch bench.
 
+#if DNXCORE50
+		// have spoken to the corefx folks; currently no API for this in core-clr, but is a work-item
+		public const string ConnectionString = "data source=nerd.sd.local;initial catalog=AdventureWorks;integrated security=SSPI;persist security info=False;packet size=4096";
+#else
 		private static string ConnectionString = ConfigurationManager.ConnectionStrings["AdventureWorks.ConnectionString.SQL Server (SqlClient)"].ConnectionString;
+#endif
 		private static string SqlSelectCommandText = @"SELECT [SalesOrderID],[RevisionNumber],[OrderDate],[DueDate],[ShipDate],[Status],[OnlineOrderFlag],[SalesOrderNumber],[PurchaseOrderNumber],[AccountNumber],[CustomerID],[SalesPersonID],[TerritoryID],[BillToAddressID],[ShipToAddressID],[ShipMethodID],[CreditCardID],[CreditCardApprovalCode],[CurrencyRateID],[SubTotal],[TaxAmt],[Freight],[TotalDue],[Comment],[rowguid],[ModifiedDate]	FROM [Sales].[SalesOrderHeader]";
 		private static List<IBencher> RegisteredBenchers = new List<IBencher>();
 		private static List<int> KeysForIndividualFetches = new List<int>();
@@ -48,28 +58,44 @@ namespace RawBencher
 
 			InitConnectionString();
 
+#if !(DNXCORE50 || DNX451)
 			CacheController.RegisterCache(ConnectionString, new ResultsetCache());
+#endif
 
-			RegisteredBenchers.Add(new MassiveBencher());
 			RegisteredBenchers.Add(new HandCodedBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new HandCodedBencherUsingBoxing() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+			RegisteredBenchers.Add(new RawDbDataReaderBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new DapperBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
-			RegisteredBenchers.Add(new LinqToSqlNoChangeTrackingBencher());
-			RegisteredBenchers.Add(new EntityFrameworkNoChangeTrackingBencher());
+
+#if !DNXCORE50
+			RegisteredBenchers.Add(new MassiveBencher());
 			RegisteredBenchers.Add(new OrmLiteBencher() { ConnectionStringToUse = ConnectionString });
-			RegisteredBenchers.Add(new PetaPocoBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
-			RegisteredBenchers.Add(new PetaPocoFastBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new DataTableBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
-			RegisteredBenchers.Add(new LinqToSqlNormalBencher());
+#endif
+
+#if !(DNXCORE50 || DNX451)
+			RegisteredBenchers.Add(new EntityFrameworkNoChangeTrackingBencher());
+			RegisteredBenchers.Add(new EntityFrameworkNormalBencher());
+			RegisteredBenchers.Add(new LinqToSqlNoChangeTrackingBencher());
 			RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingLinqPocoBencher());
 			RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingQuerySpecPocoBencher());
 			RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingBencher());
 			RegisteredBenchers.Add(new LLBLGenProResultsetCachingBencher());
 			RegisteredBenchers.Add(new LLBLGenProNormalBencher());
-			RegisteredBenchers.Add(new EntityFrameworkNormalBencher());
+			RegisteredBenchers.Add(new LinqToSqlNormalBencher());
 			RegisteredBenchers.Add(new OakDynamicDbDtoBencher());
 			RegisteredBenchers.Add(new OakDynamicDbNormalBencher());
 			RegisteredBenchers.Add(new NHibernateNormalBencher());
+			RegisteredBenchers.Add(new PetaPocoBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+			RegisteredBenchers.Add(new PetaPocoFastBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+#endif
+
+
+
+
+
+
+
 
 			DisplayHeader();
 	
@@ -114,14 +140,31 @@ namespace RawBencher
 			Console.WriteLine( "| Number of set fetches          : {0}", LoopAmount);
 			Console.WriteLine( "| Number of individual keys      : {0}", IndividualKeysAmount);
 			Console.WriteLine( "| Release build                  : {0}", releaseBuild);
+#if !DNXCORE50 // there is a plan to add a new API equivalent to this; not released yet
 			Console.WriteLine( "| Client OS                      : {0} ({1}bit)", Environment.OSVersion, Environment.Is64BitOperatingSystem ? "64" : "32" );
 			Console.WriteLine( "| Bencher runs as 64bit          : {0}", Environment.Is64BitProcess);
 			Console.WriteLine( "| CLR version                    : {0}", Environment.Version);
+#else
+			Console.WriteLine( "| ADO.NET version                    : {0}", Program.GetVersion(typeof(SqlConnection))); // kinda hacky
+#endif
 			Console.WriteLine( "| Number of CPUs                 : {0}", Environment.ProcessorCount);
 			Console.WriteLine( "| Server used                    : {0}", conBuilder.DataSource);
 			Console.WriteLine( "| Catalog used                   : {0}", conBuilder.InitialCatalog);
 			Console.WriteLine( "| SQL Server version used        : {0}", sqlServerVersion);
 			Console.WriteLine( "+-------------------------------------------------------------------------------------------\n");
+		}
+
+		public static Version GetVersion(Type type)
+		{
+			return GetAssembly(type).GetName().Version;
+		}
+		public static Assembly GetAssembly(Type type)
+		{
+#if DNXCORE50
+			return type.GetTypeInfo().Assembly;
+#else
+			return type.Assembly;
+#endif
 		}
 
 
@@ -165,23 +208,26 @@ namespace RawBencher
 
 		private static void InitConnectionString()
 		{
+#if !(DNXCORE50 || DNX451) // DNX451 here is just because DataAccessAdapter not dragged over yet
 			// Use the connection string from app.config instead of the static variable if the connection string exists
 			var connectionStringFromConfig = ConfigurationManager.ConnectionStrings[DataAccessAdapter.ConnectionStringKeyName];
 			if (connectionStringFromConfig != null)
 			{
 				ConnectionString = string.IsNullOrEmpty(connectionStringFromConfig.ConnectionString) ? ConnectionString : connectionStringFromConfig.ConnectionString;
 			}
+#endif
 		}
 
 
 		private static void FetchKeysForIndividualFetches()
 		{
-			var qf = new QueryFactory();
-			var q = qf.SalesOrderHeader
-						.Select(() => SalesOrderHeaderFields.SalesOrderId.ToValue<int>())
-						.Limit(IndividualKeysAmount);
-			KeysForIndividualFetches = new DataAccessAdapter().FetchQuery(q);
-			if (KeysForIndividualFetches.Count < IndividualKeysAmount)
+			using (var conn = new SqlConnection(ConnectionString))
+			{
+				KeysForIndividualFetches = conn.Query<int>(
+					"select top {=count} SalesOrderId from AdventureWorks.Sales.SalesOrderHeader order by SalesOrderNumber",
+					new { count = IndividualKeysAmount }).AsList();
+			}
+			if (KeysForIndividualFetches.Count != IndividualKeysAmount)
 			{
 				throw new InvalidOperationException("Can't fetch the keys for the individual benchmarks");
 			}
@@ -252,7 +298,13 @@ namespace RawBencher
 						// during benching, which is not what we want at it can skew the results a lot. In a very short time, a lot of queries are executed
 						// on the target server (LoopAmount * IndividualKeysAmount), which will hurt performance on VMs with very fast frameworks in some
 						// cases in some runs (so more than 2 runs are slow). 
+#pragma warning disable CS0162
+#if DNXCORE50
+						throw new NotImplementedException(nameof(ApplyAntiFloodForVMUsage));
+#else
 						Thread.Sleep(400);
+#endif
+#pragma warning restore CS0162
 					}
 				}
 			}
@@ -261,7 +313,12 @@ namespace RawBencher
 
 		private static void WarmupDB()
 		{
-			var dbWarmer = new DataTableBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString };
+			IBencher dbWarmer;
+#if DNXCORE50
+			dbWarmer = new HandCodedBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString };
+#else
+			dbWarmer = new DataTableBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString };
+#endif
 
 			Console.WriteLine("\nWarming up DB, DB client code and CLR");
 			Console.WriteLine("====================================================================");
