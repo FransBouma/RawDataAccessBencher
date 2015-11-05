@@ -7,25 +7,25 @@
 		<id name="ProductId" column="[ProductID]" access="field.camelcase-underscore" >
 			<generator class="identity"/>
 		</id>
-		<property name="Class" column="[Class]" access="field.camelcase-underscore"/>
-		<property name="Color" column="[Color]" access="field.camelcase-underscore"/>
+		<property name="Class" column="[Class]" access="field.camelcase-underscore" length="2"/>
+		<property name="Color" column="[Color]" access="field.camelcase-underscore" length="15"/>
 		<property name="DaysToManufacture" column="[DaysToManufacture]" access="field.camelcase-underscore" not-null="true"/>
 		<property name="DiscontinuedDate" column="[DiscontinuedDate]" access="field.camelcase-underscore"/>
 		<property name="FinishedGoodsFlag" column="[FinishedGoodsFlag]" access="field.camelcase-underscore" not-null="true"/>
 		<property name="ListPrice" column="[ListPrice]" access="field.camelcase-underscore" not-null="true"/>
 		<property name="MakeFlag" column="[MakeFlag]" access="field.camelcase-underscore" not-null="true"/>
 		<property name="ModifiedDate" column="[ModifiedDate]" access="field.camelcase-underscore" not-null="true"/>
-		<property name="Name" column="[Name]" access="field.camelcase-underscore" not-null="true"/>
-		<property name="ProductLine" column="[ProductLine]" access="field.camelcase-underscore"/>
-		<property name="ProductNumber" column="[ProductNumber]" access="field.camelcase-underscore" not-null="true"/>
+		<property name="Name" column="[Name]" access="field.camelcase-underscore" not-null="true" length="50"/>
+		<property name="ProductLine" column="[ProductLine]" access="field.camelcase-underscore" length="2"/>
+		<property name="ProductNumber" column="[ProductNumber]" access="field.camelcase-underscore" not-null="true" length="25"/>
 		<property name="ReorderPoint" column="[ReorderPoint]" access="field.camelcase-underscore" not-null="true"/>
 		<property name="Rowguid" column="[rowguid]" access="field.camelcase-underscore" not-null="true"/>
 		<property name="SafetyStockLevel" column="[SafetyStockLevel]" access="field.camelcase-underscore" not-null="true"/>
 		<property name="SellEndDate" column="[SellEndDate]" access="field.camelcase-underscore"/>
 		<property name="SellStartDate" column="[SellStartDate]" access="field.camelcase-underscore" not-null="true"/>
-		<property name="Size" column="[Size]" access="field.camelcase-underscore"/>
+		<property name="Size" column="[Size]" access="field.camelcase-underscore" length="5"/>
 		<property name="StandardCost" column="[StandardCost]" access="field.camelcase-underscore" not-null="true"/>
-		<property name="Style" column="[Style]" access="field.camelcase-underscore"/>
+		<property name="Style" column="[Style]" access="field.camelcase-underscore" length="2"/>
 		<property name="Weight" column="[Weight]" access="field.camelcase-underscore"/>
 		<set name="BillOfMaterials" access="field.camelcase-underscore" cascade="all-delete-orphan" inverse="true" fetch="select">
 			<key>

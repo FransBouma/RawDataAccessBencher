@@ -50,7 +50,7 @@ namespace RawBencher
 
 			CacheController.RegisterCache(ConnectionString, new ResultsetCache());
 
-			// need to supply different connection string names to Telerik benchers for different "cached" contexts 
+			RegisteredBenchers.Add(new NHibernateNormalBencher());
 			RegisteredBenchers.Add(new MassiveBencher());
 			RegisteredBenchers.Add(new HandCodedBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new HandCodedBencherUsingBoxing() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
@@ -70,9 +70,6 @@ namespace RawBencher
 			RegisteredBenchers.Add(new EntityFrameworkNormalBencher());
 			RegisteredBenchers.Add(new OakDynamicDbDtoBencher());
 			RegisteredBenchers.Add(new OakDynamicDbNormalBencher());
-			RegisteredBenchers.Add(new NHibernateNormalBencher());
-			//RegisteredBenchers.Add(new TelerikDomainBencher() { ConnectionStringToUse = "AdventureWorks.ConnectionString.SQL Server (SqlClient)" });
-			//RegisteredBenchers.Add(new TelerikFluentBencher() { ConnectionStringToUse = "AdventureWorksConnectionTelerikFluent" });
 
 			DisplayHeader();
 	

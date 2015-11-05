@@ -9,9 +9,9 @@
 		</id>
 		<property name="IsOnlyStateProvinceFlag" column="[IsOnlyStateProvinceFlag]" access="field.camelcase-underscore" not-null="true"/>
 		<property name="ModifiedDate" column="[ModifiedDate]" access="field.camelcase-underscore" not-null="true"/>
-		<property name="Name" column="[Name]" access="field.camelcase-underscore" not-null="true"/>
+		<property name="Name" column="[Name]" access="field.camelcase-underscore" not-null="true" length="50"/>
 		<property name="Rowguid" column="[rowguid]" access="field.camelcase-underscore" not-null="true"/>
-		<property name="StateProvinceCode" column="[StateProvinceCode]" access="field.camelcase-underscore" not-null="true"/>
+		<property name="StateProvinceCode" column="[StateProvinceCode]" access="field.camelcase-underscore" not-null="true" length="3"/>
 		<set name="Addresses" access="field.camelcase-underscore" cascade="all-delete-orphan" inverse="true" fetch="select">
 			<key>
 				<column name="[StateProvinceID]"/>

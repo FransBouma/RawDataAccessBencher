@@ -7,8 +7,8 @@
 		<id name="SpecialOfferId" column="[SpecialOfferID]" access="field.camelcase-underscore" >
 			<generator class="identity"/>
 		</id>
-		<property name="Category" column="[Category]" access="field.camelcase-underscore" not-null="true"/>
-		<property name="Description" column="[Description]" access="field.camelcase-underscore" not-null="true"/>
+		<property name="Category" column="[Category]" access="field.camelcase-underscore" not-null="true" length="50"/>
+		<property name="Description" column="[Description]" access="field.camelcase-underscore" not-null="true" length="255"/>
 		<property name="DiscountPct" column="[DiscountPct]" access="field.camelcase-underscore" not-null="true"/>
 		<property name="EndDate" column="[EndDate]" access="field.camelcase-underscore" not-null="true"/>
 		<property name="MaxQty" column="[MaxQty]" access="field.camelcase-underscore"/>
@@ -16,7 +16,7 @@
 		<property name="ModifiedDate" column="[ModifiedDate]" access="field.camelcase-underscore" not-null="true"/>
 		<property name="Rowguid" column="[rowguid]" access="field.camelcase-underscore" not-null="true"/>
 		<property name="StartDate" column="[StartDate]" access="field.camelcase-underscore" not-null="true"/>
-		<property name="Type" column="[Type]" access="field.camelcase-underscore" not-null="true"/>
+		<property name="Type" column="[Type]" access="field.camelcase-underscore" not-null="true" length="50"/>
 		<set name="SpecialOfferProducts" access="field.camelcase-underscore" cascade="all-delete-orphan" inverse="true" fetch="select">
 			<key>
 				<column name="[SpecialOfferID]"/>

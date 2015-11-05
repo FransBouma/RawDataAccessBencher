@@ -28,16 +28,18 @@ Please run the benchmarks on a DB accessed over a network to avoid having the DB
 
 If you want to export the results to a file directly, run the RawBencher.exe from the command line and specify /a at the end so it will exit immediately when it's done. Example: RawBencher.exe /a > results.txt
 
+### 'Framework X isn't there anymore, why?'
+
+* CodeFluent Entities was part of the code base, but has been removed, as they kept the connection open during individual fetches, which gave them an unfair advantage. 
+* In previous versions the Telerik Open Access ORM was present, however compiling the code is impossible without the 'enhancer' tool of Telerik present on the system. To make it easier for people to download and compile the code, we therefore removed the Telerik bencher. If you want them, browse to a previous commit and pull the bencher classes and model from there. 
+
 ### Remarks per used framework ###
+
 NHibernate uses .hbm mappings, as this is of no relevance to the fetch speed and it avoids a dependency on FluentNHibernate.
 
 In the Entity Framework code, Foreign key fields are present in the code base, as other frameworks fetch them too. This makes Entity Framework become slow in 6.0.2 and earlier. With 6.1 this is partially fixed with 20%-30% faster code (see: http://entityframework.codeplex.com/workitem/1829) however it's still slower most frameworks with FK fields in Entity Framework v6.1. Without Foreign key fields present, Entity Framework takes roughly half the performance of 6.0.2 with FK fields present and ~70% of 6.1. 
 
-Including data-table fetches might look like an apple/oranges comparison, but so is Full ORM vs. Micro 'ORM', as a souped up object materializer like Dapper has less things to worry about than, say NHibernate or LLBLGen Pro. The inclusion of these frameworks is done to show what can be achieved if there's little overhead between the DbDataReader and the materialized object. The closer an ORM gets to these lower-level object materializers, the better it is in fetching data with inclusion of the extra features if has to offer to the developer and the application it is used in. 
-
-Note: CodeFluent Entities was part of the code base, but has been removed, as they kept the connection open during individual fetches, which gave them an unfair advantage. 
-
-Dapper's individual fetches are faster than the hand-written materializer by a large margin. This isn't because the hand-written is slow, but because Dapper caches single row results, making it bypass materialization every sub-sequential time after the first batch. 
+Including data-table fetches might look like an apple/oranges comparison, but so is Full ORM vs. Micro 'ORM', as a Micro ORM like Dapper has less things to worry about than, say NHibernate or LLBLGen Pro. The inclusion of these frameworks is done to show what can be achieved if there's little overhead between the DbDataReader and the materialized object. The closer an ORM gets to these lower-level object materializers, the better it is in fetching data with inclusion of the extra features if has to offer to the developer and the application it is used in. 
 
 ### Disclaimer ###
 I wrote [LLBLGen Pro](http://www.llblgen.com/), though I tried to keep this benchmark as honest and open as possible.

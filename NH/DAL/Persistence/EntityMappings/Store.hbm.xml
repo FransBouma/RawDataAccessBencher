@@ -11,7 +11,7 @@
 		</id>
 		<property name="Demographics" column="[Demographics]" access="field.camelcase-underscore" type="StringClob"/>
 		<property name="ModifiedDate" column="[ModifiedDate]" access="field.camelcase-underscore" not-null="true"/>
-		<property name="Name" column="[Name]" access="field.camelcase-underscore" not-null="true"/>
+		<property name="Name" column="[Name]" access="field.camelcase-underscore" not-null="true" length="50"/>
 		<property name="Rowguid" column="[rowguid]" access="field.camelcase-underscore" not-null="true"/>
 		<one-to-one name="BusinessEntity" access="field.camelcase-underscore" fetch="select" cascade="all" constrained="true"/>
 		<set name="Customers" access="field.camelcase-underscore" cascade="all-delete-orphan" inverse="true" fetch="select">

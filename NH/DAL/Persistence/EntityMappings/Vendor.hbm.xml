@@ -9,13 +9,13 @@
 				<param name="property">BusinessEntity</param>
 			</generator>
 		</id>
-		<property name="AccountNumber" column="[AccountNumber]" access="field.camelcase-underscore" not-null="true"/>
+		<property name="AccountNumber" column="[AccountNumber]" access="field.camelcase-underscore" not-null="true" length="15"/>
 		<property name="ActiveFlag" column="[ActiveFlag]" access="field.camelcase-underscore" not-null="true"/>
 		<property name="CreditRating" column="[CreditRating]" access="field.camelcase-underscore" not-null="true"/>
 		<property name="ModifiedDate" column="[ModifiedDate]" access="field.camelcase-underscore" not-null="true"/>
-		<property name="Name" column="[Name]" access="field.camelcase-underscore" not-null="true"/>
+		<property name="Name" column="[Name]" access="field.camelcase-underscore" not-null="true" length="50"/>
 		<property name="PreferredVendorStatus" column="[PreferredVendorStatus]" access="field.camelcase-underscore" not-null="true"/>
-		<property name="PurchasingWebServiceUrl" column="[PurchasingWebServiceURL]" access="field.camelcase-underscore"/>
+		<property name="PurchasingWebServiceUrl" column="[PurchasingWebServiceURL]" access="field.camelcase-underscore" length="1024"/>
 		<one-to-one name="BusinessEntity" access="field.camelcase-underscore" fetch="select" cascade="all" constrained="true"/>
 		<set name="ProductVendors" access="field.camelcase-underscore" cascade="all-delete-orphan" inverse="true" fetch="select">
 			<key>

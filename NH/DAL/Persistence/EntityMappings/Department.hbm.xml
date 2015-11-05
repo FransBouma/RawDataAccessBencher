@@ -7,9 +7,9 @@
 		<id name="DepartmentId" column="[DepartmentID]" access="field.camelcase-underscore" >
 			<generator class="identity"/>
 		</id>
-		<property name="GroupName" column="[GroupName]" access="field.camelcase-underscore" not-null="true"/>
+		<property name="GroupName" column="[GroupName]" access="field.camelcase-underscore" not-null="true" length="50"/>
 		<property name="ModifiedDate" column="[ModifiedDate]" access="field.camelcase-underscore" not-null="true"/>
-		<property name="Name" column="[Name]" access="field.camelcase-underscore" not-null="true"/>
+		<property name="Name" column="[Name]" access="field.camelcase-underscore" not-null="true" length="50"/>
 		<set name="EmployeeDepartmentHistories" access="field.camelcase-underscore" cascade="all-delete-orphan" inverse="true" fetch="select">
 			<key>
 				<column name="[DepartmentID]"/>

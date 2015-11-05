@@ -8,10 +8,10 @@
 			<generator class="identity"/>
 		</id>
 		<property name="LargePhoto" column="[LargePhoto]" access="field.camelcase-underscore" type="BinaryBlob"/>
-		<property name="LargePhotoFileName" column="[LargePhotoFileName]" access="field.camelcase-underscore"/>
+		<property name="LargePhotoFileName" column="[LargePhotoFileName]" access="field.camelcase-underscore" length="50"/>
 		<property name="ModifiedDate" column="[ModifiedDate]" access="field.camelcase-underscore" not-null="true"/>
 		<property name="ThumbNailPhoto" column="[ThumbNailPhoto]" access="field.camelcase-underscore" type="BinaryBlob"/>
-		<property name="ThumbnailPhotoFileName" column="[ThumbnailPhotoFileName]" access="field.camelcase-underscore"/>
+		<property name="ThumbnailPhotoFileName" column="[ThumbnailPhotoFileName]" access="field.camelcase-underscore" length="50"/>
 		<set name="ProductProductPhotos" access="field.camelcase-underscore" cascade="all-delete-orphan" inverse="true" fetch="select">
 			<key>
 				<column name="[ProductPhotoID]"/>

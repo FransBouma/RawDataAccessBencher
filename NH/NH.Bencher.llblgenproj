@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<!--LLBLGen Pro v4.1 project file. Do not manually edit this file. Incorrect references could lead to an unloadable project file.-->
-<Project Version="4.1" TargetFrameworkName="NHibernate">
+<!--LLBLGen Pro v4.2 project file. Do not manually edit this file. Incorrect references could lead to an unloadable project file.-->
+<Project Version="4.2" TargetFrameworkName="NHibernate v4">
   <Properties>
     <Abbreviations />
     <Property Name="AdditionalTaskPerformerFolder" Value="" />
@@ -18,13 +18,15 @@
     <Property Name="DefaultDeleteRuleAction" Value="1" />
     <Property Name="DefaultUpdateRuleAction" Value="0" />
     <Property Name="EncodingToUse" Value="0" />
-    <Property Name="EnforcePascalCasingAlways" Value="true" />
+    <Property Name="EntityActionCombinationDefaultForTable" Value="0" />
+    <Property Name="EntityActionCombinationDefaultForView" Value="4" />
     <Property Name="EntityFieldNameStripPattern" Value="{}{}" />
     <Property Name="EntityNameStripPattern" Value="{tbl_}{}" />
     <Property Name="ExcludableOrphanedElementDetectedAction" Value="3" />
     <Property Name="FailCodeGenerationOnWriteError" Value="false" />
     <Property Name="FieldMappedOntoRelatedFieldPattern" Value="{$RelatedFieldName}" />
     <Property Name="FkFieldsAreNamedAfterTargetField" Value="true" />
+    <Property Name="ForeignKeyConstraintPattern" Value="FK_{$Guid}" />
     <Property Name="ForeignKeyFieldPattern" Value="{$NavigatorName}{$RelatedFieldName}" />
     <Property Name="GroupUsage" Value="0" />
     <Property Name="IdentifyingFieldsFollowDBPrimaryKeyConstraints" Value="1" />
@@ -40,6 +42,7 @@
     <Property Name="PreferNaturalCharacterTypes" Value="true" />
     <Property Name="PreferSystemSequencesOverSchemaSequencesIfApplicable" Value="true" />
     <Property Name="PreferVariableLengthTypes" Value="true" />
+    <Property Name="PrimaryKeyConstraintPattern" Value="PK_{$Guid}" />
     <Property Name="ProjectCreator" Value="FB" />
     <Property Name="ProjectName" Value="NH.Bencher" />
     <Property Name="ReflectNullabilityOfElementFieldInTargetField" Value="0" />
@@ -51,9 +54,11 @@
     <Property Name="ResetFieldOrderBasedOnTargetOrderAtRefresh" Value="false" />
     <Property Name="RetrieveDBCustomProperties" Value="false" />
     <Property Name="RootNamespace" Value="" />
+    <Property Name="SequenceNameMatchingPattern" Value="SEQ_{$TableName}" />
     <Property Name="SequencePattern" Value="SEQ_{$EntityName}" />
     <Property Name="SetGroupNameAfterSchemaName" Value="true" />
     <Property Name="SetSchemaNameAfterGroupName" Value="true" />
+    <Property Name="SingularizeElementNames" Value="true" />
     <Property Name="StoredProcNameStripPattern" Value="{pr_, sp_}{}" />
     <Property Name="StoreTimeLastGeneratedIntoProject" Value="false" />
     <Property Name="SyncMappedElementNamesAfterRefresh" Value="0" />
@@ -64,6 +69,7 @@
     <Property Name="TypedViewFieldNameStripPattern" Value="{}{}" />
     <Property Name="TypedViewMappedOnResultsetPattern" Value="{$ProcFunctionName}{$ResultsetName}Result" />
     <Property Name="TypedViewNameStripPattern" Value="{vw_}{}" />
+    <Property Name="UniqueConstraintPattern" Value="UC_{$Guid}" />
     <Property Name="UniqueConstraintsFollowDBUniqueConstraints" Value="1" />
     <Property Name="UpdateCustomPropertiesAfterRefresh" Value="0" />
     <Property Name="UseCustomFieldOrderingOnNewElements" Value="false" />
@@ -71,13 +77,15 @@
   <TypeShortcuts>
     <TypeShortcut Shortcut="SqlGeography" Type="Microsoft.SqlServer.Types.SqlGeography, Microsoft.SqlServer.Types, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
   </TypeShortcuts>
+  <IgnoredWarnings />
+  <SavedSearchQueries />
   <CodeGenerationCyclePreferences>
     <OutputType Value="3">
       <LastUsedPreferences>
         <DestinationRootFolder Value=".\DAL" />
-        <FrameworkName Value="NHibernate" />
+        <FrameworkName Value="NHibernate v4" />
         <LanguageName Value="C#" />
-        <PlatformName Value=".NET 4.5.1" />
+        <PlatformName Value=".NET 4.0" />
         <PresetName Value="SD.NHibernate (XML mappings and classes)" />
         <RootNamespace Value="NH.Bencher" />
         <TemplateGroup Value="General" />
@@ -98,7 +106,7 @@
   <EntityModel>
     <ValueTypeDefinitions />
     <EntityDefinitions>
-      <EntityDefinition Name="Address">
+      <EntityDefinition Name="Address" ObjectID="29e9aeaa-b815-433d-8256-49fa8e6b4e6d">
         <Fields>
           <Field Name="AddressId" Type="int" IsReadOnly="true" Precision="10" IsPrimaryKey="true" />
           <Field Name="AddressLine1" Type="string" MaxLength="60" />
@@ -111,7 +119,7 @@
           <Field Name="StateProvinceId" Type="int" Precision="10" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="AddressType">
+      <EntityDefinition Name="AddressType" ObjectID="1daa95e7-ec9e-4f77-b16f-99c26d228737">
         <Fields>
           <Field Name="AddressTypeId" Type="int" IsReadOnly="true" Precision="10" IsPrimaryKey="true" />
           <Field Name="ModifiedDate" Type="datetime" />
@@ -119,7 +127,7 @@
           <Field Name="Rowguid" Type="guid" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="BillOfMaterial">
+      <EntityDefinition Name="BillOfMaterial" ObjectID="f24a747a-5348-4928-badc-b11479accbfc">
         <Fields>
           <Field Name="BillOfMaterialsId" Type="int" IsReadOnly="true" Precision="10" IsPrimaryKey="true" />
           <Field Name="Bomlevel" Type="short" Precision="5" />
@@ -132,14 +140,14 @@
           <Field Name="UnitMeasureCode" Type="string" MaxLength="3" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="BusinessEntity">
+      <EntityDefinition Name="BusinessEntity" ObjectID="5dba3a27-c69f-473d-95e5-94c421cdd94d">
         <Fields>
           <Field Name="BusinessEntityId" Type="int" IsReadOnly="true" Precision="10" IsPrimaryKey="true" />
           <Field Name="ModifiedDate" Type="datetime" />
           <Field Name="Rowguid" Type="guid" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="BusinessEntityAddress">
+      <EntityDefinition Name="BusinessEntityAddress" ObjectID="bd5bad32-d3b9-4d95-9a2c-4b34793ed9a9">
         <Fields>
           <Field Name="AddressId" Type="int" Precision="10" IsPrimaryKey="true" />
           <Field Name="AddressTypeId" Type="int" Precision="10" IsPrimaryKey="true" />
@@ -148,7 +156,7 @@
           <Field Name="Rowguid" Type="guid" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="BusinessEntityContact">
+      <EntityDefinition Name="BusinessEntityContact" ObjectID="f1e365fa-51c5-4990-bd57-aed5b091161c">
         <Fields>
           <Field Name="BusinessEntityId" Type="int" Precision="10" IsPrimaryKey="true" />
           <Field Name="ContactTypeId" Type="int" Precision="10" IsPrimaryKey="true" />
@@ -157,35 +165,35 @@
           <Field Name="Rowguid" Type="guid" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="ContactCreditCard">
+      <EntityDefinition Name="ContactCreditCard" ObjectID="9310f237-2597-4b1d-8052-44a2b1478569">
         <Fields>
           <Field Name="ContactId" Type="int" Precision="10" IsPrimaryKey="true" />
           <Field Name="CreditCardId" Type="int" Precision="10" IsPrimaryKey="true" />
           <Field Name="ModifiedDate" Type="datetime" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="ContactType">
+      <EntityDefinition Name="ContactType" ObjectID="ef3a0767-b5f6-4001-a247-0dcf0112f65a">
         <Fields>
           <Field Name="ContactTypeId" Type="int" IsReadOnly="true" Precision="10" IsPrimaryKey="true" />
           <Field Name="ModifiedDate" Type="datetime" />
           <Field Name="Name" Type="string" MaxLength="50" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="CountryRegion">
+      <EntityDefinition Name="CountryRegion" ObjectID="9dcb6837-f6db-4d34-9241-319e3032cf8f">
         <Fields>
           <Field Name="CountryRegionCode" Type="string" MaxLength="3" IsPrimaryKey="true" />
           <Field Name="ModifiedDate" Type="datetime" />
           <Field Name="Name" Type="string" MaxLength="50" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="CountryRegionCurrency">
+      <EntityDefinition Name="CountryRegionCurrency" ObjectID="57e79901-d5a6-41da-8b62-18b985cc451b">
         <Fields>
           <Field Name="CountryRegionCode" Type="string" MaxLength="3" IsPrimaryKey="true" />
           <Field Name="CurrencyCode" Type="string" MaxLength="3" IsPrimaryKey="true" />
           <Field Name="ModifiedDate" Type="datetime" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="CreditCard">
+      <EntityDefinition Name="CreditCard" ObjectID="181b763c-36e5-466e-94cf-8e59966bc010">
         <Fields>
           <Field Name="CardNumber" Type="string" MaxLength="25" />
           <Field Name="CardType" Type="string" MaxLength="50" />
@@ -195,21 +203,21 @@
           <Field Name="ModifiedDate" Type="datetime" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="Culture">
+      <EntityDefinition Name="Culture" ObjectID="e4d8923c-cb64-4623-9927-c439cfd7d5ad">
         <Fields>
           <Field Name="CultureId" Type="string" MaxLength="6" IsPrimaryKey="true" />
           <Field Name="ModifiedDate" Type="datetime" />
           <Field Name="Name" Type="string" MaxLength="50" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="Currency">
+      <EntityDefinition Name="Currency" ObjectID="c6508660-2452-4c82-ab5b-28c7e84c258f">
         <Fields>
           <Field Name="CurrencyCode" Type="string" MaxLength="3" IsPrimaryKey="true" />
           <Field Name="ModifiedDate" Type="datetime" />
           <Field Name="Name" Type="string" MaxLength="50" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="CurrencyRate">
+      <EntityDefinition Name="CurrencyRate" ObjectID="3023b2f0-5fee-4fca-9599-2a805f7e0f13">
         <Fields>
           <Field Name="AverageRate" Type="decimal" Precision="19" Scale="4" />
           <Field Name="CurrencyRateDate" Type="datetime" />
@@ -220,7 +228,7 @@
           <Field Name="ToCurrencyCode" Type="string" MaxLength="3" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="Customer">
+      <EntityDefinition Name="Customer" ObjectID="9d0df078-b18a-4c57-9cf7-796733a8b552">
         <Fields>
           <Field Name="AccountNumber" Type="string" IsReadOnly="true" MaxLength="10" />
           <Field Name="CustomerId" Type="int" IsReadOnly="true" Precision="10" IsPrimaryKey="true" />
@@ -231,7 +239,7 @@
           <Field Name="TerritoryId" Type="int" IsOptional="true" Precision="10" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="Department">
+      <EntityDefinition Name="Department" ObjectID="5ad42cdd-a347-4c22-a1e5-3a9716016ccb">
         <Fields>
           <Field Name="DepartmentId" Type="short" IsReadOnly="true" Precision="5" IsPrimaryKey="true" />
           <Field Name="GroupName" Type="string" MaxLength="50" />
@@ -239,7 +247,7 @@
           <Field Name="Name" Type="string" MaxLength="50" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="Document">
+      <EntityDefinition Name="Document" ObjectID="3b7df831-6123-43d5-a7b8-4de2c55425ff">
         <Fields>
           <Field Name="ChangeNumber" Type="int" Precision="10" />
           <Field Name="DocumentData" Type="byte[]" IsOptional="true" MaxLength="2147483647" />
@@ -262,7 +270,7 @@
           </UniqueConstraint>
         </UniqueConstraints>
       </EntityDefinition>
-      <EntityDefinition Name="EmailAddress">
+      <EntityDefinition Name="EmailAddress" ObjectID="35bc35a4-32cb-4da0-8362-ad1e70d54170">
         <Fields>
           <Field Name="BusinessEntityId" Type="int" Precision="10" IsPrimaryKey="true" />
           <Field Name="EmailAddressId" Type="int" IsReadOnly="true" Precision="10" IsPrimaryKey="true" />
@@ -271,7 +279,7 @@
           <Field Name="Rowguid" Type="guid" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="Employee">
+      <EntityDefinition Name="Employee" ObjectID="dd6b3797-593d-4bad-9be0-0af37efcfd06">
         <Fields>
           <Field Name="BirthDate" Type="datetime" />
           <Field Name="CurrentFlag" Type="bool" />
@@ -291,7 +299,7 @@
           <Field Name="VacationHours" Type="short" Precision="5" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="EmployeeDepartmentHistory">
+      <EntityDefinition Name="EmployeeDepartmentHistory" ObjectID="18e0aee8-32aa-4d37-9d15-3457f8b90c6a">
         <Fields>
           <Field Name="DepartmentId" Type="short" Precision="5" IsPrimaryKey="true" />
           <Field Name="EmployeeId" Type="int" Precision="10" IsPrimaryKey="true" />
@@ -301,7 +309,7 @@
           <Field Name="StartDate" Type="datetime" IsPrimaryKey="true" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="EmployeePayHistory">
+      <EntityDefinition Name="EmployeePayHistory" ObjectID="5fe26342-0d14-4b94-bb31-005db7ad7500">
         <Fields>
           <Field Name="EmployeeId" Type="int" Precision="10" IsPrimaryKey="true" />
           <Field Name="ModifiedDate" Type="datetime" />
@@ -310,14 +318,14 @@
           <Field Name="RateChangeDate" Type="datetime" IsPrimaryKey="true" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="Illustration">
+      <EntityDefinition Name="Illustration" ObjectID="d108ef76-33c1-4ac6-9b54-24db28bac6a0">
         <Fields>
           <Field Name="Diagram" Type="string" IsOptional="true" MaxLength="2147483647" />
           <Field Name="IllustrationId" Type="int" IsReadOnly="true" Precision="10" IsPrimaryKey="true" />
           <Field Name="ModifiedDate" Type="datetime" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="JobCandidate">
+      <EntityDefinition Name="JobCandidate" ObjectID="c2dcfe67-a459-456d-be7b-f30bb44e2077">
         <Fields>
           <Field Name="EmployeeId" Type="int" IsOptional="true" Precision="10" />
           <Field Name="JobCandidateId" Type="int" IsReadOnly="true" Precision="10" IsPrimaryKey="true" />
@@ -325,7 +333,7 @@
           <Field Name="Resume" Type="string" IsOptional="true" MaxLength="2147483647" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="Location">
+      <EntityDefinition Name="Location" ObjectID="25503ebd-9d09-4c3f-9d75-019d4e9b4103">
         <Fields>
           <Field Name="Availability" Type="decimal" Precision="8" Scale="2" />
           <Field Name="CostRate" Type="decimal" Precision="10" Scale="4" />
@@ -334,7 +342,7 @@
           <Field Name="Name" Type="string" MaxLength="50" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="Password">
+      <EntityDefinition Name="Password" ObjectID="73c88d60-e850-4a25-98a0-2e4f53b00321">
         <Fields>
           <Field Name="BusinessEntityId" Type="int" Precision="10" IsPrimaryKey="true" />
           <Field Name="ModifiedDate" Type="datetime" />
@@ -343,7 +351,7 @@
           <Field Name="Rowguid" Type="guid" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="Person">
+      <EntityDefinition Name="Person" ObjectID="3cc5cd6f-a87a-4e07-b417-f8b3aa9bcc13">
         <Fields>
           <Field Name="AdditionalContactInfo" Type="string" IsOptional="true" MaxLength="2147483647" />
           <Field Name="BusinessEntityId" Type="int" Precision="10" IsPrimaryKey="true" />
@@ -360,7 +368,7 @@
           <Field Name="Title" Type="string" IsOptional="true" MaxLength="8" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="PersonPhone">
+      <EntityDefinition Name="PersonPhone" ObjectID="ad11e385-145c-49b2-8f53-de2c1f97881d">
         <Fields>
           <Field Name="BusinessEntityId" Type="int" Precision="10" IsPrimaryKey="true" />
           <Field Name="ModifiedDate" Type="datetime" />
@@ -368,14 +376,14 @@
           <Field Name="PhoneNumberTypeId" Type="int" Precision="10" IsPrimaryKey="true" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="PhoneNumberType">
+      <EntityDefinition Name="PhoneNumberType" ObjectID="9d0ee34f-c02f-4172-b1d7-3bc5cfa6f315">
         <Fields>
           <Field Name="ModifiedDate" Type="datetime" />
           <Field Name="Name" Type="string" MaxLength="50" />
           <Field Name="PhoneNumberTypeId" Type="int" IsReadOnly="true" Precision="10" IsPrimaryKey="true" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="Product">
+      <EntityDefinition Name="Product" ObjectID="de9b8834-7697-4018-bb9a-8a68d2ce6dcc">
         <Fields>
           <Field Name="Class" Type="string" IsOptional="true" MaxLength="2" />
           <Field Name="Color" Type="string" IsOptional="true" MaxLength="15" />
@@ -404,7 +412,7 @@
           <Field Name="WeightUnitMeasureCode" Type="string" IsOptional="true" MaxLength="3" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="ProductCategory">
+      <EntityDefinition Name="ProductCategory" ObjectID="bcc69ef2-b3f9-4658-af19-c826bccf9837">
         <Fields>
           <Field Name="ModifiedDate" Type="datetime" />
           <Field Name="Name" Type="string" MaxLength="50" />
@@ -412,7 +420,7 @@
           <Field Name="Rowguid" Type="guid" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="ProductCostHistory">
+      <EntityDefinition Name="ProductCostHistory" ObjectID="8b7f9c9f-8311-40e3-987a-b55e3a1a693b">
         <Fields>
           <Field Name="EndDate" Type="datetime" IsOptional="true" />
           <Field Name="ModifiedDate" Type="datetime" />
@@ -421,7 +429,7 @@
           <Field Name="StartDate" Type="datetime" IsPrimaryKey="true" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="ProductDescription">
+      <EntityDefinition Name="ProductDescription" ObjectID="5c7061ec-b085-49b9-be5d-58dac5f9203b">
         <Fields>
           <Field Name="Description" Type="string" MaxLength="400" />
           <Field Name="ModifiedDate" Type="datetime" />
@@ -429,14 +437,14 @@
           <Field Name="Rowguid" Type="guid" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="ProductDocument">
+      <EntityDefinition Name="ProductDocument" ObjectID="3e231582-c40b-4728-b152-d7a238a2b768">
         <Fields>
           <Field Name="DocumentNode" Type="string" MaxLength="892" IsPrimaryKey="true" IsAutoCreated="true" />
           <Field Name="ModifiedDate" Type="datetime" />
           <Field Name="ProductId" Type="int" Precision="10" IsPrimaryKey="true" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="ProductInventory">
+      <EntityDefinition Name="ProductInventory" ObjectID="722ea4c1-54b8-475c-be55-752f00ce1932">
         <Fields>
           <Field Name="Bin" Type="byte" Precision="3" />
           <Field Name="LocationId" Type="short" Precision="5" IsPrimaryKey="true" />
@@ -447,7 +455,7 @@
           <Field Name="Shelf" Type="string" MaxLength="10" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="ProductListPriceHistory">
+      <EntityDefinition Name="ProductListPriceHistory" ObjectID="a502032f-44b8-4dc7-87da-50fbcb44e7fe">
         <Fields>
           <Field Name="EndDate" Type="datetime" IsOptional="true" />
           <Field Name="ListPrice" Type="decimal" Precision="19" Scale="4" />
@@ -456,7 +464,7 @@
           <Field Name="StartDate" Type="datetime" IsPrimaryKey="true" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="ProductModel">
+      <EntityDefinition Name="ProductModel" ObjectID="da546427-91b6-40cb-baa0-6546369d86ff">
         <Fields>
           <Field Name="CatalogDescription" Type="string" IsOptional="true" MaxLength="2147483647" />
           <Field Name="Instructions" Type="string" IsOptional="true" MaxLength="2147483647" />
@@ -466,14 +474,14 @@
           <Field Name="Rowguid" Type="guid" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="ProductModelIllustration">
+      <EntityDefinition Name="ProductModelIllustration" ObjectID="39bdbf66-8795-4956-bc26-a44de84eddf5">
         <Fields>
           <Field Name="IllustrationId" Type="int" Precision="10" IsPrimaryKey="true" />
           <Field Name="ModifiedDate" Type="datetime" />
           <Field Name="ProductModelId" Type="int" Precision="10" IsPrimaryKey="true" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="ProductModelProductDescriptionCulture">
+      <EntityDefinition Name="ProductModelProductDescriptionCulture" ObjectID="f5e7f181-5db1-4976-98a6-618f6dc441d8">
         <Fields>
           <Field Name="CultureId" Type="string" MaxLength="6" IsPrimaryKey="true" />
           <Field Name="ModifiedDate" Type="datetime" />
@@ -481,7 +489,7 @@
           <Field Name="ProductModelId" Type="int" Precision="10" IsPrimaryKey="true" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="ProductPhoto">
+      <EntityDefinition Name="ProductPhoto" ObjectID="2295d046-9615-465d-bd29-3958a301d2c0">
         <Fields>
           <Field Name="LargePhoto" Type="byte[]" IsOptional="true" MaxLength="2147483647" />
           <Field Name="LargePhotoFileName" Type="string" IsOptional="true" MaxLength="50" />
@@ -491,7 +499,7 @@
           <Field Name="ThumbnailPhotoFileName" Type="string" IsOptional="true" MaxLength="50" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="ProductProductPhoto">
+      <EntityDefinition Name="ProductProductPhoto" ObjectID="e44fb7a7-5f72-4464-8a6e-a18ff44dbd6f">
         <Fields>
           <Field Name="ModifiedDate" Type="datetime" />
           <Field Name="Primary" Type="bool" />
@@ -499,7 +507,7 @@
           <Field Name="ProductPhotoId" Type="int" Precision="10" IsPrimaryKey="true" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="ProductReview">
+      <EntityDefinition Name="ProductReview" ObjectID="23319d32-3066-4b6a-8fd5-16d079ec7691">
         <Fields>
           <Field Name="Comments" Type="string" IsOptional="true" MaxLength="3850" />
           <Field Name="EmailAddress" Type="string" MaxLength="50" />
@@ -511,7 +519,7 @@
           <Field Name="ReviewerName" Type="string" MaxLength="50" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="ProductSubcategory">
+      <EntityDefinition Name="ProductSubcategory" ObjectID="9faabb44-be51-4621-aef9-406e97f38ead">
         <Fields>
           <Field Name="ModifiedDate" Type="datetime" />
           <Field Name="Name" Type="string" MaxLength="50" />
@@ -520,7 +528,7 @@
           <Field Name="Rowguid" Type="guid" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="ProductVendor">
+      <EntityDefinition Name="ProductVendor" ObjectID="ef042225-64dc-4964-ac4b-3a2cf20a1cc2">
         <Fields>
           <Field Name="AverageLeadTime" Type="int" Precision="10" />
           <Field Name="LastReceiptCost" Type="decimal" IsOptional="true" Precision="19" Scale="4" />
@@ -535,7 +543,7 @@
           <Field Name="VendorId" Type="int" Precision="10" IsPrimaryKey="true" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="PurchaseOrderDetail">
+      <EntityDefinition Name="PurchaseOrderDetail" ObjectID="8e7940a9-2583-44cc-ae71-85c22ab3e2ec">
         <Fields>
           <Field Name="DueDate" Type="datetime" />
           <Field Name="LineTotal" Type="decimal" IsReadOnly="true" Precision="19" Scale="4" />
@@ -550,7 +558,7 @@
           <Field Name="UnitPrice" Type="decimal" Precision="19" Scale="4" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="PurchaseOrderHeader">
+      <EntityDefinition Name="PurchaseOrderHeader" ObjectID="47e611e5-18cb-4117-be3c-3cba031482bc">
         <Fields>
           <Field Name="EmployeeId" Type="int" Precision="10" />
           <Field Name="Freight" Type="decimal" Precision="19" Scale="4" />
@@ -567,7 +575,7 @@
           <Field Name="VendorId" Type="int" Precision="10" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="SalesOrderDetail">
+      <EntityDefinition Name="SalesOrderDetail" ObjectID="99aa4b07-9298-4a69-b514-1884be307d1b">
         <Fields>
           <Field Name="CarrierTrackingNumber" Type="string" IsOptional="true" MaxLength="25" />
           <Field Name="LineTotal" Type="decimal" IsReadOnly="true" Precision="38" Scale="6" />
@@ -582,7 +590,7 @@
           <Field Name="UnitPriceDiscount" Type="decimal" Precision="19" Scale="4" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="SalesOrderHeader">
+      <EntityDefinition Name="SalesOrderHeader" ObjectID="83e64d40-96f9-4e3d-b187-8f1d04b3bcbe">
         <Fields>
           <Field Name="AccountNumber" Type="string" IsOptional="true" MaxLength="15" />
           <Field Name="BillToAddressId" Type="int" Precision="10" />
@@ -612,14 +620,14 @@
           <Field Name="TotalDue" Type="decimal" IsReadOnly="true" Precision="19" Scale="4" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="SalesOrderHeaderSalesReason">
+      <EntityDefinition Name="SalesOrderHeaderSalesReason" ObjectID="44f75a83-476d-4b11-8661-48de3af0fa3f">
         <Fields>
           <Field Name="ModifiedDate" Type="datetime" />
           <Field Name="SalesOrderId" Type="int" Precision="10" IsPrimaryKey="true" />
           <Field Name="SalesReasonId" Type="int" Precision="10" IsPrimaryKey="true" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="SalesPerson">
+      <EntityDefinition Name="SalesPerson" ObjectID="bb6d726d-13e2-4508-be85-c201a7d9b11e">
         <Fields>
           <Field Name="Bonus" Type="decimal" Precision="19" Scale="4" />
           <Field Name="CommissionPct" Type="decimal" Precision="10" Scale="4" />
@@ -632,7 +640,7 @@
           <Field Name="TerritoryId" Type="int" IsOptional="true" Precision="10" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="SalesPersonQuotaHistory">
+      <EntityDefinition Name="SalesPersonQuotaHistory" ObjectID="662aa334-bd9f-4988-aed3-fe67148c3eaf">
         <Fields>
           <Field Name="ModifiedDate" Type="datetime" />
           <Field Name="QuotaDate" Type="datetime" IsPrimaryKey="true" />
@@ -641,7 +649,7 @@
           <Field Name="SalesQuota" Type="decimal" Precision="19" Scale="4" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="SalesReason">
+      <EntityDefinition Name="SalesReason" ObjectID="320988ea-2720-4ec8-a9a0-18f879cd64d1">
         <Fields>
           <Field Name="ModifiedDate" Type="datetime" />
           <Field Name="Name" Type="string" MaxLength="50" />
@@ -649,7 +657,7 @@
           <Field Name="SalesReasonId" Type="int" IsReadOnly="true" Precision="10" IsPrimaryKey="true" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="SalesTaxRate">
+      <EntityDefinition Name="SalesTaxRate" ObjectID="2b27ff53-966b-4b07-b5bc-3b11d2c750e0">
         <Fields>
           <Field Name="ModifiedDate" Type="datetime" />
           <Field Name="Name" Type="string" MaxLength="50" />
@@ -660,7 +668,7 @@
           <Field Name="TaxType" Type="byte" Precision="3" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="SalesTerritory">
+      <EntityDefinition Name="SalesTerritory" ObjectID="2a60f8ad-a625-4273-8fd7-a3eebefe7135">
         <Fields>
           <Field Name="CostLastYear" Type="decimal" Precision="19" Scale="4" />
           <Field Name="CostYtd" Type="decimal" Precision="19" Scale="4" />
@@ -674,7 +682,7 @@
           <Field Name="TerritoryId" Type="int" IsReadOnly="true" Precision="10" IsPrimaryKey="true" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="SalesTerritoryHistory">
+      <EntityDefinition Name="SalesTerritoryHistory" ObjectID="c16b8556-9b01-41b2-9d0d-5588e983eaa4">
         <Fields>
           <Field Name="EndDate" Type="datetime" IsOptional="true" />
           <Field Name="ModifiedDate" Type="datetime" />
@@ -684,14 +692,14 @@
           <Field Name="TerritoryId" Type="int" Precision="10" IsPrimaryKey="true" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="ScrapReason">
+      <EntityDefinition Name="ScrapReason" ObjectID="95702416-1480-4572-9aff-4509c2a01457">
         <Fields>
           <Field Name="ModifiedDate" Type="datetime" />
           <Field Name="Name" Type="string" MaxLength="50" />
           <Field Name="ScrapReasonId" Type="short" IsReadOnly="true" Precision="5" IsPrimaryKey="true" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="Shift">
+      <EntityDefinition Name="Shift" ObjectID="87240dc0-0fed-4745-99d6-63d5130d6379">
         <Fields>
           <Field Name="EndTime" Type="timespan" />
           <Field Name="ModifiedDate" Type="datetime" />
@@ -700,7 +708,7 @@
           <Field Name="StartTime" Type="timespan" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="ShipMethod">
+      <EntityDefinition Name="ShipMethod" ObjectID="8d483fec-6e6f-45ea-b42f-b4a5fc8b54f4">
         <Fields>
           <Field Name="ModifiedDate" Type="datetime" />
           <Field Name="Name" Type="string" MaxLength="50" />
@@ -710,7 +718,7 @@
           <Field Name="ShipRate" Type="decimal" Precision="19" Scale="4" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="ShoppingCartItem">
+      <EntityDefinition Name="ShoppingCartItem" ObjectID="1a3be987-1fee-41d6-a1de-26db184139bf">
         <Fields>
           <Field Name="DateCreated" Type="datetime" />
           <Field Name="ModifiedDate" Type="datetime" />
@@ -720,7 +728,7 @@
           <Field Name="ShoppingCartItemId" Type="int" IsReadOnly="true" Precision="10" IsPrimaryKey="true" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="SpecialOffer">
+      <EntityDefinition Name="SpecialOffer" ObjectID="aca3b9da-3d5d-4793-bb35-9761fed5d714">
         <Fields>
           <Field Name="Category" Type="string" MaxLength="50" />
           <Field Name="Description" Type="string" MaxLength="255" />
@@ -735,7 +743,7 @@
           <Field Name="Type" Type="string" MaxLength="50" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="SpecialOfferProduct">
+      <EntityDefinition Name="SpecialOfferProduct" ObjectID="1c0b16c9-04a0-4f55-9dbc-8bbdb2ccf8cc">
         <Fields>
           <Field Name="ModifiedDate" Type="datetime" />
           <Field Name="ProductId" Type="int" Precision="10" IsPrimaryKey="true" />
@@ -743,7 +751,7 @@
           <Field Name="SpecialOfferId" Type="int" Precision="10" IsPrimaryKey="true" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="StateProvince">
+      <EntityDefinition Name="StateProvince" ObjectID="a48134d3-acbc-4d85-a5ec-1b8a98b9224e">
         <Fields>
           <Field Name="CountryRegionCode" Type="string" MaxLength="3" />
           <Field Name="IsOnlyStateProvinceFlag" Type="bool" />
@@ -755,7 +763,7 @@
           <Field Name="TerritoryId" Type="int" Precision="10" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="Store">
+      <EntityDefinition Name="Store" ObjectID="ab8f15e4-0f14-4b13-a1dd-3b85fb7ef7e2">
         <Fields>
           <Field Name="CustomerId" Type="int" Precision="10" IsPrimaryKey="true" />
           <Field Name="Demographics" Type="string" IsOptional="true" MaxLength="2147483647" />
@@ -765,7 +773,7 @@
           <Field Name="SalesPersonId" Type="int" IsOptional="true" Precision="10" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="TransactionHistory">
+      <EntityDefinition Name="TransactionHistory" ObjectID="8af33f25-1a2d-4571-b786-05fdef0db224">
         <Fields>
           <Field Name="ActualCost" Type="decimal" Precision="19" Scale="4" />
           <Field Name="ModifiedDate" Type="datetime" />
@@ -778,7 +786,7 @@
           <Field Name="TransactionType" Type="string" MaxLength="1" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="TransactionHistoryArchive">
+      <EntityDefinition Name="TransactionHistoryArchive" ObjectID="407ae48e-87d8-461e-b6eb-20d9d3121a78">
         <Fields>
           <Field Name="ActualCost" Type="decimal" Precision="19" Scale="4" />
           <Field Name="ModifiedDate" Type="datetime" />
@@ -791,14 +799,14 @@
           <Field Name="TransactionType" Type="string" MaxLength="1" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="UnitMeasure">
+      <EntityDefinition Name="UnitMeasure" ObjectID="5114b99a-fee4-4ce2-ab0b-beebf1e43b08">
         <Fields>
           <Field Name="ModifiedDate" Type="datetime" />
           <Field Name="Name" Type="string" MaxLength="50" />
           <Field Name="UnitMeasureCode" Type="string" MaxLength="3" IsPrimaryKey="true" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="Vendor">
+      <EntityDefinition Name="Vendor" ObjectID="687c7fff-2ff3-45e5-8942-6da0b4574a37">
         <Fields>
           <Field Name="AccountNumber" Type="string" MaxLength="15" />
           <Field Name="ActiveFlag" Type="bool" />
@@ -810,7 +818,7 @@
           <Field Name="VendorId" Type="int" IsReadOnly="true" Precision="10" IsPrimaryKey="true" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="WorkOrder">
+      <EntityDefinition Name="WorkOrder" ObjectID="7bd162bc-abac-48ae-83a9-8bd314ffa0a9">
         <Fields>
           <Field Name="DueDate" Type="datetime" />
           <Field Name="EndDate" Type="datetime" IsOptional="true" />
@@ -824,7 +832,7 @@
           <Field Name="WorkOrderId" Type="int" IsReadOnly="true" Precision="10" IsPrimaryKey="true" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="WorkOrderRouting">
+      <EntityDefinition Name="WorkOrderRouting" ObjectID="13ce5866-d041-4e6a-a1ac-8a146b68b3ee">
         <Fields>
           <Field Name="ActualCost" Type="decimal" IsOptional="true" Precision="19" Scale="4" />
           <Field Name="ActualEndDate" Type="datetime" IsOptional="true" />
@@ -1315,8 +1323,9 @@
             <Schema Name="HumanResources">
               <Tables>
                 <Table Name="Department">
+                  <PkConstraintName Name="PK_Department_DepartmentID" />
                   <Fields>
-                    <Field Name="DepartmentID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" PkConstraintName="PK_Department_DepartmentID" DbType="16" Precision="5">
+                    <Field Name="DepartmentID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" DbType="16" Precision="5">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
@@ -1331,7 +1340,7 @@
                         <CustomProperty Name="MS_Description" Value="Name of the group to which the department belongs." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="4" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="4" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -1342,8 +1351,9 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="Employee">
+                  <PkConstraintName Name="PK_Employee_BusinessEntityID" />
                   <Fields>
-                    <Field Name="BusinessEntityID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_Employee_BusinessEntityID" DbType="8" Precision="10">
+                    <Field Name="BusinessEntityID" Ordinal="1" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
@@ -1393,32 +1403,32 @@
                         <CustomProperty Name="MS_Description" Value="Employee hired on this date." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="SalariedFlag" Ordinal="11" DefaultValue="((1))" DbType="2">
+                    <Field Name="SalariedFlag" Ordinal="11" HasDefaultValue="true" DefaultValue="((1))" DbType="2">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Job classification. 0 = Hourly, not exempt from collective bargaining. 1 = Salaried, exempt from collective bargaining." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="VacationHours" Ordinal="12" DefaultValue="((0))" DbType="16" Precision="5">
+                    <Field Name="VacationHours" Ordinal="12" HasDefaultValue="true" DefaultValue="((0))" DbType="16" Precision="5">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Number of available vacation hours." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="SickLeaveHours" Ordinal="13" DefaultValue="((0))" DbType="16" Precision="5">
+                    <Field Name="SickLeaveHours" Ordinal="13" HasDefaultValue="true" DefaultValue="((0))" DbType="16" Precision="5">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Number of available sick leave hours." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="CurrentFlag" Ordinal="14" DefaultValue="((1))" DbType="2">
+                    <Field Name="CurrentFlag" Ordinal="14" HasDefaultValue="true" DefaultValue="((1))" DbType="2">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="0 = Inactive, 1 = Active" />
                       </CustomProperties>
                     </Field>
-                    <Field Name="rowguid" Ordinal="15" IsRowGUID="true" DefaultValue="(newid())" DbType="25">
+                    <Field Name="rowguid" Ordinal="15" IsRowGUID="true" HasDefaultValue="true" DefaultValue="(newid())" DbType="25">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="16" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="16" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -1429,23 +1439,24 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="EmployeeDepartmentHistory">
+                  <PkConstraintName Name="PK_EmployeeDepartmentHistory_BusinessEntityID_StartDate_DepartmentID" />
                   <Fields>
-                    <Field Name="BusinessEntityID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_EmployeeDepartmentHistory_BusinessEntityID_StartDate_DepartmentID" DbType="8" Precision="10">
+                    <Field Name="BusinessEntityID" Ordinal="1" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="DepartmentID" Ordinal="2" IsPrimaryKey="true" PkConstraintName="PK_EmployeeDepartmentHistory_BusinessEntityID_StartDate_DepartmentID" DbType="16" Precision="5">
+                    <Field Name="DepartmentID" Ordinal="2" IsPrimaryKey="true" DbType="16" Precision="5">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Department in which the employee worked including currently. Foreign key to Department.DepartmentID." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ShiftID" Ordinal="3" IsPrimaryKey="true" PkConstraintName="PK_EmployeeDepartmentHistory_BusinessEntityID_StartDate_DepartmentID" DbType="22" Precision="3">
+                    <Field Name="ShiftID" Ordinal="3" IsPrimaryKey="true" DbType="22" Precision="3">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Nonclustered index." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="StartDate" Ordinal="4" IsPrimaryKey="true" PkConstraintName="PK_EmployeeDepartmentHistory_BusinessEntityID_StartDate_DepartmentID" DbType="28">
+                    <Field Name="StartDate" Ordinal="4" IsPrimaryKey="true" DbType="28">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date the employee started work in the department." />
                       </CustomProperties>
@@ -1455,7 +1466,7 @@
                         <CustomProperty Name="MS_Description" Value="Date the employee left the department. NULL = Current department." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="6" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="6" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -1466,13 +1477,14 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="EmployeePayHistory">
+                  <PkConstraintName Name="PK_EmployeePayHistory_BusinessEntityID_RateChangeDate" />
                   <Fields>
-                    <Field Name="BusinessEntityID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_EmployeePayHistory_BusinessEntityID_RateChangeDate" DbType="8" Precision="10">
+                    <Field Name="BusinessEntityID" Ordinal="1" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="RateChangeDate" Ordinal="2" IsPrimaryKey="true" PkConstraintName="PK_EmployeePayHistory_BusinessEntityID_RateChangeDate" DbType="4">
+                    <Field Name="RateChangeDate" Ordinal="2" IsPrimaryKey="true" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date the change in pay is effective" />
                       </CustomProperties>
@@ -1487,7 +1499,7 @@
                         <CustomProperty Name="MS_Description" Value="1 = Salary received monthly, 2 = Salary received biweekly" />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="5" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="5" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -1498,8 +1510,9 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="JobCandidate">
+                  <PkConstraintName Name="PK_JobCandidate_JobCandidateID" />
                   <Fields>
-                    <Field Name="JobCandidateID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" PkConstraintName="PK_JobCandidate_JobCandidateID" DbType="8" Precision="10">
+                    <Field Name="JobCandidateID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
@@ -1514,7 +1527,7 @@
                         <CustomProperty Name="MS_Description" Value="Résumé in XML format." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="4" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="4" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -1525,8 +1538,9 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="Shift">
+                  <PkConstraintName Name="PK_Shift_ShiftID" />
                   <Fields>
-                    <Field Name="ShiftID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" PkConstraintName="PK_Shift_ShiftID" DbType="22" Precision="3">
+                    <Field Name="ShiftID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" DbType="22" Precision="3">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
@@ -1546,7 +1560,7 @@
                         <CustomProperty Name="MS_Description" Value="Shift end time." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="5" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="5" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -1797,8 +1811,9 @@
             <Schema Name="Person">
               <Tables>
                 <Table Name="Address">
+                  <PkConstraintName Name="PK_Address_AddressID" />
                   <Fields>
-                    <Field Name="AddressID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" PkConstraintName="PK_Address_AddressID" DbType="8" Precision="10">
+                    <Field Name="AddressID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
@@ -1833,12 +1848,12 @@
                         <CustomProperty Name="MS_Description" Value="Latitude and longitude of this address." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="rowguid" Ordinal="8" IsRowGUID="true" DefaultValue="(newid())" DbType="25">
+                    <Field Name="rowguid" Ordinal="8" IsRowGUID="true" HasDefaultValue="true" DefaultValue="(newid())" DbType="25">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="9" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="9" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -1849,8 +1864,9 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="AddressType">
+                  <PkConstraintName Name="PK_AddressType_AddressTypeID" />
                   <Fields>
-                    <Field Name="AddressTypeID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" PkConstraintName="PK_AddressType_AddressTypeID" DbType="8" Precision="10">
+                    <Field Name="AddressTypeID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
@@ -1860,12 +1876,12 @@
                         <CustomProperty Name="MS_Description" Value="Address type description. For example, Billing, Home, or Shipping." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="rowguid" Ordinal="3" IsRowGUID="true" DefaultValue="(newid())" DbType="25">
+                    <Field Name="rowguid" Ordinal="3" IsRowGUID="true" HasDefaultValue="true" DefaultValue="(newid())" DbType="25">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Unique nonclustered index." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="4" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="4" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -1876,18 +1892,19 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="BusinessEntity">
+                  <PkConstraintName Name="PK_BusinessEntity_BusinessEntityID" />
                   <Fields>
-                    <Field Name="BusinessEntityID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" PkConstraintName="PK_BusinessEntity_BusinessEntityID" DbType="8" Precision="10">
+                    <Field Name="BusinessEntityID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="rowguid" Ordinal="2" IsRowGUID="true" DefaultValue="(newid())" DbType="25">
+                    <Field Name="rowguid" Ordinal="2" IsRowGUID="true" HasDefaultValue="true" DefaultValue="(newid())" DbType="25">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="3" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="3" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -1898,28 +1915,29 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="BusinessEntityAddress">
+                  <PkConstraintName Name="PK_BusinessEntityAddress_BusinessEntityID_AddressID_AddressTypeID" />
                   <Fields>
-                    <Field Name="BusinessEntityID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_BusinessEntityAddress_BusinessEntityID_AddressID_AddressTypeID" DbType="8" Precision="10">
+                    <Field Name="BusinessEntityID" Ordinal="1" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="AddressID" Ordinal="2" IsPrimaryKey="true" PkConstraintName="PK_BusinessEntityAddress_BusinessEntityID_AddressID_AddressTypeID" DbType="8" Precision="10">
+                    <Field Name="AddressID" Ordinal="2" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Primary key. Foreign key to Address.AddressID." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="AddressTypeID" Ordinal="3" IsPrimaryKey="true" PkConstraintName="PK_BusinessEntityAddress_BusinessEntityID_AddressID_AddressTypeID" DbType="8" Precision="10">
+                    <Field Name="AddressTypeID" Ordinal="3" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Nonclustered index." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="rowguid" Ordinal="4" IsRowGUID="true" DefaultValue="(newid())" DbType="25">
+                    <Field Name="rowguid" Ordinal="4" IsRowGUID="true" HasDefaultValue="true" DefaultValue="(newid())" DbType="25">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="5" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="5" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -1930,28 +1948,29 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="BusinessEntityContact">
+                  <PkConstraintName Name="PK_BusinessEntityContact_BusinessEntityID_PersonID_ContactTypeID" />
                   <Fields>
-                    <Field Name="BusinessEntityID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_BusinessEntityContact_BusinessEntityID_PersonID_ContactTypeID" DbType="8" Precision="10">
+                    <Field Name="BusinessEntityID" Ordinal="1" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="PersonID" Ordinal="2" IsPrimaryKey="true" PkConstraintName="PK_BusinessEntityContact_BusinessEntityID_PersonID_ContactTypeID" DbType="8" Precision="10">
+                    <Field Name="PersonID" Ordinal="2" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Primary key. Foreign key to Person.BusinessEntityID." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ContactTypeID" Ordinal="3" IsPrimaryKey="true" PkConstraintName="PK_BusinessEntityContact_BusinessEntityID_PersonID_ContactTypeID" DbType="8" Precision="10">
+                    <Field Name="ContactTypeID" Ordinal="3" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Nonclustered index." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="rowguid" Ordinal="4" IsRowGUID="true" DefaultValue="(newid())" DbType="25">
+                    <Field Name="rowguid" Ordinal="4" IsRowGUID="true" HasDefaultValue="true" DefaultValue="(newid())" DbType="25">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="5" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="5" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -1962,8 +1981,9 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="ContactType">
+                  <PkConstraintName Name="PK_ContactType_ContactTypeID" />
                   <Fields>
-                    <Field Name="ContactTypeID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" PkConstraintName="PK_ContactType_ContactTypeID" DbType="8" Precision="10">
+                    <Field Name="ContactTypeID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
@@ -1973,7 +1993,7 @@
                         <CustomProperty Name="MS_Description" Value="Contact type description." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="3" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="3" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -1984,8 +2004,9 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="CountryRegion">
+                  <PkConstraintName Name="PK_CountryRegion_CountryRegionCode" />
                   <Fields>
-                    <Field Name="CountryRegionCode" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_CountryRegion_CountryRegionCode" DbType="12" Length="3">
+                    <Field Name="CountryRegionCode" Ordinal="1" IsPrimaryKey="true" DbType="12" Length="3">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
@@ -1995,7 +2016,7 @@
                         <CustomProperty Name="MS_Description" Value="Country or region name." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="3" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="3" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -2006,13 +2027,14 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="EmailAddress">
+                  <PkConstraintName Name="PK_EmailAddress_BusinessEntityID_EmailAddressID" />
                   <Fields>
-                    <Field Name="BusinessEntityID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_EmailAddress_BusinessEntityID_EmailAddressID" DbType="8" Precision="10">
+                    <Field Name="BusinessEntityID" Ordinal="1" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="EmailAddressID" Ordinal="2" IsIdentity="true" IsPrimaryKey="true" PkConstraintName="PK_EmailAddress_BusinessEntityID_EmailAddressID" DbType="8" Precision="10">
+                    <Field Name="EmailAddressID" Ordinal="2" IsIdentity="true" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Primary key. ID of this email address." />
                       </CustomProperties>
@@ -2022,12 +2044,12 @@
                         <CustomProperty Name="MS_Description" Value="E-mail address for the person." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="rowguid" Ordinal="4" IsRowGUID="true" DefaultValue="(newid())" DbType="25">
+                    <Field Name="rowguid" Ordinal="4" IsRowGUID="true" HasDefaultValue="true" DefaultValue="(newid())" DbType="25">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="5" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="5" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -2038,8 +2060,9 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="Password">
+                  <PkConstraintName Name="PK_Password_BusinessEntityID" />
                   <Fields>
-                    <Field Name="BusinessEntityID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_Password_BusinessEntityID" DbType="8" Precision="10">
+                    <Field Name="BusinessEntityID" Ordinal="1" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
@@ -2054,12 +2077,12 @@
                         <CustomProperty Name="MS_Description" Value="Random value concatenated with the password string before the password is hashed." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="rowguid" Ordinal="4" IsRowGUID="true" DefaultValue="(newid())" DbType="25">
+                    <Field Name="rowguid" Ordinal="4" IsRowGUID="true" HasDefaultValue="true" DefaultValue="(newid())" DbType="25">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="5" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="5" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -2070,8 +2093,9 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="Person">
+                  <PkConstraintName Name="PK_Person_BusinessEntityID" />
                   <Fields>
-                    <Field Name="BusinessEntityID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_Person_BusinessEntityID" DbType="8" Precision="10">
+                    <Field Name="BusinessEntityID" Ordinal="1" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Primary key for Person records." />
                       </CustomProperties>
@@ -2081,7 +2105,7 @@
                         <CustomProperty Name="MS_Description" Value="Primary type of person: SC = Store Contact, IN = Individual (retail) customer, SP = Sales person, EM = Employee (non-sales), VC = Vendor contact, GC = General contact" />
                       </CustomProperties>
                     </Field>
-                    <Field Name="NameStyle" Ordinal="3" DefaultValue="((0))" DbType="2">
+                    <Field Name="NameStyle" Ordinal="3" HasDefaultValue="true" DefaultValue="((0))" DbType="2">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Unique nonclustered index. Used to support replication samples." />
                       </CustomProperties>
@@ -2111,7 +2135,7 @@
                         <CustomProperty Name="MS_Description" Value="Surname suffix. For example, Sr. or Jr." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="EmailPromotion" Ordinal="9" DefaultValue="((0))" DbType="8" Precision="10">
+                    <Field Name="EmailPromotion" Ordinal="9" HasDefaultValue="true" DefaultValue="((0))" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="0 = Contact does not wish to receive e-mail promotions, 1 = Contact does wish to receive e-mail promotions from AdventureWorks, 2 = Contact does wish to receive e-mail promotions from AdventureWorks and selected partners. " />
                       </CustomProperties>
@@ -2126,12 +2150,12 @@
                         <CustomProperty Name="MS_Description" Value="Personal information such as hobbies, and income collected from online shoppers. Used for sales analysis." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="rowguid" Ordinal="12" IsRowGUID="true" DefaultValue="(newid())" DbType="25">
+                    <Field Name="rowguid" Ordinal="12" IsRowGUID="true" HasDefaultValue="true" DefaultValue="(newid())" DbType="25">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="13" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="13" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -2142,23 +2166,24 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="PersonPhone">
+                  <PkConstraintName Name="PK_PersonPhone_BusinessEntityID_PhoneNumber_PhoneNumberTypeID" />
                   <Fields>
-                    <Field Name="BusinessEntityID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_PersonPhone_BusinessEntityID_PhoneNumber_PhoneNumberTypeID" DbType="8" Precision="10">
+                    <Field Name="BusinessEntityID" Ordinal="1" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="PhoneNumber" Ordinal="2" IsPrimaryKey="true" PkConstraintName="PK_PersonPhone_BusinessEntityID_PhoneNumber_PhoneNumberTypeID" DbType="12" Length="25">
+                    <Field Name="PhoneNumber" Ordinal="2" IsPrimaryKey="true" DbType="12" Length="25">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Telephone number identification number." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="PhoneNumberTypeID" Ordinal="3" IsPrimaryKey="true" PkConstraintName="PK_PersonPhone_BusinessEntityID_PhoneNumber_PhoneNumberTypeID" DbType="8" Precision="10">
+                    <Field Name="PhoneNumberTypeID" Ordinal="3" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Kind of phone number. Foreign key to PhoneNumberType.PhoneNumberTypeID." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="4" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="4" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -2169,8 +2194,9 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="PhoneNumberType">
+                  <PkConstraintName Name="PK_PhoneNumberType_PhoneNumberTypeID" />
                   <Fields>
-                    <Field Name="PhoneNumberTypeID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" PkConstraintName="PK_PhoneNumberType_PhoneNumberTypeID" DbType="8" Precision="10">
+                    <Field Name="PhoneNumberTypeID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
@@ -2180,7 +2206,7 @@
                         <CustomProperty Name="MS_Description" Value="Name of the telephone number type" />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="3" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="3" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -2191,8 +2217,9 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="StateProvince">
+                  <PkConstraintName Name="PK_StateProvince_StateProvinceID" />
                   <Fields>
-                    <Field Name="StateProvinceID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" PkConstraintName="PK_StateProvince_StateProvinceID" DbType="8" Precision="10">
+                    <Field Name="StateProvinceID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
@@ -2207,7 +2234,7 @@
                         <CustomProperty Name="MS_Description" Value="Unique nonclustered index." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="IsOnlyStateProvinceFlag" Ordinal="4" DefaultValue="((1))" DbType="2">
+                    <Field Name="IsOnlyStateProvinceFlag" Ordinal="4" HasDefaultValue="true" DefaultValue="((1))" DbType="2">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="0 = StateProvinceCode exists. 1 = StateProvinceCode unavailable, using CountryRegionCode." />
                       </CustomProperties>
@@ -2222,12 +2249,12 @@
                         <CustomProperty Name="MS_Description" Value="ID of the territory in which the state or province is located. Foreign key to SalesTerritory.SalesTerritoryID." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="rowguid" Ordinal="7" IsRowGUID="true" DefaultValue="(newid())" DbType="25">
+                    <Field Name="rowguid" Ordinal="7" IsRowGUID="true" HasDefaultValue="true" DefaultValue="(newid())" DbType="25">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="8" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="8" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -2286,8 +2313,9 @@
             <Schema Name="Production">
               <Tables>
                 <Table Name="BillOfMaterials">
+                  <PkConstraintName Name="PK_BillOfMaterials_BillOfMaterialsID" />
                   <Fields>
-                    <Field Name="BillOfMaterialsID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" PkConstraintName="PK_BillOfMaterials_BillOfMaterialsID" DbType="8" Precision="10">
+                    <Field Name="BillOfMaterialsID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index." />
                       </CustomProperties>
@@ -2302,7 +2330,7 @@
                         <CustomProperty Name="MS_Description" Value="Nonclustered index." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="StartDate" Ordinal="4" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="StartDate" Ordinal="4" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date the component started being used in the assembly item." />
                       </CustomProperties>
@@ -2322,12 +2350,12 @@
                         <CustomProperty Name="MS_Description" Value="Indicates the depth the component is from its parent (AssemblyID)." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="PerAssemblyQty" Ordinal="8" DefaultValue="((1.00))" DbType="5" Precision="8" Scale="2">
+                    <Field Name="PerAssemblyQty" Ordinal="8" HasDefaultValue="true" DefaultValue="((1.00))" DbType="5" Precision="8" Scale="2">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Quantity of the component needed to create the assembly." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="9" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="9" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -2338,8 +2366,9 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="Culture">
+                  <PkConstraintName Name="PK_Culture_CultureID" />
                   <Fields>
-                    <Field Name="CultureID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_Culture_CultureID" DbType="10" Length="6">
+                    <Field Name="CultureID" Ordinal="1" IsPrimaryKey="true" DbType="10" Length="6">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
@@ -2349,7 +2378,7 @@
                         <CustomProperty Name="MS_Description" Value="Culture description." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="3" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="3" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -2360,8 +2389,9 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="Document">
+                  <PkConstraintName Name="PK_Document_DocumentNode" />
                   <Fields>
-                    <Field Name="DocumentNode" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_Document_DocumentNode" DbType="24" Length="892">
+                    <Field Name="DocumentNode" Ordinal="1" IsPrimaryKey="true" DbType="24" Length="892">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
@@ -2381,7 +2411,7 @@
                         <CustomProperty Name="MS_Description" Value="Employee who controls the document.  Foreign key to Employee.BusinessEntityID" />
                       </CustomProperties>
                     </Field>
-                    <Field Name="FolderFlag" Ordinal="5" DefaultValue="((0))" DbType="2">
+                    <Field Name="FolderFlag" Ordinal="5" HasDefaultValue="true" DefaultValue="((0))" DbType="2">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="0 = This is a folder, 1 = This is a document." />
                       </CustomProperties>
@@ -2401,7 +2431,7 @@
                         <CustomProperty Name="MS_Description" Value="Revision number of the document. " />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ChangeNumber" Ordinal="9" DefaultValue="((0))" DbType="8" Precision="10">
+                    <Field Name="ChangeNumber" Ordinal="9" HasDefaultValue="true" DefaultValue="((0))" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Engineering change approval number." />
                       </CustomProperties>
@@ -2421,8 +2451,8 @@
                         <CustomProperty Name="MS_Description" Value="Complete document." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="rowguid" Ordinal="13" IsRowGUID="true" DefaultValue="(newid())" DbType="25" />
-                    <Field Name="ModifiedDate" Ordinal="14" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="rowguid" Ordinal="13" IsRowGUID="true" HasDefaultValue="true" DefaultValue="(newid())" DbType="25" />
+                    <Field Name="ModifiedDate" Ordinal="14" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -2438,8 +2468,9 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="Illustration">
+                  <PkConstraintName Name="PK_Illustration_IllustrationID" />
                   <Fields>
-                    <Field Name="IllustrationID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" PkConstraintName="PK_Illustration_IllustrationID" DbType="8" Precision="10">
+                    <Field Name="IllustrationID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
@@ -2449,7 +2480,7 @@
                         <CustomProperty Name="MS_Description" Value="Illustrations used in manufacturing instructions. Stored as XML." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="3" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="3" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -2460,8 +2491,9 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="Location">
+                  <PkConstraintName Name="PK_Location_LocationID" />
                   <Fields>
-                    <Field Name="LocationID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" PkConstraintName="PK_Location_LocationID" DbType="16" Precision="5">
+                    <Field Name="LocationID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" DbType="16" Precision="5">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
@@ -2471,17 +2503,17 @@
                         <CustomProperty Name="MS_Description" Value="Location description." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="CostRate" Ordinal="3" DefaultValue="((0.00))" DbType="17" Precision="10" Scale="4">
+                    <Field Name="CostRate" Ordinal="3" HasDefaultValue="true" DefaultValue="((0.00))" DbType="17" Precision="10" Scale="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Standard hourly cost of the manufacturing location." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="Availability" Ordinal="4" DefaultValue="((0.00))" DbType="5" Precision="8" Scale="2">
+                    <Field Name="Availability" Ordinal="4" HasDefaultValue="true" DefaultValue="((0.00))" DbType="5" Precision="8" Scale="2">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Work capacity (in hours) of the manufacturing location." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="5" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="5" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -2492,8 +2524,9 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="Product">
+                  <PkConstraintName Name="PK_Product_ProductID" />
                   <Fields>
-                    <Field Name="ProductID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" PkConstraintName="PK_Product_ProductID" DbType="8" Precision="10">
+                    <Field Name="ProductID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
@@ -2508,12 +2541,12 @@
                         <CustomProperty Name="MS_Description" Value="Unique nonclustered index." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="MakeFlag" Ordinal="4" DefaultValue="((1))" DbType="2">
+                    <Field Name="MakeFlag" Ordinal="4" HasDefaultValue="true" DefaultValue="((1))" DbType="2">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="0 = Product is purchased, 1 = Product is manufactured in-house." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="FinishedGoodsFlag" Ordinal="5" DefaultValue="((1))" DbType="2">
+                    <Field Name="FinishedGoodsFlag" Ordinal="5" HasDefaultValue="true" DefaultValue="((1))" DbType="2">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="0 = Product is not a salable item. 1 = Product is salable." />
                       </CustomProperties>
@@ -2608,12 +2641,12 @@
                         <CustomProperty Name="MS_Description" Value="Date the product was discontinued." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="rowguid" Ordinal="24" IsRowGUID="true" DefaultValue="(newid())" DbType="25">
+                    <Field Name="rowguid" Ordinal="24" IsRowGUID="true" HasDefaultValue="true" DefaultValue="(newid())" DbType="25">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="25" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="25" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -2624,8 +2657,9 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="ProductCategory">
+                  <PkConstraintName Name="PK_ProductCategory_ProductCategoryID" />
                   <Fields>
-                    <Field Name="ProductCategoryID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" PkConstraintName="PK_ProductCategory_ProductCategoryID" DbType="8" Precision="10">
+                    <Field Name="ProductCategoryID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
@@ -2635,12 +2669,12 @@
                         <CustomProperty Name="MS_Description" Value="Category description." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="rowguid" Ordinal="3" IsRowGUID="true" DefaultValue="(newid())" DbType="25">
+                    <Field Name="rowguid" Ordinal="3" IsRowGUID="true" HasDefaultValue="true" DefaultValue="(newid())" DbType="25">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Unique nonclustered index. Used to support replication samples." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="4" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="4" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -2651,13 +2685,14 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="ProductCostHistory">
+                  <PkConstraintName Name="PK_ProductCostHistory_ProductID_StartDate" />
                   <Fields>
-                    <Field Name="ProductID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_ProductCostHistory_ProductID_StartDate" DbType="8" Precision="10">
+                    <Field Name="ProductID" Ordinal="1" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="StartDate" Ordinal="2" IsPrimaryKey="true" PkConstraintName="PK_ProductCostHistory_ProductID_StartDate" DbType="4">
+                    <Field Name="StartDate" Ordinal="2" IsPrimaryKey="true" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Product cost start date." />
                       </CustomProperties>
@@ -2672,7 +2707,7 @@
                         <CustomProperty Name="MS_Description" Value="Standard cost of the product." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="5" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="5" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -2683,8 +2718,9 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="ProductDescription">
+                  <PkConstraintName Name="PK_ProductDescription_ProductDescriptionID" />
                   <Fields>
-                    <Field Name="ProductDescriptionID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" PkConstraintName="PK_ProductDescription_ProductDescriptionID" DbType="8" Precision="10">
+                    <Field Name="ProductDescriptionID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
@@ -2694,12 +2730,12 @@
                         <CustomProperty Name="MS_Description" Value="Description of the product." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="rowguid" Ordinal="3" IsRowGUID="true" DefaultValue="(newid())" DbType="25">
+                    <Field Name="rowguid" Ordinal="3" IsRowGUID="true" HasDefaultValue="true" DefaultValue="(newid())" DbType="25">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="4" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="4" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -2710,18 +2746,19 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="ProductDocument">
+                  <PkConstraintName Name="PK_ProductDocument_ProductID_DocumentNode" />
                   <Fields>
-                    <Field Name="ProductID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_ProductDocument_ProductID_DocumentNode" DbType="8" Precision="10">
+                    <Field Name="ProductID" Ordinal="1" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="DocumentNode" Ordinal="2" IsPrimaryKey="true" PkConstraintName="PK_ProductDocument_ProductID_DocumentNode" DbType="24" Length="892">
+                    <Field Name="DocumentNode" Ordinal="2" IsPrimaryKey="true" DbType="24" Length="892">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Document identification number. Foreign key to Document.DocumentNode." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="3" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="3" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -2732,13 +2769,14 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="ProductInventory">
+                  <PkConstraintName Name="PK_ProductInventory_ProductID_LocationID" />
                   <Fields>
-                    <Field Name="ProductID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_ProductInventory_ProductID_LocationID" DbType="8" Precision="10">
+                    <Field Name="ProductID" Ordinal="1" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="LocationID" Ordinal="2" IsPrimaryKey="true" PkConstraintName="PK_ProductInventory_ProductID_LocationID" DbType="16" Precision="5">
+                    <Field Name="LocationID" Ordinal="2" IsPrimaryKey="true" DbType="16" Precision="5">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Inventory location identification number. Foreign key to Location.LocationID. " />
                       </CustomProperties>
@@ -2753,17 +2791,17 @@
                         <CustomProperty Name="MS_Description" Value="Storage container on a shelf in an inventory location." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="Quantity" Ordinal="5" DefaultValue="((0))" DbType="16" Precision="5">
+                    <Field Name="Quantity" Ordinal="5" HasDefaultValue="true" DefaultValue="((0))" DbType="16" Precision="5">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Quantity of products in the inventory location." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="rowguid" Ordinal="6" IsRowGUID="true" DefaultValue="(newid())" DbType="25">
+                    <Field Name="rowguid" Ordinal="6" IsRowGUID="true" HasDefaultValue="true" DefaultValue="(newid())" DbType="25">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="7" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="7" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -2774,13 +2812,14 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="ProductListPriceHistory">
+                  <PkConstraintName Name="PK_ProductListPriceHistory_ProductID_StartDate" />
                   <Fields>
-                    <Field Name="ProductID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_ProductListPriceHistory_ProductID_StartDate" DbType="8" Precision="10">
+                    <Field Name="ProductID" Ordinal="1" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="StartDate" Ordinal="2" IsPrimaryKey="true" PkConstraintName="PK_ProductListPriceHistory_ProductID_StartDate" DbType="4">
+                    <Field Name="StartDate" Ordinal="2" IsPrimaryKey="true" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="List price start date." />
                       </CustomProperties>
@@ -2795,7 +2834,7 @@
                         <CustomProperty Name="MS_Description" Value="Product list price." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="5" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="5" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -2806,8 +2845,9 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="ProductModel">
+                  <PkConstraintName Name="PK_ProductModel_ProductModelID" />
                   <Fields>
-                    <Field Name="ProductModelID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" PkConstraintName="PK_ProductModel_ProductModelID" DbType="8" Precision="10">
+                    <Field Name="ProductModelID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Primary key for ProductModel records." />
                       </CustomProperties>
@@ -2827,12 +2867,12 @@
                         <CustomProperty Name="MS_Description" Value="Manufacturing instructions in xml format." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="rowguid" Ordinal="5" IsRowGUID="true" DefaultValue="(newid())" DbType="25">
+                    <Field Name="rowguid" Ordinal="5" IsRowGUID="true" HasDefaultValue="true" DefaultValue="(newid())" DbType="25">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="6" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="6" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -2843,18 +2883,19 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="ProductModelIllustration">
+                  <PkConstraintName Name="PK_ProductModelIllustration_ProductModelID_IllustrationID" />
                   <Fields>
-                    <Field Name="ProductModelID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_ProductModelIllustration_ProductModelID_IllustrationID" DbType="8" Precision="10">
+                    <Field Name="ProductModelID" Ordinal="1" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="IllustrationID" Ordinal="2" IsPrimaryKey="true" PkConstraintName="PK_ProductModelIllustration_ProductModelID_IllustrationID" DbType="8" Precision="10">
+                    <Field Name="IllustrationID" Ordinal="2" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Primary key. Foreign key to Illustration.IllustrationID." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="3" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="3" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -2865,23 +2906,24 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="ProductModelProductDescriptionCulture">
+                  <PkConstraintName Name="PK_ProductModelProductDescriptionCulture_ProductModelID_ProductDescriptionID_CultureID" />
                   <Fields>
-                    <Field Name="ProductModelID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_ProductModelProductDescriptionCulture_ProductModelID_ProductDescriptionID_CultureID" DbType="8" Precision="10">
+                    <Field Name="ProductModelID" Ordinal="1" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ProductDescriptionID" Ordinal="2" IsPrimaryKey="true" PkConstraintName="PK_ProductModelProductDescriptionCulture_ProductModelID_ProductDescriptionID_CultureID" DbType="8" Precision="10">
+                    <Field Name="ProductDescriptionID" Ordinal="2" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Primary key. Foreign key to ProductDescription.ProductDescriptionID." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="CultureID" Ordinal="3" IsPrimaryKey="true" PkConstraintName="PK_ProductModelProductDescriptionCulture_ProductModelID_ProductDescriptionID_CultureID" DbType="10" Length="6">
+                    <Field Name="CultureID" Ordinal="3" IsPrimaryKey="true" DbType="10" Length="6">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Culture identification number. Foreign key to Culture.CultureID." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="4" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="4" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -2892,8 +2934,9 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="ProductPhoto">
+                  <PkConstraintName Name="PK_ProductPhoto_ProductPhotoID" />
                   <Fields>
-                    <Field Name="ProductPhotoID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" PkConstraintName="PK_ProductPhoto_ProductPhotoID" DbType="8" Precision="10">
+                    <Field Name="ProductPhotoID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
@@ -2918,7 +2961,7 @@
                         <CustomProperty Name="MS_Description" Value="Large image file name." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="6" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="6" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -2929,23 +2972,24 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="ProductProductPhoto">
+                  <PkConstraintName Name="PK_ProductProductPhoto_ProductID_ProductPhotoID" />
                   <Fields>
-                    <Field Name="ProductID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_ProductProductPhoto_ProductID_ProductPhotoID" DbType="8" Precision="10">
+                    <Field Name="ProductID" Ordinal="1" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Product identification number. Foreign key to Product.ProductID." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ProductPhotoID" Ordinal="2" IsPrimaryKey="true" PkConstraintName="PK_ProductProductPhoto_ProductID_ProductPhotoID" DbType="8" Precision="10">
+                    <Field Name="ProductPhotoID" Ordinal="2" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Nonclustered index created by a primary key constraint." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="Primary" Ordinal="3" DefaultValue="((0))" DbType="2">
+                    <Field Name="Primary" Ordinal="3" HasDefaultValue="true" DefaultValue="((0))" DbType="2">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="0 = Photo is not the principal image. 1 = Photo is the principal image." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="4" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="4" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -2956,8 +3000,9 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="ProductReview">
+                  <PkConstraintName Name="PK_ProductReview_ProductReviewID" />
                   <Fields>
-                    <Field Name="ProductReviewID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" PkConstraintName="PK_ProductReview_ProductReviewID" DbType="8" Precision="10">
+                    <Field Name="ProductReviewID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
@@ -2972,7 +3017,7 @@
                         <CustomProperty Name="MS_Description" Value="Name of the reviewer." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ReviewDate" Ordinal="4" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ReviewDate" Ordinal="4" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date review was submitted." />
                       </CustomProperties>
@@ -2992,7 +3037,7 @@
                         <CustomProperty Name="MS_Description" Value="Reviewer's comments" />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="8" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="8" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -3003,8 +3048,9 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="ProductSubcategory">
+                  <PkConstraintName Name="PK_ProductSubcategory_ProductSubcategoryID" />
                   <Fields>
-                    <Field Name="ProductSubcategoryID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" PkConstraintName="PK_ProductSubcategory_ProductSubcategoryID" DbType="8" Precision="10">
+                    <Field Name="ProductSubcategoryID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
@@ -3019,12 +3065,12 @@
                         <CustomProperty Name="MS_Description" Value="Unique nonclustered index. Used to support replication samples." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="rowguid" Ordinal="4" IsRowGUID="true" DefaultValue="(newid())" DbType="25">
+                    <Field Name="rowguid" Ordinal="4" IsRowGUID="true" HasDefaultValue="true" DefaultValue="(newid())" DbType="25">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="5" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="5" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -3035,8 +3081,9 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="ScrapReason">
+                  <PkConstraintName Name="PK_ScrapReason_ScrapReasonID" />
                   <Fields>
-                    <Field Name="ScrapReasonID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" PkConstraintName="PK_ScrapReason_ScrapReasonID" DbType="16" Precision="5">
+                    <Field Name="ScrapReasonID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" DbType="16" Precision="5">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
@@ -3046,7 +3093,7 @@
                         <CustomProperty Name="MS_Description" Value="Failure description." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="3" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="3" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -3057,8 +3104,9 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="TransactionHistory">
+                  <PkConstraintName Name="PK_TransactionHistory_TransactionID" />
                   <Fields>
-                    <Field Name="TransactionID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" PkConstraintName="PK_TransactionHistory_TransactionID" DbType="8" Precision="10">
+                    <Field Name="TransactionID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
@@ -3073,12 +3121,12 @@
                         <CustomProperty Name="MS_Description" Value="Nonclustered index." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ReferenceOrderLineID" Ordinal="4" DefaultValue="((0))" DbType="8" Precision="10">
+                    <Field Name="ReferenceOrderLineID" Ordinal="4" HasDefaultValue="true" DefaultValue="((0))" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Line number associated with the purchase order, sales order, or work order." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="TransactionDate" Ordinal="5" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="TransactionDate" Ordinal="5" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time of the transaction." />
                       </CustomProperties>
@@ -3098,7 +3146,7 @@
                         <CustomProperty Name="MS_Description" Value="Product cost." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="9" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="9" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -3109,8 +3157,9 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="TransactionHistoryArchive">
+                  <PkConstraintName Name="PK_TransactionHistoryArchive_TransactionID" />
                   <Fields>
-                    <Field Name="TransactionID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_TransactionHistoryArchive_TransactionID" DbType="8" Precision="10">
+                    <Field Name="TransactionID" Ordinal="1" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
@@ -3125,12 +3174,12 @@
                         <CustomProperty Name="MS_Description" Value="Nonclustered index." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ReferenceOrderLineID" Ordinal="4" DefaultValue="((0))" DbType="8" Precision="10">
+                    <Field Name="ReferenceOrderLineID" Ordinal="4" HasDefaultValue="true" DefaultValue="((0))" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Line number associated with the purchase order, sales order, or work order." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="TransactionDate" Ordinal="5" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="TransactionDate" Ordinal="5" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time of the transaction." />
                       </CustomProperties>
@@ -3150,7 +3199,7 @@
                         <CustomProperty Name="MS_Description" Value="Product cost." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="9" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="9" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -3161,8 +3210,9 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="UnitMeasure">
+                  <PkConstraintName Name="PK_UnitMeasure_UnitMeasureCode" />
                   <Fields>
-                    <Field Name="UnitMeasureCode" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_UnitMeasure_UnitMeasureCode" DbType="10" Length="3">
+                    <Field Name="UnitMeasureCode" Ordinal="1" IsPrimaryKey="true" DbType="10" Length="3">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
@@ -3172,7 +3222,7 @@
                         <CustomProperty Name="MS_Description" Value="Unit of measure description." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="3" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="3" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -3183,8 +3233,9 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="WorkOrder">
+                  <PkConstraintName Name="PK_WorkOrder_WorkOrderID" />
                   <Fields>
-                    <Field Name="WorkOrderID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" PkConstraintName="PK_WorkOrder_WorkOrderID" DbType="8" Precision="10">
+                    <Field Name="WorkOrderID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
@@ -3229,7 +3280,7 @@
                         <CustomProperty Name="MS_Description" Value="Reason for inspection failure." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="10" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="10" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -3240,18 +3291,19 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="WorkOrderRouting">
+                  <PkConstraintName Name="PK_WorkOrderRouting_WorkOrderID_ProductID_OperationSequence" />
                   <Fields>
-                    <Field Name="WorkOrderID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_WorkOrderRouting_WorkOrderID_ProductID_OperationSequence" DbType="8" Precision="10">
+                    <Field Name="WorkOrderID" Ordinal="1" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ProductID" Ordinal="2" IsPrimaryKey="true" PkConstraintName="PK_WorkOrderRouting_WorkOrderID_ProductID_OperationSequence" DbType="8" Precision="10">
+                    <Field Name="ProductID" Ordinal="2" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Primary key. Foreign key to Product.ProductID." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="OperationSequence" Ordinal="3" IsPrimaryKey="true" PkConstraintName="PK_WorkOrderRouting_WorkOrderID_ProductID_OperationSequence" DbType="16" Precision="5">
+                    <Field Name="OperationSequence" Ordinal="3" IsPrimaryKey="true" DbType="16" Precision="5">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Primary key. Indicates the manufacturing process sequence." />
                       </CustomProperties>
@@ -3296,7 +3348,7 @@
                         <CustomProperty Name="MS_Description" Value="Actual manufacturing cost." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="12" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="12" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -3379,13 +3431,14 @@
             <Schema Name="Purchasing">
               <Tables>
                 <Table Name="ProductVendor">
+                  <PkConstraintName Name="PK_ProductVendor_ProductID_BusinessEntityID" />
                   <Fields>
-                    <Field Name="ProductID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_ProductVendor_ProductID_BusinessEntityID" DbType="8" Precision="10">
+                    <Field Name="ProductID" Ordinal="1" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="BusinessEntityID" Ordinal="2" IsPrimaryKey="true" PkConstraintName="PK_ProductVendor_ProductID_BusinessEntityID" DbType="8" Precision="10">
+                    <Field Name="BusinessEntityID" Ordinal="2" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Primary key. Foreign key to Vendor.BusinessEntityID." />
                       </CustomProperties>
@@ -3430,7 +3483,7 @@
                         <CustomProperty Name="MS_Description" Value="The product's unit of measure." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="11" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="11" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -3441,13 +3494,14 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="PurchaseOrderDetail">
+                  <PkConstraintName Name="PK_PurchaseOrderDetail_PurchaseOrderID_PurchaseOrderDetailID" />
                   <Fields>
-                    <Field Name="PurchaseOrderID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_PurchaseOrderDetail_PurchaseOrderID_PurchaseOrderDetailID" DbType="8" Precision="10">
+                    <Field Name="PurchaseOrderID" Ordinal="1" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="PurchaseOrderDetailID" Ordinal="2" IsIdentity="true" IsPrimaryKey="true" PkConstraintName="PK_PurchaseOrderDetail_PurchaseOrderID_PurchaseOrderDetailID" DbType="8" Precision="10">
+                    <Field Name="PurchaseOrderDetailID" Ordinal="2" IsIdentity="true" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Primary key. One line number per purchased product." />
                       </CustomProperties>
@@ -3492,7 +3546,7 @@
                         <CustomProperty Name="MS_Description" Value="Quantity accepted into inventory. Computed as ReceivedQty - RejectedQty." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="11" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="11" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -3503,18 +3557,19 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="PurchaseOrderHeader">
+                  <PkConstraintName Name="PK_PurchaseOrderHeader_PurchaseOrderID" />
                   <Fields>
-                    <Field Name="PurchaseOrderID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" PkConstraintName="PK_PurchaseOrderHeader_PurchaseOrderID" DbType="8" Precision="10">
+                    <Field Name="PurchaseOrderID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="RevisionNumber" Ordinal="2" DefaultValue="((0))" DbType="22" Precision="3">
+                    <Field Name="RevisionNumber" Ordinal="2" HasDefaultValue="true" DefaultValue="((0))" DbType="22" Precision="3">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Incremental number to track changes to the purchase order over time." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="Status" Ordinal="3" DefaultValue="((1))" DbType="22" Precision="3">
+                    <Field Name="Status" Ordinal="3" HasDefaultValue="true" DefaultValue="((1))" DbType="22" Precision="3">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Nonclustered index." />
                       </CustomProperties>
@@ -3534,7 +3589,7 @@
                         <CustomProperty Name="MS_Description" Value="Shipping method. Foreign key to ShipMethod.ShipMethodID." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="OrderDate" Ordinal="7" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="OrderDate" Ordinal="7" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Purchase order creation date." />
                       </CustomProperties>
@@ -3544,17 +3599,17 @@
                         <CustomProperty Name="MS_Description" Value="Estimated shipment date from the vendor." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="SubTotal" Ordinal="9" DefaultValue="((0.00))" DbType="9" Precision="19" Scale="4">
+                    <Field Name="SubTotal" Ordinal="9" HasDefaultValue="true" DefaultValue="((0.00))" DbType="9" Precision="19" Scale="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Purchase order subtotal. Computed as SUM(PurchaseOrderDetail.LineTotal)for the appropriate PurchaseOrderID." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="TaxAmt" Ordinal="10" DefaultValue="((0.00))" DbType="9" Precision="19" Scale="4">
+                    <Field Name="TaxAmt" Ordinal="10" HasDefaultValue="true" DefaultValue="((0.00))" DbType="9" Precision="19" Scale="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Tax amount." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="Freight" Ordinal="11" DefaultValue="((0.00))" DbType="9" Precision="19" Scale="4">
+                    <Field Name="Freight" Ordinal="11" HasDefaultValue="true" DefaultValue="((0.00))" DbType="9" Precision="19" Scale="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Shipping cost." />
                       </CustomProperties>
@@ -3564,7 +3619,7 @@
                         <CustomProperty Name="MS_Description" Value="Total due to vendor. Computed as Subtotal + TaxAmt + Freight." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="13" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="13" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -3575,8 +3630,9 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="ShipMethod">
+                  <PkConstraintName Name="PK_ShipMethod_ShipMethodID" />
                   <Fields>
-                    <Field Name="ShipMethodID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" PkConstraintName="PK_ShipMethod_ShipMethodID" DbType="8" Precision="10">
+                    <Field Name="ShipMethodID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
@@ -3586,22 +3642,22 @@
                         <CustomProperty Name="MS_Description" Value="Shipping company name." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ShipBase" Ordinal="3" DefaultValue="((0.00))" DbType="9" Precision="19" Scale="4">
+                    <Field Name="ShipBase" Ordinal="3" HasDefaultValue="true" DefaultValue="((0.00))" DbType="9" Precision="19" Scale="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Unique nonclustered index. Used to support replication samples." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ShipRate" Ordinal="4" DefaultValue="((0.00))" DbType="9" Precision="19" Scale="4">
+                    <Field Name="ShipRate" Ordinal="4" HasDefaultValue="true" DefaultValue="((0.00))" DbType="9" Precision="19" Scale="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Shipping charge per pound." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="rowguid" Ordinal="5" IsRowGUID="true" DefaultValue="(newid())" DbType="25">
+                    <Field Name="rowguid" Ordinal="5" IsRowGUID="true" HasDefaultValue="true" DefaultValue="(newid())" DbType="25">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="6" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="6" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -3612,8 +3668,9 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="Vendor">
+                  <PkConstraintName Name="PK_Vendor_BusinessEntityID" />
                   <Fields>
-                    <Field Name="BusinessEntityID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_Vendor_BusinessEntityID" DbType="8" Precision="10">
+                    <Field Name="BusinessEntityID" Ordinal="1" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
@@ -3633,12 +3690,12 @@
                         <CustomProperty Name="MS_Description" Value="1 = Superior, 2 = Excellent, 3 = Above average, 4 = Average, 5 = Below average" />
                       </CustomProperties>
                     </Field>
-                    <Field Name="PreferredVendorStatus" Ordinal="5" DefaultValue="((1))" DbType="2">
+                    <Field Name="PreferredVendorStatus" Ordinal="5" HasDefaultValue="true" DefaultValue="((1))" DbType="2">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="0 = Do not use if another vendor is available. 1 = Preferred over other vendors supplying the same product." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ActiveFlag" Ordinal="6" DefaultValue="((1))" DbType="2">
+                    <Field Name="ActiveFlag" Ordinal="6" HasDefaultValue="true" DefaultValue="((1))" DbType="2">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="0 = Vendor no longer used. 1 = Vendor is actively used." />
                       </CustomProperties>
@@ -3648,7 +3705,7 @@
                         <CustomProperty Name="MS_Description" Value="Vendor URL." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="8" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="8" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -3663,18 +3720,19 @@
             <Schema Name="Sales">
               <Tables>
                 <Table Name="CountryRegionCurrency">
+                  <PkConstraintName Name="PK_CountryRegionCurrency_CountryRegionCode_CurrencyCode" />
                   <Fields>
-                    <Field Name="CountryRegionCode" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_CountryRegionCurrency_CountryRegionCode_CurrencyCode" DbType="12" Length="3">
+                    <Field Name="CountryRegionCode" Ordinal="1" IsPrimaryKey="true" DbType="12" Length="3">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="CurrencyCode" Ordinal="2" IsPrimaryKey="true" PkConstraintName="PK_CountryRegionCurrency_CountryRegionCode_CurrencyCode" DbType="10" Length="3">
+                    <Field Name="CurrencyCode" Ordinal="2" IsPrimaryKey="true" DbType="10" Length="3">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="ISO standard currency code. Foreign key to Currency.CurrencyCode." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="3" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="3" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -3685,8 +3743,9 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="CreditCard">
+                  <PkConstraintName Name="PK_CreditCard_CreditCardID" />
                   <Fields>
-                    <Field Name="CreditCardID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" PkConstraintName="PK_CreditCard_CreditCardID" DbType="8" Precision="10">
+                    <Field Name="CreditCardID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
@@ -3711,7 +3770,7 @@
                         <CustomProperty Name="MS_Description" Value="Credit card expiration year." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="6" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="6" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -3722,8 +3781,9 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="Currency">
+                  <PkConstraintName Name="PK_Currency_CurrencyCode" />
                   <Fields>
-                    <Field Name="CurrencyCode" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_Currency_CurrencyCode" DbType="10" Length="3">
+                    <Field Name="CurrencyCode" Ordinal="1" IsPrimaryKey="true" DbType="10" Length="3">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
@@ -3733,7 +3793,7 @@
                         <CustomProperty Name="MS_Description" Value="Currency name." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="3" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="3" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -3744,8 +3804,9 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="CurrencyRate">
+                  <PkConstraintName Name="PK_CurrencyRate_CurrencyRateID" />
                   <Fields>
-                    <Field Name="CurrencyRateID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" PkConstraintName="PK_CurrencyRate_CurrencyRateID" DbType="8" Precision="10">
+                    <Field Name="CurrencyRateID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
@@ -3775,7 +3836,7 @@
                         <CustomProperty Name="MS_Description" Value="Final exchange rate for the day." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="7" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="7" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -3786,8 +3847,9 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="Customer">
+                  <PkConstraintName Name="PK_Customer_CustomerID" />
                   <Fields>
-                    <Field Name="CustomerID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" PkConstraintName="PK_Customer_CustomerID" DbType="8" Precision="10">
+                    <Field Name="CustomerID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
@@ -3812,12 +3874,12 @@
                         <CustomProperty Name="MS_Description" Value="Nonclustered index." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="rowguid" Ordinal="6" IsRowGUID="true" DefaultValue="(newid())" DbType="25">
+                    <Field Name="rowguid" Ordinal="6" IsRowGUID="true" HasDefaultValue="true" DefaultValue="(newid())" DbType="25">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="7" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="7" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -3828,18 +3890,19 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="PersonCreditCard">
+                  <PkConstraintName Name="PK_PersonCreditCard_BusinessEntityID_CreditCardID" />
                   <Fields>
-                    <Field Name="BusinessEntityID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_PersonCreditCard_BusinessEntityID_CreditCardID" DbType="8" Precision="10">
+                    <Field Name="BusinessEntityID" Ordinal="1" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="CreditCardID" Ordinal="2" IsPrimaryKey="true" PkConstraintName="PK_PersonCreditCard_BusinessEntityID_CreditCardID" DbType="8" Precision="10">
+                    <Field Name="CreditCardID" Ordinal="2" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Credit card identification number. Foreign key to CreditCard.CreditCardID." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="3" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="3" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -3850,13 +3913,14 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="SalesOrderDetail">
+                  <PkConstraintName Name="PK_SalesOrderDetail_SalesOrderID_SalesOrderDetailID" />
                   <Fields>
-                    <Field Name="SalesOrderID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_SalesOrderDetail_SalesOrderID_SalesOrderDetailID" DbType="8" Precision="10">
+                    <Field Name="SalesOrderID" Ordinal="1" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="SalesOrderDetailID" Ordinal="2" IsIdentity="true" IsPrimaryKey="true" PkConstraintName="PK_SalesOrderDetail_SalesOrderID_SalesOrderDetailID" DbType="8" Precision="10">
+                    <Field Name="SalesOrderDetailID" Ordinal="2" IsIdentity="true" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Primary key. One incremental unique number per product sold." />
                       </CustomProperties>
@@ -3886,7 +3950,7 @@
                         <CustomProperty Name="MS_Description" Value="Selling price of a single product." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="UnitPriceDiscount" Ordinal="8" DefaultValue="((0.0))" DbType="9" Precision="19" Scale="4">
+                    <Field Name="UnitPriceDiscount" Ordinal="8" HasDefaultValue="true" DefaultValue="((0.0))" DbType="9" Precision="19" Scale="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Discount amount." />
                       </CustomProperties>
@@ -3896,12 +3960,12 @@
                         <CustomProperty Name="MS_Description" Value="Per product subtotal. Computed as UnitPrice * (1 - UnitPriceDiscount) * OrderQty." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="rowguid" Ordinal="10" IsRowGUID="true" DefaultValue="(newid())" DbType="25">
+                    <Field Name="rowguid" Ordinal="10" IsRowGUID="true" HasDefaultValue="true" DefaultValue="(newid())" DbType="25">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="11" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="11" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -3912,18 +3976,19 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="SalesOrderHeader">
+                  <PkConstraintName Name="PK_SalesOrderHeader_SalesOrderID" />
                   <Fields>
-                    <Field Name="SalesOrderID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" PkConstraintName="PK_SalesOrderHeader_SalesOrderID" DbType="8" Precision="10">
+                    <Field Name="SalesOrderID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="RevisionNumber" Ordinal="2" DefaultValue="((0))" DbType="22" Precision="3">
+                    <Field Name="RevisionNumber" Ordinal="2" HasDefaultValue="true" DefaultValue="((0))" DbType="22" Precision="3">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Incremental number to track changes to the sales order over time." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="OrderDate" Ordinal="3" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="OrderDate" Ordinal="3" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Unique nonclustered index." />
                       </CustomProperties>
@@ -3938,12 +4003,12 @@
                         <CustomProperty Name="MS_Description" Value="Nonclustered index." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="Status" Ordinal="6" DefaultValue="((1))" DbType="22" Precision="3">
+                    <Field Name="Status" Ordinal="6" HasDefaultValue="true" DefaultValue="((1))" DbType="22" Precision="3">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Order current status. 1 = In process; 2 = Approved; 3 = Backordered; 4 = Rejected; 5 = Shipped; 6 = Cancelled" />
                       </CustomProperties>
                     </Field>
-                    <Field Name="OnlineOrderFlag" Ordinal="7" DefaultValue="((1))" DbType="2">
+                    <Field Name="OnlineOrderFlag" Ordinal="7" HasDefaultValue="true" DefaultValue="((1))" DbType="2">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="0 = Order placed by sales person. 1 = Order placed online by customer." />
                       </CustomProperties>
@@ -4008,17 +4073,17 @@
                         <CustomProperty Name="MS_Description" Value="Currency exchange rate used. Foreign key to CurrencyRate.CurrencyRateID." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="SubTotal" Ordinal="20" DefaultValue="((0.00))" DbType="9" Precision="19" Scale="4">
+                    <Field Name="SubTotal" Ordinal="20" HasDefaultValue="true" DefaultValue="((0.00))" DbType="9" Precision="19" Scale="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Sales subtotal. Computed as SUM(SalesOrderDetail.LineTotal)for the appropriate SalesOrderID." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="TaxAmt" Ordinal="21" DefaultValue="((0.00))" DbType="9" Precision="19" Scale="4">
+                    <Field Name="TaxAmt" Ordinal="21" HasDefaultValue="true" DefaultValue="((0.00))" DbType="9" Precision="19" Scale="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Tax amount." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="Freight" Ordinal="22" DefaultValue="((0.00))" DbType="9" Precision="19" Scale="4">
+                    <Field Name="Freight" Ordinal="22" HasDefaultValue="true" DefaultValue="((0.00))" DbType="9" Precision="19" Scale="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Shipping cost." />
                       </CustomProperties>
@@ -4033,12 +4098,12 @@
                         <CustomProperty Name="MS_Description" Value="Sales representative comments." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="rowguid" Ordinal="25" IsRowGUID="true" DefaultValue="(newid())" DbType="25">
+                    <Field Name="rowguid" Ordinal="25" IsRowGUID="true" HasDefaultValue="true" DefaultValue="(newid())" DbType="25">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="26" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="26" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -4049,18 +4114,19 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="SalesOrderHeaderSalesReason">
+                  <PkConstraintName Name="PK_SalesOrderHeaderSalesReason_SalesOrderID_SalesReasonID" />
                   <Fields>
-                    <Field Name="SalesOrderID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_SalesOrderHeaderSalesReason_SalesOrderID_SalesReasonID" DbType="8" Precision="10">
+                    <Field Name="SalesOrderID" Ordinal="1" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="SalesReasonID" Ordinal="2" IsPrimaryKey="true" PkConstraintName="PK_SalesOrderHeaderSalesReason_SalesOrderID_SalesReasonID" DbType="8" Precision="10">
+                    <Field Name="SalesReasonID" Ordinal="2" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Primary key. Foreign key to SalesReason.SalesReasonID." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="3" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="3" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -4071,8 +4137,9 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="SalesPerson">
+                  <PkConstraintName Name="PK_SalesPerson_BusinessEntityID" />
                   <Fields>
-                    <Field Name="BusinessEntityID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_SalesPerson_BusinessEntityID" DbType="8" Precision="10">
+                    <Field Name="BusinessEntityID" Ordinal="1" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
@@ -4087,32 +4154,32 @@
                         <CustomProperty Name="MS_Description" Value="Projected yearly sales." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="Bonus" Ordinal="4" DefaultValue="((0.00))" DbType="9" Precision="19" Scale="4">
+                    <Field Name="Bonus" Ordinal="4" HasDefaultValue="true" DefaultValue="((0.00))" DbType="9" Precision="19" Scale="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Bonus due if quota is met." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="CommissionPct" Ordinal="5" DefaultValue="((0.00))" DbType="17" Precision="10" Scale="4">
+                    <Field Name="CommissionPct" Ordinal="5" HasDefaultValue="true" DefaultValue="((0.00))" DbType="17" Precision="10" Scale="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Commision percent received per sale." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="SalesYTD" Ordinal="6" DefaultValue="((0.00))" DbType="9" Precision="19" Scale="4">
+                    <Field Name="SalesYTD" Ordinal="6" HasDefaultValue="true" DefaultValue="((0.00))" DbType="9" Precision="19" Scale="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Sales total year to date." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="SalesLastYear" Ordinal="7" DefaultValue="((0.00))" DbType="9" Precision="19" Scale="4">
+                    <Field Name="SalesLastYear" Ordinal="7" HasDefaultValue="true" DefaultValue="((0.00))" DbType="9" Precision="19" Scale="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Sales total of previous year." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="rowguid" Ordinal="8" IsRowGUID="true" DefaultValue="(newid())" DbType="25">
+                    <Field Name="rowguid" Ordinal="8" IsRowGUID="true" HasDefaultValue="true" DefaultValue="(newid())" DbType="25">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="9" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="9" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -4123,13 +4190,14 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="SalesPersonQuotaHistory">
+                  <PkConstraintName Name="PK_SalesPersonQuotaHistory_BusinessEntityID_QuotaDate" />
                   <Fields>
-                    <Field Name="BusinessEntityID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_SalesPersonQuotaHistory_BusinessEntityID_QuotaDate" DbType="8" Precision="10">
+                    <Field Name="BusinessEntityID" Ordinal="1" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="QuotaDate" Ordinal="2" IsPrimaryKey="true" PkConstraintName="PK_SalesPersonQuotaHistory_BusinessEntityID_QuotaDate" DbType="4">
+                    <Field Name="QuotaDate" Ordinal="2" IsPrimaryKey="true" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Sales quota date." />
                       </CustomProperties>
@@ -4139,12 +4207,12 @@
                         <CustomProperty Name="MS_Description" Value="Sales quota amount." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="rowguid" Ordinal="4" IsRowGUID="true" DefaultValue="(newid())" DbType="25">
+                    <Field Name="rowguid" Ordinal="4" IsRowGUID="true" HasDefaultValue="true" DefaultValue="(newid())" DbType="25">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="5" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="5" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -4155,8 +4223,9 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="SalesReason">
+                  <PkConstraintName Name="PK_SalesReason_SalesReasonID" />
                   <Fields>
-                    <Field Name="SalesReasonID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" PkConstraintName="PK_SalesReason_SalesReasonID" DbType="8" Precision="10">
+                    <Field Name="SalesReasonID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
@@ -4171,7 +4240,7 @@
                         <CustomProperty Name="MS_Description" Value="Category the sales reason belongs to." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="4" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="4" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -4182,8 +4251,9 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="SalesTaxRate">
+                  <PkConstraintName Name="PK_SalesTaxRate_SalesTaxRateID" />
                   <Fields>
-                    <Field Name="SalesTaxRateID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" PkConstraintName="PK_SalesTaxRate_SalesTaxRateID" DbType="8" Precision="10">
+                    <Field Name="SalesTaxRateID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
@@ -4198,7 +4268,7 @@
                         <CustomProperty Name="MS_Description" Value="Unique nonclustered index. Used to support replication samples." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="TaxRate" Ordinal="4" DefaultValue="((0.00))" DbType="17" Precision="10" Scale="4">
+                    <Field Name="TaxRate" Ordinal="4" HasDefaultValue="true" DefaultValue="((0.00))" DbType="17" Precision="10" Scale="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Tax rate amount." />
                       </CustomProperties>
@@ -4208,12 +4278,12 @@
                         <CustomProperty Name="MS_Description" Value="Tax rate description." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="rowguid" Ordinal="6" IsRowGUID="true" DefaultValue="(newid())" DbType="25">
+                    <Field Name="rowguid" Ordinal="6" IsRowGUID="true" HasDefaultValue="true" DefaultValue="(newid())" DbType="25">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="7" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="7" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -4224,8 +4294,9 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="SalesTerritory">
+                  <PkConstraintName Name="PK_SalesTerritory_TerritoryID" />
                   <Fields>
-                    <Field Name="TerritoryID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" PkConstraintName="PK_SalesTerritory_TerritoryID" DbType="8" Precision="10">
+                    <Field Name="TerritoryID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
@@ -4245,32 +4316,32 @@
                         <CustomProperty Name="MS_Description" Value="Geographic area to which the sales territory belong." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="SalesYTD" Ordinal="5" DefaultValue="((0.00))" DbType="9" Precision="19" Scale="4">
+                    <Field Name="SalesYTD" Ordinal="5" HasDefaultValue="true" DefaultValue="((0.00))" DbType="9" Precision="19" Scale="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Sales in the territory year to date." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="SalesLastYear" Ordinal="6" DefaultValue="((0.00))" DbType="9" Precision="19" Scale="4">
+                    <Field Name="SalesLastYear" Ordinal="6" HasDefaultValue="true" DefaultValue="((0.00))" DbType="9" Precision="19" Scale="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Sales in the territory the previous year." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="CostYTD" Ordinal="7" DefaultValue="((0.00))" DbType="9" Precision="19" Scale="4">
+                    <Field Name="CostYTD" Ordinal="7" HasDefaultValue="true" DefaultValue="((0.00))" DbType="9" Precision="19" Scale="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Business costs in the territory year to date." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="CostLastYear" Ordinal="8" DefaultValue="((0.00))" DbType="9" Precision="19" Scale="4">
+                    <Field Name="CostLastYear" Ordinal="8" HasDefaultValue="true" DefaultValue="((0.00))" DbType="9" Precision="19" Scale="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Business costs in the territory the previous year." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="rowguid" Ordinal="9" IsRowGUID="true" DefaultValue="(newid())" DbType="25">
+                    <Field Name="rowguid" Ordinal="9" IsRowGUID="true" HasDefaultValue="true" DefaultValue="(newid())" DbType="25">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="10" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="10" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -4281,18 +4352,19 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="SalesTerritoryHistory">
+                  <PkConstraintName Name="PK_SalesTerritoryHistory_BusinessEntityID_StartDate_TerritoryID" />
                   <Fields>
-                    <Field Name="BusinessEntityID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_SalesTerritoryHistory_BusinessEntityID_StartDate_TerritoryID" DbType="8" Precision="10">
+                    <Field Name="BusinessEntityID" Ordinal="1" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="TerritoryID" Ordinal="2" IsPrimaryKey="true" PkConstraintName="PK_SalesTerritoryHistory_BusinessEntityID_StartDate_TerritoryID" DbType="8" Precision="10">
+                    <Field Name="TerritoryID" Ordinal="2" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Primary key. Territory identification number. Foreign key to SalesTerritory.SalesTerritoryID." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="StartDate" Ordinal="3" IsPrimaryKey="true" PkConstraintName="PK_SalesTerritoryHistory_BusinessEntityID_StartDate_TerritoryID" DbType="4">
+                    <Field Name="StartDate" Ordinal="3" IsPrimaryKey="true" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Primary key. Date the sales representive started work in the territory." />
                       </CustomProperties>
@@ -4302,12 +4374,12 @@
                         <CustomProperty Name="MS_Description" Value="Date the sales representative left work in the territory." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="rowguid" Ordinal="5" IsRowGUID="true" DefaultValue="(newid())" DbType="25">
+                    <Field Name="rowguid" Ordinal="5" IsRowGUID="true" HasDefaultValue="true" DefaultValue="(newid())" DbType="25">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="6" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="6" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -4318,8 +4390,9 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="ShoppingCartItem">
+                  <PkConstraintName Name="PK_ShoppingCartItem_ShoppingCartItemID" />
                   <Fields>
-                    <Field Name="ShoppingCartItemID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" PkConstraintName="PK_ShoppingCartItem_ShoppingCartItemID" DbType="8" Precision="10">
+                    <Field Name="ShoppingCartItemID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
@@ -4329,7 +4402,7 @@
                         <CustomProperty Name="MS_Description" Value="Shopping cart identification number." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="Quantity" Ordinal="3" DefaultValue="((1))" DbType="8" Precision="10">
+                    <Field Name="Quantity" Ordinal="3" HasDefaultValue="true" DefaultValue="((1))" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Product quantity ordered." />
                       </CustomProperties>
@@ -4339,12 +4412,12 @@
                         <CustomProperty Name="MS_Description" Value="Product ordered. Foreign key to Product.ProductID." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="DateCreated" Ordinal="5" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="DateCreated" Ordinal="5" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date the time the record was created." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="6" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="6" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -4355,8 +4428,9 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="SpecialOffer">
+                  <PkConstraintName Name="PK_SpecialOffer_SpecialOfferID" />
                   <Fields>
-                    <Field Name="SpecialOfferID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" PkConstraintName="PK_SpecialOffer_SpecialOfferID" DbType="8" Precision="10">
+                    <Field Name="SpecialOfferID" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
@@ -4366,7 +4440,7 @@
                         <CustomProperty Name="MS_Description" Value="Discount description." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="DiscountPct" Ordinal="3" DefaultValue="((0.00))" DbType="17" Precision="10" Scale="4">
+                    <Field Name="DiscountPct" Ordinal="3" HasDefaultValue="true" DefaultValue="((0.00))" DbType="17" Precision="10" Scale="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Discount precentage." />
                       </CustomProperties>
@@ -4391,7 +4465,7 @@
                         <CustomProperty Name="MS_Description" Value="Discount end date." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="MinQty" Ordinal="8" DefaultValue="((0))" DbType="8" Precision="10">
+                    <Field Name="MinQty" Ordinal="8" HasDefaultValue="true" DefaultValue="((0))" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Minimum discount percent allowed." />
                       </CustomProperties>
@@ -4401,12 +4475,12 @@
                         <CustomProperty Name="MS_Description" Value="Maximum discount percent allowed." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="rowguid" Ordinal="10" IsRowGUID="true" DefaultValue="(newid())" DbType="25">
+                    <Field Name="rowguid" Ordinal="10" IsRowGUID="true" HasDefaultValue="true" DefaultValue="(newid())" DbType="25">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="11" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="11" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -4417,23 +4491,24 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="SpecialOfferProduct">
+                  <PkConstraintName Name="PK_SpecialOfferProduct_SpecialOfferID_ProductID" />
                   <Fields>
-                    <Field Name="SpecialOfferID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_SpecialOfferProduct_SpecialOfferID_ProductID" DbType="8" Precision="10">
+                    <Field Name="SpecialOfferID" Ordinal="1" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Clustered index created by a primary key constraint." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ProductID" Ordinal="2" IsPrimaryKey="true" PkConstraintName="PK_SpecialOfferProduct_SpecialOfferID_ProductID" DbType="8" Precision="10">
+                    <Field Name="ProductID" Ordinal="2" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Product identification number. Foreign key to Product.ProductID." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="rowguid" Ordinal="3" IsRowGUID="true" DefaultValue="(newid())" DbType="25">
+                    <Field Name="rowguid" Ordinal="3" IsRowGUID="true" HasDefaultValue="true" DefaultValue="(newid())" DbType="25">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Nonclustered index." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="4" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="4" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
@@ -4444,8 +4519,9 @@
                   </CustomProperties>
                 </Table>
                 <Table Name="Store">
+                  <PkConstraintName Name="PK_Store_BusinessEntityID" />
                   <Fields>
-                    <Field Name="BusinessEntityID" Ordinal="1" IsPrimaryKey="true" PkConstraintName="PK_Store_BusinessEntityID" DbType="8" Precision="10">
+                    <Field Name="BusinessEntityID" Ordinal="1" IsPrimaryKey="true" DbType="8" Precision="10">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Primary key. Foreign key to Customer.BusinessEntityID." />
                       </CustomProperties>
@@ -4465,12 +4541,12 @@
                         <CustomProperty Name="MS_Description" Value="Demographic informationg about the store such as the number of employees, annual sales and store type." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="rowguid" Ordinal="5" IsRowGUID="true" DefaultValue="(newid())" DbType="25">
+                    <Field Name="rowguid" Ordinal="5" IsRowGUID="true" HasDefaultValue="true" DefaultValue="(newid())" DbType="25">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="ModifiedDate" Ordinal="6" DefaultValue="(getdate())" DbType="4">
+                    <Field Name="ModifiedDate" Ordinal="6" HasDefaultValue="true" DefaultValue="(getdate())" DbType="4">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Date and time the record was last updated." />
                       </CustomProperties>
