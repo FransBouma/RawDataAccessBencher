@@ -46,7 +46,7 @@ namespace RawBencher.Benchers
 		/// <returns>the set fetched</returns>
 		public override IEnumerable<SalesOrderHeader> FetchSet()
 		{
-            List<SalesOrderHeader> headers;
+			List<SalesOrderHeader> headers;
 			using(var con = new SqlConnection(this.ConnectionStringToUse))
 			{
 				con.Open();
@@ -64,7 +64,7 @@ namespace RawBencher.Benchers
 		/// <returns>the framework name.</returns>
 		protected override string CreateFrameworkNameImpl()
 		{
-			return "Dapper " + typeof(SqlMapper).Assembly.GetName().Version;
+			return "Dapper v" + Program.GetVersion(typeof(SqlMapper));
 		}
 
 

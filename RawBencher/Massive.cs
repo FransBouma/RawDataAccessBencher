@@ -1,3 +1,4 @@
+#if !DNXCORE50
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -886,3 +887,4 @@ namespace VanillaMassive {
 		}
 	}
 }
+#endif

@@ -198,7 +198,7 @@ namespace RawBencher.Benchers
 		{
 			string assemblyVersion;
 			string fileVersion;
-			GetVersionStrings(t.Assembly, out fileVersion, out assemblyVersion);
+			GetVersionStrings(Program.GetAssembly(t), out fileVersion, out assemblyVersion);
 			return string.Format(formatString, assemblyVersion, fileVersion);
 		}
 
@@ -253,7 +253,9 @@ namespace RawBencher.Benchers
 			if(toProbe != null)
 			{
 				assemblyVersion = toProbe.GetName().Version.ToString();
+#if !DNXCORE50 // Location not available
 				fileVersion = FileVersionInfo.GetVersionInfo(toProbe.Location).FileVersion;
+#endif
 			}
 		}
 
@@ -272,7 +274,7 @@ namespace RawBencher.Benchers
 		}
 
 
-		#region Properties
+#region Properties
 		/// <summary>
 		/// Gets the individual fetch mean, calculated by <see cref="CalculateStatistics"/>
 		/// </summary>
@@ -305,6 +307,6 @@ namespace RawBencher.Benchers
 		/// Gets a value indicating whether the fetch results in change tracked elements or not. 
 		/// </summary>
 		public bool UsesChangeTracking { get; private set; }
-		#endregion
+#endregion
 	}
 }

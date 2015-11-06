@@ -8,8 +8,10 @@ using System.Collections.Generic;
 namespace RawBencher
 {
     /// <summary>Class which represents the entity 'Sales.SalesOrderHeader'</summary>
+#if !DNXCORE50
     [ServiceStack.DataAnnotations.Schema("Sales")]
     [ServiceStack.DataAnnotations.Alias("SalesOrderHeader")]
+#endif
     public partial class SalesOrderHeader
     {
         #region Class Member Declarations
