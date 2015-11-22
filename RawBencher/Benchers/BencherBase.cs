@@ -117,14 +117,15 @@ namespace RawBencher.Benchers
 		}
 
 
-		/// <summary>
-		/// Performs the individual bench mark. This is a benchmark which fetches all SalesOrderHeader elements with the keys specified, individually.
-		/// </summary>
-		/// <param name="keys">The keys for all elements to fetch.</param>
-		/// <returns>
-		/// A filled in benchmark result object, with the total time taken to fetch all elements of the keys specified. EnumerationTime is not set. Number of
-		/// </returns>
-		public BenchResult PerformIndividualBenchMark(List<int> keys)
+        /// <summary>
+        /// Performs the individual bench mark. This is a benchmark which fetches all SalesOrderHeader elements with the keys specified, individually.
+        /// </summary>
+        /// <param name="keys">The keys for all elements to fetch.</param>
+        /// <param name="discardResults">if set to <c>true</c> the results are returned but are not collected.</param>
+        /// <returns>
+        /// A filled in benchmark result object, with the total time taken to fetch all elements of the keys specified. EnumerationTime is not set. Number of
+        /// </returns>
+        public BenchResult PerformIndividualBenchMark(List<int> keys, bool discardResults)
 		{
 			var toReturn = new BenchResult();
 			int numberOfElementsFetched = 0;
@@ -142,18 +143,33 @@ namespace RawBencher.Benchers
 			sw.Stop();
 			toReturn.FetchTimeInMilliseconds = sw.ElapsedMilliseconds;
 			toReturn.NumberOfRowsFetched = numberOfElementsFetched;
-			_individualBenchmarkResults.Add(toReturn);
-
+            if (!discardResults)
+            {
+                _individualBenchmarkResults.Add(toReturn);
+            }
 			return toReturn;
 		}
 
-	
-		/// <summary>
-		/// Performs the set benchmark. This is a benchmark which fetches the full set of sales order headers, enumerates it and returns the times it took
-		/// to perform these actions as well as the number of rows read.
+
+        /// <summary>
+		/// Performs the individual bench mark. This is a benchmark which fetches all SalesOrderHeader elements with the keys specified, individually.
 		/// </summary>
-		/// <returns>A filled in benchmark result object</returns>
-		public BenchResult PerformSetBenchmark()
+		/// <param name="keys">The keys for all elements to fetch.</param>
+		/// <returns>
+		/// A filled in benchmark result object, with the total time taken to fetch all elements of the keys specified. EnumerationTime is not set. Number of
+		/// </returns>
+        public BenchResult PerformIndividualBenchMark(List<int> keys)
+        {
+            return PerformIndividualBenchMark(keys, discardResults: false);
+        }
+
+
+        /// <summary>
+        /// Performs the set benchmark. This is a benchmark which fetches the full set of sales order headers, enumerates it and returns the times it took
+        /// to perform these actions as well as the number of rows read.
+        /// </summary>
+        /// <returns>A filled in benchmark result object</returns>
+        public BenchResult PerformSetBenchmark()
 		{
 			return PerformSetBenchmark(discardResults: false);
 		}
