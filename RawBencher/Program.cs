@@ -261,7 +261,7 @@ namespace RawBencher
 			bencher.ResetResults();
 			Console.WriteLine("First one warm-up run to initialize constructs. Results will not be collected.");
 			var result = bencher.PerformSetBenchmark(discardResults: true);
-            //bencher.PerformIndividualBenchMark(KeysForIndividualFetches, discardResults: true);
+            bencher.PerformIndividualBenchMark(KeysForIndividualFetches, discardResults: true);
 			ReportSetResult(bencher, result);
 			Console.WriteLine("Starting bench runs...");
 			if(PerformSetBenchmarks)
