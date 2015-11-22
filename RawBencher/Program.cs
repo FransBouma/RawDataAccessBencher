@@ -40,7 +40,7 @@ namespace RawBencher
 
 #if DNXCORE50
 		// have spoken to the corefx folks; currently no API for this in core-clr, but is a work-item
-		public const string ConnectionString = "data source=nerd.sd.local;initial catalog=AdventureWorks;integrated security=SSPI;persist security info=False;packet size=4096";
+		public const string ConnectionString = "data source=(localdb)\v11.0;initial catalog=AdventureWorks;integrated security=SSPI;persist security info=False;packet size=4096";
 #else
 		private static string ConnectionString = ConfigurationManager.ConnectionStrings["AdventureWorks.ConnectionString.SQL Server (SqlClient)"].ConnectionString;
 #endif
@@ -68,26 +68,28 @@ namespace RawBencher
 			RegisteredBenchers.Add(new DapperBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 
 #if !DNXCORE50
-			RegisteredBenchers.Add(new MassiveBencher());
-			RegisteredBenchers.Add(new OrmLiteBencher() { ConnectionStringToUse = ConnectionString });
+			//RegisteredBenchers.Add(new MassiveBencher());
+			//RegisteredBenchers.Add(new OrmLiteBencher() { ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new DataTableBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 #endif
 
 #if !(DNXCORE50 || DNX451)
-			RegisteredBenchers.Add(new EntityFrameworkNoChangeTrackingBencher());
-			RegisteredBenchers.Add(new EntityFrameworkNormalBencher());
-			RegisteredBenchers.Add(new LinqToSqlNoChangeTrackingBencher());
-			RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingLinqPocoBencher());
-			RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingQuerySpecPocoBencher());
-			RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingBencher());
-			RegisteredBenchers.Add(new LLBLGenProResultsetCachingBencher());
-			RegisteredBenchers.Add(new LLBLGenProNormalBencher());
-			RegisteredBenchers.Add(new LinqToSqlNormalBencher());
-			RegisteredBenchers.Add(new OakDynamicDbDtoBencher());
-			RegisteredBenchers.Add(new OakDynamicDbNormalBencher());
-			RegisteredBenchers.Add(new NHibernateNormalBencher());
+            RegisteredBenchers.Add(new EntityFramework7NoChangeTrackingBencher());
+            RegisteredBenchers.Add(new EntityFramework7NormalBencher());
+            RegisteredBenchers.Add(new EntityFrameworkNoChangeTrackingBencher());
+            RegisteredBenchers.Add(new EntityFrameworkNormalBencher());
+   //         RegisteredBenchers.Add(new LinqToSqlNoChangeTrackingBencher());
+			//RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingLinqPocoBencher());
+			//RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingQuerySpecPocoBencher());
+			//RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingBencher());
+			//RegisteredBenchers.Add(new LLBLGenProResultsetCachingBencher());
+			//RegisteredBenchers.Add(new LLBLGenProNormalBencher());
+			//RegisteredBenchers.Add(new LinqToSqlNormalBencher());
+			//RegisteredBenchers.Add(new OakDynamicDbDtoBencher());
+			//RegisteredBenchers.Add(new OakDynamicDbNormalBencher());
+			//RegisteredBenchers.Add(new NHibernateNormalBencher());
 			RegisteredBenchers.Add(new PetaPocoBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
-			RegisteredBenchers.Add(new PetaPocoFastBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+			//RegisteredBenchers.Add(new PetaPocoFastBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 #endif
 
 
