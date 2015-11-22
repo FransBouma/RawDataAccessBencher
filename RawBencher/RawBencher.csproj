@@ -50,6 +50,10 @@
       <HintPath>..\packages\Iesi.Collections.4.0.1.4000\lib\net40\Iesi.Collections.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="linq2db, Version=1.0.7.3, Culture=neutral, PublicKeyToken=f19f8aed7feff67e, processorArchitecture=MSIL">
+      <HintPath>..\packages\linq2db.1.0.7.3\lib\net45\linq2db.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="NHibernate, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <HintPath>..\packages\NHibernate.4.0.4.4000\lib\net40\NHibernate.dll</HintPath>
       <Private>True</Private>
@@ -95,6 +99,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Benchers\BencherBase.cs" />
+    <Compile Include="Benchers\LINQ2DBCompiledBencher.cs" />
+    <Compile Include="Benchers\LINQ2DBNormalBencher.cs" />
     <Compile Include="Benchers\MassiveBencher.cs" />
     <Compile Include="Benchers\HandCodedBencherUsingBoxing.cs" />
     <Compile Include="Benchers\LLBLGenProNoChangeTrackingQuerySpecPocoBencher.cs" />
@@ -143,6 +149,10 @@
     <ProjectReference Include="..\L2S\DAL\L2S.Bencher.csproj">
       <Project>{59322c25-fcc6-4635-a7ad-dc811f2fd1e0}</Project>
       <Name>L2S.Bencher</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LINQ2DB\DAL\LINQ2DB.Bencher.csproj">
+      <Project>{06c162e5-0476-40f4-a705-8b5c265bfb68}</Project>
+      <Name>LINQ2DB.Bencher</Name>
     </ProjectReference>
     <ProjectReference Include="..\LLBLGen42\AdventureWorks.Dal.Adapter.v42.csproj">
       <Project>{cede6074-9d0e-49e2-8600-532b89b19111}</Project>
