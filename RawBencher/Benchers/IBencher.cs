@@ -25,21 +25,21 @@ namespace RawBencher.Benchers
 		/// A filled in benchmark result object, with the total time taken to fetch all elements of the keys specified. EnumerationTime is not set. Number of
 		/// </returns>
 		BenchResult PerformIndividualBenchMark(List<int> keys);
-        /// <summary>
+		/// <summary>
 		/// Performs the individual bench mark. This is a benchmark which fetches all SalesOrderHeader elements with the keys specified, individually.
 		/// </summary>
 		/// <param name="keys">The keys for all elements to fetch.</param>
-        /// <param name="discardResults">if set to <c>true</c> the results are returned but are not collected.</param>
+		/// <param name="discardResults">if set to <c>true</c> the results are returned but are not collected.</param>
 		/// <returns>
 		/// A filled in benchmark result object, with the total time taken to fetch all elements of the keys specified. EnumerationTime is not set. Number of
 		/// </returns>
 		BenchResult PerformIndividualBenchMark(List<int> keys, bool discardResults);
-        /// <summary>
-        /// Performs the set benchmark. This is a benchmark which fetches the full set of sales order headers, enumerates it and returns the times it took
-        /// to perform these actions as well as the number of rows read.
-        /// </summary>
-        /// <returns>A filled in benchmark result object</returns>
-        BenchResult PerformSetBenchmark();
+		/// <summary>
+		/// Performs the set benchmark. This is a benchmark which fetches the full set of sales order headers, enumerates it and returns the times it took
+		/// to perform these actions as well as the number of rows read.
+		/// </summary>
+		/// <returns>A filled in benchmark result object</returns>
+		BenchResult PerformSetBenchmark();
 		/// <summary>
 		/// Performs the set benchmark. This is a benchmark which fetches the full set of sales order headers, enumerates it and returns the times it took
 		/// to perform these actions as well as the number of rows read.

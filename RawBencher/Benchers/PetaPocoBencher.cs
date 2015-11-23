@@ -60,7 +60,7 @@ namespace RawBencher.Benchers
 		/// <returns>the framework name.</returns>
 		protected override string CreateFrameworkNameImpl()
 		{
-			return "PetaPoco v" + Program.GetVersion(typeof(PetaPoco.Database));
+			return "PetaPoco v4.0.3";
 		}
 
 
