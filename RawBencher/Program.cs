@@ -32,7 +32,7 @@ namespace RawBencher
 	/// </summary>
 	public class Program
 	{
-		private const int LoopAmount = 25;
+		private const int LoopAmount = 10;
 		private const int IndividualKeysAmount = 100;
 		private const bool PerformSetBenchmarks = true;			// flag to signal whether the set fetch benchmarks have to be run.
 		private const bool PerformIndividualBenchMarks = true;  // flag to signal whether the single element fetch benchmarks have to be run.
@@ -55,25 +55,27 @@ namespace RawBencher
 			{
 				autoExit = args[0] == "/a";
 			}
-
 			InitConnectionString();
 
 #if !(DNXCORE50 || DNX451)
 			CacheController.RegisterCache(ConnectionString, new ResultsetCache());
 #endif
-
 			RegisteredBenchers.Add(new HandCodedBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new HandCodedBencherUsingBoxing() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new RawDbDataReaderBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new DapperBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 
 #if !DNXCORE50
+			RegisteredBenchers.Add(new DataTableBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new MassiveBencher());
 			RegisteredBenchers.Add(new OrmLiteBencher() { ConnectionStringToUse = ConnectionString });
-			RegisteredBenchers.Add(new DataTableBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 #endif
 
 #if !(DNXCORE50 || DNX451)
+			RegisteredBenchers.Add(new LINQ2DBNormalBencher(ConnectionString));
+			RegisteredBenchers.Add(new LINQ2DBCompiledBencher(ConnectionString));
+			RegisteredBenchers.Add(new PetaPocoBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+			RegisteredBenchers.Add(new PetaPocoFastBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new EntityFrameworkNoChangeTrackingBencher());
 			RegisteredBenchers.Add(new EntityFrameworkNormalBencher());
 			RegisteredBenchers.Add(new LinqToSqlNoChangeTrackingBencher());
@@ -86,16 +88,7 @@ namespace RawBencher
 			RegisteredBenchers.Add(new OakDynamicDbDtoBencher());
 			RegisteredBenchers.Add(new OakDynamicDbNormalBencher());
 			RegisteredBenchers.Add(new NHibernateNormalBencher());
-			RegisteredBenchers.Add(new PetaPocoBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
-			RegisteredBenchers.Add(new PetaPocoFastBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 #endif
-
-
-
-
-
-
-
 
 			DisplayHeader();
 	
@@ -158,6 +151,7 @@ namespace RawBencher
 		{
 			return GetAssembly(type).GetName().Version;
 		}
+
 		public static Assembly GetAssembly(Type type)
 		{
 #if DNXCORE50
@@ -257,10 +251,12 @@ namespace RawBencher
 		private static void RunBencher(IBencher bencher)
 		{
 			bencher.ResetResults();
-			Console.WriteLine("First one warm-up run to initialize constructs. Results will not be collected.");
+			Console.WriteLine("First one warm-up run of each bench type to initialize constructs. Results will not be collected.");
 			var result = bencher.PerformSetBenchmark(discardResults: true);
 			ReportSetResult(bencher, result);
-			Console.WriteLine("Starting bench runs...");
+			result = bencher.PerformIndividualBenchMark(KeysForIndividualFetches, discardResults: true);
+			ReportIndividualResult(bencher, result);
+			Console.WriteLine("\nStarting bench runs...");
 			if(PerformSetBenchmarks)
 			{
 				// set benches
@@ -350,16 +346,16 @@ namespace RawBencher
 
 		private static void ReportSetResult(IBencher bencher, BenchResult result)
 		{
-			Console.WriteLine("Number of elements fetched: {0}.\tFetch took: {1}ms.\tEnumerating result took: {2}ms",
+			Console.WriteLine("Number of elements fetched: {0}.\tFetch took: {1:N2}ms.\tEnumerating result took: {2:N2}ms",
 								result.NumberOfRowsFetched, result.FetchTimeInMilliseconds, result.EnumerationTimeInMilliseconds);
 		}
 
 
 		private static void ReportIndividualResult(IBencher bencher, BenchResult result)
 		{
-			Console.WriteLine("Number of elements fetched individually: {0}.\tTotal time: {1}ms.\tTime per element: {2}ms",
+			Console.WriteLine("Number of elements fetched individually: {0}.\tTotal time: {1:N2}ms.\tTime per element: {2:N2}ms",
 								KeysForIndividualFetches.Count, result.FetchTimeInMilliseconds,
-								(double)result.FetchTimeInMilliseconds / (double)KeysForIndividualFetches.Count);
+								result.FetchTimeInMilliseconds / KeysForIndividualFetches.Count);
 		}
 
 
