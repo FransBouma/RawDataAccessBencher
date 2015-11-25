@@ -63,7 +63,7 @@ namespace RawBencher.Benchers
 		/// <returns>the framework name.</returns>
 		protected override string CreateFrameworkNameImpl()
 		{
-			return CreateFrameworkName("LLBLGen Pro v{0} (v{1}), typed view", typeof(DataAccessAdapterBase));
+			return CreateFrameworkName("LLBLGen Pro v{0} (v{1}), DataTable based TypedView", typeof(DataAccessAdapterBase));
 		}
 	}
 }
