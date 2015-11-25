@@ -1009,6 +1009,8 @@ namespace EF7.Bencher.Model
 
                 entity.HasIndex(e => e.rowguid).HasName("AK_SalesOrderHeader_rowguid").IsUnique();
 
+                entity.Property(e => e.AccountNumber).HasMaxLength(15);
+
                 entity.Property(e => e.Comment).HasMaxLength(128);
 
                 entity.Property(e => e.Freight).HasColumnType("decimal").HasDefaultValue(0);
@@ -1030,6 +1032,8 @@ namespace EF7.Bencher.Model
                 entity.Property(e => e.OrderDate)
                     .HasColumnType("datetime")
                     .HasDefaultValueSql("getdate()");
+
+                entity.Property(e => e.PurchaseOrderNumber).HasMaxLength(25);
 
                 entity.Property(e => e.RevisionNumber).HasDefaultValue(0);
 

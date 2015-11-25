@@ -11,6 +11,7 @@ namespace EF7.Bencher.Model
             SalesOrderHeaderSalesReason = new HashSet<SalesOrderHeaderSalesReason>();
         }
 
+        public string AccountNumber { get; set; }
         public int SalesOrderID { get; set; }
         public int BillToAddressID { get; set; }
         public string Comment { get; set; }
@@ -22,6 +23,7 @@ namespace EF7.Bencher.Model
         public decimal Freight { get; set; }
         public DateTime ModifiedDate { get; set; }
         public DateTime OrderDate { get; set; }
+        public string PurchaseOrderNumber { get; set; }
         public byte RevisionNumber { get; set; }
         public Guid rowguid { get; set; }
         public string SalesOrderNumber { get; set; }
