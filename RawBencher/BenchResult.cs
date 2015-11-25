@@ -11,8 +11,8 @@ namespace RawBencher
 	/// </summary>
 	public class BenchResult
 	{
-		public long FetchTimeInMilliseconds { get; set; }
-		public long EnumerationTimeInMilliseconds { get; set; }
+		public double FetchTimeInMilliseconds { get; set; }
+		public double EnumerationTimeInMilliseconds { get; set; }
 		public int NumberOfRowsFetched { get; set; }
 	}
 }

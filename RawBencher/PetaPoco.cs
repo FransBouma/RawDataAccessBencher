@@ -186,7 +186,7 @@ namespace PetaPoco
 			MySql,
 			PostgreSQL,
 			Oracle,
-            SQLite
+			SQLite
 		}
 		DBType _dbType = DBType.SqlServer;
 
@@ -666,7 +666,7 @@ namespace PetaPoco
 			if (!SplitSqlForPaging(sql, out sqlCount, out sqlSelectRemoved, out sqlOrderBy))
 				throw new Exception("Unable to parse SQL statement for paged query");
 			if (_dbType == DBType.Oracle && sqlSelectRemoved.StartsWith("*"))
-                throw new Exception("Query must alias '*' when performing a paged query.\neg. select t.* from table t order by t.id");
+				throw new Exception("Query must alias '*' when performing a paged query.\neg. select t.* from table t order by t.id");
 
 			// Build the SQL for the actual final result
 			if (_dbType == DBType.SqlServer || _dbType == DBType.Oracle)
@@ -1291,21 +1291,21 @@ namespace PetaPoco
 								}
 								OnExecutedCommand(cmd);
 								break;
-                            case DBType.SQLite:
-                                if (primaryKeyName != null)
-                                {
-                                    cmd.CommandText += ";\nSELECT last_insert_rowid();";
-                                    DoPreExecute(cmd);
-                                    id = cmd.ExecuteScalar();
-                                }
-                                else
-                                {
-                                    id = -1;
-                                    DoPreExecute(cmd);
-                                    cmd.ExecuteNonQuery();
-                                }
-                                OnExecutedCommand(cmd);
-                                break;
+							case DBType.SQLite:
+								if (primaryKeyName != null)
+								{
+									cmd.CommandText += ";\nSELECT last_insert_rowid();";
+									DoPreExecute(cmd);
+									id = cmd.ExecuteScalar();
+								}
+								else
+								{
+									id = -1;
+									DoPreExecute(cmd);
+									cmd.ExecuteNonQuery();
+								}
+								OnExecutedCommand(cmd);
+								break;
 							default:
 								cmd.CommandText += ";\nSELECT @@IDENTITY AS NewID;";
 								DoPreExecute(cmd);

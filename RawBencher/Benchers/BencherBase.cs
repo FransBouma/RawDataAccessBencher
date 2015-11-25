@@ -25,8 +25,8 @@ namespace RawBencher.Benchers
 		/// Initializes a new instance of the <see cref="BencherBase{T}" /> class.
 		/// </summary>
 		/// <param name="salesOrderIdRetriever">The salesOrderId retriever func, to be used in the data verification step.</param>
-		/// <param name="performsChangeTracking">if set to <c>true</c> the fetches will be resulting in change tracked elements</param>
-		/// <param name="performsCaching">if set to <c>true</c> the fetches will be using some form of caching (resultset caching, element caching)</param>
+		/// <param name="usesChangeTracking">if set to <c>true</c> the fetches will be resulting in change tracked elements</param>
+		/// <param name="usesCaching">if set to <c>true</c> the fetches will be using some form of caching (resultset caching, element caching)</param>
 		/// <exception cref="System.ArgumentNullException">salesOrderIdRetriever</exception>
 		protected BencherBase(Func<T, int> salesOrderIdRetriever, bool usesChangeTracking, bool usesCaching)
 		{
@@ -41,28 +41,6 @@ namespace RawBencher.Benchers
 			_setBenchmarkResults = new List<BenchResult>();
 			_frameworkName = string.Empty;
 		}
-
-
-		/// <summary>
-		/// Fetches the individual element
-		/// </summary>
-		/// <typeparam name="T">Type of the element to fetch</typeparam>
-		/// <param name="key">The key of the element to fetch.</param>
-		/// <returns>The fetched element, or null if not found</returns>
-		public abstract T FetchIndividual(int key);
-		/// <summary>
-		/// Fetches the complete set of elements and returns this set as an IEnumerable.
-		/// </summary>
-		/// <returns>
-		/// the set fetched
-		/// </returns>
-		public abstract IEnumerable<T> FetchSet();
-		/// <summary>
-		/// Implements the CreateFrameworkName method. Done this way so caching of the name is performed in the caller and overrides have no influence
-		/// on this.
-		/// </summary>
-		/// <returns>the framework name.</returns>
-		protected abstract string CreateFrameworkNameImpl();
 
 
 		/// <summary>
@@ -121,10 +99,11 @@ namespace RawBencher.Benchers
 		/// Performs the individual bench mark. This is a benchmark which fetches all SalesOrderHeader elements with the keys specified, individually.
 		/// </summary>
 		/// <param name="keys">The keys for all elements to fetch.</param>
+		/// <param name="discardResults">if set to <c>true</c> the results are returned but are not collected.</param>
 		/// <returns>
 		/// A filled in benchmark result object, with the total time taken to fetch all elements of the keys specified. EnumerationTime is not set. Number of
 		/// </returns>
-		public BenchResult PerformIndividualBenchMark(List<int> keys)
+		public BenchResult PerformIndividualBenchMark(List<int> keys, bool discardResults)
 		{
 			var toReturn = new BenchResult();
 			int numberOfElementsFetched = 0;
@@ -140,14 +119,29 @@ namespace RawBencher.Benchers
 				}
 			}
 			sw.Stop();
-			toReturn.FetchTimeInMilliseconds = sw.ElapsedMilliseconds;
+			toReturn.FetchTimeInMilliseconds = sw.Elapsed.TotalMilliseconds;
 			toReturn.NumberOfRowsFetched = numberOfElementsFetched;
-			_individualBenchmarkResults.Add(toReturn);
-
+			if (!discardResults)
+			{
+				_individualBenchmarkResults.Add(toReturn);
+			}
 			return toReturn;
 		}
 
-	
+
+		/// <summary>
+		/// Performs the individual bench mark. This is a benchmark which fetches all SalesOrderHeader elements with the keys specified, individually.
+		/// </summary>
+		/// <param name="keys">The keys for all elements to fetch.</param>
+		/// <returns>
+		/// A filled in benchmark result object, with the total time taken to fetch all elements of the keys specified. EnumerationTime is not set. Number of
+		/// </returns>
+		public BenchResult PerformIndividualBenchMark(List<int> keys)
+		{
+			return PerformIndividualBenchMark(keys, discardResults: false);
+		}
+
+
 		/// <summary>
 		/// Performs the set benchmark. This is a benchmark which fetches the full set of sales order headers, enumerates it and returns the times it took
 		/// to perform these actions as well as the number of rows read.
@@ -174,18 +168,40 @@ namespace RawBencher.Benchers
 			sw.Start();
 			var headers = FetchSet();
 			sw.Stop();
-			toReturn.FetchTimeInMilliseconds = sw.ElapsedMilliseconds;
+			toReturn.FetchTimeInMilliseconds = sw.Elapsed.TotalMilliseconds;
 			sw.Reset();
 			sw.Start();
 			toReturn.NumberOfRowsFetched = VerifyData(headers);
 			sw.Stop();
-			toReturn.EnumerationTimeInMilliseconds = sw.ElapsedMilliseconds;
+			toReturn.EnumerationTimeInMilliseconds = sw.Elapsed.TotalMilliseconds;
 			if(!discardResults)
 			{
 				_setBenchmarkResults.Add(toReturn);
 			}
 			return toReturn;
 		}
+
+
+		/// <summary>
+		/// Fetches the individual element
+		/// </summary>
+		/// <typeparam name="T">Type of the element to fetch</typeparam>
+		/// <param name="key">The key of the element to fetch.</param>
+		/// <returns>The fetched element, or null if not found</returns>
+		public abstract T FetchIndividual(int key);
+		/// <summary>
+		/// Fetches the complete set of elements and returns this set as an IEnumerable.
+		/// </summary>
+		/// <returns>
+		/// the set fetched
+		/// </returns>
+		public abstract IEnumerable<T> FetchSet();
+		/// <summary>
+		/// Implements the CreateFrameworkName method. Done this way so caching of the name is performed in the caller and overrides have no influence
+		/// on this.
+		/// </summary>
+		/// <returns>the framework name.</returns>
+		protected abstract string CreateFrameworkNameImpl();
 
 
 		/// <summary>
@@ -266,15 +282,15 @@ namespace RawBencher.Benchers
 		/// <param name="values">The values.</param>
 		/// <param name="mean">The mean.</param>
 		/// <returns></returns>
-		private double CalculateSD(List<long> values, double mean)
+		private double CalculateSD(List<double> values, double mean)
 		{
 			// see: http://www.mathsisfun.com/data/standard-deviation.html
-			var variance = values.Select(v => Convert.ToDouble(v) - mean).Select(v => v * v).Average();
+			var variance = values.Select(v => v - mean).Select(v => v * v).Average();
 			return Math.Sqrt(variance);
 		}
 
 
-#region Properties
+		#region Properties
 		/// <summary>
 		/// Gets the individual fetch mean, calculated by <see cref="CalculateStatistics"/>
 		/// </summary>
@@ -307,6 +323,6 @@ namespace RawBencher.Benchers
 		/// Gets a value indicating whether the fetch results in change tracked elements or not. 
 		/// </summary>
 		public bool UsesChangeTracking { get; private set; }
-#endregion
+		#endregion
 	}
 }
