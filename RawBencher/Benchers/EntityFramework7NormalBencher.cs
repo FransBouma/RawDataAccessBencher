@@ -29,7 +29,7 @@ namespace RawBencher.Benchers
 		/// <returns>The fetched element, or null if not found</returns>
 		public override EF7.Bencher.Model.SalesOrderHeader FetchIndividual(int key)
 		{
-			using(var ctx = new AdventureWorksContext())
+			using(var ctx = new AdventureWorksContext(this.ConnectionStringToUse))
 			{
 				return ctx.SalesOrderHeader.Single(e => e.SalesOrderID == key);
 			}
@@ -42,11 +42,11 @@ namespace RawBencher.Benchers
 		/// <returns>the set fetched</returns>
 		public override IEnumerable<EF7.Bencher.Model.SalesOrderHeader> FetchSet()
 		{
-            using (var ctx = new AdventureWorksContext())
-            {
-                return ctx.SalesOrderHeader.ToList();
-            }
-        }
+			using (var ctx = new AdventureWorksContext(this.ConnectionStringToUse))
+			{
+				return ctx.SalesOrderHeader.ToList();
+			}
+		}
 
 
 		/// <summary>
@@ -58,6 +58,15 @@ namespace RawBencher.Benchers
 		{
 			return CreateFrameworkName("Entity Framework v{0} (v{1})", typeof(Microsoft.Data.Entity.DbContext));
 		}
+
+
+		#region Properties
+		/// <summary>
+		/// Gets or sets the connection string to use
+		/// </summary>
+		public string ConnectionStringToUse { get; set; }
+		#endregion
+
 	}
 }
 #endif
