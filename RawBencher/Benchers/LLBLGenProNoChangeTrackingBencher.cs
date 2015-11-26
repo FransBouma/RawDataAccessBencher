@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AdventureWorks.Dal.Adapter.v42.DatabaseSpecific;
-using AdventureWorks.Dal.Adapter.v42.TypedViewClasses;
-using AdventureWorks.Dal.Adapter.v42.HelperClasses;
+using AdventureWorks.Dal.Adapter.v50.DatabaseSpecific;
+using AdventureWorks.Dal.Adapter.v50.TypedViewClasses;
+using AdventureWorks.Dal.Adapter.v50.HelperClasses;
 using SD.LLBLGen.Pro.ORMSupportClasses;
 
 namespace RawBencher.Benchers
@@ -63,7 +63,7 @@ namespace RawBencher.Benchers
 		/// <returns>the framework name.</returns>
 		protected override string CreateFrameworkNameImpl()
 		{
-			return CreateFrameworkName("LLBLGen Pro v{0} (v{1}), typed view", typeof(DataAccessAdapterBase));
+			return CreateFrameworkName("LLBLGen Pro v{0} (v{1}), DataTable based TypedView", typeof(DataAccessAdapterBase));
 		}
 	}
 }
