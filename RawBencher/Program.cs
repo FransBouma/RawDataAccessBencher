@@ -51,7 +51,7 @@ namespace RawBencher
 		static void Main(string[] args)
 		{
 			bool autoExit = false;
-			if(args.Length > 0)
+			if (args.Length > 0)
 			{
 				autoExit = args[0] == "/a";
 			}
@@ -78,6 +78,8 @@ namespace RawBencher
 			RegisteredBenchers.Add(new PetaPocoFastBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new EntityFrameworkNoChangeTrackingBencher());
 			RegisteredBenchers.Add(new EntityFrameworkNormalBencher());
+			RegisteredBenchers.Add(new EntityFramework7NoChangeTrackingBencher() { ConnectionStringToUse = ConnectionString});
+			RegisteredBenchers.Add(new EntityFramework7NormalBencher() { ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new LinqToSqlNoChangeTrackingBencher());
 			RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingLinqPocoBencher());
 			RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingQuerySpecPocoBencher());
@@ -89,9 +91,8 @@ namespace RawBencher
 			RegisteredBenchers.Add(new OakDynamicDbNormalBencher());
 			RegisteredBenchers.Add(new NHibernateNormalBencher());
 #endif
-
 			DisplayHeader();
-	
+
 			WarmupDB();
 			FetchKeysForIndividualFetches();
 
@@ -111,40 +112,40 @@ namespace RawBencher
 #endif
 			var conBuilder = new SqlConnectionStringBuilder(ConnectionString);
 			string sqlServerVersion = "Unknown";
-			using(var conForHeader = new SqlConnection(ConnectionString))
+			using (var conForHeader = new SqlConnection(ConnectionString))
 			{
 				conForHeader.Open();
 				sqlServerVersion = conForHeader.ServerVersion;
 				conForHeader.Close();
 			}
 
-			
-			Console.WriteLine( "+-------------------------------------------------------------------------------------------");
-			Console.WriteLine( "| Raw Data Access / ORM Benchmarks.");
+
+			Console.WriteLine("+-------------------------------------------------------------------------------------------");
+			Console.WriteLine("| Raw Data Access / ORM Benchmarks.");
 			Console.WriteLine(@"| Code available at              : https://github.com/FransBouma/RawDataAccessBencher");
-			Console.WriteLine( "| Benchmarks run on              : {0}", DateTime.Now.ToString("F"));
-			Console.WriteLine( "| Registered benchmarks          :");
-			foreach(var bencher in RegisteredBenchers)
+			Console.WriteLine("| Benchmarks run on              : {0}", DateTime.Now.ToString("F"));
+			Console.WriteLine("| Registered benchmarks          :");
+			foreach (var bencher in RegisteredBenchers)
 			{
-				DisplayBencherInfo(bencher, "| \t", suffixWithDashLine:false);
+				DisplayBencherInfo(bencher, "| \t", suffixWithDashLine: false);
 			}
-			Console.WriteLine( "| Run set benchmarks             : {0}", PerformSetBenchmarks);
-			Console.WriteLine( "| Run individual fetch benchmarks: {0}", PerformIndividualBenchMarks);
-			Console.WriteLine( "| Number of set fetches          : {0}", LoopAmount);
-			Console.WriteLine( "| Number of individual keys      : {0}", IndividualKeysAmount);
-			Console.WriteLine( "| Release build                  : {0}", releaseBuild);
+			Console.WriteLine("| Run set benchmarks             : {0}", PerformSetBenchmarks);
+			Console.WriteLine("| Run individual fetch benchmarks: {0}", PerformIndividualBenchMarks);
+			Console.WriteLine("| Number of set fetches          : {0}", LoopAmount);
+			Console.WriteLine("| Number of individual keys      : {0}", IndividualKeysAmount);
+			Console.WriteLine("| Release build                  : {0}", releaseBuild);
 #if !DNXCORE50 // there is a plan to add a new API equivalent to this; not released yet
-			Console.WriteLine( "| Client OS                      : {0} ({1}bit)", Environment.OSVersion, Environment.Is64BitOperatingSystem ? "64" : "32" );
-			Console.WriteLine( "| Bencher runs as 64bit          : {0}", Environment.Is64BitProcess);
-			Console.WriteLine( "| CLR version                    : {0}", Environment.Version);
+			Console.WriteLine("| Client OS                      : {0} ({1}bit)", Environment.OSVersion, Environment.Is64BitOperatingSystem ? "64" : "32");
+			Console.WriteLine("| Bencher runs as 64bit          : {0}", Environment.Is64BitProcess);
+			Console.WriteLine("| CLR version                    : {0}", Environment.Version);
 #else
 			Console.WriteLine( "| ADO.NET version                    : {0}", Program.GetVersion(typeof(SqlConnection))); // kinda hacky
 #endif
-			Console.WriteLine( "| Number of CPUs                 : {0}", Environment.ProcessorCount);
-			Console.WriteLine( "| Server used                    : {0}", conBuilder.DataSource);
-			Console.WriteLine( "| Catalog used                   : {0}", conBuilder.InitialCatalog);
-			Console.WriteLine( "| SQL Server version used        : {0}", sqlServerVersion);
-			Console.WriteLine( "+-------------------------------------------------------------------------------------------\n");
+			Console.WriteLine("| Number of CPUs                 : {0}", Environment.ProcessorCount);
+			Console.WriteLine("| Server used                    : {0}", conBuilder.DataSource);
+			Console.WriteLine("| Catalog used                   : {0}", conBuilder.InitialCatalog);
+			Console.WriteLine("| SQL Server version used        : {0}", sqlServerVersion);
+			Console.WriteLine("+-------------------------------------------------------------------------------------------\n");
 		}
 
 		public static Version GetVersion(Type type)
@@ -171,7 +172,7 @@ namespace RawBencher
 			// run the benchers before profiling. 
 			foreach (var b in benchersToProfile)
 			{
-				if(b == null)
+				if (b == null)
 				{
 					Console.WriteLine("The bencher you are trying to profile hasn't been registered. Can't continue.");
 					return;
@@ -184,12 +185,12 @@ namespace RawBencher
 			Console.ReadLine();
 			foreach (var b in benchersToProfile)
 			{
-				if(PerformSetBenchmarks)
+				if (PerformSetBenchmarks)
 				{
 					Console.WriteLine("Running set benchmark for profile for bencher: {0}. Change tracking: {1}", b.CreateFrameworkName(), b.UsesChangeTracking);
 					b.PerformSetBenchmark();
 				}
-				if(PerformIndividualBenchMarks)
+				if (PerformIndividualBenchMarks)
 				{
 					Console.WriteLine("Running individual fetch benchmark for profile for bencher: {0}. Change tracking: {1}", b.CreateFrameworkName(), b.UsesChangeTracking);
 					b.PerformIndividualBenchMark(KeysForIndividualFetches);
@@ -240,7 +241,7 @@ namespace RawBencher
 				{
 					RunBencher(bencher);
 				}
-				catch(Exception ex)
+				catch (Exception ex)
 				{
 					DisplayException(ex);
 				}
@@ -337,7 +338,7 @@ namespace RawBencher
 		{
 			Console.Write(linePrefix);
 			Console.WriteLine("{0}. Change tracking: {1}. Caching: {2}.", bencher.CreateFrameworkName(), bencher.UsesChangeTracking, bencher.UsesCaching);
-			if(suffixWithDashLine)
+			if (suffixWithDashLine)
 			{
 				Console.WriteLine("--------------------------------------------------------------------------------------------");
 			}
@@ -368,10 +369,10 @@ namespace RawBencher
 			Console.WriteLine("\nResults per framework. Values are given as: 'mean (standard deviation)'");
 			Console.WriteLine("==============================================================================");
 			int longestNameLength = 0;
-			foreach(var bencher in RegisteredBenchers)
+			foreach (var bencher in RegisteredBenchers)
 			{
 				string name = bencher.CreateFrameworkName();
-				if(name.Length > longestNameLength)
+				if (name.Length > longestNameLength)
 				{
 					longestNameLength = name.Length;
 				}
@@ -380,33 +381,33 @@ namespace RawBencher
 
 			Console.WriteLine("Non-change tracking fetches, set fetches ({0} runs), no caching", LoopAmount);
 			Console.WriteLine("------------------------------------------------------------------------------");
-			foreach(var bencher in RegisteredBenchers.Where(b => !b.UsesChangeTracking && !b.UsesCaching).OrderBy(b => b.SetFetchMean))
-			{
-				Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms ({2:N2}ms)\tEnum: {3:N2}ms ({4:N2}ms)", bencher.CreateFrameworkName(), bencher.SetFetchMean, 
-									bencher.SetFetchSD, bencher.EnumerationMean, bencher.EnumerationSD);
-			}
-
-			Console.WriteLine("\nChange tracking fetches, set fetches ({0} runs), no caching", LoopAmount);
-			Console.WriteLine("------------------------------------------------------------------------------");
-			foreach(var bencher in RegisteredBenchers.Where(b => b.UsesChangeTracking && !b.UsesCaching).OrderBy(b => b.SetFetchMean))
+			foreach (var bencher in RegisteredBenchers.Where(b => !b.UsesChangeTracking && !b.UsesCaching).OrderBy(b => b.SetFetchMean))
 			{
 				Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms ({2:N2}ms)\tEnum: {3:N2}ms ({4:N2}ms)", bencher.CreateFrameworkName(), bencher.SetFetchMean,
 									bencher.SetFetchSD, bencher.EnumerationMean, bencher.EnumerationSD);
 			}
 
-			if(PerformIndividualBenchMarks)
+			Console.WriteLine("\nChange tracking fetches, set fetches ({0} runs), no caching", LoopAmount);
+			Console.WriteLine("------------------------------------------------------------------------------");
+			foreach (var bencher in RegisteredBenchers.Where(b => b.UsesChangeTracking && !b.UsesCaching).OrderBy(b => b.SetFetchMean))
+			{
+				Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms ({2:N2}ms)\tEnum: {3:N2}ms ({4:N2}ms)", bencher.CreateFrameworkName(), bencher.SetFetchMean,
+									bencher.SetFetchSD, bencher.EnumerationMean, bencher.EnumerationSD);
+			}
+
+			if (PerformIndividualBenchMarks)
 			{
 				Console.WriteLine("\nNon-change tracking individual fetches ({0} elements, {1} runs), no caching", IndividualKeysAmount, LoopAmount);
 				Console.WriteLine("------------------------------------------------------------------------------");
-				foreach(var bencher in RegisteredBenchers.Where(b => !b.UsesChangeTracking && !b.UsesCaching).OrderBy(b => b.IndividualFetchMean))
+				foreach (var bencher in RegisteredBenchers.Where(b => !b.UsesChangeTracking && !b.UsesCaching).OrderBy(b => b.IndividualFetchMean))
 				{
-					Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms ({2:N2}ms) per individual fetch", bencher.CreateFrameworkName(), bencher.IndividualFetchMean / IndividualKeysAmount, 
+					Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms ({2:N2}ms) per individual fetch", bencher.CreateFrameworkName(), bencher.IndividualFetchMean / IndividualKeysAmount,
 															bencher.IndividualFetchSD / IndividualKeysAmount);
 				}
 
 				Console.WriteLine("\nChange tracking individual fetches ({0} elements, {1} runs), no caching", IndividualKeysAmount, LoopAmount);
 				Console.WriteLine("------------------------------------------------------------------------------");
-				foreach(var bencher in RegisteredBenchers.Where(b => b.UsesChangeTracking && !b.UsesCaching).OrderBy(b => b.IndividualFetchMean))
+				foreach (var bencher in RegisteredBenchers.Where(b => b.UsesChangeTracking && !b.UsesCaching).OrderBy(b => b.IndividualFetchMean))
 				{
 					Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms ({2:N2}ms) per individual fetch", bencher.CreateFrameworkName(), bencher.IndividualFetchMean / IndividualKeysAmount,
 															bencher.IndividualFetchSD / IndividualKeysAmount);
@@ -415,24 +416,24 @@ namespace RawBencher
 
 			Console.WriteLine("\nChange tracking fetches, set fetches ({0} runs), caching", LoopAmount);
 			Console.WriteLine("------------------------------------------------------------------------------");
-			foreach(var bencher in RegisteredBenchers.Where(b => b.UsesChangeTracking && b.UsesCaching).OrderBy(b => b.SetFetchMean))
+			foreach (var bencher in RegisteredBenchers.Where(b => b.UsesChangeTracking && b.UsesCaching).OrderBy(b => b.SetFetchMean))
 			{
 				Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms ({2:N2}ms)\tEnum: {3:N2}ms ({4:N2}ms)", bencher.CreateFrameworkName(), bencher.SetFetchMean,
 									bencher.SetFetchSD, bencher.EnumerationMean, bencher.EnumerationSD);
 			}
 
-			if(PerformIndividualBenchMarks)
+			if (PerformIndividualBenchMarks)
 			{
 				Console.WriteLine("\nChange tracking individual fetches ({0} elements, {1} runs), caching", IndividualKeysAmount, LoopAmount);
 				Console.WriteLine("------------------------------------------------------------------------------");
-				foreach(var bencher in RegisteredBenchers.Where(b => b.UsesChangeTracking && b.UsesCaching).OrderBy(b => b.IndividualFetchMean))
+				foreach (var bencher in RegisteredBenchers.Where(b => b.UsesChangeTracking && b.UsesCaching).OrderBy(b => b.IndividualFetchMean))
 				{
 					Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms ({2:N2}ms) per individual fetch", bencher.CreateFrameworkName(), bencher.IndividualFetchMean / IndividualKeysAmount,
 															bencher.IndividualFetchSD / IndividualKeysAmount);
 				}
 			}
 			Console.Write("\nComplete.");
-			if(autoExit)
+			if (autoExit)
 			{
 				return;
 			}
@@ -443,7 +444,7 @@ namespace RawBencher
 
 		private static void DisplayException(Exception toDisplay)
 		{
-			if(toDisplay == null)
+			if (toDisplay == null)
 			{
 				return;
 			}
