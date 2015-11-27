@@ -37,7 +37,7 @@ If you want to export the results to a file directly, run the RawBencher.exe fro
 
 ### Remarks per used framework ###
 
-Entity Framework 7 is RC1. Microsoft has optimized the code since RC1. This has been confirmed using an offline build of the code by comitter @jonnybee, however @jonnybee and I decided it was best to keep it on RC1 as it's easier to migrate to RC2 when that comes out and it's the public available build that's available at this moment. When Microsoft releases RC2, we'll run a new benchmark. 
+Entity Framework 7 is RC1. Microsoft has optimized the code since RC1. This has been confirmed using an offline build of the code by contributor [@jonnybee](https://github.com/jonnybee), however [@jonnybee](https://github.com/jonnybee) and I decided it was best to keep it on RC1 as it's easier to migrate to RC2 when that comes out and it's the public available build that's available at this moment. When Microsoft releases RC2, we'll run a new benchmark. 
 
 NHibernate uses .hbm mappings, as this is of no relevance to the fetch speed and it avoids a dependency on FluentNHibernate.
 
