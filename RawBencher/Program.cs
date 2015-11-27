@@ -27,7 +27,7 @@ namespace RawBencher
 	/// </summary>
 	public class Program
 	{
-		private const int LoopAmount = 10;
+		private const int LoopAmount = 25;
 		private const int IndividualKeysAmount = 100;
 		private const bool PerformSetBenchmarks = true;			// flag to signal whether the set fetch benchmarks have to be run.
 		private const bool PerformIndividualBenchMarks = true;  // flag to signal whether the single element fetch benchmarks have to be run.
@@ -74,7 +74,7 @@ namespace RawBencher
 			RegisteredBenchers.Add(new PetaPocoFastBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new EntityFrameworkNoChangeTrackingBencher());
 			RegisteredBenchers.Add(new EntityFrameworkNormalBencher());
-			RegisteredBenchers.Add(new EntityFramework7NoChangeTrackingBencher() { ConnectionStringToUse = ConnectionString});
+			RegisteredBenchers.Add(new EntityFramework7NoChangeTrackingBencher() { ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new EntityFramework7NormalBencher() { ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new OakDynamicDbDtoBencher());
 			RegisteredBenchers.Add(new OakDynamicDbNormalBencher());
@@ -272,7 +272,7 @@ namespace RawBencher
 			if (PerformIndividualBenchMarks)
 			{
 				// individual benches
-				Console.WriteLine("Single element fetches");
+				Console.WriteLine("\nSingle element fetches");
 				Console.WriteLine("-------------------------");
 				for (int i = 0; i < LoopAmount; i++)
 				{
@@ -342,15 +342,15 @@ namespace RawBencher
 
 		private static void ReportSetResult(IBencher bencher, BenchResult result)
 		{
-			Console.WriteLine("Number of elements fetched: {0}.\tFetch took: {1:N2}ms.\tEnumerating result took: {2:N2}ms",
-								result.NumberOfRowsFetched, result.FetchTimeInMilliseconds, result.EnumerationTimeInMilliseconds);
+			Console.WriteLine("[{0}] Number of elements fetched: {1}.\tFetch took: {2:N2}ms.\tEnumerating result took: {3:N2}ms",
+								DateTime.Now.ToString("HH:mm:ss"), result.NumberOfRowsFetched, result.FetchTimeInMilliseconds, result.EnumerationTimeInMilliseconds);
 		}
 
 
 		private static void ReportIndividualResult(IBencher bencher, BenchResult result)
 		{
-			Console.WriteLine("Number of elements fetched individually: {0}.\tTotal time: {1:N2}ms.\tTime per element: {2:N2}ms",
-								KeysForIndividualFetches.Count, result.FetchTimeInMilliseconds,
+			Console.WriteLine("[{0}] Number of elements fetched individually: {1}.\tTotal time: {2:N2}ms.\tTime per element: {3:N2}ms",
+								DateTime.Now.ToString("HH:mm:ss"), KeysForIndividualFetches.Count, result.FetchTimeInMilliseconds,
 								result.FetchTimeInMilliseconds / KeysForIndividualFetches.Count);
 		}
 

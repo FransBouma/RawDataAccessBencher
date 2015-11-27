@@ -4,12 +4,13 @@ Bench code which tests entity materialization speed of various .NET data access 
 
 ### Results ###
 
-* Results obtained on 05-nov-2015: http://pastebin.com/SrDbxUkp. (1000BaseT lan, NH4, Dapper 1.4, Massive)
-* Results obtained on 05-May-2014: http://pastebin.com/3eqm7bn7. (1000BaseT lan, LLBLGen Pro 4.2)
-* Results obtained on 29-apr-2014: http://pastebin.com/S0cxSFzK. (1000BaseT lan, EF 6.1)
-* Results obtained on 29-apr-2014: http://pastebin.com/mS02zgyS. (1000BaseT lan, EF 6.0)
-* Results obtained on 08-dec-2013: http://pastebin.com/KhcauUN3. (100BaseT lan)
-* Results obtained on 11-feb-2013: http://pastebin.com/AAqRhH4X. (100BaseT lan)
+* Results obtained on 26-nov-2015: http://pastebin.com/kYH2cKe7 (1000BaseT lan, new: Linq 2 DB, LLBLGen 5, EF7 RC1)
+* Results obtained on 05-nov-2015: http://pastebin.com/SrDbxUkp (1000BaseT lan, new: NH4, Dapper 1.4, Massive)
+* Results obtained on 05-May-2014: http://pastebin.com/3eqm7bn7 (1000BaseT lan, new: LLBLGen Pro 4.2)
+* Results obtained on 29-apr-2014: http://pastebin.com/S0cxSFzK (1000BaseT lan, new: EF 6.1)
+* Results obtained on 29-apr-2014: http://pastebin.com/mS02zgyS (1000BaseT lan, new: EF 6.0)
+* Results obtained on 08-dec-2013: http://pastebin.com/KhcauUN3 (100BaseT lan)
+* Results obtained on 11-feb-2013: http://pastebin.com/AAqRhH4X (100BaseT lan)
 
 See the links for details about results.
 
@@ -36,7 +37,11 @@ If you want to export the results to a file directly, run the RawBencher.exe fro
 
 ### Remarks per used framework ###
 
+Entity Framework 7 is RC1. Microsoft has optimized the code since RC1. This has been confirmed using an offline build of the code by comitter @jonnybee, however @jonnybee and I decided it was best to keep it on RC1 as it's easier to migrate to RC2 when that comes out and it's the public available build that's available at this moment. When Microsoft releases RC2, we'll run a new benchmark. 
+
 NHibernate uses .hbm mappings, as this is of no relevance to the fetch speed and it avoids a dependency on FluentNHibernate.
+
+The DNX build is somewhat broken, as in: it might not run as tooling has been updated since RC1. We hope to fix this in the near future.
 
 In the Entity Framework code, Foreign key fields are present in the code base, as other frameworks fetch them too. This makes Entity Framework become slow in 6.0.2 and earlier. With 6.1 this is partially fixed with 20%-30% faster code (see: http://entityframework.codeplex.com/workitem/1829) however it's still slower most frameworks with FK fields in Entity Framework v6.1. Without Foreign key fields present, Entity Framework takes roughly half the performance of 6.0.2 with FK fields present and ~70% of 6.1. 
 
