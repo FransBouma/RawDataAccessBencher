@@ -68,7 +68,7 @@ namespace RawBencher
 #if !DNXCORE50
 			RegisteredBenchers.Add(new DataTableBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new MassiveBencher());
-			RegisteredBenchers.Add(new OrmLiteBencher() { ConnectionStringToUse = ConnectionString });
+            RegisteredBenchers.Add(new OrmLiteBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 #endif
 
 #if !(DNXCORE50 || DNX451)

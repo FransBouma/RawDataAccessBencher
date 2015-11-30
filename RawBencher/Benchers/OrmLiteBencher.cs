@@ -1,12 +1,8 @@
 ﻿#if !DNXCORE50
-using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ServiceStack.Data;
 using ServiceStack.OrmLite;
-using ServiceStack.OrmLite.SqlServer;
 
 namespace RawBencher.Benchers
 {
@@ -15,31 +11,27 @@ namespace RawBencher.Benchers
 	/// </summary>
 	public class OrmLiteBencher : BencherBase<SalesOrderHeader>
 	{
-		/// <summary>
-		/// Initializes a new instance of the <see cref="OrmLiteBencher"/> class.
-		/// </summary>
-		public OrmLiteBencher()
-			: base(e => e.SalesOrderId, usesChangeTracking:false, usesCaching:false)
-		{
-		}
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OrmLiteBencher"/> class.
+        /// </summary>
+        public OrmLiteBencher()
+			: base(e => e.SalesOrderId, usesChangeTracking:false, usesCaching:false) {}
 
-
-		/// <summary>
-		/// Fetches the individual element
-		/// </summary>
-		/// <param name="key">The key of the element to fetch.</param>
-		/// <returns>The fetched element, or null if not found</returns>
-		public override SalesOrderHeader FetchIndividual(int key)
+        /// <summary>
+        /// Fetches the individual element
+        /// </summary>
+        /// <param name="key">The key of the element to fetch.</param>
+        /// <returns>The fetched element, or null if not found</returns>
+        public override SalesOrderHeader FetchIndividual(int key)
 		{
-			SalesOrderHeader toReturn = null;
-			var dbFactory = new OrmLiteConnectionFactory(ConnectionStringToUse, SqlServerOrmLiteDialectProvider.Instance);
-			using(var con = dbFactory.OpenDbConnection())
-			{
-				toReturn = con.Single<SalesOrderHeader>("SalesOrderId=@p", new {p=key});
-				con.Close();
-			}
-			return toReturn;
-		}
+            SalesOrderHeader toReturn = null;
+            using (var con = dbFactory.OpenDbConnection())
+            {
+                toReturn = con.SqlList<SalesOrderHeader>(this.CommandText + " WHERE SalesOrderId=@p", new { p = key }).FirstOrDefault();
+                con.Close();
+            }
+            return toReturn;
+        }
 
 
 		/// <summary>
@@ -49,10 +41,9 @@ namespace RawBencher.Benchers
 		public override IEnumerable<SalesOrderHeader> FetchSet()
 		{
 			var headers = new List<SalesOrderHeader>();
-			var dbFactory = new OrmLiteConnectionFactory(ConnectionStringToUse, SqlServerOrmLiteDialectProvider.Instance);
 			using(var con = dbFactory.OpenDbConnection())
 			{
-				headers = con.Select<SalesOrderHeader>();
+				headers = con.SqlList<SalesOrderHeader>(this.CommandText);
 				con.Close();
 			}
 			return headers;
@@ -70,12 +61,18 @@ namespace RawBencher.Benchers
 		}
 
 
-		#region Properties
-		/// <summary>
-		/// Gets or sets the connection string to use
-		/// </summary>
-		public string ConnectionStringToUse { get; set; }
-		#endregion
-	}
+        #region Properties
+        /// <summary>
+        /// Gets or sets the connection string to use
+        /// </summary>
+        IDbConnectionFactory dbFactory;
+        public string ConnectionStringToUse
+        {
+		    set { dbFactory = new OrmLiteConnectionFactory(value, SqlServerDialect.Provider); }
+        }
+
+        public string CommandText { get; set; }
+        #endregion
+    }
 }
 #endif
