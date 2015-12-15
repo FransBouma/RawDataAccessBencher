@@ -1,6 +1,7 @@
 ﻿#if !(DNXCORE50 || DNX451)
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +18,7 @@ namespace RawBencher.Benchers
 		/// Initializes a new instance of the <see cref="EntityFrameworkNormalBencher"/> class.
 		/// </summary>
 		public EntityFrameworkNormalBencher()
-			: base(e => e.SalesOrderId, usesChangeTracking: true, usesCaching: false)
+			: base(e => e.SalesOrderId, usesChangeTracking: true, usesCaching: false, supportsEagerLoading:true)
 		{
 		}
 
@@ -46,6 +47,54 @@ namespace RawBencher.Benchers
 			{
 				return ctx.SalesOrderHeaders.ToList();
 			}
+		}
+
+
+		/// <summary>
+		/// Fetches the complete graph using eager loading and returns this as an IEnumerable.
+		/// </summary>
+		/// <returns>the graph fetched</returns>
+		public override IEnumerable<EF6.Bencher.EntityClasses.SalesOrderHeader> FetchGraph()
+		{
+			List<EF6.Bencher.EntityClasses.SalesOrderHeader> toReturn;
+			using(var ctx = new AWDataContext())
+			{
+				return (from soh in ctx.SalesOrderHeaders
+					   where soh.SalesOrderId > 50000 && soh.SalesOrderId <=51000
+					   select soh)
+							.Include(x=>x.SalesOrderDetails)
+							.Include(x=>x.Customer)
+							.ToList();
+			}
+		}
+
+
+		/// <summary>
+		/// Verifies the graph element's children. The parent should contain 2 sets of related elements: SalesOrderDetail and Customer. Both have to be counted and
+		/// the count has to stored in the resultContainer, under the particular type. Implementers have to check whether the related elements are actually materialized objects.
+		/// </summary>
+		/// <param name="parent">The parent.</param>
+		/// <param name="resultContainer">The result container.</param>
+		public override void VerifyGraphElementChildren(EF6.Bencher.EntityClasses.SalesOrderHeader parent, BenchResult resultContainer)
+		{
+			int amount = 0;
+			foreach(var sod in parent.SalesOrderDetails)
+			{
+				if(sod.SalesOrderId > 0)
+				{
+					amount++;
+				}
+				else
+				{
+					return;
+				}
+			}
+			resultContainer.IncNumberOfRowsForType(typeof(EF6.Bencher.EntityClasses.SalesOrderDetail), amount);
+			if((parent.Customer == null) || (parent.Customer.CustomerId <= 0))
+			{
+				return;
+			}
+			resultContainer.IncNumberOfRowsForType(typeof(EF6.Bencher.EntityClasses.Customer), 1);
 		}
 
 

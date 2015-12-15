@@ -16,7 +16,7 @@ namespace RawBencher.Benchers
 	{
 		#region Member declarations
 		private Func<T, int> _salesOrderIdRetriever;
-		private List<BenchResult> _individualBenchmarkResults, _setBenchmarkResults;
+		private List<BenchResult> _individualBenchmarkResults, _setBenchmarkResults, _eagerLoadBenchmakResults;
 		private string _frameworkName;
 		#endregion
 
@@ -27,8 +27,9 @@ namespace RawBencher.Benchers
 		/// <param name="salesOrderIdRetriever">The salesOrderId retriever func, to be used in the data verification step.</param>
 		/// <param name="usesChangeTracking">if set to <c>true</c> the fetches will be resulting in change tracked elements</param>
 		/// <param name="usesCaching">if set to <c>true</c> the fetches will be using some form of caching (resultset caching, element caching)</param>
+		/// <param name="supportsEagerLoading">if set to <c>true</c> this bencher supports eager loading and will participate in eager loading benchmarks.</param>
 		/// <exception cref="System.ArgumentNullException">salesOrderIdRetriever</exception>
-		protected BencherBase(Func<T, int> salesOrderIdRetriever, bool usesChangeTracking, bool usesCaching)
+		protected BencherBase(Func<T, int> salesOrderIdRetriever, bool usesChangeTracking, bool usesCaching, bool supportsEagerLoading=false)
 		{
 			if(salesOrderIdRetriever == null)
 			{
@@ -37,8 +38,10 @@ namespace RawBencher.Benchers
 			_salesOrderIdRetriever = salesOrderIdRetriever;
 			this.UsesCaching = usesCaching;
 			this.UsesChangeTracking = usesChangeTracking;
+			this.SupportsEagerLoading = supportsEagerLoading;
 			_individualBenchmarkResults = new List<BenchResult>();
 			_setBenchmarkResults = new List<BenchResult>();
+			_eagerLoadBenchmakResults = new List<BenchResult>();
 			_frameworkName = string.Empty;
 		}
 
@@ -65,19 +68,22 @@ namespace RawBencher.Benchers
 		{
 			_individualBenchmarkResults.Clear();
 			_setBenchmarkResults.Clear();
+			_eagerLoadBenchmakResults.Clear();
 			this.SetFetchMean = 0.0;
 			this.SetFetchSD = 0.0;
 			this.IndividualFetchMean = 0.0;
 			this.IndividualFetchSD = 0.0;
 			this.EnumerationMean = 0.0;
 			this.EnumerationSD = 0.0;
+			this.EagerLoadFetchMean = 0.0;
+			this.EagerLoadFetchSD = 0.0;
 		}
 
 
 		/// <summary>
 		/// Calculates the mean and standard deviation values from the results obtained through the benchmark methods. Requires at least 3 runs of the benchmark methods to produce
-		/// valid results. Results are obtainable through the properties <see cref="IndividualFetchMean"/>, <see cref="IndividualFetchSD"/>, <see cref="SetFetchMean"/>, <see cref="SetFetchMean"/>,
-		/// <see cref="EnumerationMean"/>, and <see cref="EnumerationMean"/>.
+		/// valid results. Results are obtainable through the properties <see cref="IndividualFetchMean"/>, <see cref="IndividualFetchSD"/>, <see cref="SetFetchMean"/>, 
+		/// <see cref="SetFetchSD"/>, <see cref="EnumerationMean"/>, <see cref="EnumerationSD"/>, <see cref="EagerLoadFetchMean"/> and <see cref="EagerLoadFetchSD"/>.
 		/// </summary>
 		public void CalculateStatistics()
 		{
@@ -92,6 +98,13 @@ namespace RawBencher.Benchers
 			var enumerationValues = _setBenchmarkResults.Select(r => r.EnumerationTimeInMilliseconds).ToList();
 			this.EnumerationMean = enumerationValues.Count <= 0 ? -1.0 : enumerationValues.Average();
 			this.EnumerationSD = CalculateSD(enumerationValues, this.EnumerationMean);
+
+			if(this.SupportsEagerLoading)
+			{
+				var eagerLoadFetchValues = _eagerLoadBenchmakResults.Select(r=>r.FetchTimeInMilliseconds).ToList();
+				this.EagerLoadFetchMean = eagerLoadFetchValues.Count <= 0 ? -1.0 : eagerLoadFetchValues.Average();
+				this.EagerLoadFetchSD = CalculateSD(eagerLoadFetchValues, this.EagerLoadFetchMean);
+			}
 		}
 
 
@@ -120,7 +133,7 @@ namespace RawBencher.Benchers
 			}
 			sw.Stop();
 			toReturn.FetchTimeInMilliseconds = sw.Elapsed.TotalMilliseconds;
-			toReturn.NumberOfRowsFetched = numberOfElementsFetched;
+			toReturn.IncNumberOfRowsForType(typeof(T), numberOfElementsFetched);
 			if (!discardResults)
 			{
 				_individualBenchmarkResults.Add(toReturn);
@@ -171,12 +184,53 @@ namespace RawBencher.Benchers
 			toReturn.FetchTimeInMilliseconds = sw.Elapsed.TotalMilliseconds;
 			sw.Reset();
 			sw.Start();
-			toReturn.NumberOfRowsFetched = VerifyData(headers);
+			toReturn.IncNumberOfRowsForType(typeof(T), VerifyData(headers));
 			sw.Stop();
 			toReturn.EnumerationTimeInMilliseconds = sw.Elapsed.TotalMilliseconds;
 			if(!discardResults)
 			{
 				_setBenchmarkResults.Add(toReturn);
+			}
+			return toReturn;
+		}
+
+
+		/// <summary>
+		/// Performs the eager load benchmark. This is a benchmark which will fetch a 2-edge graph of 1000 sales order headers, all related customer entities and all related 
+		/// sales order detail entities. 
+		/// </summary>
+		/// <returns>
+		/// A filled in benchmark result object
+		/// </returns>
+		public BenchResult PerformEagerLoadBenchmark()
+		{
+			return PerformEagerLoadBenchmark(discardResults: false);
+		}
+
+
+		/// <summary>
+		/// Performs the eager load benchmark. This is a benchmark which will fetch a 2-edge graph of 1000 sales order headers, all related customer entities and all related 
+		/// sales order detail entities. 
+		/// </summary>
+		/// <param name="discardResults">if set to <c>true</c> the results are returned but are not collected.</param>
+		/// <returns>
+		/// A filled in benchmark result object
+		/// </returns>
+		public BenchResult PerformEagerLoadBenchmark(bool discardResults)
+		{
+			var toReturn = new BenchResult();
+			var sw = new Stopwatch();
+			sw.Start();
+			var headers = FetchGraph();
+			sw.Stop();
+			toReturn.FetchTimeInMilliseconds = sw.Elapsed.TotalMilliseconds;
+			sw.Reset();
+			sw.Start();
+			VerifyGraph(headers, toReturn);
+			sw.Stop();
+			if(!discardResults)
+			{
+				_eagerLoadBenchmakResults.Add(toReturn);
 			}
 			return toReturn;
 		}
@@ -196,6 +250,28 @@ namespace RawBencher.Benchers
 		/// the set fetched
 		/// </returns>
 		public abstract IEnumerable<T> FetchSet();
+		/// <summary>
+		/// Fetches the complete graph using eager loading and returns this as an IEnumerable.
+		/// </summary>
+		/// <returns>the graph fetched</returns>
+		public virtual IEnumerable<T> FetchGraph()
+		{
+			return new List<T>();
+		}
+
+
+		/// <summary>
+		/// Verifies the graph element's children. The parent should contain 2 sets of related elements: SalesOrderDetail and Customer. Both have to be counted and
+		/// the count has to stored in the resultContainer, under the particular type. Implementers have to check whether the related elements are actually materialized objects.
+		/// </summary>
+		/// <param name="parent">The parent.</param>
+		/// <param name="resultContainer">The result container.</param>
+		public virtual void VerifyGraphElementChildren(T parent, BenchResult resultContainer)
+		{
+			// nop
+		}
+
+
 		/// <summary>
 		/// Implements the CreateFrameworkName method. Done this way so caching of the name is performed in the caller and overrides have no influence
 		/// on this.
@@ -240,6 +316,23 @@ namespace RawBencher.Benchers
 		}
 
 
+		private void VerifyGraph(IEnumerable<T> toEnumerate, BenchResult resultContainer)
+		{
+			int amount = 0;
+			// parents
+			foreach(var v in toEnumerate)
+			{
+				if(!VerifyGraphElement(v, resultContainer))
+				{
+					// parent not loaded, fail complete graph
+					return;
+				}
+				amount++;
+			}
+			resultContainer.IncNumberOfRowsForType(typeof(T), amount);
+		}
+
+
 		/// <summary>
 		/// Verifies the element specified, by calling the set SalesOrderId func and passing the specified element to it. The func should return
 		/// a value higher than 0
@@ -253,6 +346,18 @@ namespace RawBencher.Benchers
 				return -1;
 			}
 			return _salesOrderIdRetriever(toVerify);
+		}
+
+
+		private bool VerifyGraphElement(T parent, BenchResult resultContainer)
+		{
+			var toReturn = VerifyElement(parent);
+			if(toReturn <= 0)
+			{
+				return false;
+			}
+			VerifyGraphElementChildren(parent, resultContainer);
+			return resultContainer.NumberOfRowsFetchedPerType.Count == 2 && resultContainer.NumberOfRowsFetchedPerType.All(kvp=>kvp.Value > 0);
 		}
 
 
@@ -284,6 +389,10 @@ namespace RawBencher.Benchers
 		/// <returns></returns>
 		private double CalculateSD(List<double> values, double mean)
 		{
+			if(!values.Any())
+			{
+				return 0.0;
+			}
 			// see: http://www.mathsisfun.com/data/standard-deviation.html
 			var variance = values.Select(v => v - mean).Select(v => v * v).Average();
 			return Math.Sqrt(variance);
@@ -316,6 +425,14 @@ namespace RawBencher.Benchers
 		/// </summary>
 		public double EnumerationSD { get; private set; }
 		/// <summary>
+		/// Gets the eager load fetch mean, calculated by <see cref="CalculateStatistics"/>
+		/// </summary>
+		public double EagerLoadFetchMean { get; private set; }
+		/// <summary>
+		/// Gets the eager load fetch standard deviation, calculated by <see cref="CalculateStatistics"/>
+		/// </summary>
+		public double EagerLoadFetchSD { get; private set; }
+		/// <summary>
 		/// Gets a value indicating whether the fetch uses some form of caching (resultset caching, element caching)
 		/// </summary>
 		public bool UsesCaching { get; private set; }
@@ -323,6 +440,10 @@ namespace RawBencher.Benchers
 		/// Gets a value indicating whether the fetch results in change tracked elements or not. 
 		/// </summary>
 		public bool UsesChangeTracking { get; private set; }
+		/// <summary>
+		/// Gets a value indicating whether this bencher supports eager loading. If true, this bencher will participate in eager loading benchmarks
+		/// </summary>
+		public bool SupportsEagerLoading { get; private set; }
 		#endregion
 	}
 }
