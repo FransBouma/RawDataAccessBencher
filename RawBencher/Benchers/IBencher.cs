@@ -50,6 +50,23 @@ namespace RawBencher.Benchers
 		/// </returns>
 		BenchResult PerformSetBenchmark(bool discardResults);
 		/// <summary>
+		/// Performs the eager load benchmark. This is a benchmark which will fetch a 2-edge graph of 1000 sales order headers, all related customer entities and all related 
+		/// sales order detail entities. 
+		/// </summary>
+		/// <returns>
+		/// A filled in benchmark result object
+		/// </returns>
+		BenchResult PerformEagerLoadBenchmark();
+		/// <summary>
+		/// Performs the eager load benchmark. This is a benchmark which will fetch a 2-edge graph of 1000 sales order headers, all related customer entities and all related 
+		/// sales order detail entities. 
+		/// </summary>
+		/// <param name="discardResults">if set to <c>true</c> the results are returned but are not collected.</param>
+		/// <returns>
+		/// A filled in benchmark result object
+		/// </returns>
+		BenchResult PerformEagerLoadBenchmark(bool discardResults);
+		/// <summary>
 		/// Resets the result containers of this bencher.
 		/// </summary>
 		void ResetResults();
@@ -85,6 +102,14 @@ namespace RawBencher.Benchers
 		/// </summary>
 		double EnumerationSD { get; }
 		/// <summary>
+		/// Gets the eager load fetch mean, calculated by <see cref="CalculateStatistics"/>
+		/// </summary>
+		double EagerLoadFetchMean { get; }
+		/// <summary>
+		/// Gets the eager load fetch standard deviation, calculated by <see cref="CalculateStatistics"/>
+		/// </summary>
+		double EagerLoadFetchSD { get; }
+		/// <summary>
 		/// Gets a value indicating whether the fetch uses some form of caching (resultset caching, element caching)
 		/// </summary>
 		bool UsesCaching { get; }
@@ -92,5 +117,9 @@ namespace RawBencher.Benchers
 		/// Gets a value indicating whether the fetch results in change tracked elements or not. 
 		/// </summary>
 		bool UsesChangeTracking { get; }
+		/// <summary>
+		/// Gets a value indicating whether this bencher supports eager loading. If true, this bencher will participate in eager loading benchmarks
+		/// </summary>
+		bool SupportsEagerLoading { get; }
 	}
 }

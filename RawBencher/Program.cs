@@ -31,6 +31,7 @@ namespace RawBencher
 		private const int IndividualKeysAmount = 100;
 		private const bool PerformSetBenchmarks = true;			// flag to signal whether the set fetch benchmarks have to be run.
 		private const bool PerformIndividualBenchMarks = true;  // flag to signal whether the single element fetch benchmarks have to be run.
+		private const bool PerformEagerLoadBenchmarks = true;	// flag to signal whether the eager load fetch benchmarks have to be run. Not every bencher will perform this benchmnark.
 		private const bool ApplyAntiFloodForVMUsage = false;    // set to true if your target DB server is hosted on a VM, otherwise set it to false. Used in individual fetch bench.
 
 #if DNXCORE50
@@ -66,6 +67,7 @@ namespace RawBencher
 			RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingLinqPocoBencher());
 			RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingBencher());
 			RegisteredBenchers.Add(new LLBLGenProResultsetCachingBencher());
+			RegisteredBenchers.Add(new NHibernateNormalBencher());
 			RegisteredBenchers.Add(new LLBLGenProNormalBencher());
 			RegisteredBenchers.Add(new LinqToSqlNormalBencher());
 			RegisteredBenchers.Add(new LINQ2DBNormalBencher(ConnectionString));
@@ -78,7 +80,6 @@ namespace RawBencher
 			RegisteredBenchers.Add(new EntityFramework7NormalBencher() { ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new OakDynamicDbDtoBencher());
 			RegisteredBenchers.Add(new OakDynamicDbNormalBencher());
-			RegisteredBenchers.Add(new NHibernateNormalBencher());
 #endif
 #if !DNXCORE50
 			RegisteredBenchers.Add(new DataTableBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
@@ -213,8 +214,7 @@ namespace RawBencher
 		{
 			using (var conn = new SqlConnection(ConnectionString))
 			{
-				KeysForIndividualFetches = conn.Query<int>(
-					"select top {=count} SalesOrderId from AdventureWorks.Sales.SalesOrderHeader order by SalesOrderNumber",
+				KeysForIndividualFetches = conn.Query<int>("select top {=count} SalesOrderId from AdventureWorks.Sales.SalesOrderHeader order by SalesOrderNumber",
 					new { count = IndividualKeysAmount }).AsList();
 			}
 			if (KeysForIndividualFetches.Count != IndividualKeysAmount)
@@ -249,9 +249,17 @@ namespace RawBencher
 			bencher.ResetResults();
 			Console.WriteLine("First one warm-up run of each bench type to initialize constructs. Results will not be collected.");
 			var result = bencher.PerformSetBenchmark(discardResults: true);
-			ReportSetResult(bencher, result);
-			result = bencher.PerformIndividualBenchMark(KeysForIndividualFetches, discardResults: true);
-			ReportIndividualResult(bencher, result);
+			Program.ReportSetResult(result);
+			if(bencher.SupportsEagerLoading)
+			{
+				result = bencher.PerformEagerLoadBenchmark(discardResults: true);
+				Program.ReportSetResult(result);
+			}
+			if(PerformIndividualBenchMarks)
+			{
+				result = bencher.PerformIndividualBenchMark(KeysForIndividualFetches, discardResults: true);
+				ReportIndividualResult(bencher, result);
+			}
 			Console.WriteLine("\nStarting bench runs...");
 			if(PerformSetBenchmarks)
 			{
@@ -261,7 +269,7 @@ namespace RawBencher
 				for(int i = 0; i < LoopAmount; i++)
 				{
 					result = bencher.PerformSetBenchmark();
-					ReportSetResult(bencher, result);
+					Program.ReportSetResult(result);
 
 					// avoid having the GC collect in the middle of a run.
 					GC.Collect();
@@ -300,8 +308,23 @@ namespace RawBencher
 					}
 				}
 			}
-		}
+			if(PerformEagerLoadBenchmarks && bencher.SupportsEagerLoading)
+			{
+				// eager load benches
+				Console.WriteLine("\nEager Load fetches");
+				Console.WriteLine("-------------------------");
+				for(int i = 0; i < LoopAmount; i++)
+				{
+					result = bencher.PerformEagerLoadBenchmark();
+					ReportEagerLoadResult(bencher, result);
 
+					// avoid having the GC collect in the middle of a run.
+					GC.Collect();
+					GC.WaitForPendingFinalizers();
+					GC.Collect();
+				}
+			}
+		}
 
 		private static void WarmupDB()
 		{
@@ -318,7 +341,7 @@ namespace RawBencher
 			for (int i = 0; i < LoopAmount; i++)
 			{
 				var result = dbWarmer.PerformSetBenchmark();
-				ReportSetResult(dbWarmer, result);
+				Program.ReportSetResult(result);
 			}
 		}
 
@@ -340,10 +363,10 @@ namespace RawBencher
 		}
 
 
-		private static void ReportSetResult(IBencher bencher, BenchResult result)
+		private static void ReportSetResult(BenchResult result)
 		{
 			Console.WriteLine("[{0}] Number of elements fetched: {1}.\tFetch took: {2:N2}ms.\tEnumerating result took: {3:N2}ms",
-								DateTime.Now.ToString("HH:mm:ss"), result.NumberOfRowsFetched, result.FetchTimeInMilliseconds, result.EnumerationTimeInMilliseconds);
+								DateTime.Now.ToString("HH:mm:ss"), result.TotalNumberOfRowsFetched, result.FetchTimeInMilliseconds, result.EnumerationTimeInMilliseconds);
 		}
 
 
@@ -352,6 +375,14 @@ namespace RawBencher
 			Console.WriteLine("[{0}] Number of elements fetched individually: {1}.\tTotal time: {2:N2}ms.\tTime per element: {3:N2}ms",
 								DateTime.Now.ToString("HH:mm:ss"), KeysForIndividualFetches.Count, result.FetchTimeInMilliseconds,
 								result.FetchTimeInMilliseconds / KeysForIndividualFetches.Count);
+		}
+
+
+		private static void ReportEagerLoadResult(IBencher bencher, BenchResult result)
+		{
+			Console.WriteLine("[{0}] Number of elements fetched: {1} ({2}).\tFetch took: {3:N2}ms.",
+								DateTime.Now.ToString("HH:mm:ss"), result.TotalNumberOfRowsFetched, string.Join(" + ", result.NumberOfRowsFetchedPerType.Select(kvp=>kvp.Value).ToArray()),
+								result.FetchTimeInMilliseconds);
 		}
 
 
@@ -373,58 +404,105 @@ namespace RawBencher
 				}
 				bencher.CalculateStatistics();
 			}
-
-			Console.WriteLine("Non-change tracking fetches, set fetches ({0} runs), no caching", LoopAmount);
-			Console.WriteLine("------------------------------------------------------------------------------");
-			foreach (var bencher in RegisteredBenchers.Where(b => !b.UsesChangeTracking && !b.UsesCaching).OrderBy(b => b.SetFetchMean))
+			if(PerformSetBenchmarks)
 			{
-				Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms ({2:N2}ms)\tEnum: {3:N2}ms ({4:N2}ms)", bencher.CreateFrameworkName(), bencher.SetFetchMean,
-									bencher.SetFetchSD, bencher.EnumerationMean, bencher.EnumerationSD);
-			}
-
-			Console.WriteLine("\nChange tracking fetches, set fetches ({0} runs), no caching", LoopAmount);
-			Console.WriteLine("------------------------------------------------------------------------------");
-			foreach (var bencher in RegisteredBenchers.Where(b => b.UsesChangeTracking && !b.UsesCaching).OrderBy(b => b.SetFetchMean))
-			{
-				Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms ({2:N2}ms)\tEnum: {3:N2}ms ({4:N2}ms)", bencher.CreateFrameworkName(), bencher.SetFetchMean,
-									bencher.SetFetchSD, bencher.EnumerationMean, bencher.EnumerationSD);
-			}
-
-			if (PerformIndividualBenchMarks)
-			{
-				Console.WriteLine("\nNon-change tracking individual fetches ({0} elements, {1} runs), no caching", IndividualKeysAmount, LoopAmount);
-				Console.WriteLine("------------------------------------------------------------------------------");
-				foreach (var bencher in RegisteredBenchers.Where(b => !b.UsesChangeTracking && !b.UsesCaching).OrderBy(b => b.IndividualFetchMean))
+				var benchersToList = RegisteredBenchers.Where(b=>!b.UsesChangeTracking && !b.UsesCaching).OrderBy(b=>b.SetFetchMean).ToList();
+				if(benchersToList.Count > 0)
 				{
-					Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms ({2:N2}ms) per individual fetch", bencher.CreateFrameworkName(), bencher.IndividualFetchMean / IndividualKeysAmount,
-															bencher.IndividualFetchSD / IndividualKeysAmount);
+					Console.WriteLine("Non-change tracking fetches, set fetches ({0} runs), no caching", LoopAmount);
+					Console.WriteLine("------------------------------------------------------------------------------");
+					foreach(var bencher in benchersToList)
+					{
+						Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms ({2:N2}ms)\tEnum: {3:N2}ms ({4:N2}ms)", bencher.CreateFrameworkName(), bencher.SetFetchMean,
+							bencher.SetFetchSD, bencher.EnumerationMean, bencher.EnumerationSD);
+					}
 				}
-
-				Console.WriteLine("\nChange tracking individual fetches ({0} elements, {1} runs), no caching", IndividualKeysAmount, LoopAmount);
-				Console.WriteLine("------------------------------------------------------------------------------");
-				foreach (var bencher in RegisteredBenchers.Where(b => b.UsesChangeTracking && !b.UsesCaching).OrderBy(b => b.IndividualFetchMean))
+				benchersToList = RegisteredBenchers.Where(b=>b.UsesChangeTracking && !b.UsesCaching).OrderBy(b=>b.SetFetchMean).ToList();
+				if(benchersToList.Count > 0)
 				{
-					Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms ({2:N2}ms) per individual fetch", bencher.CreateFrameworkName(), bencher.IndividualFetchMean / IndividualKeysAmount,
-															bencher.IndividualFetchSD / IndividualKeysAmount);
+					Console.WriteLine("\nChange tracking fetches, set fetches ({0} runs), no caching", LoopAmount);
+					Console.WriteLine("------------------------------------------------------------------------------");
+					foreach(var bencher in benchersToList)
+					{
+						Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms ({2:N2}ms)\tEnum: {3:N2}ms ({4:N2}ms)", bencher.CreateFrameworkName(), bencher.SetFetchMean,
+							bencher.SetFetchSD, bencher.EnumerationMean, bencher.EnumerationSD);
+					}
 				}
 			}
-
-			Console.WriteLine("\nChange tracking fetches, set fetches ({0} runs), caching", LoopAmount);
-			Console.WriteLine("------------------------------------------------------------------------------");
-			foreach (var bencher in RegisteredBenchers.Where(b => b.UsesChangeTracking && b.UsesCaching).OrderBy(b => b.SetFetchMean))
-			{
-				Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms ({2:N2}ms)\tEnum: {3:N2}ms ({4:N2}ms)", bencher.CreateFrameworkName(), bencher.SetFetchMean,
-									bencher.SetFetchSD, bencher.EnumerationMean, bencher.EnumerationSD);
-			}
-
 			if (PerformIndividualBenchMarks)
 			{
-				Console.WriteLine("\nChange tracking individual fetches ({0} elements, {1} runs), caching", IndividualKeysAmount, LoopAmount);
-				Console.WriteLine("------------------------------------------------------------------------------");
-				foreach (var bencher in RegisteredBenchers.Where(b => b.UsesChangeTracking && b.UsesCaching).OrderBy(b => b.IndividualFetchMean))
+				var benchersToList = RegisteredBenchers.Where(b => !b.UsesChangeTracking && !b.UsesCaching).OrderBy(b => b.IndividualFetchMean).ToList();
+				if(benchersToList.Count > 0)
 				{
-					Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms ({2:N2}ms) per individual fetch", bencher.CreateFrameworkName(), bencher.IndividualFetchMean / IndividualKeysAmount,
-															bencher.IndividualFetchSD / IndividualKeysAmount);
+					Console.WriteLine("\nNon-change tracking individual fetches ({0} elements, {1} runs), no caching", IndividualKeysAmount, LoopAmount);
+					Console.WriteLine("------------------------------------------------------------------------------");
+					foreach(var bencher in benchersToList)
+					{
+						Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms ({2:N2}ms) per individual fetch", bencher.CreateFrameworkName(), bencher.IndividualFetchMean / IndividualKeysAmount,
+							bencher.IndividualFetchSD / IndividualKeysAmount);
+					}
+				}
+				benchersToList = RegisteredBenchers.Where(b=>b.UsesChangeTracking && !b.UsesCaching).OrderBy(b=>b.IndividualFetchMean).ToList();
+				if(benchersToList.Count > 0)
+				{
+					Console.WriteLine("\nChange tracking individual fetches ({0} elements, {1} runs), no caching", IndividualKeysAmount, LoopAmount);
+					Console.WriteLine("------------------------------------------------------------------------------");
+					foreach(var bencher in benchersToList)
+					{
+						Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms ({2:N2}ms) per individual fetch", bencher.CreateFrameworkName(), bencher.IndividualFetchMean / IndividualKeysAmount,
+							bencher.IndividualFetchSD / IndividualKeysAmount);
+					}
+				}
+			}
+			if(PerformEagerLoadBenchmarks)
+			{
+				var benchersToList = RegisteredBenchers.Where(b => b.SupportsEagerLoading && !b.UsesChangeTracking && !b.UsesCaching).OrderBy(b => b.EagerLoadFetchMean).ToList();
+				if(benchersToList.Count > 0)
+				{
+					Console.WriteLine("Non-change tracking fetches, eager load fetches, 3-node split graph, 1000 root elements ({0} runs), no caching", LoopAmount);
+					Console.WriteLine("------------------------------------------------------------------------------");
+					foreach(var bencher in benchersToList)
+					{
+						Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms ({2:N2}ms)", bencher.CreateFrameworkName(), bencher.EagerLoadFetchMean, bencher.EagerLoadFetchSD);
+					}
+				}
+				benchersToList = RegisteredBenchers.Where(b => b.SupportsEagerLoading && b.UsesChangeTracking && !b.UsesCaching).OrderBy(b => b.EagerLoadFetchMean).ToList();
+				if(benchersToList.Count > 0)
+				{
+					Console.WriteLine("\nChange tracking fetches, eager load fetches, 3-node split graph, 1000 root elements ({0} runs), no caching", LoopAmount);
+					Console.WriteLine("------------------------------------------------------------------------------");
+					foreach(var bencher in benchersToList)
+					{
+						Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms ({2:N2}ms)", bencher.CreateFrameworkName(), bencher.EagerLoadFetchMean, bencher.EagerLoadFetchSD);
+					}
+				}
+			}
+			if(PerformSetBenchmarks)
+			{
+				var benchersToList = RegisteredBenchers.Where(b=>b.UsesChangeTracking && b.UsesCaching).OrderBy(b=>b.SetFetchMean).ToList();
+				if(benchersToList.Count > 0)
+				{
+					Console.WriteLine("\nChange tracking fetches, set fetches ({0} runs), caching", LoopAmount);
+					Console.WriteLine("------------------------------------------------------------------------------");
+					foreach(var bencher in benchersToList)
+					{
+						Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms ({2:N2}ms)\tEnum: {3:N2}ms ({4:N2}ms)", bencher.CreateFrameworkName(), bencher.SetFetchMean,
+							bencher.SetFetchSD, bencher.EnumerationMean, bencher.EnumerationSD);
+					}
+				}
+			}
+			if (PerformIndividualBenchMarks)
+			{
+				var benchersToList = RegisteredBenchers.Where(b=>b.UsesChangeTracking && b.UsesCaching).OrderBy(b=>b.IndividualFetchMean).ToList();
+				if(benchersToList.Count > 0)
+				{
+					Console.WriteLine("\nChange tracking individual fetches ({0} elements, {1} runs), caching", IndividualKeysAmount, LoopAmount);
+					Console.WriteLine("------------------------------------------------------------------------------");
+					foreach(var bencher in benchersToList)
+					{
+						Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms ({2:N2}ms) per individual fetch", bencher.CreateFrameworkName(), bencher.IndividualFetchMean / IndividualKeysAmount,
+							bencher.IndividualFetchSD / IndividualKeysAmount);
+					}
 				}
 			}
 			Console.Write("\nComplete.");
