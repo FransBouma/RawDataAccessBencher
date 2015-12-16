@@ -56,7 +56,6 @@ namespace RawBencher.Benchers
 		/// <returns>the graph fetched</returns>
 		public override IEnumerable<L2S.Bencher.EntityClasses.SalesOrderHeader> FetchGraph()
 		{
-			List<L2S.Bencher.EntityClasses.SalesOrderHeader> toReturn;
 			using(var ctx = new L2SBencherDataContext())
 			{
 				var loadOptions = new DataLoadOptions();

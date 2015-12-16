@@ -56,7 +56,6 @@ namespace RawBencher.Benchers
 		/// <returns>the graph fetched</returns>
 		public override IEnumerable<EF6.Bencher.EntityClasses.SalesOrderHeader> FetchGraph()
 		{
-			List<EF6.Bencher.EntityClasses.SalesOrderHeader> toReturn;
 			using(var ctx = new AWDataContext())
 			{
 				return (from soh in ctx.SalesOrderHeaders

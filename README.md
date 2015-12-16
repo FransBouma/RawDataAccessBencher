@@ -4,6 +4,7 @@ Bench code which tests entity materialization speed of various .NET data access 
 
 ### Results ###
 
+* Results obtained on 16-dec-2015: http://pastebin.com/8mXh36P1 (1000BaseT lan, new: eager loading benchmarks)
 * Results obtained on 26-nov-2015: http://pastebin.com/kYH2cKe7 (1000BaseT lan, new: Linq 2 DB, LLBLGen 5, EF7 RC1)
 * Results obtained on 05-nov-2015: http://pastebin.com/SrDbxUkp (1000BaseT lan, new: NH4, Dapper 1.4, Massive)
 * Results obtained on 05-May-2014: http://pastebin.com/3eqm7bn7 (1000BaseT lan, new: LLBLGen Pro 4.2)
