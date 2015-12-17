@@ -59,13 +59,11 @@ namespace RawBencher.Benchers
 		{
 			using(var session = SessionManager.OpenSession())
 			{
-				// [FB] I have the feeling this isn't optimal, as it fetches the parent nodes with each child node. However no idea how to specify this better w/o string queries.
-				var q = (from soh in session.Query<NH.Bencher.EntityClasses.SalesOrderHeader>()
-						where soh.SalesOrderId > 50000 && soh.SalesOrderId <= 51000
-						select soh);
-				q.FetchMany(x=>x.SalesOrderDetails).ToFuture();
-				q.Fetch(x => x.Customer).ToFuture();
-				return q.ToFuture().ToList();
+				return session.Query<NH.Bencher.EntityClasses.SalesOrderHeader>()
+					.Where(soh => soh.SalesOrderId > 50000 && soh.SalesOrderId <= 51000)
+					.Fetch(x => x.Customer)
+					.Fetch(x => x.SalesOrderDetails)
+					.ToList();
 			}
 		}
 
