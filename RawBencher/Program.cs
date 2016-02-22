@@ -59,6 +59,9 @@ namespace RawBencher
 			RegisteredBenchers.Add(new HandCodedBencherUsingBoxing() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new RawDbDataReaderBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new DapperBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+			RegisteredBenchers.Add(new YetAnotherOrm(SqlSelectCommandText, ConnectionString));
+		 
+			
 
 #if !(DNXCORE50 || DNX451)
 			RegisteredBenchers.Add(new LinqToSqlNoChangeTrackingBencher());
