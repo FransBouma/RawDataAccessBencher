@@ -4,12 +4,14 @@ Bench code which tests entity materialization speed of various .NET data access 
 
 ### Results ###
 
+The results of various runs of the benchmark are available both online and locally as files in the repository. For online posts of the results, please see the list below. For the results in a text file, please see the [Results](https://github.com/FransBouma/RawDataAccessBencher/tree/master/Results) folder, which contains per run a .txt file with the results measured.
+
+* Results obtained on 16-dec-2015: http://pastebin.com/8mXh36P1 (1000BaseT lan, new: eager loading benchmarks)
 * Results obtained on 26-nov-2015: http://pastebin.com/kYH2cKe7 (1000BaseT lan, new: Linq 2 DB, LLBLGen 5, EF7 RC1)
 * Results obtained on 05-nov-2015: http://pastebin.com/SrDbxUkp (1000BaseT lan, new: NH4, Dapper 1.4, Massive)
 * Results obtained on 05-May-2014: http://pastebin.com/3eqm7bn7 (1000BaseT lan, new: LLBLGen Pro 4.2)
 * Results obtained on 29-apr-2014: http://pastebin.com/S0cxSFzK (1000BaseT lan, new: EF 6.1)
 * Results obtained on 29-apr-2014: http://pastebin.com/mS02zgyS (1000BaseT lan, new: EF 6.0)
-* Results obtained on 08-dec-2013: http://pastebin.com/KhcauUN3 (100BaseT lan)
 * Results obtained on 11-feb-2013: http://pastebin.com/AAqRhH4X (100BaseT lan)
 
 See the links for details about results.

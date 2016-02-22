@@ -1,0 +1,603 @@
+Server HW: i5, 8GB ram (DDR3 1600)
+Client HW: Core2Quad@2.4 Ghz, 4GB ram (DDR2 800)
+
++-------------------------------------------------------------------------------------------
+| Raw Data Access / ORM Benchmarks.
+| Code available at              : https://github.com/FransBouma/RawDataAccessBencher
+| Benchmarks run on              : dinsdag 29 april 2014 15:36:08
+| Registered benchmarks          :
+|       Handcoded materializer using DbDataReader. Change tracking: False. Caching: False.
+|       Entity Framework v6.0.0.0 (v6.0.21211.0). Change tracking: False. Caching: False.
+|       Entity Framework v6.0.0.0 (v6.0.21211.0). Change tracking: True. Caching: False.
+|       Telerik DataAccess/OpenAccess Domain v4.0.3. Change tracking: True. Caching: False.
+|       Telerik DataAccess/OpenAccess Fluent v4.0.3. Change tracking: True. Caching: False.
+|       DataTable, using DbDataAdapter. Change tracking: True. Caching: False.
+|       Dapper. Change tracking: False. Caching: False.
+|       Linq to Sql v4.0.0.0 (v4.0.30319.33440). Change tracking: False. Caching: False.
+|       Linq to Sql v4.0.0.0 (v4.0.30319.33440). Change tracking: True. Caching: False.
+|       LLBLGen Pro v4.1.0.0 (v4.1.14.0117), typed view. Change tracking: False. Caching: False.
+|       LLBLGen Pro v4.1.0.0 (v4.1.14.0117). Change tracking: True. Caching: True.
+|       LLBLGen Pro v4.1.0.0 (v4.1.14.0117). Change tracking: True. Caching: False.
+|       NHibernate v3.3.1.4000 (v3.3.3.4001). Change tracking: True. Caching: False.
+|       Oak.DynamicDb using dynamic Dto class. Change tracking: False. Caching: False.
+|       Oak.DynamicDb using typed dynamic class. Change tracking: True. Caching: False.
+|       ServiceStack OrmLite v4.0.9.0 (v4.0.9.0). Change tracking: False. Caching: False.
+|       PetaPoco v4.0.3. Change tracking: False. Caching: False.
+|       PetaPoco Fast v4.0.3. Change tracking: False. Caching: False.
+| Run set benchmarks             : True
+| Run individual fetch benchmarks: True
+| Number of set fetches          : 10
+| Number of individual keys      : 100
+| Release build                  : True
+| Client OS                      : Microsoft Windows NT 6.2.9200.0 (32bit)
+| Bencher runs as 64bit          : False
+| CLR version                    : 4.0.30319.34014
+| Number of CPUs                 : 4
+| Server used                    : nerd.sd.local
+| Catalog used                   : AdventureWorks
+| SQL Server version used        : 11.00.3128
++-------------------------------------------------------------------------------------------
+
+
+Warming up DB, DB client code and CLR
+====================================================================
+
+DataTable, using DbDataAdapter. Change tracking: True. Caching: False.
+--------------------------------------------------------------------------------------------
+Number of elements fetched: 31465.      Fetch took: 665ms.      Enumerating result took: 73ms
+Number of elements fetched: 31465.      Fetch took: 419ms.      Enumerating result took: 55ms
+Number of elements fetched: 31465.      Fetch took: 411ms.      Enumerating result took: 54ms
+Number of elements fetched: 31465.      Fetch took: 427ms.      Enumerating result took: 84ms
+Number of elements fetched: 31465.      Fetch took: 426ms.      Enumerating result took: 55ms
+Number of elements fetched: 31465.      Fetch took: 412ms.      Enumerating result took: 54ms
+Number of elements fetched: 31465.      Fetch took: 409ms.      Enumerating result took: 55ms
+Number of elements fetched: 31465.      Fetch took: 424ms.      Enumerating result took: 55ms
+Number of elements fetched: 31465.      Fetch took: 400ms.      Enumerating result took: 55ms
+Number of elements fetched: 31465.      Fetch took: 407ms.      Enumerating result took: 54ms
+
+Starting benchmarks.
+====================================================================
+
+Handcoded materializer using DbDataReader. Change tracking: False. Caching: False.
+--------------------------------------------------------------------------------------------
+Set fetches
+-------------------------
+Number of elements fetched: 31465.      Fetch took: 309ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 239ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 239ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 235ms.      Enumerating result took: 2ms
+Number of elements fetched: 31465.      Fetch took: 235ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 242ms.      Enumerating result took: 2ms
+Number of elements fetched: 31465.      Fetch took: 234ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 235ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 235ms.      Enumerating result took: 2ms
+Number of elements fetched: 31465.      Fetch took: 236ms.      Enumerating result took: 3ms
+Single element fetches
+-------------------------
+Number of elements fetched individually: 100.   Total time: 132ms.      Time per element: 1,32ms
+Number of elements fetched individually: 100.   Total time: 74ms.       Time per element: 0,74ms
+Number of elements fetched individually: 100.   Total time: 74ms.       Time per element: 0,74ms
+Number of elements fetched individually: 100.   Total time: 74ms.       Time per element: 0,74ms
+Number of elements fetched individually: 100.   Total time: 74ms.       Time per element: 0,74ms
+Number of elements fetched individually: 100.   Total time: 73ms.       Time per element: 0,73ms
+Number of elements fetched individually: 100.   Total time: 73ms.       Time per element: 0,73ms
+Number of elements fetched individually: 100.   Total time: 72ms.       Time per element: 0,72ms
+Number of elements fetched individually: 100.   Total time: 73ms.       Time per element: 0,73ms
+Number of elements fetched individually: 100.   Total time: 74ms.       Time per element: 0,74ms
+
+Entity Framework v6.0.0.0 (v6.0.21211.0). Change tracking: False. Caching: False.
+--------------------------------------------------------------------------------------------
+Set fetches
+-------------------------
+Number of elements fetched: 31465.      Fetch took: 3446ms.     Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 372ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 398ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 372ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 356ms.      Enumerating result took: 2ms
+Number of elements fetched: 31465.      Fetch took: 371ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 358ms.      Enumerating result took: 2ms
+Number of elements fetched: 31465.      Fetch took: 375ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 403ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 373ms.      Enumerating result took: 3ms
+Single element fetches
+-------------------------
+Number of elements fetched individually: 100.   Total time: 591ms.      Time per element: 5,91ms
+Number of elements fetched individually: 100.   Total time: 176ms.      Time per element: 1,76ms
+Number of elements fetched individually: 100.   Total time: 172ms.      Time per element: 1,72ms
+Number of elements fetched individually: 100.   Total time: 174ms.      Time per element: 1,74ms
+Number of elements fetched individually: 100.   Total time: 177ms.      Time per element: 1,77ms
+Number of elements fetched individually: 100.   Total time: 175ms.      Time per element: 1,75ms
+Number of elements fetched individually: 100.   Total time: 174ms.      Time per element: 1,74ms
+Number of elements fetched individually: 100.   Total time: 171ms.      Time per element: 1,71ms
+Number of elements fetched individually: 100.   Total time: 173ms.      Time per element: 1,73ms
+Number of elements fetched individually: 100.   Total time: 174ms.      Time per element: 1,74ms
+
+Entity Framework v6.0.0.0 (v6.0.21211.0). Change tracking: True. Caching: False.
+--------------------------------------------------------------------------------------------
+Set fetches
+-------------------------
+Number of elements fetched: 31465.      Fetch took: 6355ms.     Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 6291ms.     Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 6252ms.     Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 6264ms.     Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 6227ms.     Enumerating result took: 4ms
+Number of elements fetched: 31465.      Fetch took: 6278ms.     Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 6278ms.     Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 6250ms.     Enumerating result took: 4ms
+Number of elements fetched: 31465.      Fetch took: 6312ms.     Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 6243ms.     Enumerating result took: 3ms
+Single element fetches
+-------------------------
+Number of elements fetched individually: 100.   Total time: 201ms.      Time per element: 2,01ms
+Number of elements fetched individually: 100.   Total time: 199ms.      Time per element: 1,99ms
+Number of elements fetched individually: 100.   Total time: 196ms.      Time per element: 1,96ms
+Number of elements fetched individually: 100.   Total time: 198ms.      Time per element: 1,98ms
+Number of elements fetched individually: 100.   Total time: 196ms.      Time per element: 1,96ms
+Number of elements fetched individually: 100.   Total time: 196ms.      Time per element: 1,96ms
+Number of elements fetched individually: 100.   Total time: 199ms.      Time per element: 1,99ms
+Number of elements fetched individually: 100.   Total time: 199ms.      Time per element: 1,99ms
+Number of elements fetched individually: 100.   Total time: 199ms.      Time per element: 1,99ms
+Number of elements fetched individually: 100.   Total time: 195ms.      Time per element: 1,95ms
+
+Telerik DataAccess/OpenAccess Domain v4.0.3. Change tracking: True. Caching: False.
+--------------------------------------------------------------------------------------------
+Set fetches
+-------------------------
+Number of elements fetched: 31465.      Fetch took: 3334ms.     Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 1112ms.     Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 1122ms.     Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 1107ms.     Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 1253ms.     Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 1068ms.     Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 1223ms.     Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 1105ms.     Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 1100ms.     Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 1210ms.     Enumerating result took: 3ms
+Single element fetches
+-------------------------
+Number of elements fetched individually: 100.   Total time: 163ms.      Time per element: 1,63ms
+Number of elements fetched individually: 100.   Total time: 82ms.       Time per element: 0,82ms
+Number of elements fetched individually: 100.   Total time: 65ms.       Time per element: 0,65ms
+Number of elements fetched individually: 100.   Total time: 65ms.       Time per element: 0,65ms
+Number of elements fetched individually: 100.   Total time: 66ms.       Time per element: 0,66ms
+Number of elements fetched individually: 100.   Total time: 65ms.       Time per element: 0,65ms
+Number of elements fetched individually: 100.   Total time: 68ms.       Time per element: 0,68ms
+Number of elements fetched individually: 100.   Total time: 66ms.       Time per element: 0,66ms
+Number of elements fetched individually: 100.   Total time: 67ms.       Time per element: 0,67ms
+Number of elements fetched individually: 100.   Total time: 66ms.       Time per element: 0,66ms
+
+Telerik DataAccess/OpenAccess Fluent v4.0.3. Change tracking: True. Caching: False.
+--------------------------------------------------------------------------------------------
+Set fetches
+-------------------------
+Number of elements fetched: 31465.      Fetch took: 2237ms.     Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 1205ms.     Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 1145ms.     Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 1284ms.     Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 1156ms.     Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 1116ms.     Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 1109ms.     Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 1103ms.     Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 1114ms.     Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 1130ms.     Enumerating result took: 3ms
+Single element fetches
+-------------------------
+Number of elements fetched individually: 100.   Total time: 63ms.       Time per element: 0,63ms
+Number of elements fetched individually: 100.   Total time: 68ms.       Time per element: 0,68ms
+Number of elements fetched individually: 100.   Total time: 67ms.       Time per element: 0,67ms
+Number of elements fetched individually: 100.   Total time: 67ms.       Time per element: 0,67ms
+Number of elements fetched individually: 100.   Total time: 65ms.       Time per element: 0,65ms
+Number of elements fetched individually: 100.   Total time: 67ms.       Time per element: 0,67ms
+Number of elements fetched individually: 100.   Total time: 67ms.       Time per element: 0,67ms
+Number of elements fetched individually: 100.   Total time: 68ms.       Time per element: 0,68ms
+Number of elements fetched individually: 100.   Total time: 67ms.       Time per element: 0,67ms
+Number of elements fetched individually: 100.   Total time: 65ms.       Time per element: 0,65ms
+
+DataTable, using DbDataAdapter. Change tracking: True. Caching: False.
+--------------------------------------------------------------------------------------------
+Set fetches
+-------------------------
+Number of elements fetched: 31465.      Fetch took: 409ms.      Enumerating result took: 55ms
+Number of elements fetched: 31465.      Fetch took: 406ms.      Enumerating result took: 56ms
+Number of elements fetched: 31465.      Fetch took: 405ms.      Enumerating result took: 55ms
+Number of elements fetched: 31465.      Fetch took: 390ms.      Enumerating result took: 55ms
+Number of elements fetched: 31465.      Fetch took: 388ms.      Enumerating result took: 56ms
+Number of elements fetched: 31465.      Fetch took: 411ms.      Enumerating result took: 55ms
+Number of elements fetched: 31465.      Fetch took: 404ms.      Enumerating result took: 56ms
+Number of elements fetched: 31465.      Fetch took: 416ms.      Enumerating result took: 55ms
+Number of elements fetched: 31465.      Fetch took: 401ms.      Enumerating result took: 56ms
+Number of elements fetched: 31465.      Fetch took: 406ms.      Enumerating result took: 55ms
+Single element fetches
+-------------------------
+Number of elements fetched individually: 100.   Total time: 58ms.       Time per element: 0,58ms
+Number of elements fetched individually: 100.   Total time: 57ms.       Time per element: 0,57ms
+Number of elements fetched individually: 100.   Total time: 55ms.       Time per element: 0,55ms
+Number of elements fetched individually: 100.   Total time: 55ms.       Time per element: 0,55ms
+Number of elements fetched individually: 100.   Total time: 58ms.       Time per element: 0,58ms
+Number of elements fetched individually: 100.   Total time: 59ms.       Time per element: 0,59ms
+Number of elements fetched individually: 100.   Total time: 59ms.       Time per element: 0,59ms
+Number of elements fetched individually: 100.   Total time: 59ms.       Time per element: 0,59ms
+Number of elements fetched individually: 100.   Total time: 59ms.       Time per element: 0,59ms
+Number of elements fetched individually: 100.   Total time: 59ms.       Time per element: 0,59ms
+
+Dapper. Change tracking: False. Caching: False.
+--------------------------------------------------------------------------------------------
+Set fetches
+-------------------------
+Number of elements fetched: 31465.      Fetch took: 404ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 327ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 332ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 329ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 327ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 330ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 331ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 320ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 327ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 328ms.      Enumerating result took: 3ms
+Single element fetches
+-------------------------
+Number of elements fetched individually: 100.   Total time: 56ms.       Time per element: 0,56ms
+Number of elements fetched individually: 100.   Total time: 45ms.       Time per element: 0,45ms
+Number of elements fetched individually: 100.   Total time: 45ms.       Time per element: 0,45ms
+Number of elements fetched individually: 100.   Total time: 44ms.       Time per element: 0,44ms
+Number of elements fetched individually: 100.   Total time: 44ms.       Time per element: 0,44ms
+Number of elements fetched individually: 100.   Total time: 45ms.       Time per element: 0,45ms
+Number of elements fetched individually: 100.   Total time: 44ms.       Time per element: 0,44ms
+Number of elements fetched individually: 100.   Total time: 45ms.       Time per element: 0,45ms
+Number of elements fetched individually: 100.   Total time: 45ms.       Time per element: 0,45ms
+Number of elements fetched individually: 100.   Total time: 46ms.       Time per element: 0,46ms
+
+Linq to Sql v4.0.0.0 (v4.0.30319.33440). Change tracking: False. Caching: False.
+--------------------------------------------------------------------------------------------
+Set fetches
+-------------------------
+Number of elements fetched: 31465.      Fetch took: 524ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 372ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 338ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 342ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 382ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 338ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 384ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 340ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 346ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 362ms.      Enumerating result took: 3ms
+Single element fetches
+-------------------------
+Number of elements fetched individually: 100.   Total time: 289ms.      Time per element: 2,89ms
+Number of elements fetched individually: 100.   Total time: 259ms.      Time per element: 2,59ms
+Number of elements fetched individually: 100.   Total time: 229ms.      Time per element: 2,29ms
+Number of elements fetched individually: 100.   Total time: 229ms.      Time per element: 2,29ms
+Number of elements fetched individually: 100.   Total time: 233ms.      Time per element: 2,33ms
+Number of elements fetched individually: 100.   Total time: 229ms.      Time per element: 2,29ms
+Number of elements fetched individually: 100.   Total time: 228ms.      Time per element: 2,28ms
+Number of elements fetched individually: 100.   Total time: 228ms.      Time per element: 2,28ms
+Number of elements fetched individually: 100.   Total time: 234ms.      Time per element: 2,34ms
+Number of elements fetched individually: 100.   Total time: 232ms.      Time per element: 2,32ms
+
+Linq to Sql v4.0.0.0 (v4.0.30319.33440). Change tracking: True. Caching: False.
+--------------------------------------------------------------------------------------------
+Set fetches
+-------------------------
+Number of elements fetched: 31465.      Fetch took: 570ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 517ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 525ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 563ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 568ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 579ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 559ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 512ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 524ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 542ms.      Enumerating result took: 3ms
+Single element fetches
+-------------------------
+Number of elements fetched individually: 100.   Total time: 249ms.      Time per element: 2,49ms
+Number of elements fetched individually: 100.   Total time: 240ms.      Time per element: 2,4ms
+Number of elements fetched individually: 100.   Total time: 242ms.      Time per element: 2,42ms
+Number of elements fetched individually: 100.   Total time: 245ms.      Time per element: 2,45ms
+Number of elements fetched individually: 100.   Total time: 245ms.      Time per element: 2,45ms
+Number of elements fetched individually: 100.   Total time: 249ms.      Time per element: 2,49ms
+Number of elements fetched individually: 100.   Total time: 246ms.      Time per element: 2,46ms
+Number of elements fetched individually: 100.   Total time: 245ms.      Time per element: 2,45ms
+Number of elements fetched individually: 100.   Total time: 245ms.      Time per element: 2,45ms
+Number of elements fetched individually: 100.   Total time: 246ms.      Time per element: 2,46ms
+
+LLBLGen Pro v4.1.0.0 (v4.1.14.0117), typed view. Change tracking: False. Caching: False.
+--------------------------------------------------------------------------------------------
+Set fetches
+-------------------------
+Number of elements fetched: 31465.      Fetch took: 743ms.      Enumerating result took: 23ms
+Number of elements fetched: 31465.      Fetch took: 657ms.      Enumerating result took: 5ms
+Number of elements fetched: 31465.      Fetch took: 671ms.      Enumerating result took: 5ms
+Number of elements fetched: 31465.      Fetch took: 660ms.      Enumerating result took: 5ms
+Number of elements fetched: 31465.      Fetch took: 687ms.      Enumerating result took: 5ms
+Number of elements fetched: 31465.      Fetch took: 704ms.      Enumerating result took: 5ms
+Number of elements fetched: 31465.      Fetch took: 660ms.      Enumerating result took: 5ms
+Number of elements fetched: 31465.      Fetch took: 669ms.      Enumerating result took: 5ms
+Number of elements fetched: 31465.      Fetch took: 656ms.      Enumerating result took: 5ms
+Number of elements fetched: 31465.      Fetch took: 674ms.      Enumerating result took: 5ms
+Single element fetches
+-------------------------
+Number of elements fetched individually: 100.   Total time: 136ms.      Time per element: 1,36ms
+Number of elements fetched individually: 100.   Total time: 109ms.      Time per element: 1,09ms
+Number of elements fetched individually: 100.   Total time: 106ms.      Time per element: 1,06ms
+Number of elements fetched individually: 100.   Total time: 109ms.      Time per element: 1,09ms
+Number of elements fetched individually: 100.   Total time: 111ms.      Time per element: 1,11ms
+Number of elements fetched individually: 100.   Total time: 109ms.      Time per element: 1,09ms
+Number of elements fetched individually: 100.   Total time: 106ms.      Time per element: 1,06ms
+Number of elements fetched individually: 100.   Total time: 108ms.      Time per element: 1,08ms
+Number of elements fetched individually: 100.   Total time: 106ms.      Time per element: 1,06ms
+Number of elements fetched individually: 100.   Total time: 106ms.      Time per element: 1,06ms
+
+LLBLGen Pro v4.1.0.0 (v4.1.14.0117). Change tracking: True. Caching: True.
+--------------------------------------------------------------------------------------------
+Set fetches
+-------------------------
+Number of elements fetched: 31465.      Fetch took: 870ms.      Enumerating result took: 16ms
+Number of elements fetched: 31465.      Fetch took: 213ms.      Enumerating result took: 8ms
+Number of elements fetched: 31465.      Fetch took: 207ms.      Enumerating result took: 8ms
+Number of elements fetched: 31465.      Fetch took: 307ms.      Enumerating result took: 8ms
+Number of elements fetched: 31465.      Fetch took: 185ms.      Enumerating result took: 8ms
+Number of elements fetched: 31465.      Fetch took: 196ms.      Enumerating result took: 8ms
+Number of elements fetched: 31465.      Fetch took: 196ms.      Enumerating result took: 8ms
+Number of elements fetched: 31465.      Fetch took: 159ms.      Enumerating result took: 8ms
+Number of elements fetched: 31465.      Fetch took: 196ms.      Enumerating result took: 8ms
+Number of elements fetched: 31465.      Fetch took: 149ms.      Enumerating result took: 8ms
+Single element fetches
+-------------------------
+Number of elements fetched individually: 100.   Total time: 123ms.      Time per element: 1,23ms
+Number of elements fetched individually: 100.   Total time: 28ms.       Time per element: 0,28ms
+Number of elements fetched individually: 100.   Total time: 31ms.       Time per element: 0,31ms
+Number of elements fetched individually: 100.   Total time: 27ms.       Time per element: 0,27ms
+Number of elements fetched individually: 100.   Total time: 26ms.       Time per element: 0,26ms
+Number of elements fetched individually: 100.   Total time: 26ms.       Time per element: 0,26ms
+Number of elements fetched individually: 100.   Total time: 26ms.       Time per element: 0,26ms
+Number of elements fetched individually: 100.   Total time: 33ms.       Time per element: 0,33ms
+Number of elements fetched individually: 100.   Total time: 27ms.       Time per element: 0,27ms
+Number of elements fetched individually: 100.   Total time: 117ms.      Time per element: 1,17ms
+
+LLBLGen Pro v4.1.0.0 (v4.1.14.0117). Change tracking: True. Caching: False.
+--------------------------------------------------------------------------------------------
+Set fetches
+-------------------------
+Number of elements fetched: 31465.      Fetch took: 672ms.      Enumerating result took: 11ms
+Number of elements fetched: 31465.      Fetch took: 561ms.      Enumerating result took: 11ms
+Number of elements fetched: 31465.      Fetch took: 559ms.      Enumerating result took: 11ms
+Number of elements fetched: 31465.      Fetch took: 554ms.      Enumerating result took: 11ms
+Number of elements fetched: 31465.      Fetch took: 554ms.      Enumerating result took: 11ms
+Number of elements fetched: 31465.      Fetch took: 553ms.      Enumerating result took: 11ms
+Number of elements fetched: 31465.      Fetch took: 555ms.      Enumerating result took: 11ms
+Number of elements fetched: 31465.      Fetch took: 554ms.      Enumerating result took: 11ms
+Number of elements fetched: 31465.      Fetch took: 553ms.      Enumerating result took: 11ms
+Number of elements fetched: 31465.      Fetch took: 591ms.      Enumerating result took: 11ms
+Single element fetches
+-------------------------
+Number of elements fetched individually: 100.   Total time: 100ms.      Time per element: 1ms
+Number of elements fetched individually: 100.   Total time: 79ms.       Time per element: 0,79ms
+Number of elements fetched individually: 100.   Total time: 79ms.       Time per element: 0,79ms
+Number of elements fetched individually: 100.   Total time: 80ms.       Time per element: 0,8ms
+Number of elements fetched individually: 100.   Total time: 81ms.       Time per element: 0,81ms
+Number of elements fetched individually: 100.   Total time: 85ms.       Time per element: 0,85ms
+Number of elements fetched individually: 100.   Total time: 82ms.       Time per element: 0,82ms
+Number of elements fetched individually: 100.   Total time: 81ms.       Time per element: 0,81ms
+Number of elements fetched individually: 100.   Total time: 82ms.       Time per element: 0,82ms
+Number of elements fetched individually: 100.   Total time: 81ms.       Time per element: 0,81ms
+
+NHibernate v3.3.1.4000 (v3.3.3.4001). Change tracking: True. Caching: False.
+--------------------------------------------------------------------------------------------
+Set fetches
+-------------------------
+Number of elements fetched: 31465.      Fetch took: 6784ms.     Enumerating result took: 4ms
+Number of elements fetched: 31465.      Fetch took: 3880ms.     Enumerating result took: 4ms
+Number of elements fetched: 31465.      Fetch took: 3893ms.     Enumerating result took: 4ms
+Number of elements fetched: 31465.      Fetch took: 3919ms.     Enumerating result took: 4ms
+Number of elements fetched: 31465.      Fetch took: 3900ms.     Enumerating result took: 4ms
+Number of elements fetched: 31465.      Fetch took: 3884ms.     Enumerating result took: 4ms
+Number of elements fetched: 31465.      Fetch took: 3898ms.     Enumerating result took: 4ms
+Number of elements fetched: 31465.      Fetch took: 3925ms.     Enumerating result took: 4ms
+Number of elements fetched: 31465.      Fetch took: 3889ms.     Enumerating result took: 4ms
+Number of elements fetched: 31465.      Fetch took: 3862ms.     Enumerating result took: 4ms
+Single element fetches
+-------------------------
+Number of elements fetched individually: 100.   Total time: 106ms.      Time per element: 1,06ms
+Number of elements fetched individually: 100.   Total time: 92ms.       Time per element: 0,92ms
+Number of elements fetched individually: 100.   Total time: 90ms.       Time per element: 0,9ms
+Number of elements fetched individually: 100.   Total time: 93ms.       Time per element: 0,93ms
+Number of elements fetched individually: 100.   Total time: 92ms.       Time per element: 0,92ms
+Number of elements fetched individually: 100.   Total time: 91ms.       Time per element: 0,91ms
+Number of elements fetched individually: 100.   Total time: 90ms.       Time per element: 0,9ms
+Number of elements fetched individually: 100.   Total time: 91ms.       Time per element: 0,91ms
+Number of elements fetched individually: 100.   Total time: 90ms.       Time per element: 0,9ms
+Number of elements fetched individually: 100.   Total time: 91ms.       Time per element: 0,91ms
+
+Oak.DynamicDb using dynamic Dto class. Change tracking: False. Caching: False.
+--------------------------------------------------------------------------------------------
+Set fetches
+-------------------------
+Number of elements fetched: 31465.      Fetch took: 1358ms.     Enumerating result took: 181ms
+Number of elements fetched: 31465.      Fetch took: 1112ms.     Enumerating result took: 180ms
+Number of elements fetched: 31465.      Fetch took: 1155ms.     Enumerating result took: 200ms
+Number of elements fetched: 31465.      Fetch took: 1178ms.     Enumerating result took: 216ms
+Number of elements fetched: 31465.      Fetch took: 1168ms.     Enumerating result took: 184ms
+Number of elements fetched: 31465.      Fetch took: 1189ms.     Enumerating result took: 205ms
+Number of elements fetched: 31465.      Fetch took: 1244ms.     Enumerating result took: 215ms
+Number of elements fetched: 31465.      Fetch took: 1192ms.     Enumerating result took: 213ms
+Number of elements fetched: 31465.      Fetch took: 1212ms.     Enumerating result took: 211ms
+Number of elements fetched: 31465.      Fetch took: 1133ms.     Enumerating result took: 200ms
+Single element fetches
+-------------------------
+Number of elements fetched individually: 100.   Total time: 58ms.       Time per element: 0,58ms
+Number of elements fetched individually: 100.   Total time: 53ms.       Time per element: 0,53ms
+Number of elements fetched individually: 100.   Total time: 52ms.       Time per element: 0,52ms
+Number of elements fetched individually: 100.   Total time: 50ms.       Time per element: 0,5ms
+Number of elements fetched individually: 100.   Total time: 53ms.       Time per element: 0,53ms
+Number of elements fetched individually: 100.   Total time: 54ms.       Time per element: 0,54ms
+Number of elements fetched individually: 100.   Total time: 55ms.       Time per element: 0,55ms
+Number of elements fetched individually: 100.   Total time: 54ms.       Time per element: 0,54ms
+Number of elements fetched individually: 100.   Total time: 54ms.       Time per element: 0,54ms
+Number of elements fetched individually: 100.   Total time: 54ms.       Time per element: 0,54ms
+
+Oak.DynamicDb using typed dynamic class. Change tracking: True. Caching: False.
+--------------------------------------------------------------------------------------------
+Set fetches
+-------------------------
+Number of elements fetched: 31465.      Fetch took: 1176ms.     Enumerating result took: 1703ms
+Number of elements fetched: 31465.      Fetch took: 1146ms.     Enumerating result took: 1613ms
+Number of elements fetched: 31465.      Fetch took: 1183ms.     Enumerating result took: 1597ms
+Number of elements fetched: 31465.      Fetch took: 1208ms.     Enumerating result took: 1629ms
+Number of elements fetched: 31465.      Fetch took: 1174ms.     Enumerating result took: 1628ms
+Number of elements fetched: 31465.      Fetch took: 1123ms.     Enumerating result took: 1650ms
+Number of elements fetched: 31465.      Fetch took: 1188ms.     Enumerating result took: 1608ms
+Number of elements fetched: 31465.      Fetch took: 1235ms.     Enumerating result took: 1537ms
+Number of elements fetched: 31465.      Fetch took: 1197ms.     Enumerating result took: 1604ms
+Number of elements fetched: 31465.      Fetch took: 1120ms.     Enumerating result took: 1618ms
+Single element fetches
+-------------------------
+Number of elements fetched individually: 100.   Total time: 60ms.       Time per element: 0,6ms
+Number of elements fetched individually: 100.   Total time: 59ms.       Time per element: 0,59ms
+Number of elements fetched individually: 100.   Total time: 59ms.       Time per element: 0,59ms
+Number of elements fetched individually: 100.   Total time: 60ms.       Time per element: 0,6ms
+Number of elements fetched individually: 100.   Total time: 58ms.       Time per element: 0,58ms
+Number of elements fetched individually: 100.   Total time: 58ms.       Time per element: 0,58ms
+Number of elements fetched individually: 100.   Total time: 57ms.       Time per element: 0,57ms
+Number of elements fetched individually: 100.   Total time: 58ms.       Time per element: 0,58ms
+Number of elements fetched individually: 100.   Total time: 58ms.       Time per element: 0,58ms
+Number of elements fetched individually: 100.   Total time: 58ms.       Time per element: 0,58ms
+
+ServiceStack OrmLite v4.0.9.0 (v4.0.9.0). Change tracking: False. Caching: False.
+--------------------------------------------------------------------------------------------
+Set fetches
+-------------------------
+Number of elements fetched: 31465.      Fetch took: 725ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 539ms.      Enumerating result took: 2ms
+Number of elements fetched: 31465.      Fetch took: 542ms.      Enumerating result took: 2ms
+Number of elements fetched: 31465.      Fetch took: 535ms.      Enumerating result took: 2ms
+Number of elements fetched: 31465.      Fetch took: 536ms.      Enumerating result took: 2ms
+Number of elements fetched: 31465.      Fetch took: 543ms.      Enumerating result took: 2ms
+Number of elements fetched: 31465.      Fetch took: 544ms.      Enumerating result took: 2ms
+Number of elements fetched: 31465.      Fetch took: 547ms.      Enumerating result took: 2ms
+Number of elements fetched: 31465.      Fetch took: 534ms.      Enumerating result took: 2ms
+Number of elements fetched: 31465.      Fetch took: 539ms.      Enumerating result took: 2ms
+Single element fetches
+-------------------------
+Number of elements fetched individually: 100.   Total time: 108ms.      Time per element: 1,08ms
+Number of elements fetched individually: 100.   Total time: 53ms.       Time per element: 0,53ms
+Number of elements fetched individually: 100.   Total time: 53ms.       Time per element: 0,53ms
+Number of elements fetched individually: 100.   Total time: 54ms.       Time per element: 0,54ms
+Number of elements fetched individually: 100.   Total time: 54ms.       Time per element: 0,54ms
+Number of elements fetched individually: 100.   Total time: 53ms.       Time per element: 0,53ms
+Number of elements fetched individually: 100.   Total time: 51ms.       Time per element: 0,51ms
+Number of elements fetched individually: 100.   Total time: 51ms.       Time per element: 0,51ms
+Number of elements fetched individually: 100.   Total time: 51ms.       Time per element: 0,51ms
+Number of elements fetched individually: 100.   Total time: 53ms.       Time per element: 0,53ms
+
+PetaPoco v4.0.3. Change tracking: False. Caching: False.
+--------------------------------------------------------------------------------------------
+Set fetches
+-------------------------
+Number of elements fetched: 31465.      Fetch took: 365ms.      Enumerating result took: 2ms
+Number of elements fetched: 31465.      Fetch took: 309ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 317ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 341ms.      Enumerating result took: 2ms
+Number of elements fetched: 31465.      Fetch took: 339ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 310ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 328ms.      Enumerating result took: 2ms
+Number of elements fetched: 31465.      Fetch took: 334ms.      Enumerating result took: 2ms
+Number of elements fetched: 31465.      Fetch took: 312ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 326ms.      Enumerating result took: 3ms
+Single element fetches
+-------------------------
+Number of elements fetched individually: 100.   Total time: 355ms.      Time per element: 3,55ms
+Number of elements fetched individually: 100.   Total time: 356ms.      Time per element: 3,56ms
+Number of elements fetched individually: 100.   Total time: 355ms.      Time per element: 3,55ms
+Number of elements fetched individually: 100.   Total time: 365ms.      Time per element: 3,65ms
+Number of elements fetched individually: 100.   Total time: 382ms.      Time per element: 3,82ms
+Number of elements fetched individually: 100.   Total time: 363ms.      Time per element: 3,63ms
+Number of elements fetched individually: 100.   Total time: 363ms.      Time per element: 3,63ms
+Number of elements fetched individually: 100.   Total time: 363ms.      Time per element: 3,63ms
+Number of elements fetched individually: 100.   Total time: 363ms.      Time per element: 3,63ms
+Number of elements fetched individually: 100.   Total time: 363ms.      Time per element: 3,63ms
+
+PetaPoco Fast v4.0.3. Change tracking: False. Caching: False.
+--------------------------------------------------------------------------------------------
+Set fetches
+-------------------------
+Number of elements fetched: 31465.      Fetch took: 299ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 295ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 289ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 288ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 301ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 288ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 299ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 294ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 428ms.      Enumerating result took: 3ms
+Number of elements fetched: 31465.      Fetch took: 294ms.      Enumerating result took: 3ms
+Single element fetches
+-------------------------
+Number of elements fetched individually: 100.   Total time: 84ms.       Time per element: 0,84ms
+Number of elements fetched individually: 100.   Total time: 87ms.       Time per element: 0,87ms
+Number of elements fetched individually: 100.   Total time: 86ms.       Time per element: 0,86ms
+Number of elements fetched individually: 100.   Total time: 86ms.       Time per element: 0,86ms
+Number of elements fetched individually: 100.   Total time: 87ms.       Time per element: 0,87ms
+Number of elements fetched individually: 100.   Total time: 88ms.       Time per element: 0,88ms
+Number of elements fetched individually: 100.   Total time: 88ms.       Time per element: 0,88ms
+Number of elements fetched individually: 100.   Total time: 87ms.       Time per element: 0,87ms
+Number of elements fetched individually: 100.   Total time: 86ms.       Time per element: 0,86ms
+Number of elements fetched individually: 100.   Total time: 87ms.       Time per element: 0,87ms
+
+Averaged total results per framework. Fastest and slowest result omited
+==============================================================================
+Non-change tracking fetches, set fetches (10 runs), no caching
+------------------------------------------------------------------------------
+Handcoded materializer using DbDataReader       : 237,00ms.     Enumeration average: 2,75ms
+PetaPoco Fast v4.0.3                            : 294,88ms.     Enumeration average: 3,00ms
+PetaPoco v4.0.3                                 : 325,88ms.     Enumeration average: 2,63ms
+Dapper                                          : 328,88ms.     Enumeration average: 3,00ms
+Linq to Sql v4.0.0.0 (v4.0.30319.33440)         : 358,25ms.     Enumeration average: 3,00ms
+Entity Framework v6.0.0.0 (v6.0.21211.0)        : 377,75ms.     Enumeration average: 2,88ms
+ServiceStack OrmLite v4.0.9.0 (v4.0.9.0)        : 540,63ms.     Enumeration average: 2,00ms
+LLBLGen Pro v4.1.0.0 (v4.1.14.0117), typed view : 672,75ms.     Enumeration average: 5,00ms
+Oak.DynamicDb using dynamic Dto class           : 1.183,88ms.   Enumeration average: 201,13ms
+
+Change tracking fetches, set fetches (10 runs), no caching
+------------------------------------------------------------------------------
+DataTable, using DbDataAdapter                  : 404,00ms.     Enumeration average: 55,38ms
+Linq to Sql v4.0.0.0 (v4.0.30319.33440)         : 546,00ms.     Enumeration average: 3,00ms
+LLBLGen Pro v4.1.0.0 (v4.1.14.0117)             : 560,13ms.     Enumeration average: 11,00ms
+Telerik DataAccess/OpenAccess Domain v4.0.3     : 1.154,00ms.   Enumeration average: 3,00ms
+Telerik DataAccess/OpenAccess Fluent v4.0.3     : 1.157,38ms.   Enumeration average: 3,00ms
+Oak.DynamicDb using typed dynamic class         : 1.174,38ms.   Enumeration average: 1.618,38ms
+NHibernate v3.3.1.4000 (v3.3.3.4001)            : 3.898,50ms.   Enumeration average: 4,00ms
+Entity Framework v6.0.0.0 (v6.0.21211.0)        : 6.271,00ms.   Enumeration average: 3,13ms
+
+Non-change tracking individual fetches (100 elements, 10 runs), no caching
+------------------------------------------------------------------------------
+Dapper                                          : 0,45ms per individual fetch
+ServiceStack OrmLite v4.0.9.0 (v4.0.9.0)        : 0,53ms per individual fetch
+Oak.DynamicDb using dynamic Dto class           : 0,54ms per individual fetch
+Handcoded materializer using DbDataReader       : 0,74ms per individual fetch
+PetaPoco Fast v4.0.3                            : 0,87ms per individual fetch
+LLBLGen Pro v4.1.0.0 (v4.1.14.0117), typed view : 1,08ms per individual fetch
+Entity Framework v6.0.0.0 (v6.0.21211.0)        : 1,74ms per individual fetch
+Linq to Sql v4.0.0.0 (v4.0.30319.33440)         : 2,34ms per individual fetch
+PetaPoco v4.0.3                                 : 3,61ms per individual fetch
+
+Change tracking individual fetches (100 elements, 10 runs), no caching
+------------------------------------------------------------------------------
+DataTable, using DbDataAdapter                  : 0,58ms per individual fetch
+Oak.DynamicDb using typed dynamic class         : 0,59ms per individual fetch
+Telerik DataAccess/OpenAccess Fluent v4.0.3     : 0,67ms per individual fetch
+Telerik DataAccess/OpenAccess Domain v4.0.3     : 0,68ms per individual fetch
+LLBLGen Pro v4.1.0.0 (v4.1.14.0117)             : 0,81ms per individual fetch
+NHibernate v3.3.1.4000 (v3.3.3.4001)            : 0,91ms per individual fetch
+Entity Framework v6.0.0.0 (v6.0.21211.0)        : 1,98ms per individual fetch
+Linq to Sql v4.0.0.0 (v4.0.30319.33440)         : 2,45ms per individual fetch
+
+Change tracking fetches, set fetches (10 runs), caching
+------------------------------------------------------------------------------
+LLBLGen Pro v4.1.0.0 (v4.1.14.0117)             : 207,38ms.     Enumeration average: 8,00ms
+
+Change tracking individual fetches (100 elements, 10 runs), caching
+------------------------------------------------------------------------------
+LLBLGen Pro v4.1.0.0 (v4.1.14.0117)             : 0,39ms per individual fetch
+
+Complete. Press enter to exit.
