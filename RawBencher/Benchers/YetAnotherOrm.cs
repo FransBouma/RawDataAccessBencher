@@ -15,9 +15,6 @@ namespace RawBencher.Benchers
 			usesChangeTracking: false, 
 			usesCaching: false)
 		{
-			//Will persist the Constructor that was compiled
-			DbConfig.ConstructorSettings.CreateDebugCode = true;
-
 			//Will do some checks, if any of them fail an exception will be thrown
 			DbConfig.ConstructorSettings.EnforceCreation = true;
 
