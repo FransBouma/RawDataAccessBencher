@@ -1,5 +1,5 @@
-using Microsoft.Data.Entity;
-using Microsoft.Data.Entity.Metadata;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace EF7.Bencher.Model
 {
@@ -106,8 +106,7 @@ namespace EF7.Bencher.Model
 
 				entity.Property(e => e.UnitMeasureCode)
 					.IsRequired()
-					.HasMaxLength(3)
-					.HasColumnType("nchar");
+					.HasMaxLength(3);
 
 				entity.HasOne(d => d.Component).WithMany(p => p.BillOfMaterials).HasForeignKey(d => d.ComponentID).OnDelete(DeleteBehavior.Restrict);
 
@@ -212,8 +211,7 @@ namespace EF7.Bencher.Model
 				entity.Property(e => e.CountryRegionCode).HasMaxLength(3);
 
 				entity.Property(e => e.CurrencyCode)
-					.HasMaxLength(3)
-					.HasColumnType("nchar");
+					.HasMaxLength(3);
 
 				entity.Property(e => e.ModifiedDate)
 					.HasColumnType("datetime")
@@ -248,8 +246,7 @@ namespace EF7.Bencher.Model
 				entity.ToTable("Culture", "Production");
 
 				entity.Property(e => e.CultureID)
-					.HasMaxLength(6)
-					.HasColumnType("nchar");
+					.HasMaxLength(6);
 
 				entity.Property(e => e.ModifiedDate)
 					.HasColumnType("datetime")
@@ -263,8 +260,7 @@ namespace EF7.Bencher.Model
 				entity.ToTable("Currency", "Sales");
 
 				entity.Property(e => e.CurrencyCode)
-					.HasMaxLength(3)
-					.HasColumnType("nchar");
+					.HasMaxLength(3);
 
 				entity.Property(e => e.ModifiedDate)
 					.HasColumnType("datetime")
@@ -285,8 +281,7 @@ namespace EF7.Bencher.Model
 
 				entity.Property(e => e.FromCurrencyCode)
 					.IsRequired()
-					.HasMaxLength(3)
-					.HasColumnType("nchar");
+					.HasMaxLength(3);
 
 				entity.Property(e => e.ModifiedDate)
 					.HasColumnType("datetime")
@@ -294,8 +289,7 @@ namespace EF7.Bencher.Model
 
 				entity.Property(e => e.ToCurrencyCode)
 					.IsRequired()
-					.HasMaxLength(3)
-					.HasColumnType("nchar");
+					.HasMaxLength(3);
 
 				entity.HasOne(d => d.FromCurrencyCodeNavigation).WithMany(p => p.CurrencyRate).HasForeignKey(d => d.FromCurrencyCode).OnDelete(DeleteBehavior.Restrict);
 
@@ -315,7 +309,6 @@ namespace EF7.Bencher.Model
 				entity.Property(e => e.AccountNumber)
 					.IsRequired()
 					.HasMaxLength(10)
-					.HasColumnType("varchar")
 					.ValueGeneratedOnAddOrUpdate();
 
 				entity.Property(e => e.ModifiedDate)
@@ -386,8 +379,7 @@ namespace EF7.Bencher.Model
 
 				entity.Property(e => e.Gender)
 					.IsRequired()
-					.HasMaxLength(1)
-					.HasColumnType("nchar");
+					.HasMaxLength(1);
 
 				entity.Property(e => e.HireDate).HasColumnType("date");
 
@@ -401,8 +393,7 @@ namespace EF7.Bencher.Model
 
 				entity.Property(e => e.MaritalStatus)
 					.IsRequired()
-					.HasMaxLength(1)
-					.HasColumnType("nchar");
+					.HasMaxLength(1);
 
 				entity.Property(e => e.ModifiedDate)
 					.HasColumnType("datetime")
@@ -416,9 +407,9 @@ namespace EF7.Bencher.Model
 
 				entity.Property(e => e.rowguid).HasDefaultValueSql("newid()");
 
-				entity.Property(e => e.SickLeaveHours).HasDefaultValue(0);
+				entity.Property(e => e.SickLeaveHours).HasDefaultValue((short)0);
 
-				entity.Property(e => e.VacationHours).HasDefaultValue(0);
+				entity.Property(e => e.VacationHours).HasDefaultValue((short)0);
 
 				entity.HasOne(d => d.BusinessEntity).WithOne(p => p.Employee).HasForeignKey<Employee>(d => d.BusinessEntityID).OnDelete(DeleteBehavior.Restrict);
 			});
@@ -526,12 +517,12 @@ namespace EF7.Bencher.Model
 				entity.Property(e => e.PasswordHash)
 					.IsRequired()
 					.HasMaxLength(128)
-					.HasColumnType("varchar");
+;
 
 				entity.Property(e => e.PasswordSalt)
 					.IsRequired()
 					.HasMaxLength(10)
-					.HasColumnType("varchar");
+;
 
 				entity.Property(e => e.rowguid).HasDefaultValueSql("newid()");
 
@@ -556,8 +547,7 @@ namespace EF7.Bencher.Model
 
 				entity.Property(e => e.PersonType)
 					.IsRequired()
-					.HasMaxLength(2)
-					.HasColumnType("nchar");
+					.HasMaxLength(2);
 
 				entity.Property(e => e.rowguid).HasDefaultValueSql("newid()");
 
@@ -601,8 +591,7 @@ namespace EF7.Bencher.Model
 				entity.HasIndex(e => e.rowguid).HasName("AK_Product_rowguid").IsUnique();
 
 				entity.Property(e => e.Class)
-					.HasMaxLength(2)
-					.HasColumnType("nchar");
+					.HasMaxLength(2);
 
 				entity.Property(e => e.Color).HasMaxLength(15);
 
@@ -615,8 +604,7 @@ namespace EF7.Bencher.Model
 					.HasDefaultValueSql("getdate()");
 
 				entity.Property(e => e.ProductLine)
-					.HasMaxLength(2)
-					.HasColumnType("nchar");
+					.HasMaxLength(2);
 
 				entity.Property(e => e.ProductNumber)
 					.IsRequired()
@@ -631,20 +619,17 @@ namespace EF7.Bencher.Model
 				entity.Property(e => e.Size).HasMaxLength(5);
 
 				entity.Property(e => e.SizeUnitMeasureCode)
-					.HasMaxLength(3)
-					.HasColumnType("nchar");
+					.HasMaxLength(3);
 
 				entity.Property(e => e.StandardCost).HasColumnType("money");
 
 				entity.Property(e => e.Style)
-					.HasMaxLength(2)
-					.HasColumnType("nchar");
+					.HasMaxLength(2);
 
 				entity.Property(e => e.Weight).HasColumnType("decimal");
 
 				entity.Property(e => e.WeightUnitMeasureCode)
-					.HasMaxLength(3)
-					.HasColumnType("nchar");
+					.HasMaxLength(3);
 
 				entity.HasOne(d => d.ProductModel).WithMany(p => p.Product).HasForeignKey(d => d.ProductModelID);
 
@@ -714,7 +699,7 @@ namespace EF7.Bencher.Model
 					.HasColumnType("datetime")
 					.HasDefaultValueSql("getdate()");
 
-				entity.Property(e => e.Quantity).HasDefaultValue(0);
+				entity.Property(e => e.Quantity).HasDefaultValue((short)0);
 
 				entity.Property(e => e.rowguid).HasDefaultValueSql("newid()");
 
@@ -781,8 +766,7 @@ namespace EF7.Bencher.Model
 				entity.ToTable("ProductModelProductDescriptionCulture", "Production");
 
 				entity.Property(e => e.CultureID)
-					.HasMaxLength(6)
-					.HasColumnType("nchar");
+					.HasMaxLength(6);
 
 				entity.Property(e => e.ModifiedDate)
 					.HasColumnType("datetime")
@@ -799,7 +783,7 @@ namespace EF7.Bencher.Model
 			{
 				entity.ToTable("ProductPhoto", "Production");
 
-				entity.Property(e => e.LargePhoto).HasColumnType("varbinary");
+				entity.Property(e => e.LargePhoto);
 
 				entity.Property(e => e.LargePhotoFileName).HasMaxLength(50);
 
@@ -807,7 +791,7 @@ namespace EF7.Bencher.Model
 					.HasColumnType("datetime")
 					.HasDefaultValueSql("getdate()");
 
-				entity.Property(e => e.ThumbNailPhoto).HasColumnType("varbinary");
+				entity.Property(e => e.ThumbNailPhoto);
 
 				entity.Property(e => e.ThumbnailPhotoFileName).HasMaxLength(50);
 			});
@@ -885,8 +869,7 @@ namespace EF7.Bencher.Model
 
 				entity.Property(e => e.UnitMeasureCode)
 					.IsRequired()
-					.HasMaxLength(3)
-					.HasColumnType("nchar");
+					.HasMaxLength(3);
 
 				entity.HasOne(d => d.BusinessEntity).WithMany(p => p.ProductVendor).HasForeignKey(d => d.BusinessEntityID).OnDelete(DeleteBehavior.Restrict);
 
@@ -950,11 +933,11 @@ namespace EF7.Bencher.Model
 					.HasColumnType("datetime")
 					.HasDefaultValueSql("getdate()");
 
-				entity.Property(e => e.RevisionNumber).HasDefaultValue(0);
+				entity.Property(e => e.RevisionNumber).HasDefaultValue((byte)0);
 
 				entity.Property(e => e.ShipDate).HasColumnType("datetime");
 
-				entity.Property(e => e.Status).HasDefaultValue(1);
+				entity.Property(e => e.Status).HasDefaultValue((byte)1);
 
 				entity.Property(e => e.SubTotal).HasColumnType("money");
 
@@ -1022,13 +1005,13 @@ namespace EF7.Bencher.Model
 
 				entity.Property(e => e.Comment).HasMaxLength(128);
 
-				entity.Property(e => e.Freight).HasColumnType("decimal").HasDefaultValue(0);
-				entity.Property(e => e.SubTotal).HasColumnType("decimal").HasDefaultValue(0);
-				entity.Property(e => e.TaxAmt).HasColumnType("decimal").HasDefaultValue(0);
+				entity.Property(e => e.Freight).HasColumnType("decimal").HasDefaultValue(0M);
+				entity.Property(e => e.SubTotal).HasColumnType("decimal").HasDefaultValue(0M);
+				entity.Property(e => e.TaxAmt).HasColumnType("decimal").HasDefaultValue(0M);
 				
 				entity.Property(e => e.CreditCardApprovalCode)
 					.HasMaxLength(15)
-					.HasColumnType("varchar");
+;
 
 				entity.Property(e => e.DueDate).HasColumnType("datetime");
 
@@ -1044,7 +1027,7 @@ namespace EF7.Bencher.Model
 
 				entity.Property(e => e.PurchaseOrderNumber).HasMaxLength(25);
 
-				entity.Property(e => e.RevisionNumber).HasDefaultValue(0);
+				entity.Property(e => e.RevisionNumber).HasDefaultValue((byte)0);
 
 				entity.Property(e => e.rowguid).HasDefaultValueSql("newid()");
 
@@ -1055,7 +1038,7 @@ namespace EF7.Bencher.Model
 
 				entity.Property(e => e.ShipDate).HasColumnType("datetime");
 
-				entity.Property(e => e.Status).HasDefaultValue(1);
+				entity.Property(e => e.Status).HasDefaultValue((byte)1);
 
 				entity.Property(e => e.SubTotal).HasColumnType("money");
 
@@ -1367,8 +1350,7 @@ namespace EF7.Bencher.Model
 
 				entity.Property(e => e.StateProvinceCode)
 					.IsRequired()
-					.HasMaxLength(3)
-					.HasColumnType("nchar");
+					.HasMaxLength(3);
 
 				entity.HasOne(d => d.CountryRegionCodeNavigation).WithMany(p => p.StateProvince).HasForeignKey(d => d.CountryRegionCode).OnDelete(DeleteBehavior.Restrict);
 
@@ -1422,8 +1404,7 @@ namespace EF7.Bencher.Model
 
 				entity.Property(e => e.TransactionType)
 					.IsRequired()
-					.HasMaxLength(1)
-					.HasColumnType("nchar");
+					.HasMaxLength(1);
 
 				entity.HasOne(d => d.Product).WithMany(p => p.TransactionHistory).HasForeignKey(d => d.ProductID).OnDelete(DeleteBehavior.Restrict);
 			});
@@ -1454,8 +1435,7 @@ namespace EF7.Bencher.Model
 
 				entity.Property(e => e.TransactionType)
 					.IsRequired()
-					.HasMaxLength(1)
-					.HasColumnType("nchar");
+					.HasMaxLength(1);
 			});
 
 			modelBuilder.Entity<UnitMeasure>(entity =>
@@ -1465,8 +1445,7 @@ namespace EF7.Bencher.Model
 				entity.ToTable("UnitMeasure", "Production");
 
 				entity.Property(e => e.UnitMeasureCode)
-					.HasMaxLength(3)
-					.HasColumnType("nchar");
+					.HasMaxLength(3);
 
 				entity.Property(e => e.ModifiedDate)
 					.HasColumnType("datetime")
@@ -1550,7 +1529,7 @@ namespace EF7.Bencher.Model
 			{
 				entity.HasKey(e => e.diagram_id);
 
-				entity.Property(e => e.definition).HasColumnType("varbinary");
+				entity.Property(e => e.definition);
 			});
 		}
 

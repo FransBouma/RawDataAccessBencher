@@ -6,6 +6,7 @@ Bench code which tests entity materialization speed of various .NET data access 
 
 The results of various runs of the benchmark are available both online and locally as files in the repository. For online posts of the results, please see the list below. For the results in a text file, please see the [Results](https://github.com/FransBouma/RawDataAccessBencher/tree/master/Results) folder, which contains per run a .txt file with the results measured.
 
+* Results obtained on 17-may-2016: http://pastebin.com/eb0mWzc1 (1000BaseT lan, new: EF Core RC2)
 * Results obtained on 16-dec-2015: http://pastebin.com/8mXh36P1 (1000BaseT lan, new: eager loading benchmarks)
 * Results obtained on 26-nov-2015: http://pastebin.com/kYH2cKe7 (1000BaseT lan, new: Linq 2 DB, LLBLGen 5, EF7 RC1)
 * Results obtained on 05-nov-2015: http://pastebin.com/SrDbxUkp (1000BaseT lan, new: NH4, Dapper 1.4, Massive)
@@ -18,7 +19,7 @@ See the links for details about results.
 
 ### Requirements ###
 
-.NET 4.5.1, SQL Server with AdventureWorks example database (2008 version, available on [Microsoft's codeplex site](https://msftdbprodsamples.codeplex.com/releases/view/93587)). See below how to install/configure it. The mappings supplied are for the 2008 version of the example database. 
+.NET 4.6.1, SQL Server with AdventureWorks example database (2008 version, available on [Microsoft's codeplex site](https://msftdbprodsamples.codeplex.com/releases/view/93587)). See below how to install/configure it. The mappings supplied are for the 2008 version of the example database. 
 
 ### How to attach / install the database ###
 
@@ -39,11 +40,9 @@ If you want to export the results to a file directly, run the RawBencher.exe fro
 
 ### Remarks per used framework ###
 
-Entity Framework 7 is RC1. Microsoft has optimized the code since RC1. This has been confirmed using an offline build of the code by contributor [@jonnybee](https://github.com/jonnybee), however [@jonnybee](https://github.com/jonnybee) and I decided it was best to keep it on RC1 as it's easier to migrate to RC2 when that comes out and it's the public available build that's available at this moment. When Microsoft releases RC2, we'll run a new benchmark. 
-
 NHibernate uses .hbm mappings, as this is of no relevance to the fetch speed and it avoids a dependency on FluentNHibernate.
 
-The DNX build is somewhat broken, as in: it might not run as tooling has been updated since RC1. We hope to fix this in the near future.
+The DNX build is somewhat broken, as in: it might not run as tooling has been updated since RC1. We hope to fix this now RC2 is available.
 
 In the Entity Framework code, Foreign key fields are present in the code base, as other frameworks fetch them too. This makes Entity Framework become slow in 6.0.2 and earlier. With 6.1 this is partially fixed with 20%-30% faster code (see: http://entityframework.codeplex.com/workitem/1829) however it's still slower most frameworks with FK fields in Entity Framework v6.1. Without Foreign key fields present, Entity Framework takes roughly half the performance of 6.0.2 with FK fields present and ~70% of 6.1. 
 

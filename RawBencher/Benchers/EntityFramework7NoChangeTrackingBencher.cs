@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EF7.Bencher.Model;
-using Microsoft.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace RawBencher.Benchers
 {
@@ -57,7 +57,7 @@ namespace RawBencher.Benchers
 		/// <returns>the framework name.</returns>
 		protected override string CreateFrameworkNameImpl()
 		{
-			return CreateFrameworkName("Entity Framework v{0} (v{1})", typeof(Microsoft.Data.Entity.DbContext));
+			return CreateFrameworkName("Entity Framework v{0} (v{1})", typeof(Microsoft.EntityFrameworkCore.DbContext));
 		}
 
 		#region Properties
