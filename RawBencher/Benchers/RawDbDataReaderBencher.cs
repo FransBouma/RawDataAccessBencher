@@ -85,9 +85,7 @@ namespace RawBencher.Benchers
 				// any statistics gathered by Close anyway. Required for SqlServer, other providers don't have a slow Close() method.
 				// Every ORM should utilize this trick to get fast individual fetches. Most do, not all of them though.
 				toExecute.Cancel();
-#if !DNXCORE50
 				reader.Close();
-#endif
 				con.Close();
 			}
 			return headers;

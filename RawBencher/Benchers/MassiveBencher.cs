@@ -1,5 +1,4 @@
-﻿#if !DNXCORE50
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -71,4 +70,3 @@ namespace RawBencher.Benchers
 		}
 	}
 }
-#endif

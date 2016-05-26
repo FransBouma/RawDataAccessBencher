@@ -1,5 +1,4 @@
-﻿#if !DNXCORE50
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using ServiceStack.Data;
 using ServiceStack.OrmLite;
@@ -73,4 +72,3 @@ namespace RawBencher.Benchers
 		#endregion
 	}
 }
-#endif

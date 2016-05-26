@@ -1,5 +1,4 @@
-﻿#if !(DNXCORE50 || DNX451)
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -108,4 +107,3 @@ namespace RawBencher.Benchers
 		}
 	}
 }
-#endif
