@@ -16,7 +16,7 @@ namespace RawBencher
 	/// The actual bencher management code. Pass '/a' on the command line as argument to make the program exit automatically. If no argument
 	/// is specified it will wait for ENTER after reporting the results. 
 	/// </summary>
-	public class OriginalRunner
+	public class OriginalController
 	{
 		private const int LoopAmount = 25;
 		private const int IndividualKeysAmount = 100;
@@ -37,7 +37,7 @@ namespace RawBencher
 			{
 				autoExit = args[0] == "/a";
 			}
-			OriginalRunner.InitConnectionString();
+			OriginalController.InitConnectionString();
 
 			CacheController.RegisterCache(ConnectionString, new ResultsetCache());
 			RegisteredBenchers.Add(new HandCodedBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
@@ -67,14 +67,14 @@ namespace RawBencher
 			RegisteredBenchers.Add(new MassiveBencher());
 			RegisteredBenchers.Add(new OrmLiteBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 
-			OriginalRunner.DisplayHeader();
-			OriginalRunner.WarmupDB();
-			OriginalRunner.FetchKeysForIndividualFetches();
+			OriginalController.DisplayHeader();
+			OriginalController.WarmupDB();
+			OriginalController.FetchKeysForIndividualFetches();
 
 			// Uncomment the line below if you want to profile a bencher. Specify the bencher instance and follow the guides on the screen.
 			//ProfileBenchers(RegisteredBenchers.FirstOrDefault(b => b.GetType() == typeof(LLBLGenProNoChangeTrackingBencher)));
-			OriginalRunner.RunRegisteredBenchers();
-			OriginalRunner.ReportResultStatistics(autoExit);
+			OriginalController.RunRegisteredBenchers();
+			OriginalController.ReportResultStatistics(autoExit);
 		}
 
 
@@ -101,7 +101,7 @@ namespace RawBencher
 			Console.WriteLine("| Registered benchmarks          :");
 			foreach (var bencher in RegisteredBenchers)
 			{
-				OriginalRunner.DisplayBencherInfo(bencher, "| \t", suffixWithDashLine: false);
+				OriginalController.DisplayBencherInfo(bencher, "| \t", suffixWithDashLine: false);
 			}
 			Console.WriteLine("| Run set benchmarks             : {0}", PerformSetBenchmarks);
 			Console.WriteLine("| Run individual fetch benchmarks: {0}", PerformIndividualBenchMarks);
@@ -189,14 +189,14 @@ namespace RawBencher
 
 			foreach (var bencher in RegisteredBenchers)
 			{
-				OriginalRunner.DisplayBencherInfo(bencher);
+				OriginalController.DisplayBencherInfo(bencher);
 				try
 				{
-					OriginalRunner.RunBencher(bencher);
+					OriginalController.RunBencher(bencher);
 				}
 				catch (Exception ex)
 				{
-					OriginalRunner.DisplayException(ex);
+					BencherUtils.DisplayException(ex);
 				}
 			}
 		}
@@ -207,16 +207,16 @@ namespace RawBencher
 			bencher.ResetResults();
 			Console.WriteLine("First one warm-up run of each bench type to initialize constructs. Results will not be collected.");
 			var result = bencher.PerformSetBenchmark(discardResults: true);
-			OriginalRunner.ReportSetResult(result);
+			OriginalController.ReportSetResult(result);
 			if(bencher.SupportsEagerLoading)
 			{
 				result = bencher.PerformEagerLoadBenchmark(discardResults: true);
-				OriginalRunner.ReportSetResult(result);
+				OriginalController.ReportSetResult(result);
 			}
 			if(PerformIndividualBenchMarks)
 			{
 				result = bencher.PerformIndividualBenchMark(KeysForIndividualFetches, discardResults: true);
-				OriginalRunner.ReportIndividualResult(bencher, result);
+				OriginalController.ReportIndividualResult(bencher, result);
 			}
 			Console.WriteLine("\nStarting bench runs...");
 			if(PerformSetBenchmarks)
@@ -227,7 +227,7 @@ namespace RawBencher
 				for(int i = 0; i < LoopAmount; i++)
 				{
 					result = bencher.PerformSetBenchmark();
-					OriginalRunner.ReportSetResult(result);
+					OriginalController.ReportSetResult(result);
 
 					// avoid having the GC collect in the middle of a run.
 					GC.Collect();
@@ -243,7 +243,7 @@ namespace RawBencher
 				for (int i = 0; i < LoopAmount; i++)
 				{
 					result = bencher.PerformIndividualBenchMark(KeysForIndividualFetches);
-					OriginalRunner.ReportIndividualResult(bencher, result);
+					OriginalController.ReportIndividualResult(bencher, result);
 
 					// avoid having the GC collect in the middle of a run.
 					GC.Collect();
@@ -270,7 +270,7 @@ namespace RawBencher
 				for(int i = 0; i < LoopAmount; i++)
 				{
 					result = bencher.PerformEagerLoadBenchmark();
-					OriginalRunner.ReportEagerLoadResult(bencher, result);
+					OriginalController.ReportEagerLoadResult(bencher, result);
 
 					// avoid having the GC collect in the middle of a run.
 					GC.Collect();
@@ -286,18 +286,18 @@ namespace RawBencher
 			dbWarmer = new DataTableBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString };
 			Console.WriteLine("\nWarming up DB, DB client code and CLR");
 			Console.WriteLine("====================================================================");
-			OriginalRunner.DisplayBencherInfo(dbWarmer);
+			OriginalController.DisplayBencherInfo(dbWarmer);
 			for (int i = 0; i < LoopAmount; i++)
 			{
 				var result = dbWarmer.PerformSetBenchmark();
-				OriginalRunner.ReportSetResult(result);
+				OriginalController.ReportSetResult(result);
 			}
 		}
 
 
 		private static void DisplayBencherInfo(IBencher bencher)
 		{
-			OriginalRunner.DisplayBencherInfo(bencher, "\n", suffixWithDashLine: true);
+			OriginalController.DisplayBencherInfo(bencher, "\n", suffixWithDashLine: true);
 		}
 
 
@@ -461,21 +461,6 @@ namespace RawBencher
 			}
 			Console.WriteLine(" Press enter to exit.");
 			Console.ReadLine();
-		}
-
-
-		private static void DisplayException(Exception toDisplay)
-		{
-			if (toDisplay == null)
-			{
-				return;
-			}
-
-			Console.WriteLine("Exception caught of type: {0}", toDisplay.GetType().FullName);
-			Console.WriteLine("Message: {0}", toDisplay.Message);
-			Console.WriteLine("Stack trace:\n{0}", toDisplay.StackTrace);
-			Console.WriteLine("Inner exception:");
-			OriginalRunner.DisplayException(toDisplay.InnerException);
 		}
 	}
 }

@@ -19,5 +19,20 @@ namespace RawBencher
 		{
 			return type.Assembly;
 		}
+
+
+		public static void DisplayException(Exception toDisplay)
+		{
+			if (toDisplay == null)
+			{
+				return;
+			}
+
+			Console.WriteLine("Exception caught of type: {0}", toDisplay.GetType().FullName);
+			Console.WriteLine("Message: {0}", toDisplay.Message);
+			Console.WriteLine("Stack trace:\n{0}", toDisplay.StackTrace);
+			Console.WriteLine("Inner exception:");
+			BencherUtils.DisplayException(toDisplay.InnerException);
+		}
 	}
 }

@@ -35,6 +35,10 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BenchmarkDotNet, Version=0.9.6.0, Culture=neutral, PublicKeyToken=aa0ca2f9092cefc4, processorArchitecture=MSIL">
+      <HintPath>..\packages\BenchmarkDotNet.0.9.6\lib\net46\BenchmarkDotNet.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Dapper, Version=1.50.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.1.50.0-beta9\lib\net451\Dapper.dll</HintPath>
       <Private>True</Private>
@@ -171,6 +175,7 @@
       <HintPath>..\packages\Ix-Async.1.2.5\lib\net45\System.Interactive.Async.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Management" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -209,7 +214,8 @@
     <Compile Include="BenchResult.cs" />
     <Compile Include="Benchers\PetaPocoBencher.cs" />
     <Compile Include="Massive.cs" />
-    <Compile Include="OriginalRunner.cs" />
+    <Compile Include="BenchmarkDotNet\BenchmarkDotNetController.cs" />
+    <Compile Include="OriginalController.cs" />
     <Compile Include="PetaPoco.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="Program.cs" />

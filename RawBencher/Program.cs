@@ -5,6 +5,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BenchmarkDotNet.Running;
+using RawBencher.BenchmarkDotNet;
 
 namespace RawBencher
 {
@@ -12,8 +14,18 @@ namespace RawBencher
 	{
 		public static void Main(string[] args)
 		{
-			// old runner
-			OriginalRunner.Run(args);
+			try
+			{
+				// old runner
+				//OriginalController.Run(args);
+
+				// BenchmarkDotNet runner
+				var summary = BenchmarkRunner.Run<BenchmarkDotNetController>();
+			}
+			catch(Exception ex)
+			{
+				BencherUtils.DisplayException(ex);
+			}
 		}
 	}
 }
