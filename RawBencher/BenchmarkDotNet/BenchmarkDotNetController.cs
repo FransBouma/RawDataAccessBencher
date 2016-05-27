@@ -24,19 +24,17 @@ namespace RawBencher.BenchmarkDotNet
 		private const bool PerformSetBenchmarks = true;			// flag to signal whether the set fetch benchmarks have to be run.
 		private const bool PerformIndividualBenchMarks = true;  // flag to signal whether the single element fetch benchmarks have to be run.
 		private const bool PerformEagerLoadBenchmarks = true;	// flag to signal whether the eager load fetch benchmarks have to be run. Not every bencher will perform this benchmnark.
-		private const bool ApplyAntiFloodForVMUsage = false;    // set to true if your target DB server is hosted on a VM, otherwise set it to false. Used in individual fetch bench.
 
-		//private static string ConnectionString = ConfigurationManager.ConnectionStrings["AdventureWorks.ConnectionString.SQL Server (SqlClient)"].ConnectionString;
-		private static string ConnectionString = "data source=nerd.sd.local;initial catalog=AdventureWorks;integrated security=SSPI;persist security info=False;packet size=4096";
 		private static string SqlSelectCommandText = @"SELECT [SalesOrderID],[RevisionNumber],[OrderDate],[DueDate],[ShipDate],[Status],[OnlineOrderFlag],[SalesOrderNumber],[PurchaseOrderNumber],[AccountNumber],[CustomerID],[SalesPersonID],[TerritoryID],[BillToAddressID],[ShipToAddressID],[ShipMethodID],[CreditCardID],[CreditCardApprovalCode],[CurrencyRateID],[SubTotal],[TaxAmt],[Freight],[TotalDue],[Comment],[rowguid],[ModifiedDate]	FROM [Sales].[SalesOrderHeader]";
 		private static List<IBencher> RegisteredBenchers = new List<IBencher>();
 		private static List<int> KeysForIndividualFetches = new List<int>();
 
+		public static string ConnectionString;
 
-		[Setup]
-		public void SetupData()
+
+		public BenchmarkDotNetController()
 		{
-			InitConnectionString();
+			Console.WriteLine("SETUP");
 			CacheController.RegisterCache(ConnectionString, new ResultsetCache());
 			FetchKeysForIndividualFetches();
 			WarmupDB();
@@ -85,17 +83,6 @@ namespace RawBencher.BenchmarkDotNet
 		//	RegisteredBenchers.Add(new DataTableBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 		//	RegisteredBenchers.Add(new MassiveBencher());
 		//	RegisteredBenchers.Add(new OrmLiteBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
-
-
-		private void InitConnectionString()
-		{
-			// Use the connection string from app.config instead of the static variable if the connection string exists
-			var connectionStringFromConfig = ConfigurationManager.ConnectionStrings[DataAccessAdapter.ConnectionStringKeyName];
-			if (connectionStringFromConfig != null)
-			{
-				ConnectionString = string.IsNullOrEmpty(connectionStringFromConfig.ConnectionString) ? ConnectionString : connectionStringFromConfig.ConnectionString;
-			}
-		}
 
 
 		private static void FetchKeysForIndividualFetches()
