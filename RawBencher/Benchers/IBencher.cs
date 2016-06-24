@@ -67,6 +67,15 @@ namespace RawBencher.Benchers
 		/// </returns>
 		BenchResult PerformEagerLoadBenchmark(bool discardResults);
 		/// <summary>
+		/// Performs the eager load benchmark, asynchronously. This is a benchmark which will fetch a 2-edge graph of 1000 sales order headers, all related customer entities and all related 
+		/// sales order detail entities. It will use a Task.Run to perform the async code. 
+		/// </summary>
+		/// <param name="discardResults">if set to <c>true</c> the results are returned but are not collected.</param>
+		/// <returns>
+		/// A filled in benchmark result object
+		/// </returns>
+		BenchResult PerformAsyncEagerLoadBenchmark(bool discardResults);
+		/// <summary>
 		/// Resets the result containers of this bencher.
 		/// </summary>
 		void ResetResults();
@@ -110,6 +119,14 @@ namespace RawBencher.Benchers
 		/// </summary>
 		double EagerLoadFetchSD { get; }
 		/// <summary>
+		/// Gets the async eager load fetch mean, calculated by <see cref="CalculateStatistics"/>
+		/// </summary>
+		double AsyncEagerLoadFetchMean { get; }
+		/// <summary>
+		/// Gets the async eager load fetch standard deviation, calculated by <see cref="CalculateStatistics"/>
+		/// </summary>
+		double AsyncEagerLoadFetchSD { get; }
+		/// <summary>
 		/// Gets a value indicating whether the fetch uses some form of caching (resultset caching, element caching)
 		/// </summary>
 		bool UsesCaching { get; }
@@ -121,5 +138,9 @@ namespace RawBencher.Benchers
 		/// Gets a value indicating whether this bencher supports eager loading. If true, this bencher will participate in eager loading benchmarks
 		/// </summary>
 		bool SupportsEagerLoading { get; }
+		/// <summary>
+		/// Gets a value indicating whether this bencher supports asynchronous tasks. If true, this bencher will participate in asynchronous benchmarks.
+		/// </summary>
+		bool SupportsAsync { get; }
 	}
 }

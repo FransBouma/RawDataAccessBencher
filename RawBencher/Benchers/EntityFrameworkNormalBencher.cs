@@ -17,7 +17,7 @@ namespace RawBencher.Benchers
 		/// Initializes a new instance of the <see cref="EntityFrameworkNormalBencher"/> class.
 		/// </summary>
 		public EntityFrameworkNormalBencher()
-			: base(e => e.SalesOrderId, usesChangeTracking: true, usesCaching: false, supportsEagerLoading:true)
+			: base(e => e.SalesOrderId, usesChangeTracking: true, usesCaching: false, supportsEagerLoading:true, supportsAsync:true)
 		{
 		}
 
@@ -63,6 +63,24 @@ namespace RawBencher.Benchers
 							.Include(x=>x.SalesOrderDetails)
 							.Include(x=>x.Customer)
 							.ToList();
+			}
+		}
+
+
+		/// <summary>
+		/// Async variant of FetchGraph(). Fetches the complete graph using eager loading and returns this as an IEnumerable.
+		/// </summary>
+		/// <returns>the graph fetched</returns>
+		public override async Task<IEnumerable<EF6.Bencher.EntityClasses.SalesOrderHeader>> FetchGraphAsync()
+		{
+			using(var ctx = new AWDataContext())
+			{
+				return await (from soh in ctx.SalesOrderHeaders
+							  where soh.SalesOrderId > 50000 && soh.SalesOrderId <= 51000
+							  select soh)
+					.Include(x=>x.SalesOrderDetails)
+					.Include(x=>x.Customer)
+					.ToListAsync();
 			}
 		}
 

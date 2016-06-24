@@ -21,9 +21,9 @@ namespace RawBencher
 			try
 			{
 				// old runner
-				//OriginalController.Run(args);
+				OriginalController.Run(args);
 
-				DoBenchmarkDotNet();
+				//DoBenchmarkDotNet();
 			}
 			catch(Exception ex)
 			{
