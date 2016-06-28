@@ -307,6 +307,7 @@ namespace RawBencher.Benchers
 		/// Async variant of FetchGraph(). Fetches the complete graph using eager loading and returns this as an IEnumerable.
 		/// </summary>
 		/// <returns>the graph fetched</returns>
+		/// <remarks>This base method will give a CS1998 warning. That's ok, it's empty anyway.</remarks>
 		public async virtual Task<IEnumerable<T>> FetchGraphAsync()
 		{
 			return new List<T>();

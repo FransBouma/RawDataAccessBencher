@@ -42,23 +42,23 @@ namespace RawBencher
 
 			CacheController.RegisterCache(ConnectionString, new ResultsetCache());
 			RegisteredBenchers.Add(new HandCodedBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
-			//RegisteredBenchers.Add(new HandCodedBencherUsingBoxing() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+			RegisteredBenchers.Add(new HandCodedBencherUsingBoxing() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 			//RegisteredBenchers.Add(new RawDbDataReaderBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
-			//RegisteredBenchers.Add(new DapperBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
-			//RegisteredBenchers.Add(new EntityFramework7NoChangeTrackingBencher() { ConnectionStringToUse = ConnectionString });
-			//RegisteredBenchers.Add(new LinqToSqlNoChangeTrackingBencher());
-			//RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingQuerySpecPocoBencher());
+			RegisteredBenchers.Add(new DapperBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+			RegisteredBenchers.Add(new EntityFramework7NoChangeTrackingBencher() { ConnectionStringToUse = ConnectionString });
+			RegisteredBenchers.Add(new LinqToSqlNoChangeTrackingBencher());
+			RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingQuerySpecPocoBencher());
 			//RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingLinqPocoBencher());
 			//RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingBencher());
-			//RegisteredBenchers.Add(new EntityFrameworkNoChangeTrackingBencher());
+			RegisteredBenchers.Add(new EntityFrameworkNoChangeTrackingBencher());
 			//RegisteredBenchers.Add(new PetaPocoBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
-			//RegisteredBenchers.Add(new PetaPocoFastBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+			RegisteredBenchers.Add(new PetaPocoFastBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 			//RegisteredBenchers.Add(new LINQ2DBNormalBencher(ConnectionString));
-			//RegisteredBenchers.Add(new LINQ2DBCompiledBencher(ConnectionString));
+			RegisteredBenchers.Add(new LINQ2DBCompiledBencher(ConnectionString));
 
 			RegisteredBenchers.Add(new LLBLGenProNormalBencher());
 			RegisteredBenchers.Add(new LinqToSqlNormalBencher());
-			RegisteredBenchers.Add(new EntityFrameworkNormalBencher());
+			//RegisteredBenchers.Add(new EntityFrameworkNormalBencher());
 			RegisteredBenchers.Add(new EntityFramework7NormalBencher() { ConnectionStringToUse = ConnectionString });
 			//RegisteredBenchers.Add(new OakDynamicDbDtoBencher());
 			//RegisteredBenchers.Add(new OakDynamicDbNormalBencher());
@@ -212,7 +212,12 @@ namespace RawBencher
 			if(bencher.SupportsEagerLoading)
 			{
 				result = bencher.PerformEagerLoadBenchmark(discardResults: true);
-				OriginalController.ReportSetResult(result);
+				OriginalController.ReportEagerLoadResult(bencher, result);
+				if(PerformAsyncBenchmarks && bencher.SupportsAsync)
+				{
+					result = bencher.PerformAsyncEagerLoadBenchmark(discardResults: true);
+					OriginalController.ReportEagerLoadResult(bencher, result);
+				}
 			}
 			if(PerformIndividualBenchMarks)
 			{
