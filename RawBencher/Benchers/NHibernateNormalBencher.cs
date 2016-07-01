@@ -67,7 +67,6 @@ namespace RawBencher.Benchers
 		}
 
 
-
 		/// <summary>
 		/// Verifies the graph element's children. The parent should contain 2 sets of related elements: SalesOrderDetail and Customer. Both have to be counted and
 		/// the count has to stored in the resultContainer, under the particular type. Implementers have to check whether the related elements are actually materialized objects.
