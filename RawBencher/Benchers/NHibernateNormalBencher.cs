@@ -1,5 +1,4 @@
-﻿#if !(DNXCORE50 || DNX451)
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -68,7 +67,6 @@ namespace RawBencher.Benchers
 		}
 
 
-
 		/// <summary>
 		/// Verifies the graph element's children. The parent should contain 2 sets of related elements: SalesOrderDetail and Customer. Both have to be counted and
 		/// the count has to stored in the resultContainer, under the particular type. Implementers have to check whether the related elements are actually materialized objects.
@@ -109,4 +107,3 @@ namespace RawBencher.Benchers
 		}
 	}
 }
-#endif

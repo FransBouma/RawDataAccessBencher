@@ -134,9 +134,7 @@ namespace RawBencher.Benchers
 					soh.ModifiedDate = reader.GetDateTime(25);
 					headers.Add(soh);
 				}
-#if !DNXCORE50
 				reader.Close();
-#endif
 				reader.Dispose();
 				con.Close();
 			}

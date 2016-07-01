@@ -1,5 +1,4 @@
-﻿#if !(DNXCORE50 || DNX451)
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -18,7 +17,7 @@ namespace RawBencher.Benchers
 		/// Initializes a new instance of the <see cref="EntityFrameworkNormalBencher"/> class.
 		/// </summary>
 		public EntityFrameworkNormalBencher()
-			: base(e => e.SalesOrderId, usesChangeTracking: true, usesCaching: false, supportsEagerLoading:true)
+			: base(e => e.SalesOrderId, usesChangeTracking: true, usesCaching: false, supportsEagerLoading:true, supportsAsync:true)
 		{
 		}
 
@@ -69,6 +68,24 @@ namespace RawBencher.Benchers
 
 
 		/// <summary>
+		/// Async variant of FetchGraph(). Fetches the complete graph using eager loading and returns this as an IEnumerable.
+		/// </summary>
+		/// <returns>the graph fetched</returns>
+		public override async Task<IEnumerable<EF6.Bencher.EntityClasses.SalesOrderHeader>> FetchGraphAsync()
+		{
+			using(var ctx = new AWDataContext())
+			{
+				return await (from soh in ctx.SalesOrderHeaders
+							  where soh.SalesOrderId > 50000 && soh.SalesOrderId <= 51000
+							  select soh)
+					.Include(x=>x.SalesOrderDetails)
+					.Include(x=>x.Customer)
+					.ToListAsync();
+			}
+		}
+
+
+		/// <summary>
 		/// Verifies the graph element's children. The parent should contain 2 sets of related elements: SalesOrderDetail and Customer. Both have to be counted and
 		/// the count has to stored in the resultContainer, under the particular type. Implementers have to check whether the related elements are actually materialized objects.
 		/// </summary>
@@ -108,4 +125,3 @@ namespace RawBencher.Benchers
 		}
 	}
 }
-#endif

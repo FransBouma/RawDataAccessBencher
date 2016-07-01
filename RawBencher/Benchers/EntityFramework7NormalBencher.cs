@@ -1,5 +1,4 @@
-﻿#if !(DNXCORE50 || DNX451)
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,7 +17,7 @@ namespace RawBencher.Benchers
 		/// Initializes a new instance of the <see cref="EntityFrameworkNormalBencher"/> class.
 		/// </summary>
 		public EntityFramework7NormalBencher()
-			: base(e => e.SalesOrderID, usesChangeTracking: true, usesCaching: false, supportsEagerLoading:true)
+			: base(e => e.SalesOrderID, usesChangeTracking: true, usesCaching: false, supportsEagerLoading:true, supportsAsync:true)
 		{
 		}
 
@@ -65,6 +64,24 @@ namespace RawBencher.Benchers
 							.Include(x => x.SalesOrderDetail)
 							.Include(x => x.Customer)
 							.ToList();
+			}
+		}
+
+
+		/// <summary>
+		/// Async variant of FetchGraph(). Fetches the complete graph using eager loading and returns this as an IEnumerable.
+		/// </summary>
+		/// <returns>the graph fetched</returns>
+		public override async Task<IEnumerable<EF7.Bencher.Model.SalesOrderHeader>> FetchGraphAsync()
+		{
+			using(var ctx = new AdventureWorksContext(this.ConnectionStringToUse))
+			{
+				return await (from soh in ctx.SalesOrderHeader
+							  where soh.SalesOrderID > 50000 && soh.SalesOrderID <= 51000
+							  select soh)
+					.Include(x=>x.SalesOrderDetail)
+					.Include(x=>x.Customer)
+					.ToListAsync();
 			}
 		}
 
@@ -118,4 +135,3 @@ namespace RawBencher.Benchers
 
 	}
 }
-#endif

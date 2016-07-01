@@ -1,5 +1,4 @@
-﻿#if !(DNXCORE50 || DNX451)
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,7 +22,7 @@ namespace RawBencher.Benchers
 		/// <summary>
 		/// Initializes a new instance of the <see cref="LLBLGenProNormalBencher"/> class.
 		/// </summary>
-		public LLBLGenProNormalBencher() : base(e=>e.SalesOrderId, usesChangeTracking:true, usesCaching: false, supportsEagerLoading:true)
+		public LLBLGenProNormalBencher() : base(e=>e.SalesOrderId, usesChangeTracking:true, usesCaching: false, supportsEagerLoading:true, supportsAsync:true)
 		{
 		}
 
@@ -80,6 +79,25 @@ namespace RawBencher.Benchers
 
 
 		/// <summary>
+		/// Async variant of FetchGraph(). Fetches the complete graph using eager loading and returns this as an IEnumerable.
+		/// </summary>
+		/// <returns>the graph fetched</returns>
+		public override async Task<IEnumerable<SalesOrderHeaderEntity>> FetchGraphAsync()
+		{
+			var qf = new QueryFactory();
+			var q = qf.SalesOrderHeader
+								.Where((SalesOrderHeaderFields.SalesOrderId > 50000).And(SalesOrderHeaderFields.SalesOrderId <= 51000))
+								.WithPath(SalesOrderHeaderEntity.PrefetchPathSalesOrderDetails, SalesOrderHeaderEntity.PrefetchPathCustomer);
+			var toReturn = new EntityCollection<SalesOrderHeaderEntity>();
+			using(var adapter = new DataAccessAdapter())
+			{
+				await adapter.FetchQueryAsync(q, toReturn);
+			}
+			return toReturn;
+		}
+
+
+		/// <summary>
 		/// Verifies the graph element's children. The parent should contain 2 sets of related elements: SalesOrderDetail and Customer. Both have to be counted and
 		/// the count has to stored in the resultContainer, under the particular type.
 		/// </summary>
@@ -120,4 +138,3 @@ namespace RawBencher.Benchers
 	}
 }
 
-#endif

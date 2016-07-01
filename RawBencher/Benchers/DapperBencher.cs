@@ -64,7 +64,7 @@ namespace RawBencher.Benchers
 		/// <returns>the framework name.</returns>
 		protected override string CreateFrameworkNameImpl()
 		{
-			return "Dapper v" + Program.GetVersion(typeof(SqlMapper));
+			return "Dapper v" + BencherUtils.GetVersion(typeof(SqlMapper));
 		}
 
 

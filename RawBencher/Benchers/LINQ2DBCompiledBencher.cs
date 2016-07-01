@@ -1,5 +1,4 @@
-﻿#if !(DNXCORE50 || DNX451)
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace RawBencher.Benchers
@@ -47,4 +46,3 @@ namespace RawBencher.Benchers
 		private LINQ2DB.Bencher.SalesOrderHeaderRepository Repository { get; set; }
 	}
 }
-#endif
