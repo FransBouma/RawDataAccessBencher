@@ -303,7 +303,6 @@ namespace RawBencher.Benchers
 			return new List<T>();
 		}
 
-#pragma warning disable 1998		// see comment below
 		/// <summary>
 		/// Async variant of FetchGraph(). Fetches the complete graph using eager loading and returns this as an IEnumerable.
 		/// </summary>
@@ -313,7 +312,7 @@ namespace RawBencher.Benchers
 		{
 			return new List<T>();
 		}
-#pragma warning restore 1998
+
 
 		/// <summary>
 		/// Verifies the graph element's children. The parent should contain 2 sets of related elements: SalesOrderDetail and Customer. Both have to be counted and
