@@ -34,10 +34,10 @@ namespace RawBencher.Benchers
 		/// <returns>The fetched element, or null if not found</returns>
 		public override SohQuerySpecPocoRow FetchIndividual(int key)
 		{
-			var statement = this.CommandText + " WHERE SalesOrderID=@p0";
+			var statement = this.CommandText + " WHERE SalesOrderID=@id";
 			using(var adapter = new DataAccessAdapter())
 			{
-				return adapter.FetchQuery<SohQuerySpecPocoRow>(statement, key).FirstOrDefault();
+				return adapter.FetchQuery<SohQuerySpecPocoRow>(statement, new { id=key}).FirstOrDefault();
 			}
 		}
 
