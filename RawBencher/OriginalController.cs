@@ -41,7 +41,8 @@ namespace RawBencher
 			OriginalController.InitConnectionString();
 
 			CacheController.RegisterCache(ConnectionString, new ResultsetCache());
-			RegisteredBenchers.Add(new LINQ2DBCompiledBencher(ConnectionString));
+            RegisteredBenchers.Add(new NPocoBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+            RegisteredBenchers.Add(new LINQ2DBCompiledBencher(ConnectionString));
 			RegisteredBenchers.Add(new HandCodedBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new HandCodedBencherUsingBoxing() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingRawSQLPocoBencher() {CommandText = SqlSelectCommandText});
@@ -57,19 +58,18 @@ namespace RawBencher
 			RegisteredBenchers.Add(new PetaPocoFastBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new LINQ2DBNormalBencher(ConnectionString));
 			RegisteredBenchers.Add(new OrmLiteBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+            RegisteredBenchers.Add(new LLBLGenProNormalBencher());
+            RegisteredBenchers.Add(new LinqToSqlNormalBencher());
+            RegisteredBenchers.Add(new EntityFrameworkNormalBencher());
+            RegisteredBenchers.Add(new EntityFramework7NormalBencher() { ConnectionStringToUse = ConnectionString });
+            RegisteredBenchers.Add(new OakDynamicDbDtoBencher());
+            RegisteredBenchers.Add(new OakDynamicDbNormalBencher());
+            RegisteredBenchers.Add(new LLBLGenProResultsetCachingBencher());
+            RegisteredBenchers.Add(new NHibernateNormalBencher());
+            RegisteredBenchers.Add(new DataTableBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+            RegisteredBenchers.Add(new MassiveBencher());
 
-			RegisteredBenchers.Add(new LLBLGenProNormalBencher());
-			RegisteredBenchers.Add(new LinqToSqlNormalBencher());
-			RegisteredBenchers.Add(new EntityFrameworkNormalBencher());
-			RegisteredBenchers.Add(new EntityFramework7NormalBencher() { ConnectionStringToUse = ConnectionString });
-			RegisteredBenchers.Add(new OakDynamicDbDtoBencher());
-			RegisteredBenchers.Add(new OakDynamicDbNormalBencher());
-			RegisteredBenchers.Add(new LLBLGenProResultsetCachingBencher());
-			RegisteredBenchers.Add(new NHibernateNormalBencher());
-			RegisteredBenchers.Add(new DataTableBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
-			RegisteredBenchers.Add(new MassiveBencher());
-
-			OriginalController.DisplayHeader();
+            OriginalController.DisplayHeader();
 			OriginalController.WarmupDB();
 			OriginalController.FetchKeysForIndividualFetches();
 

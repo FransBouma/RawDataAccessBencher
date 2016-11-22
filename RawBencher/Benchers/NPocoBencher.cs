@@ -28,8 +28,6 @@ namespace RawBencher.Benchers
             var dbFactory = new Database(ConnectionStringToUse, "System.Data.SqlClient");
             dbFactory.OpenSharedConnection();
             dbFactory.EnableAutoSelect = false;
-            //dbFactory.EnableNamedParams = false;
-            //dbFactory.ForceDateTimesToUtc = false;
             toReturn = dbFactory.First<SalesOrderHeader>(CommandText + " where SalesOrderId=@0 ", key);
             dbFactory.CloseSharedConnection();
             return toReturn;
@@ -46,8 +44,6 @@ namespace RawBencher.Benchers
             var dbFactory = new Database(ConnectionStringToUse, "System.Data.SqlClient");
             dbFactory.OpenSharedConnection();
             dbFactory.EnableAutoSelect = false;
-            //dbFactory.EnableNamedParams = false;
-            //dbFactory.ForceDateTimesToUtc = false;
             headers = dbFactory.Fetch<SalesOrderHeader>(CommandText);
             dbFactory.CloseSharedConnection();
             return headers;
@@ -61,10 +57,9 @@ namespace RawBencher.Benchers
         /// <returns>the framework name.</returns>
         protected override string CreateFrameworkNameImpl()
         {
-            return "NPoco v3.4.6";
+            return CreateFrameworkName("NPoco v{0} (v{1})", typeof(Database));
         }
-
-
+        
 
         #region Properties
         /// <summary>
