@@ -6,7 +6,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
-using AdventureWorks.Dal.Adapter.v50.DatabaseSpecific;
+using AdventureWorks.Dal.Adapter.v51.DatabaseSpecific;
 using BenchmarkDotNet.Attributes;
 using Dapper;
 using RawBencher.Benchers;
