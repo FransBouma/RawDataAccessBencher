@@ -58,25 +58,25 @@ namespace RawBencher
 			RegisteredBenchers.Add(new PetaPocoFastBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new LINQ2DBNormalBencher(ConnectionString));
 			RegisteredBenchers.Add(new OrmLiteBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
-            RegisteredBenchers.Add(new LLBLGenProNormalBencher());
-            RegisteredBenchers.Add(new LinqToSqlNormalBencher());
-            RegisteredBenchers.Add(new EntityFrameworkNormalBencher());
-            RegisteredBenchers.Add(new EntityFramework7NormalBencher() { ConnectionStringToUse = ConnectionString });
-            RegisteredBenchers.Add(new OakDynamicDbDtoBencher());
-            RegisteredBenchers.Add(new OakDynamicDbNormalBencher());
-            RegisteredBenchers.Add(new LLBLGenProResultsetCachingBencher());
-            RegisteredBenchers.Add(new NHibernateNormalBencher());
-            RegisteredBenchers.Add(new DataTableBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
-            RegisteredBenchers.Add(new MassiveBencher());
+			RegisteredBenchers.Add(new LLBLGenProNormalBencher());
+			RegisteredBenchers.Add(new LinqToSqlNormalBencher());
+			RegisteredBenchers.Add(new EntityFrameworkNormalBencher());
+			RegisteredBenchers.Add(new EntityFramework7NormalBencher() { ConnectionStringToUse = ConnectionString });
+			RegisteredBenchers.Add(new OakDynamicDbDtoBencher());
+			RegisteredBenchers.Add(new OakDynamicDbNormalBencher());
+			RegisteredBenchers.Add(new LLBLGenProResultsetCachingBencher());
+			RegisteredBenchers.Add(new NHibernateNormalBencher());
+			RegisteredBenchers.Add(new DataTableBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+			RegisteredBenchers.Add(new MassiveBencher());
 
-            OriginalController.DisplayHeader();
+			OriginalController.DisplayHeader();
 			OriginalController.WarmupDB();
 			OriginalController.FetchKeysForIndividualFetches();
 
 			// Uncomment the line below if you want to profile a bencher. Specify the bencher instance and follow the guides on the screen.
-			//ProfileBenchers(RegisteredBenchers.FirstOrDefault(b => b.GetType() == typeof(LLBLGenProNoChangeTrackingQuerySpecPocoBencher)));
-			OriginalController.RunRegisteredBenchers();
-			OriginalController.ReportResultStatistics(autoExit);
+			ProfileBenchers(RegisteredBenchers.FirstOrDefault(b => b.GetType() == typeof(LLBLGenProNormalBencher)));
+			//OriginalController.RunRegisteredBenchers();
+			//OriginalController.ReportResultStatistics(autoExit);
 		}
 
 
