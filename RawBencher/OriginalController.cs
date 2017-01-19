@@ -20,6 +20,7 @@ namespace RawBencher
 	{
 		private const int LoopAmount = 25;
 		private const int IndividualKeysAmount = 100;
+		private const int ProfileLoopAmount = 1;
 		private const bool PerformSetBenchmarks = true;			// flag to signal whether the set fetch benchmarks have to be run.
 		private const bool PerformIndividualBenchMarks = true;  // flag to signal whether the single element fetch benchmarks have to be run.
 		private const bool PerformEagerLoadBenchmarks = true;	// flag to signal whether the eager load fetch benchmarks have to be run. Not every bencher will perform this benchmnark.
@@ -52,29 +53,29 @@ namespace RawBencher
 			RegisteredBenchers.Add(new LinqToSqlNoChangeTrackingBencher());
 			RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingQuerySpecPocoBencher());
 			RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingLinqPocoBencher());
-			RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingBencher());
+			//RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingBencher());
 			RegisteredBenchers.Add(new EntityFrameworkNoChangeTrackingBencher());
-			RegisteredBenchers.Add(new PetaPocoBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+			//RegisteredBenchers.Add(new PetaPocoBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new PetaPocoFastBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
-			RegisteredBenchers.Add(new LINQ2DBNormalBencher(ConnectionString));
+			//RegisteredBenchers.Add(new LINQ2DBNormalBencher(ConnectionString));
 			RegisteredBenchers.Add(new OrmLiteBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new LLBLGenProNormalBencher());
 			RegisteredBenchers.Add(new LinqToSqlNormalBencher());
-			RegisteredBenchers.Add(new EntityFrameworkNormalBencher());
+			//RegisteredBenchers.Add(new EntityFrameworkNormalBencher());
 			RegisteredBenchers.Add(new EntityFramework7NormalBencher() { ConnectionStringToUse = ConnectionString });
-			RegisteredBenchers.Add(new OakDynamicDbDtoBencher());
-			RegisteredBenchers.Add(new OakDynamicDbNormalBencher());
+			//RegisteredBenchers.Add(new OakDynamicDbDtoBencher());
+			//RegisteredBenchers.Add(new OakDynamicDbNormalBencher());
 			RegisteredBenchers.Add(new LLBLGenProResultsetCachingBencher());
 			RegisteredBenchers.Add(new NHibernateNormalBencher());
-			RegisteredBenchers.Add(new DataTableBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
-			RegisteredBenchers.Add(new MassiveBencher());
+			//RegisteredBenchers.Add(new DataTableBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+			//RegisteredBenchers.Add(new MassiveBencher());
 
 			OriginalController.DisplayHeader();
 			OriginalController.WarmupDB();
 			OriginalController.FetchKeysForIndividualFetches();
 
 			// Uncomment the line below if you want to profile a bencher. Specify the bencher instance and follow the guides on the screen.
-			ProfileBenchers(RegisteredBenchers.FirstOrDefault(b => b.GetType() == typeof(LLBLGenProNormalBencher)));
+			ProfileBenchers(RegisteredBenchers.FirstOrDefault(b => b.GetType() == typeof(LLBLGenProNoChangeTrackingQuerySpecPocoBencher)));
 			//OriginalController.RunRegisteredBenchers();
 			//OriginalController.ReportResultStatistics(autoExit);
 		}
@@ -141,17 +142,20 @@ namespace RawBencher
 
 			Console.WriteLine("Attach profiler and press ENTER to continue");
 			Console.ReadLine();
-			foreach (var b in benchersToProfile)
+			for(int i = 0; i < ProfileLoopAmount; i++)
 			{
-				if (PerformSetBenchmarks)
+				foreach(var b in benchersToProfile)
 				{
-					Console.WriteLine("Running set benchmark for profile for bencher: {0}. Change tracking: {1}", b.CreateFrameworkName(), b.UsesChangeTracking);
-					b.PerformSetBenchmark();
-				}
-				if (PerformIndividualBenchMarks)
-				{
-					Console.WriteLine("Running individual fetch benchmark for profile for bencher: {0}. Change tracking: {1}", b.CreateFrameworkName(), b.UsesChangeTracking);
-					b.PerformIndividualBenchMark(KeysForIndividualFetches);
+					if(PerformSetBenchmarks)
+					{
+						Console.WriteLine("Running set benchmark for profile for bencher: {0}. Change tracking: {1}", b.CreateFrameworkName(), b.UsesChangeTracking);
+						b.PerformSetBenchmark();
+					}
+					if(PerformIndividualBenchMarks)
+					{
+						Console.WriteLine("Running individual fetch benchmark for profile for bencher: {0}. Change tracking: {1}", b.CreateFrameworkName(), b.UsesChangeTracking);
+						b.PerformIndividualBenchMark(KeysForIndividualFetches);
+					}
 				}
 			}
 			Console.WriteLine("Done. Grab snapshot and stop profiler. Press ENTER to continue.");

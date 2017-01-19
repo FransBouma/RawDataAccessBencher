@@ -1,7 +1,7 @@
 ﻿///////////////////////////////////////////////////////////////
 // This is generated code. 
 //////////////////////////////////////////////////////////////
-// Code is generated using LLBLGen Pro version: 5.1
+// Code is generated using LLBLGen Pro version: 5.2
 // Code is generated on: 
 // Code is generated using templates: SD.TemplateBindings.SharedTemplates
 // Templates vendor: Solutions Design.
@@ -46,7 +46,7 @@ namespace AdventureWorks.Dal.Adapter.v51.DatabaseSpecific
 		/// <summary>Method which initializes the internal datastores with the structure of hierarchical types.</summary>
 		private void Init()
 		{
-			this.InitClass(71);
+			this.InitClass();
 			InitAddressEntityMappings();
 			InitAddressTypeEntityMappings();
 			InitBillOfMaterialEntityMappings();

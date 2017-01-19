@@ -1,7 +1,7 @@
 ﻿///////////////////////////////////////////////////////////////
 // This is generated code. 
 //////////////////////////////////////////////////////////////
-// Code is generated using LLBLGen Pro version: 5.1
+// Code is generated using LLBLGen Pro version: 5.2
 // Code is generated on: 
 // Code is generated using templates: SD.TemplateBindings.SharedTemplates
 // Templates vendor: Solutions Design.
@@ -49,7 +49,7 @@ namespace AdventureWorks.Dal.Adapter.v51.HelperClasses
 		/// <summary>Method which initializes the internal datastores.</summary>
 		private void Init()
 		{
-			this.InitClass( (68 + 3));
+			this.InitClass();
 			InitAddressEntityInfos();
 			InitAddressTypeEntityInfos();
 			InitBillOfMaterialEntityInfos();
