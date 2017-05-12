@@ -6,6 +6,7 @@ Bench code which tests entity materialization speed of various .NET data access 
 
 The results of various runs of the benchmark are available both online and locally as files in the repository. For online posts of the results, please see the list below. For the results in a text file, please see the [Results](https://github.com/FransBouma/RawDataAccessBencher/tree/master/Results) folder, which contains per run a .txt file with the results measured.
 
+* Results obtained on 12-may-2017: https://pastebin.com/nR2iDSLA (1000BaseT lan, new: LLBLGen Pro v5.2 RTM, EF Core 1.1.2)
 * Results obtained on 22-nov-2016: http://pastebin.com/WnQ8Qt7u (1000BaseT lan, new: LLBLGen Pro v5.1 RTM, EF Core 1.1)
 * Results obtained on 21-sep-2016: http://pastebin.com/SNRYPEcp (1000BaseT lan, new: LLBLGen Pro v5.1 (EAP) / LLBLGen Pro 5.1 raw sql bencher).
 * Results obtained on 01-jul-2016: http://pastebin.com/m4HC4twf (1000BaseT lan, new: EF Core 1.0 RTM, Async eager loading)

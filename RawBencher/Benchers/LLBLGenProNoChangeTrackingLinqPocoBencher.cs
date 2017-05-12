@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AdventureWorks.Dal.Adapter.v51.DatabaseSpecific;
-using AdventureWorks.Dal.Adapter.v51.TypedViewClasses;
-using AdventureWorks.Dal.Adapter.v51.HelperClasses;
-using AdventureWorks.Dal.Adapter.v51.Linq;
+using AdventureWorks.Dal.Adapter.v52.DatabaseSpecific;
+using AdventureWorks.Dal.Adapter.v52.TypedViewClasses;
+using AdventureWorks.Dal.Adapter.v52.HelperClasses;
+using AdventureWorks.Dal.Adapter.v52.Linq;
 using SD.LLBLGen.Pro.ORMSupportClasses;
 
 namespace RawBencher.Benchers
