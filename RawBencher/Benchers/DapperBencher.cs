@@ -33,7 +33,7 @@ namespace RawBencher.Benchers
             using (var con = new SqlConnection(this.ConnectionStringToUse))
 			{
 				con.Open();
-				header = con.Query<SalesOrderHeader>(this.CommandText + " WHERE SalesOrderId=@p", new { p = key }, buffered: false).FirstOrDefault();
+				header = con.QueryFirstOrDefault<SalesOrderHeader>(this.CommandText + " WHERE SalesOrderId=@p", new { p = key });
 				con.Close();
 			}
             return header;
