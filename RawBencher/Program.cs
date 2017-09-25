@@ -6,7 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AdventureWorks.Dal.Adapter.v52.DatabaseSpecific;
+using AdventureWorks.Dal.Adapter.v53.DatabaseSpecific;
 using BenchmarkDotNet.Running;
 using RawBencher.BenchmarkDotNet;
 

@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
-using AdventureWorks.Dal.Adapter.v52.DatabaseSpecific;
+using AdventureWorks.Dal.Adapter.v53.DatabaseSpecific;
 using Dapper;
 using RawBencher.Benchers;
 using SD.LLBLGen.Pro.ORMSupportClasses;
@@ -21,53 +21,54 @@ namespace RawBencher
 		private const int LoopAmount = 25;
 		private const int IndividualKeysAmount = 100;
 		private const int ProfileLoopAmount = 1;
-		private const bool PerformSetBenchmarks = true;			// flag to signal whether the set fetch benchmarks have to be run.
-		private const bool PerformIndividualBenchMarks = true;  // flag to signal whether the single element fetch benchmarks have to be run.
-		private const bool PerformEagerLoadBenchmarks = true;	// flag to signal whether the eager load fetch benchmarks have to be run. Not every bencher will perform this benchmnark.
-		private const bool PerformAsyncBenchmarks = true;		// flag to signal whether the async fetch benchmarks have to be run. Not every bencher will perform this benchmark.
-		private const bool ApplyAntiFloodForVMUsage = false;    // set to true if your target DB server is hosted on a VM, otherwise set it to false. Used in individual fetch bench.
+		private const bool PerformSetBenchmarks = true; // flag to signal whether the set fetch benchmarks have to be run.
+		private const bool PerformIndividualBenchMarks = true; // flag to signal whether the single element fetch benchmarks have to be run.
+		private const bool PerformEagerLoadBenchmarks = true; // flag to signal whether the eager load fetch benchmarks have to be run. Not every bencher will perform this benchmnark.
+		private const bool PerformAsyncBenchmarks = true; // flag to signal whether the async fetch benchmarks have to be run. Not every bencher will perform this benchmark.
+		private const bool ApplyAntiFloodForVMUsage = false; // set to true if your target DB server is hosted on a VM, otherwise set it to false. Used in individual fetch bench.
 
 		private static string ConnectionString = ConfigurationManager.ConnectionStrings["AdventureWorks.ConnectionString.SQL Server (SqlClient)"].ConnectionString;
 		private static string SqlSelectCommandText = @"SELECT [SalesOrderID],[RevisionNumber],[OrderDate],[DueDate],[ShipDate],[Status],[OnlineOrderFlag],[SalesOrderNumber],[PurchaseOrderNumber],[AccountNumber],[CustomerID],[SalesPersonID],[TerritoryID],[BillToAddressID],[ShipToAddressID],[ShipMethodID],[CreditCardID],[CreditCardApprovalCode],[CurrencyRateID],[SubTotal],[TaxAmt],[Freight],[TotalDue],[Comment],[rowguid],[ModifiedDate] FROM [Sales].[SalesOrderHeader]";
 		private static List<IBencher> RegisteredBenchers = new List<IBencher>();
 		private static List<int> KeysForIndividualFetches = new List<int>();
 
+
 		public static void Run(string[] args)
 		{
 			bool autoExit = false;
-			if (args.Length > 0)
+			if(args.Length > 0)
 			{
 				autoExit = args[0] == "/a";
 			}
 			OriginalController.InitConnectionString();
 
 			CacheController.RegisterCache(ConnectionString, new ResultsetCache());
-            RegisteredBenchers.Add(new NPocoBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
-            RegisteredBenchers.Add(new LINQ2DBCompiledBencher(ConnectionString));
-			RegisteredBenchers.Add(new HandCodedBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
-			RegisteredBenchers.Add(new HandCodedBencherUsingBoxing() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+			RegisteredBenchers.Add(new HandCodedBencher() {CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString});
+			RegisteredBenchers.Add(new HandCodedBencherUsingBoxing() {CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString});
+			RegisteredBenchers.Add(new RawDbDataReaderBencher() {CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString});
+			RegisteredBenchers.Add(new EntityFrameworkCoreNoChangeTrackingBencher() {ConnectionStringToUse = ConnectionString});
+			RegisteredBenchers.Add(new EntityFrameworkCoreNormalBencher() {ConnectionStringToUse = ConnectionString});
+			RegisteredBenchers.Add(new NPocoBencher() {CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString});
+			RegisteredBenchers.Add(new LINQ2DBCompiledBencher(ConnectionString));
+			RegisteredBenchers.Add(new LINQ2DBNormalBencher(ConnectionString));
 			RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingRawSQLPocoBencher() {CommandText = SqlSelectCommandText});
-			RegisteredBenchers.Add(new RawDbDataReaderBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
-			RegisteredBenchers.Add(new DapperBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
-			RegisteredBenchers.Add(new EntityFramework7NoChangeTrackingBencher() { ConnectionStringToUse = ConnectionString });
-			RegisteredBenchers.Add(new LinqToSqlNoChangeTrackingBencher());
 			RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingQuerySpecPocoBencher());
 			RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingLinqPocoBencher());
 			RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingBencher());
-			RegisteredBenchers.Add(new EntityFrameworkNoChangeTrackingBencher());
-			RegisteredBenchers.Add(new PetaPocoBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
-			RegisteredBenchers.Add(new PetaPocoFastBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
-			RegisteredBenchers.Add(new LINQ2DBNormalBencher(ConnectionString));
-			RegisteredBenchers.Add(new OrmLiteBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+			RegisteredBenchers.Add(new LLBLGenProResultsetCachingBencher());
 			RegisteredBenchers.Add(new LLBLGenProNormalBencher());
+			RegisteredBenchers.Add(new DapperBencher() {CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString});
+			RegisteredBenchers.Add(new LinqToSqlNoChangeTrackingBencher());
 			RegisteredBenchers.Add(new LinqToSqlNormalBencher());
+			RegisteredBenchers.Add(new EntityFrameworkNoChangeTrackingBencher());
 			RegisteredBenchers.Add(new EntityFrameworkNormalBencher());
-			RegisteredBenchers.Add(new EntityFramework7NormalBencher() { ConnectionStringToUse = ConnectionString });
+			RegisteredBenchers.Add(new PetaPocoBencher() {CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString});
+			RegisteredBenchers.Add(new PetaPocoFastBencher() {CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString});
+			RegisteredBenchers.Add(new OrmLiteBencher() {CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString});
+			RegisteredBenchers.Add(new DataTableBencher() {CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString});
 			RegisteredBenchers.Add(new OakDynamicDbDtoBencher());
 			RegisteredBenchers.Add(new OakDynamicDbNormalBencher());
-			RegisteredBenchers.Add(new LLBLGenProResultsetCachingBencher());
 			RegisteredBenchers.Add(new NHibernateNormalBencher());
-			RegisteredBenchers.Add(new DataTableBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new MassiveBencher());
 
 			OriginalController.DisplayHeader();
@@ -89,20 +90,19 @@ namespace RawBencher
 #endif
 			var conBuilder = new SqlConnectionStringBuilder(ConnectionString);
 			string sqlServerVersion = "Unknown";
-			using (var conForHeader = new SqlConnection(ConnectionString))
+			using(var conForHeader = new SqlConnection(ConnectionString))
 			{
 				conForHeader.Open();
 				sqlServerVersion = conForHeader.ServerVersion;
 				conForHeader.Close();
 			}
 
-
 			Console.WriteLine("+-------------------------------------------------------------------------------------------");
 			Console.WriteLine("| Raw Data Access / ORM Benchmarks.");
 			Console.WriteLine(@"| Code available at              : https://github.com/FransBouma/RawDataAccessBencher");
 			Console.WriteLine("| Benchmarks run on              : {0}", DateTime.Now.ToString("F"));
 			Console.WriteLine("| Registered benchmarks          :");
-			foreach (var bencher in RegisteredBenchers)
+			foreach(var bencher in RegisteredBenchers)
 			{
 				OriginalController.DisplayBencherInfo(bencher, "| \t", suffixWithDashLine: false);
 			}
@@ -129,9 +129,9 @@ namespace RawBencher
 		private static void ProfileBenchers(params IBencher[] benchersToProfile)
 		{
 			// run the benchers before profiling. 
-			foreach (var b in benchersToProfile)
+			foreach(var b in benchersToProfile)
 			{
-				if (b == null)
+				if(b == null)
 				{
 					Console.WriteLine("The bencher you are trying to profile hasn't been registered. Can't continue.");
 					return;
@@ -167,7 +167,7 @@ namespace RawBencher
 		{
 			// Use the connection string from app.config instead of the static variable if the connection string exists
 			var connectionStringFromConfig = ConfigurationManager.ConnectionStrings[DataAccessAdapter.ConnectionStringKeyName];
-			if (connectionStringFromConfig != null)
+			if(connectionStringFromConfig != null)
 			{
 				ConnectionString = string.IsNullOrEmpty(connectionStringFromConfig.ConnectionString) ? ConnectionString : connectionStringFromConfig.ConnectionString;
 			}
@@ -176,12 +176,12 @@ namespace RawBencher
 
 		private static void FetchKeysForIndividualFetches()
 		{
-			using (var conn = new SqlConnection(ConnectionString))
+			using(var conn = new SqlConnection(ConnectionString))
 			{
 				KeysForIndividualFetches = conn.Query<int>("select top {=count} SalesOrderId from AdventureWorks.Sales.SalesOrderHeader order by SalesOrderNumber",
-					new { count = IndividualKeysAmount }).AsList();
+														   new {count = IndividualKeysAmount}).AsList();
 			}
-			if (KeysForIndividualFetches.Count != IndividualKeysAmount)
+			if(KeysForIndividualFetches.Count != IndividualKeysAmount)
 			{
 				throw new InvalidOperationException("Can't fetch the keys for the individual benchmarks");
 			}
@@ -193,14 +193,14 @@ namespace RawBencher
 			Console.WriteLine("\nStarting benchmarks.");
 			Console.WriteLine("====================================================================");
 
-			foreach (var bencher in RegisteredBenchers)
+			foreach(var bencher in RegisteredBenchers)
 			{
 				OriginalController.DisplayBencherInfo(bencher);
 				try
 				{
 					OriginalController.RunBencher(bencher);
 				}
-				catch (Exception ex)
+				catch(Exception ex)
 				{
 					BencherUtils.DisplayException(ex);
 				}
@@ -246,12 +246,12 @@ namespace RawBencher
 					GC.Collect();
 				}
 			}
-			if (PerformIndividualBenchMarks)
+			if(PerformIndividualBenchMarks)
 			{
 				// individual benches
 				Console.WriteLine("\nSingle element fetches");
 				Console.WriteLine("-------------------------");
-				for (int i = 0; i < LoopAmount; i++)
+				for(int i = 0; i < LoopAmount; i++)
 				{
 					result = bencher.PerformIndividualBenchMark(KeysForIndividualFetches);
 					OriginalController.ReportIndividualResult(bencher, result);
@@ -296,7 +296,7 @@ namespace RawBencher
 				Console.WriteLine("-------------------------");
 				for(int i = 0; i < LoopAmount; i++)
 				{
-					result = bencher.PerformAsyncEagerLoadBenchmark(discardResults:false);
+					result = bencher.PerformAsyncEagerLoadBenchmark(discardResults: false);
 					OriginalController.ReportEagerLoadResult(bencher, result);
 
 					// avoid having the GC collect in the middle of a run.
@@ -307,14 +307,15 @@ namespace RawBencher
 			}
 		}
 
+
 		private static void WarmupDB()
 		{
 			IBencher dbWarmer;
-			dbWarmer = new DataTableBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString };
+			dbWarmer = new DataTableBencher() {CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString};
 			Console.WriteLine("\nWarming up DB, DB client code and CLR");
 			Console.WriteLine("====================================================================");
 			OriginalController.DisplayBencherInfo(dbWarmer);
-			for (int i = 0; i < LoopAmount; i++)
+			for(int i = 0; i < LoopAmount; i++)
 			{
 				var result = dbWarmer.PerformSetBenchmark();
 				OriginalController.ReportSetResult(result);
@@ -332,7 +333,7 @@ namespace RawBencher
 		{
 			Console.Write(linePrefix);
 			Console.WriteLine("{0}. Change tracking: {1}. Caching: {2}.", bencher.CreateFrameworkName(), bencher.UsesChangeTracking, bencher.UsesCaching);
-			if (suffixWithDashLine)
+			if(suffixWithDashLine)
 			{
 				Console.WriteLine("--------------------------------------------------------------------------------------------");
 			}
@@ -342,24 +343,25 @@ namespace RawBencher
 		private static void ReportSetResult(BenchResult result)
 		{
 			Console.WriteLine("[{0}] Number of elements fetched: {1}.\tFetch took: {2:N2}ms.\tEnumerating result took: {3:N2}ms",
-				DateTime.Now.ToString("HH:mm:ss"), result.TotalNumberOfRowsFetched, result.FetchTimeInMilliseconds, result.EnumerationTimeInMilliseconds);
+							  DateTime.Now.ToString("HH:mm:ss"), result.TotalNumberOfRowsFetched, result.FetchTimeInMilliseconds, result.EnumerationTimeInMilliseconds);
 		}
 
 
 		private static void ReportIndividualResult(IBencher bencher, BenchResult result)
 		{
 			Console.WriteLine("[{0}] Number of elements fetched individually: {1}.\tTotal time: {2:N2}ms.\tTime per element: {3:N2}ms",
-				DateTime.Now.ToString("HH:mm:ss"), KeysForIndividualFetches.Count, result.FetchTimeInMilliseconds,
-				result.FetchTimeInMilliseconds / KeysForIndividualFetches.Count);
+							  DateTime.Now.ToString("HH:mm:ss"), KeysForIndividualFetches.Count, result.FetchTimeInMilliseconds,
+							  result.FetchTimeInMilliseconds / KeysForIndividualFetches.Count);
 		}
 
 
 		private static void ReportEagerLoadResult(IBencher bencher, BenchResult result)
 		{
 			Console.WriteLine("[{0}] Number of elements fetched: {1} ({2}).\tFetch took: {3:N2}ms.",
-				DateTime.Now.ToString("HH:mm:ss"), result.TotalNumberOfRowsFetched, string.Join(" + ", result.NumberOfRowsFetchedPerType.Select(kvp=>kvp.Value).ToArray()),
-				result.FetchTimeInMilliseconds);
+							  DateTime.Now.ToString("HH:mm:ss"), result.TotalNumberOfRowsFetched, string.Join(" + ", result.NumberOfRowsFetchedPerType.Select(kvp => kvp.Value).ToArray()),
+							  result.FetchTimeInMilliseconds);
 		}
+
 
 		/// <summary>
 		/// Reports the resulting statistics (mean/standard deviation) to standard out
@@ -370,10 +372,10 @@ namespace RawBencher
 			Console.WriteLine("\nResults per framework. Values are given as: 'mean (standard deviation)'");
 			Console.WriteLine("==============================================================================");
 			int longestNameLength = 0;
-			foreach (var bencher in RegisteredBenchers)
+			foreach(var bencher in RegisteredBenchers)
 			{
 				string name = bencher.CreateFrameworkName();
-				if (name.Length > longestNameLength)
+				if(name.Length > longestNameLength)
 				{
 					longestNameLength = name.Length;
 				}
@@ -381,7 +383,7 @@ namespace RawBencher
 			}
 			if(PerformSetBenchmarks)
 			{
-				var benchersToList = RegisteredBenchers.Where(b=>!b.UsesChangeTracking && !b.UsesCaching).OrderBy(b=>b.SetFetchMean).ToList();
+				var benchersToList = RegisteredBenchers.Where(b => !b.UsesChangeTracking && !b.UsesCaching).OrderBy(b => b.SetFetchMean).ToList();
 				if(benchersToList.Count > 0)
 				{
 					Console.WriteLine("Non-change tracking fetches, set fetches ({0} runs), no caching", LoopAmount);
@@ -389,10 +391,10 @@ namespace RawBencher
 					foreach(var bencher in benchersToList)
 					{
 						Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms ({2:N2}ms)\tEnum: {3:N2}ms ({4:N2}ms)", bencher.CreateFrameworkName(), bencher.SetFetchMean,
-							bencher.SetFetchSD, bencher.EnumerationMean, bencher.EnumerationSD);
+										  bencher.SetFetchSD, bencher.EnumerationMean, bencher.EnumerationSD);
 					}
 				}
-				benchersToList = RegisteredBenchers.Where(b=>b.UsesChangeTracking && !b.UsesCaching).OrderBy(b=>b.SetFetchMean).ToList();
+				benchersToList = RegisteredBenchers.Where(b => b.UsesChangeTracking && !b.UsesCaching).OrderBy(b => b.SetFetchMean).ToList();
 				if(benchersToList.Count > 0)
 				{
 					Console.WriteLine("\nChange tracking fetches, set fetches ({0} runs), no caching", LoopAmount);
@@ -400,11 +402,11 @@ namespace RawBencher
 					foreach(var bencher in benchersToList)
 					{
 						Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms ({2:N2}ms)\tEnum: {3:N2}ms ({4:N2}ms)", bencher.CreateFrameworkName(), bencher.SetFetchMean,
-							bencher.SetFetchSD, bencher.EnumerationMean, bencher.EnumerationSD);
+										  bencher.SetFetchSD, bencher.EnumerationMean, bencher.EnumerationSD);
 					}
 				}
 			}
-			if (PerformIndividualBenchMarks)
+			if(PerformIndividualBenchMarks)
 			{
 				var benchersToList = RegisteredBenchers.Where(b => !b.UsesChangeTracking && !b.UsesCaching).OrderBy(b => b.IndividualFetchMean).ToList();
 				if(benchersToList.Count > 0)
@@ -414,10 +416,10 @@ namespace RawBencher
 					foreach(var bencher in benchersToList)
 					{
 						Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms ({2:N2}ms) per individual fetch", bencher.CreateFrameworkName(), bencher.IndividualFetchMean / IndividualKeysAmount,
-							bencher.IndividualFetchSD / IndividualKeysAmount);
+										  bencher.IndividualFetchSD / IndividualKeysAmount);
 					}
 				}
-				benchersToList = RegisteredBenchers.Where(b=>b.UsesChangeTracking && !b.UsesCaching).OrderBy(b=>b.IndividualFetchMean).ToList();
+				benchersToList = RegisteredBenchers.Where(b => b.UsesChangeTracking && !b.UsesCaching).OrderBy(b => b.IndividualFetchMean).ToList();
 				if(benchersToList.Count > 0)
 				{
 					Console.WriteLine("\nChange tracking individual fetches ({0} elements, {1} runs), no caching", IndividualKeysAmount, LoopAmount);
@@ -425,7 +427,7 @@ namespace RawBencher
 					foreach(var bencher in benchersToList)
 					{
 						Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms ({2:N2}ms) per individual fetch", bencher.CreateFrameworkName(), bencher.IndividualFetchMean / IndividualKeysAmount,
-							bencher.IndividualFetchSD / IndividualKeysAmount);
+										  bencher.IndividualFetchSD / IndividualKeysAmount);
 					}
 				}
 			}
@@ -464,7 +466,7 @@ namespace RawBencher
 			}
 			if(PerformSetBenchmarks)
 			{
-				var benchersToList = RegisteredBenchers.Where(b=>b.UsesChangeTracking && b.UsesCaching).OrderBy(b=>b.SetFetchMean).ToList();
+				var benchersToList = RegisteredBenchers.Where(b => b.UsesChangeTracking && b.UsesCaching).OrderBy(b => b.SetFetchMean).ToList();
 				if(benchersToList.Count > 0)
 				{
 					Console.WriteLine("\nChange tracking fetches, set fetches ({0} runs), caching", LoopAmount);
@@ -472,13 +474,13 @@ namespace RawBencher
 					foreach(var bencher in benchersToList)
 					{
 						Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms ({2:N2}ms)\tEnum: {3:N2}ms ({4:N2}ms)", bencher.CreateFrameworkName(), bencher.SetFetchMean,
-							bencher.SetFetchSD, bencher.EnumerationMean, bencher.EnumerationSD);
+										  bencher.SetFetchSD, bencher.EnumerationMean, bencher.EnumerationSD);
 					}
 				}
 			}
-			if (PerformIndividualBenchMarks)
+			if(PerformIndividualBenchMarks)
 			{
-				var benchersToList = RegisteredBenchers.Where(b=>b.UsesChangeTracking && b.UsesCaching).OrderBy(b=>b.IndividualFetchMean).ToList();
+				var benchersToList = RegisteredBenchers.Where(b => b.UsesChangeTracking && b.UsesCaching).OrderBy(b => b.IndividualFetchMean).ToList();
 				if(benchersToList.Count > 0)
 				{
 					Console.WriteLine("\nChange tracking individual fetches ({0} elements, {1} runs), caching", IndividualKeysAmount, LoopAmount);
@@ -486,12 +488,12 @@ namespace RawBencher
 					foreach(var bencher in benchersToList)
 					{
 						Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms ({2:N2}ms) per individual fetch", bencher.CreateFrameworkName(), bencher.IndividualFetchMean / IndividualKeysAmount,
-							bencher.IndividualFetchSD / IndividualKeysAmount);
+										  bencher.IndividualFetchSD / IndividualKeysAmount);
 					}
 				}
 			}
 			Console.Write("\nComplete.");
-			if (autoExit)
+			if(autoExit)
 			{
 				return;
 			}

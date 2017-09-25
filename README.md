@@ -6,6 +6,7 @@ Bench code which tests entity materialization speed of various .NET data access 
 
 The results of various runs of the benchmark are available both online and locally as files in the repository. For online posts of the results, please see the list below. For the results in a text file, please see the [Results](https://github.com/FransBouma/RawDataAccessBencher/tree/master/Results) folder, which contains per run a .txt file with the results measured.
 
+* Results obtained on 25-sep-2017: https://pastebin.com/NSuhhSPv (1000BaseT lan, new: LLBLGen Pro v5.3 EAP, EF Core 2.0)
 * Results obtained on 12-may-2017: https://pastebin.com/nR2iDSLA (1000BaseT lan, new: LLBLGen Pro v5.2 RTM, EF Core 1.1.2)
 * Results obtained on 22-nov-2016: http://pastebin.com/WnQ8Qt7u (1000BaseT lan, new: LLBLGen Pro v5.1 RTM, EF Core 1.1)
 * Results obtained on 21-sep-2016: http://pastebin.com/SNRYPEcp (1000BaseT lan, new: LLBLGen Pro v5.1 (EAP) / LLBLGen Pro 5.1 raw sql bencher).
@@ -23,7 +24,7 @@ See the links for details about results.
 
 ### Requirements ###
 
-.NET 4.6.1, SQL Server with AdventureWorks example database (2008 version, available on [Microsoft's codeplex site](https://msftdbprodsamples.codeplex.com/releases/view/93587)). See below how to install/configure it. The mappings supplied are for the 2008 version of the example database. 
+.NET 4.6.2, SQL Server with AdventureWorks example database (2008 version, available on [Microsoft's codeplex site](https://msftdbprodsamples.codeplex.com/releases/view/93587)). See below how to install/configure it. The mappings supplied are for the 2008 version of the example database. 
 
 ### How to attach / install the database ###
 
