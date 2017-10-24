@@ -35,7 +35,7 @@ namespace RawBencher.Benchers
 		{
 			if(salesOrderIdRetriever == null)
 			{
-				throw new ArgumentNullException("salesOrderIdRetriever");
+				throw new ArgumentNullException(nameof(salesOrderIdRetriever));
 			}
 			_salesOrderIdRetriever = salesOrderIdRetriever;
 			this.UsesCaching = usesCaching;
@@ -49,7 +49,7 @@ namespace RawBencher.Benchers
 			_frameworkName = string.Empty;
 		}
 
-
+		
 		/// <summary>
 		/// Creates the name of the framework this bencher is for. Use the overload which accepts a format string and a type to create a name based on a
 		/// specific version
@@ -84,6 +84,10 @@ namespace RawBencher.Benchers
 			this.EagerLoadFetchSD = 0.0;
 			this.AsyncEagerLoadFetchMean = 0.0;
 			this.AsyncEagerLoadFetchSD = 0.0;
+			this.MemoryAsyncEagerLoadBenchmarks = 0;
+			this.MemoryEagerLoadBenchmarks = 0;
+			this.MemoryIndividualBenchmarks = 0;
+			this.MemorySetBenchmarks = 0;
 		}
 
 
@@ -135,10 +139,22 @@ namespace RawBencher.Benchers
 			var toReturn = new BenchResult();
 			int numberOfElementsFetched = 0;
 			var sw = new Stopwatch();
+			long memoryBeforeRun = 0;
+			if(AppDomain.MonitoringIsEnabled)
+			{
+				memoryBeforeRun = AppDomain.CurrentDomain.MonitoringTotalAllocatedMemorySize;
+			}
 			sw.Start();
+			bool first = true;
 			foreach(var key in keys)
 			{
 				var element = FetchIndividual(key);
+				if(first && AppDomain.MonitoringIsEnabled)
+				{
+					// only the first iteration is interesting.
+					toReturn.NumberOfBytesAllocated = AppDomain.CurrentDomain.MonitoringTotalAllocatedMemorySize - memoryBeforeRun;
+					first = false;
+				}
 				var verifyResult = VerifyElement(element);
 				if(verifyResult > 0)
 				{
@@ -192,9 +208,18 @@ namespace RawBencher.Benchers
 		{
 			var toReturn = new BenchResult();
 			var sw = new Stopwatch();
+			long memoryBeforeRun = 0;
+			if(AppDomain.MonitoringIsEnabled)
+			{
+				memoryBeforeRun = AppDomain.CurrentDomain.MonitoringTotalAllocatedMemorySize;
+			}
 			sw.Start();
 			var headers = FetchSet();
 			sw.Stop();
+			if(AppDomain.MonitoringIsEnabled)
+			{
+				toReturn.NumberOfBytesAllocated = AppDomain.CurrentDomain.MonitoringTotalAllocatedMemorySize - memoryBeforeRun;
+			}
 			toReturn.FetchTimeInMilliseconds = sw.Elapsed.TotalMilliseconds;
 			sw.Reset();
 			sw.Start();
@@ -234,9 +259,18 @@ namespace RawBencher.Benchers
 		{
 			var toReturn = new BenchResult();
 			var sw = new Stopwatch();
+			long memoryBeforeRun = 0;
+			if(AppDomain.MonitoringIsEnabled)
+			{
+				memoryBeforeRun = AppDomain.CurrentDomain.MonitoringTotalAllocatedMemorySize;
+			}
 			sw.Start();
 			var headers = FetchGraph();
 			sw.Stop();
+			if(AppDomain.MonitoringIsEnabled)
+			{
+				toReturn.NumberOfBytesAllocated = AppDomain.CurrentDomain.MonitoringTotalAllocatedMemorySize - memoryBeforeRun;
+			}
 			toReturn.FetchTimeInMilliseconds = sw.Elapsed.TotalMilliseconds;
 			sw.Reset();
 			sw.Start();
@@ -262,10 +296,19 @@ namespace RawBencher.Benchers
 		{
 			var toReturn = new BenchResult();
 			var sw = new Stopwatch();
+			long memoryBeforeRun = 0;
+			if(AppDomain.MonitoringIsEnabled)
+			{
+				memoryBeforeRun = AppDomain.CurrentDomain.MonitoringTotalAllocatedMemorySize;
+			}
 			sw.Start();
 			IEnumerable<T> headers = null;
 			Task.Run(async ()=>headers = await FetchGraphAsync()).GetAwaiter().GetResult();
 			sw.Stop();
+			if(AppDomain.MonitoringIsEnabled)
+			{
+				toReturn.NumberOfBytesAllocated = AppDomain.CurrentDomain.MonitoringTotalAllocatedMemorySize - memoryBeforeRun;
+			}
 			toReturn.FetchTimeInMilliseconds = sw.Elapsed.TotalMilliseconds;
 			sw.Reset();
 			sw.Start();
@@ -509,6 +552,22 @@ namespace RawBencher.Benchers
 		/// Gets a value indicating whether this bencher supports asynchronous tasks. If true, this bencher will participate in asynchronous benchmarks.
 		/// </summary>
 		public bool SupportsAsync { get; private set; }
+		/// <summary>
+		/// The total amount of bytes allocated when doing an individual fetch benchmark run
+		/// </summary>
+		public long MemoryIndividualBenchmarks { get; set; }
+		/// <summary>
+		/// The total amount of bytes allocated when doing a set fetch benchmark run
+		/// </summary>
+		public long MemorySetBenchmarks { get; set; }
+		/// <summary>
+		/// The total amount of bytes allocated when doing an eager load fetch benchmark run
+		/// </summary>
+		public long MemoryEagerLoadBenchmarks { get; set; }
+		/// <summary>
+		/// The total amount of bytes allocated when doing an async eager load fetch benchmark run
+		/// </summary>
+		public long MemoryAsyncEagerLoadBenchmarks { get; set; }
 		#endregion
 	}
 }

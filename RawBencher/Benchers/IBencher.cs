@@ -142,5 +142,21 @@ namespace RawBencher.Benchers
 		/// Gets a value indicating whether this bencher supports asynchronous tasks. If true, this bencher will participate in asynchronous benchmarks.
 		/// </summary>
 		bool SupportsAsync { get; }
+		/// <summary>
+		/// The total amount of bytes allocated when doing an individual fetch benchmark run
+		/// </summary>
+		long MemoryIndividualBenchmarks { get; set; }
+		/// <summary>
+		/// The total amount of bytes allocated when doing a set fetch benchmark run
+		/// </summary>
+		long MemorySetBenchmarks { get; set; }
+		/// <summary>
+		/// The total amount of bytes allocated when doing an eager load fetch benchmark run
+		/// </summary>
+		long MemoryEagerLoadBenchmarks { get; set; }
+		/// <summary>
+		/// The total amount of bytes allocated when doing an async eager load fetch benchmark run
+		/// </summary>
+		long MemoryAsyncEagerLoadBenchmarks { get; set; }
 	}
 }

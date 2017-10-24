@@ -31,6 +31,7 @@ namespace RawBencher
 		#region Properties
 		public double FetchTimeInMilliseconds { get; set; }
 		public double EnumerationTimeInMilliseconds { get; set; }
+		public long NumberOfBytesAllocated { get; set; }
 
 		/// <summary>
 		/// Gets the number of rows fetched in total. This is the aggregate of all values in NumberOfRowsFetchedPerType
