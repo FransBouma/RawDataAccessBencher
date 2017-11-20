@@ -4,27 +4,11 @@ Bench code which tests entity materialization speed of various .NET data access 
 
 ### Results ###
 
-The results of various runs of the benchmark are available both online and locally as files in the repository. For online posts of the results, please see the list below. For the results in a text file, please see the [Results](https://github.com/FransBouma/RawDataAccessBencher/tree/master/Results) folder, which contains per run a .txt file with the results measured.
-
-* Results obtained on 25-sep-2017: https://pastebin.com/NSuhhSPv (1000BaseT lan, new: LLBLGen Pro v5.3 EAP, EF Core 2.0)
-* Results obtained on 12-may-2017: https://pastebin.com/nR2iDSLA (1000BaseT lan, new: LLBLGen Pro v5.2 RTM, EF Core 1.1.2)
-* Results obtained on 22-nov-2016: http://pastebin.com/WnQ8Qt7u (1000BaseT lan, new: LLBLGen Pro v5.1 RTM, EF Core 1.1)
-* Results obtained on 21-sep-2016: http://pastebin.com/SNRYPEcp (1000BaseT lan, new: LLBLGen Pro v5.1 (EAP) / LLBLGen Pro 5.1 raw sql bencher).
-* Results obtained on 01-jul-2016: http://pastebin.com/m4HC4twf (1000BaseT lan, new: EF Core 1.0 RTM, Async eager loading)
-* Results obtained on 17-may-2016: http://pastebin.com/eb0mWzc1 (1000BaseT lan, new: EF Core RC2)
-* Results obtained on 16-dec-2015: http://pastebin.com/8mXh36P1 (1000BaseT lan, new: eager loading benchmarks)
-* Results obtained on 26-nov-2015: http://pastebin.com/kYH2cKe7 (1000BaseT lan, new: Linq 2 DB, LLBLGen 5, EF7 RC1)
-* Results obtained on 05-nov-2015: http://pastebin.com/SrDbxUkp (1000BaseT lan, new: NH4, Dapper 1.4, Massive)
-* Results obtained on 05-May-2014: http://pastebin.com/3eqm7bn7 (1000BaseT lan, new: LLBLGen Pro 4.2)
-* Results obtained on 29-apr-2014: http://pastebin.com/S0cxSFzK (1000BaseT lan, new: EF 6.1)
-* Results obtained on 29-apr-2014: http://pastebin.com/mS02zgyS (1000BaseT lan, new: EF 6.0)
-* Results obtained on 11-feb-2013: http://pastebin.com/AAqRhH4X (100BaseT lan)
-
-See the links for details about results.
+The results of various runs of the benchmark are available as files in the repository, please see the [Results](https://github.com/FransBouma/RawDataAccessBencher/tree/master/Results) folder, which contains per run a .txt file with the results measured.
 
 ### Requirements ###
 
-.NET 4.6.2, SQL Server with AdventureWorks example database (2008 version, available on [Microsoft's codeplex site](https://msftdbprodsamples.codeplex.com/releases/view/93587)). See below how to install/configure it. The mappings supplied are for the 2008 version of the example database. 
+.NET 4.6.2, SQL Server with AdventureWorks example database (2008 version, available on [Github](https://github.com/Microsoft/sql-server-samples/releases/tag/adventureworks)). See below how to install/configure it. The mappings supplied are for the 2008 version of the example database. 
 
 ### How to attach / install the database ###
 
@@ -36,7 +20,7 @@ Install SQL Server 2008 or higher and download the 2008 version of the database 
 
 Please run the benchmarks on a DB accessed over a network to avoid having the DB consume performance of the CPU / memory which thus doesn't give a real-life scenario overview of the real fetch speed of the used Data-access / ORM framework. The entity SalesOrderHeader was chosen as it has more than a couple of fields, a variety of types, many rows in the table and several relationships with other entities which could or could not affect the ORM's internal performance. 
 
-If you want to export the results to a file directly, run the RawBencher.exe from the command line and specify /a at the end so it will exit immediately when it's done. Example: RawBencher.exe /a > results.txt
+If you want to export the results to a file directly, run the RawBencher.exe from the command line and specify /a at the end so it will exit immediately when it's done. Example: `RawBencher.exe /a > results.txt`
 
 ### 'Framework X isn't there anymore, why?'
 
