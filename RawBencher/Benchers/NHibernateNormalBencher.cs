@@ -18,7 +18,7 @@ namespace RawBencher.Benchers
 		/// Initializes a new instance of the <see cref="NHibernateNormalBencher"/> class.
 		/// </summary>
 		public NHibernateNormalBencher()
-			: base(e => e.SalesOrderId, usesChangeTracking: true, usesCaching: false, supportsEagerLoading:true)
+			: base(e => e.SalesOrderId, usesChangeTracking: true, usesCaching: false, supportsEagerLoading:true, supportsAsync:true)
 		{
 		}
 
@@ -63,6 +63,19 @@ namespace RawBencher.Benchers
 					.Fetch(x => x.Customer)
 					.Fetch(x => x.SalesOrderDetails)
 					.ToList();
+			}
+		}
+
+
+		public override async Task<IEnumerable<NH.Bencher.EntityClasses.SalesOrderHeader>> FetchGraphAsync()
+		{
+			using(var session = SessionManager.OpenSession())
+			{
+				return await session.Query<NH.Bencher.EntityClasses.SalesOrderHeader>()
+							  .Where(soh => soh.SalesOrderId > 50000 && soh.SalesOrderId <= 51000)
+							  .Fetch(x => x.Customer)
+							  .Fetch(x => x.SalesOrderDetails)
+							  .ToListAsync();
 			}
 		}
 
