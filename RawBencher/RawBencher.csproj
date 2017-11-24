@@ -55,6 +55,9 @@
     <Reference Include="BenchmarkDotNet.Toolchains.Roslyn, Version=0.10.10.0, Culture=neutral, PublicKeyToken=aa0ca2f9092cefc4, processorArchitecture=MSIL">
       <HintPath>..\packages\BenchmarkDotNet.Toolchains.Roslyn.0.10.10\lib\net46\BenchmarkDotNet.Toolchains.Roslyn.dll</HintPath>
     </Reference>
+    <Reference Include="CSScriptLibrary, Version=3.25.1.0, Culture=neutral, PublicKeyToken=70fcc3d18c749033, processorArchitecture=MSIL">
+      <HintPath>..\packages\CS-Script.bin.3.25.1.0\lib\net46\CSScriptLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="Dapper, Version=1.50.4.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\packages\Dapper.1.50.4-alpha1-00070\lib\net451\Dapper.dll</HintPath>
     </Reference>
@@ -75,6 +78,12 @@
     </Reference>
     <Reference Include="Microsoft.CodeAnalysis.CSharp, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeAnalysis.CSharp.2.4.0\lib\netstandard1.3\Microsoft.CodeAnalysis.CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeAnalysis.CSharp.Scripting, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeAnalysis.CSharp.Scripting.2.4.0\lib\netstandard1.3\Microsoft.CodeAnalysis.CSharp.Scripting.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeAnalysis.Scripting, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeAnalysis.Scripting.Common.2.4.0\lib\netstandard1.3\Microsoft.CodeAnalysis.Scripting.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.DotNet.InternalAbstractions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.DotNet.InternalAbstractions.1.0.0\lib\net451\Microsoft.DotNet.InternalAbstractions.dll</HintPath>
@@ -134,6 +143,9 @@
     <Reference Include="Microsoft.Win32.Registry, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Win32.Registry.4.4.0\lib\net461\Microsoft.Win32.Registry.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="Mono.CSharp, Version=4.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\CS-Script.bin.3.25.1.0\lib\net46\Mono.CSharp.dll</HintPath>
     </Reference>
     <Reference Include="NHibernate, Version=5.0.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4">
       <HintPath>..\packages\NHibernate.5.0.1\lib\net461\NHibernate.dll</HintPath>
@@ -236,9 +248,23 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Tortuga.Anchor, Version=1.2.6283.989, Culture=neutral, PublicKeyToken=f554488cb4f278bd, processorArchitecture=MSIL">
+      <HintPath>..\packages\Tortuga.Anchor.1.2.6283.989\lib\net46\Tortuga.Anchor.dll</HintPath>
+    </Reference>
+    <Reference Include="Tortuga.Chain.CompiledMaterializers, Version=1.1.6311.38020, Culture=neutral, PublicKeyToken=8769fd32a2872cf0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Tortuga.Chain.CompiledMaterializers.1.1.6311.38009\lib\net46\Tortuga.Chain.CompiledMaterializers.dll</HintPath>
+    </Reference>
+    <Reference Include="Tortuga.Chain.Core, Version=1.1.6458.19723, Culture=neutral, PublicKeyToken=8769fd32a2872cf0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Tortuga.Chain.Core.1.1.6458.19749\lib\net46\Tortuga.Chain.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Tortuga.Chain.SqlServer, Version=1.1.6458.20592, Culture=neutral, PublicKeyToken=8769fd32a2872cf0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Tortuga.Chain.SqlServer.1.1.6458.20569\lib\net46\Tortuga.Chain.SqlServer.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Benchers\BencherBase.cs" />
+    <Compile Include="Benchers\ChainCompiledBencher.cs" />
+    <Compile Include="Benchers\ChainBencher.cs" />
     <Compile Include="Benchers\EntityFrameworkCoreNoChangeTrackingBencher.cs" />
     <Compile Include="Benchers\EntityFrameworkCoreNormalBencher.cs" />
     <Compile Include="Benchers\LINQ2DBCompiledBencher.cs" />
@@ -280,7 +306,9 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EF6\Model\EF6.Bencher.Model.csproj">
