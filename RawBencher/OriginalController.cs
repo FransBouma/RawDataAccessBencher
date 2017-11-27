@@ -59,7 +59,9 @@ namespace RawBencher
 			RegisteredBenchers.Add(new LLBLGenProResultsetCachingBencher());
 			RegisteredBenchers.Add(new LLBLGenProNormalBencher());
 			RegisteredBenchers.Add(new DapperBencher() {CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString});
-			RegisteredBenchers.Add(new LinqToSqlNoChangeTrackingBencher());
+            RegisteredBenchers.Add(new ChainBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+            RegisteredBenchers.Add(new ChainCompiledBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+            RegisteredBenchers.Add(new LinqToSqlNoChangeTrackingBencher());
 			RegisteredBenchers.Add(new LinqToSqlNormalBencher());
 			RegisteredBenchers.Add(new EntityFrameworkNoChangeTrackingBencher());
 			RegisteredBenchers.Add(new EntityFrameworkNormalBencher());
