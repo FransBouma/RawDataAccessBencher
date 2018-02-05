@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
-using AdventureWorks.Dal.Adapter.v53.DatabaseSpecific;
+using AdventureWorks.Dal.Adapter.v54.DatabaseSpecific;
 using Dapper;
 using RawBencher.Benchers;
 using SD.LLBLGen.Pro.ORMSupportClasses;
