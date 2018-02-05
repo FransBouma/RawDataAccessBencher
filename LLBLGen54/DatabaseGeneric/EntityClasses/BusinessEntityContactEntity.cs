@@ -212,7 +212,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual BusinessEntityEntity BusinessEntity
 		{
-			get	{ return _businessEntity; }
+			get { return _businessEntity; }
 			set { SetSingleRelatedEntityNavigator(value, "BusinessEntity"); }
 		}
 
@@ -220,7 +220,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual ContactTypeEntity ContactType
 		{
-			get	{ return _contactType; }
+			get { return _contactType; }
 			set { SetSingleRelatedEntityNavigator(value, "ContactType"); }
 		}
 
@@ -228,7 +228,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual PersonEntity Person
 		{
-			get	{ return _person; }
+			get { return _person; }
 			set { SetSingleRelatedEntityNavigator(value, "Person"); }
 		}
 

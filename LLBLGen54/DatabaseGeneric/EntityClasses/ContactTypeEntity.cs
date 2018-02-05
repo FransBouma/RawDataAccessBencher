@@ -136,14 +136,14 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'BusinessEntityContact' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathBusinessEntityContacts	{ get { return _staticMetaData.GetPrefetchPathElement("BusinessEntityContacts", CommonEntityBase.CreateEntityCollection<BusinessEntityContactEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathBusinessEntityContacts { get { return _staticMetaData.GetPrefetchPathElement("BusinessEntityContacts", CommonEntityBase.CreateEntityCollection<BusinessEntityContactEntity>()); } }
 
 		/// <summary>The ContactTypeId property of the Entity ContactType<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "ContactType"."ContactTypeID".<br/>Table field type characteristics (type, precision, scale, length): Int, 10, 0, 0.<br/>Table field behavior characteristics (is nullable, is PK, is identity): false, true, true</remarks>
 		public virtual System.Int32 ContactTypeId
 		{
 			get { return (System.Int32)GetValue((int)ContactTypeFieldIndex.ContactTypeId, true); }
-			set	{ SetValue((int)ContactTypeFieldIndex.ContactTypeId, value); }		}
+			set { SetValue((int)ContactTypeFieldIndex.ContactTypeId, value); }		}
 
 		/// <summary>The ModifiedDate property of the Entity ContactType<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "ContactType"."ModifiedDate".<br/>Table field type characteristics (type, precision, scale, length): DateTime, 0, 0, 0.<br/>Table field behavior characteristics (is nullable, is PK, is identity): false, false, false</remarks>

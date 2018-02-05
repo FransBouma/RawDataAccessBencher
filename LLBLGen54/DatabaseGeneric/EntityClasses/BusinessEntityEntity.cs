@@ -168,11 +168,11 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'BusinessEntityAddress' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathBusinessEntityAddresses	{ get { return _staticMetaData.GetPrefetchPathElement("BusinessEntityAddresses", CommonEntityBase.CreateEntityCollection<BusinessEntityAddressEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathBusinessEntityAddresses { get { return _staticMetaData.GetPrefetchPathElement("BusinessEntityAddresses", CommonEntityBase.CreateEntityCollection<BusinessEntityAddressEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'BusinessEntityContact' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathBusinessEntityContacts	{ get { return _staticMetaData.GetPrefetchPathElement("BusinessEntityContacts", CommonEntityBase.CreateEntityCollection<BusinessEntityContactEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathBusinessEntityContacts { get { return _staticMetaData.GetPrefetchPathElement("BusinessEntityContacts", CommonEntityBase.CreateEntityCollection<BusinessEntityContactEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'Person' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
@@ -191,7 +191,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		public virtual System.Int32 BusinessEntityId
 		{
 			get { return (System.Int32)GetValue((int)BusinessEntityFieldIndex.BusinessEntityId, true); }
-			set	{ SetValue((int)BusinessEntityFieldIndex.BusinessEntityId, value); }		}
+			set { SetValue((int)BusinessEntityFieldIndex.BusinessEntityId, value); }		}
 
 		/// <summary>The ModifiedDate property of the Entity BusinessEntity<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "BusinessEntity"."ModifiedDate".<br/>Table field type characteristics (type, precision, scale, length): DateTime, 0, 0, 0.<br/>Table field behavior characteristics (is nullable, is PK, is identity): false, false, false</remarks>

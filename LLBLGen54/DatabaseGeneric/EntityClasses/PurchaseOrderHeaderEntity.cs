@@ -160,7 +160,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'PurchaseOrderDetail' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathPurchaseOrderDetails	{ get { return _staticMetaData.GetPrefetchPathElement("PurchaseOrderDetails", CommonEntityBase.CreateEntityCollection<PurchaseOrderDetailEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathPurchaseOrderDetails { get { return _staticMetaData.GetPrefetchPathElement("PurchaseOrderDetails", CommonEntityBase.CreateEntityCollection<PurchaseOrderDetailEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'Employee' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
@@ -211,7 +211,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		public virtual System.Int32 PurchaseOrderId
 		{
 			get { return (System.Int32)GetValue((int)PurchaseOrderHeaderFieldIndex.PurchaseOrderId, true); }
-			set	{ SetValue((int)PurchaseOrderHeaderFieldIndex.PurchaseOrderId, value); }		}
+			set { SetValue((int)PurchaseOrderHeaderFieldIndex.PurchaseOrderId, value); }		}
 
 		/// <summary>The RevisionNumber property of the Entity PurchaseOrderHeader<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "PurchaseOrderHeader"."RevisionNumber".<br/>Table field type characteristics (type, precision, scale, length): TinyInt, 3, 0, 0.<br/>Table field behavior characteristics (is nullable, is PK, is identity): false, false, false</remarks>
@@ -284,7 +284,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual EmployeeEntity Employee
 		{
-			get	{ return _employee; }
+			get { return _employee; }
 			set { SetSingleRelatedEntityNavigator(value, "Employee"); }
 		}
 
@@ -292,7 +292,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual ShipMethodEntity ShipMethod
 		{
-			get	{ return _shipMethod; }
+			get { return _shipMethod; }
 			set { SetSingleRelatedEntityNavigator(value, "ShipMethod"); }
 		}
 
@@ -300,7 +300,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual VendorEntity Vendor
 		{
-			get	{ return _vendor; }
+			get { return _vendor; }
 			set { SetSingleRelatedEntityNavigator(value, "Vendor"); }
 		}
 

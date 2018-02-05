@@ -144,7 +144,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'Product' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathProducts	{ get { return _staticMetaData.GetPrefetchPathElement("Products", CommonEntityBase.CreateEntityCollection<ProductEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathProducts { get { return _staticMetaData.GetPrefetchPathElement("Products", CommonEntityBase.CreateEntityCollection<ProductEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'ProductCategory' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
@@ -179,7 +179,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		public virtual System.Int32 ProductSubcategoryId
 		{
 			get { return (System.Int32)GetValue((int)ProductSubcategoryFieldIndex.ProductSubcategoryId, true); }
-			set	{ SetValue((int)ProductSubcategoryFieldIndex.ProductSubcategoryId, value); }		}
+			set { SetValue((int)ProductSubcategoryFieldIndex.ProductSubcategoryId, value); }		}
 
 		/// <summary>The Rowguid property of the Entity ProductSubcategory<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "ProductSubcategory"."rowguid".<br/>Table field type characteristics (type, precision, scale, length): UniqueIdentifier, 0, 0, 0.<br/>Table field behavior characteristics (is nullable, is PK, is identity): false, false, false</remarks>
@@ -197,7 +197,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual ProductCategoryEntity ProductCategory
 		{
-			get	{ return _productCategory; }
+			get { return _productCategory; }
 			set { SetSingleRelatedEntityNavigator(value, "ProductCategory"); }
 		}
 

@@ -197,7 +197,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		public virtual System.Int32 PurchaseOrderDetailId
 		{
 			get { return (System.Int32)GetValue((int)PurchaseOrderDetailFieldIndex.PurchaseOrderDetailId, true); }
-			set	{ SetValue((int)PurchaseOrderDetailFieldIndex.PurchaseOrderDetailId, value); }		}
+			set { SetValue((int)PurchaseOrderDetailFieldIndex.PurchaseOrderDetailId, value); }		}
 
 		/// <summary>The PurchaseOrderId property of the Entity PurchaseOrderDetail<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "PurchaseOrderDetail"."PurchaseOrderID".<br/>Table field type characteristics (type, precision, scale, length): Int, 10, 0, 0.<br/>Table field behavior characteristics (is nullable, is PK, is identity): false, true, false</remarks>
@@ -242,7 +242,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual ProductEntity Product
 		{
-			get	{ return _product; }
+			get { return _product; }
 			set { SetSingleRelatedEntityNavigator(value, "Product"); }
 		}
 
@@ -250,7 +250,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual PurchaseOrderHeaderEntity PurchaseOrderHeader
 		{
-			get	{ return _purchaseOrderHeader; }
+			get { return _purchaseOrderHeader; }
 			set { SetSingleRelatedEntityNavigator(value, "PurchaseOrderHeader"); }
 		}
 

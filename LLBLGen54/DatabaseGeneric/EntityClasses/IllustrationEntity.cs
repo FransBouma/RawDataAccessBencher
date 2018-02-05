@@ -136,7 +136,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'ProductModelIllustration' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathProductModelIllustrations	{ get { return _staticMetaData.GetPrefetchPathElement("ProductModelIllustrations", CommonEntityBase.CreateEntityCollection<ProductModelIllustrationEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathProductModelIllustrations { get { return _staticMetaData.GetPrefetchPathElement("ProductModelIllustrations", CommonEntityBase.CreateEntityCollection<ProductModelIllustrationEntity>()); } }
 
 		/// <summary>The Diagram property of the Entity Illustration<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "Illustration"."Diagram".<br/>Table field type characteristics (type, precision, scale, length): Xml, 0, 0, 2147483647.<br/>Table field behavior characteristics (is nullable, is PK, is identity): true, false, false</remarks>
@@ -151,7 +151,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		public virtual System.Int32 IllustrationId
 		{
 			get { return (System.Int32)GetValue((int)IllustrationFieldIndex.IllustrationId, true); }
-			set	{ SetValue((int)IllustrationFieldIndex.IllustrationId, value); }		}
+			set { SetValue((int)IllustrationFieldIndex.IllustrationId, value); }		}
 
 		/// <summary>The ModifiedDate property of the Entity Illustration<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "Illustration"."ModifiedDate".<br/>Table field type characteristics (type, precision, scale, length): DateTime, 0, 0, 0.<br/>Table field behavior characteristics (is nullable, is PK, is identity): false, false, false</remarks>

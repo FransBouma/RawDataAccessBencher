@@ -153,7 +153,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'ProductDocument' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathProductDocuments	{ get { return _staticMetaData.GetPrefetchPathElement("ProductDocuments", CommonEntityBase.CreateEntityCollection<ProductDocumentEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathProductDocuments { get { return _staticMetaData.GetPrefetchPathElement("ProductDocuments", CommonEntityBase.CreateEntityCollection<ProductDocumentEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'Employee' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
@@ -278,7 +278,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual EmployeeEntity Employee
 		{
-			get	{ return _employee; }
+			get { return _employee; }
 			set { SetSingleRelatedEntityNavigator(value, "Employee"); }
 		}
 

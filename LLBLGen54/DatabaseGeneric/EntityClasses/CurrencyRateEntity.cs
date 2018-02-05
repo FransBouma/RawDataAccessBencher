@@ -152,7 +152,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'SalesOrderHeader' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathSalesOrderHeaders	{ get { return _staticMetaData.GetPrefetchPathElement("SalesOrderHeaders", CommonEntityBase.CreateEntityCollection<SalesOrderHeaderEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathSalesOrderHeaders { get { return _staticMetaData.GetPrefetchPathElement("SalesOrderHeaders", CommonEntityBase.CreateEntityCollection<SalesOrderHeaderEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'Currency' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
@@ -183,7 +183,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		public virtual System.Int32 CurrencyRateId
 		{
 			get { return (System.Int32)GetValue((int)CurrencyRateFieldIndex.CurrencyRateId, true); }
-			set	{ SetValue((int)CurrencyRateFieldIndex.CurrencyRateId, value); }		}
+			set { SetValue((int)CurrencyRateFieldIndex.CurrencyRateId, value); }		}
 
 		/// <summary>The EndOfDayRate property of the Entity CurrencyRate<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "CurrencyRate"."EndOfDayRate".<br/>Table field type characteristics (type, precision, scale, length): Money, 19, 4, 0.<br/>Table field behavior characteristics (is nullable, is PK, is identity): false, false, false</remarks>
@@ -225,7 +225,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual CurrencyEntity Currency
 		{
-			get	{ return _currency; }
+			get { return _currency; }
 			set { SetSingleRelatedEntityNavigator(value, "Currency"); }
 		}
 
@@ -233,7 +233,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual CurrencyEntity Currency_
 		{
-			get	{ return _currency_; }
+			get { return _currency_; }
 			set { SetSingleRelatedEntityNavigator(value, "Currency_"); }
 		}
 

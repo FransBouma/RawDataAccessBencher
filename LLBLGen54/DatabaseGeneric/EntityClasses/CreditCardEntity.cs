@@ -144,11 +144,11 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'ContactCreditCard' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathContactCreditCards	{ get { return _staticMetaData.GetPrefetchPathElement("ContactCreditCards", CommonEntityBase.CreateEntityCollection<ContactCreditCardEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathContactCreditCards { get { return _staticMetaData.GetPrefetchPathElement("ContactCreditCards", CommonEntityBase.CreateEntityCollection<ContactCreditCardEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'SalesOrderHeader' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathSalesOrderHeaders	{ get { return _staticMetaData.GetPrefetchPathElement("SalesOrderHeaders", CommonEntityBase.CreateEntityCollection<SalesOrderHeaderEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathSalesOrderHeaders { get { return _staticMetaData.GetPrefetchPathElement("SalesOrderHeaders", CommonEntityBase.CreateEntityCollection<SalesOrderHeaderEntity>()); } }
 
 		/// <summary>The CardNumber property of the Entity CreditCard<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "CreditCard"."CardNumber".<br/>Table field type characteristics (type, precision, scale, length): NVarChar, 0, 0, 25.<br/>Table field behavior characteristics (is nullable, is PK, is identity): false, false, false</remarks>
@@ -171,7 +171,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		public virtual System.Int32 CreditCardId
 		{
 			get { return (System.Int32)GetValue((int)CreditCardFieldIndex.CreditCardId, true); }
-			set	{ SetValue((int)CreditCardFieldIndex.CreditCardId, value); }		}
+			set { SetValue((int)CreditCardFieldIndex.CreditCardId, value); }		}
 
 		/// <summary>The ExpMonth property of the Entity CreditCard<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "CreditCard"."ExpMonth".<br/>Table field type characteristics (type, precision, scale, length): TinyInt, 3, 0, 0.<br/>Table field behavior characteristics (is nullable, is PK, is identity): false, false, false</remarks>

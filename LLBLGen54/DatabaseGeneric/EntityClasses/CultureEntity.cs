@@ -136,7 +136,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'ProductModelProductDescriptionCulture' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathProductModelProductDescriptionCultures	{ get { return _staticMetaData.GetPrefetchPathElement("ProductModelProductDescriptionCultures", CommonEntityBase.CreateEntityCollection<ProductModelProductDescriptionCultureEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathProductModelProductDescriptionCultures { get { return _staticMetaData.GetPrefetchPathElement("ProductModelProductDescriptionCultures", CommonEntityBase.CreateEntityCollection<ProductModelProductDescriptionCultureEntity>()); } }
 
 		/// <summary>The CultureId property of the Entity Culture<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "Culture"."CultureID".<br/>Table field type characteristics (type, precision, scale, length): NChar, 0, 0, 6.<br/>Table field behavior characteristics (is nullable, is PK, is identity): false, true, false</remarks>

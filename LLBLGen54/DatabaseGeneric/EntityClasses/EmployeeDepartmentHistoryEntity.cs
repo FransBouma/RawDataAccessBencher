@@ -223,7 +223,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual DepartmentEntity Department
 		{
-			get	{ return _department; }
+			get { return _department; }
 			set { SetSingleRelatedEntityNavigator(value, "Department"); }
 		}
 
@@ -231,7 +231,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual EmployeeEntity Employee
 		{
-			get	{ return _employee; }
+			get { return _employee; }
 			set { SetSingleRelatedEntityNavigator(value, "Employee"); }
 		}
 
@@ -239,7 +239,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual ShiftEntity Shift
 		{
-			get	{ return _shift; }
+			get { return _shift; }
 			set { SetSingleRelatedEntityNavigator(value, "Shift"); }
 		}
 

@@ -181,7 +181,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual DocumentEntity Document
 		{
-			get	{ return _document; }
+			get { return _document; }
 			set { SetSingleRelatedEntityNavigator(value, "Document"); }
 		}
 
@@ -189,7 +189,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual ProductEntity Product
 		{
-			get	{ return _product; }
+			get { return _product; }
 			set { SetSingleRelatedEntityNavigator(value, "Product"); }
 		}
 

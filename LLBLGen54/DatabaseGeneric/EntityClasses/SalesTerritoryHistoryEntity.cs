@@ -208,7 +208,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual SalesPersonEntity SalesPerson
 		{
-			get	{ return _salesPerson; }
+			get { return _salesPerson; }
 			set { SetSingleRelatedEntityNavigator(value, "SalesPerson"); }
 		}
 
@@ -216,7 +216,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual SalesTerritoryEntity SalesTerritory
 		{
-			get	{ return _salesTerritory; }
+			get { return _salesTerritory; }
 			set { SetSingleRelatedEntityNavigator(value, "SalesTerritory"); }
 		}
 

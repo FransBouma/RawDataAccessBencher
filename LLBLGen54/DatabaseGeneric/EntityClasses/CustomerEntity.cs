@@ -160,7 +160,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'SalesOrderHeader' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathSalesOrderHeaders	{ get { return _staticMetaData.GetPrefetchPathElement("SalesOrderHeaders", CommonEntityBase.CreateEntityCollection<SalesOrderHeaderEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathSalesOrderHeaders { get { return _staticMetaData.GetPrefetchPathElement("SalesOrderHeaders", CommonEntityBase.CreateEntityCollection<SalesOrderHeaderEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'Person' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
@@ -186,7 +186,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		public virtual System.Int32 CustomerId
 		{
 			get { return (System.Int32)GetValue((int)CustomerFieldIndex.CustomerId, true); }
-			set	{ SetValue((int)CustomerFieldIndex.CustomerId, value); }		}
+			set { SetValue((int)CustomerFieldIndex.CustomerId, value); }		}
 
 		/// <summary>The ModifiedDate property of the Entity Customer<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "Customer"."ModifiedDate".<br/>Table field type characteristics (type, precision, scale, length): DateTime, 0, 0, 0.<br/>Table field behavior characteristics (is nullable, is PK, is identity): false, false, false</remarks>
@@ -236,7 +236,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual PersonEntity Person
 		{
-			get	{ return _person; }
+			get { return _person; }
 			set { SetSingleRelatedEntityNavigator(value, "Person"); }
 		}
 
@@ -244,7 +244,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual SalesTerritoryEntity SalesTerritory
 		{
-			get	{ return _salesTerritory; }
+			get { return _salesTerritory; }
 			set { SetSingleRelatedEntityNavigator(value, "SalesTerritory"); }
 		}
 
@@ -252,7 +252,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual StoreEntity Store
 		{
-			get	{ return _store; }
+			get { return _store; }
 			set { SetSingleRelatedEntityNavigator(value, "Store"); }
 		}
 

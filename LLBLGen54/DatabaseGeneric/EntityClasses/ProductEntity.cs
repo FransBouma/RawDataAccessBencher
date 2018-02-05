@@ -272,59 +272,59 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'BillOfMaterial' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathBillOfMaterials	{ get { return _staticMetaData.GetPrefetchPathElement("BillOfMaterials", CommonEntityBase.CreateEntityCollection<BillOfMaterialEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathBillOfMaterials { get { return _staticMetaData.GetPrefetchPathElement("BillOfMaterials", CommonEntityBase.CreateEntityCollection<BillOfMaterialEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'BillOfMaterial' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathBillOfMaterials_	{ get { return _staticMetaData.GetPrefetchPathElement("BillOfMaterials_", CommonEntityBase.CreateEntityCollection<BillOfMaterialEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathBillOfMaterials_ { get { return _staticMetaData.GetPrefetchPathElement("BillOfMaterials_", CommonEntityBase.CreateEntityCollection<BillOfMaterialEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'ProductCostHistory' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathProductCostHistories	{ get { return _staticMetaData.GetPrefetchPathElement("ProductCostHistories", CommonEntityBase.CreateEntityCollection<ProductCostHistoryEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathProductCostHistories { get { return _staticMetaData.GetPrefetchPathElement("ProductCostHistories", CommonEntityBase.CreateEntityCollection<ProductCostHistoryEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'ProductDocument' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathProductDocuments	{ get { return _staticMetaData.GetPrefetchPathElement("ProductDocuments", CommonEntityBase.CreateEntityCollection<ProductDocumentEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathProductDocuments { get { return _staticMetaData.GetPrefetchPathElement("ProductDocuments", CommonEntityBase.CreateEntityCollection<ProductDocumentEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'ProductInventory' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathProductInventories	{ get { return _staticMetaData.GetPrefetchPathElement("ProductInventories", CommonEntityBase.CreateEntityCollection<ProductInventoryEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathProductInventories { get { return _staticMetaData.GetPrefetchPathElement("ProductInventories", CommonEntityBase.CreateEntityCollection<ProductInventoryEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'ProductListPriceHistory' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathProductListPriceHistories	{ get { return _staticMetaData.GetPrefetchPathElement("ProductListPriceHistories", CommonEntityBase.CreateEntityCollection<ProductListPriceHistoryEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathProductListPriceHistories { get { return _staticMetaData.GetPrefetchPathElement("ProductListPriceHistories", CommonEntityBase.CreateEntityCollection<ProductListPriceHistoryEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'ProductProductPhoto' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathProductProductPhotos	{ get { return _staticMetaData.GetPrefetchPathElement("ProductProductPhotos", CommonEntityBase.CreateEntityCollection<ProductProductPhotoEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathProductProductPhotos { get { return _staticMetaData.GetPrefetchPathElement("ProductProductPhotos", CommonEntityBase.CreateEntityCollection<ProductProductPhotoEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'ProductReview' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathProductReviews	{ get { return _staticMetaData.GetPrefetchPathElement("ProductReviews", CommonEntityBase.CreateEntityCollection<ProductReviewEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathProductReviews { get { return _staticMetaData.GetPrefetchPathElement("ProductReviews", CommonEntityBase.CreateEntityCollection<ProductReviewEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'ProductVendor' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathProductVendors	{ get { return _staticMetaData.GetPrefetchPathElement("ProductVendors", CommonEntityBase.CreateEntityCollection<ProductVendorEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathProductVendors { get { return _staticMetaData.GetPrefetchPathElement("ProductVendors", CommonEntityBase.CreateEntityCollection<ProductVendorEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'PurchaseOrderDetail' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathPurchaseOrderDetails	{ get { return _staticMetaData.GetPrefetchPathElement("PurchaseOrderDetails", CommonEntityBase.CreateEntityCollection<PurchaseOrderDetailEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathPurchaseOrderDetails { get { return _staticMetaData.GetPrefetchPathElement("PurchaseOrderDetails", CommonEntityBase.CreateEntityCollection<PurchaseOrderDetailEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'ShoppingCartItem' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathShoppingCartItems	{ get { return _staticMetaData.GetPrefetchPathElement("ShoppingCartItems", CommonEntityBase.CreateEntityCollection<ShoppingCartItemEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathShoppingCartItems { get { return _staticMetaData.GetPrefetchPathElement("ShoppingCartItems", CommonEntityBase.CreateEntityCollection<ShoppingCartItemEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'SpecialOfferProduct' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathSpecialOfferProducts	{ get { return _staticMetaData.GetPrefetchPathElement("SpecialOfferProducts", CommonEntityBase.CreateEntityCollection<SpecialOfferProductEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathSpecialOfferProducts { get { return _staticMetaData.GetPrefetchPathElement("SpecialOfferProducts", CommonEntityBase.CreateEntityCollection<SpecialOfferProductEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'TransactionHistory' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathTransactionHistories	{ get { return _staticMetaData.GetPrefetchPathElement("TransactionHistories", CommonEntityBase.CreateEntityCollection<TransactionHistoryEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathTransactionHistories { get { return _staticMetaData.GetPrefetchPathElement("TransactionHistories", CommonEntityBase.CreateEntityCollection<TransactionHistoryEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'WorkOrder' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathWorkOrders	{ get { return _staticMetaData.GetPrefetchPathElement("WorkOrders", CommonEntityBase.CreateEntityCollection<WorkOrderEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathWorkOrders { get { return _staticMetaData.GetPrefetchPathElement("WorkOrders", CommonEntityBase.CreateEntityCollection<WorkOrderEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'ProductModel' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
@@ -419,7 +419,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		public virtual System.Int32 ProductId
 		{
 			get { return (System.Int32)GetValue((int)ProductFieldIndex.ProductId, true); }
-			set	{ SetValue((int)ProductFieldIndex.ProductId, value); }		}
+			set { SetValue((int)ProductFieldIndex.ProductId, value); }		}
 
 		/// <summary>The ProductLine property of the Entity Product<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "Product"."ProductLine".<br/>Table field type characteristics (type, precision, scale, length): NChar, 0, 0, 2.<br/>Table field behavior characteristics (is nullable, is PK, is identity): true, false, false</remarks>
@@ -601,7 +601,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual ProductModelEntity ProductModel
 		{
-			get	{ return _productModel; }
+			get { return _productModel; }
 			set { SetSingleRelatedEntityNavigator(value, "ProductModel"); }
 		}
 
@@ -609,7 +609,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual ProductSubcategoryEntity ProductSubcategory
 		{
-			get	{ return _productSubcategory; }
+			get { return _productSubcategory; }
 			set { SetSingleRelatedEntityNavigator(value, "ProductSubcategory"); }
 		}
 
@@ -617,7 +617,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual UnitMeasureEntity UnitMeasure
 		{
-			get	{ return _unitMeasure; }
+			get { return _unitMeasure; }
 			set { SetSingleRelatedEntityNavigator(value, "UnitMeasure"); }
 		}
 
@@ -625,7 +625,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual UnitMeasureEntity UnitMeasure_
 		{
-			get	{ return _unitMeasure_; }
+			get { return _unitMeasure_; }
 			set { SetSingleRelatedEntityNavigator(value, "UnitMeasure_"); }
 		}
 

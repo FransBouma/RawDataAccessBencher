@@ -192,7 +192,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual PersonEntity Person
 		{
-			get	{ return _person; }
+			get { return _person; }
 			set { SetSingleRelatedEntityNavigator(value, "Person"); }
 		}
 
@@ -200,7 +200,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual PhoneNumberTypeEntity PhoneNumberType
 		{
-			get	{ return _phoneNumberType; }
+			get { return _phoneNumberType; }
 			set { SetSingleRelatedEntityNavigator(value, "PhoneNumberType"); }
 		}
 

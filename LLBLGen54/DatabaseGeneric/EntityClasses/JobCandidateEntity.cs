@@ -151,7 +151,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		public virtual System.Int32 JobCandidateId
 		{
 			get { return (System.Int32)GetValue((int)JobCandidateFieldIndex.JobCandidateId, true); }
-			set	{ SetValue((int)JobCandidateFieldIndex.JobCandidateId, value); }		}
+			set { SetValue((int)JobCandidateFieldIndex.JobCandidateId, value); }		}
 
 		/// <summary>The ModifiedDate property of the Entity JobCandidate<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "JobCandidate"."ModifiedDate".<br/>Table field type characteristics (type, precision, scale, length): DateTime, 0, 0, 0.<br/>Table field behavior characteristics (is nullable, is PK, is identity): false, false, false</remarks>
@@ -173,7 +173,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual EmployeeEntity Employee
 		{
-			get	{ return _employee; }
+			get { return _employee; }
 			set { SetSingleRelatedEntityNavigator(value, "Employee"); }
 		}
 

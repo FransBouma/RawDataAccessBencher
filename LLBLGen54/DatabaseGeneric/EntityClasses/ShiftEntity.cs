@@ -136,7 +136,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'EmployeeDepartmentHistory' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathEmployeeDepartmentHistories	{ get { return _staticMetaData.GetPrefetchPathElement("EmployeeDepartmentHistories", CommonEntityBase.CreateEntityCollection<EmployeeDepartmentHistoryEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathEmployeeDepartmentHistories { get { return _staticMetaData.GetPrefetchPathElement("EmployeeDepartmentHistories", CommonEntityBase.CreateEntityCollection<EmployeeDepartmentHistoryEntity>()); } }
 
 		/// <summary>The EndTime property of the Entity Shift<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "Shift"."EndTime".<br/>Table field type characteristics (type, precision, scale, length): Time, 0, 0, 0.<br/>Table field behavior characteristics (is nullable, is PK, is identity): false, false, false</remarks>
@@ -167,7 +167,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		public virtual System.Byte ShiftId
 		{
 			get { return (System.Byte)GetValue((int)ShiftFieldIndex.ShiftId, true); }
-			set	{ SetValue((int)ShiftFieldIndex.ShiftId, value); }		}
+			set { SetValue((int)ShiftFieldIndex.ShiftId, value); }		}
 
 		/// <summary>The StartTime property of the Entity Shift<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "Shift"."StartTime".<br/>Table field type characteristics (type, precision, scale, length): Time, 0, 0, 0.<br/>Table field behavior characteristics (is nullable, is PK, is identity): false, false, false</remarks>

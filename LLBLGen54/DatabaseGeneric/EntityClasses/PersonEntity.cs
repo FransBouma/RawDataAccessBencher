@@ -192,23 +192,23 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'BusinessEntityContact' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathBusinessEntityContacts	{ get { return _staticMetaData.GetPrefetchPathElement("BusinessEntityContacts", CommonEntityBase.CreateEntityCollection<BusinessEntityContactEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathBusinessEntityContacts { get { return _staticMetaData.GetPrefetchPathElement("BusinessEntityContacts", CommonEntityBase.CreateEntityCollection<BusinessEntityContactEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'ContactCreditCard' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathContactCreditCards	{ get { return _staticMetaData.GetPrefetchPathElement("ContactCreditCards", CommonEntityBase.CreateEntityCollection<ContactCreditCardEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathContactCreditCards { get { return _staticMetaData.GetPrefetchPathElement("ContactCreditCards", CommonEntityBase.CreateEntityCollection<ContactCreditCardEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'Customer' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathCustomers	{ get { return _staticMetaData.GetPrefetchPathElement("Customers", CommonEntityBase.CreateEntityCollection<CustomerEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathCustomers { get { return _staticMetaData.GetPrefetchPathElement("Customers", CommonEntityBase.CreateEntityCollection<CustomerEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'EmailAddress' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathEmailAddresses	{ get { return _staticMetaData.GetPrefetchPathElement("EmailAddresses", CommonEntityBase.CreateEntityCollection<EmailAddressEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathEmailAddresses { get { return _staticMetaData.GetPrefetchPathElement("EmailAddresses", CommonEntityBase.CreateEntityCollection<EmailAddressEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'PersonPhone' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathPersonPhones	{ get { return _staticMetaData.GetPrefetchPathElement("PersonPhones", CommonEntityBase.CreateEntityCollection<PersonPhoneEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathPersonPhones { get { return _staticMetaData.GetPrefetchPathElement("PersonPhones", CommonEntityBase.CreateEntityCollection<PersonPhoneEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'BusinessEntity' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>

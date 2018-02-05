@@ -152,15 +152,15 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'Product' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathProducts	{ get { return _staticMetaData.GetPrefetchPathElement("Products", CommonEntityBase.CreateEntityCollection<ProductEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathProducts { get { return _staticMetaData.GetPrefetchPathElement("Products", CommonEntityBase.CreateEntityCollection<ProductEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'ProductModelIllustration' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathProductModelIllustrations	{ get { return _staticMetaData.GetPrefetchPathElement("ProductModelIllustrations", CommonEntityBase.CreateEntityCollection<ProductModelIllustrationEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathProductModelIllustrations { get { return _staticMetaData.GetPrefetchPathElement("ProductModelIllustrations", CommonEntityBase.CreateEntityCollection<ProductModelIllustrationEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'ProductModelProductDescriptionCulture' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathProductModelProductDescriptionCultures	{ get { return _staticMetaData.GetPrefetchPathElement("ProductModelProductDescriptionCultures", CommonEntityBase.CreateEntityCollection<ProductModelProductDescriptionCultureEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathProductModelProductDescriptionCultures { get { return _staticMetaData.GetPrefetchPathElement("ProductModelProductDescriptionCultures", CommonEntityBase.CreateEntityCollection<ProductModelProductDescriptionCultureEntity>()); } }
 
 		/// <summary>The CatalogDescription property of the Entity ProductModel<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "ProductModel"."CatalogDescription".<br/>Table field type characteristics (type, precision, scale, length): Xml, 0, 0, 2147483647.<br/>Table field behavior characteristics (is nullable, is PK, is identity): true, false, false</remarks>
@@ -199,7 +199,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		public virtual System.Int32 ProductModelId
 		{
 			get { return (System.Int32)GetValue((int)ProductModelFieldIndex.ProductModelId, true); }
-			set	{ SetValue((int)ProductModelFieldIndex.ProductModelId, value); }		}
+			set { SetValue((int)ProductModelFieldIndex.ProductModelId, value); }		}
 
 		/// <summary>The Rowguid property of the Entity ProductModel<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "ProductModel"."rowguid".<br/>Table field type characteristics (type, precision, scale, length): UniqueIdentifier, 0, 0, 0.<br/>Table field behavior characteristics (is nullable, is PK, is identity): false, false, false</remarks>

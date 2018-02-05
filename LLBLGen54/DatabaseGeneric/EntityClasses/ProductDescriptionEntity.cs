@@ -136,7 +136,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'ProductModelProductDescriptionCulture' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathProductModelProductDescriptionCultures	{ get { return _staticMetaData.GetPrefetchPathElement("ProductModelProductDescriptionCultures", CommonEntityBase.CreateEntityCollection<ProductModelProductDescriptionCultureEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathProductModelProductDescriptionCultures { get { return _staticMetaData.GetPrefetchPathElement("ProductModelProductDescriptionCultures", CommonEntityBase.CreateEntityCollection<ProductModelProductDescriptionCultureEntity>()); } }
 
 		/// <summary>The Description property of the Entity ProductDescription<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "ProductDescription"."Description".<br/>Table field type characteristics (type, precision, scale, length): NVarChar, 0, 0, 400.<br/>Table field behavior characteristics (is nullable, is PK, is identity): false, false, false</remarks>
@@ -159,7 +159,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		public virtual System.Int32 ProductDescriptionId
 		{
 			get { return (System.Int32)GetValue((int)ProductDescriptionFieldIndex.ProductDescriptionId, true); }
-			set	{ SetValue((int)ProductDescriptionFieldIndex.ProductDescriptionId, value); }		}
+			set { SetValue((int)ProductDescriptionFieldIndex.ProductDescriptionId, value); }		}
 
 		/// <summary>The Rowguid property of the Entity ProductDescription<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "ProductDescription"."rowguid".<br/>Table field type characteristics (type, precision, scale, length): UniqueIdentifier, 0, 0, 0.<br/>Table field behavior characteristics (is nullable, is PK, is identity): false, false, false</remarks>

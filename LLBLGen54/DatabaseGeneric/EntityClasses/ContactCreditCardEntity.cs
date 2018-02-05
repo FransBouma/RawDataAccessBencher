@@ -181,7 +181,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual CreditCardEntity CreditCard
 		{
-			get	{ return _creditCard; }
+			get { return _creditCard; }
 			set { SetSingleRelatedEntityNavigator(value, "CreditCard"); }
 		}
 
@@ -189,7 +189,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual PersonEntity Person
 		{
-			get	{ return _person; }
+			get { return _person; }
 			set { SetSingleRelatedEntityNavigator(value, "Person"); }
 		}
 

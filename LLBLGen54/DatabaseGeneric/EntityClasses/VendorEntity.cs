@@ -152,11 +152,11 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'ProductVendor' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathProductVendors	{ get { return _staticMetaData.GetPrefetchPathElement("ProductVendors", CommonEntityBase.CreateEntityCollection<ProductVendorEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathProductVendors { get { return _staticMetaData.GetPrefetchPathElement("ProductVendors", CommonEntityBase.CreateEntityCollection<ProductVendorEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'PurchaseOrderHeader' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathPurchaseOrderHeaders	{ get { return _staticMetaData.GetPrefetchPathElement("PurchaseOrderHeaders", CommonEntityBase.CreateEntityCollection<PurchaseOrderHeaderEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathPurchaseOrderHeaders { get { return _staticMetaData.GetPrefetchPathElement("PurchaseOrderHeaders", CommonEntityBase.CreateEntityCollection<PurchaseOrderHeaderEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'BusinessEntity' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
@@ -223,7 +223,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		public virtual System.Int32 VendorId
 		{
 			get { return (System.Int32)GetValue((int)VendorFieldIndex.VendorId, true); }
-			set	{ SetValue((int)VendorFieldIndex.VendorId, value); }		}
+			set { SetValue((int)VendorFieldIndex.VendorId, value); }		}
 
 		/// <summary>Gets the EntityCollection with the related entities of type 'ProductVendorEntity' which are related to this entity via a relation of type '1:n'. If the EntityCollection hasn't been fetched yet, the collection returned will be empty.<br/><br/></summary>
 		[TypeContainedAttribute(typeof(ProductVendorEntity))]

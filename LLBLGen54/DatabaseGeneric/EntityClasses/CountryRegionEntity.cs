@@ -152,15 +152,15 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'CountryRegionCurrency' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathCountryRegionCurrencies	{ get { return _staticMetaData.GetPrefetchPathElement("CountryRegionCurrencies", CommonEntityBase.CreateEntityCollection<CountryRegionCurrencyEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathCountryRegionCurrencies { get { return _staticMetaData.GetPrefetchPathElement("CountryRegionCurrencies", CommonEntityBase.CreateEntityCollection<CountryRegionCurrencyEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'SalesTerritory' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathSalesTerritories	{ get { return _staticMetaData.GetPrefetchPathElement("SalesTerritories", CommonEntityBase.CreateEntityCollection<SalesTerritoryEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathSalesTerritories { get { return _staticMetaData.GetPrefetchPathElement("SalesTerritories", CommonEntityBase.CreateEntityCollection<SalesTerritoryEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'StateProvince' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathStateProvinces	{ get { return _staticMetaData.GetPrefetchPathElement("StateProvinces", CommonEntityBase.CreateEntityCollection<StateProvinceEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathStateProvinces { get { return _staticMetaData.GetPrefetchPathElement("StateProvinces", CommonEntityBase.CreateEntityCollection<StateProvinceEntity>()); } }
 
 		/// <summary>The CountryRegionCode property of the Entity CountryRegion<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "CountryRegion"."CountryRegionCode".<br/>Table field type characteristics (type, precision, scale, length): NVarChar, 0, 0, 3.<br/>Table field behavior characteristics (is nullable, is PK, is identity): false, true, false</remarks>

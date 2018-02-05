@@ -136,14 +136,14 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'BusinessEntityAddress' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathBusinessEntityAddresses	{ get { return _staticMetaData.GetPrefetchPathElement("BusinessEntityAddresses", CommonEntityBase.CreateEntityCollection<BusinessEntityAddressEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathBusinessEntityAddresses { get { return _staticMetaData.GetPrefetchPathElement("BusinessEntityAddresses", CommonEntityBase.CreateEntityCollection<BusinessEntityAddressEntity>()); } }
 
 		/// <summary>The AddressTypeId property of the Entity AddressType<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "AddressType"."AddressTypeID".<br/>Table field type characteristics (type, precision, scale, length): Int, 10, 0, 0.<br/>Table field behavior characteristics (is nullable, is PK, is identity): false, true, true</remarks>
 		public virtual System.Int32 AddressTypeId
 		{
 			get { return (System.Int32)GetValue((int)AddressTypeFieldIndex.AddressTypeId, true); }
-			set	{ SetValue((int)AddressTypeFieldIndex.AddressTypeId, value); }		}
+			set { SetValue((int)AddressTypeFieldIndex.AddressTypeId, value); }		}
 
 		/// <summary>The ModifiedDate property of the Entity AddressType<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "AddressType"."ModifiedDate".<br/>Table field type characteristics (type, precision, scale, length): DateTime, 0, 0, 0.<br/>Table field behavior characteristics (is nullable, is PK, is identity): false, false, false</remarks>

@@ -199,7 +199,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		public virtual System.Int32 TransactionId
 		{
 			get { return (System.Int32)GetValue((int)TransactionHistoryFieldIndex.TransactionId, true); }
-			set	{ SetValue((int)TransactionHistoryFieldIndex.TransactionId, value); }		}
+			set { SetValue((int)TransactionHistoryFieldIndex.TransactionId, value); }		}
 
 		/// <summary>The TransactionType property of the Entity TransactionHistory<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "TransactionHistory"."TransactionType".<br/>Table field type characteristics (type, precision, scale, length): NChar, 0, 0, 1.<br/>Table field behavior characteristics (is nullable, is PK, is identity): false, false, false</remarks>
@@ -213,7 +213,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual ProductEntity Product
 		{
-			get	{ return _product; }
+			get { return _product; }
 			set { SetSingleRelatedEntityNavigator(value, "Product"); }
 		}
 

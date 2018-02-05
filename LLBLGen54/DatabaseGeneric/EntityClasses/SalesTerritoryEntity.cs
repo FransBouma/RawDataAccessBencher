@@ -176,23 +176,23 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'Customer' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathCustomers	{ get { return _staticMetaData.GetPrefetchPathElement("Customers", CommonEntityBase.CreateEntityCollection<CustomerEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathCustomers { get { return _staticMetaData.GetPrefetchPathElement("Customers", CommonEntityBase.CreateEntityCollection<CustomerEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'SalesOrderHeader' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathSalesOrderHeaders	{ get { return _staticMetaData.GetPrefetchPathElement("SalesOrderHeaders", CommonEntityBase.CreateEntityCollection<SalesOrderHeaderEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathSalesOrderHeaders { get { return _staticMetaData.GetPrefetchPathElement("SalesOrderHeaders", CommonEntityBase.CreateEntityCollection<SalesOrderHeaderEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'SalesPerson' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathSalesPeople	{ get { return _staticMetaData.GetPrefetchPathElement("SalesPeople", CommonEntityBase.CreateEntityCollection<SalesPersonEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathSalesPeople { get { return _staticMetaData.GetPrefetchPathElement("SalesPeople", CommonEntityBase.CreateEntityCollection<SalesPersonEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'SalesTerritoryHistory' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathSalesTerritoryHistories	{ get { return _staticMetaData.GetPrefetchPathElement("SalesTerritoryHistories", CommonEntityBase.CreateEntityCollection<SalesTerritoryHistoryEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathSalesTerritoryHistories { get { return _staticMetaData.GetPrefetchPathElement("SalesTerritoryHistories", CommonEntityBase.CreateEntityCollection<SalesTerritoryHistoryEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'StateProvince' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathStateProvinces	{ get { return _staticMetaData.GetPrefetchPathElement("StateProvinces", CommonEntityBase.CreateEntityCollection<StateProvinceEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathStateProvinces { get { return _staticMetaData.GetPrefetchPathElement("StateProvinces", CommonEntityBase.CreateEntityCollection<StateProvinceEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'CountryRegion' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
@@ -275,7 +275,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		public virtual System.Int32 TerritoryId
 		{
 			get { return (System.Int32)GetValue((int)SalesTerritoryFieldIndex.TerritoryId, true); }
-			set	{ SetValue((int)SalesTerritoryFieldIndex.TerritoryId, value); }		}
+			set { SetValue((int)SalesTerritoryFieldIndex.TerritoryId, value); }		}
 
 		/// <summary>Gets the EntityCollection with the related entities of type 'CustomerEntity' which are related to this entity via a relation of type '1:n'. If the EntityCollection hasn't been fetched yet, the collection returned will be empty.<br/><br/></summary>
 		[TypeContainedAttribute(typeof(CustomerEntity))]
@@ -301,7 +301,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual CountryRegionEntity CountryRegion
 		{
-			get	{ return _countryRegion; }
+			get { return _countryRegion; }
 			set { SetSingleRelatedEntityNavigator(value, "CountryRegion"); }
 		}
 

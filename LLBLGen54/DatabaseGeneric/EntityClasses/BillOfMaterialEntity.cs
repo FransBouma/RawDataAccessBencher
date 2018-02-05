@@ -167,7 +167,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		public virtual System.Int32 BillOfMaterialsId
 		{
 			get { return (System.Int32)GetValue((int)BillOfMaterialFieldIndex.BillOfMaterialsId, true); }
-			set	{ SetValue((int)BillOfMaterialFieldIndex.BillOfMaterialsId, value); }		}
+			set { SetValue((int)BillOfMaterialFieldIndex.BillOfMaterialsId, value); }		}
 
 		/// <summary>The Bomlevel property of the Entity BillOfMaterial<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "BillOfMaterials"."BOMLevel".<br/>Table field type characteristics (type, precision, scale, length): SmallInt, 5, 0, 0.<br/>Table field behavior characteristics (is nullable, is PK, is identity): false, false, false</remarks>
@@ -237,7 +237,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual ProductEntity Product
 		{
-			get	{ return _product; }
+			get { return _product; }
 			set { SetSingleRelatedEntityNavigator(value, "Product"); }
 		}
 
@@ -245,7 +245,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual ProductEntity Product_
 		{
-			get	{ return _product_; }
+			get { return _product_; }
 			set { SetSingleRelatedEntityNavigator(value, "Product_"); }
 		}
 
@@ -253,7 +253,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual UnitMeasureEntity UnitMeasure
 		{
-			get	{ return _unitMeasure; }
+			get { return _unitMeasure; }
 			set { SetSingleRelatedEntityNavigator(value, "UnitMeasure"); }
 		}
 

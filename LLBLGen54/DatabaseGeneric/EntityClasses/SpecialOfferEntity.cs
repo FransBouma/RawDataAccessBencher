@@ -136,7 +136,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'SpecialOfferProduct' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathSpecialOfferProducts	{ get { return _staticMetaData.GetPrefetchPathElement("SpecialOfferProducts", CommonEntityBase.CreateEntityCollection<SpecialOfferProductEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathSpecialOfferProducts { get { return _staticMetaData.GetPrefetchPathElement("SpecialOfferProducts", CommonEntityBase.CreateEntityCollection<SpecialOfferProductEntity>()); } }
 
 		/// <summary>The Category property of the Entity SpecialOffer<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "SpecialOffer"."Category".<br/>Table field type characteristics (type, precision, scale, length): NVarChar, 0, 0, 50.<br/>Table field behavior characteristics (is nullable, is PK, is identity): false, false, false</remarks>
@@ -207,7 +207,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		public virtual System.Int32 SpecialOfferId
 		{
 			get { return (System.Int32)GetValue((int)SpecialOfferFieldIndex.SpecialOfferId, true); }
-			set	{ SetValue((int)SpecialOfferFieldIndex.SpecialOfferId, value); }		}
+			set { SetValue((int)SpecialOfferFieldIndex.SpecialOfferId, value); }		}
 
 		/// <summary>The StartDate property of the Entity SpecialOffer<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "SpecialOffer"."StartDate".<br/>Table field type characteristics (type, precision, scale, length): DateTime, 0, 0, 0.<br/>Table field behavior characteristics (is nullable, is PK, is identity): false, false, false</remarks>

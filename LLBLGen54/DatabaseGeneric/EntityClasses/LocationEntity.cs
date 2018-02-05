@@ -144,11 +144,11 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'ProductInventory' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathProductInventories	{ get { return _staticMetaData.GetPrefetchPathElement("ProductInventories", CommonEntityBase.CreateEntityCollection<ProductInventoryEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathProductInventories { get { return _staticMetaData.GetPrefetchPathElement("ProductInventories", CommonEntityBase.CreateEntityCollection<ProductInventoryEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'WorkOrderRouting' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathWorkOrderRoutings	{ get { return _staticMetaData.GetPrefetchPathElement("WorkOrderRoutings", CommonEntityBase.CreateEntityCollection<WorkOrderRoutingEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathWorkOrderRoutings { get { return _staticMetaData.GetPrefetchPathElement("WorkOrderRoutings", CommonEntityBase.CreateEntityCollection<WorkOrderRoutingEntity>()); } }
 
 		/// <summary>The Availability property of the Entity Location<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "Location"."Availability".<br/>Table field type characteristics (type, precision, scale, length): Decimal, 8, 2, 0.<br/>Table field behavior characteristics (is nullable, is PK, is identity): false, false, false</remarks>
@@ -171,7 +171,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		public virtual System.Int16 LocationId
 		{
 			get { return (System.Int16)GetValue((int)LocationFieldIndex.LocationId, true); }
-			set	{ SetValue((int)LocationFieldIndex.LocationId, value); }		}
+			set { SetValue((int)LocationFieldIndex.LocationId, value); }		}
 
 		/// <summary>The ModifiedDate property of the Entity Location<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "Location"."ModifiedDate".<br/>Table field type characteristics (type, precision, scale, length): DateTime, 0, 0, 0.<br/>Table field behavior characteristics (is nullable, is PK, is identity): false, false, false</remarks>

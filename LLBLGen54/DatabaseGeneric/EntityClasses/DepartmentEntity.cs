@@ -136,14 +136,14 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'EmployeeDepartmentHistory' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathEmployeeDepartmentHistories	{ get { return _staticMetaData.GetPrefetchPathElement("EmployeeDepartmentHistories", CommonEntityBase.CreateEntityCollection<EmployeeDepartmentHistoryEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathEmployeeDepartmentHistories { get { return _staticMetaData.GetPrefetchPathElement("EmployeeDepartmentHistories", CommonEntityBase.CreateEntityCollection<EmployeeDepartmentHistoryEntity>()); } }
 
 		/// <summary>The DepartmentId property of the Entity Department<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "Department"."DepartmentID".<br/>Table field type characteristics (type, precision, scale, length): SmallInt, 5, 0, 0.<br/>Table field behavior characteristics (is nullable, is PK, is identity): false, true, true</remarks>
 		public virtual System.Int16 DepartmentId
 		{
 			get { return (System.Int16)GetValue((int)DepartmentFieldIndex.DepartmentId, true); }
-			set	{ SetValue((int)DepartmentFieldIndex.DepartmentId, value); }		}
+			set { SetValue((int)DepartmentFieldIndex.DepartmentId, value); }		}
 
 		/// <summary>The GroupName property of the Entity Department<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "Department"."GroupName".<br/>Table field type characteristics (type, precision, scale, length): NVarChar, 0, 0, 50.<br/>Table field behavior characteristics (is nullable, is PK, is identity): false, false, false</remarks>

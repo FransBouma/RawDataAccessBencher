@@ -160,19 +160,19 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'BillOfMaterial' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathBillOfMaterials	{ get { return _staticMetaData.GetPrefetchPathElement("BillOfMaterials", CommonEntityBase.CreateEntityCollection<BillOfMaterialEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathBillOfMaterials { get { return _staticMetaData.GetPrefetchPathElement("BillOfMaterials", CommonEntityBase.CreateEntityCollection<BillOfMaterialEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'Product' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathProducts	{ get { return _staticMetaData.GetPrefetchPathElement("Products", CommonEntityBase.CreateEntityCollection<ProductEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathProducts { get { return _staticMetaData.GetPrefetchPathElement("Products", CommonEntityBase.CreateEntityCollection<ProductEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'Product' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathProducts_	{ get { return _staticMetaData.GetPrefetchPathElement("Products_", CommonEntityBase.CreateEntityCollection<ProductEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathProducts_ { get { return _staticMetaData.GetPrefetchPathElement("Products_", CommonEntityBase.CreateEntityCollection<ProductEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'ProductVendor' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathProductVendors	{ get { return _staticMetaData.GetPrefetchPathElement("ProductVendors", CommonEntityBase.CreateEntityCollection<ProductVendorEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathProductVendors { get { return _staticMetaData.GetPrefetchPathElement("ProductVendors", CommonEntityBase.CreateEntityCollection<ProductVendorEntity>()); } }
 
 		/// <summary>The ModifiedDate property of the Entity UnitMeasure<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "UnitMeasure"."ModifiedDate".<br/>Table field type characteristics (type, precision, scale, length): DateTime, 0, 0, 0.<br/>Table field behavior characteristics (is nullable, is PK, is identity): false, false, false</remarks>

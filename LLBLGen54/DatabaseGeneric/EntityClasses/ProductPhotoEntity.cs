@@ -136,7 +136,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'ProductProductPhoto' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathProductProductPhotos	{ get { return _staticMetaData.GetPrefetchPathElement("ProductProductPhotos", CommonEntityBase.CreateEntityCollection<ProductProductPhotoEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathProductProductPhotos { get { return _staticMetaData.GetPrefetchPathElement("ProductProductPhotos", CommonEntityBase.CreateEntityCollection<ProductProductPhotoEntity>()); } }
 
 		/// <summary>The LargePhoto property of the Entity ProductPhoto<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "ProductPhoto"."LargePhoto".<br/>Table field type characteristics (type, precision, scale, length): VarBinary, 0, 0, 2147483647.<br/>Table field behavior characteristics (is nullable, is PK, is identity): true, false, false</remarks>
@@ -167,7 +167,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		public virtual System.Int32 ProductPhotoId
 		{
 			get { return (System.Int32)GetValue((int)ProductPhotoFieldIndex.ProductPhotoId, true); }
-			set	{ SetValue((int)ProductPhotoFieldIndex.ProductPhotoId, value); }		}
+			set { SetValue((int)ProductPhotoFieldIndex.ProductPhotoId, value); }		}
 
 		/// <summary>The ThumbNailPhoto property of the Entity ProductPhoto<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "ProductPhoto"."ThumbNailPhoto".<br/>Table field type characteristics (type, precision, scale, length): VarBinary, 0, 0, 2147483647.<br/>Table field behavior characteristics (is nullable, is PK, is identity): true, false, false</remarks>

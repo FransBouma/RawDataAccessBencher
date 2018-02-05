@@ -208,11 +208,11 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'SalesOrderDetail' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathSalesOrderDetails	{ get { return _staticMetaData.GetPrefetchPathElement("SalesOrderDetails", CommonEntityBase.CreateEntityCollection<SalesOrderDetailEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathSalesOrderDetails { get { return _staticMetaData.GetPrefetchPathElement("SalesOrderDetails", CommonEntityBase.CreateEntityCollection<SalesOrderDetailEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'SalesOrderHeaderSalesReason' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathSalesOrderHeaderSalesReasons	{ get { return _staticMetaData.GetPrefetchPathElement("SalesOrderHeaderSalesReasons", CommonEntityBase.CreateEntityCollection<SalesOrderHeaderSalesReasonEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathSalesOrderHeaderSalesReasons { get { return _staticMetaData.GetPrefetchPathElement("SalesOrderHeaderSalesReasons", CommonEntityBase.CreateEntityCollection<SalesOrderHeaderSalesReasonEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'Address' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
@@ -371,7 +371,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		public virtual System.Int32 SalesOrderId
 		{
 			get { return (System.Int32)GetValue((int)SalesOrderHeaderFieldIndex.SalesOrderId, true); }
-			set	{ SetValue((int)SalesOrderHeaderFieldIndex.SalesOrderId, value); }		}
+			set { SetValue((int)SalesOrderHeaderFieldIndex.SalesOrderId, value); }		}
 
 		/// <summary>The SalesOrderNumber property of the Entity SalesOrderHeader<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "SalesOrderHeader"."SalesOrderNumber".<br/>Table field type characteristics (type, precision, scale, length): NVarChar, 0, 0, 25.<br/>Table field behavior characteristics (is nullable, is PK, is identity): false, false, false</remarks>
@@ -463,7 +463,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual AddressEntity Address
 		{
-			get	{ return _address; }
+			get { return _address; }
 			set { SetSingleRelatedEntityNavigator(value, "Address"); }
 		}
 
@@ -471,7 +471,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual AddressEntity Address_
 		{
-			get	{ return _address_; }
+			get { return _address_; }
 			set { SetSingleRelatedEntityNavigator(value, "Address_"); }
 		}
 
@@ -479,7 +479,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual CreditCardEntity CreditCard
 		{
-			get	{ return _creditCard; }
+			get { return _creditCard; }
 			set { SetSingleRelatedEntityNavigator(value, "CreditCard"); }
 		}
 
@@ -487,7 +487,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual CurrencyRateEntity CurrencyRate
 		{
-			get	{ return _currencyRate; }
+			get { return _currencyRate; }
 			set { SetSingleRelatedEntityNavigator(value, "CurrencyRate"); }
 		}
 
@@ -495,7 +495,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual CustomerEntity Customer
 		{
-			get	{ return _customer; }
+			get { return _customer; }
 			set { SetSingleRelatedEntityNavigator(value, "Customer"); }
 		}
 
@@ -503,7 +503,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual SalesPersonEntity SalesPerson
 		{
-			get	{ return _salesPerson; }
+			get { return _salesPerson; }
 			set { SetSingleRelatedEntityNavigator(value, "SalesPerson"); }
 		}
 
@@ -511,7 +511,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual SalesTerritoryEntity SalesTerritory
 		{
-			get	{ return _salesTerritory; }
+			get { return _salesTerritory; }
 			set { SetSingleRelatedEntityNavigator(value, "SalesTerritory"); }
 		}
 
@@ -519,7 +519,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual ShipMethodEntity ShipMethod
 		{
-			get	{ return _shipMethod; }
+			get { return _shipMethod; }
 			set { SetSingleRelatedEntityNavigator(value, "ShipMethod"); }
 		}
 

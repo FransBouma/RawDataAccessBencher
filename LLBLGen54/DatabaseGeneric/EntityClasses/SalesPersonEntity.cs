@@ -176,19 +176,19 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'SalesOrderHeader' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathSalesOrderHeaders	{ get { return _staticMetaData.GetPrefetchPathElement("SalesOrderHeaders", CommonEntityBase.CreateEntityCollection<SalesOrderHeaderEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathSalesOrderHeaders { get { return _staticMetaData.GetPrefetchPathElement("SalesOrderHeaders", CommonEntityBase.CreateEntityCollection<SalesOrderHeaderEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'SalesPersonQuotaHistory' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathSalesPersonQuotaHistories	{ get { return _staticMetaData.GetPrefetchPathElement("SalesPersonQuotaHistories", CommonEntityBase.CreateEntityCollection<SalesPersonQuotaHistoryEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathSalesPersonQuotaHistories { get { return _staticMetaData.GetPrefetchPathElement("SalesPersonQuotaHistories", CommonEntityBase.CreateEntityCollection<SalesPersonQuotaHistoryEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'SalesTerritoryHistory' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathSalesTerritoryHistories	{ get { return _staticMetaData.GetPrefetchPathElement("SalesTerritoryHistories", CommonEntityBase.CreateEntityCollection<SalesTerritoryHistoryEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathSalesTerritoryHistories { get { return _staticMetaData.GetPrefetchPathElement("SalesTerritoryHistories", CommonEntityBase.CreateEntityCollection<SalesTerritoryHistoryEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'Store' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathStores	{ get { return _staticMetaData.GetPrefetchPathElement("Stores", CommonEntityBase.CreateEntityCollection<StoreEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathStores { get { return _staticMetaData.GetPrefetchPathElement("Stores", CommonEntityBase.CreateEntityCollection<StoreEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'SalesTerritory' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
@@ -290,7 +290,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual SalesTerritoryEntity SalesTerritory
 		{
-			get	{ return _salesTerritory; }
+			get { return _salesTerritory; }
 			set { SetSingleRelatedEntityNavigator(value, "SalesTerritory"); }
 		}
 

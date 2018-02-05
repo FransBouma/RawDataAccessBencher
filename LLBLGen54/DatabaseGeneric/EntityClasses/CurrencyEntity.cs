@@ -152,15 +152,15 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'CountryRegionCurrency' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathCountryRegionCurrencies	{ get { return _staticMetaData.GetPrefetchPathElement("CountryRegionCurrencies", CommonEntityBase.CreateEntityCollection<CountryRegionCurrencyEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathCountryRegionCurrencies { get { return _staticMetaData.GetPrefetchPathElement("CountryRegionCurrencies", CommonEntityBase.CreateEntityCollection<CountryRegionCurrencyEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'CurrencyRate' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathCurrencyRates	{ get { return _staticMetaData.GetPrefetchPathElement("CurrencyRates", CommonEntityBase.CreateEntityCollection<CurrencyRateEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathCurrencyRates { get { return _staticMetaData.GetPrefetchPathElement("CurrencyRates", CommonEntityBase.CreateEntityCollection<CurrencyRateEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'CurrencyRate' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathCurrencyRates_	{ get { return _staticMetaData.GetPrefetchPathElement("CurrencyRates_", CommonEntityBase.CreateEntityCollection<CurrencyRateEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathCurrencyRates_ { get { return _staticMetaData.GetPrefetchPathElement("CurrencyRates_", CommonEntityBase.CreateEntityCollection<CurrencyRateEntity>()); } }
 
 		/// <summary>The CurrencyCode property of the Entity Currency<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "Currency"."CurrencyCode".<br/>Table field type characteristics (type, precision, scale, length): NChar, 0, 0, 3.<br/>Table field behavior characteristics (is nullable, is PK, is identity): false, true, false</remarks>

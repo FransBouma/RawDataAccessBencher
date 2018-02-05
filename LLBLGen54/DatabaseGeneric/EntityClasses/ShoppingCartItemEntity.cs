@@ -183,13 +183,13 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		public virtual System.Int32 ShoppingCartItemId
 		{
 			get { return (System.Int32)GetValue((int)ShoppingCartItemFieldIndex.ShoppingCartItemId, true); }
-			set	{ SetValue((int)ShoppingCartItemFieldIndex.ShoppingCartItemId, value); }		}
+			set { SetValue((int)ShoppingCartItemFieldIndex.ShoppingCartItemId, value); }		}
 
 		/// <summary>Gets / sets related entity of type 'ProductEntity' which has to be set using a fetch action earlier. If no related entity is set for this property, null is returned..<br/><br/></summary>
 		[Browsable(false)]
 		public virtual ProductEntity Product
 		{
-			get	{ return _product; }
+			get { return _product; }
 			set { SetSingleRelatedEntityNavigator(value, "Product"); }
 		}
 

@@ -184,23 +184,23 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'Document' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathDocuments	{ get { return _staticMetaData.GetPrefetchPathElement("Documents", CommonEntityBase.CreateEntityCollection<DocumentEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathDocuments { get { return _staticMetaData.GetPrefetchPathElement("Documents", CommonEntityBase.CreateEntityCollection<DocumentEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'EmployeeDepartmentHistory' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathEmployeeDepartmentHistories	{ get { return _staticMetaData.GetPrefetchPathElement("EmployeeDepartmentHistories", CommonEntityBase.CreateEntityCollection<EmployeeDepartmentHistoryEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathEmployeeDepartmentHistories { get { return _staticMetaData.GetPrefetchPathElement("EmployeeDepartmentHistories", CommonEntityBase.CreateEntityCollection<EmployeeDepartmentHistoryEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'EmployeePayHistory' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathEmployeePayHistories	{ get { return _staticMetaData.GetPrefetchPathElement("EmployeePayHistories", CommonEntityBase.CreateEntityCollection<EmployeePayHistoryEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathEmployeePayHistories { get { return _staticMetaData.GetPrefetchPathElement("EmployeePayHistories", CommonEntityBase.CreateEntityCollection<EmployeePayHistoryEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'JobCandidate' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathJobCandidates	{ get { return _staticMetaData.GetPrefetchPathElement("JobCandidates", CommonEntityBase.CreateEntityCollection<JobCandidateEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathJobCandidates { get { return _staticMetaData.GetPrefetchPathElement("JobCandidates", CommonEntityBase.CreateEntityCollection<JobCandidateEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'PurchaseOrderHeader' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathPurchaseOrderHeaders	{ get { return _staticMetaData.GetPrefetchPathElement("PurchaseOrderHeaders", CommonEntityBase.CreateEntityCollection<PurchaseOrderHeaderEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathPurchaseOrderHeaders { get { return _staticMetaData.GetPrefetchPathElement("PurchaseOrderHeaders", CommonEntityBase.CreateEntityCollection<PurchaseOrderHeaderEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'Person' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
@@ -231,7 +231,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		public virtual System.Int32 EmployeeId
 		{
 			get { return (System.Int32)GetValue((int)EmployeeFieldIndex.EmployeeId, true); }
-			set	{ SetValue((int)EmployeeFieldIndex.EmployeeId, value); }		}
+			set { SetValue((int)EmployeeFieldIndex.EmployeeId, value); }		}
 
 		/// <summary>The Gender property of the Entity Employee<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "Employee"."Gender".<br/>Table field type characteristics (type, precision, scale, length): NChar, 0, 0, 1.<br/>Table field behavior characteristics (is nullable, is PK, is identity): false, false, false</remarks>

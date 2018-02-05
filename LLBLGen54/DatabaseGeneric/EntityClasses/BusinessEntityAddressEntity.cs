@@ -212,7 +212,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual AddressEntity Address
 		{
-			get	{ return _address; }
+			get { return _address; }
 			set { SetSingleRelatedEntityNavigator(value, "Address"); }
 		}
 
@@ -220,7 +220,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual AddressTypeEntity AddressType
 		{
-			get	{ return _addressType; }
+			get { return _addressType; }
 			set { SetSingleRelatedEntityNavigator(value, "AddressType"); }
 		}
 
@@ -228,7 +228,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual BusinessEntityEntity BusinessEntity
 		{
-			get	{ return _businessEntity; }
+			get { return _businessEntity; }
 			set { SetSingleRelatedEntityNavigator(value, "BusinessEntity"); }
 		}
 

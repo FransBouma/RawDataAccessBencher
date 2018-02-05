@@ -167,7 +167,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		public virtual System.Int32 SalesTaxRateId
 		{
 			get { return (System.Int32)GetValue((int)SalesTaxRateFieldIndex.SalesTaxRateId, true); }
-			set	{ SetValue((int)SalesTaxRateFieldIndex.SalesTaxRateId, value); }		}
+			set { SetValue((int)SalesTaxRateFieldIndex.SalesTaxRateId, value); }		}
 
 		/// <summary>The StateProvinceId property of the Entity SalesTaxRate<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "SalesTaxRate"."StateProvinceID".<br/>Table field type characteristics (type, precision, scale, length): Int, 10, 0, 0.<br/>Table field behavior characteristics (is nullable, is PK, is identity): false, false, false</remarks>
@@ -197,7 +197,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual StateProvinceEntity StateProvince
 		{
-			get	{ return _stateProvince; }
+			get { return _stateProvince; }
 			set { SetSingleRelatedEntityNavigator(value, "StateProvince"); }
 		}
 

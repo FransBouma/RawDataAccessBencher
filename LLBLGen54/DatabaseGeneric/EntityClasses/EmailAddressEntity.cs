@@ -154,7 +154,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		public virtual System.Int32 EmailAddressId
 		{
 			get { return (System.Int32)GetValue((int)EmailAddressFieldIndex.EmailAddressId, true); }
-			set	{ SetValue((int)EmailAddressFieldIndex.EmailAddressId, value); }		}
+			set { SetValue((int)EmailAddressFieldIndex.EmailAddressId, value); }		}
 
 		/// <summary>The EmailAddressValue property of the Entity EmailAddress<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "EmailAddress"."EmailAddress".<br/>Table field type characteristics (type, precision, scale, length): NVarChar, 0, 0, 50.<br/>Table field behavior characteristics (is nullable, is PK, is identity): true, false, false</remarks>
@@ -184,7 +184,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual PersonEntity Person
 		{
-			get	{ return _person; }
+			get { return _person; }
 			set { SetSingleRelatedEntityNavigator(value, "Person"); }
 		}
 

@@ -181,7 +181,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual IllustrationEntity Illustration
 		{
-			get	{ return _illustration; }
+			get { return _illustration; }
 			set { SetSingleRelatedEntityNavigator(value, "Illustration"); }
 		}
 
@@ -189,7 +189,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual ProductModelEntity ProductModel
 		{
-			get	{ return _productModel; }
+			get { return _productModel; }
 			set { SetSingleRelatedEntityNavigator(value, "ProductModel"); }
 		}
 

@@ -181,7 +181,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual SalesOrderHeaderEntity SalesOrderHeader
 		{
-			get	{ return _salesOrderHeader; }
+			get { return _salesOrderHeader; }
 			set { SetSingleRelatedEntityNavigator(value, "SalesOrderHeader"); }
 		}
 
@@ -189,7 +189,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual SalesReasonEntity SalesReason
 		{
-			get	{ return _salesReason; }
+			get { return _salesReason; }
 			set { SetSingleRelatedEntityNavigator(value, "SalesReason"); }
 		}
 

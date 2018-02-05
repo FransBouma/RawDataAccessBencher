@@ -175,7 +175,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		public virtual System.Int32 ProductReviewId
 		{
 			get { return (System.Int32)GetValue((int)ProductReviewFieldIndex.ProductReviewId, true); }
-			set	{ SetValue((int)ProductReviewFieldIndex.ProductReviewId, value); }		}
+			set { SetValue((int)ProductReviewFieldIndex.ProductReviewId, value); }		}
 
 		/// <summary>The Rating property of the Entity ProductReview<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "ProductReview"."Rating".<br/>Table field type characteristics (type, precision, scale, length): Int, 10, 0, 0.<br/>Table field behavior characteristics (is nullable, is PK, is identity): false, false, false</remarks>
@@ -205,7 +205,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual ProductEntity Product
 		{
-			get	{ return _product; }
+			get { return _product; }
 			set { SetSingleRelatedEntityNavigator(value, "Product"); }
 		}
 

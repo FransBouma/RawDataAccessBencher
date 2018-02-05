@@ -136,7 +136,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'ProductSubcategory' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathProductSubcategories	{ get { return _staticMetaData.GetPrefetchPathElement("ProductSubcategories", CommonEntityBase.CreateEntityCollection<ProductSubcategoryEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathProductSubcategories { get { return _staticMetaData.GetPrefetchPathElement("ProductSubcategories", CommonEntityBase.CreateEntityCollection<ProductSubcategoryEntity>()); } }
 
 		/// <summary>The ModifiedDate property of the Entity ProductCategory<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "ProductCategory"."ModifiedDate".<br/>Table field type characteristics (type, precision, scale, length): DateTime, 0, 0, 0.<br/>Table field behavior characteristics (is nullable, is PK, is identity): false, false, false</remarks>
@@ -159,7 +159,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		public virtual System.Int32 ProductCategoryId
 		{
 			get { return (System.Int32)GetValue((int)ProductCategoryFieldIndex.ProductCategoryId, true); }
-			set	{ SetValue((int)ProductCategoryFieldIndex.ProductCategoryId, value); }		}
+			set { SetValue((int)ProductCategoryFieldIndex.ProductCategoryId, value); }		}
 
 		/// <summary>The Rowguid property of the Entity ProductCategory<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "ProductCategory"."rowguid".<br/>Table field type characteristics (type, precision, scale, length): UniqueIdentifier, 0, 0, 0.<br/>Table field behavior characteristics (is nullable, is PK, is identity): false, false, false</remarks>

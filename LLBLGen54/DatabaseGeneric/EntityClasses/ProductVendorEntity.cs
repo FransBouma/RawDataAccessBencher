@@ -257,7 +257,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual ProductEntity Product
 		{
-			get	{ return _product; }
+			get { return _product; }
 			set { SetSingleRelatedEntityNavigator(value, "Product"); }
 		}
 
@@ -265,7 +265,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual UnitMeasureEntity UnitMeasure
 		{
-			get	{ return _unitMeasure; }
+			get { return _unitMeasure; }
 			set { SetSingleRelatedEntityNavigator(value, "UnitMeasure"); }
 		}
 
@@ -273,7 +273,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual VendorEntity Vendor
 		{
-			get	{ return _vendor; }
+			get { return _vendor; }
 			set { SetSingleRelatedEntityNavigator(value, "Vendor"); }
 		}
 

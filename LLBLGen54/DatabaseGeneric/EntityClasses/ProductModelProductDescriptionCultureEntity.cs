@@ -204,7 +204,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual CultureEntity Culture
 		{
-			get	{ return _culture; }
+			get { return _culture; }
 			set { SetSingleRelatedEntityNavigator(value, "Culture"); }
 		}
 
@@ -212,7 +212,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual ProductDescriptionEntity ProductDescription
 		{
-			get	{ return _productDescription; }
+			get { return _productDescription; }
 			set { SetSingleRelatedEntityNavigator(value, "ProductDescription"); }
 		}
 
@@ -220,7 +220,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual ProductModelEntity ProductModel
 		{
-			get	{ return _productModel; }
+			get { return _productModel; }
 			set { SetSingleRelatedEntityNavigator(value, "ProductModel"); }
 		}
 

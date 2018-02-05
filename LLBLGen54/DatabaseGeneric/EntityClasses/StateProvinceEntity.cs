@@ -160,11 +160,11 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'Address' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathAddresses	{ get { return _staticMetaData.GetPrefetchPathElement("Addresses", CommonEntityBase.CreateEntityCollection<AddressEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathAddresses { get { return _staticMetaData.GetPrefetchPathElement("Addresses", CommonEntityBase.CreateEntityCollection<AddressEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'SalesTaxRate' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathSalesTaxRates	{ get { return _staticMetaData.GetPrefetchPathElement("SalesTaxRates", CommonEntityBase.CreateEntityCollection<SalesTaxRateEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathSalesTaxRates { get { return _staticMetaData.GetPrefetchPathElement("SalesTaxRates", CommonEntityBase.CreateEntityCollection<SalesTaxRateEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'CountryRegion' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
@@ -227,7 +227,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		public virtual System.Int32 StateProvinceId
 		{
 			get { return (System.Int32)GetValue((int)StateProvinceFieldIndex.StateProvinceId, true); }
-			set	{ SetValue((int)StateProvinceFieldIndex.StateProvinceId, value); }		}
+			set { SetValue((int)StateProvinceFieldIndex.StateProvinceId, value); }		}
 
 		/// <summary>The TerritoryId property of the Entity StateProvince<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "StateProvince"."TerritoryID".<br/>Table field type characteristics (type, precision, scale, length): Int, 10, 0, 0.<br/>Table field behavior characteristics (is nullable, is PK, is identity): false, false, false</remarks>
@@ -249,7 +249,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual CountryRegionEntity CountryRegion
 		{
-			get	{ return _countryRegion; }
+			get { return _countryRegion; }
 			set { SetSingleRelatedEntityNavigator(value, "CountryRegion"); }
 		}
 
@@ -257,7 +257,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual SalesTerritoryEntity SalesTerritory
 		{
-			get	{ return _salesTerritory; }
+			get { return _salesTerritory; }
 			set { SetSingleRelatedEntityNavigator(value, "SalesTerritory"); }
 		}
 

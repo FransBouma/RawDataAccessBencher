@@ -181,7 +181,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual CountryRegionEntity CountryRegion
 		{
-			get	{ return _countryRegion; }
+			get { return _countryRegion; }
 			set { SetSingleRelatedEntityNavigator(value, "CountryRegion"); }
 		}
 
@@ -189,7 +189,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual CurrencyEntity Currency
 		{
-			get	{ return _currency; }
+			get { return _currency; }
 			set { SetSingleRelatedEntityNavigator(value, "Currency"); }
 		}
 

@@ -213,7 +213,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual LocationEntity Location
 		{
-			get	{ return _location; }
+			get { return _location; }
 			set { SetSingleRelatedEntityNavigator(value, "Location"); }
 		}
 
@@ -221,7 +221,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual ProductEntity Product
 		{
-			get	{ return _product; }
+			get { return _product; }
 			set { SetSingleRelatedEntityNavigator(value, "Product"); }
 		}
 

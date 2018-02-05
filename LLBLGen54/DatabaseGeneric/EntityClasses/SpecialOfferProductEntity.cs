@@ -155,7 +155,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'SalesOrderDetail' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathSalesOrderDetails	{ get { return _staticMetaData.GetPrefetchPathElement("SalesOrderDetails", CommonEntityBase.CreateEntityCollection<SalesOrderDetailEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathSalesOrderDetails { get { return _staticMetaData.GetPrefetchPathElement("SalesOrderDetails", CommonEntityBase.CreateEntityCollection<SalesOrderDetailEntity>()); } }
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'Product' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
@@ -205,7 +205,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual ProductEntity Product
 		{
-			get	{ return _product; }
+			get { return _product; }
 			set { SetSingleRelatedEntityNavigator(value, "Product"); }
 		}
 
@@ -213,7 +213,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual SpecialOfferEntity SpecialOffer
 		{
-			get	{ return _specialOffer; }
+			get { return _specialOffer; }
 			set { SetSingleRelatedEntityNavigator(value, "SpecialOffer"); }
 		}
 

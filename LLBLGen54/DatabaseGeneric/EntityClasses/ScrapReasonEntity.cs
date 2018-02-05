@@ -136,7 +136,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 
 		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'WorkOrder' for this entity.</summary>
 		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
-		public static IPrefetchPathElement2 PrefetchPathWorkOrders	{ get { return _staticMetaData.GetPrefetchPathElement("WorkOrders", CommonEntityBase.CreateEntityCollection<WorkOrderEntity>()); } }
+		public static IPrefetchPathElement2 PrefetchPathWorkOrders { get { return _staticMetaData.GetPrefetchPathElement("WorkOrders", CommonEntityBase.CreateEntityCollection<WorkOrderEntity>()); } }
 
 		/// <summary>The ModifiedDate property of the Entity ScrapReason<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "ScrapReason"."ModifiedDate".<br/>Table field type characteristics (type, precision, scale, length): DateTime, 0, 0, 0.<br/>Table field behavior characteristics (is nullable, is PK, is identity): false, false, false</remarks>
@@ -159,7 +159,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		public virtual System.Int16 ScrapReasonId
 		{
 			get { return (System.Int16)GetValue((int)ScrapReasonFieldIndex.ScrapReasonId, true); }
-			set	{ SetValue((int)ScrapReasonFieldIndex.ScrapReasonId, value); }		}
+			set { SetValue((int)ScrapReasonFieldIndex.ScrapReasonId, value); }		}
 
 		/// <summary>Gets the EntityCollection with the related entities of type 'WorkOrderEntity' which are related to this entity via a relation of type '1:n'. If the EntityCollection hasn't been fetched yet, the collection returned will be empty.<br/><br/></summary>
 		[TypeContainedAttribute(typeof(WorkOrderEntity))]

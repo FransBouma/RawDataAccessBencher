@@ -185,7 +185,7 @@ namespace AdventureWorks.Dal.Adapter.v54.EntityClasses
 		[Browsable(false)]
 		public virtual EmployeeEntity Employee
 		{
-			get	{ return _employee; }
+			get { return _employee; }
 			set { SetSingleRelatedEntityNavigator(value, "Employee"); }
 		}
 
