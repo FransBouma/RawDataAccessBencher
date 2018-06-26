@@ -14,7 +14,7 @@ namespace RawBencher
 {
 	/// <summary>
 	/// The actual bencher management code. Pass '/a' on the command line as argument to make the program exit automatically. If no argument
-	/// is specified it will wait for ENTER after reporting the results. 
+	/// is specified it will wait for ENTER after reporting the results.
 	/// </summary>
 	public class OriginalController
 	{
@@ -70,8 +70,9 @@ namespace RawBencher
 //			RegisteredBenchers.Add(new OrmLiteBencher() {CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString});
 			RegisteredBenchers.Add(new DataTableBencher() {CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString});
 //			RegisteredBenchers.Add(new MassiveBencher());
+            RegisteredBenchers.Add(new KrosKormLinqBencher() { ConnectionStringToUse = ConnectionString });
 
-			OriginalController.DisplayHeader();
+            OriginalController.DisplayHeader();
 			OriginalController.WarmupDB();
 			OriginalController.FetchKeysForIndividualFetches();
 
@@ -123,12 +124,12 @@ namespace RawBencher
 
 
 		/// <summary>
-		/// Displays a pre-amble so the user can attach the .net profiler, then runs the benchers specified and then displays a text to stop profiling. 
+		/// Displays a pre-amble so the user can attach the .net profiler, then runs the benchers specified and then displays a text to stop profiling.
 		/// </summary>
 		/// <param name="benchersToProfile">The benchers to profile.</param>
 		private static void ProfileBenchers(params IBencher[] benchersToProfile)
 		{
-			// run the benchers before profiling. 
+			// run the benchers before profiling.
 			foreach(var b in benchersToProfile)
 			{
 				if(b == null)
@@ -224,7 +225,7 @@ namespace RawBencher
 					BencherUtils.DisplayException(ex);
 				}
 			}
-			
+
 			Console.WriteLine("\nPerforming memory measurement runs.");
 			Console.WriteLine("====================================================================");
 			AppDomain.MonitoringIsEnabled = true;
@@ -241,7 +242,7 @@ namespace RawBencher
 				}
 			}
 		}
-		
+
 
 		private static void RunMemoryAnalysisForBencher(IBencher bencher)
 		{
@@ -275,7 +276,7 @@ namespace RawBencher
 					// sleep is to avoid hammering the network layer on the target server. If the target server is a VM, it might stall once or twice
 					// during benching, which is not what we want at it can skew the results a lot. In a very short time, a lot of queries are executed
 					// on the target server (LoopAmount * IndividualKeysAmount), which will hurt performance on VMs with very fast frameworks in some
-					// cases in some runs (so more than 2 runs are slow). 
+					// cases in some runs (so more than 2 runs are slow).
 #pragma warning disable CS0162
 					Thread.Sleep(400);
 #pragma warning restore CS0162
@@ -289,7 +290,7 @@ namespace RawBencher
 				result = bencher.PerformEagerLoadBenchmark(discardResults:true);
 				OriginalController.ReportMemoryUsageEagerLoadResult(result);
 				bencher.MemoryEagerLoadBenchmarks = result.NumberOfBytesAllocated;
-				
+
 				// avoid having the GC collect in the middle of a run.
 				OriginalController.ForceGCCollect();
 			}
@@ -362,7 +363,7 @@ namespace RawBencher
 						// sleep is to avoid hammering the network layer on the target server. If the target server is a VM, it might stall once or twice
 						// during benching, which is not what we want at it can skew the results a lot. In a very short time, a lot of queries are executed
 						// on the target server (LoopAmount * IndividualKeysAmount), which will hurt performance on VMs with very fast frameworks in some
-						// cases in some runs (so more than 2 runs are slow). 
+						// cases in some runs (so more than 2 runs are slow).
 #pragma warning disable CS0162
 						Thread.Sleep(400);
 #pragma warning restore CS0162
@@ -433,45 +434,45 @@ namespace RawBencher
 
 		private static void ReportSetResult(BenchResult result)
 		{
-			Console.WriteLine("[{0:HH:mm:ss}] # of elements fetched: {1}.\tFetch took: {2:N2}ms.\tEnumerating result took: {3:N2}ms.", DateTime.Now, result.TotalNumberOfRowsFetched, 
+			Console.WriteLine("[{0:HH:mm:ss}] # of elements fetched: {1}.\tFetch took: {2:N2}ms.\tEnumerating result took: {3:N2}ms.", DateTime.Now, result.TotalNumberOfRowsFetched,
 							  result.FetchTimeInMilliseconds, result.EnumerationTimeInMilliseconds);
 		}
 
 
 		private static void ReportIndividualResult(BenchResult result)
 		{
-			Console.WriteLine("[{0:HH:mm:ss}] # of elements fetched individually: {1}.\tTotal time: {2:N2}ms.\tTime per element: {3:N2}ms", DateTime.Now, KeysForIndividualFetches.Count, 
+			Console.WriteLine("[{0:HH:mm:ss}] # of elements fetched individually: {1}.\tTotal time: {2:N2}ms.\tTime per element: {3:N2}ms", DateTime.Now, KeysForIndividualFetches.Count,
 							  result.FetchTimeInMilliseconds, result.FetchTimeInMilliseconds / KeysForIndividualFetches.Count);
 		}
 
 
 		private static void ReportEagerLoadResult(BenchResult result)
 		{
-			Console.WriteLine("[{0:HH:mm:ss}] # of elements fetched: {1} ({2}).\tFetch took: {3:N2}ms.", DateTime.Now, result.TotalNumberOfRowsFetched, 
+			Console.WriteLine("[{0:HH:mm:ss}] # of elements fetched: {1} ({2}).\tFetch took: {3:N2}ms.", DateTime.Now, result.TotalNumberOfRowsFetched,
 							  string.Join(" + ", result.NumberOfRowsFetchedPerType.Select(kvp => kvp.Value).ToArray()), result.FetchTimeInMilliseconds);
 		}
 
-		
+
 		private static void ReportMemoryUsageSetResult(BenchResult result)
 		{
-			Console.WriteLine("[{0:HH:mm:ss}] # of elements fetched: {1}.\tFetch took: {2:N2}ms.\tAllocated bytes: {3}.", DateTime.Now, result.TotalNumberOfRowsFetched, 
+			Console.WriteLine("[{0:HH:mm:ss}] # of elements fetched: {1}.\tFetch took: {2:N2}ms.\tAllocated bytes: {3}.", DateTime.Now, result.TotalNumberOfRowsFetched,
 							  result.FetchTimeInMilliseconds, result.NumberOfBytesAllocated);
 		}
 
 
 		private static void ReportMemoryUsageIndividualResult(BenchResult result)
 		{
-			Console.WriteLine("[{0:HH:mm:ss}] # of elements fetched individually: {1}.\tTotal time: {2:N2}ms.\tAllocated bytes per element: {3}.", DateTime.Now, KeysForIndividualFetches.Count, 
+			Console.WriteLine("[{0:HH:mm:ss}] # of elements fetched individually: {1}.\tTotal time: {2:N2}ms.\tAllocated bytes per element: {3}.", DateTime.Now, KeysForIndividualFetches.Count,
 							  result.FetchTimeInMilliseconds, result.NumberOfBytesAllocated);
 		}
 
 
 		private static void ReportMemoryUsageEagerLoadResult(BenchResult result)
 		{
-			Console.WriteLine("[{0:HH:mm:ss}] # of elements fetched: {1} ({2}).\tFetch took: {3:N2}ms. Allocated bytes: {3}.", DateTime.Now, result.TotalNumberOfRowsFetched, 
+			Console.WriteLine("[{0:HH:mm:ss}] # of elements fetched: {1} ({2}).\tFetch took: {3:N2}ms. Allocated bytes: {3}.", DateTime.Now, result.TotalNumberOfRowsFetched,
 							  string.Join(" + ", result.NumberOfRowsFetchedPerType.Select(kvp => kvp.Value).ToArray()), result.NumberOfBytesAllocated);
 		}
-		
+
 
 		/// <summary>
 		/// Reports the resulting statistics (mean/standard deviation) to standard out
@@ -507,7 +508,7 @@ namespace RawBencher
 					Console.WriteLine("------------------------------------------------------------------------------");
 					foreach(var bencher in benchersToList.OrderBy(b=>b.MemorySetBenchmarks))
 					{
-						Console.WriteLine("{0,-" + longestNameLength + "} : {1:0,0} KB ({2:0,0} bytes)", bencher.CreateFrameworkName(), bencher.MemorySetBenchmarks / 1024, 
+						Console.WriteLine("{0,-" + longestNameLength + "} : {1:0,0} KB ({2:0,0} bytes)", bencher.CreateFrameworkName(), bencher.MemorySetBenchmarks / 1024,
 										  bencher.MemorySetBenchmarks);
 					}
 				}
@@ -525,7 +526,7 @@ namespace RawBencher
 					Console.WriteLine("------------------------------------------------------------------------------");
 					foreach(var bencher in benchersToList.OrderBy(b=>b.MemorySetBenchmarks))
 					{
-						Console.WriteLine("{0,-" + longestNameLength + "} : {1:0,0} KB ({2:0,0} bytes)", bencher.CreateFrameworkName(), bencher.MemorySetBenchmarks / 1024, 
+						Console.WriteLine("{0,-" + longestNameLength + "} : {1:0,0} KB ({2:0,0} bytes)", bencher.CreateFrameworkName(), bencher.MemorySetBenchmarks / 1024,
 										  bencher.MemorySetBenchmarks);
 					}
 				}
@@ -542,12 +543,12 @@ namespace RawBencher
 						Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms ({2:N2}ms) per individual fetch", bencher.CreateFrameworkName(), bencher.IndividualFetchMean / IndividualKeysAmount,
 										  bencher.IndividualFetchSD / IndividualKeysAmount);
 					}
-					
+
 					Console.WriteLine("\nMemory usage, per individual element");
 					Console.WriteLine("------------------------------------------------------------------------------");
 					foreach(var bencher in benchersToList.OrderBy(b=>b.MemoryIndividualBenchmarks))
 					{
-						Console.WriteLine("{0,-" + longestNameLength + "} : {1:0,0} KB ({2:0,0} bytes)", bencher.CreateFrameworkName(), bencher.MemoryIndividualBenchmarks / 1024, 
+						Console.WriteLine("{0,-" + longestNameLength + "} : {1:0,0} KB ({2:0,0} bytes)", bencher.CreateFrameworkName(), bencher.MemoryIndividualBenchmarks / 1024,
 										  bencher.MemoryIndividualBenchmarks);
 					}
 				}
@@ -561,12 +562,12 @@ namespace RawBencher
 						Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms ({2:N2}ms) per individual fetch", bencher.CreateFrameworkName(), bencher.IndividualFetchMean / IndividualKeysAmount,
 										  bencher.IndividualFetchSD / IndividualKeysAmount);
 					}
-										
+
 					Console.WriteLine("\nMemory usage, per individual element");
 					Console.WriteLine("------------------------------------------------------------------------------");
 					foreach(var bencher in benchersToList.OrderBy(b=>b.MemoryIndividualBenchmarks))
 					{
-						Console.WriteLine("{0,-" + longestNameLength + "} : {1:0,0} KB ({2:0,0} bytes)", bencher.CreateFrameworkName(), bencher.MemoryIndividualBenchmarks / 1024, 
+						Console.WriteLine("{0,-" + longestNameLength + "} : {1:0,0} KB ({2:0,0} bytes)", bencher.CreateFrameworkName(), bencher.MemoryIndividualBenchmarks / 1024,
 										  bencher.MemoryIndividualBenchmarks);
 					}
 				}
@@ -582,12 +583,12 @@ namespace RawBencher
 					{
 						Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms ({2:N2}ms)", bencher.CreateFrameworkName(), bencher.EagerLoadFetchMean, bencher.EagerLoadFetchSD);
 					}
-									
+
 					Console.WriteLine("\nMemory usage, per iteration");
 					Console.WriteLine("------------------------------------------------------------------------------");
 					foreach(var bencher in benchersToList.OrderBy(b=>b.MemoryEagerLoadBenchmarks))
 					{
-						Console.WriteLine("{0,-" + longestNameLength + "} : {1:0,0} KB ({2:0,0} bytes)", bencher.CreateFrameworkName(), bencher.MemoryEagerLoadBenchmarks / 1024, 
+						Console.WriteLine("{0,-" + longestNameLength + "} : {1:0,0} KB ({2:0,0} bytes)", bencher.CreateFrameworkName(), bencher.MemoryEagerLoadBenchmarks / 1024,
 										  bencher.MemoryEagerLoadBenchmarks);
 					}
 				}
@@ -600,12 +601,12 @@ namespace RawBencher
 					{
 						Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms ({2:N2}ms)", bencher.CreateFrameworkName(), bencher.EagerLoadFetchMean, bencher.EagerLoadFetchSD);
 					}
-									
+
 					Console.WriteLine("\nMemory usage, per iteration");
 					Console.WriteLine("------------------------------------------------------------------------------");
 					foreach(var bencher in benchersToList.OrderBy(b=>b.MemoryEagerLoadBenchmarks))
 					{
-						Console.WriteLine("{0,-" + longestNameLength + "} : {1:0,0} KB ({2:0,0} bytes)", bencher.CreateFrameworkName(), bencher.MemoryEagerLoadBenchmarks / 1024, 
+						Console.WriteLine("{0,-" + longestNameLength + "} : {1:0,0} KB ({2:0,0} bytes)", bencher.CreateFrameworkName(), bencher.MemoryEagerLoadBenchmarks / 1024,
 										  bencher.MemoryEagerLoadBenchmarks);
 					}
 				}
@@ -618,12 +619,12 @@ namespace RawBencher
 					{
 						Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms ({2:N2}ms)", bencher.CreateFrameworkName(), bencher.AsyncEagerLoadFetchMean, bencher.AsyncEagerLoadFetchSD);
 					}
-														
+
 					Console.WriteLine("\nMemory usage, per iteration");
 					Console.WriteLine("------------------------------------------------------------------------------");
 					foreach(var bencher in benchersToList.OrderBy(b=>b.MemoryAsyncEagerLoadBenchmarks))
 					{
-						Console.WriteLine("{0,-" + longestNameLength + "} : {1:0,0} KB ({2:0,0} bytes)", bencher.CreateFrameworkName(), bencher.MemoryAsyncEagerLoadBenchmarks / 1024, 
+						Console.WriteLine("{0,-" + longestNameLength + "} : {1:0,0} KB ({2:0,0} bytes)", bencher.CreateFrameworkName(), bencher.MemoryAsyncEagerLoadBenchmarks / 1024,
 										  bencher.MemoryAsyncEagerLoadBenchmarks);
 					}
 				}
@@ -645,7 +646,7 @@ namespace RawBencher
 					Console.WriteLine("------------------------------------------------------------------------------");
 					foreach(var bencher in benchersToList.OrderBy(b=>b.MemorySetBenchmarks))
 					{
-						Console.WriteLine("{0,-" + longestNameLength + "} : {1:0,0} KB ({2:0,0} bytes)", bencher.CreateFrameworkName(), bencher.MemorySetBenchmarks / 1024, 
+						Console.WriteLine("{0,-" + longestNameLength + "} : {1:0,0} KB ({2:0,0} bytes)", bencher.CreateFrameworkName(), bencher.MemorySetBenchmarks / 1024,
 										  bencher.MemorySetBenchmarks);
 					}
 				}
@@ -662,12 +663,12 @@ namespace RawBencher
 						Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms ({2:N2}ms) per individual fetch", bencher.CreateFrameworkName(), bencher.IndividualFetchMean / IndividualKeysAmount,
 										  bencher.IndividualFetchSD / IndividualKeysAmount);
 					}
-					
+
 					Console.WriteLine("\nMemory usage, per individual element");
 					Console.WriteLine("------------------------------------------------------------------------------");
 					foreach(var bencher in benchersToList.OrderBy(b=>b.MemoryIndividualBenchmarks))
 					{
-						Console.WriteLine("{0,-" + longestNameLength + "} : {1:0,0} KB ({2:0,0} bytes)", bencher.CreateFrameworkName(), bencher.MemoryIndividualBenchmarks / 1024, 
+						Console.WriteLine("{0,-" + longestNameLength + "} : {1:0,0} KB ({2:0,0} bytes)", bencher.CreateFrameworkName(), bencher.MemoryIndividualBenchmarks / 1024,
 										  bencher.MemoryIndividualBenchmarks);
 					}
 				}
