@@ -4,7 +4,6 @@
 // Code is generated on: 
 // Code is generated using templates: SD.TemplateBindings.SharedTemplates
 // Templates vendor: Solutions Design.
-// Templates version: 
 //////////////////////////////////////////////////////////////
 using System;
 using System.ComponentModel;
