@@ -12,7 +12,7 @@ namespace RawBencher.Benchers
 	/// <summary>
 	/// Specific bencher for NHibernate, doing normal fetch
 	/// </summary>
-	public class NHibernateNormalBencher : BencherBase<NH.Bencher.EntityClasses.SalesOrderHeader>
+	public class NHibernateNormalBencher : FetchOnlyBencherBase<NH.Bencher.EntityClasses.SalesOrderHeader>
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="NHibernateNormalBencher"/> class.

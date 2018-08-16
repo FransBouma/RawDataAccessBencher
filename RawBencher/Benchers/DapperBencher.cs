@@ -11,7 +11,7 @@ namespace RawBencher.Benchers
 	/// <summary>
 	/// Specific bencher for Dapper , doing no-change tracking fetch
 	/// </summary>
-	public class DapperBencher : BencherBase<SalesOrderHeader>
+	public class DapperBencher : FetchOnlyBencherBase<SalesOrderHeader>
 	{
         /// <summary>
         /// Initializes a new instance of the <see cref="DapperBencher"/> class.

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace RawBencher.Benchers
 {
-	public class LINQ2DBNormalBencher : BencherBase<LINQ2DB.Bencher.SalesOrderHeader>
+	public class LINQ2DBNormalBencher : FetchOnlyBencherBase<LINQ2DB.Bencher.SalesOrderHeader>
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="LINQ2DBNormalBencher"/> class.

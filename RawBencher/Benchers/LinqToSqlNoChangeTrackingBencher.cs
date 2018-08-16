@@ -10,7 +10,7 @@ namespace RawBencher.Benchers
 	/// <summary>
 	/// Specific bencher for Linq To Sql, doing no change tracking fetch
 	/// </summary>
-	public class LinqToSqlNoChangeTrackingBencher : BencherBase<L2S.Bencher.EntityClasses.SalesOrderHeader>
+	public class LinqToSqlNoChangeTrackingBencher : FetchOnlyBencherBase<L2S.Bencher.EntityClasses.SalesOrderHeader>
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="LinqToSqlNoChangeTrackingBencher"/> class.

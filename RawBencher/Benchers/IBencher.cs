@@ -76,6 +76,28 @@ namespace RawBencher.Benchers
 		/// </returns>
 		BenchResult PerformAsyncEagerLoadBenchmark(bool discardResults);
 		/// <summary>
+		/// Performs the insert set benchmark. This is a benchmark which inserts a set of entities in one go, collects the time it took to do so, verifies all
+		/// rows inserted and deletes the rows afterwards. 
+		/// </summary>
+		/// <param name="amountToInsert">the amount of entities to insert</param>
+		/// <param name="batchSize">The size of the batch to use as maximum, if supported</param>
+		/// <returns>
+		/// A filled in benchmark result object
+		/// </returns>
+		BenchResult PerformInsertSetBenchmark(int amountToInsert, int batchSize);
+		/// <summary>
+		/// Performs the insert set benchmark. This is a benchmark which inserts a set of entities in one go, collects the time it took to do so, verifies all
+		/// rows inserted and deletes the rows afterwards. 
+		/// </summary>
+		/// <param name="amountToInsert">the amount of entities to insert</param>
+		/// <param name="batchSize">The size of the batch to use as maximum, if supported</param>
+		/// <param name="discardResults">if set to <c>true</c> the results are returned but are not collected.</param>
+		/// <returns>
+		/// A filled in benchmark result object
+		/// </returns>
+		BenchResult PerformInsertSetBenchmark(int amountToInsert, int batchSize, bool discardResults);
+
+		/// <summary>
 		/// Resets the result containers of this bencher.
 		/// </summary>
 		void ResetResults();
@@ -85,7 +107,6 @@ namespace RawBencher.Benchers
 		/// <see cref="EnumerationMean"/>.
 		/// </summary>
 		void CalculateStatistics();
-		
 		/// <summary>
 		/// Gets the individual fetch average, calculated by <see cref="CalculateStatistics"/>
 		/// </summary>
@@ -127,6 +148,14 @@ namespace RawBencher.Benchers
 		/// </summary>
 		double AsyncEagerLoadFetchSD { get; }
 		/// <summary>
+		/// Gets the set insert mean, calculated by <see cref="CalculateStatistics"/>
+		/// </summary>
+		double SetInsertMean { get; }
+		/// <summary>
+		/// Gets the set insert standard deviation, calculated by <see cref="CalculateStatistics"/>
+		/// </summary>
+		double SetInsertSD { get; }
+		/// <summary>
 		/// Gets a value indicating whether the fetch uses some form of caching (resultset caching, element caching)
 		/// </summary>
 		bool UsesCaching { get; }
@@ -142,6 +171,14 @@ namespace RawBencher.Benchers
 		/// Gets a value indicating whether this bencher supports asynchronous tasks. If true, this bencher will participate in asynchronous benchmarks.
 		/// </summary>
 		bool SupportsAsync { get; }
+		/// <summary>
+		/// If true, this bencher supports insert benchmarking.
+		/// </summary>
+		bool SupportsInserts { get; }
+		/// <summary>
+		/// The total amount of bytes allocated when doing a set insert benchmark run.
+		/// </summary>
+		long MemorySetInsertBenchmarks { get; set; }
 		/// <summary>
 		/// The total amount of bytes allocated when doing an individual fetch benchmark run
 		/// </summary>
@@ -159,4 +196,6 @@ namespace RawBencher.Benchers
 		/// </summary>
 		long MemoryAsyncEagerLoadBenchmarks { get; set; }
 	}
+
+
 }

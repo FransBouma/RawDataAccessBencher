@@ -11,7 +11,7 @@ namespace RawBencher.Benchers
 	/// <summary>
 	/// Specific bencher for Entity Framework, doing normal fetch
 	/// </summary>
-	public class EntityFrameworkNormalBencher : BencherBase<EF6.Bencher.EntityClasses.SalesOrderHeader>
+	public class EntityFrameworkNormalBencher : FetchOnlyBencherBase<EF6.Bencher.EntityClasses.SalesOrderHeader>
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="EntityFrameworkNormalBencher"/> class.

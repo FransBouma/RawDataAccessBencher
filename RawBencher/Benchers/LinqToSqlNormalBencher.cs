@@ -11,7 +11,7 @@ namespace RawBencher.Benchers
 	/// <summary>
 	/// Specific bencher for Linq To Sql, doing normal fetch
 	/// </summary>
-	public class LinqToSqlNormalBencher : BencherBase<L2S.Bencher.EntityClasses.SalesOrderHeader>
+	public class LinqToSqlNormalBencher : FetchOnlyBencherBase<L2S.Bencher.EntityClasses.SalesOrderHeader>
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="LinqToSqlNormalBencher"/> class.

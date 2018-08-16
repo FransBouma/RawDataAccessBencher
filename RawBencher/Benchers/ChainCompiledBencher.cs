@@ -6,7 +6,7 @@ namespace RawBencher.Benchers
     /// <summary>
     /// Specific bencher for Tortuga Chain w/compiled materializers, doing no-change tracking fetch
     /// </summary>
-    public class ChainCompiledBencher : BencherBase<SalesOrderHeader>
+    public class ChainCompiledBencher : FetchOnlyBencherBase<SalesOrderHeader>
     {
         SqlServerDataSource DataSource;
         /// <summary>
