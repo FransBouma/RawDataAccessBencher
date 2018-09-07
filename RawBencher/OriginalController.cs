@@ -70,8 +70,8 @@ namespace RawBencher
             RegisteredBenchers.Add(new OrmLiteBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
             RegisteredBenchers.Add(new DataTableBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
             RegisteredBenchers.Add(new MassiveBencher());
-            RegisteredBenchers.Add(new RepoDbBencher() { ConnectionStringToUse = ConnectionString, CommandText = SqlSelectCommandText });
-            RegisteredBenchers.Add(new RepoDbPersistentBencher(ConnectionString) { CommandText = SqlSelectCommandText });
+            RegisteredBenchers.Add(new RepoDbRawSqlBencher() { ConnectionStringToUse = ConnectionString, CommandText = SqlSelectCommandText });
+            RegisteredBenchers.Add(new RepoDbPocoBencher() { ConnectionStringToUse = ConnectionString, CommandText = SqlSelectCommandText });
 
             OriginalController.DisplayHeader();
 			OriginalController.WarmupDB();

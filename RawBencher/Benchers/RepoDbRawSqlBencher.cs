@@ -1,19 +1,21 @@
 ﻿using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
 using RepoDb;
+using System.Data.SqlClient;
+using RepoDb.Enumerations;
 
 namespace RawBencher.Benchers
 {
     /// <summary>
-    /// Specific bencher for RepoDbBencher, doing no-change tracking fetch
+    /// Specific bencher for RepoDbPersistentBencher, doing no-change tracking fetch
     /// </summary>
-    public class RepoDbBencher : BencherBase<SalesOrderHeader>
+    public class RepoDbRawSqlBencher : BencherBase<SalesOrderHeader>
     {
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="RepoDbBencher"/> class.
+        /// Initializes a new instance of the <see cref="RepoDbRawSqlBencher"/> class.
         /// </summary>
-        public RepoDbBencher()
+        public RepoDbRawSqlBencher()
             : base(e => e.SalesOrderId, usesChangeTracking: false, usesCaching: false)
         {
         }
@@ -27,7 +29,7 @@ namespace RawBencher.Benchers
         {
             using (var connection = new SqlConnection(ConnectionStringToUse))
             {
-                return connection.ExecuteQuery<SalesOrderHeader>(CommandText + " WHERE SalesOrderId = @SalesOrderId;", new { SalesOrderId = key }).FirstOrDefault();
+                return connection.ExecuteQuery<SalesOrderHeader>(CommandText + " WHERE SalesOrderId = @SalesOrderId;", new { SalesOrderId = key }).First();
             }
         }
 
@@ -43,12 +45,6 @@ namespace RawBencher.Benchers
             }
         }
 
-        //public override IEnumerable<RepoDb.Bencher.Model.SalesOrderHeader> FetchGraph()
-        //{
-        //    var repository = new DbRepository<SqlConnection>(this.ConnectionStringToUse);
-        //    return repository.Query<RepoDb.Bencher.Model.SalesOrderHeader>(recursive: true, recursionDepth: 3);
-        //}
-
         /// <summary>
         /// Creates the name of the framework this bencher is for. Use the overload which accepts a format string and a type to create a name based on a
         /// specific version
@@ -56,7 +52,7 @@ namespace RawBencher.Benchers
         /// <returns>the framework name.</returns>
         protected override string CreateFrameworkNameImpl()
         {
-            return "RepoDb v" + BencherUtils.GetVersion(typeof(TypeMapper));
+            return "RepoDb (RawSql) v" + BencherUtils.GetVersion(typeof(TypeMapper));
         }
 
         #region Properties
