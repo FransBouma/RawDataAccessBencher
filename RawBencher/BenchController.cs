@@ -18,7 +18,7 @@ namespace RawBencher
 	/// </summary>
 	public class BenchController
 	{
-		private const int LoopAmount = 10;
+		private const int LoopAmount = 20;
 		private const int IndividualKeysAmount = 1000;
 		private const int InsertSetSize = 1000;			// insert this amount of elements during insert benchmarks.
 		private const int InsertBatchSizeDefault = 60;
@@ -79,7 +79,7 @@ namespace RawBencher
 			BenchController.FetchKeysForIndividualFetches();
 
 			// Uncomment the line below if you want to profile a bencher. Specify the bencher instance and follow the guides on the screen.
-			//ProfileBenchers(RegisteredBenchers.FirstOrDefault(b => b.GetType() == typeof(EntityFrameworkCoreNormalBencher)));
+			//ProfileBenchers(RegisteredBenchers.FirstOrDefault(b => b.GetType() == typeof(LLBLGenProNormalBencher)));
 			BenchController.RunRegisteredBenchers();
 			BenchController.ReportResultStatistics(autoExit);
 		}
@@ -140,7 +140,7 @@ namespace RawBencher
 					return;
 				}
 				Console.WriteLine("Running set benchmark for bencher '{0}' before profiling to warm up constructs", b.CreateFrameworkName());
-				//b.PerformSetBenchmark();
+				b.PerformSetBenchmark();
 				b.PerformIndividualBenchMark(KeysForIndividualFetches);
 				if(b.SupportsEagerLoading)
 				{
