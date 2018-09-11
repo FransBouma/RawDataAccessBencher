@@ -10,6 +10,7 @@ namespace RawBencher
     /// <summary>Class which represents the entity 'Sales.SalesOrderHeader'</summary>
     [ServiceStack.DataAnnotations.Schema("Sales")]
     [ServiceStack.DataAnnotations.Alias("SalesOrderHeader")]
+    [RepoDb.Attributes.Map("[Sales].[SalesOrderHeader]")]
     public partial class SalesOrderHeader
     {
         #region Class Member Declarations
