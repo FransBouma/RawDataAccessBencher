@@ -9,7 +9,7 @@ namespace RawBencher.Benchers
     /// <summary>
     /// Specific bencher for RepoDbPersistentBencher, doing no-change tracking fetch
     /// </summary>
-    public class RepoDbRawSqlBencher : BencherBase<SalesOrderHeader>
+    public class RepoDbRawSqlBencher : FetchOnlyBencherBase<SalesOrderHeader>
     {
 
         /// <summary>
