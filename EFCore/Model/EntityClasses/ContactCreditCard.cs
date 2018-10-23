@@ -26,7 +26,7 @@ namespace EFCore.Bencher.EntityClasses
 		public System.DateTime ModifiedDate { get; set;}
 		/// <summary>Represents the navigator which is mapped onto the association 'ContactCreditCard.CreditCard - CreditCard.ContactCreditCards (m:1)'</summary>
 		public virtual CreditCard CreditCard { get; set;}
-		/// <summary>Represents the navigator which is mapped onto the association 'ContactCreditCard.Person - Person.Person.ContactCreditCards (m:1)'</summary>
+		/// <summary>Represents the navigator which is mapped onto the association 'ContactCreditCard.Person - Person.ContactCreditCards (m:1)'</summary>
 		public virtual Person Person { get; set;}
 	}
 }

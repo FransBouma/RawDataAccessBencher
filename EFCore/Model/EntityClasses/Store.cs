@@ -31,10 +31,10 @@ namespace EFCore.Bencher.EntityClasses
 		public System.Guid Rowguid { get; set;}
 		/// <summary>Gets or sets the SalesPersonId field. </summary>
 		public Nullable<System.Int32> SalesPersonId { get; set;}
+		/// <summary>Represents the navigator which is mapped onto the association 'Store.BusinessEntity - BusinessEntity.Store (1:1)'</summary>
+		public virtual BusinessEntity BusinessEntity { get; set;}
 		/// <summary>Represents the navigator which is mapped onto the association 'Customer.Store - Store.Customers (m:1)'</summary>
 		public virtual List<Customer> Customers { get; set;}
-		/// <summary>Represents the navigator which is mapped onto the association 'Store.BusinessEntity - Person.BusinessEntity.Store (1:1)'</summary>
-		public virtual BusinessEntity BusinessEntity { get; set;}
 		/// <summary>Represents the navigator which is mapped onto the association 'Store.SalesPerson - SalesPerson.Stores (m:1)'</summary>
 		public virtual SalesPerson SalesPerson { get; set;}
 	}

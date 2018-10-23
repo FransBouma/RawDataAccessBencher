@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace EFCore.Bencher.EntityClasses
 {
-	/// <summary>Class which represents the entity 'Person.Person'.</summary>
+	/// <summary>Class which represents the entity 'Person'.</summary>
 	public partial class Person : CommonEntityBase
 	{
 		/// <summary>Method called from the constructor</summary>
@@ -15,9 +15,9 @@ namespace EFCore.Bencher.EntityClasses
 		/// <summary>Initializes a new instance of the <see cref="Person"/> class.</summary>
 		public Person() : base()
 		{
+			this.BusinessEntityContacts = new List<BusinessEntityContact>();
 			this.ContactCreditCards = new List<ContactCreditCard>();
 			this.Customers = new List<Customer>();
-			this.BusinessEntityContacts = new List<BusinessEntityContact>();
 			this.EmailAddresses = new List<EmailAddress>();
 			this.PersonPhones = new List<PersonPhone>();
 			OnCreated();
@@ -49,21 +49,21 @@ namespace EFCore.Bencher.EntityClasses
 		public System.String Suffix { get; set;}
 		/// <summary>Gets or sets the Title field. </summary>
 		public System.String Title { get; set;}
-		/// <summary>Represents the navigator which is mapped onto the association 'ContactCreditCard.Person - Person.Person.ContactCreditCards (m:1)'</summary>
-		public virtual List<ContactCreditCard> ContactCreditCards { get; set;}
-		/// <summary>Represents the navigator which is mapped onto the association 'Customer.Person - Person.Person.Customers (m:1)'</summary>
-		public virtual List<Customer> Customers { get; set;}
-		/// <summary>Represents the navigator which is mapped onto the association 'Employee.Person - Person.Person.Employee (1:1)'</summary>
-		public virtual Employee Employee { get; set;}
-		/// <summary>Represents the navigator which is mapped onto the association 'Person.Person.BusinessEntity - Person.BusinessEntity.Person (1:1)'</summary>
+		/// <summary>Represents the navigator which is mapped onto the association 'Person.BusinessEntity - BusinessEntity.Person (1:1)'</summary>
 		public virtual BusinessEntity BusinessEntity { get; set;}
-		/// <summary>Represents the navigator which is mapped onto the association 'Person.BusinessEntityContact.Person - Person.Person.BusinessEntityContacts (m:1)'</summary>
+		/// <summary>Represents the navigator which is mapped onto the association 'BusinessEntityContact.Person - Person.BusinessEntityContacts (m:1)'</summary>
 		public virtual List<BusinessEntityContact> BusinessEntityContacts { get; set;}
-		/// <summary>Represents the navigator which is mapped onto the association 'Person.EmailAddress.Person - Person.Person.EmailAddresses (m:1)'</summary>
+		/// <summary>Represents the navigator which is mapped onto the association 'ContactCreditCard.Person - Person.ContactCreditCards (m:1)'</summary>
+		public virtual List<ContactCreditCard> ContactCreditCards { get; set;}
+		/// <summary>Represents the navigator which is mapped onto the association 'Customer.Person - Person.Customers (m:1)'</summary>
+		public virtual List<Customer> Customers { get; set;}
+		/// <summary>Represents the navigator which is mapped onto the association 'EmailAddress.Person - Person.EmailAddresses (m:1)'</summary>
 		public virtual List<EmailAddress> EmailAddresses { get; set;}
-		/// <summary>Represents the navigator which is mapped onto the association 'Person.Password.Person - Person.Person.Password (1:1)'</summary>
+		/// <summary>Represents the navigator which is mapped onto the association 'Employee.Person - Person.Employee (1:1)'</summary>
+		public virtual Employee Employee { get; set;}
+		/// <summary>Represents the navigator which is mapped onto the association 'Password.Person - Person.Password (1:1)'</summary>
 		public virtual Password Password { get; set;}
-		/// <summary>Represents the navigator which is mapped onto the association 'Person.PersonPhone.Person - Person.Person.PersonPhones (m:1)'</summary>
+		/// <summary>Represents the navigator which is mapped onto the association 'PersonPhone.Person - Person.PersonPhones (m:1)'</summary>
 		public virtual List<PersonPhone> PersonPhones { get; set;}
 	}
 }

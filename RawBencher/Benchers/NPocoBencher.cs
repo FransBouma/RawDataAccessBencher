@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,7 +26,7 @@ namespace RawBencher.Benchers
         public override SalesOrderHeader FetchIndividual(int key)
         {
             SalesOrderHeader toReturn = null;
-            var dbFactory = new Database(ConnectionStringToUse, "System.Data.SqlClient");
+            var dbFactory = new Database(ConnectionStringToUse, DatabaseType.SqlServer2012, SqlClientFactory.Instance);
             dbFactory.OpenSharedConnection();
             dbFactory.EnableAutoSelect = false;
             toReturn = dbFactory.First<SalesOrderHeader>(CommandText + " where SalesOrderId=@0 ", key);
@@ -41,7 +42,7 @@ namespace RawBencher.Benchers
         public override IEnumerable<SalesOrderHeader> FetchSet()
         {
             var headers = new List<SalesOrderHeader>();
-            var dbFactory = new Database(ConnectionStringToUse, "System.Data.SqlClient");
+			var dbFactory = new Database(ConnectionStringToUse, DatabaseType.SqlServer2012, SqlClientFactory.Instance);
             dbFactory.OpenSharedConnection();
             dbFactory.EnableAutoSelect = false;
             headers = dbFactory.Fetch<SalesOrderHeader>(CommandText);

@@ -63,7 +63,7 @@ namespace EFCore.Bencher.EntityClasses
 		public virtual List<EmployeePayHistory> EmployeePayHistories { get; set;}
 		/// <summary>Represents the navigator which is mapped onto the association 'JobCandidate.Employee - Employee.JobCandidates (m:1)'</summary>
 		public virtual List<JobCandidate> JobCandidates { get; set;}
-		/// <summary>Represents the navigator which is mapped onto the association 'Employee.Person - Person.Person.Employee (1:1)'</summary>
+		/// <summary>Represents the navigator which is mapped onto the association 'Employee.Person - Person.Employee (1:1)'</summary>
 		public virtual Person Person { get; set;}
 		/// <summary>Represents the navigator which is mapped onto the association 'PurchaseOrderHeader.Employee - Employee.PurchaseOrderHeaders (m:1)'</summary>
 		public virtual List<PurchaseOrderHeader> PurchaseOrderHeaders { get; set;}

@@ -51,7 +51,8 @@ namespace RawBencher.Benchers
 
 
         string m_ConnectionStringToUse;
-        #region Properties
+
+		#region Properties
         /// <summary>
         /// Gets or sets the connection string to use
         /// </summary>

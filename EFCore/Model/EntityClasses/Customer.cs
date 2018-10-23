@@ -33,7 +33,7 @@ namespace EFCore.Bencher.EntityClasses
 		public Nullable<System.Int32> StoreId { get; set;}
 		/// <summary>Gets or sets the TerritoryId field. </summary>
 		public Nullable<System.Int32> TerritoryId { get; set;}
-		/// <summary>Represents the navigator which is mapped onto the association 'Customer.Person - Person.Person.Customers (m:1)'</summary>
+		/// <summary>Represents the navigator which is mapped onto the association 'Customer.Person - Person.Customers (m:1)'</summary>
 		public virtual Person Person { get; set;}
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderHeader.Customer - Customer.SalesOrderHeaders (m:1)'</summary>
 		public virtual List<SalesOrderHeader> SalesOrderHeaders { get; set;}

@@ -7,6 +7,7 @@ using AdventureWorks.Dal.Adapter.DatabaseSpecific;
 using AdventureWorks.Dal.Adapter.EntityClasses;
 using AdventureWorks.Dal.Adapter.FactoryClasses;
 using AdventureWorks.Dal.Adapter.HelperClasses;
+using SD.LLBLGen.Pro.DQE.SqlServer;
 using SD.LLBLGen.Pro.ORMSupportClasses;
 using SD.LLBLGen.Pro.QuerySpec;
 using SD.LLBLGen.Pro.QuerySpec.Adapter;
@@ -21,9 +22,11 @@ namespace RawBencher.Benchers
 		/// <summary>
 		/// Initializes a new instance of the <see cref="LLBLGenProResultsetCachingBencher"/> class.
 		/// </summary>
-		public LLBLGenProResultsetCachingBencher()
+		public LLBLGenProResultsetCachingBencher(string connectionString)
 			: base(e => e.SalesOrderId, usesChangeTracking: true, usesCaching: true)
 		{
+			RuntimeConfiguration.AddConnectionString("AdventureWorks.ConnectionString.SQL Server (SqlClient)", connectionString);
+			RuntimeConfiguration.ConfigureDQE<SQLServerDQEConfiguration>(c=>c.AddDbProviderFactory(typeof(System.Data.SqlClient.SqlClientFactory)));
 		}
 
 

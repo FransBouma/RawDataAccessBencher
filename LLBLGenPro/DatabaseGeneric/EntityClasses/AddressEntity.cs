@@ -228,14 +228,6 @@ namespace AdventureWorks.Dal.Adapter.EntityClasses
 			set	{ SetValue((int)AddressFieldIndex.Rowguid, value); }
 		}
 
-		/// <summary>The SpatialLocation property of the Entity Address<br/><br/></summary>
-		/// <remarks>Mapped on  table field: "Address"."SpatialLocation".<br/>Table field type characteristics (type, precision, scale, length): Udt, 0, 0, 0.<br/>Table field behavior characteristics (is nullable, is PK, is identity): true, false, false</remarks>
-		public virtual Microsoft.SqlServer.Types.SqlGeography SpatialLocation
-		{
-			get { return (Microsoft.SqlServer.Types.SqlGeography)GetValue((int)AddressFieldIndex.SpatialLocation, true); }
-			set	{ SetValue((int)AddressFieldIndex.SpatialLocation, value); }
-		}
-
 		/// <summary>The StateProvinceId property of the Entity Address<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "Address"."StateProvinceID".<br/>Table field type characteristics (type, precision, scale, length): Int, 10, 0, 0.<br/>Table field behavior characteristics (is nullable, is PK, is identity): false, false, false</remarks>
 		public virtual System.Int32 StateProvinceId
@@ -287,8 +279,6 @@ namespace AdventureWorks.Dal.Adapter
 		PostalCode,
 		///<summary>Rowguid. </summary>
 		Rowguid,
-		///<summary>SpatialLocation. </summary>
-		SpatialLocation,
 		///<summary>StateProvinceId. </summary>
 		StateProvinceId,
 		/// <summary></summary>

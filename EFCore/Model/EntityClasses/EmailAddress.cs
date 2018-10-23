@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace EFCore.Bencher.EntityClasses
 {
-	/// <summary>Class which represents the entity 'Person.EmailAddress'.</summary>
+	/// <summary>Class which represents the entity 'EmailAddress'.</summary>
 	public partial class EmailAddress : CommonEntityBase
 	{
 		/// <summary>Method called from the constructor</summary>
@@ -28,7 +28,7 @@ namespace EFCore.Bencher.EntityClasses
 		public System.DateTime ModifiedDate { get; set;}
 		/// <summary>Gets or sets the Rowguid field. </summary>
 		public System.Guid Rowguid { get; set;}
-		/// <summary>Represents the navigator which is mapped onto the association 'Person.EmailAddress.Person - Person.Person.EmailAddresses (m:1)'</summary>
+		/// <summary>Represents the navigator which is mapped onto the association 'EmailAddress.Person - Person.EmailAddresses (m:1)'</summary>
 		public virtual Person Person { get; set;}
 	}
 }

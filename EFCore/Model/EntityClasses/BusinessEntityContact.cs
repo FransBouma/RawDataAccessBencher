@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace EFCore.Bencher.EntityClasses
 {
-	/// <summary>Class which represents the entity 'Person.BusinessEntityContact'.</summary>
+	/// <summary>Class which represents the entity 'BusinessEntityContact'.</summary>
 	public partial class BusinessEntityContact : CommonEntityBase
 	{
 		/// <summary>Method called from the constructor</summary>
@@ -28,11 +28,11 @@ namespace EFCore.Bencher.EntityClasses
 		public System.Int32 PersonId { get; set;}
 		/// <summary>Gets or sets the Rowguid field. </summary>
 		public System.Guid Rowguid { get; set;}
-		/// <summary>Represents the navigator which is mapped onto the association 'Person.BusinessEntityContact.ContactType - ContactType.BusinessEntityContacts (m:1)'</summary>
-		public virtual ContactType ContactType { get; set;}
-		/// <summary>Represents the navigator which is mapped onto the association 'Person.BusinessEntityContact.BusinessEntity - Person.BusinessEntity.BusinessEntityContacts (m:1)'</summary>
+		/// <summary>Represents the navigator which is mapped onto the association 'BusinessEntityContact.BusinessEntity - BusinessEntity.BusinessEntityContacts (m:1)'</summary>
 		public virtual BusinessEntity BusinessEntity { get; set;}
-		/// <summary>Represents the navigator which is mapped onto the association 'Person.BusinessEntityContact.Person - Person.Person.BusinessEntityContacts (m:1)'</summary>
+		/// <summary>Represents the navigator which is mapped onto the association 'BusinessEntityContact.ContactType - ContactType.BusinessEntityContacts (m:1)'</summary>
+		public virtual ContactType ContactType { get; set;}
+		/// <summary>Represents the navigator which is mapped onto the association 'BusinessEntityContact.Person - Person.BusinessEntityContacts (m:1)'</summary>
 		public virtual Person Person { get; set;}
 	}
 }

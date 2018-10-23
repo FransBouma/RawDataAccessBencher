@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace EFCore.Bencher.EntityClasses
 {
-	/// <summary>Class which represents the entity 'Person.Password'.</summary>
+	/// <summary>Class which represents the entity 'Password'.</summary>
 	public partial class Password : CommonEntityBase
 	{
 		/// <summary>Method called from the constructor</summary>
@@ -28,7 +28,7 @@ namespace EFCore.Bencher.EntityClasses
 		public System.String PasswordSalt { get; set;}
 		/// <summary>Gets or sets the Rowguid field. </summary>
 		public System.Guid Rowguid { get; set;}
-		/// <summary>Represents the navigator which is mapped onto the association 'Person.Password.Person - Person.Person.Password (1:1)'</summary>
+		/// <summary>Represents the navigator which is mapped onto the association 'Password.Person - Person.Password (1:1)'</summary>
 		public virtual Person Person { get; set;}
 	}
 }

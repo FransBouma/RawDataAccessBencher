@@ -126,7 +126,6 @@ namespace AdventureWorks.Dal.Adapter.HelperClasses
 			this.AddElementFieldInfo("AddressEntity", "ModifiedDate", typeof(System.DateTime), false, false, false, false,  (int)AddressFieldIndex.ModifiedDate, 0, 0, 0);
 			this.AddElementFieldInfo("AddressEntity", "PostalCode", typeof(System.String), false, false, false, false,  (int)AddressFieldIndex.PostalCode, 15, 0, 0);
 			this.AddElementFieldInfo("AddressEntity", "Rowguid", typeof(System.Guid), false, false, false, false,  (int)AddressFieldIndex.Rowguid, 0, 0, 0);
-			this.AddElementFieldInfo("AddressEntity", "SpatialLocation", typeof(Microsoft.SqlServer.Types.SqlGeography), false, false, false, true,  (int)AddressFieldIndex.SpatialLocation, 0, 0, 0);
 			this.AddElementFieldInfo("AddressEntity", "StateProvinceId", typeof(System.Int32), false, true, false, false,  (int)AddressFieldIndex.StateProvinceId, 0, 0, 10);
 		}
 

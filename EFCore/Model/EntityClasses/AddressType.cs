@@ -27,7 +27,7 @@ namespace EFCore.Bencher.EntityClasses
 		public System.String Name { get; set;}
 		/// <summary>Gets or sets the Rowguid field. </summary>
 		public System.Guid Rowguid { get; set;}
-		/// <summary>Represents the navigator which is mapped onto the association 'Person.BusinessEntityAddress.AddressType - AddressType.BusinessEntityAddresses (m:1)'</summary>
+		/// <summary>Represents the navigator which is mapped onto the association 'BusinessEntityAddress.AddressType - AddressType.BusinessEntityAddresses (m:1)'</summary>
 		public virtual List<BusinessEntityAddress> BusinessEntityAddresses { get; set;}
 	}
 }

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace EFCore.Bencher.EntityClasses
 {
-	/// <summary>Class which represents the entity 'Person.PersonPhone'.</summary>
+	/// <summary>Class which represents the entity 'PersonPhone'.</summary>
 	public partial class PersonPhone : CommonEntityBase
 	{
 		/// <summary>Method called from the constructor</summary>
@@ -26,9 +26,9 @@ namespace EFCore.Bencher.EntityClasses
 		public System.String PhoneNumber { get; set;}
 		/// <summary>Gets or sets the PhoneNumberTypeId field. </summary>
 		public System.Int32 PhoneNumberTypeId { get; set;}
-		/// <summary>Represents the navigator which is mapped onto the association 'Person.PersonPhone.Person - Person.Person.PersonPhones (m:1)'</summary>
+		/// <summary>Represents the navigator which is mapped onto the association 'PersonPhone.Person - Person.PersonPhones (m:1)'</summary>
 		public virtual Person Person { get; set;}
-		/// <summary>Represents the navigator which is mapped onto the association 'Person.PersonPhone.PhoneNumberType - Person.PhoneNumberType.PersonPhones (m:1)'</summary>
+		/// <summary>Represents the navigator which is mapped onto the association 'PersonPhone.PhoneNumberType - PhoneNumberType.PersonPhones (m:1)'</summary>
 		public virtual PhoneNumberType PhoneNumberType { get; set;}
 	}
 }

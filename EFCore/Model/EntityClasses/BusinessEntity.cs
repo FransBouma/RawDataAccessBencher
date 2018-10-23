@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace EFCore.Bencher.EntityClasses
 {
-	/// <summary>Class which represents the entity 'Person.BusinessEntity'.</summary>
+	/// <summary>Class which represents the entity 'BusinessEntity'.</summary>
 	public partial class BusinessEntity : CommonEntityBase
 	{
 		/// <summary>Method called from the constructor</summary>
@@ -26,15 +26,15 @@ namespace EFCore.Bencher.EntityClasses
 		public System.DateTime ModifiedDate { get; set;}
 		/// <summary>Gets or sets the Rowguid field. </summary>
 		public System.Guid Rowguid { get; set;}
-		/// <summary>Represents the navigator which is mapped onto the association 'Person.BusinessEntityAddress.BusinessEntity - Person.BusinessEntity.BusinessEntityAddresses (m:1)'</summary>
+		/// <summary>Represents the navigator which is mapped onto the association 'BusinessEntityAddress.BusinessEntity - BusinessEntity.BusinessEntityAddresses (m:1)'</summary>
 		public virtual List<BusinessEntityAddress> BusinessEntityAddresses { get; set;}
-		/// <summary>Represents the navigator which is mapped onto the association 'Person.BusinessEntityContact.BusinessEntity - Person.BusinessEntity.BusinessEntityContacts (m:1)'</summary>
+		/// <summary>Represents the navigator which is mapped onto the association 'BusinessEntityContact.BusinessEntity - BusinessEntity.BusinessEntityContacts (m:1)'</summary>
 		public virtual List<BusinessEntityContact> BusinessEntityContacts { get; set;}
-		/// <summary>Represents the navigator which is mapped onto the association 'Person.Person.BusinessEntity - Person.BusinessEntity.Person (1:1)'</summary>
+		/// <summary>Represents the navigator which is mapped onto the association 'Person.BusinessEntity - BusinessEntity.Person (1:1)'</summary>
 		public virtual Person Person { get; set;}
-		/// <summary>Represents the navigator which is mapped onto the association 'Store.BusinessEntity - Person.BusinessEntity.Store (1:1)'</summary>
+		/// <summary>Represents the navigator which is mapped onto the association 'Store.BusinessEntity - BusinessEntity.Store (1:1)'</summary>
 		public virtual Store Store { get; set;}
-		/// <summary>Represents the navigator which is mapped onto the association 'Vendor.BusinessEntity - Person.BusinessEntity.Vendor (1:1)'</summary>
+		/// <summary>Represents the navigator which is mapped onto the association 'Vendor.BusinessEntity - BusinessEntity.Vendor (1:1)'</summary>
 		public virtual Vendor Vendor { get; set;}
 	}
 }

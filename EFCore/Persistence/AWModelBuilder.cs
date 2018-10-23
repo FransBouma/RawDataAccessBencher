@@ -20,6 +20,9 @@ namespace EFCore.Bencher
 			MapAddress(modelBuilder.Entity<Address>());
 			MapAddressType(modelBuilder.Entity<AddressType>());
 			MapBillOfMaterial(modelBuilder.Entity<BillOfMaterial>());
+			MapBusinessEntity(modelBuilder.Entity<BusinessEntity>());
+			MapBusinessEntityAddress(modelBuilder.Entity<BusinessEntityAddress>());
+			MapBusinessEntityContact(modelBuilder.Entity<BusinessEntityContact>());
 			MapContactCreditCard(modelBuilder.Entity<ContactCreditCard>());
 			MapContactType(modelBuilder.Entity<ContactType>());
 			MapCountryRegion(modelBuilder.Entity<CountryRegion>());
@@ -31,16 +34,13 @@ namespace EFCore.Bencher
 			MapCustomer(modelBuilder.Entity<Customer>());
 			MapDepartment(modelBuilder.Entity<Department>());
 			MapDocument(modelBuilder.Entity<Document>());
+			MapEmailAddress(modelBuilder.Entity<EmailAddress>());
 			MapEmployee(modelBuilder.Entity<Employee>());
 			MapEmployeeDepartmentHistory(modelBuilder.Entity<EmployeeDepartmentHistory>());
 			MapEmployeePayHistory(modelBuilder.Entity<EmployeePayHistory>());
 			MapIllustration(modelBuilder.Entity<Illustration>());
 			MapJobCandidate(modelBuilder.Entity<JobCandidate>());
 			MapLocation(modelBuilder.Entity<Location>());
-			MapBusinessEntity(modelBuilder.Entity<BusinessEntity>());
-			MapBusinessEntityAddress(modelBuilder.Entity<BusinessEntityAddress>());
-			MapBusinessEntityContact(modelBuilder.Entity<BusinessEntityContact>());
-			MapEmailAddress(modelBuilder.Entity<EmailAddress>());
 			MapPassword(modelBuilder.Entity<Password>());
 			MapPerson(modelBuilder.Entity<Person>());
 			MapPersonPhone(modelBuilder.Entity<PersonPhone>());
@@ -134,6 +134,49 @@ namespace EFCore.Bencher
 			config.HasOne(t => t.Product).WithMany(t => t.BillOfMaterials).HasForeignKey(t => t.ComponentId);
 			config.HasOne(t => t.Product_).WithMany(t => t.BillOfMaterials_).HasForeignKey(t => t.ProductAssemblyId);
 			config.HasOne(t => t.UnitMeasure).WithMany(t => t.BillOfMaterials).HasForeignKey(t => t.UnitMeasureCode);
+		}
+
+		/// <summary>Defines the mapping information for the entity 'BusinessEntity'</summary>
+		/// <param name="config">The configuration to modify.</param>
+		protected virtual void MapBusinessEntity(EntityTypeBuilder<BusinessEntity> config)
+		{
+			config.ToTable("BusinessEntity", "Person");
+			config.HasKey(t => t.BusinessEntityId);
+			config.Property(t => t.BusinessEntityId).HasColumnName("BusinessEntityID").ValueGeneratedOnAdd();
+			config.Property(t => t.Rowguid).HasColumnName("rowguid");
+			config.Property(t => t.ModifiedDate);
+		}
+
+		/// <summary>Defines the mapping information for the entity 'BusinessEntityAddress'</summary>
+		/// <param name="config">The configuration to modify.</param>
+		protected virtual void MapBusinessEntityAddress(EntityTypeBuilder<BusinessEntityAddress> config)
+		{
+			config.ToTable("BusinessEntityAddress", "Person");
+			config.HasKey(t => new { t.AddressId, t.AddressTypeId, t.BusinessEntityId });
+			config.Property(t => t.BusinessEntityId).HasColumnName("BusinessEntityID");
+			config.Property(t => t.AddressId).HasColumnName("AddressID");
+			config.Property(t => t.AddressTypeId).HasColumnName("AddressTypeID");
+			config.Property(t => t.Rowguid).HasColumnName("rowguid");
+			config.Property(t => t.ModifiedDate);
+			config.HasOne(t => t.Address).WithMany(t => t.BusinessEntityAddresses).HasForeignKey(t => t.AddressId);
+			config.HasOne(t => t.AddressType).WithMany(t => t.BusinessEntityAddresses).HasForeignKey(t => t.AddressTypeId);
+			config.HasOne(t => t.BusinessEntity).WithMany(t => t.BusinessEntityAddresses).HasForeignKey(t => t.BusinessEntityId);
+		}
+
+		/// <summary>Defines the mapping information for the entity 'BusinessEntityContact'</summary>
+		/// <param name="config">The configuration to modify.</param>
+		protected virtual void MapBusinessEntityContact(EntityTypeBuilder<BusinessEntityContact> config)
+		{
+			config.ToTable("BusinessEntityContact", "Person");
+			config.HasKey(t => new { t.BusinessEntityId, t.ContactTypeId, t.PersonId });
+			config.Property(t => t.BusinessEntityId).HasColumnName("BusinessEntityID");
+			config.Property(t => t.PersonId).HasColumnName("PersonID");
+			config.Property(t => t.ContactTypeId).HasColumnName("ContactTypeID");
+			config.Property(t => t.Rowguid).HasColumnName("rowguid");
+			config.Property(t => t.ModifiedDate);
+			config.HasOne(t => t.BusinessEntity).WithMany(t => t.BusinessEntityContacts).HasForeignKey(t => t.BusinessEntityId);
+			config.HasOne(t => t.ContactType).WithMany(t => t.BusinessEntityContacts).HasForeignKey(t => t.ContactTypeId);
+			config.HasOne(t => t.Person).WithMany(t => t.BusinessEntityContacts).HasForeignKey(t => t.PersonId);
 		}
 
 		/// <summary>Defines the mapping information for the entity 'ContactCreditCard'</summary>
@@ -290,6 +333,20 @@ namespace EFCore.Bencher
 			config.HasOne(t => t.Employee).WithMany(t => t.Documents).HasForeignKey(t => t.Owner);
 		}
 
+		/// <summary>Defines the mapping information for the entity 'EmailAddress'</summary>
+		/// <param name="config">The configuration to modify.</param>
+		protected virtual void MapEmailAddress(EntityTypeBuilder<EmailAddress> config)
+		{
+			config.ToTable("EmailAddress", "Person");
+			config.HasKey(t => new { t.BusinessEntityId, t.EmailAddressId });
+			config.Property(t => t.BusinessEntityId).HasColumnName("BusinessEntityID");
+			config.Property(t => t.EmailAddressId).HasColumnName("EmailAddressID").ValueGeneratedOnAdd();
+			config.Property(t => t.EmailAddressValue).HasColumnName("EmailAddress").HasMaxLength(50);
+			config.Property(t => t.Rowguid).HasColumnName("rowguid");
+			config.Property(t => t.ModifiedDate);
+			config.HasOne(t => t.Person).WithMany(t => t.EmailAddresses).HasForeignKey(t => t.BusinessEntityId);
+		}
+
 		/// <summary>Defines the mapping information for the entity 'Employee'</summary>
 		/// <param name="config">The configuration to modify.</param>
 		protected virtual void MapEmployee(EntityTypeBuilder<Employee> config)
@@ -383,64 +440,7 @@ namespace EFCore.Bencher
 			config.Property(t => t.ModifiedDate);
 		}
 
-		/// <summary>Defines the mapping information for the entity 'Person.BusinessEntity'</summary>
-		/// <param name="config">The configuration to modify.</param>
-		protected virtual void MapBusinessEntity(EntityTypeBuilder<BusinessEntity> config)
-		{
-			config.ToTable("BusinessEntity", "Person");
-			config.HasKey(t => t.BusinessEntityId);
-			config.Property(t => t.BusinessEntityId).HasColumnName("BusinessEntityID").ValueGeneratedOnAdd();
-			config.Property(t => t.Rowguid).HasColumnName("rowguid");
-			config.Property(t => t.ModifiedDate);
-		}
-
-		/// <summary>Defines the mapping information for the entity 'Person.BusinessEntityAddress'</summary>
-		/// <param name="config">The configuration to modify.</param>
-		protected virtual void MapBusinessEntityAddress(EntityTypeBuilder<BusinessEntityAddress> config)
-		{
-			config.ToTable("BusinessEntityAddress", "Person");
-			config.HasKey(t => new { t.AddressId, t.AddressTypeId, t.BusinessEntityId });
-			config.Property(t => t.BusinessEntityId).HasColumnName("BusinessEntityID");
-			config.Property(t => t.AddressId).HasColumnName("AddressID");
-			config.Property(t => t.AddressTypeId).HasColumnName("AddressTypeID");
-			config.Property(t => t.Rowguid).HasColumnName("rowguid");
-			config.Property(t => t.ModifiedDate);
-			config.HasOne(t => t.Address).WithMany(t => t.BusinessEntityAddresses).HasForeignKey(t => t.AddressId);
-			config.HasOne(t => t.AddressType).WithMany(t => t.BusinessEntityAddresses).HasForeignKey(t => t.AddressTypeId);
-			config.HasOne(t => t.BusinessEntity).WithMany(t => t.BusinessEntityAddresses).HasForeignKey(t => t.BusinessEntityId);
-		}
-
-		/// <summary>Defines the mapping information for the entity 'Person.BusinessEntityContact'</summary>
-		/// <param name="config">The configuration to modify.</param>
-		protected virtual void MapBusinessEntityContact(EntityTypeBuilder<BusinessEntityContact> config)
-		{
-			config.ToTable("BusinessEntityContact", "Person");
-			config.HasKey(t => new { t.BusinessEntityId, t.ContactTypeId, t.PersonId });
-			config.Property(t => t.BusinessEntityId).HasColumnName("BusinessEntityID");
-			config.Property(t => t.PersonId).HasColumnName("PersonID");
-			config.Property(t => t.ContactTypeId).HasColumnName("ContactTypeID");
-			config.Property(t => t.Rowguid).HasColumnName("rowguid");
-			config.Property(t => t.ModifiedDate);
-			config.HasOne(t => t.ContactType).WithMany(t => t.BusinessEntityContacts).HasForeignKey(t => t.ContactTypeId);
-			config.HasOne(t => t.BusinessEntity).WithMany(t => t.BusinessEntityContacts).HasForeignKey(t => t.BusinessEntityId);
-			config.HasOne(t => t.Person).WithMany(t => t.BusinessEntityContacts).HasForeignKey(t => t.PersonId);
-		}
-
-		/// <summary>Defines the mapping information for the entity 'Person.EmailAddress'</summary>
-		/// <param name="config">The configuration to modify.</param>
-		protected virtual void MapEmailAddress(EntityTypeBuilder<EmailAddress> config)
-		{
-			config.ToTable("EmailAddress", "Person");
-			config.HasKey(t => new { t.BusinessEntityId, t.EmailAddressId });
-			config.Property(t => t.BusinessEntityId).HasColumnName("BusinessEntityID");
-			config.Property(t => t.EmailAddressId).HasColumnName("EmailAddressID").ValueGeneratedOnAdd();
-			config.Property(t => t.EmailAddressValue).HasColumnName("EmailAddress").HasMaxLength(50);
-			config.Property(t => t.Rowguid).HasColumnName("rowguid");
-			config.Property(t => t.ModifiedDate);
-			config.HasOne(t => t.Person).WithMany(t => t.EmailAddresses).HasForeignKey(t => t.BusinessEntityId);
-		}
-
-		/// <summary>Defines the mapping information for the entity 'Person.Password'</summary>
+		/// <summary>Defines the mapping information for the entity 'Password'</summary>
 		/// <param name="config">The configuration to modify.</param>
 		protected virtual void MapPassword(EntityTypeBuilder<Password> config)
 		{
@@ -454,7 +454,7 @@ namespace EFCore.Bencher
 			config.HasOne(t => t.Person).WithOne(t => t.Password).HasForeignKey<Password>(t => t.BusinessEntityId);
 		}
 
-		/// <summary>Defines the mapping information for the entity 'Person.Person'</summary>
+		/// <summary>Defines the mapping information for the entity 'Person'</summary>
 		/// <param name="config">The configuration to modify.</param>
 		protected virtual void MapPerson(EntityTypeBuilder<Person> config)
 		{
@@ -476,7 +476,7 @@ namespace EFCore.Bencher
 			config.HasOne(t => t.BusinessEntity).WithOne(t => t.Person).HasForeignKey<Person>(t => t.BusinessEntityId);
 		}
 
-		/// <summary>Defines the mapping information for the entity 'Person.PersonPhone'</summary>
+		/// <summary>Defines the mapping information for the entity 'PersonPhone'</summary>
 		/// <param name="config">The configuration to modify.</param>
 		protected virtual void MapPersonPhone(EntityTypeBuilder<PersonPhone> config)
 		{
@@ -490,7 +490,7 @@ namespace EFCore.Bencher
 			config.HasOne(t => t.PhoneNumberType).WithMany(t => t.PersonPhones).HasForeignKey(t => t.PhoneNumberTypeId);
 		}
 
-		/// <summary>Defines the mapping information for the entity 'Person.PhoneNumberType'</summary>
+		/// <summary>Defines the mapping information for the entity 'PhoneNumberType'</summary>
 		/// <param name="config">The configuration to modify.</param>
 		protected virtual void MapPhoneNumberType(EntityTypeBuilder<PhoneNumberType> config)
 		{

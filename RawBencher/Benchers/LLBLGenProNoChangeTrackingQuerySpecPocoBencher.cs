@@ -7,6 +7,7 @@ using AdventureWorks.Dal.Adapter.DatabaseSpecific;
 using AdventureWorks.Dal.Adapter.TypedViewClasses;
 using AdventureWorks.Dal.Adapter.HelperClasses;
 using AdventureWorks.Dal.Adapter.FactoryClasses;
+using SD.LLBLGen.Pro.DQE.SqlServer;
 using SD.LLBLGen.Pro.ORMSupportClasses;
 using SD.LLBLGen.Pro.QuerySpec;
 using SD.LLBLGen.Pro.QuerySpec.Adapter;
@@ -21,9 +22,11 @@ namespace RawBencher.Benchers
 		/// <summary>
 		/// Initializes a new instance of the <see cref="LLBLGenProNoChangeTrackingQuerySpecPocoBencher"/> class.
 		/// </summary>
-		public LLBLGenProNoChangeTrackingQuerySpecPocoBencher()
+		public LLBLGenProNoChangeTrackingQuerySpecPocoBencher(string connectionString)
 			: base(r => r.SalesOrderId, usesChangeTracking:false, usesCaching:false)
 		{
+			RuntimeConfiguration.AddConnectionString("AdventureWorks.ConnectionString.SQL Server (SqlClient)", connectionString);
+			RuntimeConfiguration.ConfigureDQE<SQLServerDQEConfiguration>(c=>c.AddDbProviderFactory(typeof(System.Data.SqlClient.SqlClientFactory)));
 		}
 
 

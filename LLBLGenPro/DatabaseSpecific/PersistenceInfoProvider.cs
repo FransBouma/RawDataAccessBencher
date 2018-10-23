@@ -112,7 +112,7 @@ namespace AdventureWorks.Dal.Adapter.DatabaseSpecific
 		/// <summary>Inits AddressEntity's mappings</summary>
 		private void InitAddressEntityMappings()
 		{
-			this.AddElementMapping("AddressEntity", @"AdventureWorks", @"Person", "Address", 9, 0);
+			this.AddElementMapping("AddressEntity", @"AdventureWorks", @"Person", "Address", 8, 0);
 			this.AddElementFieldMapping("AddressEntity", "AddressId", "AddressID", false, "Int", 0, 10, 0, true, "SCOPE_IDENTITY()", null, typeof(System.Int32), 0);
 			this.AddElementFieldMapping("AddressEntity", "AddressLine1", "AddressLine1", false, "NVarChar", 60, 0, 0, false, "", null, typeof(System.String), 1);
 			this.AddElementFieldMapping("AddressEntity", "AddressLine2", "AddressLine2", true, "NVarChar", 60, 0, 0, false, "", null, typeof(System.String), 2);
@@ -120,8 +120,7 @@ namespace AdventureWorks.Dal.Adapter.DatabaseSpecific
 			this.AddElementFieldMapping("AddressEntity", "ModifiedDate", "ModifiedDate", false, "DateTime", 0, 0, 0, false, "", null, typeof(System.DateTime), 4);
 			this.AddElementFieldMapping("AddressEntity", "PostalCode", "PostalCode", false, "NVarChar", 15, 0, 0, false, "", null, typeof(System.String), 5);
 			this.AddElementFieldMapping("AddressEntity", "Rowguid", "rowguid", false, "UniqueIdentifier", 0, 0, 0, false, "", null, typeof(System.Guid), 6);
-			this.AddElementFieldMapping("AddressEntity", "SpatialLocation", "SpatialLocation", true, "Udt", 0, 0, 0, false, "", null, typeof(Microsoft.SqlServer.Types.SqlGeography), 7);
-			this.AddElementFieldMapping("AddressEntity", "StateProvinceId", "StateProvinceID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 8);
+			this.AddElementFieldMapping("AddressEntity", "StateProvinceId", "StateProvinceID", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 7);
 		}
 
 		/// <summary>Inits AddressTypeEntity's mappings</summary>

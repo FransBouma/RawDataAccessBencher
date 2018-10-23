@@ -1,0 +1,67 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>netcoreapp2.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Compile Include="..\RawBencher\BenchController.cs" Link="BenchController.cs" />
+      <Compile Include="..\RawBencher\Benchers\BencherBase.cs" Link="Benchers\BencherBase.cs" />
+      <Compile Include="..\RawBencher\Benchers\ChainBencher.cs" Link="Benchers\ChainBencher.cs" />
+      <Compile Include="..\RawBencher\Benchers\DapperBencher.cs" Link="Benchers\DapperBencher.cs" />
+      <Compile Include="..\RawBencher\Benchers\DataTableBencher.cs" Link="Benchers\DataTableBencher.cs" />
+      <Compile Include="..\RawBencher\Benchers\EntityFrameworkCoreNoChangeTrackingBencher.cs" Link="Benchers\EntityFrameworkCoreNoChangeTrackingBencher.cs" />
+      <Compile Include="..\RawBencher\Benchers\EntityFrameworkCoreNormalBencher.cs" Link="Benchers\EntityFrameworkCoreNormalBencher.cs" />
+      <Compile Include="..\RawBencher\Benchers\FetchOnlyBencherBase.cs" Link="Benchers\FetchOnlyBencherBase.cs" />
+      <Compile Include="..\RawBencher\Benchers\HandCodedBencher.cs" Link="Benchers\HandCodedBencher.cs" />
+      <Compile Include="..\RawBencher\Benchers\HandCodedBencherUsingBoxing.cs" Link="Benchers\HandCodedBencherUsingBoxing.cs" />
+      <Compile Include="..\RawBencher\Benchers\IBencher.cs" Link="Benchers\IBencher.cs" />
+      <Compile Include="..\RawBencher\Benchers\LINQ2DBCompiledBencher.cs" Link="Benchers\LINQ2DBCompiledBencher.cs" />
+      <Compile Include="..\RawBencher\Benchers\LINQ2DBNormalBencher.cs" Link="Benchers\LINQ2DBNormalBencher.cs" />
+      <Compile Include="..\RawBencher\Benchers\LLBLGenProNoChangeTrackingBencher.cs" Link="Benchers\LLBLGenProNoChangeTrackingBencher.cs" />
+      <Compile Include="..\RawBencher\Benchers\LLBLGenProNoChangeTrackingLinqPocoBencher.cs" Link="Benchers\LLBLGenProNoChangeTrackingLinqPocoBencher.cs" />
+      <Compile Include="..\RawBencher\Benchers\LLBLGenProNoChangeTrackingQuerySpecPocoBencher.cs" Link="Benchers\LLBLGenProNoChangeTrackingQuerySpecPocoBencher.cs" />
+      <Compile Include="..\RawBencher\Benchers\LLBLGenProNoChangeTrackingRawSQLPocoBencher.cs" Link="Benchers\LLBLGenProNoChangeTrackingRawSQLPocoBencher.cs" />
+      <Compile Include="..\RawBencher\Benchers\LLBLGenProNormalBencher.cs" Link="Benchers\LLBLGenProNormalBencher.cs" />
+      <Compile Include="..\RawBencher\Benchers\LLBLGenProResultsetCachingBencher.cs" Link="Benchers\LLBLGenProResultsetCachingBencher.cs" />
+      <Compile Include="..\RawBencher\Benchers\NPocoBencher.cs" Link="Benchers\NPocoBencher.cs" />
+      <Compile Include="..\RawBencher\Benchers\OrmLiteBencher.cs" Link="Benchers\OrmLiteBencher.cs" />
+      <Compile Include="..\RawBencher\Benchers\RawDbDataReaderBencher.cs" Link="Benchers\RawDbDataReaderBencher.cs" />
+      <Compile Include="..\RawBencher\Benchers\RepoDbPocoBencher.cs" Link="Benchers\RepoDbPocoBencher.cs" />
+      <Compile Include="..\RawBencher\Benchers\RepoDbRawSqlBencher.cs" Link="Benchers\RepoDbRawSqlBencher.cs" />
+      <Compile Include="..\RawBencher\BencherUtils.cs" Link="BencherUtils.cs" />
+      <Compile Include="..\RawBencher\BenchResult.cs" Link="BenchResult.cs" />
+      <Compile Include="..\RawBencher\Product.cs" Link="Product.cs" />
+      <Compile Include="..\RawBencher\SalesOrderHeader.cs" Link="SalesOrderHeader.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Benchers\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\EFCore\Model\EFCore.Bencher.Model.csproj" />
+      <ProjectReference Include="..\EFCore\Persistence\EFCore.Bencher.Persistence.csproj" />
+      <ProjectReference Include="..\LINQ2DB\DAL\LINQ2DB.Bencher.csproj" />
+      <ProjectReference Include="..\LLBLGenPro\DatabaseGeneric\AdventureWorks.Dal.Adapter.csproj" />
+      <ProjectReference Include="..\LLBLGenPro\DatabaseSpecific\AdventureWorks.Dal.AdapterDBSpecific.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Dapper" Version="1.50.5" />
+      <PackageReference Include="linq2db" Version="2.4.0" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.4" />
+      <PackageReference Include="Microsoft.Extensions.PlatformAbstractions" Version="1.1.0" />
+      <PackageReference Include="NPoco" Version="3.9.4" />
+      <PackageReference Include="RepoDb" Version="1.6.4" />
+      <PackageReference Include="SD.LLBLGen.Pro.DQE.SqlServer" Version="5.5.0-Beta-20181019" />
+      <PackageReference Include="ServiceStack.OrmLite.SqlServer" Version="5.4.0" />
+      <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+      <PackageReference Include="Tortuga.Anchor" Version="1.2.6283.989" />
+      <PackageReference Include="Tortuga.Chain.Core" Version="1.3.6847.41792" />
+      <PackageReference Include="Tortuga.Chain.SqlServer" Version="1.3.6848.1549" />
+      <PackageReference Include="System.Data.SqlClient" Version="4.5.1" />
+    </ItemGroup>
+
+</Project>

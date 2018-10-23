@@ -98,6 +98,10 @@ namespace RawBencher.Benchers
 		BenchResult PerformInsertSetBenchmark(int amountToInsert, int batchSize, bool discardResults);
 
 		/// <summary>
+		/// Gets / sets the flag to collect memory allocations during an operation
+		/// </summary>
+		bool CollectMemoryAllocated { get; set; }
+		/// <summary>
 		/// Resets the result containers of this bencher.
 		/// </summary>
 		void ResetResults();

@@ -37,7 +37,7 @@ namespace EFCore.Bencher.EntityClasses
 		public System.Guid Rowguid { get; set;}
 		/// <summary>Gets or sets the StateProvinceId field. </summary>
 		public System.Int32 StateProvinceId { get; set;}
-		/// <summary>Represents the navigator which is mapped onto the association 'Person.BusinessEntityAddress.Address - Address.BusinessEntityAddresses (m:1)'</summary>
+		/// <summary>Represents the navigator which is mapped onto the association 'BusinessEntityAddress.Address - Address.BusinessEntityAddresses (m:1)'</summary>
 		public virtual List<BusinessEntityAddress> BusinessEntityAddresses { get; set;}
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderHeader.Address - Address.SalesOrderHeaders (m:1)'</summary>
 		public virtual List<SalesOrderHeader> SalesOrderHeaders { get; set;}

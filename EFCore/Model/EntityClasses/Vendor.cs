@@ -36,7 +36,7 @@ namespace EFCore.Bencher.EntityClasses
 		public System.String PurchasingWebServiceUrl { get; set;}
 		/// <summary>Gets or sets the VendorId field. </summary>
 		public System.Int32 VendorId { get; set;}
-		/// <summary>Represents the navigator which is mapped onto the association 'Vendor.BusinessEntity - Person.BusinessEntity.Vendor (1:1)'</summary>
+		/// <summary>Represents the navigator which is mapped onto the association 'Vendor.BusinessEntity - BusinessEntity.Vendor (1:1)'</summary>
 		public virtual BusinessEntity BusinessEntity { get; set;}
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductVendor.Vendor - Vendor.ProductVendors (m:1)'</summary>
 		public virtual List<ProductVendor> ProductVendors { get; set;}

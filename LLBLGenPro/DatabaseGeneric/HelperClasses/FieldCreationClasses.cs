@@ -27,8 +27,6 @@ namespace AdventureWorks.Dal.Adapter.HelperClasses
 		public static EntityField2 PostalCode { get { return ModelInfoProviderSingleton.GetInstance().CreateField2(AddressFieldIndex.PostalCode); }}
 		/// <summary>Creates a new AddressEntity.Rowguid field instance</summary>
 		public static EntityField2 Rowguid { get { return ModelInfoProviderSingleton.GetInstance().CreateField2(AddressFieldIndex.Rowguid); }}
-		/// <summary>Creates a new AddressEntity.SpatialLocation field instance</summary>
-		public static EntityField2 SpatialLocation { get { return ModelInfoProviderSingleton.GetInstance().CreateField2(AddressFieldIndex.SpatialLocation); }}
 		/// <summary>Creates a new AddressEntity.StateProvinceId field instance</summary>
 		public static EntityField2 StateProvinceId { get { return ModelInfoProviderSingleton.GetInstance().CreateField2(AddressFieldIndex.StateProvinceId); }}
 	}

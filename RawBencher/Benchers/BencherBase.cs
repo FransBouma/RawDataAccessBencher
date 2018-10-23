@@ -157,19 +157,27 @@ namespace RawBencher.Benchers
 			int numberOfElementsFetched = 0;
 			var sw = new Stopwatch();
 			long memoryBeforeRun = 0;
-			if(AppDomain.MonitoringIsEnabled)
+			if(CollectMemoryAllocated)
 			{
+#if NETCOREAPP
+				memoryBeforeRun = GC.GetAllocatedBytesForCurrentThread();
+#else
 				memoryBeforeRun = AppDomain.CurrentDomain.MonitoringTotalAllocatedMemorySize;
+#endif
 			}
 			sw.Start();
 			bool first = true;
 			foreach(var key in keys)
 			{
 				var element = FetchIndividual(key);
-				if(first && AppDomain.MonitoringIsEnabled)
+				if(first && CollectMemoryAllocated)
 				{
 					// only the first iteration is interesting.
+#if NETCOREAPP
+					toReturn.NumberOfBytesAllocated = GC.GetAllocatedBytesForCurrentThread() - memoryBeforeRun;
+#else
 					toReturn.NumberOfBytesAllocated = AppDomain.CurrentDomain.MonitoringTotalAllocatedMemorySize - memoryBeforeRun;
+#endif
 					first = false;
 				}
 				var verifyResult = VerifyElement(element);
@@ -226,16 +234,24 @@ namespace RawBencher.Benchers
 			var toReturn = new BenchResult();
 			var sw = new Stopwatch();
 			long memoryBeforeRun = 0;
-			if(AppDomain.MonitoringIsEnabled)
+			if(CollectMemoryAllocated)
 			{
+#if NETCOREAPP
+				memoryBeforeRun = GC.GetAllocatedBytesForCurrentThread();
+#else
 				memoryBeforeRun = AppDomain.CurrentDomain.MonitoringTotalAllocatedMemorySize;
+#endif
 			}
 			sw.Start();
 			var headers = FetchSet();
 			sw.Stop();
-			if(AppDomain.MonitoringIsEnabled)
+			if(CollectMemoryAllocated)
 			{
+#if NETCOREAPP
+				toReturn.NumberOfBytesAllocated = GC.GetAllocatedBytesForCurrentThread() - memoryBeforeRun;
+#else
 				toReturn.NumberOfBytesAllocated = AppDomain.CurrentDomain.MonitoringTotalAllocatedMemorySize - memoryBeforeRun;
+#endif
 			}
 			toReturn.ActionTimeInMilliseconds = sw.Elapsed.TotalMilliseconds;
 			sw.Reset();
@@ -284,9 +300,13 @@ namespace RawBencher.Benchers
 			var sw = new Stopwatch();
 			long memoryBeforeRun = 0;
 			// account for the entities to insert as well in the memory to collect as it's part of the process.
-			if(AppDomain.MonitoringIsEnabled)
+			if(CollectMemoryAllocated)
 			{
+#if NETCOREAPP
+				memoryBeforeRun = GC.GetAllocatedBytesForCurrentThread();
+#else
 				memoryBeforeRun = AppDomain.CurrentDomain.MonitoringTotalAllocatedMemorySize;
+#endif
 			}
 			var setToInsert = CreateSetForInserts(amountToInsert);
 			if(setToInsert.Count() != amountToInsert)
@@ -296,9 +316,13 @@ namespace RawBencher.Benchers
 			sw.Start();
 			InsertSet(setToInsert, batchSize);
 			sw.Stop();
-			if(AppDomain.MonitoringIsEnabled)
+			if(CollectMemoryAllocated)
 			{
+#if NETCOREAPP
+				toReturn.NumberOfBytesAllocated = GC.GetAllocatedBytesForCurrentThread() - memoryBeforeRun;
+#else
 				toReturn.NumberOfBytesAllocated = AppDomain.CurrentDomain.MonitoringTotalAllocatedMemorySize - memoryBeforeRun;
+#endif
 			}
 			toReturn.ActionTimeInMilliseconds = sw.Elapsed.TotalMilliseconds;
 			var setFetchedFromInserted = FetchInserted(amountToInsert);
@@ -338,16 +362,24 @@ namespace RawBencher.Benchers
 			var toReturn = new BenchResult();
 			var sw = new Stopwatch();
 			long memoryBeforeRun = 0;
-			if(AppDomain.MonitoringIsEnabled)
+			if(CollectMemoryAllocated)
 			{
+#if NETCOREAPP
+				memoryBeforeRun = GC.GetAllocatedBytesForCurrentThread();
+#else
 				memoryBeforeRun = AppDomain.CurrentDomain.MonitoringTotalAllocatedMemorySize;
+#endif
 			}
 			sw.Start();
 			var headers = FetchGraph();
 			sw.Stop();
-			if(AppDomain.MonitoringIsEnabled)
+			if(CollectMemoryAllocated)
 			{
+#if NETCOREAPP
+				toReturn.NumberOfBytesAllocated = GC.GetAllocatedBytesForCurrentThread() - memoryBeforeRun;
+#else
 				toReturn.NumberOfBytesAllocated = AppDomain.CurrentDomain.MonitoringTotalAllocatedMemorySize - memoryBeforeRun;
+#endif
 			}
 			toReturn.ActionTimeInMilliseconds = sw.Elapsed.TotalMilliseconds;
 			sw.Reset();
@@ -375,17 +407,27 @@ namespace RawBencher.Benchers
 			var toReturn = new BenchResult();
 			var sw = new Stopwatch();
 			long memoryBeforeRun = 0;
-			if(AppDomain.MonitoringIsEnabled)
+			if(CollectMemoryAllocated)
 			{
+#if NETCOREAPP
+				memoryBeforeRun = GC.GetAllocatedBytesForCurrentThread();
+#else
 				memoryBeforeRun = AppDomain.CurrentDomain.MonitoringTotalAllocatedMemorySize;
+#endif
 			}
 			sw.Start();
 			IEnumerable<TFetch> headers = null;
 			Task.Run(async ()=>headers = await FetchGraphAsync()).GetAwaiter().GetResult();
 			sw.Stop();
-			if(AppDomain.MonitoringIsEnabled)
+			if(CollectMemoryAllocated)
 			{
+#if NETCOREAPP
+				// Currently not working (As of .NET Core 2.1, reports 0 bytes, as this method doesn't take into account allocs on other threads)
+				// there's no equivalent yet available. 
+				toReturn.NumberOfBytesAllocated = GC.GetAllocatedBytesForCurrentThread() - memoryBeforeRun;
+#else
 				toReturn.NumberOfBytesAllocated = AppDomain.CurrentDomain.MonitoringTotalAllocatedMemorySize - memoryBeforeRun;
+#endif
 			}
 			toReturn.ActionTimeInMilliseconds = sw.Elapsed.TotalMilliseconds;
 			sw.Reset();
@@ -633,6 +675,10 @@ namespace RawBencher.Benchers
 
 
 		#region Properties
+		/// <summary>
+		/// Gets / sets the flag to collect memory allocations during an operation
+		/// </summary>
+		public bool CollectMemoryAllocated { get; set; }
 		/// <summary>
 		/// Gets the individual fetch mean, calculated by <see cref="CalculateStatistics"/>
 		/// </summary>

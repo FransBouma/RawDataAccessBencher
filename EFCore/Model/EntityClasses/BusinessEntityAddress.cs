@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace EFCore.Bencher.EntityClasses
 {
-	/// <summary>Class which represents the entity 'Person.BusinessEntityAddress'.</summary>
+	/// <summary>Class which represents the entity 'BusinessEntityAddress'.</summary>
 	public partial class BusinessEntityAddress : CommonEntityBase
 	{
 		/// <summary>Method called from the constructor</summary>
@@ -28,11 +28,11 @@ namespace EFCore.Bencher.EntityClasses
 		public System.DateTime ModifiedDate { get; set;}
 		/// <summary>Gets or sets the Rowguid field. </summary>
 		public System.Guid Rowguid { get; set;}
-		/// <summary>Represents the navigator which is mapped onto the association 'Person.BusinessEntityAddress.Address - Address.BusinessEntityAddresses (m:1)'</summary>
+		/// <summary>Represents the navigator which is mapped onto the association 'BusinessEntityAddress.Address - Address.BusinessEntityAddresses (m:1)'</summary>
 		public virtual Address Address { get; set;}
-		/// <summary>Represents the navigator which is mapped onto the association 'Person.BusinessEntityAddress.AddressType - AddressType.BusinessEntityAddresses (m:1)'</summary>
+		/// <summary>Represents the navigator which is mapped onto the association 'BusinessEntityAddress.AddressType - AddressType.BusinessEntityAddresses (m:1)'</summary>
 		public virtual AddressType AddressType { get; set;}
-		/// <summary>Represents the navigator which is mapped onto the association 'Person.BusinessEntityAddress.BusinessEntity - Person.BusinessEntity.BusinessEntityAddresses (m:1)'</summary>
+		/// <summary>Represents the navigator which is mapped onto the association 'BusinessEntityAddress.BusinessEntity - BusinessEntity.BusinessEntityAddresses (m:1)'</summary>
 		public virtual BusinessEntity BusinessEntity { get; set;}
 	}
 }

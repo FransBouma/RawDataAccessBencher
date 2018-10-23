@@ -25,7 +25,7 @@ namespace EFCore.Bencher.EntityClasses
 		public System.DateTime ModifiedDate { get; set;}
 		/// <summary>Gets or sets the Name field. </summary>
 		public System.String Name { get; set;}
-		/// <summary>Represents the navigator which is mapped onto the association 'Person.BusinessEntityContact.ContactType - ContactType.BusinessEntityContacts (m:1)'</summary>
+		/// <summary>Represents the navigator which is mapped onto the association 'BusinessEntityContact.ContactType - ContactType.BusinessEntityContacts (m:1)'</summary>
 		public virtual List<BusinessEntityContact> BusinessEntityContacts { get; set;}
 	}
 }
