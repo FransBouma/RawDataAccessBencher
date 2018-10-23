@@ -11,7 +11,7 @@ namespace RawBencher.Benchers
 	/// <summary>
 	/// Specific bencher for the DbDataReader using hand-coded materializer, doing no-change tracking fetch
 	/// </summary>
-	public class HandCodedBencher : BencherBase<SalesOrderHeader>
+	public class HandCodedBencher : FetchOnlyBencherBase<SalesOrderHeader>
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="HandCodedBencher"/> class.

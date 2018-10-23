@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AdventureWorks.Dal.Adapter.v54.DatabaseSpecific;
-using AdventureWorks.Dal.Adapter.v54.TypedViewClasses;
-using AdventureWorks.Dal.Adapter.v54.HelperClasses;
-using AdventureWorks.Dal.Adapter.v54.Linq;
+using AdventureWorks.Dal.Adapter.DatabaseSpecific;
+using AdventureWorks.Dal.Adapter.TypedViewClasses;
+using AdventureWorks.Dal.Adapter.HelperClasses;
+using AdventureWorks.Dal.Adapter.Linq;
 using SD.LLBLGen.Pro.ORMSupportClasses;
 
 namespace RawBencher.Benchers
@@ -14,7 +14,7 @@ namespace RawBencher.Benchers
 	/// <summary>
 	/// Specific bencher for LLBLGen Pro, doing no-change tracking fetch, using a Typed View poco with a linq query.
 	/// </summary>
-	public class LLBLGenProNoChangeTrackingLinqPocoBencher : BencherBase<SohLinqPocoRow>
+	public class LLBLGenProNoChangeTrackingLinqPocoBencher : FetchOnlyBencherBase<SohLinqPocoRow>
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="LLBLGenProNoChangeTrackingLinqPocoBencher"/> class.

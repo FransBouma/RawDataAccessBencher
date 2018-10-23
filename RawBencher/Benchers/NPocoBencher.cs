@@ -7,7 +7,7 @@ using NPoco;
 
 namespace RawBencher.Benchers
 {
-    public class NPocoBencher : BencherBase<SalesOrderHeader>
+    public class NPocoBencher : FetchOnlyBencherBase<SalesOrderHeader>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PetaPocoBencher" /> class.

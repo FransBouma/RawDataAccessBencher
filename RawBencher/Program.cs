@@ -6,9 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AdventureWorks.Dal.Adapter.v54.DatabaseSpecific;
-using BenchmarkDotNet.Running;
-using RawBencher.BenchmarkDotNet;
+using AdventureWorks.Dal.Adapter.DatabaseSpecific;
 
 namespace RawBencher
 {
@@ -20,24 +18,12 @@ namespace RawBencher
 		{
 			try
 			{
-				// old runner
-				OriginalController.Run(args);
-
-				//DoBenchmarkDotNet();
+				BenchController.Run(args);
 			}
 			catch(Exception ex)
 			{
 				BencherUtils.DisplayException(ex);
 			}
-		}
-
-
-		private static void DoBenchmarkDotNet()
-		{
-			// We have to do it this way as BenchmarkDotNet doesn't support app.config files. 
-			InitConnectionString();
-			BenchmarkDotNetController.ConnectionString = Program.ConnectionString;
-			var summary = BenchmarkRunner.Run<BenchmarkDotNetController>();
 		}
 
 

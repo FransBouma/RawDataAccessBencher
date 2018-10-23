@@ -8,7 +8,7 @@ namespace RawBencher.Benchers
 	/// <summary>
 	/// Specific bencher for OrmLite, doing no-change tracking fetch
 	/// </summary>
-	public class OrmLiteBencher : BencherBase<SalesOrderHeader>
+	public class OrmLiteBencher : FetchOnlyBencherBase<SalesOrderHeader>
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="OrmLiteBencher"/> class.

@@ -11,7 +11,7 @@ namespace RawBencher.Benchers
 	/// <summary>
 	/// Specific bencher for the DataTable filling DbDataAdapter materializer, doing change tracking fetch
 	/// </summary>
-	public class DataTableBencher : BencherBase<DataRow>
+	public class DataTableBencher : FetchOnlyBencherBase<DataRow>
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="DataTableBencher"/> class.

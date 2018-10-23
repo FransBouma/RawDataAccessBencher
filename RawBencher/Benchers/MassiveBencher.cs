@@ -11,7 +11,7 @@ namespace RawBencher.Benchers
 	/// <summary>
 	/// Specific bencher for Massive. It uses the VanillaMassive namespace as Oak also uses massive and exposes the same extension method.
 	/// </summary>
-	public class MassiveBencher : BencherBase<dynamic>
+	public class MassiveBencher : FetchOnlyBencherBase<dynamic>
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="MassiveBencher"/> class.

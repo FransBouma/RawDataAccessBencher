@@ -8,7 +8,7 @@ namespace RawBencher.Benchers
     /// <summary>
     /// Specific bencher for RepoDbBencher, doing no-change tracking fetch
     /// </summary>
-    public class RepoDbPocoBencher : BencherBase<SalesOrderHeader>
+    public class RepoDbPocoBencher : FetchOnlyBencherBase<SalesOrderHeader>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="RepoDbPocoBencher"/> class.

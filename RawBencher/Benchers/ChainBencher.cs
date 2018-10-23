@@ -6,7 +6,7 @@ namespace RawBencher.Benchers
     /// <summary>
     /// Specific bencher for Tortuga Chain, doing no-change tracking fetch
     /// </summary>
-    public class ChainBencher : BencherBase<SalesOrderHeader>
+    public class ChainBencher : FetchOnlyBencherBase<SalesOrderHeader>
     {
         SqlServerDataSource DataSource;
         /// <summary>
@@ -51,6 +51,7 @@ namespace RawBencher.Benchers
 
 
         string m_ConnectionStringToUse;
+
         #region Properties
         /// <summary>
         /// Gets or sets the connection string to use
