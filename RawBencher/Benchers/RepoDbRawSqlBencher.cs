@@ -2,7 +2,6 @@
 using System.Linq;
 using RepoDb;
 using System.Data.SqlClient;
-using RepoDb.Enumerations;
 
 namespace RawBencher.Benchers
 {
