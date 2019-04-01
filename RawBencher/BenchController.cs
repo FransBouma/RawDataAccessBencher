@@ -20,11 +20,11 @@ using SD.LLBLGen.Pro.ORMSupportClasses;
 
 namespace RawBencher
 {
-	/// <summary>
-	/// The actual bencher management code. Pass '/a' on the command line as argument to make the program exit automatically. If no argument
-	/// is specified it will wait for ENTER after reporting the results. 
-	/// </summary>
-	public class BenchController
+    /// <summary>
+    /// The actual bencher management code. Pass '/a' on the command line as argument to make the program exit automatically. If no argument
+    /// is specified it will wait for ENTER after reporting the results. 
+    /// </summary>
+    public class BenchController
 	{
 		private const int LoopAmount = 25;
 		private const int IndividualKeysAmount = 100;
@@ -57,39 +57,46 @@ namespace RawBencher
 			}
 			BenchController.InitConnectionString();
 
-			CacheController.RegisterCache(ConnectionString, new ResultsetCache());
-			RegisteredBenchers.Add(new HandCodedBencher() {CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString});
+            CacheController.RegisterCache(ConnectionString, new ResultsetCache());
+            RegisteredBenchers.Add(new HandCodedBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
             RegisteredBenchers.Add(new RepoDbRawSqlBencher() { ConnectionStringToUse = ConnectionString, CommandText = SqlSelectCommandText });
             RegisteredBenchers.Add(new RepoDbPocoBencher() { ConnectionStringToUse = ConnectionString, CommandText = SqlSelectCommandText });
             RegisteredBenchers.Add(new HandCodedBencherUsingBoxing() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
             RegisteredBenchers.Add(new HandCodedBencherUsingBoxingGetValue() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
             RegisteredBenchers.Add(new RawDbDataReaderBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
-            RegisteredBenchers.Add(new EntityFrameworkCoreNoChangeTrackingBencher() {ConnectionStringToUse = ConnectionString});
+            RegisteredBenchers.Add(new EntityFrameworkCoreNoChangeTrackingBencher() { ConnectionStringToUse = ConnectionString });
             RegisteredBenchers.Add(new EntityFrameworkCoreNormalBencher() { ConnectionStringToUse = ConnectionString });
             RegisteredBenchers.Add(new NPocoBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
             RegisteredBenchers.Add(new LINQ2DBCompiledBencher(ConnectionString));
             RegisteredBenchers.Add(new LINQ2DBNormalBencher(ConnectionString));
-            RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingRawSQLPocoBencher(ConnectionString) {CommandText = SqlSelectCommandText});
-			RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingQuerySpecPocoBencher(ConnectionString));
+            RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingRawSQLPocoBencher(ConnectionString) { CommandText = SqlSelectCommandText });
+            RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingQuerySpecPocoBencher(ConnectionString));
             RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingLinqPocoBencher(ConnectionString));
-			RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingBencher(ConnectionString));
-			RegisteredBenchers.Add(new LLBLGenProResultsetCachingBencher(ConnectionString));
-			RegisteredBenchers.Add(new LLBLGenProNormalBencher(ConnectionString));
-			RegisteredBenchers.Add(new DapperBencher() {CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString});
-			RegisteredBenchers.Add(new ChainBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
-			RegisteredBenchers.Add(new OrmLiteBencher() {CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString});
-			RegisteredBenchers.Add(new DataTableBencher() {CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString});
+            RegisteredBenchers.Add(new LLBLGenProNoChangeTrackingBencher(ConnectionString));
+            RegisteredBenchers.Add(new LLBLGenProResultsetCachingBencher(ConnectionString));
+            RegisteredBenchers.Add(new LLBLGenProNormalBencher(ConnectionString));
+            RegisteredBenchers.Add(new DapperBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+            RegisteredBenchers.Add(new ChainBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+            RegisteredBenchers.Add(new ChainBencherChangeTracking() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+            RegisteredBenchers.Add(new OrmLiteBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+            RegisteredBenchers.Add(new DataTableBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+            RegisteredBenchers.Add(new ChainCompiledBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+            RegisteredBenchers.Add(new ChainCompiledBencherChangeTracking() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+            RegisteredBenchers.Add(new ChainCompiledRawSqlBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+            RegisteredBenchers.Add(new ChainRawSqlBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+            RegisteredBenchers.Add(new ChainDynamicBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+            RegisteredBenchers.Add(new ChainTableBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+            RegisteredBenchers.Add(new ChainDataTableBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 
 #if !NETCOREAPP
-             RegisteredBenchers.Add(new ChainCompiledBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
-			 RegisteredBenchers.Add(new MassiveBencher());
-			 RegisteredBenchers.Add(new NHibernateNormalBencher());
-             RegisteredBenchers.Add(new LinqToSqlNoChangeTrackingBencher());
-			 RegisteredBenchers.Add(new LinqToSqlNormalBencher());
-			 RegisteredBenchers.Add(new EntityFrameworkNoChangeTrackingBencher());
-			 RegisteredBenchers.Add(new EntityFrameworkNormalBencher());
-			 RegisteredBenchers.Add(new PetaPocoBencher() {CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString});
-			 RegisteredBenchers.Add(new PetaPocoFastBencher() {CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString});
+            RegisteredBenchers.Add(new MassiveBencher());
+            RegisteredBenchers.Add(new NHibernateNormalBencher());
+            RegisteredBenchers.Add(new LinqToSqlNoChangeTrackingBencher());
+            RegisteredBenchers.Add(new LinqToSqlNormalBencher());
+            RegisteredBenchers.Add(new EntityFrameworkNoChangeTrackingBencher());
+            RegisteredBenchers.Add(new EntityFrameworkNormalBencher());
+            RegisteredBenchers.Add(new PetaPocoBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+            RegisteredBenchers.Add(new PetaPocoFastBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 #endif
 
             BenchController.DisplayHeader();

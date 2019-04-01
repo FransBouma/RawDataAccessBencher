@@ -6,7 +6,7 @@ namespace RawBencher.Benchers
     /// <summary>
     /// Specific bencher for Tortuga Chain, doing no-change tracking fetch
     /// </summary>
-    public class ChainBencher : FetchOnlyBencherBase<SalesOrderHeader>
+    public class ChainBencherChangeTracking : FetchOnlyBencherBase<SalesOrderHeaderChangeTracking>
     {
         SqlServerDataSource DataSource;
         string m_ConnectionStringToUse;
@@ -14,8 +14,8 @@ namespace RawBencher.Benchers
         /// <summary>
         /// Initializes a new instance of the <see cref="ChainBencher"/> class.
         /// </summary>
-        public ChainBencher()
-            : base(e => e.SalesOrderId, usesChangeTracking: false, usesCaching: false)
+        public ChainBencherChangeTracking()
+            : base(e => e.SalesOrderId, usesChangeTracking: true, usesCaching: false)
         {
         }
 
@@ -24,18 +24,18 @@ namespace RawBencher.Benchers
         /// </summary>
         /// <param name="key">The key of the element to fetch.</param>
         /// <returns>The fetched element, or null if not found</returns>
-        public override SalesOrderHeader FetchIndividual(int key)
+        public override SalesOrderHeaderChangeTracking FetchIndividual(int key)
         {
-            return DataSource.From("[Sales].[SalesOrderHeader]", new { SalesOrderId = key }).ToObject<SalesOrderHeader>().Execute();
+            return DataSource.From("[Sales].[SalesOrderHeader]", new { SalesOrderId = key }).ToObject<SalesOrderHeaderChangeTracking>().Execute();
         }
 
         /// <summary>
         /// Fetches the complete set of elements and returns this set as an IEnumerable.
         /// </summary>
         /// <returns>the set fetched</returns>
-        public override IEnumerable<SalesOrderHeader> FetchSet()
+        public override IEnumerable<SalesOrderHeaderChangeTracking> FetchSet()
         {
-            return DataSource.From("[Sales].[SalesOrderHeader]").ToCollection<SalesOrderHeader>().Execute();
+            return DataSource.From("[Sales].[SalesOrderHeader]").ToCollection<SalesOrderHeaderChangeTracking>().Execute();
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace RawBencher.Benchers
         /// <returns>the framework name.</returns>
         protected override string CreateFrameworkNameImpl()
         {
-            return "Tortuga Chain v" + BencherUtils.GetVersion(typeof(SqlServerDataSource));
+            return "Tortuga Chain w/Change Tracking Models v" + BencherUtils.GetVersion(typeof(SqlServerDataSource));
         }
 
         #region Properties

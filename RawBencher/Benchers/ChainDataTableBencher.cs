@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 using Tortuga.Chain;
 
 namespace RawBencher.Benchers
 {
     /// <summary>
-    /// Specific bencher for Tortuga Chain, doing no-change tracking fetch
+    /// Specific bencher for Tortuga Chain using a DataTable/DataRow result, doing no-change tracking fetch
     /// </summary>
-    public class ChainBencher : FetchOnlyBencherBase<SalesOrderHeader>
+    public class ChainDataTableBencher : FetchOnlyBencherBase<DataRow>
     {
         SqlServerDataSource DataSource;
         string m_ConnectionStringToUse;
@@ -14,8 +16,8 @@ namespace RawBencher.Benchers
         /// <summary>
         /// Initializes a new instance of the <see cref="ChainBencher"/> class.
         /// </summary>
-        public ChainBencher()
-            : base(e => e.SalesOrderId, usesChangeTracking: false, usesCaching: false)
+        public ChainDataTableBencher()
+            : base(e => (int)e["SalesOrderId"], usesChangeTracking: false, usesCaching: false)
         {
         }
 
@@ -24,18 +26,18 @@ namespace RawBencher.Benchers
         /// </summary>
         /// <param name="key">The key of the element to fetch.</param>
         /// <returns>The fetched element, or null if not found</returns>
-        public override SalesOrderHeader FetchIndividual(int key)
+        public override DataRow FetchIndividual(int key)
         {
-            return DataSource.From("[Sales].[SalesOrderHeader]", new { SalesOrderId = key }).ToObject<SalesOrderHeader>().Execute();
+            return DataSource.From("[Sales].[SalesOrderHeader]", new { SalesOrderId = key }).ToDataRow().Execute();
         }
 
         /// <summary>
         /// Fetches the complete set of elements and returns this set as an IEnumerable.
         /// </summary>
         /// <returns>the set fetched</returns>
-        public override IEnumerable<SalesOrderHeader> FetchSet()
+        public override IEnumerable<DataRow> FetchSet()
         {
-            return DataSource.From("[Sales].[SalesOrderHeader]").ToCollection<SalesOrderHeader>().Execute();
+            return DataSource.From("[Sales].[SalesOrderHeader]").ToDataTable().Execute().AsEnumerable();
         }
 
         /// <summary>
@@ -45,7 +47,7 @@ namespace RawBencher.Benchers
         /// <returns>the framework name.</returns>
         protected override string CreateFrameworkNameImpl()
         {
-            return "Tortuga Chain v" + BencherUtils.GetVersion(typeof(SqlServerDataSource));
+            return "Tortuga Chain, DataTable/DataRow results v" + BencherUtils.GetVersion(typeof(SqlServerDataSource));
         }
 
         #region Properties

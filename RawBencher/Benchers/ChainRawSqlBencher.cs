@@ -4,9 +4,9 @@ using Tortuga.Chain;
 namespace RawBencher.Benchers
 {
     /// <summary>
-    /// Specific bencher for Tortuga Chain, doing no-change tracking fetch
+    /// Specific bencher for Tortuga Chain w/raw sql, doing no-change tracking fetch
     /// </summary>
-    public class ChainBencher : FetchOnlyBencherBase<SalesOrderHeader>
+    public class ChainRawSqlBencher : FetchOnlyBencherBase<SalesOrderHeader>
     {
         SqlServerDataSource DataSource;
         string m_ConnectionStringToUse;
@@ -14,7 +14,7 @@ namespace RawBencher.Benchers
         /// <summary>
         /// Initializes a new instance of the <see cref="ChainBencher"/> class.
         /// </summary>
-        public ChainBencher()
+        public ChainRawSqlBencher()
             : base(e => e.SalesOrderId, usesChangeTracking: false, usesCaching: false)
         {
         }
@@ -26,7 +26,7 @@ namespace RawBencher.Benchers
         /// <returns>The fetched element, or null if not found</returns>
         public override SalesOrderHeader FetchIndividual(int key)
         {
-            return DataSource.From("[Sales].[SalesOrderHeader]", new { SalesOrderId = key }).ToObject<SalesOrderHeader>().Execute();
+            return DataSource.Sql(CommandText + " WHERE SalesOrderId = @SalesOrderId;", new { SalesOrderId = key }).ToObject<SalesOrderHeader>().Execute();
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace RawBencher.Benchers
         /// <returns>the set fetched</returns>
         public override IEnumerable<SalesOrderHeader> FetchSet()
         {
-            return DataSource.From("[Sales].[SalesOrderHeader]").ToCollection<SalesOrderHeader>().Execute();
+            return DataSource.Sql(CommandText).ToCollection<SalesOrderHeader>().Execute();
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace RawBencher.Benchers
         /// <returns>the framework name.</returns>
         protected override string CreateFrameworkNameImpl()
         {
-            return "Tortuga Chain v" + BencherUtils.GetVersion(typeof(SqlServerDataSource));
+            return "Tortuga Chain, Raw SQL v" + BencherUtils.GetVersion(typeof(SqlServerDataSource));
         }
 
         #region Properties
