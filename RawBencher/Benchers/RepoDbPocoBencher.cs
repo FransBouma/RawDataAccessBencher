@@ -6,15 +6,15 @@ using System.Data.SqlClient;
 namespace RawBencher.Benchers
 {
     /// <summary>
-    /// Specific bencher for RepoDb (RawSQL), doing no-change tracking fetch
+    /// Specific bencher for RepoDb (POCO), doing no-change tracking fetch
     /// </summary>
-    public class RepoDbRawSqlBencher : FetchOnlyBencherBase<SalesOrderHeader>
+    public class RepoDbPocoBencher : FetchOnlyBencherBase<SalesOrderHeader>
     {
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RepoDbRawSqlBencher"/> class.
+        /// Initializes a new instance of the <see cref="RepoDbPocoBencher"/> class.
         /// </summary>
-        public RepoDbRawSqlBencher()
+        public RepoDbPocoBencher()
             : base(e => e.SalesOrderId, usesChangeTracking: false, usesCaching: false)
         {
         }
@@ -28,7 +28,7 @@ namespace RawBencher.Benchers
         {
             using (var connection = new SqlConnection(ConnectionStringToUse))
             {
-                return connection.ExecuteQuery<SalesOrderHeader>(CommandText + " WHERE SalesOrderId = @SalesOrderId;", new { SalesOrderId = key }).First();
+                return connection.Query<SalesOrderHeader>(new { SalesOrderId = key }).First();
             }
         }
 
@@ -40,7 +40,7 @@ namespace RawBencher.Benchers
         {
             using (var connection = new SqlConnection(ConnectionStringToUse))
             {
-                return connection.ExecuteQuery<SalesOrderHeader>(CommandText);
+                return connection.Query<SalesOrderHeader>();
             }
         }
 
@@ -51,7 +51,7 @@ namespace RawBencher.Benchers
         /// <returns>the framework name.</returns>
         protected override string CreateFrameworkNameImpl()
         {
-            return "RepoDb (RawSql) v" + BencherUtils.GetVersion(typeof(TypeMapper));
+            return "RepoDb (Poco) v" + BencherUtils.GetVersion(typeof(TypeMapper));
         }
 
         #region Properties
