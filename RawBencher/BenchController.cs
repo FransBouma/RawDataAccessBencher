@@ -26,7 +26,7 @@ namespace RawBencher
     /// </summary>
     public class BenchController
 	{
-		private const int LoopAmount = 25;
+		private const int LoopAmount = 10;
 		private const int IndividualKeysAmount = 100;
 		private const int InsertSetSize = 1000;			// insert this amount of elements during insert benchmarks.
 		private const int InsertBatchSizeDefault = 100;
@@ -104,7 +104,7 @@ namespace RawBencher
 			BenchController.FetchKeysForIndividualFetches();
 
 			// Uncomment the line below if you want to profile a bencher. Specify the bencher instance and follow the guides on the screen.
-			//ProfileBenchers(RegisteredBenchers.FirstOrDefault(b => b.GetType() == typeof(EntityFrameworkCoreNoChangeTrackingBencher)));
+			//ProfileBenchers(RegisteredBenchers.FirstOrDefault(b => b.GetType() == typeof(ChainBencherChangeTracking)));
 			BenchController.RunRegisteredBenchers();
 			BenchController.ReportResultStatistics(autoExit);
 		}
