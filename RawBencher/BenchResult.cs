@@ -28,8 +28,9 @@ namespace RawBencher
 			this.NumberOfRowsAffectedPerType[t] = currentValue;
 		}
 
-		#region Properties
-		public double ActionTimeInMilliseconds { get; set; }
+        #region Properties
+        public int InsertBatchSize { get; set; }
+        public double ActionTimeInMilliseconds { get; set; }
 		public double EnumerationTimeInMilliseconds { get; set; }
 		public long NumberOfBytesAllocated { get; set; }
 
