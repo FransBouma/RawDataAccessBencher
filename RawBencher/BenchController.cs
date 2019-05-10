@@ -551,10 +551,11 @@ namespace RawBencher
 
 
 		private static void ReportInsertSetResult(BenchResult result)
-		{
-			Console.WriteLine("[{0:HH:mm:ss}] # of elements inserted as set: {1}.\tSet insert took: {2:N2}ms.", DateTime.Now, result.TotalNumberOfRowsAffected, 
-							  result.ActionTimeInMilliseconds);
-		}
+        {
+            Console.WriteLine("[{0:HH:mm:ss}] # of elements inserted as set: {1} (batch size: {2}).\tSet insert took: {3:N2}ms.", DateTime.Now, result.TotalNumberOfRowsAffected,
+                              result.InsertBatchSize,
+                              result.ActionTimeInMilliseconds);
+        }
 
 		private static void ReportMemoryUsageInsertSetResult(BenchResult result)
 		{
@@ -767,8 +768,8 @@ namespace RawBencher
 				var benchersToList = RegisteredBenchers.Where(b => b.SupportsInserts).OrderBy(b => b.SetInsertMean).ToList();
 				if(benchersToList.Count > 0)
 				{
-					Console.WriteLine("\nSet inserts of {0} elements in one go ({1} runs)", InsertSetSize, LoopAmount);
-					Console.WriteLine("------------------------------------------------------------------------------");
+                    Console.WriteLine("\nSet inserts of {0} elements in one go ({1} runs, {2} batches)", InsertSetSize, LoopAmount, InsertBatchSizeDefault);
+                    Console.WriteLine("------------------------------------------------------------------------------");
 					foreach(var bencher in benchersToList)
 					{
 						Console.WriteLine("{0,-" + longestNameLength + "} : {1:N2}ms ({2:N2}ms)", bencher.CreateFrameworkName(), bencher.SetInsertMean,
