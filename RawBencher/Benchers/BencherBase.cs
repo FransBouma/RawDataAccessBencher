@@ -296,7 +296,7 @@ namespace RawBencher.Benchers
 			{
 				throw new InvalidOperationException($"The func to retrieve the id of an instance of '{typeof(TInsert).FullName}' hasn't been specified, data can't be verified, exiting.");
 			}
-			var toReturn = new BenchResult();
+			var toReturn = new BenchResult() { InsertBatchSize = batchSize };
 			var sw = new Stopwatch();
 			long memoryBeforeRun = 0;
 			// account for the entities to insert as well in the memory to collect as it's part of the process.
