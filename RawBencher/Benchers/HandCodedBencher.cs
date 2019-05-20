@@ -79,6 +79,13 @@ namespace RawBencher.Benchers
 					var soh = new SalesOrderHeader();
 					// using IsDBNull(ordinal) is slow, however it allows the usage of the typed Get<type>(ordinal) methods. This avoids
 					// boxing / unboxing of the value again, which enhances performance more than IsDBNull can slow it down. 
+					soh.ModifiedDate = reader.GetDateTime(25);
+					soh.Rowguid = reader.GetGuid(24);
+					if(!reader.IsDBNull(23))
+					{
+						soh.Comment = reader.GetString(23);
+					}
+					soh.TotalDue = reader.GetDecimal(22);
 					soh.SalesOrderId = reader.GetInt32(0);
 					soh.RevisionNumber = reader.GetByte(1);
 					soh.OrderDate = reader.GetDateTime(2);
@@ -125,13 +132,6 @@ namespace RawBencher.Benchers
 					soh.SubTotal = reader.GetDecimal(19);
 					soh.TaxAmt = reader.GetDecimal(20);
 					soh.Freight = reader.GetDecimal(21);
-					soh.TotalDue = reader.GetDecimal(22);
-					if(!reader.IsDBNull(23))
-					{
-						soh.Comment = reader.GetString(23);
-					}
-					soh.Rowguid = reader.GetGuid(24);
-					soh.ModifiedDate = reader.GetDateTime(25);
 					headers.Add(soh);
 				}
 				reader.Close();

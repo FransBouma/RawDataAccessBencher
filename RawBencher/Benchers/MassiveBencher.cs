@@ -39,8 +39,7 @@ namespace RawBencher.Benchers
 		/// <returns>the set fetched</returns>
 		public override IEnumerable<dynamic> FetchSet()
 		{
-			var toReturn = new MassiveSalesOrderHeaders().All().ToList();
-			return toReturn;
+			return new MassiveSalesOrderHeaders().All().ToList();
 		}
 
 

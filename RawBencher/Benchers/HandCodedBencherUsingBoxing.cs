@@ -76,8 +76,8 @@ namespace RawBencher.Benchers
 				object[] values = new object[26];
 				while(reader.Read())
 				{
-					var soh = new SalesOrderHeader();
 					reader.GetValues(values);
+					var soh = new SalesOrderHeader();
 					soh.SalesOrderId = (int)values[0];
 					soh.RevisionNumber = (byte)values[1];
 					soh.OrderDate = (DateTime)values[2];

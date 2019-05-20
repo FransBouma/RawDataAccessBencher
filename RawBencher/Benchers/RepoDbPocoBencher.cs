@@ -40,7 +40,7 @@ namespace RawBencher.Benchers
         {
             using (var connection = new SqlConnection(ConnectionStringToUse))
             {
-                return connection.Query<SalesOrderHeader>((object)null);
+                return connection.QueryAll<SalesOrderHeader>();
             }
         }
 
