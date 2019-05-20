@@ -59,6 +59,7 @@ namespace RawBencher
 
             CacheController.RegisterCache(ConnectionString, new ResultsetCache());
             RegisteredBenchers.Add(new HandCodedBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+			RegisteredBenchers.Add(new HandCodedBencherUsingGetFieldValue() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
             RegisteredBenchers.Add(new RepoDbRawSqlBencher() { ConnectionStringToUse = ConnectionString, CommandText = SqlSelectCommandText });
             RegisteredBenchers.Add(new RepoDbPocoBencher() { ConnectionStringToUse = ConnectionString, CommandText = SqlSelectCommandText });
             RegisteredBenchers.Add(new HandCodedBencherUsingBoxing() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
@@ -768,7 +769,7 @@ namespace RawBencher
 				var benchersToList = RegisteredBenchers.Where(b => b.SupportsInserts).OrderBy(b => b.SetInsertMean).ToList();
 				if(benchersToList.Count > 0)
 				{
-                    Console.WriteLine("\nSet inserts of {0} elements in one go ({1} runs, {2} batches)", InsertSetSize, LoopAmount, InsertBatchSizeDefault);
+                    Console.WriteLine("\nSet inserts of {0} elements in one go ({1} runs with batchsize {2})", InsertSetSize, LoopAmount, InsertBatchSizeDefault);
                     Console.WriteLine("------------------------------------------------------------------------------");
 					foreach(var bencher in benchersToList)
 					{

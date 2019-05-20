@@ -73,7 +73,6 @@ namespace RawBencher.Benchers
 				toExecute.Connection = con;
 				con.Open();
 				var reader = toExecute.ExecuteReader();
-				object[] values = new object[26];
 				while(reader.Read())
 				{
 					var soh = new SalesOrderHeader();
@@ -81,55 +80,38 @@ namespace RawBencher.Benchers
 					soh.RevisionNumber = (byte)reader.GetValue(1);
 					soh.OrderDate = (DateTime)reader.GetValue(2);
 					soh.DueDate = (DateTime)reader.GetValue(3);
-					if(!reader.IsDBNull(4))
-					{
-						soh.ShipDate = (DateTime?)reader.GetValue(4);
-					}
+					object value = reader.GetValue(4);
+					soh.ShipDate = value == DBNull.Value ? null : (DateTime?)value;
 					soh.Status = (byte)reader.GetValue(5);
 					soh.OnlineOrderFlag = (bool)reader.GetValue(6);
 					soh.SalesOrderNumber = (string)reader.GetValue(7);
-					if(!reader.IsDBNull(8))
-					{
-						soh.PurchaseOrderNumber = (string)reader.GetValue(8);
-					}
-					if(!reader.IsDBNull(9))
-					{
-						soh.AccountNumber = (string)reader.GetValue(9);
-					}
+					value = reader.GetValue(8);
+					soh.PurchaseOrderNumber = value == DBNull.Value ? null : (string)value;
+					value = reader.GetValue(9);
+					soh.AccountNumber = value == DBNull.Value ? null : (string)value;
 					soh.CustomerID = (int)reader.GetValue(10);
-					if(!reader.IsDBNull(11))
-					{
-						soh.SalesPersonID = (int?)reader.GetValue(11);
-					}
-					if(!reader.IsDBNull(12))
-					{
-						soh.TerritoryID = (int?)reader.GetValue(12);
-					}
+					value = reader.GetValue(11);
+					soh.SalesPersonID = value == DBNull.Value ? null : (int?)value;
+					value = reader.GetValue(12);
+					soh.TerritoryID = value == DBNull.Value ? null : (int?)value;
 					soh.BillToAddressID = (int)reader.GetValue(13);
 					soh.ShipToAddressID = (int)reader.GetValue(14);
 					soh.ShipMethodID = (int)reader.GetValue(15);
-					if(!reader.IsDBNull(16))
-					{
-						soh.CreditCardID = (int?)reader.GetValue(16);
-					}
-					if(!reader.IsDBNull(17))
-					{
-						soh.CreditCardApprovalCode = (string)reader.GetValue(17);
-					}
-					if(!reader.IsDBNull(18))
-					{
-						soh.CurrencyRateID = (int?)reader.GetValue(18);
-					}
+					value = reader.GetValue(16);
+					soh.CreditCardID = value == DBNull.Value ? null : (int?)value;
+					value = reader.GetValue(17);
+					soh.CreditCardApprovalCode = value == DBNull.Value ? null : (string)value;
+					value = reader.GetValue(18);
+					soh.CurrencyRateID = value == DBNull.Value ? null : (int?)value;
 					soh.SubTotal = (decimal)reader.GetValue(19);
 					soh.TaxAmt = (decimal)reader.GetValue(20);
 					soh.Freight = (decimal)reader.GetValue(21);
 					soh.TotalDue = (decimal)reader.GetValue(22);
-					if(!reader.IsDBNull(23))
-					{
-						soh.Comment = (string)reader.GetValue(23);
-					}
+					value = reader.GetValue(23);
+					soh.Comment = value == DBNull.Value ? null : (string)value;
 					soh.Rowguid = (Guid)reader.GetValue(24);
 					soh.ModifiedDate = (DateTime)reader.GetValue(25);
+					
 					headers.Add(soh);
 				}
 				reader.Close();
