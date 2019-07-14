@@ -1,11 +1,15 @@
 ﻿using LinqToDB.Mapping;
 using System;
+using System.Collections.Generic;
 
 namespace LINQ2DB.Bencher
 {
     [Table(Schema = "Sales", Name = "SalesOrderHeader")]
     public class SalesOrderHeader
     {
+        [PrimaryKey]
+        public int SalesOrderID { get; set; }
+
         [Column]
         public string AccountNumber { get; set; }
 
@@ -38,9 +42,6 @@ namespace LINQ2DB.Bencher
 
         [Column]
         public Guid Rowguid { get; set; }
-
-        [Column]
-        public int SalesOrderId { get; set; }
 
         [Column]
         public string SalesOrderNumber { get; set; }
@@ -83,5 +84,11 @@ namespace LINQ2DB.Bencher
 
         [Column]
         public int? CurrencyRateID { get; set; }
+
+        [Association(ThisKey = nameof(SalesOrderID), OtherKey = nameof(SalesOrderDetail.SalesOrderID))]
+        public List<SalesOrderDetail> SalesOrderDetails { get; set; }
+
+        [Association(ThisKey = nameof(CustomerID), OtherKey = nameof(Bencher.Customer.CustomerID))]
+        public Customer Customer { get; set; }
     }
 }
