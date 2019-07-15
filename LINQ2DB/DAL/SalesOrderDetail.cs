@@ -9,7 +9,7 @@ namespace LINQ2DB.Bencher
         [PrimaryKey]
         public int SalesOrderID { get; set; }
 
-        [PrimaryKey]
+        [PrimaryKey, Identity]
         public int SalesOrderDetailID { get; set; }
 
         [Column]

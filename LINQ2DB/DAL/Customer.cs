@@ -6,7 +6,7 @@ namespace LINQ2DB.Bencher
     [Table(Schema = "Sales", Name = "Customer")]
     public class Customer
     {
-        [PrimaryKey]
+        [PrimaryKey, Identity]
         public int CustomerID { get; set; }
 
         [Column]
