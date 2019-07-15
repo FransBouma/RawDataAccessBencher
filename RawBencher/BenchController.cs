@@ -97,7 +97,7 @@ namespace RawBencher
 			BenchController.FetchKeysForIndividualFetches();
 
 			// Uncomment the line below if you want to profile a bencher. Specify the bencher instance and follow the guides on the screen.
-			//ProfileBenchers(RegisteredBenchers.FirstOrDefault(b => b.GetType() == typeof(HandCodedBencher)));
+			//ProfileBenchers(RegisteredBenchers.FirstOrDefault(b => b.GetType() == typeof(LINQ2DBNormalBencher)));
 			BenchController.RunRegisteredBenchers();
 			BenchController.ReportResultStatistics(autoExit);
 		}
@@ -672,7 +672,7 @@ namespace RawBencher
 				var benchersToList = RegisteredBenchers.Where(b => b.SupportsEagerLoading && !b.UsesChangeTracking && !b.UsesCaching).OrderBy(b => b.EagerLoadFetchMean).ToList();
 				if(benchersToList.Count > 0)
 				{
-					Console.WriteLine("Non-change tracking fetches, eager load fetches, 3-node split graph, 1000 root elements ({0} runs), no caching", LoopAmount);
+					Console.WriteLine("\nNon-change tracking fetches, eager load fetches, 3-node split graph, 1000 root elements ({0} runs), no caching", LoopAmount);
 					Console.WriteLine("------------------------------------------------------------------------------");
 					foreach(var bencher in benchersToList)
 					{
