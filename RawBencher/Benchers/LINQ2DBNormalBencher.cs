@@ -135,10 +135,7 @@ namespace RawBencher.Benchers
         {
             using (var db = new Db(ConnectionString))
             {
-                // other providers cheat by using "CreditCardId > 19237" filter
-                db.CreditCards
-                    .Where(r => toDelete.Select(_ => _.CreditCardID).Contains(r.CreditCardID))
-                    .Delete();
+                db.CreditCards.Delete(r => r.CreditCardID > 19237);
             }
         }
 
@@ -146,7 +143,7 @@ namespace RawBencher.Benchers
         {
             using (var db = new Db(ConnectionString))
             {
-                db.BulkCopy(batchSize, toInsert);
+                db.BulkCopy(new BulkCopyOptions { BulkCopyType = BulkCopyType.MultipleRows, MaxBatchSize = batchSize }, toInsert);
             }
         }
     }
