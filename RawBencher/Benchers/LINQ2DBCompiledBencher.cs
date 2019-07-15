@@ -29,9 +29,7 @@ namespace RawBencher.Benchers
 												.Where(_ => _.CreditCardID > 19237));
 
 		private static readonly Func<Db, IEnumerable<CreditCard>, int> _deleteInserted
-			= CompiledQuery.Compile((Db db, IEnumerable<CreditCard> toDelete) => db.CreditCards
-				.Where(r => toDelete.Select(_ => _.CreditCardID).Contains(r.CreditCardID))
-				.Delete());
+			= CompiledQuery.Compile((Db db, IEnumerable<CreditCard> toDelete) => db.CreditCards.Delete(r => r.CreditCardID > 19237));
 
 		public LINQ2DBCompiledBencher(string connectionString)
 			: base(connectionString)
