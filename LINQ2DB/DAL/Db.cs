@@ -1,21 +1,17 @@
 ﻿using LinqToDB;
-using LinqToDB.DataProvider;
-using LinqToDB.DataProvider.SqlServer;
 
 namespace LINQ2DB.Bencher
 {
     public class Db : LinqToDB.Data.DataConnection
     {
-        public Db(string connetionString) : base(GetDataProvider(), connetionString)
+        public Db(string connetionString) : base(ProviderName.SqlServer2008, connetionString)
         {
-
         }
 
-        private static IDataProvider GetDataProvider()
-        {
-            return new SqlServerDataProvider("", SqlServerVersion.v2008);
-        }
+        public ITable<SalesOrderHeader> SalesOrderHeader  => GetTable<SalesOrderHeader>();
 
-        internal ITable<SalesOrderHeader> SalesOrderHeader { get { return GetTable<SalesOrderHeader>(); } }
+        public ITable<CreditCard>       CreditCards       => GetTable<CreditCard>();
+
+        public ITable<SalesOrderHeader> SalesOrderHeaders => GetTable<SalesOrderHeader>();
     }
 }
