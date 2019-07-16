@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<!--LLBLGen Pro v5.5 project file. Do not manually edit this file. Incorrect references could lead to an unloadable project file.-->
-<Project Version="5.5" TargetFrameworkName="LLBLGen Pro Runtime Framework">
+<!--LLBLGen Pro v5.6 project file. Do not manually edit this file. Incorrect references could lead to an unloadable project file.-->
+<Project Version="5.6" TargetFrameworkName="LLBLGen Pro Runtime Framework">
   <Properties>
     <Abbreviations />
     <Property Name="AdditionalTaskPerformerFolder" Value="" />
@@ -16,9 +16,11 @@
     <Property Name="AutoAddManyToManyRelationships" Value="false" />
     <Property Name="AutoAssignSequencesToIntegerPks" Value="true" />
     <Property Name="AutoAssignTypeConverterToFieldMapping" Value="true" />
+    <Property Name="AutomaticallyGenerateSourceCodeOnProjectSave" Value="false" />
     <Property Name="ConnectionStringKeyNamePattern" Value="AdventureWorks.ConnectionString.{$ProviderName}" />
     <Property Name="DefaultDeleteRuleAction" Value="1" />
     <Property Name="DefaultUpdateRuleAction" Value="0" />
+    <Property Name="DeleteObsoleteFiles" Value="true" />
     <Property Name="EncodingToUse" Value="0" />
     <Property Name="EntityActionCombinationDefaultForTable" Value="0" />
     <Property Name="EntityActionCombinationDefaultForView" Value="4" />
@@ -67,6 +69,7 @@
     <Property Name="StoredProcNameStripPattern" Value="{pr_, sp_}{}" />
     <Property Name="StoreTimeLastGeneratedIntoProject" Value="false" />
     <Property Name="StoreTimeLastSyncIntoProject" Value="true" />
+    <Property Name="SyncCustomFieldOrderingWithTableFieldIndex" Value="false" />
     <Property Name="SyncMappedElementNamesAfterRefresh_v5" Value="false" />
     <Property Name="SyncMappedElementNamesAfterRelationalModelDataSync_v5" Value="false" />
     <Property Name="SyncRelationalModelDataElementNameWithModelElementName_v5" Value="false" />
@@ -84,7 +87,8 @@
     <Property Name="UseCustomFieldOrderingOnNewElements" Value="false" />
   </Properties>
   <TypeShortcuts>
-    <TypeShortcut Shortcut="SqlGeography" Type="Microsoft.SqlServer.Types.SqlGeography, Microsoft.SqlServer.Types, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <TypeShortcut Shortcut="CategoryType" Type="EnumTypes.CategoryType, EnumTypes" />
+    <TypeShortcut Shortcut="SqlGeography" Type="SD.LLBLGen.Pro.DBDriverCore.SpatialGeography, SD.LLBLGen.Pro.DBDriverCore, Version=5.6.0.0, Culture=neutral, PublicKeyToken=ca73b74ba4e3ff27" />
   </TypeShortcuts>
   <IgnoredWarnings>
     <IgnoredWarning ID="DZ0009" />
@@ -106,6 +110,7 @@
           <Binding Name="SD.TemplateBindings.SqlServerSpecific" />
           <Binding Name="SD.TemplateBindings.General" />
         </TemplateBindings>
+        <AdhocTemplateSets />
       </LastUsedPreferences>
     </OutputType>
   </CodeGenerationCyclePreferences>
@@ -1744,7 +1749,7 @@
                         <CustomProperty Name="MS_Description" Value="Postal code for the street address." />
                       </CustomProperties>
                     </Field>
-                    <Field Name="SpatialLocation" Ordinal="7" IsOptional="true" UdtCatalog="master" UdtOwner="dbo" UdtName="geography" DbType="27" DbTypeAsNetType="Microsoft.SqlServer.Types.SqlGeography, Microsoft.SqlServer.Types, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">
+                    <Field Name="SpatialLocation" Ordinal="7" IsOptional="true" DbType="33" Length="2147483647">
                       <CustomProperties>
                         <CustomProperty Name="MS_Description" Value="Latitude and longitude of this address." />
                       </CustomProperties>
