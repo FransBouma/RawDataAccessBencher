@@ -1,0 +1,10 @@
+SOURCES=AssemblyInfoDotNet10.cs DynamicQueryEngine.cs SqlServerSpecificCreator.cs
+	
+REFERENCES=SD.LLBLGen.Pro.ORMSupportClasses.NET10.dll
+REFDIR=..\ORMSupportClasses\DotNET1.0\bin\
+
+all : $(SOURCES)
+	csc /t:library /out:DotNET1.0\bin\SD.LLBLGen.Pro.DQE.SqlServer.NET10.dll /o /lib:$(REFDIR) /r:$(REFERENCES) $(SOURCES)
+
+clean:
+	del DotNET1.0\bin\SD.LLBLGen.Pro.DQE.SqlServer.NET10.dll
