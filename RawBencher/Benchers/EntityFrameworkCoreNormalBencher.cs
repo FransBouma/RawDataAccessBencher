@@ -145,7 +145,6 @@ namespace RawBencher.Benchers
 
 		protected override void DeleteInserted(IEnumerable<CreditCard> toDelete)
 		{
-
 			//using(var ctx = new AWDataContext(this.ConnectionStringToUse))
 			//{
 			//	ctx.CreditCards.RemoveRange(toDelete);

@@ -318,6 +318,7 @@
     <Compile Include="Benchers\BencherBase.cs" />
     <Compile Include="Benchers\ChainCompiledBencher.cs" />
     <Compile Include="Benchers\ChainBencher.cs" />
+    <Compile Include="Benchers\EntityFrameworkCoreDTOBencher.cs" />
     <Compile Include="Benchers\EntityFrameworkCoreNoChangeTrackingBencher.cs" />
     <Compile Include="Benchers\EntityFrameworkCoreNormalBencher.cs" />
     <Compile Include="Benchers\FetchOnlyBencherBase.cs" />
@@ -325,6 +326,7 @@
     <Compile Include="Benchers\HandCodedBencherUsingGetFieldValue.cs" />
     <Compile Include="Benchers\LINQ2DBCompiledBencher.cs" />
     <Compile Include="Benchers\LINQ2DBNormalBencher.cs" />
+    <Compile Include="Benchers\LLBLGenProDTOBencher.cs" />
     <Compile Include="Benchers\LLBLGenProNoChangeTrackingQuerySpecPocoBencher.cs" />
     <Compile Include="Benchers\MassiveBencher.cs" />
     <Compile Include="Benchers\HandCodedBencherUsingBoxing.cs" />
@@ -377,6 +379,14 @@
       <Project>{ac909e22-26d0-47cf-98bc-dd07309d3a77}</Project>
       <Name>EF6.Bencher.Persistence</Name>
     </ProjectReference>
+    <ProjectReference Include="..\EFCore\EFCore.Dtos.Persistence\EFCore.Dtos.Persistence.csproj">
+      <Project>{cb888809-1c36-460c-8f0c-55929653bc92}</Project>
+      <Name>EFCore.Dtos.Persistence</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EFCore\EFCore.Dtos\EFCore.Dtos.csproj">
+      <Project>{cd87ceb1-0038-48c4-ab2b-ec3c39f9f56b}</Project>
+      <Name>EFCore.Dtos</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EFCore\Model\EFCore.Bencher.Model.csproj">
       <Project>{28a31c35-2bd2-4b82-9a61-8a11f5d3ecf1}</Project>
       <Name>EFCore20.Bencher.Model</Name>
@@ -400,6 +410,14 @@
     <ProjectReference Include="..\LLBLGenPro\DatabaseSpecific\AdventureWorks.Dal.AdapterDBSpecific.csproj">
       <Project>{3af5906a-7f38-4d12-893b-bff557acd27a}</Project>
       <Name>AdventureWorks.Dal.AdapterDBSpecific</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LLBLGenPro\LLBLGenPro.Dtos.Persistence\LLBLGenPro.Dtos.Persistence.csproj">
+      <Project>{67f5a619-bfc8-481c-8376-27daef66075b}</Project>
+      <Name>LLBLGenPro.Dtos.Persistence</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LLBLGenPro\LLBLGenPro.Dtos\LLBLGenPro.Dtos.csproj">
+      <Project>{6912a2db-01c3-476c-93d2-d4792edf1893}</Project>
+      <Name>LLBLGenPro.Dtos</Name>
     </ProjectReference>
     <ProjectReference Include="..\NH\DAL\Model\NH.Bencher.Model.csproj">
       <Project>{45daeb56-b84d-4d7a-bf22-293f1ce07dbb}</Project>

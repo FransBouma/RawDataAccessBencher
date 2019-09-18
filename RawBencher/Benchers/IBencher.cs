@@ -180,6 +180,14 @@ namespace RawBencher.Benchers
 		/// </summary>
 		bool SupportsInserts { get; }
 		/// <summary>
+		/// If true, this bencher supports set fetching
+		/// </summary>
+		bool SupportsSetFetch { get; }
+		/// <summary>
+		/// If true, this bencher supports individual element fetching
+		/// </summary>
+		bool SupportsIndividualFetch { get; }
+		/// <summary>
 		/// The total amount of bytes allocated when doing a set insert benchmark run.
 		/// </summary>
 		long MemorySetInsertBenchmarks { get; set; }

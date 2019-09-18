@@ -33,10 +33,12 @@ namespace RawBencher.Benchers
 		/// <param name="supportsEagerLoading">if set to <c>true</c> this bencher supports eager loading and will participate in eager loading benchmarks.</param>
 		/// <param name="supportsAsync">if set to <c>true</c> this bencher supports async and will participate in async benchmarks.</param>
 		/// <param name="supportsInserts">If set to true, this bencher supports insert measurements and will participate in insert benchmarks</param>
+		/// <param name="supportsSetFetch">If set to true, this bencher supports set fetches and will participate in set fetch benchmarks</param>
+		/// <param name="supportsIndividualFetch">If set to true, this bencher supports individual element fetches and will participate in individual fetch benchmarks.</param>
 		/// <exception cref="ArgumentNullException">salesOrderIdRetriever</exception>
 		/// <exception cref="System.ArgumentNullException">salesOrderIdRetriever</exception>
 		protected BencherBase(Func<TFetch, int> salesOrderIdRetriever, Func<TInsert, int> insertedIdRetriever, bool usesChangeTracking, bool usesCaching, bool supportsEagerLoading=false, 
-							  bool supportsAsync=false, bool supportsInserts=false)
+							  bool supportsAsync=false, bool supportsInserts=false, bool supportsSetFetch=true, bool supportsIndividualFetch=true)
 		{
 			if(salesOrderIdRetriever == null)
 			{
@@ -49,6 +51,8 @@ namespace RawBencher.Benchers
 			this.SupportsEagerLoading = supportsEagerLoading;
 			this.SupportsAsync = supportsAsync;
 			this.SupportsInserts = supportsInserts;
+			this.SupportsSetFetch = supportsSetFetch;
+			this.SupportsIndividualFetch = supportsIndividualFetch;
 			_individualBenchmarkResults = new List<BenchResult>();
 			_setBenchmarkResults = new List<BenchResult>();
 			_eagerLoadBenchmarkResults = new List<BenchResult>();
@@ -440,7 +444,7 @@ namespace RawBencher.Benchers
 			}
 			return toReturn;
 		}
-		
+
 
 		/// <summary>
 		/// Fetches the individual element
@@ -448,14 +452,22 @@ namespace RawBencher.Benchers
 		/// <typeparam name="TFetch">Type of the element to fetch</typeparam>
 		/// <param name="key">The key of the element to fetch.</param>
 		/// <returns>The fetched element, or null if not found</returns>
-		public abstract TFetch FetchIndividual(int key);
+		public virtual TFetch FetchIndividual(int key)
+		{
+			return default(TFetch);
+		}
+
+
 		/// <summary>
 		/// Fetches the complete set of elements and returns this set as an IEnumerable.
 		/// </summary>
 		/// <returns>
 		/// the set fetched
 		/// </returns>
-		public abstract IEnumerable<TFetch> FetchSet();
+		public virtual IEnumerable<TFetch> FetchSet()
+		{
+			return new List<TFetch>();
+		}
 
 
 		/// <summary>
@@ -755,6 +767,14 @@ namespace RawBencher.Benchers
 		/// If true, this bencher supports insert benchmarking.
 		/// </summary>
 		public bool SupportsInserts { get; }
+		/// <summary>
+		/// If true, this bencher supports set fetching
+		/// </summary>
+		public bool SupportsSetFetch { get; }
+		/// <summary>
+		/// If true, this bencher supports individual element fetching
+		/// </summary>
+		public bool SupportsIndividualFetch { get; }
 		/// <summary>
 		/// The total amount of bytes allocated when doing a set insert benchmark run.
 		/// </summary>
