@@ -97,7 +97,6 @@ namespace RawBencher
             BenchController.DisplayHeader();
 			BenchController.WarmupDB();
 			BenchController.FetchKeysForIndividualFetches();
-            BenchController.Bootstrap();
 
 			// Uncomment the line below if you want to profile a bencher. Specify the bencher instance and follow the guides on the screen.
 			//ProfileBenchers(RegisteredBenchers.FirstOrDefault(b => b.GetType() == typeof(LINQ2DBNormalBencher)));
@@ -249,17 +248,6 @@ namespace RawBencher
 			}
 		}
 
-		private static void Bootstrap()
-		{
-			// RepoDb
-			RepoDb.SqlServerBootstrap.Initialize();
-
-			// EF
-
-			// LLBLGen
-
-			// Others
-		}
 
 		private static void RunRegisteredBenchers()
 		{
