@@ -17,6 +17,16 @@ namespace RawBencher.Benchers
         public RepoDbPocoBencher()
             : base(e => e.SalesOrderId, usesChangeTracking: false, usesCaching: false)
         {
+            Initialize();
+        }
+
+        /// <summary>
+        /// Initializes the current bencher instance.
+        /// </summary>
+        public override void Initialize()
+        {
+            base.Initialize();
+            SqlServerBootstrap.Initialize();
         }
 
         /// <summary>

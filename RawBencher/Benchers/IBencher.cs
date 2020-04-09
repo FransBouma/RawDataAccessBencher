@@ -96,7 +96,10 @@ namespace RawBencher.Benchers
 		/// A filled in benchmark result object
 		/// </returns>
 		BenchResult PerformInsertSetBenchmark(int amountToInsert, int batchSize, bool discardResults);
-
+		/// <summary>
+		/// Initializes the current bencher instance.
+		/// </summary>
+		void Initialize();
 		/// <summary>
 		/// Gets / sets the flag to collect memory allocations during an operation
 		/// </summary>
