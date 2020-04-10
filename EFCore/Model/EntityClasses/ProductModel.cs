@@ -22,22 +22,22 @@ namespace EFCore.Bencher.EntityClasses
 		}
 
 		/// <summary>Gets or sets the CatalogDescription field. </summary>
-		public System.String CatalogDescription { get; set;}
+		public System.String CatalogDescription { get; set; }
 		/// <summary>Gets or sets the Instructions field. </summary>
-		public System.String Instructions { get; set;}
+		public System.String Instructions { get; set; }
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
-		public System.DateTime ModifiedDate { get; set;}
+		public System.DateTime ModifiedDate { get; set; }
 		/// <summary>Gets or sets the Name field. </summary>
-		public System.String Name { get; set;}
+		public System.String Name { get; set; }
 		/// <summary>Gets or sets the ProductModelId field. </summary>
-		public System.Int32 ProductModelId { get; set;}
+		public System.Int32 ProductModelId { get; set; }
 		/// <summary>Gets or sets the Rowguid field. </summary>
-		public System.Guid Rowguid { get; set;}
+		public System.Guid Rowguid { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'Product.ProductModel - ProductModel.Products (m:1)'</summary>
-		public virtual List<Product> Products { get; set;}
+		public virtual List<Product> Products { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductModelIllustration.ProductModel - ProductModel.ProductModelIllustrations (m:1)'</summary>
-		public virtual List<ProductModelIllustration> ProductModelIllustrations { get; set;}
+		public virtual List<ProductModelIllustration> ProductModelIllustrations { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductModelProductDescriptionCulture.ProductModel - ProductModel.ProductModelProductDescriptionCultures (m:1)'</summary>
-		public virtual List<ProductModelProductDescriptionCulture> ProductModelProductDescriptionCultures { get; set;}
+		public virtual List<ProductModelProductDescriptionCulture> ProductModelProductDescriptionCultures { get; set; }
 	}
 }

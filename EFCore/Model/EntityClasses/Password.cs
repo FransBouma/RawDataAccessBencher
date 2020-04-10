@@ -19,16 +19,16 @@ namespace EFCore.Bencher.EntityClasses
 		}
 
 		/// <summary>Gets or sets the BusinessEntityId field. </summary>
-		public System.Int32 BusinessEntityId { get; set;}
+		public System.Int32 BusinessEntityId { get; set; }
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
-		public System.DateTime ModifiedDate { get; set;}
+		public System.DateTime ModifiedDate { get; set; }
 		/// <summary>Gets or sets the PasswordHash field. </summary>
-		public System.String PasswordHash { get; set;}
+		public System.String PasswordHash { get; set; }
 		/// <summary>Gets or sets the PasswordSalt field. </summary>
-		public System.String PasswordSalt { get; set;}
+		public System.String PasswordSalt { get; set; }
 		/// <summary>Gets or sets the Rowguid field. </summary>
-		public System.Guid Rowguid { get; set;}
+		public System.Guid Rowguid { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'Password.Person - Person.Password (1:1)'</summary>
-		public virtual Person Person { get; set;}
+		public virtual Person Person { get; set; }
 	}
 }

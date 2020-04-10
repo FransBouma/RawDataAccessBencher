@@ -24,36 +24,36 @@ namespace EFCore.Bencher.EntityClasses
 		}
 
 		/// <summary>Gets or sets the CostLastYear field. </summary>
-		public System.Decimal CostLastYear { get; set;}
+		public System.Decimal CostLastYear { get; set; }
 		/// <summary>Gets or sets the CostYtd field. </summary>
-		public System.Decimal CostYtd { get; set;}
+		public System.Decimal CostYtd { get; set; }
 		/// <summary>Gets or sets the CountryRegionCode field. </summary>
-		public System.String CountryRegionCode { get; set;}
+		public System.String CountryRegionCode { get; set; }
 		/// <summary>Gets or sets the Group field. </summary>
-		public System.String Group { get; set;}
+		public System.String Group { get; set; }
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
-		public System.DateTime ModifiedDate { get; set;}
+		public System.DateTime ModifiedDate { get; set; }
 		/// <summary>Gets or sets the Name field. </summary>
-		public System.String Name { get; set;}
+		public System.String Name { get; set; }
 		/// <summary>Gets or sets the Rowguid field. </summary>
-		public System.Guid Rowguid { get; set;}
+		public System.Guid Rowguid { get; set; }
 		/// <summary>Gets or sets the SalesLastYear field. </summary>
-		public System.Decimal SalesLastYear { get; set;}
+		public System.Decimal SalesLastYear { get; set; }
 		/// <summary>Gets or sets the SalesYtd field. </summary>
-		public System.Decimal SalesYtd { get; set;}
+		public System.Decimal SalesYtd { get; set; }
 		/// <summary>Gets or sets the TerritoryId field. </summary>
-		public System.Int32 TerritoryId { get; set;}
+		public System.Int32 TerritoryId { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesTerritory.CountryRegion - CountryRegion.SalesTerritories (m:1)'</summary>
-		public virtual CountryRegion CountryRegion { get; set;}
+		public virtual CountryRegion CountryRegion { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'Customer.SalesTerritory - SalesTerritory.Customers (m:1)'</summary>
-		public virtual List<Customer> Customers { get; set;}
+		public virtual List<Customer> Customers { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderHeader.SalesTerritory - SalesTerritory.SalesOrderHeaders (m:1)'</summary>
-		public virtual List<SalesOrderHeader> SalesOrderHeaders { get; set;}
+		public virtual List<SalesOrderHeader> SalesOrderHeaders { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesPerson.SalesTerritory - SalesTerritory.SalesPeople (m:1)'</summary>
-		public virtual List<SalesPerson> SalesPeople { get; set;}
+		public virtual List<SalesPerson> SalesPeople { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesTerritoryHistory.SalesTerritory - SalesTerritory.SalesTerritoryHistories (m:1)'</summary>
-		public virtual List<SalesTerritoryHistory> SalesTerritoryHistories { get; set;}
+		public virtual List<SalesTerritoryHistory> SalesTerritoryHistories { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'StateProvince.SalesTerritory - SalesTerritory.StateProvinces (m:1)'</summary>
-		public virtual List<StateProvince> StateProvinces { get; set;}
+		public virtual List<StateProvince> StateProvinces { get; set; }
 	}
 }

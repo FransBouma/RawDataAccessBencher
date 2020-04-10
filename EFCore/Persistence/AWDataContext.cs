@@ -5,6 +5,8 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using EFCore.Bencher.EntityClasses;
 
 namespace EFCore.Bencher
@@ -13,36 +15,43 @@ namespace EFCore.Bencher
 	public partial class AWDataContext : DbContext
 	{
 		partial void OnModelCreatingComplete();
-	
-		/// <summary>Saves all changes made in this context to the database.</summary>
-		/// <returns>The number of state entries written to the database.</returns>
-		/// <remarks>This method will automatically call <see cref="M:Microsoft.EntityFrameworkCore.ChangeTracking.ChangeTracker.DetectChanges" /> to discover any
-		/// changes to entity instances before saving to the underlying database. This can be disabled via <see cref="P:Microsoft.EntityFrameworkCore.ChangeTracking.ChangeTracker.AutoDetectChangesEnabled" /></remarks>
-		public override int SaveChanges()
+
+		/// <summary>Constructor which accepts an already setup DbContextOptions instance</summary>
+		/// <param name="options">The DbContextOptions object to use</param>
+		public AWDataContext(DbContextOptions<AWDataContext> options) : base(options) {}
+		
+		/// <summary>Empty constructor which relies on OnConfiguring being overriden</summary>
+		public AWDataContext() : base() {}
+		
+		/// <inheritdoc/>
+		public override int SaveChanges(bool acceptAllChangesOnSuccess)
 		{
-			var namesOfChangedReadOnlyEntities = this.ChangeTracker.Entries().Where(e => e.Metadata.IsReadOnly() && e.State != EntityState.Unchanged).Select(e => e.Metadata.Name).Distinct().ToList();
-			if(namesOfChangedReadOnlyEntities.Any())
-			{
-				throw new InvalidOperationException($"Attempted to save the following read-only entitie(s): {string.Join(",", namesOfChangedReadOnlyEntities)}");
-			}
-			return base.SaveChanges();
+			CheckReadonlyEntities();
+			return base.SaveChanges(acceptAllChangesOnSuccess);
 		}
-	
-		/// <summary>Override this method to further configure the model that was discovered by convention from the entity types
-		/// exposed in <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> properties on your derived context. The resulting model may be cached
-		/// and re-used for subsequent instances of your derived context.</summary>
-		/// <param name="modelBuilder">The builder being used to construct the model for this context. Databases (and other extensions) typically
-		/// define extension methods on this object that allow you to configure aspects of the model that are specific
-		/// to a given database.</param>
-		/// <remarks>If a model is explicitly set on the options for this context (via <see cref="M:Microsoft.EntityFrameworkCore.DbContextOptionsBuilder.UseModel(Microsoft.EntityFrameworkCore.Metadata.IModel)" />)
-		/// then this method will not be run.</remarks>
+
+		/// <inheritdoc/>
+		public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = new CancellationToken())
+		{
+			CheckReadonlyEntities();
+			return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
+		}
+		
+		/// <inheritdoc/>
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			new AWModelBuilder().BuildModel(modelBuilder);
 			OnModelCreatingComplete();
 		}
 
-
+		private void CheckReadonlyEntities()
+		{
+			var namesOfChangedReadOnlyEntities = this.ChangeTracker.Entries().Where(e => e.Metadata.IsReadOnly() && e.State != EntityState.Unchanged).Select(e => e.Metadata.Name).Distinct().ToList();
+			if(namesOfChangedReadOnlyEntities.Any())
+			{
+				throw new InvalidOperationException($"Attempted to save the following read-only entitie(s): {string.Join(",", namesOfChangedReadOnlyEntities)}");
+			}
+		}
 
 		/// <summary>Gets an object query for the entity set 'Address', containing entity type 'Address'</summary>
 		public DbSet<Address> Addresses { get; set; } 
@@ -180,5 +189,5 @@ namespace EFCore.Bencher
 		public DbSet<WorkOrder> WorkOrders { get; set; } 
 		/// <summary>Gets an object query for the entity set 'WorkOrderRouting', containing entity type 'WorkOrderRouting'</summary>
 		public DbSet<WorkOrderRouting> WorkOrderRoutings { get; set; } 
-}
+	}
 }

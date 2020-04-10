@@ -20,30 +20,30 @@ namespace EFCore.Bencher.EntityClasses
 		}
 
 		/// <summary>Gets or sets the DueDate field. </summary>
-		public System.DateTime DueDate { get; set;}
+		public System.DateTime DueDate { get; set; }
 		/// <summary>Gets or sets the EndDate field. </summary>
-		public Nullable<System.DateTime> EndDate { get; set;}
+		public Nullable<System.DateTime> EndDate { get; set; }
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
-		public System.DateTime ModifiedDate { get; set;}
+		public System.DateTime ModifiedDate { get; set; }
 		/// <summary>Gets or sets the OrderQty field. </summary>
-		public System.Int32 OrderQty { get; set;}
+		public System.Int32 OrderQty { get; set; }
 		/// <summary>Gets or sets the ProductId field. </summary>
-		public System.Int32 ProductId { get; set;}
+		public System.Int32 ProductId { get; set; }
 		/// <summary>Gets or sets the ScrappedQty field. </summary>
-		public System.Int16 ScrappedQty { get; set;}
+		public System.Int16 ScrappedQty { get; set; }
 		/// <summary>Gets or sets the ScrapReasonId field. </summary>
-		public Nullable<System.Int16> ScrapReasonId { get; set;}
+		public Nullable<System.Int16> ScrapReasonId { get; set; }
 		/// <summary>Gets or sets the StartDate field. </summary>
-		public System.DateTime StartDate { get; set;}
+		public System.DateTime StartDate { get; set; }
 		/// <summary>Gets or sets the StockedQty field. </summary>
-		public System.Int32 StockedQty { get; set;}
+		public System.Int32 StockedQty { get; set; }
 		/// <summary>Gets or sets the WorkOrderId field. </summary>
-		public System.Int32 WorkOrderId { get; set;}
+		public System.Int32 WorkOrderId { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'WorkOrder.Product - Product.WorkOrders (m:1)'</summary>
-		public virtual Product Product { get; set;}
+		public virtual Product Product { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'WorkOrder.ScrapReason - ScrapReason.WorkOrders (m:1)'</summary>
-		public virtual ScrapReason ScrapReason { get; set;}
+		public virtual ScrapReason ScrapReason { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'WorkOrderRouting.WorkOrder - WorkOrder.WorkOrderRoutings (m:1)'</summary>
-		public virtual List<WorkOrderRouting> WorkOrderRoutings { get; set;}
+		public virtual List<WorkOrderRouting> WorkOrderRoutings { get; set; }
 	}
 }

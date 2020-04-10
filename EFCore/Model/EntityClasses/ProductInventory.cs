@@ -19,22 +19,22 @@ namespace EFCore.Bencher.EntityClasses
 		}
 
 		/// <summary>Gets or sets the Bin field. </summary>
-		public System.Byte Bin { get; set;}
+		public System.Byte Bin { get; set; }
 		/// <summary>Gets or sets the LocationId field. </summary>
-		public System.Int16 LocationId { get; set;}
+		public System.Int16 LocationId { get; set; }
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
-		public System.DateTime ModifiedDate { get; set;}
+		public System.DateTime ModifiedDate { get; set; }
 		/// <summary>Gets or sets the ProductId field. </summary>
-		public System.Int32 ProductId { get; set;}
+		public System.Int32 ProductId { get; set; }
 		/// <summary>Gets or sets the Quantity field. </summary>
-		public System.Int16 Quantity { get; set;}
+		public System.Int16 Quantity { get; set; }
 		/// <summary>Gets or sets the Rowguid field. </summary>
-		public System.Guid Rowguid { get; set;}
+		public System.Guid Rowguid { get; set; }
 		/// <summary>Gets or sets the Shelf field. </summary>
-		public System.String Shelf { get; set;}
+		public System.String Shelf { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductInventory.Location - Location.ProductInventories (m:1)'</summary>
-		public virtual Location Location { get; set;}
+		public virtual Location Location { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductInventory.Product - Product.ProductInventories (m:1)'</summary>
-		public virtual Product Product { get; set;}
+		public virtual Product Product { get; set; }
 	}
 }

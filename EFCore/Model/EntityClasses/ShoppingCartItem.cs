@@ -19,18 +19,18 @@ namespace EFCore.Bencher.EntityClasses
 		}
 
 		/// <summary>Gets or sets the DateCreated field. </summary>
-		public System.DateTime DateCreated { get; set;}
+		public System.DateTime DateCreated { get; set; }
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
-		public System.DateTime ModifiedDate { get; set;}
+		public System.DateTime ModifiedDate { get; set; }
 		/// <summary>Gets or sets the ProductId field. </summary>
-		public System.Int32 ProductId { get; set;}
+		public System.Int32 ProductId { get; set; }
 		/// <summary>Gets or sets the Quantity field. </summary>
-		public System.Int32 Quantity { get; set;}
+		public System.Int32 Quantity { get; set; }
 		/// <summary>Gets or sets the ShoppingCartId field. </summary>
-		public System.String ShoppingCartId { get; set;}
+		public System.String ShoppingCartId { get; set; }
 		/// <summary>Gets or sets the ShoppingCartItemId field. </summary>
-		public System.Int32 ShoppingCartItemId { get; set;}
+		public System.Int32 ShoppingCartItemId { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'ShoppingCartItem.Product - Product.ShoppingCartItems (m:1)'</summary>
-		public virtual Product Product { get; set;}
+		public virtual Product Product { get; set; }
 	}
 }

@@ -19,16 +19,16 @@ namespace EFCore.Bencher.EntityClasses
 		}
 
 		/// <summary>Gets or sets the BusinessEntityId field. </summary>
-		public System.Int32 BusinessEntityId { get; set;}
+		public System.Int32 BusinessEntityId { get; set; }
 		/// <summary>Gets or sets the EmailAddressId field. </summary>
-		public System.Int32 EmailAddressId { get; set;}
+		public System.Int32 EmailAddressId { get; set; }
 		/// <summary>Gets or sets the EmailAddressValue field. </summary>
-		public System.String EmailAddressValue { get; set;}
+		public System.String EmailAddressValue { get; set; }
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
-		public System.DateTime ModifiedDate { get; set;}
+		public System.DateTime ModifiedDate { get; set; }
 		/// <summary>Gets or sets the Rowguid field. </summary>
-		public System.Guid Rowguid { get; set;}
+		public System.Guid Rowguid { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'EmailAddress.Person - Person.EmailAddresses (m:1)'</summary>
-		public virtual Person Person { get; set;}
+		public virtual Person Person { get; set; }
 	}
 }

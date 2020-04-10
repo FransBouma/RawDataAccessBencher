@@ -20,12 +20,12 @@ namespace EFCore.Bencher.EntityClasses
 		}
 
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
-		public System.DateTime ModifiedDate { get; set;}
+		public System.DateTime ModifiedDate { get; set; }
 		/// <summary>Gets or sets the Name field. </summary>
-		public System.String Name { get; set;}
+		public System.String Name { get; set; }
 		/// <summary>Gets or sets the PhoneNumberTypeId field. </summary>
-		public System.Int32 PhoneNumberTypeId { get; set;}
+		public System.Int32 PhoneNumberTypeId { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'PersonPhone.PhoneNumberType - PhoneNumberType.PersonPhones (m:1)'</summary>
-		public virtual List<PersonPhone> PersonPhones { get; set;}
+		public virtual List<PersonPhone> PersonPhones { get; set; }
 	}
 }

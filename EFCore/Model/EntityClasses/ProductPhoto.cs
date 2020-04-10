@@ -20,18 +20,18 @@ namespace EFCore.Bencher.EntityClasses
 		}
 
 		/// <summary>Gets or sets the LargePhoto field. </summary>
-		public System.Byte[] LargePhoto { get; set;}
+		public System.Byte[] LargePhoto { get; set; }
 		/// <summary>Gets or sets the LargePhotoFileName field. </summary>
-		public System.String LargePhotoFileName { get; set;}
+		public System.String LargePhotoFileName { get; set; }
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
-		public System.DateTime ModifiedDate { get; set;}
+		public System.DateTime ModifiedDate { get; set; }
 		/// <summary>Gets or sets the ProductPhotoId field. </summary>
-		public System.Int32 ProductPhotoId { get; set;}
+		public System.Int32 ProductPhotoId { get; set; }
 		/// <summary>Gets or sets the ThumbNailPhoto field. </summary>
-		public System.Byte[] ThumbNailPhoto { get; set;}
+		public System.Byte[] ThumbNailPhoto { get; set; }
 		/// <summary>Gets or sets the ThumbnailPhotoFileName field. </summary>
-		public System.String ThumbnailPhotoFileName { get; set;}
+		public System.String ThumbnailPhotoFileName { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductProductPhoto.ProductPhoto - ProductPhoto.ProductProductPhotos (m:1)'</summary>
-		public virtual List<ProductProductPhoto> ProductProductPhotos { get; set;}
+		public virtual List<ProductProductPhoto> ProductProductPhotos { get; set; }
 	}
 }

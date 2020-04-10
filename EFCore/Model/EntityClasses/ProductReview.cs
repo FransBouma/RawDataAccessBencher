@@ -19,22 +19,22 @@ namespace EFCore.Bencher.EntityClasses
 		}
 
 		/// <summary>Gets or sets the Comments field. </summary>
-		public System.String Comments { get; set;}
+		public System.String Comments { get; set; }
 		/// <summary>Gets or sets the EmailAddress field. </summary>
-		public System.String EmailAddress { get; set;}
+		public System.String EmailAddress { get; set; }
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
-		public System.DateTime ModifiedDate { get; set;}
+		public System.DateTime ModifiedDate { get; set; }
 		/// <summary>Gets or sets the ProductId field. </summary>
-		public System.Int32 ProductId { get; set;}
+		public System.Int32 ProductId { get; set; }
 		/// <summary>Gets or sets the ProductReviewId field. </summary>
-		public System.Int32 ProductReviewId { get; set;}
+		public System.Int32 ProductReviewId { get; set; }
 		/// <summary>Gets or sets the Rating field. </summary>
-		public System.Int32 Rating { get; set;}
+		public System.Int32 Rating { get; set; }
 		/// <summary>Gets or sets the ReviewDate field. </summary>
-		public System.DateTime ReviewDate { get; set;}
+		public System.DateTime ReviewDate { get; set; }
 		/// <summary>Gets or sets the ReviewerName field. </summary>
-		public System.String ReviewerName { get; set;}
+		public System.String ReviewerName { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductReview.Product - Product.ProductReviews (m:1)'</summary>
-		public virtual Product Product { get; set;}
+		public virtual Product Product { get; set; }
 	}
 }

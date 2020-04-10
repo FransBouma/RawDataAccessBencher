@@ -20,24 +20,24 @@ namespace EFCore.Bencher.EntityClasses
 		}
 
 		/// <summary>Gets or sets the AverageRate field. </summary>
-		public System.Decimal AverageRate { get; set;}
+		public System.Decimal AverageRate { get; set; }
 		/// <summary>Gets or sets the CurrencyRateDate field. </summary>
-		public System.DateTime CurrencyRateDate { get; set;}
+		public System.DateTime CurrencyRateDate { get; set; }
 		/// <summary>Gets or sets the CurrencyRateId field. </summary>
-		public System.Int32 CurrencyRateId { get; set;}
+		public System.Int32 CurrencyRateId { get; set; }
 		/// <summary>Gets or sets the EndOfDayRate field. </summary>
-		public System.Decimal EndOfDayRate { get; set;}
+		public System.Decimal EndOfDayRate { get; set; }
 		/// <summary>Gets or sets the FromCurrencyCode field. </summary>
-		public System.String FromCurrencyCode { get; set;}
+		public System.String FromCurrencyCode { get; set; }
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
-		public System.DateTime ModifiedDate { get; set;}
+		public System.DateTime ModifiedDate { get; set; }
 		/// <summary>Gets or sets the ToCurrencyCode field. </summary>
-		public System.String ToCurrencyCode { get; set;}
+		public System.String ToCurrencyCode { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'CurrencyRate.Currency - Currency.CurrencyRates (m:1)'</summary>
-		public virtual Currency Currency { get; set;}
+		public virtual Currency Currency { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'CurrencyRate.Currency_ - Currency.CurrencyRates_ (m:1)'</summary>
-		public virtual Currency Currency_ { get; set;}
+		public virtual Currency Currency_ { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderHeader.CurrencyRate - CurrencyRate.SalesOrderHeaders (m:1)'</summary>
-		public virtual List<SalesOrderHeader> SalesOrderHeaders { get; set;}
+		public virtual List<SalesOrderHeader> SalesOrderHeaders { get; set; }
 	}
 }

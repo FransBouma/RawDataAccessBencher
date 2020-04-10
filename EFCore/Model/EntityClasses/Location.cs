@@ -21,18 +21,18 @@ namespace EFCore.Bencher.EntityClasses
 		}
 
 		/// <summary>Gets or sets the Availability field. </summary>
-		public System.Decimal Availability { get; set;}
+		public System.Decimal Availability { get; set; }
 		/// <summary>Gets or sets the CostRate field. </summary>
-		public System.Decimal CostRate { get; set;}
+		public System.Decimal CostRate { get; set; }
 		/// <summary>Gets or sets the LocationId field. </summary>
-		public System.Int16 LocationId { get; set;}
+		public System.Int16 LocationId { get; set; }
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
-		public System.DateTime ModifiedDate { get; set;}
+		public System.DateTime ModifiedDate { get; set; }
 		/// <summary>Gets or sets the Name field. </summary>
-		public System.String Name { get; set;}
+		public System.String Name { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductInventory.Location - Location.ProductInventories (m:1)'</summary>
-		public virtual List<ProductInventory> ProductInventories { get; set;}
+		public virtual List<ProductInventory> ProductInventories { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'WorkOrderRouting.Location - Location.WorkOrderRoutings (m:1)'</summary>
-		public virtual List<WorkOrderRouting> WorkOrderRoutings { get; set;}
+		public virtual List<WorkOrderRouting> WorkOrderRoutings { get; set; }
 	}
 }

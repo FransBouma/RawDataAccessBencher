@@ -21,20 +21,20 @@ namespace EFCore.Bencher.EntityClasses
 		}
 
 		/// <summary>Gets or sets the CardNumber field. </summary>
-		public System.String CardNumber { get; set;}
+		public System.String CardNumber { get; set; }
 		/// <summary>Gets or sets the CardType field. </summary>
-		public System.String CardType { get; set;}
+		public System.String CardType { get; set; }
 		/// <summary>Gets or sets the CreditCardId field. </summary>
-		public System.Int32 CreditCardId { get; set;}
+		public System.Int32 CreditCardId { get; set; }
 		/// <summary>Gets or sets the ExpMonth field. </summary>
-		public System.Byte ExpMonth { get; set;}
+		public System.Byte ExpMonth { get; set; }
 		/// <summary>Gets or sets the ExpYear field. </summary>
-		public System.Int16 ExpYear { get; set;}
+		public System.Int16 ExpYear { get; set; }
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
-		public System.DateTime ModifiedDate { get; set;}
+		public System.DateTime ModifiedDate { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'ContactCreditCard.CreditCard - CreditCard.ContactCreditCards (m:1)'</summary>
-		public virtual List<ContactCreditCard> ContactCreditCards { get; set;}
+		public virtual List<ContactCreditCard> ContactCreditCards { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderHeader.CreditCard - CreditCard.SalesOrderHeaders (m:1)'</summary>
-		public virtual List<SalesOrderHeader> SalesOrderHeaders { get; set;}
+		public virtual List<SalesOrderHeader> SalesOrderHeaders { get; set; }
 	}
 }

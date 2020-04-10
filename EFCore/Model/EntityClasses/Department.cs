@@ -20,14 +20,14 @@ namespace EFCore.Bencher.EntityClasses
 		}
 
 		/// <summary>Gets or sets the DepartmentId field. </summary>
-		public System.Int16 DepartmentId { get; set;}
+		public System.Int16 DepartmentId { get; set; }
 		/// <summary>Gets or sets the GroupName field. </summary>
-		public System.String GroupName { get; set;}
+		public System.String GroupName { get; set; }
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
-		public System.DateTime ModifiedDate { get; set;}
+		public System.DateTime ModifiedDate { get; set; }
 		/// <summary>Gets or sets the Name field. </summary>
-		public System.String Name { get; set;}
+		public System.String Name { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'EmployeeDepartmentHistory.Department - Department.EmployeeDepartmentHistories (m:1)'</summary>
-		public virtual List<EmployeeDepartmentHistory> EmployeeDepartmentHistories { get; set;}
+		public virtual List<EmployeeDepartmentHistory> EmployeeDepartmentHistories { get; set; }
 	}
 }

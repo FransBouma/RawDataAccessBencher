@@ -20,12 +20,12 @@ namespace EFCore.Bencher.EntityClasses
 		}
 
 		/// <summary>Gets or sets the Diagram field. </summary>
-		public System.String Diagram { get; set;}
+		public System.String Diagram { get; set; }
 		/// <summary>Gets or sets the IllustrationId field. </summary>
-		public System.Int32 IllustrationId { get; set;}
+		public System.Int32 IllustrationId { get; set; }
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
-		public System.DateTime ModifiedDate { get; set;}
+		public System.DateTime ModifiedDate { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductModelIllustration.Illustration - Illustration.ProductModelIllustrations (m:1)'</summary>
-		public virtual List<ProductModelIllustration> ProductModelIllustrations { get; set;}
+		public virtual List<ProductModelIllustration> ProductModelIllustrations { get; set; }
 	}
 }

@@ -129,7 +129,7 @@ namespace EFCore.Bencher
 			config.Property(t => t.EndDate);
 			config.Property(t => t.UnitMeasureCode).HasMaxLength(3).IsRequired();
 			config.Property(t => t.Bomlevel).HasColumnName("BOMLevel");
-			config.Property(t => t.PerAssemblyQty);
+			config.Property(t => t.PerAssemblyQty).HasColumnType("decimal(8,2)");
 			config.Property(t => t.ModifiedDate);
 			config.HasOne(t => t.Product).WithMany(t => t.BillOfMaterials).HasForeignKey(t => t.ComponentId);
 			config.HasOne(t => t.Product_).WithMany(t => t.BillOfMaterials_).HasForeignKey(t => t.ProductAssemblyId);
@@ -273,8 +273,8 @@ namespace EFCore.Bencher
 			config.Property(t => t.CurrencyRateDate);
 			config.Property(t => t.FromCurrencyCode).HasMaxLength(3).IsRequired();
 			config.Property(t => t.ToCurrencyCode).HasMaxLength(3).IsRequired();
-			config.Property(t => t.AverageRate);
-			config.Property(t => t.EndOfDayRate);
+			config.Property(t => t.AverageRate).HasColumnType("money");
+			config.Property(t => t.EndOfDayRate).HasColumnType("money");
 			config.Property(t => t.ModifiedDate);
 			config.HasOne(t => t.Currency).WithMany(t => t.CurrencyRates).HasForeignKey(t => t.FromCurrencyCode);
 			config.HasOne(t => t.Currency_).WithMany(t => t.CurrencyRates_).HasForeignKey(t => t.ToCurrencyCode);
@@ -397,7 +397,7 @@ namespace EFCore.Bencher
 			config.HasKey(t => new { t.EmployeeId, t.RateChangeDate });
 			config.Property(t => t.EmployeeId).HasColumnName("BusinessEntityID");
 			config.Property(t => t.RateChangeDate);
-			config.Property(t => t.Rate);
+			config.Property(t => t.Rate).HasColumnType("money");
 			config.Property(t => t.PayFrequency);
 			config.Property(t => t.ModifiedDate);
 			config.HasOne(t => t.Employee).WithMany(t => t.EmployeePayHistories).HasForeignKey(t => t.EmployeeId);
@@ -435,8 +435,8 @@ namespace EFCore.Bencher
 			config.HasKey(t => t.LocationId);
 			config.Property(t => t.LocationId).HasColumnName("LocationID").ValueGeneratedOnAdd();
 			config.Property(t => t.Name).HasMaxLength(50).IsRequired();
-			config.Property(t => t.CostRate);
-			config.Property(t => t.Availability);
+			config.Property(t => t.CostRate).HasColumnType("smallmoney");
+			config.Property(t => t.Availability).HasColumnType("decimal(8,2)");
 			config.Property(t => t.ModifiedDate);
 		}
 
@@ -515,12 +515,12 @@ namespace EFCore.Bencher
 			config.Property(t => t.Color).HasMaxLength(15);
 			config.Property(t => t.SafetyStockLevel);
 			config.Property(t => t.ReorderPoint);
-			config.Property(t => t.StandardCost);
-			config.Property(t => t.ListPrice);
+			config.Property(t => t.StandardCost).HasColumnType("money");
+			config.Property(t => t.ListPrice).HasColumnType("money");
 			config.Property(t => t.Size).HasMaxLength(5);
 			config.Property(t => t.SizeUnitMeasureCode).HasMaxLength(3);
 			config.Property(t => t.WeightUnitMeasureCode).HasMaxLength(3);
-			config.Property(t => t.Weight);
+			config.Property(t => t.Weight).HasColumnType("decimal(8,2)");
 			config.Property(t => t.DaysToManufacture);
 			config.Property(t => t.ProductLine).HasMaxLength(2);
 			config.Property(t => t.Class).HasMaxLength(2);
@@ -559,7 +559,7 @@ namespace EFCore.Bencher
 			config.Property(t => t.ProductId).HasColumnName("ProductID");
 			config.Property(t => t.StartDate);
 			config.Property(t => t.EndDate);
-			config.Property(t => t.StandardCost);
+			config.Property(t => t.StandardCost).HasColumnType("money");
 			config.Property(t => t.ModifiedDate);
 			config.HasOne(t => t.Product).WithMany(t => t.ProductCostHistories).HasForeignKey(t => t.ProductId);
 		}
@@ -615,7 +615,7 @@ namespace EFCore.Bencher
 			config.Property(t => t.ProductId).HasColumnName("ProductID");
 			config.Property(t => t.StartDate);
 			config.Property(t => t.EndDate);
-			config.Property(t => t.ListPrice);
+			config.Property(t => t.ListPrice).HasColumnType("money");
 			config.Property(t => t.ModifiedDate);
 			config.HasOne(t => t.Product).WithMany(t => t.ProductListPriceHistories).HasForeignKey(t => t.ProductId);
 		}
@@ -730,8 +730,8 @@ namespace EFCore.Bencher
 			config.Property(t => t.ProductId).HasColumnName("ProductID");
 			config.Property(t => t.VendorId).HasColumnName("BusinessEntityID");
 			config.Property(t => t.AverageLeadTime);
-			config.Property(t => t.StandardPrice);
-			config.Property(t => t.LastReceiptCost);
+			config.Property(t => t.StandardPrice).HasColumnType("money");
+			config.Property(t => t.LastReceiptCost).HasColumnType("money");
 			config.Property(t => t.LastReceiptDate);
 			config.Property(t => t.MinOrderQty);
 			config.Property(t => t.MaxOrderQty);
@@ -754,11 +754,11 @@ namespace EFCore.Bencher
 			config.Property(t => t.DueDate);
 			config.Property(t => t.OrderQty);
 			config.Property(t => t.ProductId).HasColumnName("ProductID");
-			config.Property(t => t.UnitPrice);
-			config.Property(t => t.LineTotal).ValueGeneratedOnAddOrUpdate();
-			config.Property(t => t.ReceivedQty);
-			config.Property(t => t.RejectedQty);
-			config.Property(t => t.StockedQty).ValueGeneratedOnAddOrUpdate();
+			config.Property(t => t.UnitPrice).HasColumnType("money");
+			config.Property(t => t.LineTotal).HasColumnType("money").ValueGeneratedOnAddOrUpdate();
+			config.Property(t => t.ReceivedQty).HasColumnType("decimal(8,2)");
+			config.Property(t => t.RejectedQty).HasColumnType("decimal(8,2)");
+			config.Property(t => t.StockedQty).HasColumnType("decimal(9,2)").ValueGeneratedOnAddOrUpdate();
 			config.Property(t => t.ModifiedDate);
 			config.HasOne(t => t.Product).WithMany(t => t.PurchaseOrderDetails).HasForeignKey(t => t.ProductId);
 			config.HasOne(t => t.PurchaseOrderHeader).WithMany(t => t.PurchaseOrderDetails).HasForeignKey(t => t.PurchaseOrderId);
@@ -778,10 +778,10 @@ namespace EFCore.Bencher
 			config.Property(t => t.ShipMethodId).HasColumnName("ShipMethodID");
 			config.Property(t => t.OrderDate);
 			config.Property(t => t.ShipDate);
-			config.Property(t => t.SubTotal);
-			config.Property(t => t.TaxAmt);
-			config.Property(t => t.Freight);
-			config.Property(t => t.TotalDue).ValueGeneratedOnAddOrUpdate();
+			config.Property(t => t.SubTotal).HasColumnType("money");
+			config.Property(t => t.TaxAmt).HasColumnType("money");
+			config.Property(t => t.Freight).HasColumnType("money");
+			config.Property(t => t.TotalDue).HasColumnType("money").ValueGeneratedOnAddOrUpdate();
 			config.Property(t => t.ModifiedDate);
 			config.HasOne(t => t.Employee).WithMany(t => t.PurchaseOrderHeaders).HasForeignKey(t => t.EmployeeId);
 			config.HasOne(t => t.ShipMethod).WithMany(t => t.PurchaseOrderHeaders).HasForeignKey(t => t.ShipMethodId);
@@ -800,9 +800,9 @@ namespace EFCore.Bencher
 			config.Property(t => t.OrderQty);
 			config.Property(t => t.ProductId).HasColumnName("ProductID");
 			config.Property(t => t.SpecialOfferId).HasColumnName("SpecialOfferID");
-			config.Property(t => t.UnitPrice);
-			config.Property(t => t.UnitPriceDiscount);
-			config.Property(t => t.LineTotal).ValueGeneratedOnAddOrUpdate();
+			config.Property(t => t.UnitPrice).HasColumnType("money");
+			config.Property(t => t.UnitPriceDiscount).HasColumnType("money");
+			config.Property(t => t.LineTotal).HasColumnType("numeric(38,6)").ValueGeneratedOnAddOrUpdate();
 			config.Property(t => t.Rowguid).HasColumnName("rowguid");
 			config.Property(t => t.ModifiedDate);
 			config.HasOne(t => t.SalesOrderHeader).WithMany(t => t.SalesOrderDetails).HasForeignKey(t => t.SalesOrderId).OnDelete(DeleteBehavior.Cascade);
@@ -834,10 +834,10 @@ namespace EFCore.Bencher
 			config.Property(t => t.CreditCardId).HasColumnName("CreditCardID");
 			config.Property(t => t.CreditCardApprovalCode).HasMaxLength(15);
 			config.Property(t => t.CurrencyRateId).HasColumnName("CurrencyRateID");
-			config.Property(t => t.SubTotal);
-			config.Property(t => t.TaxAmt);
-			config.Property(t => t.Freight);
-			config.Property(t => t.TotalDue).ValueGeneratedOnAddOrUpdate();
+			config.Property(t => t.SubTotal).HasColumnType("money");
+			config.Property(t => t.TaxAmt).HasColumnType("money");
+			config.Property(t => t.Freight).HasColumnType("money");
+			config.Property(t => t.TotalDue).HasColumnType("money").ValueGeneratedOnAddOrUpdate();
 			config.Property(t => t.Comment).HasMaxLength(128);
 			config.Property(t => t.Rowguid).HasColumnName("rowguid");
 			config.Property(t => t.ModifiedDate);
@@ -872,11 +872,11 @@ namespace EFCore.Bencher
 			config.HasKey(t => t.SalesPersonId);
 			config.Property(t => t.SalesPersonId).HasColumnName("BusinessEntityID");
 			config.Property(t => t.TerritoryId).HasColumnName("TerritoryID");
-			config.Property(t => t.SalesQuota);
-			config.Property(t => t.Bonus);
-			config.Property(t => t.CommissionPct);
-			config.Property(t => t.SalesYtd).HasColumnName("SalesYTD");
-			config.Property(t => t.SalesLastYear);
+			config.Property(t => t.SalesQuota).HasColumnType("money");
+			config.Property(t => t.Bonus).HasColumnType("money");
+			config.Property(t => t.CommissionPct).HasColumnType("smallmoney");
+			config.Property(t => t.SalesYtd).HasColumnName("SalesYTD").HasColumnType("money");
+			config.Property(t => t.SalesLastYear).HasColumnType("money");
 			config.Property(t => t.Rowguid).HasColumnName("rowguid");
 			config.Property(t => t.ModifiedDate);
 			config.HasOne(t => t.Employee).WithOne(t => t.SalesPerson).HasForeignKey<SalesPerson>(t => t.SalesPersonId);
@@ -891,7 +891,7 @@ namespace EFCore.Bencher
 			config.HasKey(t => new { t.QuotaDate, t.SalesPersonId });
 			config.Property(t => t.SalesPersonId).HasColumnName("BusinessEntityID");
 			config.Property(t => t.QuotaDate);
-			config.Property(t => t.SalesQuota);
+			config.Property(t => t.SalesQuota).HasColumnType("money");
 			config.Property(t => t.Rowguid).HasColumnName("rowguid");
 			config.Property(t => t.ModifiedDate);
 			config.HasOne(t => t.SalesPerson).WithMany(t => t.SalesPersonQuotaHistories).HasForeignKey(t => t.SalesPersonId);
@@ -918,7 +918,7 @@ namespace EFCore.Bencher
 			config.Property(t => t.SalesTaxRateId).HasColumnName("SalesTaxRateID").ValueGeneratedOnAdd();
 			config.Property(t => t.StateProvinceId).HasColumnName("StateProvinceID");
 			config.Property(t => t.TaxType);
-			config.Property(t => t.TaxRate);
+			config.Property(t => t.TaxRate).HasColumnType("smallmoney");
 			config.Property(t => t.Name).HasMaxLength(50).IsRequired();
 			config.Property(t => t.Rowguid).HasColumnName("rowguid");
 			config.Property(t => t.ModifiedDate);
@@ -935,10 +935,10 @@ namespace EFCore.Bencher
 			config.Property(t => t.Name).HasMaxLength(50).IsRequired();
 			config.Property(t => t.CountryRegionCode).HasMaxLength(3).IsRequired();
 			config.Property(t => t.Group).HasMaxLength(50).IsRequired();
-			config.Property(t => t.SalesYtd).HasColumnName("SalesYTD");
-			config.Property(t => t.SalesLastYear);
-			config.Property(t => t.CostYtd).HasColumnName("CostYTD");
-			config.Property(t => t.CostLastYear);
+			config.Property(t => t.SalesYtd).HasColumnName("SalesYTD").HasColumnType("money");
+			config.Property(t => t.SalesLastYear).HasColumnType("money");
+			config.Property(t => t.CostYtd).HasColumnName("CostYTD").HasColumnType("money");
+			config.Property(t => t.CostLastYear).HasColumnType("money");
 			config.Property(t => t.Rowguid).HasColumnName("rowguid");
 			config.Property(t => t.ModifiedDate);
 			config.HasOne(t => t.CountryRegion).WithMany(t => t.SalesTerritories).HasForeignKey(t => t.CountryRegionCode);
@@ -992,8 +992,8 @@ namespace EFCore.Bencher
 			config.HasKey(t => t.ShipMethodId);
 			config.Property(t => t.ShipMethodId).HasColumnName("ShipMethodID").ValueGeneratedOnAdd();
 			config.Property(t => t.Name).HasMaxLength(50).IsRequired();
-			config.Property(t => t.ShipBase);
-			config.Property(t => t.ShipRate);
+			config.Property(t => t.ShipBase).HasColumnType("money");
+			config.Property(t => t.ShipRate).HasColumnType("money");
 			config.Property(t => t.Rowguid).HasColumnName("rowguid");
 			config.Property(t => t.ModifiedDate);
 		}
@@ -1021,7 +1021,7 @@ namespace EFCore.Bencher
 			config.HasKey(t => t.SpecialOfferId);
 			config.Property(t => t.SpecialOfferId).HasColumnName("SpecialOfferID").ValueGeneratedOnAdd();
 			config.Property(t => t.Description).HasMaxLength(255).IsRequired();
-			config.Property(t => t.DiscountPct);
+			config.Property(t => t.DiscountPct).HasColumnType("smallmoney");
 			config.Property(t => t.Type).HasMaxLength(50).IsRequired();
 			config.Property(t => t.Category).HasMaxLength(50).IsRequired();
 			config.Property(t => t.StartDate);
@@ -1093,7 +1093,7 @@ namespace EFCore.Bencher
 			config.Property(t => t.TransactionDate);
 			config.Property(t => t.TransactionType).HasMaxLength(1).IsRequired();
 			config.Property(t => t.Quantity);
-			config.Property(t => t.ActualCost);
+			config.Property(t => t.ActualCost).HasColumnType("money");
 			config.Property(t => t.ModifiedDate);
 			config.HasOne(t => t.Product).WithMany(t => t.TransactionHistories).HasForeignKey(t => t.ProductId);
 		}
@@ -1111,7 +1111,7 @@ namespace EFCore.Bencher
 			config.Property(t => t.TransactionDate);
 			config.Property(t => t.TransactionType).HasMaxLength(1).IsRequired();
 			config.Property(t => t.Quantity);
-			config.Property(t => t.ActualCost);
+			config.Property(t => t.ActualCost).HasColumnType("money");
 			config.Property(t => t.ModifiedDate);
 		}
 
@@ -1177,9 +1177,9 @@ namespace EFCore.Bencher
 			config.Property(t => t.ScheduledEndDate);
 			config.Property(t => t.ActualStartDate);
 			config.Property(t => t.ActualEndDate);
-			config.Property(t => t.ActualResourceHrs);
-			config.Property(t => t.PlannedCost);
-			config.Property(t => t.ActualCost);
+			config.Property(t => t.ActualResourceHrs).HasColumnType("decimal(9,4)");
+			config.Property(t => t.PlannedCost).HasColumnType("money");
+			config.Property(t => t.ActualCost).HasColumnType("money");
 			config.Property(t => t.ModifiedDate);
 			config.HasOne(t => t.Location).WithMany(t => t.WorkOrderRoutings).HasForeignKey(t => t.LocationId);
 			config.HasOne(t => t.WorkOrder).WithMany(t => t.WorkOrderRoutings).HasForeignKey(t => t.WorkOrderId);
@@ -1190,7 +1190,7 @@ namespace EFCore.Bencher
 	/// <summary>Extensions class for extension methods used in the model builder code</summary>
 	internal static partial class AWModelBuilderExtensions
 	{
-        private static readonly string READONLY_ANNOTATION = "custom:readonly";
+		private static readonly string READONLY_ANNOTATION = "custom:readonly";
 
 		/// <summary>Extension method which is used by the context class to determine whether an entity is readonly</summary>
 		/// <typeparam name="TEntity">The type of the entity.</typeparam>

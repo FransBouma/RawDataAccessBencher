@@ -19,30 +19,30 @@ namespace EFCore.Bencher.EntityClasses
 		}
 
 		/// <summary>Gets or sets the DueDate field. </summary>
-		public System.DateTime DueDate { get; set;}
+		public System.DateTime DueDate { get; set; }
 		/// <summary>Gets or sets the LineTotal field. </summary>
-		public System.Decimal LineTotal { get; set;}
+		public System.Decimal LineTotal { get; set; }
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
-		public System.DateTime ModifiedDate { get; set;}
+		public System.DateTime ModifiedDate { get; set; }
 		/// <summary>Gets or sets the OrderQty field. </summary>
-		public System.Int16 OrderQty { get; set;}
+		public System.Int16 OrderQty { get; set; }
 		/// <summary>Gets or sets the ProductId field. </summary>
-		public System.Int32 ProductId { get; set;}
+		public System.Int32 ProductId { get; set; }
 		/// <summary>Gets or sets the PurchaseOrderDetailId field. </summary>
-		public System.Int32 PurchaseOrderDetailId { get; set;}
+		public System.Int32 PurchaseOrderDetailId { get; set; }
 		/// <summary>Gets or sets the PurchaseOrderId field. </summary>
-		public System.Int32 PurchaseOrderId { get; set;}
+		public System.Int32 PurchaseOrderId { get; set; }
 		/// <summary>Gets or sets the ReceivedQty field. </summary>
-		public System.Decimal ReceivedQty { get; set;}
+		public System.Decimal ReceivedQty { get; set; }
 		/// <summary>Gets or sets the RejectedQty field. </summary>
-		public System.Decimal RejectedQty { get; set;}
+		public System.Decimal RejectedQty { get; set; }
 		/// <summary>Gets or sets the StockedQty field. </summary>
-		public System.Decimal StockedQty { get; set;}
+		public System.Decimal StockedQty { get; set; }
 		/// <summary>Gets or sets the UnitPrice field. </summary>
-		public System.Decimal UnitPrice { get; set;}
+		public System.Decimal UnitPrice { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'PurchaseOrderDetail.Product - Product.PurchaseOrderDetails (m:1)'</summary>
-		public virtual Product Product { get; set;}
+		public virtual Product Product { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'PurchaseOrderDetail.PurchaseOrderHeader - PurchaseOrderHeader.PurchaseOrderDetails (m:1)'</summary>
-		public virtual PurchaseOrderHeader PurchaseOrderHeader { get; set;}
+		public virtual PurchaseOrderHeader PurchaseOrderHeader { get; set; }
 	}
 }

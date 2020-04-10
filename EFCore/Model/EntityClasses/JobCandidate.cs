@@ -19,14 +19,14 @@ namespace EFCore.Bencher.EntityClasses
 		}
 
 		/// <summary>Gets or sets the EmployeeId field. </summary>
-		public Nullable<System.Int32> EmployeeId { get; set;}
+		public Nullable<System.Int32> EmployeeId { get; set; }
 		/// <summary>Gets or sets the JobCandidateId field. </summary>
-		public System.Int32 JobCandidateId { get; set;}
+		public System.Int32 JobCandidateId { get; set; }
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
-		public System.DateTime ModifiedDate { get; set;}
+		public System.DateTime ModifiedDate { get; set; }
 		/// <summary>Gets or sets the Resume field. </summary>
-		public System.String Resume { get; set;}
+		public System.String Resume { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'JobCandidate.Employee - Employee.JobCandidates (m:1)'</summary>
-		public virtual Employee Employee { get; set;}
+		public virtual Employee Employee { get; set; }
 	}
 }

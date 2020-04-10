@@ -20,16 +20,16 @@ namespace EFCore.Bencher.EntityClasses
 		}
 
 		/// <summary>Gets or sets the EndTime field. </summary>
-		public System.TimeSpan EndTime { get; set;}
+		public System.TimeSpan EndTime { get; set; }
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
-		public System.DateTime ModifiedDate { get; set;}
+		public System.DateTime ModifiedDate { get; set; }
 		/// <summary>Gets or sets the Name field. </summary>
-		public System.String Name { get; set;}
+		public System.String Name { get; set; }
 		/// <summary>Gets or sets the ShiftId field. </summary>
-		public System.Byte ShiftId { get; set;}
+		public System.Byte ShiftId { get; set; }
 		/// <summary>Gets or sets the StartTime field. </summary>
-		public System.TimeSpan StartTime { get; set;}
+		public System.TimeSpan StartTime { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'EmployeeDepartmentHistory.Shift - Shift.EmployeeDepartmentHistories (m:1)'</summary>
-		public virtual List<EmployeeDepartmentHistory> EmployeeDepartmentHistories { get; set;}
+		public virtual List<EmployeeDepartmentHistory> EmployeeDepartmentHistories { get; set; }
 	}
 }

@@ -20,18 +20,18 @@ namespace EFCore.Bencher.EntityClasses
 		}
 
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
-		public System.DateTime ModifiedDate { get; set;}
+		public System.DateTime ModifiedDate { get; set; }
 		/// <summary>Gets or sets the Name field. </summary>
-		public System.String Name { get; set;}
+		public System.String Name { get; set; }
 		/// <summary>Gets or sets the ProductCategoryId field. </summary>
-		public System.Int32 ProductCategoryId { get; set;}
+		public System.Int32 ProductCategoryId { get; set; }
 		/// <summary>Gets or sets the ProductSubcategoryId field. </summary>
-		public System.Int32 ProductSubcategoryId { get; set;}
+		public System.Int32 ProductSubcategoryId { get; set; }
 		/// <summary>Gets or sets the Rowguid field. </summary>
-		public System.Guid Rowguid { get; set;}
+		public System.Guid Rowguid { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'Product.ProductSubcategory - ProductSubcategory.Products (m:1)'</summary>
-		public virtual List<Product> Products { get; set;}
+		public virtual List<Product> Products { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductSubcategory.ProductCategory - ProductCategory.ProductSubcategories (m:1)'</summary>
-		public virtual ProductCategory ProductCategory { get; set;}
+		public virtual ProductCategory ProductCategory { get; set; }
 	}
 }

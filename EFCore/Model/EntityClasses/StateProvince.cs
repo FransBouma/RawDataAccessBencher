@@ -21,28 +21,28 @@ namespace EFCore.Bencher.EntityClasses
 		}
 
 		/// <summary>Gets or sets the CountryRegionCode field. </summary>
-		public System.String CountryRegionCode { get; set;}
+		public System.String CountryRegionCode { get; set; }
 		/// <summary>Gets or sets the IsOnlyStateProvinceFlag field. </summary>
-		public System.Boolean IsOnlyStateProvinceFlag { get; set;}
+		public System.Boolean IsOnlyStateProvinceFlag { get; set; }
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
-		public System.DateTime ModifiedDate { get; set;}
+		public System.DateTime ModifiedDate { get; set; }
 		/// <summary>Gets or sets the Name field. </summary>
-		public System.String Name { get; set;}
+		public System.String Name { get; set; }
 		/// <summary>Gets or sets the Rowguid field. </summary>
-		public System.Guid Rowguid { get; set;}
+		public System.Guid Rowguid { get; set; }
 		/// <summary>Gets or sets the StateProvinceCode field. </summary>
-		public System.String StateProvinceCode { get; set;}
+		public System.String StateProvinceCode { get; set; }
 		/// <summary>Gets or sets the StateProvinceId field. </summary>
-		public System.Int32 StateProvinceId { get; set;}
+		public System.Int32 StateProvinceId { get; set; }
 		/// <summary>Gets or sets the TerritoryId field. </summary>
-		public System.Int32 TerritoryId { get; set;}
+		public System.Int32 TerritoryId { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'Address.StateProvince - StateProvince.Addresses (m:1)'</summary>
-		public virtual List<Address> Addresses { get; set;}
+		public virtual List<Address> Addresses { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'StateProvince.CountryRegion - CountryRegion.StateProvinces (m:1)'</summary>
-		public virtual CountryRegion CountryRegion { get; set;}
+		public virtual CountryRegion CountryRegion { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesTaxRate.StateProvince - StateProvince.SalesTaxRates (m:1)'</summary>
-		public virtual List<SalesTaxRate> SalesTaxRates { get; set;}
+		public virtual List<SalesTaxRate> SalesTaxRates { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'StateProvince.SalesTerritory - SalesTerritory.StateProvinces (m:1)'</summary>
-		public virtual SalesTerritory SalesTerritory { get; set;}
+		public virtual SalesTerritory SalesTerritory { get; set; }
 	}
 }

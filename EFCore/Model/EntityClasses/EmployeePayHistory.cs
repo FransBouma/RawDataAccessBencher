@@ -19,16 +19,16 @@ namespace EFCore.Bencher.EntityClasses
 		}
 
 		/// <summary>Gets or sets the EmployeeId field. </summary>
-		public System.Int32 EmployeeId { get; set;}
+		public System.Int32 EmployeeId { get; set; }
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
-		public System.DateTime ModifiedDate { get; set;}
+		public System.DateTime ModifiedDate { get; set; }
 		/// <summary>Gets or sets the PayFrequency field. </summary>
-		public System.Byte PayFrequency { get; set;}
+		public System.Byte PayFrequency { get; set; }
 		/// <summary>Gets or sets the Rate field. </summary>
-		public System.Decimal Rate { get; set;}
+		public System.Decimal Rate { get; set; }
 		/// <summary>Gets or sets the RateChangeDate field. </summary>
-		public System.DateTime RateChangeDate { get; set;}
+		public System.DateTime RateChangeDate { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'EmployeePayHistory.Employee - Employee.EmployeePayHistories (m:1)'</summary>
-		public virtual Employee Employee { get; set;}
+		public virtual Employee Employee { get; set; }
 	}
 }

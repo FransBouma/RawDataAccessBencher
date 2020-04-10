@@ -19,16 +19,16 @@ namespace EFCore.Bencher.EntityClasses
 		}
 
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
-		public System.DateTime ModifiedDate { get; set;}
+		public System.DateTime ModifiedDate { get; set; }
 		/// <summary>Gets or sets the QuotaDate field. </summary>
-		public System.DateTime QuotaDate { get; set;}
+		public System.DateTime QuotaDate { get; set; }
 		/// <summary>Gets or sets the Rowguid field. </summary>
-		public System.Guid Rowguid { get; set;}
+		public System.Guid Rowguid { get; set; }
 		/// <summary>Gets or sets the SalesPersonId field. </summary>
-		public System.Int32 SalesPersonId { get; set;}
+		public System.Int32 SalesPersonId { get; set; }
 		/// <summary>Gets or sets the SalesQuota field. </summary>
-		public System.Decimal SalesQuota { get; set;}
+		public System.Decimal SalesQuota { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesPersonQuotaHistory.SalesPerson - SalesPerson.SalesPersonQuotaHistories (m:1)'</summary>
-		public virtual SalesPerson SalesPerson { get; set;}
+		public virtual SalesPerson SalesPerson { get; set; }
 	}
 }

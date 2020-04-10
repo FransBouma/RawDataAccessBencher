@@ -19,22 +19,22 @@ namespace EFCore.Bencher.EntityClasses
 		}
 
 		/// <summary>Gets or sets the DepartmentId field. </summary>
-		public System.Int16 DepartmentId { get; set;}
+		public System.Int16 DepartmentId { get; set; }
 		/// <summary>Gets or sets the EmployeeId field. </summary>
-		public System.Int32 EmployeeId { get; set;}
+		public System.Int32 EmployeeId { get; set; }
 		/// <summary>Gets or sets the EndDate field. </summary>
-		public Nullable<System.DateTime> EndDate { get; set;}
+		public Nullable<System.DateTime> EndDate { get; set; }
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
-		public System.DateTime ModifiedDate { get; set;}
+		public System.DateTime ModifiedDate { get; set; }
 		/// <summary>Gets or sets the ShiftId field. </summary>
-		public System.Byte ShiftId { get; set;}
+		public System.Byte ShiftId { get; set; }
 		/// <summary>Gets or sets the StartDate field. </summary>
-		public System.DateTime StartDate { get; set;}
+		public System.DateTime StartDate { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'EmployeeDepartmentHistory.Department - Department.EmployeeDepartmentHistories (m:1)'</summary>
-		public virtual Department Department { get; set;}
+		public virtual Department Department { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'EmployeeDepartmentHistory.Employee - Employee.EmployeeDepartmentHistories (m:1)'</summary>
-		public virtual Employee Employee { get; set;}
+		public virtual Employee Employee { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'EmployeeDepartmentHistory.Shift - Shift.EmployeeDepartmentHistories (m:1)'</summary>
-		public virtual Shift Shift { get; set;}
+		public virtual Shift Shift { get; set; }
 	}
 }

@@ -19,20 +19,20 @@ namespace EFCore.Bencher.EntityClasses
 		}
 
 		/// <summary>Gets or sets the AddressId field. </summary>
-		public System.Int32 AddressId { get; set;}
+		public System.Int32 AddressId { get; set; }
 		/// <summary>Gets or sets the AddressTypeId field. </summary>
-		public System.Int32 AddressTypeId { get; set;}
+		public System.Int32 AddressTypeId { get; set; }
 		/// <summary>Gets or sets the BusinessEntityId field. </summary>
-		public System.Int32 BusinessEntityId { get; set;}
+		public System.Int32 BusinessEntityId { get; set; }
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
-		public System.DateTime ModifiedDate { get; set;}
+		public System.DateTime ModifiedDate { get; set; }
 		/// <summary>Gets or sets the Rowguid field. </summary>
-		public System.Guid Rowguid { get; set;}
+		public System.Guid Rowguid { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'BusinessEntityAddress.Address - Address.BusinessEntityAddresses (m:1)'</summary>
-		public virtual Address Address { get; set;}
+		public virtual Address Address { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'BusinessEntityAddress.AddressType - AddressType.BusinessEntityAddresses (m:1)'</summary>
-		public virtual AddressType AddressType { get; set;}
+		public virtual AddressType AddressType { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'BusinessEntityAddress.BusinessEntity - BusinessEntity.BusinessEntityAddresses (m:1)'</summary>
-		public virtual BusinessEntity BusinessEntity { get; set;}
+		public virtual BusinessEntity BusinessEntity { get; set; }
 	}
 }

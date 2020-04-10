@@ -19,18 +19,18 @@ namespace EFCore.Bencher.EntityClasses
 		}
 
 		/// <summary>Gets or sets the CultureId field. </summary>
-		public System.String CultureId { get; set;}
+		public System.String CultureId { get; set; }
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
-		public System.DateTime ModifiedDate { get; set;}
+		public System.DateTime ModifiedDate { get; set; }
 		/// <summary>Gets or sets the ProductDescriptionId field. </summary>
-		public System.Int32 ProductDescriptionId { get; set;}
+		public System.Int32 ProductDescriptionId { get; set; }
 		/// <summary>Gets or sets the ProductModelId field. </summary>
-		public System.Int32 ProductModelId { get; set;}
+		public System.Int32 ProductModelId { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductModelProductDescriptionCulture.Culture - Culture.ProductModelProductDescriptionCultures (m:1)'</summary>
-		public virtual Culture Culture { get; set;}
+		public virtual Culture Culture { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductModelProductDescriptionCulture.ProductDescription - ProductDescription.ProductModelProductDescriptionCultures (m:1)'</summary>
-		public virtual ProductDescription ProductDescription { get; set;}
+		public virtual ProductDescription ProductDescription { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductModelProductDescriptionCulture.ProductModel - ProductModel.ProductModelProductDescriptionCultures (m:1)'</summary>
-		public virtual ProductModel ProductModel { get; set;}
+		public virtual ProductModel ProductModel { get; set; }
 	}
 }

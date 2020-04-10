@@ -20,26 +20,26 @@ namespace EFCore.Bencher.EntityClasses
 		}
 
 		/// <summary>Gets or sets the AccountNumber field. </summary>
-		public System.String AccountNumber { get; set;}
+		public System.String AccountNumber { get; set; }
 		/// <summary>Gets or sets the CustomerId field. </summary>
-		public System.Int32 CustomerId { get; set;}
+		public System.Int32 CustomerId { get; set; }
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
-		public System.DateTime ModifiedDate { get; set;}
+		public System.DateTime ModifiedDate { get; set; }
 		/// <summary>Gets or sets the PersonId field. </summary>
-		public Nullable<System.Int32> PersonId { get; set;}
+		public Nullable<System.Int32> PersonId { get; set; }
 		/// <summary>Gets or sets the Rowguid field. </summary>
-		public System.Guid Rowguid { get; set;}
+		public System.Guid Rowguid { get; set; }
 		/// <summary>Gets or sets the StoreId field. </summary>
-		public Nullable<System.Int32> StoreId { get; set;}
+		public Nullable<System.Int32> StoreId { get; set; }
 		/// <summary>Gets or sets the TerritoryId field. </summary>
-		public Nullable<System.Int32> TerritoryId { get; set;}
+		public Nullable<System.Int32> TerritoryId { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'Customer.Person - Person.Customers (m:1)'</summary>
-		public virtual Person Person { get; set;}
+		public virtual Person Person { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderHeader.Customer - Customer.SalesOrderHeaders (m:1)'</summary>
-		public virtual List<SalesOrderHeader> SalesOrderHeaders { get; set;}
+		public virtual List<SalesOrderHeader> SalesOrderHeaders { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'Customer.SalesTerritory - SalesTerritory.Customers (m:1)'</summary>
-		public virtual SalesTerritory SalesTerritory { get; set;}
+		public virtual SalesTerritory SalesTerritory { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'Customer.Store - Store.Customers (m:1)'</summary>
-		public virtual Store Store { get; set;}
+		public virtual Store Store { get; set; }
 	}
 }

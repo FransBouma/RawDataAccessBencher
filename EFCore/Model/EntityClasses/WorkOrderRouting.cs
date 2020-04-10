@@ -19,32 +19,32 @@ namespace EFCore.Bencher.EntityClasses
 		}
 
 		/// <summary>Gets or sets the ActualCost field. </summary>
-		public Nullable<System.Decimal> ActualCost { get; set;}
+		public Nullable<System.Decimal> ActualCost { get; set; }
 		/// <summary>Gets or sets the ActualEndDate field. </summary>
-		public Nullable<System.DateTime> ActualEndDate { get; set;}
+		public Nullable<System.DateTime> ActualEndDate { get; set; }
 		/// <summary>Gets or sets the ActualResourceHrs field. </summary>
-		public Nullable<System.Decimal> ActualResourceHrs { get; set;}
+		public Nullable<System.Decimal> ActualResourceHrs { get; set; }
 		/// <summary>Gets or sets the ActualStartDate field. </summary>
-		public Nullable<System.DateTime> ActualStartDate { get; set;}
+		public Nullable<System.DateTime> ActualStartDate { get; set; }
 		/// <summary>Gets or sets the LocationId field. </summary>
-		public System.Int16 LocationId { get; set;}
+		public System.Int16 LocationId { get; set; }
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
-		public System.DateTime ModifiedDate { get; set;}
+		public System.DateTime ModifiedDate { get; set; }
 		/// <summary>Gets or sets the OperationSequence field. </summary>
-		public System.Int16 OperationSequence { get; set;}
+		public System.Int16 OperationSequence { get; set; }
 		/// <summary>Gets or sets the PlannedCost field. </summary>
-		public System.Decimal PlannedCost { get; set;}
+		public System.Decimal PlannedCost { get; set; }
 		/// <summary>Gets or sets the ProductId field. </summary>
-		public System.Int32 ProductId { get; set;}
+		public System.Int32 ProductId { get; set; }
 		/// <summary>Gets or sets the ScheduledEndDate field. </summary>
-		public System.DateTime ScheduledEndDate { get; set;}
+		public System.DateTime ScheduledEndDate { get; set; }
 		/// <summary>Gets or sets the ScheduledStartDate field. </summary>
-		public System.DateTime ScheduledStartDate { get; set;}
+		public System.DateTime ScheduledStartDate { get; set; }
 		/// <summary>Gets or sets the WorkOrderId field. </summary>
-		public System.Int32 WorkOrderId { get; set;}
+		public System.Int32 WorkOrderId { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'WorkOrderRouting.Location - Location.WorkOrderRoutings (m:1)'</summary>
-		public virtual Location Location { get; set;}
+		public virtual Location Location { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'WorkOrderRouting.WorkOrder - WorkOrder.WorkOrderRoutings (m:1)'</summary>
-		public virtual WorkOrder WorkOrder { get; set;}
+		public virtual WorkOrder WorkOrder { get; set; }
 	}
 }

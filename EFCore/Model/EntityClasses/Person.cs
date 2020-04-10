@@ -24,46 +24,46 @@ namespace EFCore.Bencher.EntityClasses
 		}
 
 		/// <summary>Gets or sets the AdditionalContactInfo field. </summary>
-		public System.String AdditionalContactInfo { get; set;}
+		public System.String AdditionalContactInfo { get; set; }
 		/// <summary>Gets or sets the BusinessEntityId field. </summary>
-		public System.Int32 BusinessEntityId { get; set;}
+		public System.Int32 BusinessEntityId { get; set; }
 		/// <summary>Gets or sets the Demographics field. </summary>
-		public System.String Demographics { get; set;}
+		public System.String Demographics { get; set; }
 		/// <summary>Gets or sets the EmailPromotion field. </summary>
-		public System.Int32 EmailPromotion { get; set;}
+		public System.Int32 EmailPromotion { get; set; }
 		/// <summary>Gets or sets the FirstName field. </summary>
-		public System.String FirstName { get; set;}
+		public System.String FirstName { get; set; }
 		/// <summary>Gets or sets the LastName field. </summary>
-		public System.String LastName { get; set;}
+		public System.String LastName { get; set; }
 		/// <summary>Gets or sets the MiddleName field. </summary>
-		public System.String MiddleName { get; set;}
+		public System.String MiddleName { get; set; }
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
-		public System.DateTime ModifiedDate { get; set;}
+		public System.DateTime ModifiedDate { get; set; }
 		/// <summary>Gets or sets the NameStyle field. </summary>
-		public System.Boolean NameStyle { get; set;}
+		public System.Boolean NameStyle { get; set; }
 		/// <summary>Gets or sets the PersonType field. </summary>
-		public System.String PersonType { get; set;}
+		public System.String PersonType { get; set; }
 		/// <summary>Gets or sets the Rowguid field. </summary>
-		public System.Guid Rowguid { get; set;}
+		public System.Guid Rowguid { get; set; }
 		/// <summary>Gets or sets the Suffix field. </summary>
-		public System.String Suffix { get; set;}
+		public System.String Suffix { get; set; }
 		/// <summary>Gets or sets the Title field. </summary>
-		public System.String Title { get; set;}
+		public System.String Title { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'Person.BusinessEntity - BusinessEntity.Person (1:1)'</summary>
-		public virtual BusinessEntity BusinessEntity { get; set;}
+		public virtual BusinessEntity BusinessEntity { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'BusinessEntityContact.Person - Person.BusinessEntityContacts (m:1)'</summary>
-		public virtual List<BusinessEntityContact> BusinessEntityContacts { get; set;}
+		public virtual List<BusinessEntityContact> BusinessEntityContacts { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'ContactCreditCard.Person - Person.ContactCreditCards (m:1)'</summary>
-		public virtual List<ContactCreditCard> ContactCreditCards { get; set;}
+		public virtual List<ContactCreditCard> ContactCreditCards { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'Customer.Person - Person.Customers (m:1)'</summary>
-		public virtual List<Customer> Customers { get; set;}
+		public virtual List<Customer> Customers { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'EmailAddress.Person - Person.EmailAddresses (m:1)'</summary>
-		public virtual List<EmailAddress> EmailAddresses { get; set;}
+		public virtual List<EmailAddress> EmailAddresses { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'Employee.Person - Person.Employee (1:1)'</summary>
-		public virtual Employee Employee { get; set;}
+		public virtual Employee Employee { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'Password.Person - Person.Password (1:1)'</summary>
-		public virtual Password Password { get; set;}
+		public virtual Password Password { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'PersonPhone.Person - Person.PersonPhones (m:1)'</summary>
-		public virtual List<PersonPhone> PersonPhones { get; set;}
+		public virtual List<PersonPhone> PersonPhones { get; set; }
 	}
 }

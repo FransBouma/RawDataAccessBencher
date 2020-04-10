@@ -23,18 +23,18 @@ namespace EFCore.Bencher.EntityClasses
 		}
 
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
-		public System.DateTime ModifiedDate { get; set;}
+		public System.DateTime ModifiedDate { get; set; }
 		/// <summary>Gets or sets the Name field. </summary>
-		public System.String Name { get; set;}
+		public System.String Name { get; set; }
 		/// <summary>Gets or sets the UnitMeasureCode field. </summary>
-		public System.String UnitMeasureCode { get; set;}
+		public System.String UnitMeasureCode { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'BillOfMaterial.UnitMeasure - UnitMeasure.BillOfMaterials (m:1)'</summary>
-		public virtual List<BillOfMaterial> BillOfMaterials { get; set;}
+		public virtual List<BillOfMaterial> BillOfMaterials { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'Product.UnitMeasure - UnitMeasure.Products (m:1)'</summary>
-		public virtual List<Product> Products { get; set;}
+		public virtual List<Product> Products { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'Product.UnitMeasure_ - UnitMeasure.Products_ (m:1)'</summary>
-		public virtual List<Product> Products_ { get; set;}
+		public virtual List<Product> Products_ { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductVendor.UnitMeasure - UnitMeasure.ProductVendors (m:1)'</summary>
-		public virtual List<ProductVendor> ProductVendors { get; set;}
+		public virtual List<ProductVendor> ProductVendors { get; set; }
 	}
 }

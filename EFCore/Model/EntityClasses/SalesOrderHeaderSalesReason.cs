@@ -19,14 +19,14 @@ namespace EFCore.Bencher.EntityClasses
 		}
 
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
-		public System.DateTime ModifiedDate { get; set;}
+		public System.DateTime ModifiedDate { get; set; }
 		/// <summary>Gets or sets the SalesOrderId field. </summary>
-		public System.Int32 SalesOrderId { get; set;}
+		public System.Int32 SalesOrderId { get; set; }
 		/// <summary>Gets or sets the SalesReasonId field. </summary>
-		public System.Int32 SalesReasonId { get; set;}
+		public System.Int32 SalesReasonId { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderHeaderSalesReason.SalesOrderHeader - SalesOrderHeader.SalesOrderHeaderSalesReasons (m:1)'</summary>
-		public virtual SalesOrderHeader SalesOrderHeader { get; set;}
+		public virtual SalesOrderHeader SalesOrderHeader { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderHeaderSalesReason.SalesReason - SalesReason.SalesOrderHeaderSalesReasons (m:1)'</summary>
-		public virtual SalesReason SalesReason { get; set;}
+		public virtual SalesReason SalesReason { get; set; }
 	}
 }

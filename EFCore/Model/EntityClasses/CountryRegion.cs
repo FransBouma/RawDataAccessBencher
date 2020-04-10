@@ -22,16 +22,16 @@ namespace EFCore.Bencher.EntityClasses
 		}
 
 		/// <summary>Gets or sets the CountryRegionCode field. </summary>
-		public System.String CountryRegionCode { get; set;}
+		public System.String CountryRegionCode { get; set; }
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
-		public System.DateTime ModifiedDate { get; set;}
+		public System.DateTime ModifiedDate { get; set; }
 		/// <summary>Gets or sets the Name field. </summary>
-		public System.String Name { get; set;}
+		public System.String Name { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'CountryRegionCurrency.CountryRegion - CountryRegion.CountryRegionCurrencies (m:1)'</summary>
-		public virtual List<CountryRegionCurrency> CountryRegionCurrencies { get; set;}
+		public virtual List<CountryRegionCurrency> CountryRegionCurrencies { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesTerritory.CountryRegion - CountryRegion.SalesTerritories (m:1)'</summary>
-		public virtual List<SalesTerritory> SalesTerritories { get; set;}
+		public virtual List<SalesTerritory> SalesTerritories { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'StateProvince.CountryRegion - CountryRegion.StateProvinces (m:1)'</summary>
-		public virtual List<StateProvince> StateProvinces { get; set;}
+		public virtual List<StateProvince> StateProvinces { get; set; }
 	}
 }

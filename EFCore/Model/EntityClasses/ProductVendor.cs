@@ -19,32 +19,32 @@ namespace EFCore.Bencher.EntityClasses
 		}
 
 		/// <summary>Gets or sets the AverageLeadTime field. </summary>
-		public System.Int32 AverageLeadTime { get; set;}
+		public System.Int32 AverageLeadTime { get; set; }
 		/// <summary>Gets or sets the LastReceiptCost field. </summary>
-		public Nullable<System.Decimal> LastReceiptCost { get; set;}
+		public Nullable<System.Decimal> LastReceiptCost { get; set; }
 		/// <summary>Gets or sets the LastReceiptDate field. </summary>
-		public Nullable<System.DateTime> LastReceiptDate { get; set;}
+		public Nullable<System.DateTime> LastReceiptDate { get; set; }
 		/// <summary>Gets or sets the MaxOrderQty field. </summary>
-		public System.Int32 MaxOrderQty { get; set;}
+		public System.Int32 MaxOrderQty { get; set; }
 		/// <summary>Gets or sets the MinOrderQty field. </summary>
-		public System.Int32 MinOrderQty { get; set;}
+		public System.Int32 MinOrderQty { get; set; }
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
-		public System.DateTime ModifiedDate { get; set;}
+		public System.DateTime ModifiedDate { get; set; }
 		/// <summary>Gets or sets the OnOrderQty field. </summary>
-		public Nullable<System.Int32> OnOrderQty { get; set;}
+		public Nullable<System.Int32> OnOrderQty { get; set; }
 		/// <summary>Gets or sets the ProductId field. </summary>
-		public System.Int32 ProductId { get; set;}
+		public System.Int32 ProductId { get; set; }
 		/// <summary>Gets or sets the StandardPrice field. </summary>
-		public System.Decimal StandardPrice { get; set;}
+		public System.Decimal StandardPrice { get; set; }
 		/// <summary>Gets or sets the UnitMeasureCode field. </summary>
-		public System.String UnitMeasureCode { get; set;}
+		public System.String UnitMeasureCode { get; set; }
 		/// <summary>Gets or sets the VendorId field. </summary>
-		public System.Int32 VendorId { get; set;}
+		public System.Int32 VendorId { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductVendor.Product - Product.ProductVendors (m:1)'</summary>
-		public virtual Product Product { get; set;}
+		public virtual Product Product { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductVendor.UnitMeasure - UnitMeasure.ProductVendors (m:1)'</summary>
-		public virtual UnitMeasure UnitMeasure { get; set;}
+		public virtual UnitMeasure UnitMeasure { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductVendor.Vendor - Vendor.ProductVendors (m:1)'</summary>
-		public virtual Vendor Vendor { get; set;}
+		public virtual Vendor Vendor { get; set; }
 	}
 }

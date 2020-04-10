@@ -19,28 +19,28 @@ namespace EFCore.Bencher.EntityClasses
 		}
 
 		/// <summary>Gets or sets the BillOfMaterialsId field. </summary>
-		public System.Int32 BillOfMaterialsId { get; set;}
+		public System.Int32 BillOfMaterialsId { get; set; }
 		/// <summary>Gets or sets the Bomlevel field. </summary>
-		public System.Int16 Bomlevel { get; set;}
+		public System.Int16 Bomlevel { get; set; }
 		/// <summary>Gets or sets the ComponentId field. </summary>
-		public System.Int32 ComponentId { get; set;}
+		public System.Int32 ComponentId { get; set; }
 		/// <summary>Gets or sets the EndDate field. </summary>
-		public Nullable<System.DateTime> EndDate { get; set;}
+		public Nullable<System.DateTime> EndDate { get; set; }
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
-		public System.DateTime ModifiedDate { get; set;}
+		public System.DateTime ModifiedDate { get; set; }
 		/// <summary>Gets or sets the PerAssemblyQty field. </summary>
-		public System.Decimal PerAssemblyQty { get; set;}
+		public System.Decimal PerAssemblyQty { get; set; }
 		/// <summary>Gets or sets the ProductAssemblyId field. </summary>
-		public Nullable<System.Int32> ProductAssemblyId { get; set;}
+		public Nullable<System.Int32> ProductAssemblyId { get; set; }
 		/// <summary>Gets or sets the StartDate field. </summary>
-		public System.DateTime StartDate { get; set;}
+		public System.DateTime StartDate { get; set; }
 		/// <summary>Gets or sets the UnitMeasureCode field. </summary>
-		public System.String UnitMeasureCode { get; set;}
+		public System.String UnitMeasureCode { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'BillOfMaterial.Product - Product.BillOfMaterials (m:1)'</summary>
-		public virtual Product Product { get; set;}
+		public virtual Product Product { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'BillOfMaterial.Product_ - Product.BillOfMaterials_ (m:1)'</summary>
-		public virtual Product Product_ { get; set;}
+		public virtual Product Product_ { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'BillOfMaterial.UnitMeasure - UnitMeasure.BillOfMaterials (m:1)'</summary>
-		public virtual UnitMeasure UnitMeasure { get; set;}
+		public virtual UnitMeasure UnitMeasure { get; set; }
 	}
 }

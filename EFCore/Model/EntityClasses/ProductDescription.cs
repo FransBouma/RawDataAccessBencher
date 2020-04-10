@@ -20,14 +20,14 @@ namespace EFCore.Bencher.EntityClasses
 		}
 
 		/// <summary>Gets or sets the Description field. </summary>
-		public System.String Description { get; set;}
+		public System.String Description { get; set; }
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
-		public System.DateTime ModifiedDate { get; set;}
+		public System.DateTime ModifiedDate { get; set; }
 		/// <summary>Gets or sets the ProductDescriptionId field. </summary>
-		public System.Int32 ProductDescriptionId { get; set;}
+		public System.Int32 ProductDescriptionId { get; set; }
 		/// <summary>Gets or sets the Rowguid field. </summary>
-		public System.Guid Rowguid { get; set;}
+		public System.Guid Rowguid { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductModelProductDescriptionCulture.ProductDescription - ProductDescription.ProductModelProductDescriptionCultures (m:1)'</summary>
-		public virtual List<ProductModelProductDescriptionCulture> ProductModelProductDescriptionCultures { get; set;}
+		public virtual List<ProductModelProductDescriptionCulture> ProductModelProductDescriptionCultures { get; set; }
 	}
 }

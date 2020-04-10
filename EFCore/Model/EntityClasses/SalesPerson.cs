@@ -23,34 +23,34 @@ namespace EFCore.Bencher.EntityClasses
 		}
 
 		/// <summary>Gets or sets the Bonus field. </summary>
-		public System.Decimal Bonus { get; set;}
+		public System.Decimal Bonus { get; set; }
 		/// <summary>Gets or sets the CommissionPct field. </summary>
-		public System.Decimal CommissionPct { get; set;}
+		public System.Decimal CommissionPct { get; set; }
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
-		public System.DateTime ModifiedDate { get; set;}
+		public System.DateTime ModifiedDate { get; set; }
 		/// <summary>Gets or sets the Rowguid field. </summary>
-		public System.Guid Rowguid { get; set;}
+		public System.Guid Rowguid { get; set; }
 		/// <summary>Gets or sets the SalesLastYear field. </summary>
-		public System.Decimal SalesLastYear { get; set;}
+		public System.Decimal SalesLastYear { get; set; }
 		/// <summary>Gets or sets the SalesPersonId field. </summary>
-		public System.Int32 SalesPersonId { get; set;}
+		public System.Int32 SalesPersonId { get; set; }
 		/// <summary>Gets or sets the SalesQuota field. </summary>
-		public Nullable<System.Decimal> SalesQuota { get; set;}
+		public Nullable<System.Decimal> SalesQuota { get; set; }
 		/// <summary>Gets or sets the SalesYtd field. </summary>
-		public System.Decimal SalesYtd { get; set;}
+		public System.Decimal SalesYtd { get; set; }
 		/// <summary>Gets or sets the TerritoryId field. </summary>
-		public Nullable<System.Int32> TerritoryId { get; set;}
+		public Nullable<System.Int32> TerritoryId { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesPerson.Employee - Employee.SalesPerson (1:1)'</summary>
-		public virtual Employee Employee { get; set;}
+		public virtual Employee Employee { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderHeader.SalesPerson - SalesPerson.SalesOrderHeaders (m:1)'</summary>
-		public virtual List<SalesOrderHeader> SalesOrderHeaders { get; set;}
+		public virtual List<SalesOrderHeader> SalesOrderHeaders { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesPersonQuotaHistory.SalesPerson - SalesPerson.SalesPersonQuotaHistories (m:1)'</summary>
-		public virtual List<SalesPersonQuotaHistory> SalesPersonQuotaHistories { get; set;}
+		public virtual List<SalesPersonQuotaHistory> SalesPersonQuotaHistories { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesPerson.SalesTerritory - SalesTerritory.SalesPeople (m:1)'</summary>
-		public virtual SalesTerritory SalesTerritory { get; set;}
+		public virtual SalesTerritory SalesTerritory { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesTerritoryHistory.SalesPerson - SalesPerson.SalesTerritoryHistories (m:1)'</summary>
-		public virtual List<SalesTerritoryHistory> SalesTerritoryHistories { get; set;}
+		public virtual List<SalesTerritoryHistory> SalesTerritoryHistories { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'Store.SalesPerson - SalesPerson.Stores (m:1)'</summary>
-		public virtual List<Store> Stores { get; set;}
+		public virtual List<Store> Stores { get; set; }
 	}
 }

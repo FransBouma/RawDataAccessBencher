@@ -19,16 +19,16 @@ namespace EFCore.Bencher.EntityClasses
 		}
 
 		/// <summary>Gets or sets the EndDate field. </summary>
-		public Nullable<System.DateTime> EndDate { get; set;}
+		public Nullable<System.DateTime> EndDate { get; set; }
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
-		public System.DateTime ModifiedDate { get; set;}
+		public System.DateTime ModifiedDate { get; set; }
 		/// <summary>Gets or sets the ProductId field. </summary>
-		public System.Int32 ProductId { get; set;}
+		public System.Int32 ProductId { get; set; }
 		/// <summary>Gets or sets the StandardCost field. </summary>
-		public System.Decimal StandardCost { get; set;}
+		public System.Decimal StandardCost { get; set; }
 		/// <summary>Gets or sets the StartDate field. </summary>
-		public System.DateTime StartDate { get; set;}
+		public System.DateTime StartDate { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductCostHistory.Product - Product.ProductCostHistories (m:1)'</summary>
-		public virtual Product Product { get; set;}
+		public virtual Product Product { get; set; }
 	}
 }

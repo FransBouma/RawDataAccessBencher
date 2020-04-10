@@ -20,14 +20,14 @@ namespace EFCore.Bencher.EntityClasses
 		}
 
 		/// <summary>Gets or sets the AddressTypeId field. </summary>
-		public System.Int32 AddressTypeId { get; set;}
+		public System.Int32 AddressTypeId { get; set; }
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
-		public System.DateTime ModifiedDate { get; set;}
+		public System.DateTime ModifiedDate { get; set; }
 		/// <summary>Gets or sets the Name field. </summary>
-		public System.String Name { get; set;}
+		public System.String Name { get; set; }
 		/// <summary>Gets or sets the Rowguid field. </summary>
-		public System.Guid Rowguid { get; set;}
+		public System.Guid Rowguid { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'BusinessEntityAddress.AddressType - AddressType.BusinessEntityAddresses (m:1)'</summary>
-		public virtual List<BusinessEntityAddress> BusinessEntityAddresses { get; set;}
+		public virtual List<BusinessEntityAddress> BusinessEntityAddresses { get; set; }
 	}
 }

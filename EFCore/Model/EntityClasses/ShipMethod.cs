@@ -21,20 +21,20 @@ namespace EFCore.Bencher.EntityClasses
 		}
 
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
-		public System.DateTime ModifiedDate { get; set;}
+		public System.DateTime ModifiedDate { get; set; }
 		/// <summary>Gets or sets the Name field. </summary>
-		public System.String Name { get; set;}
+		public System.String Name { get; set; }
 		/// <summary>Gets or sets the Rowguid field. </summary>
-		public System.Guid Rowguid { get; set;}
+		public System.Guid Rowguid { get; set; }
 		/// <summary>Gets or sets the ShipBase field. </summary>
-		public System.Decimal ShipBase { get; set;}
+		public System.Decimal ShipBase { get; set; }
 		/// <summary>Gets or sets the ShipMethodId field. </summary>
-		public System.Int32 ShipMethodId { get; set;}
+		public System.Int32 ShipMethodId { get; set; }
 		/// <summary>Gets or sets the ShipRate field. </summary>
-		public System.Decimal ShipRate { get; set;}
+		public System.Decimal ShipRate { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'PurchaseOrderHeader.ShipMethod - ShipMethod.PurchaseOrderHeaders (m:1)'</summary>
-		public virtual List<PurchaseOrderHeader> PurchaseOrderHeaders { get; set;}
+		public virtual List<PurchaseOrderHeader> PurchaseOrderHeaders { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderHeader.ShipMethod - ShipMethod.SalesOrderHeaders (m:1)'</summary>
-		public virtual List<SalesOrderHeader> SalesOrderHeaders { get; set;}
+		public virtual List<SalesOrderHeader> SalesOrderHeaders { get; set; }
 	}
 }

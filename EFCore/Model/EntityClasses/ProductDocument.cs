@@ -19,14 +19,14 @@ namespace EFCore.Bencher.EntityClasses
 		}
 
 		/// <summary>Gets or sets the DocumentNode field. </summary>
-		public System.String DocumentNode { get; set;}
+		public System.String DocumentNode { get; set; }
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
-		public System.DateTime ModifiedDate { get; set;}
+		public System.DateTime ModifiedDate { get; set; }
 		/// <summary>Gets or sets the ProductId field. </summary>
-		public System.Int32 ProductId { get; set;}
+		public System.Int32 ProductId { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductDocument.Document - Document.ProductDocuments (m:1)'</summary>
-		public virtual Document Document { get; set;}
+		public virtual Document Document { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductDocument.Product - Product.ProductDocuments (m:1)'</summary>
-		public virtual Product Product { get; set;}
+		public virtual Product Product { get; set; }
 	}
 }

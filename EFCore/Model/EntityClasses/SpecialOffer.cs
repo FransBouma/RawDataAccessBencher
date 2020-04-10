@@ -20,28 +20,28 @@ namespace EFCore.Bencher.EntityClasses
 		}
 
 		/// <summary>Gets or sets the Category field. </summary>
-		public System.String Category { get; set;}
+		public System.String Category { get; set; }
 		/// <summary>Gets or sets the Description field. </summary>
-		public System.String Description { get; set;}
+		public System.String Description { get; set; }
 		/// <summary>Gets or sets the DiscountPct field. </summary>
-		public System.Decimal DiscountPct { get; set;}
+		public System.Decimal DiscountPct { get; set; }
 		/// <summary>Gets or sets the EndDate field. </summary>
-		public System.DateTime EndDate { get; set;}
+		public System.DateTime EndDate { get; set; }
 		/// <summary>Gets or sets the MaxQty field. </summary>
-		public Nullable<System.Int32> MaxQty { get; set;}
+		public Nullable<System.Int32> MaxQty { get; set; }
 		/// <summary>Gets or sets the MinQty field. </summary>
-		public System.Int32 MinQty { get; set;}
+		public System.Int32 MinQty { get; set; }
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
-		public System.DateTime ModifiedDate { get; set;}
+		public System.DateTime ModifiedDate { get; set; }
 		/// <summary>Gets or sets the Rowguid field. </summary>
-		public System.Guid Rowguid { get; set;}
+		public System.Guid Rowguid { get; set; }
 		/// <summary>Gets or sets the SpecialOfferId field. </summary>
-		public System.Int32 SpecialOfferId { get; set;}
+		public System.Int32 SpecialOfferId { get; set; }
 		/// <summary>Gets or sets the StartDate field. </summary>
-		public System.DateTime StartDate { get; set;}
+		public System.DateTime StartDate { get; set; }
 		/// <summary>Gets or sets the Type field. </summary>
-		public System.String Type { get; set;}
+		public System.String Type { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'SpecialOfferProduct.SpecialOffer - SpecialOffer.SpecialOfferProducts (m:1)'</summary>
-		public virtual List<SpecialOfferProduct> SpecialOfferProducts { get; set;}
+		public virtual List<SpecialOfferProduct> SpecialOfferProducts { get; set; }
 	}
 }

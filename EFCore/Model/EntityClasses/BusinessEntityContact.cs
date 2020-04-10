@@ -19,20 +19,20 @@ namespace EFCore.Bencher.EntityClasses
 		}
 
 		/// <summary>Gets or sets the BusinessEntityId field. </summary>
-		public System.Int32 BusinessEntityId { get; set;}
+		public System.Int32 BusinessEntityId { get; set; }
 		/// <summary>Gets or sets the ContactTypeId field. </summary>
-		public System.Int32 ContactTypeId { get; set;}
+		public System.Int32 ContactTypeId { get; set; }
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
-		public System.DateTime ModifiedDate { get; set;}
+		public System.DateTime ModifiedDate { get; set; }
 		/// <summary>Gets or sets the PersonId field. </summary>
-		public System.Int32 PersonId { get; set;}
+		public System.Int32 PersonId { get; set; }
 		/// <summary>Gets or sets the Rowguid field. </summary>
-		public System.Guid Rowguid { get; set;}
+		public System.Guid Rowguid { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'BusinessEntityContact.BusinessEntity - BusinessEntity.BusinessEntityContacts (m:1)'</summary>
-		public virtual BusinessEntity BusinessEntity { get; set;}
+		public virtual BusinessEntity BusinessEntity { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'BusinessEntityContact.ContactType - ContactType.BusinessEntityContacts (m:1)'</summary>
-		public virtual ContactType ContactType { get; set;}
+		public virtual ContactType ContactType { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'BusinessEntityContact.Person - Person.BusinessEntityContacts (m:1)'</summary>
-		public virtual Person Person { get; set;}
+		public virtual Person Person { get; set; }
 	}
 }

@@ -19,14 +19,14 @@ namespace EFCore.Bencher.EntityClasses
 		}
 
 		/// <summary>Gets or sets the ContactId field. </summary>
-		public System.Int32 ContactId { get; set;}
+		public System.Int32 ContactId { get; set; }
 		/// <summary>Gets or sets the CreditCardId field. </summary>
-		public System.Int32 CreditCardId { get; set;}
+		public System.Int32 CreditCardId { get; set; }
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
-		public System.DateTime ModifiedDate { get; set;}
+		public System.DateTime ModifiedDate { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'ContactCreditCard.CreditCard - CreditCard.ContactCreditCards (m:1)'</summary>
-		public virtual CreditCard CreditCard { get; set;}
+		public virtual CreditCard CreditCard { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'ContactCreditCard.Person - Person.ContactCreditCards (m:1)'</summary>
-		public virtual Person Person { get; set;}
+		public virtual Person Person { get; set; }
 	}
 }

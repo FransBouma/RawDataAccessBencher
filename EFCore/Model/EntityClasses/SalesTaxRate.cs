@@ -19,20 +19,20 @@ namespace EFCore.Bencher.EntityClasses
 		}
 
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
-		public System.DateTime ModifiedDate { get; set;}
+		public System.DateTime ModifiedDate { get; set; }
 		/// <summary>Gets or sets the Name field. </summary>
-		public System.String Name { get; set;}
+		public System.String Name { get; set; }
 		/// <summary>Gets or sets the Rowguid field. </summary>
-		public System.Guid Rowguid { get; set;}
+		public System.Guid Rowguid { get; set; }
 		/// <summary>Gets or sets the SalesTaxRateId field. </summary>
-		public System.Int32 SalesTaxRateId { get; set;}
+		public System.Int32 SalesTaxRateId { get; set; }
 		/// <summary>Gets or sets the StateProvinceId field. </summary>
-		public System.Int32 StateProvinceId { get; set;}
+		public System.Int32 StateProvinceId { get; set; }
 		/// <summary>Gets or sets the TaxRate field. </summary>
-		public System.Decimal TaxRate { get; set;}
+		public System.Decimal TaxRate { get; set; }
 		/// <summary>Gets or sets the TaxType field. </summary>
-		public System.Byte TaxType { get; set;}
+		public System.Byte TaxType { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesTaxRate.StateProvince - StateProvince.SalesTaxRates (m:1)'</summary>
-		public virtual StateProvince StateProvince { get; set;}
+		public virtual StateProvince StateProvince { get; set; }
 	}
 }

@@ -20,18 +20,18 @@ namespace EFCore.Bencher.EntityClasses
 		}
 
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
-		public System.DateTime ModifiedDate { get; set;}
+		public System.DateTime ModifiedDate { get; set; }
 		/// <summary>Gets or sets the ProductId field. </summary>
-		public System.Int32 ProductId { get; set;}
+		public System.Int32 ProductId { get; set; }
 		/// <summary>Gets or sets the Rowguid field. </summary>
-		public System.Guid Rowguid { get; set;}
+		public System.Guid Rowguid { get; set; }
 		/// <summary>Gets or sets the SpecialOfferId field. </summary>
-		public System.Int32 SpecialOfferId { get; set;}
+		public System.Int32 SpecialOfferId { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'SpecialOfferProduct.Product - Product.SpecialOfferProducts (m:1)'</summary>
-		public virtual Product Product { get; set;}
+		public virtual Product Product { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'SalesOrderDetail.SpecialOfferProduct - SpecialOfferProduct.SalesOrderDetails (m:1)'</summary>
-		public virtual List<SalesOrderDetail> SalesOrderDetails { get; set;}
+		public virtual List<SalesOrderDetail> SalesOrderDetails { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'SpecialOfferProduct.SpecialOffer - SpecialOffer.SpecialOfferProducts (m:1)'</summary>
-		public virtual SpecialOffer SpecialOffer { get; set;}
+		public virtual SpecialOffer SpecialOffer { get; set; }
 	}
 }

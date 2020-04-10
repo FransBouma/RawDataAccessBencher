@@ -19,16 +19,16 @@ namespace EFCore.Bencher.EntityClasses
 		}
 
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
-		public System.DateTime ModifiedDate { get; set;}
+		public System.DateTime ModifiedDate { get; set; }
 		/// <summary>Gets or sets the Primary field. </summary>
-		public System.Boolean Primary { get; set;}
+		public System.Boolean Primary { get; set; }
 		/// <summary>Gets or sets the ProductId field. </summary>
-		public System.Int32 ProductId { get; set;}
+		public System.Int32 ProductId { get; set; }
 		/// <summary>Gets or sets the ProductPhotoId field. </summary>
-		public System.Int32 ProductPhotoId { get; set;}
+		public System.Int32 ProductPhotoId { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductProductPhoto.Product - Product.ProductProductPhotos (m:1)'</summary>
-		public virtual Product Product { get; set;}
+		public virtual Product Product { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'ProductProductPhoto.ProductPhoto - ProductPhoto.ProductProductPhotos (m:1)'</summary>
-		public virtual ProductPhoto ProductPhoto { get; set;}
+		public virtual ProductPhoto ProductPhoto { get; set; }
 	}
 }

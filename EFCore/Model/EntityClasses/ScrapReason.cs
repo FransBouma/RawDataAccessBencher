@@ -20,12 +20,12 @@ namespace EFCore.Bencher.EntityClasses
 		}
 
 		/// <summary>Gets or sets the ModifiedDate field. </summary>
-		public System.DateTime ModifiedDate { get; set;}
+		public System.DateTime ModifiedDate { get; set; }
 		/// <summary>Gets or sets the Name field. </summary>
-		public System.String Name { get; set;}
+		public System.String Name { get; set; }
 		/// <summary>Gets or sets the ScrapReasonId field. </summary>
-		public System.Int16 ScrapReasonId { get; set;}
+		public System.Int16 ScrapReasonId { get; set; }
 		/// <summary>Represents the navigator which is mapped onto the association 'WorkOrder.ScrapReason - ScrapReason.WorkOrders (m:1)'</summary>
-		public virtual List<WorkOrder> WorkOrders { get; set;}
+		public virtual List<WorkOrder> WorkOrders { get; set; }
 	}
 }
