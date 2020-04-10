@@ -78,6 +78,11 @@ namespace RawBencher.Benchers
 
 
 		/// <summary>
+		/// Initializes the current bencher instance.
+		/// </summary>
+		public virtual void Initialize() { }
+
+		/// <summary>
 		/// Resets the result containers of this bencher.
 		/// </summary>
 		public void ResetResults()
