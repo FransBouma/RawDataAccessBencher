@@ -5,7 +5,12 @@
     <AssemblyName>AdventureWorks.Dal.Adapter</AssemblyName>
     <RootNamespace>AdventureWorks.Dal.Adapter</RootNamespace>
   </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="SD.LLBLGen.Pro.ORMSupportClasses" Version="5.6.2" />
-  </ItemGroup>
+    <ItemGroup>
+        <Reference Include="SD.LLBLGen.Pro.ORMSupportClasses, Version=5.7.0.0, Culture=neutral, PublicKeyToken=ca73b74ba4e3ff27" Condition="'$(TargetFramework)' == 'netstandard2.0'">
+            <HintPath>..\..\ReferencedAssemblies\Netstandard2.0\SD.LLBLGen.Pro.ORMSupportClasses.dll</HintPath>
+        </Reference>
+        <Reference Include="SD.LLBLGen.Pro.ORMSupportClasses, Version=5.7.0.0, Culture=neutral, PublicKeyToken=ca73b74ba4e3ff27" Condition="'$(TargetFramework)' == 'net452'">
+            <HintPath>..\..\ReferencedAssemblies\SD.LLBLGen.Pro.ORMSupportClasses.dll</HintPath>
+        </Reference>
+    </ItemGroup>
 </Project>

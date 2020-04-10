@@ -1,15 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>LLBLGenPro.Dtos.Persistence</AssemblyName>
-    <RootNamespace>LLBLGenPro.Dtos.Persistence</RootNamespace>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="System.Linq.Queryable" Version="4.3.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DatabaseGeneric\AdventureWorks.Dal.Adapter.csproj" />
-    <ProjectReference Include="..\LLBLGenPro.Dtos\LLBLGenPro.Dtos.csproj" />
-  </ItemGroup>
+    <PropertyGroup>
+        <TargetFrameworks>netstandard2.0;net452</TargetFrameworks>
+        <AssemblyName>LLBLGenPro.Dtos.Persistence</AssemblyName>
+        <RootNamespace>LLBLGenPro.Dtos.Persistence</RootNamespace>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="System.Linq.Queryable" Version="4.3.0"/>
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\DatabaseGeneric\AdventureWorks.Dal.Adapter.csproj"/>
+        <ProjectReference Include="..\LLBLGenPro.Dtos\LLBLGenPro.Dtos.csproj"/>
+    </ItemGroup>
+    <ItemGroup>
+        <Reference Include="SD.LLBLGen.Pro.ORMSupportClasses, Version=5.7.0.0, Culture=neutral, PublicKeyToken=ca73b74ba4e3ff27" Condition="'$(TargetFramework)' == 'netstandard2.0'">
+            <HintPath>..\..\ReferencedAssemblies\Netstandard2.0\SD.LLBLGen.Pro.ORMSupportClasses.dll</HintPath>
+        </Reference>
+        <Reference Include="SD.LLBLGen.Pro.ORMSupportClasses, Version=5.7.0.0, Culture=neutral, PublicKeyToken=ca73b74ba4e3ff27" Condition="'$(TargetFramework)' == 'net452'">
+            <HintPath>..\..\ReferencedAssemblies\SD.LLBLGen.Pro.ORMSupportClasses.dll</HintPath>
+        </Reference>
+    </ItemGroup>
 </Project>
