@@ -1,0 +1,1659 @@
++-------------------------------------------------------------------------------------------
+| Raw Data Access / ORM Benchmarks.
+| Code available at              : https://github.com/FransBouma/RawDataAccessBencher
+| Benchmarks run on              : Tuesday, 21 July 2020 12:01:31
+| Registered benchmarks          :
+|       Handcoded materializer using DbDataReader. Change tracking: False. Caching: False.
+|       Handcoded materializer using DbDataReader and GetFieldValue<T>. Change tracking: False. Caching: False.
+|       RepoDb (RawSql) v1.10.11.4. Change tracking: False. Caching: False.
+|       RepoDb (Poco) v1.10.11.4. Change tracking: False. Caching: False.
+|       Handcoded materializer using DbDataReader (GetValues(array), boxing). Change tracking: False. Caching: False.
+|       Handcoded materializer using DbDataReader (GetValue(Ordinal), boxing). Change tracking: False. Caching: False.
+|       Raw DbDataReader materializer using object arrays. Change tracking: False. Caching: False.
+|       NPoco v4.0.2.0 (v4.0.2.0). Change tracking: False. Caching: False.
+|       LINQ to DB v3.0.1.0 (v3.0.1) (compiled). Change tracking: False. Caching: False.
+|       LINQ to DB v3.0.1.0 (v3.0.1) (normal). Change tracking: False. Caching: False.
+|       LLBLGen Pro v5.7.0.0 (v5.7.0), Poco with Raw SQL. Change tracking: False. Caching: False.
+|       LLBLGen Pro v5.7.0.0 (v5.7.0), Poco typed view with QuerySpec. Change tracking: False. Caching: False.
+|       LLBLGen Pro v5.7.0.0 (v5.7.0), Poco typed view with Linq. Change tracking: False. Caching: False.
+|       LLBLGen Pro v5.7.0.0 (v5.7.0), DataTable based TypedView. Change tracking: False. Caching: False.
+|       LLBLGen Pro v5.7.0.0 (v5.7.0). Change tracking: True. Caching: True.
+|       LLBLGen Pro v5.7.0.0 (v5.7.0). Change tracking: True. Caching: False.
+|       LLBLGen Pro v5.7.0.0 (v5.7.0), Poco DTO graph. Change tracking: False. Caching: False.
+|       Dapper v2.0.0.0. Change tracking: False. Caching: False.
+|       Tortuga Chain v3.3.2.0. Change tracking: False. Caching: False.
+|       ServiceStack OrmLite v5.0.0.0 (v5.0.0.0). Change tracking: False. Caching: False.
+|       DataTable, using DbDataAdapter. Change tracking: True. Caching: False.
+|       Tortuga Chain, Compiled v3.3.2.0. Change tracking: False. Caching: False.
+|       Entity Framework Core v3.1.6.0 (v3.100.620.31702). Change tracking: False. Caching: False.
+|       Entity Framework Core v3.1.6.0 (v3.100.620.31702). Change tracking: True. Caching: False.
+|       Entity Framework Core v3.1.6.0 (v3.100.620.31702) Poco DTO Graph. Change tracking: False. Caching: False.
+| Run set benchmarks             : True
+| Run individual fetch benchmarks: True
+| Number of set fetches          : 10
+| Number of individual keys      : 100
+| Release build                  : True
+| Client OS                      : Microsoft Windows NT 10.0.18363.0 (64bit)
+| Bencher runs as 64bit          : True
+| .NET Type                      : .NET Core
+| CLR version                    : .NETCoreApp 3.1
+| Number of CPUs                 : 20
+| Server used                    : ATHENA\SQLEXPRESS2017
+| Catalog used                   : AdventureWorks
+| SQL Server version used        : 14.00.2027
++-------------------------------------------------------------------------------------------
+
+Results per framework. Values are given as: 'mean (standard deviation)'
+==============================================================================
+Non-change tracking fetches, set fetches (10 runs), no caching
+------------------------------------------------------------------------------
+Handcoded materializer using DbDataReader                             : 76,03ms (2,84ms)        Enum: 0,84ms (0,13ms)
+RepoDb (RawSql) v1.10.11.4                                            : 76,80ms (0,68ms)        Enum: 0,76ms (0,10ms)
+RepoDb (Poco) v1.10.11.4                                              : 79,13ms (0,40ms)        Enum: 0,79ms (0,15ms)
+LINQ to DB v3.0.1.0 (v3.0.1) (compiled)                               : 81,88ms (0,80ms)        Enum: 0,74ms (0,12ms)
+LINQ to DB v3.0.1.0 (v3.0.1) (normal)                                 : 82,02ms (0,48ms)        Enum: 0,70ms (0,07ms)
+LLBLGen Pro v5.7.0.0 (v5.7.0), Poco with Raw SQL                      : 85,61ms (0,82ms)        Enum: 0,67ms (0,09ms)
+Handcoded materializer using DbDataReader (GetValues(array), boxing)  : 87,11ms (0,54ms)        Enum: 1,00ms (0,10ms)
+Raw DbDataReader materializer using object arrays                     : 87,13ms (0,80ms)        Enum: 2,01ms (0,18ms)
+Tortuga Chain, Compiled v3.3.2.0                                      : 89,06ms (0,50ms)        Enum: 0,83ms (0,17ms)
+LLBLGen Pro v5.7.0.0 (v5.7.0), Poco typed view with QuerySpec         : 94,03ms (0,70ms)        Enum: 0,93ms (0,09ms)
+Handcoded materializer using DbDataReader (GetValue(Ordinal), boxing) : 95,71ms (4,13ms)        Enum: 1,06ms (0,16ms)
+LLBLGen Pro v5.7.0.0 (v5.7.0), Poco typed view with Linq              : 97,27ms (0,75ms)        Enum: 0,91ms (0,07ms)
+Dapper v2.0.0.0                                                       : 103,16ms (1,19ms)       Enum: 0,93ms (0,16ms)
+Entity Framework Core v3.1.6.0 (v3.100.620.31702)                     : 106,12ms (14,57ms)      Enum: 1,30ms (0,39ms)
+ServiceStack OrmLite v5.0.0.0 (v5.0.0.0)                              : 114,66ms (5,96ms)       Enum: 1,08ms (0,05ms)
+NPoco v4.0.2.0 (v4.0.2.0)                                             : 117,63ms (10,15ms)      Enum: 0,90ms (0,13ms)
+Handcoded materializer using DbDataReader and GetFieldValue<T>        : 120,68ms (27,44ms)      Enum: 1,09ms (0,11ms)
+LLBLGen Pro v5.7.0.0 (v5.7.0), DataTable based TypedView              : 161,10ms (2,48ms)       Enum: 2,44ms (0,23ms)
+Tortuga Chain v3.3.2.0                                                : 186,08ms (3,96ms)       Enum: 0,92ms (0,06ms)
+
+Memory usage, per iteration
+------------------------------------------------------------------------------
+Handcoded materializer using DbDataReader                             : 11.861 KB (12.146.448 bytes)
+RepoDb (RawSql) v1.10.11.4                                            : 11.863 KB (12.148.680 bytes)
+LLBLGen Pro v5.7.0.0 (v5.7.0), Poco with Raw SQL                      : 11.865 KB (12.150.416 bytes)
+RepoDb (Poco) v1.10.11.4                                              : 11.868 KB (12.153.632 bytes)
+LINQ to DB v3.0.1.0 (v3.0.1) (compiled)                               : 12.354 KB (12.651.456 bytes)
+LINQ to DB v3.0.1.0 (v3.0.1) (normal)                                 : 12.356 KB (12.652.752 bytes)
+Tortuga Chain, Compiled v3.3.2.0                                      : 13.843 KB (14.176.208 bytes)
+Handcoded materializer using DbDataReader and GetFieldValue<T>        : 16.676 KB (17.077.032 bytes)
+Raw DbDataReader materializer using object arrays                     : 26.627 KB (27.266.312 bytes)
+Handcoded materializer using DbDataReader (GetValue(Ordinal), boxing) : 26.755 KB (27.397.552 bytes)
+Handcoded materializer using DbDataReader (GetValues(array), boxing)  : 26.755 KB (27.397.784 bytes)
+Dapper v2.0.0.0                                                       : 26.755 KB (27.397.888 bytes)
+Entity Framework Core v3.1.6.0 (v3.100.620.31702)                     : 27.143 KB (27.794.632 bytes)
+LLBLGen Pro v5.7.0.0 (v5.7.0), Poco typed view with QuerySpec         : 27.782 KB (28.449.240 bytes)
+LLBLGen Pro v5.7.0.0 (v5.7.0), Poco typed view with Linq              : 28.008 KB (28.680.320 bytes)
+ServiceStack OrmLite v5.0.0.0 (v5.0.0.0)                              : 29.706 KB (30.418.984 bytes)
+NPoco v4.0.2.0 (v4.0.2.0)                                             : 36.951 KB (37.838.392 bytes)
+Tortuga Chain v3.3.2.0                                                : 39.610 KB (40.560.704 bytes)
+LLBLGen Pro v5.7.0.0 (v5.7.0), DataTable based TypedView              : 43.683 KB (44.732.144 bytes)
+
+Change tracking fetches, set fetches (10 runs), no caching
+------------------------------------------------------------------------------
+DataTable, using DbDataAdapter                                        : 135,12ms (0,51ms)       Enum: 20,31ms (0,45ms)
+LLBLGen Pro v5.7.0.0 (v5.7.0)                                         : 161,59ms (8,45ms)       Enum: 5,65ms (0,10ms)
+Entity Framework Core v3.1.6.0 (v3.100.620.31702)                     : 316,46ms (5,43ms)       Enum: 1,52ms (0,05ms)
+
+Memory usage, per iteration
+------------------------------------------------------------------------------
+DataTable, using DbDataAdapter                                        : 27.129 KB (27.780.616 bytes)
+LLBLGen Pro v5.7.0.0 (v5.7.0)                                         : 48.176 KB (49.333.192 bytes)
+Entity Framework Core v3.1.6.0 (v3.100.620.31702)                     : 74.281 KB (76.064.304 bytes)
+
+Non-change tracking individual fetches (100 elements, 10 runs), no caching
+------------------------------------------------------------------------------
+Handcoded materializer using DbDataReader (GetValue(Ordinal), boxing) : 0,09ms (0,00ms) per individual fetch
+Dapper v2.0.0.0                                                       : 0,10ms (0,00ms) per individual fetch
+Handcoded materializer using DbDataReader and GetFieldValue<T>        : 0,10ms (0,01ms) per individual fetch
+Handcoded materializer using DbDataReader                             : 0,10ms (0,00ms) per individual fetch
+LLBLGen Pro v5.7.0.0 (v5.7.0), Poco with Raw SQL                      : 0,10ms (0,01ms) per individual fetch
+LINQ to DB v3.0.1.0 (v3.0.1) (compiled)                               : 0,10ms (0,01ms) per individual fetch
+ServiceStack OrmLite v5.0.0.0 (v5.0.0.0)                              : 0,11ms (0,01ms) per individual fetch
+RepoDb (RawSql) v1.10.11.4                                            : 0,11ms (0,01ms) per individual fetch
+RepoDb (Poco) v1.10.11.4                                              : 0,12ms (0,00ms) per individual fetch
+LINQ to DB v3.0.1.0 (v3.0.1) (normal)                                 : 0,13ms (0,01ms) per individual fetch
+Tortuga Chain v3.3.2.0                                                : 0,14ms (0,02ms) per individual fetch
+Handcoded materializer using DbDataReader (GetValues(array), boxing)  : 0,15ms (0,13ms) per individual fetch
+Tortuga Chain, Compiled v3.3.2.0                                      : 0,15ms (0,08ms) per individual fetch
+Raw DbDataReader materializer using object arrays                     : 0,17ms (0,00ms) per individual fetch
+LLBLGen Pro v5.7.0.0 (v5.7.0), Poco typed view with QuerySpec         : 0,18ms (0,02ms) per individual fetch
+Entity Framework Core v3.1.6.0 (v3.100.620.31702)                     : 0,26ms (0,03ms) per individual fetch
+LLBLGen Pro v5.7.0.0 (v5.7.0), DataTable based TypedView              : 0,29ms (0,01ms) per individual fetch
+NPoco v4.0.2.0 (v4.0.2.0)                                             : 0,44ms (0,03ms) per individual fetch
+LLBLGen Pro v5.7.0.0 (v5.7.0), Poco typed view with Linq              : 0,58ms (0,04ms) per individual fetch
+
+Memory usage, per individual element
+------------------------------------------------------------------------------
+Handcoded materializer using DbDataReader                             : 11 KB (11.792 bytes)
+Handcoded materializer using DbDataReader and GetFieldValue<T>        : 11 KB (11.960 bytes)
+Handcoded materializer using DbDataReader (GetValue(Ordinal), boxing) : 12 KB (12.288 bytes)
+Dapper v2.0.0.0                                                       : 12 KB (12.376 bytes)
+Raw DbDataReader materializer using object arrays                     : 12 KB (12.440 bytes)
+Handcoded materializer using DbDataReader (GetValues(array), boxing)  : 12 KB (12.520 bytes)
+LINQ to DB v3.0.1.0 (v3.0.1) (compiled)                               : 12 KB (12.536 bytes)
+ServiceStack OrmLite v5.0.0.0 (v5.0.0.0)                              : 13 KB (13.808 bytes)
+RepoDb (RawSql) v1.10.11.4                                            : 15 KB (15.408 bytes)
+LLBLGen Pro v5.7.0.0 (v5.7.0), Poco with Raw SQL                      : 16 KB (16.880 bytes)
+LINQ to DB v3.0.1.0 (v3.0.1) (normal)                                 : 20 KB (21.000 bytes)
+RepoDb (Poco) v1.10.11.4                                              : 20 KB (21.264 bytes)
+Tortuga Chain, Compiled v3.3.2.0                                      : 26 KB (27.304 bytes)
+Tortuga Chain v3.3.2.0                                                : 29 KB (30.624 bytes)
+Entity Framework Core v3.1.6.0 (v3.100.620.31702)                     : 59 KB (61.160 bytes)
+LLBLGen Pro v5.7.0.0 (v5.7.0), Poco typed view with QuerySpec         : 60 KB (62.328 bytes)
+NPoco v4.0.2.0 (v4.0.2.0)                                             : 131 KB (134.576 bytes)
+LLBLGen Pro v5.7.0.0 (v5.7.0), DataTable based TypedView              : 142 KB (145.424 bytes)
+LLBLGen Pro v5.7.0.0 (v5.7.0), Poco typed view with Linq              : 238 KB (243.968 bytes)
+
+Change tracking individual fetches (100 elements, 10 runs), no caching
+------------------------------------------------------------------------------
+DataTable, using DbDataAdapter                                        : 0,13ms (0,00ms) per individual fetch
+LLBLGen Pro v5.7.0.0 (v5.7.0)                                         : 0,16ms (0,00ms) per individual fetch
+Entity Framework Core v3.1.6.0 (v3.100.620.31702)                     : 0,26ms (0,00ms) per individual fetch
+
+Memory usage, per individual element
+------------------------------------------------------------------------------
+LLBLGen Pro v5.7.0.0 (v5.7.0)                                         : 48 KB (49.744 bytes)
+DataTable, using DbDataAdapter                                        : 56 KB (57.704 bytes)
+Entity Framework Core v3.1.6.0 (v3.100.620.31702)                     : 60 KB (62.320 bytes)
+
+Non-change tracking fetches, eager load fetches, 3-node split graph, 1000 root elements (10 runs), no caching
+------------------------------------------------------------------------------
+LINQ to DB v3.0.1.0 (v3.0.1) (normal)                                 : 16,10ms (0,75ms)
+LINQ to DB v3.0.1.0 (v3.0.1) (compiled)                               : 16,41ms (0,47ms)
+LLBLGen Pro v5.7.0.0 (v5.7.0), Poco DTO graph                         : 18,70ms (0,54ms)
+Entity Framework Core v3.1.6.0 (v3.100.620.31702) Poco DTO Graph      : 41,99ms (0,73ms)
+
+Memory usage, per iteration
+------------------------------------------------------------------------------
+LINQ to DB v3.0.1.0 (v3.0.1) (compiled)                               : 1.963 KB (2.010.784 bytes)
+LINQ to DB v3.0.1.0 (v3.0.1) (normal)                                 : 1.977 KB (2.024.728 bytes)
+Entity Framework Core v3.1.6.0 (v3.100.620.31702) Poco DTO Graph      : 5.068 KB (5.190.320 bytes)
+LLBLGen Pro v5.7.0.0 (v5.7.0), Poco DTO graph                         : 7.783 KB (7.970.216 bytes)
+
+Change tracking fetches, eager load fetches, 3-node split graph, 1000 root elements (10 runs), no caching
+------------------------------------------------------------------------------
+LLBLGen Pro v5.7.0.0 (v5.7.0)                                         : 42,71ms (2,40ms)
+Entity Framework Core v3.1.6.0 (v3.100.620.31702)                     : 94,02ms (3,65ms)
+
+Memory usage, per iteration
+------------------------------------------------------------------------------
+Entity Framework Core v3.1.6.0 (v3.100.620.31702)                     : 14.835 KB (15.191.896 bytes)
+LLBLGen Pro v5.7.0.0 (v5.7.0)                                         : 18.047 KB (18.480.632 bytes)
+
+Async change tracking fetches, eager load fetches, 3-node split graph, 1000 root elements (10 runs), no caching
+------------------------------------------------------------------------------
+LLBLGen Pro v5.7.0.0 (v5.7.0)                                         : 42,99ms (2,42ms)
+Entity Framework Core v3.1.6.0 (v3.100.620.31702)                     : 110,94ms (0,97ms)
+
+Memory usage, per iteration
+------------------------------------------------------------------------------
+LLBLGen Pro v5.7.0.0 (v5.7.0)                                         : 00 KB (360 bytes)
+Entity Framework Core v3.1.6.0 (v3.100.620.31702)                     : 00 KB (360 bytes)
+
+Async Non-change tracking fetches, eager load fetches, 3-node split graph, 1000 root elements (10 runs), no caching
+------------------------------------------------------------------------------
+LINQ to DB v3.0.1.0 (v3.0.1) (normal)                                 : 19,07ms (0,53ms)
+LINQ to DB v3.0.1.0 (v3.0.1) (compiled)                               : 19,95ms (0,69ms)
+LLBLGen Pro v5.7.0.0 (v5.7.0), Poco DTO graph                         : 19,51ms (0,43ms)
+Entity Framework Core v3.1.6.0 (v3.100.620.31702) Poco DTO Graph      : 52,81ms (1,02ms)
+
+Memory usage, per iteration
+------------------------------------------------------------------------------
+LINQ to DB v3.0.1.0 (v3.0.1) (normal)                                 : 00 KB (360 bytes)
+LINQ to DB v3.0.1.0 (v3.0.1) (compiled)                               : 00 KB (360 bytes)
+LLBLGen Pro v5.7.0.0 (v5.7.0), Poco DTO graph                         : 00 KB (360 bytes)
+Entity Framework Core v3.1.6.0 (v3.100.620.31702) Poco DTO Graph      : 00 KB (360 bytes)
+
+Change tracking fetches, set fetches (10 runs), caching
+------------------------------------------------------------------------------
+LLBLGen Pro v5.7.0.0 (v5.7.0)                                         : 47,10ms (1,04ms)        Enum: 4,10ms (0,69ms)
+
+Memory usage, per iteration
+------------------------------------------------------------------------------
+LLBLGen Pro v5.7.0.0 (v5.7.0)                                         : 70.378 KB (72.067.888 bytes)
+
+Change tracking individual fetches (100 elements, 10 runs), caching
+------------------------------------------------------------------------------
+LLBLGen Pro v5.7.0.0 (v5.7.0)                                         : 0,08ms (0,01ms) per individual fetch
+
+Memory usage, per individual element
+------------------------------------------------------------------------------
+LLBLGen Pro v5.7.0.0 (v5.7.0)                                         : 103 KB (106.056 bytes)
+
+Set inserts of 1000 elements in one go (10 runs with batchsize 100)
+------------------------------------------------------------------------------
+LINQ to DB v3.0.1.0 (v3.0.1) (normal)                                 : 16,55ms (0,49ms)
+LINQ to DB v3.0.1.0 (v3.0.1) (compiled)                               : 16,85ms (0,37ms)
+LLBLGen Pro v5.7.0.0 (v5.7.0)                                         : 68,00ms (2,30ms)
+Entity Framework Core v3.1.6.0 (v3.100.620.31702)                     : 100,82ms (3,70ms)
+
+Memory usage, per iteration
+------------------------------------------------------------------------------
+LINQ to DB v3.0.1.0 (v3.0.1) (compiled)                               : 673 KB (690.104 bytes)
+LINQ to DB v3.0.1.0 (v3.0.1) (normal)                                 : 674 KB (690.272 bytes)
+LLBLGen Pro v5.7.0.0 (v5.7.0)                                         : 10.105 KB (10.348.304 bytes)
+Entity Framework Core v3.1.6.0 (v3.100.620.31702)                     : 19.632 KB (20.103.736 bytes)
+
+
+Raw results:
+=====================
+Warming up DB, DB client code and CLR
+====================================================================
+
+DataTable, using DbDataAdapter. Change tracking: True. Caching: False.
+--------------------------------------------------------------------------------------------
+[12:01:32] # of elements fetched: 31465.        Fetch took: 231,54ms.   Enumerating result took: 22,16ms.
+[12:01:32] # of elements fetched: 31465.        Fetch took: 189,07ms.   Enumerating result took: 20,65ms.
+[12:01:32] # of elements fetched: 31465.        Fetch took: 146,61ms.   Enumerating result took: 20,35ms.
+[12:01:32] # of elements fetched: 31465.        Fetch took: 138,07ms.   Enumerating result took: 29,97ms.
+[12:01:32] # of elements fetched: 31465.        Fetch took: 148,37ms.   Enumerating result took: 19,84ms.
+[12:01:33] # of elements fetched: 31465.        Fetch took: 151,84ms.   Enumerating result took: 19,68ms.
+[12:01:33] # of elements fetched: 31465.        Fetch took: 147,72ms.   Enumerating result took: 19,74ms.
+[12:01:33] # of elements fetched: 31465.        Fetch took: 136,29ms.   Enumerating result took: 27,58ms.
+[12:01:33] # of elements fetched: 31465.        Fetch took: 141,08ms.   Enumerating result took: 19,86ms.
+[12:01:33] # of elements fetched: 31465.        Fetch took: 150,58ms.   Enumerating result took: 19,51ms.
+
+Starting benchmarks.
+====================================================================
+
+Handcoded materializer using DbDataReader. Change tracking: False. Caching: False.
+--------------------------------------------------------------------------------------------
+First one warm-up run of each bench type to initialize constructs. Results will not be collected.
+[12:01:33] # of elements fetched: 31465.        Fetch took: 91,61ms.    Enumerating result took: 1,30ms.
+[12:01:33] # of elements fetched individually: 100.     Total time: 31,07ms.    Time per element: 0,31ms
+Doing a GC collect...
+Done.
+
+Starting bench runs...
+Set fetches
+-------------------------
+[12:01:33] # of elements fetched: 31465.        Fetch took: 82,06ms.    Enumerating result took: 0,72ms.
+[12:01:34] # of elements fetched: 31465.        Fetch took: 81,23ms.    Enumerating result took: 0,97ms.
+[12:01:34] # of elements fetched: 31465.        Fetch took: 74,68ms.    Enumerating result took: 0,71ms.
+[12:01:34] # of elements fetched: 31465.        Fetch took: 75,23ms.    Enumerating result took: 0,76ms.
+[12:01:34] # of elements fetched: 31465.        Fetch took: 74,11ms.    Enumerating result took: 0,72ms.
+[12:01:34] # of elements fetched: 31465.        Fetch took: 74,45ms.    Enumerating result took: 1,09ms.
+[12:01:34] # of elements fetched: 31465.        Fetch took: 75,41ms.    Enumerating result took: 0,92ms.
+[12:01:34] # of elements fetched: 31465.        Fetch took: 74,27ms.    Enumerating result took: 0,80ms.
+[12:01:34] # of elements fetched: 31465.        Fetch took: 74,28ms.    Enumerating result took: 0,75ms.
+[12:01:34] # of elements fetched: 31465.        Fetch took: 74,55ms.    Enumerating result took: 0,99ms.
+
+Single element fetches
+-------------------------
+[12:01:34] # of elements fetched individually: 100.     Total time: 10,66ms.    Time per element: 0,11ms
+[12:01:34] # of elements fetched individually: 100.     Total time: 10,28ms.    Time per element: 0,10ms
+[12:01:34] # of elements fetched individually: 100.     Total time: 10,44ms.    Time per element: 0,10ms
+[12:01:34] # of elements fetched individually: 100.     Total time: 10,39ms.    Time per element: 0,10ms
+[12:01:34] # of elements fetched individually: 100.     Total time: 9,86ms.     Time per element: 0,10ms
+[12:01:34] # of elements fetched individually: 100.     Total time: 10,35ms.    Time per element: 0,10ms
+[12:01:34] # of elements fetched individually: 100.     Total time: 9,92ms.     Time per element: 0,10ms
+[12:01:34] # of elements fetched individually: 100.     Total time: 10,79ms.    Time per element: 0,11ms
+[12:01:34] # of elements fetched individually: 100.     Total time: 10,30ms.    Time per element: 0,10ms
+[12:01:34] # of elements fetched individually: 100.     Total time: 10,32ms.    Time per element: 0,10ms
+
+Handcoded materializer using DbDataReader and GetFieldValue<T>. Change tracking: False. Caching: False.
+--------------------------------------------------------------------------------------------
+First one warm-up run of each bench type to initialize constructs. Results will not be collected.
+[12:01:35] # of elements fetched: 31465.        Fetch took: 197,24ms.   Enumerating result took: 1,41ms.
+[12:01:35] # of elements fetched individually: 100.     Total time: 12,12ms.    Time per element: 0,12ms
+Doing a GC collect...
+Done.
+
+Starting bench runs...
+Set fetches
+-------------------------
+[12:01:35] # of elements fetched: 31465.        Fetch took: 187,33ms.   Enumerating result took: 1,24ms.
+[12:01:35] # of elements fetched: 31465.        Fetch took: 161,30ms.   Enumerating result took: 1,18ms.
+[12:01:35] # of elements fetched: 31465.        Fetch took: 107,21ms.   Enumerating result took: 1,08ms.
+[12:01:35] # of elements fetched: 31465.        Fetch took: 108,04ms.   Enumerating result took: 1,27ms.
+[12:01:35] # of elements fetched: 31465.        Fetch took: 107,73ms.   Enumerating result took: 0,99ms.
+[12:01:35] # of elements fetched: 31465.        Fetch took: 106,96ms.   Enumerating result took: 0,92ms.
+[12:01:35] # of elements fetched: 31465.        Fetch took: 106,65ms.   Enumerating result took: 1,18ms.
+[12:01:36] # of elements fetched: 31465.        Fetch took: 106,81ms.   Enumerating result took: 1,03ms.
+[12:01:36] # of elements fetched: 31465.        Fetch took: 106,78ms.   Enumerating result took: 0,99ms.
+[12:01:36] # of elements fetched: 31465.        Fetch took: 108,04ms.   Enumerating result took: 1,02ms.
+
+Single element fetches
+-------------------------
+[12:01:36] # of elements fetched individually: 100.     Total time: 12,49ms.    Time per element: 0,12ms
+[12:01:36] # of elements fetched individually: 100.     Total time: 9,76ms.     Time per element: 0,10ms
+[12:01:36] # of elements fetched individually: 100.     Total time: 10,23ms.    Time per element: 0,10ms
+[12:01:36] # of elements fetched individually: 100.     Total time: 9,74ms.     Time per element: 0,10ms
+[12:01:36] # of elements fetched individually: 100.     Total time: 10,05ms.    Time per element: 0,10ms
+[12:01:36] # of elements fetched individually: 100.     Total time: 9,44ms.     Time per element: 0,09ms
+[12:01:36] # of elements fetched individually: 100.     Total time: 9,33ms.     Time per element: 0,09ms
+[12:01:36] # of elements fetched individually: 100.     Total time: 9,19ms.     Time per element: 0,09ms
+[12:01:36] # of elements fetched individually: 100.     Total time: 9,26ms.     Time per element: 0,09ms
+[12:01:36] # of elements fetched individually: 100.     Total time: 9,28ms.     Time per element: 0,09ms
+
+RepoDb (RawSql) v1.10.11.4. Change tracking: False. Caching: False.
+--------------------------------------------------------------------------------------------
+First one warm-up run of each bench type to initialize constructs. Results will not be collected.
+[12:01:36] # of elements fetched: 31465.        Fetch took: 345,52ms.   Enumerating result took: 0,78ms.
+[12:01:36] # of elements fetched individually: 100.     Total time: 14,59ms.    Time per element: 0,15ms
+Doing a GC collect...
+Done.
+
+Starting bench runs...
+Set fetches
+-------------------------
+[12:01:36] # of elements fetched: 31465.        Fetch took: 76,34ms.    Enumerating result took: 0,78ms.
+[12:01:36] # of elements fetched: 31465.        Fetch took: 76,45ms.    Enumerating result took: 0,76ms.
+[12:01:37] # of elements fetched: 31465.        Fetch took: 78,04ms.    Enumerating result took: 0,95ms.
+[12:01:37] # of elements fetched: 31465.        Fetch took: 78,18ms.    Enumerating result took: 0,68ms.
+[12:01:37] # of elements fetched: 31465.        Fetch took: 76,58ms.    Enumerating result took: 0,70ms.
+[12:01:37] # of elements fetched: 31465.        Fetch took: 76,36ms.    Enumerating result took: 0,95ms.
+[12:01:37] # of elements fetched: 31465.        Fetch took: 76,31ms.    Enumerating result took: 0,75ms.
+[12:01:37] # of elements fetched: 31465.        Fetch took: 76,24ms.    Enumerating result took: 0,71ms.
+[12:01:37] # of elements fetched: 31465.        Fetch took: 76,81ms.    Enumerating result took: 0,66ms.
+[12:01:37] # of elements fetched: 31465.        Fetch took: 76,65ms.    Enumerating result took: 0,67ms.
+
+Single element fetches
+-------------------------
+[12:01:37] # of elements fetched individually: 100.     Total time: 13,45ms.    Time per element: 0,13ms
+[12:01:37] # of elements fetched individually: 100.     Total time: 10,75ms.    Time per element: 0,11ms
+[12:01:37] # of elements fetched individually: 100.     Total time: 10,33ms.    Time per element: 0,10ms
+[12:01:37] # of elements fetched individually: 100.     Total time: 10,07ms.    Time per element: 0,10ms
+[12:01:37] # of elements fetched individually: 100.     Total time: 10,61ms.    Time per element: 0,11ms
+[12:01:37] # of elements fetched individually: 100.     Total time: 10,16ms.    Time per element: 0,10ms
+[12:01:37] # of elements fetched individually: 100.     Total time: 10,58ms.    Time per element: 0,11ms
+[12:01:37] # of elements fetched individually: 100.     Total time: 11,01ms.    Time per element: 0,11ms
+[12:01:37] # of elements fetched individually: 100.     Total time: 10,24ms.    Time per element: 0,10ms
+[12:01:37] # of elements fetched individually: 100.     Total time: 10,08ms.    Time per element: 0,10ms
+
+RepoDb (Poco) v1.10.11.4. Change tracking: False. Caching: False.
+--------------------------------------------------------------------------------------------
+First one warm-up run of each bench type to initialize constructs. Results will not be collected.
+[12:01:37] # of elements fetched: 31465.        Fetch took: 91,62ms.    Enumerating result took: 0,78ms.
+[12:01:37] # of elements fetched individually: 100.     Total time: 32,15ms.    Time per element: 0,32ms
+Doing a GC collect...
+Done.
+
+Starting bench runs...
+Set fetches
+-------------------------
+[12:01:37] # of elements fetched: 31465.        Fetch took: 78,97ms.    Enumerating result took: 0,88ms.
+[12:01:37] # of elements fetched: 31465.        Fetch took: 78,71ms.    Enumerating result took: 0,98ms.
+[12:01:38] # of elements fetched: 31465.        Fetch took: 80,23ms.    Enumerating result took: 0,77ms.
+[12:01:38] # of elements fetched: 31465.        Fetch took: 78,92ms.    Enumerating result took: 0,58ms.
+[12:01:38] # of elements fetched: 31465.        Fetch took: 79,33ms.    Enumerating result took: 0,70ms.
+[12:01:38] # of elements fetched: 31465.        Fetch took: 78,96ms.    Enumerating result took: 0,75ms.
+[12:01:38] # of elements fetched: 31465.        Fetch took: 78,94ms.    Enumerating result took: 0,59ms.
+[12:01:38] # of elements fetched: 31465.        Fetch took: 79,21ms.    Enumerating result took: 1,03ms.
+[12:01:38] # of elements fetched: 31465.        Fetch took: 78,93ms.    Enumerating result took: 0,66ms.
+[12:01:38] # of elements fetched: 31465.        Fetch took: 79,11ms.    Enumerating result took: 0,93ms.
+
+Single element fetches
+-------------------------
+[12:01:38] # of elements fetched individually: 100.     Total time: 12,30ms.    Time per element: 0,12ms
+[12:01:38] # of elements fetched individually: 100.     Total time: 12,02ms.    Time per element: 0,12ms
+[12:01:38] # of elements fetched individually: 100.     Total time: 11,59ms.    Time per element: 0,12ms
+[12:01:38] # of elements fetched individually: 100.     Total time: 11,58ms.    Time per element: 0,12ms
+[12:01:38] # of elements fetched individually: 100.     Total time: 12,04ms.    Time per element: 0,12ms
+[12:01:38] # of elements fetched individually: 100.     Total time: 11,86ms.    Time per element: 0,12ms
+[12:01:38] # of elements fetched individually: 100.     Total time: 11,94ms.    Time per element: 0,12ms
+[12:01:38] # of elements fetched individually: 100.     Total time: 11,78ms.    Time per element: 0,12ms
+[12:01:38] # of elements fetched individually: 100.     Total time: 11,61ms.    Time per element: 0,12ms
+[12:01:38] # of elements fetched individually: 100.     Total time: 11,61ms.    Time per element: 0,12ms
+
+Handcoded materializer using DbDataReader (GetValues(array), boxing). Change tracking: False. Caching: False.
+--------------------------------------------------------------------------------------------
+First one warm-up run of each bench type to initialize constructs. Results will not be collected.
+[12:01:38] # of elements fetched: 31465.        Fetch took: 88,51ms.    Enumerating result took: 1,18ms.
+[12:01:38] # of elements fetched individually: 100.     Total time: 9,79ms.     Time per element: 0,10ms
+Doing a GC collect...
+Done.
+
+Starting bench runs...
+Set fetches
+-------------------------
+[12:01:38] # of elements fetched: 31465.        Fetch took: 88,41ms.    Enumerating result took: 1,06ms.
+[12:01:39] # of elements fetched: 31465.        Fetch took: 87,01ms.    Enumerating result took: 1,22ms.
+[12:01:39] # of elements fetched: 31465.        Fetch took: 86,96ms.    Enumerating result took: 0,92ms.
+[12:01:39] # of elements fetched: 31465.        Fetch took: 86,89ms.    Enumerating result took: 0,99ms.
+[12:01:39] # of elements fetched: 31465.        Fetch took: 86,77ms.    Enumerating result took: 0,98ms.
+[12:01:39] # of elements fetched: 31465.        Fetch took: 86,32ms.    Enumerating result took: 0,87ms.
+[12:01:39] # of elements fetched: 31465.        Fetch took: 87,07ms.    Enumerating result took: 1,10ms.
+[12:01:39] # of elements fetched: 31465.        Fetch took: 87,56ms.    Enumerating result took: 1,01ms.
+[12:01:39] # of elements fetched: 31465.        Fetch took: 86,72ms.    Enumerating result took: 0,91ms.
+[12:01:39] # of elements fetched: 31465.        Fetch took: 87,40ms.    Enumerating result took: 0,92ms.
+
+Single element fetches
+-------------------------
+[12:01:39] # of elements fetched individually: 100.     Total time: 17,87ms.    Time per element: 0,18ms
+[12:01:39] # of elements fetched individually: 100.     Total time: 51,20ms.    Time per element: 0,51ms
+[12:01:39] # of elements fetched individually: 100.     Total time: 8,99ms.     Time per element: 0,09ms
+[12:01:39] # of elements fetched individually: 100.     Total time: 8,73ms.     Time per element: 0,09ms
+[12:01:39] # of elements fetched individually: 100.     Total time: 8,71ms.     Time per element: 0,09ms
+[12:01:39] # of elements fetched individually: 100.     Total time: 14,75ms.    Time per element: 0,15ms
+[12:01:39] # of elements fetched individually: 100.     Total time: 8,91ms.     Time per element: 0,09ms
+[12:01:39] # of elements fetched individually: 100.     Total time: 8,90ms.     Time per element: 0,09ms
+[12:01:39] # of elements fetched individually: 100.     Total time: 8,96ms.     Time per element: 0,09ms
+[12:01:39] # of elements fetched individually: 100.     Total time: 8,67ms.     Time per element: 0,09ms
+
+Handcoded materializer using DbDataReader (GetValue(Ordinal), boxing). Change tracking: False. Caching: False.
+--------------------------------------------------------------------------------------------
+First one warm-up run of each bench type to initialize constructs. Results will not be collected.
+[12:01:40] # of elements fetched: 31465.        Fetch took: 106,60ms.   Enumerating result took: 1,52ms.
+[12:01:40] # of elements fetched individually: 100.     Total time: 9,81ms.     Time per element: 0,10ms
+Doing a GC collect...
+Done.
+
+Starting bench runs...
+Set fetches
+-------------------------
+[12:01:40] # of elements fetched: 31465.        Fetch took: 103,60ms.   Enumerating result took: 1,53ms.
+[12:01:40] # of elements fetched: 31465.        Fetch took: 104,22ms.   Enumerating result took: 1,03ms.
+[12:01:40] # of elements fetched: 31465.        Fetch took: 94,55ms.    Enumerating result took: 0,98ms.
+[12:01:40] # of elements fetched: 31465.        Fetch took: 93,39ms.    Enumerating result took: 1,02ms.
+[12:01:40] # of elements fetched: 31465.        Fetch took: 92,83ms.    Enumerating result took: 1,06ms.
+[12:01:40] # of elements fetched: 31465.        Fetch took: 93,89ms.    Enumerating result took: 1,07ms.
+[12:01:40] # of elements fetched: 31465.        Fetch took: 93,24ms.    Enumerating result took: 0,93ms.
+[12:01:40] # of elements fetched: 31465.        Fetch took: 93,23ms.    Enumerating result took: 1,01ms.
+[12:01:41] # of elements fetched: 31465.        Fetch took: 93,90ms.    Enumerating result took: 0,93ms.
+[12:01:41] # of elements fetched: 31465.        Fetch took: 94,25ms.    Enumerating result took: 1,04ms.
+
+Single element fetches
+-------------------------
+[12:01:41] # of elements fetched individually: 100.     Total time: 9,32ms.     Time per element: 0,09ms
+[12:01:41] # of elements fetched individually: 100.     Total time: 9,03ms.     Time per element: 0,09ms
+[12:01:41] # of elements fetched individually: 100.     Total time: 9,03ms.     Time per element: 0,09ms
+[12:01:41] # of elements fetched individually: 100.     Total time: 9,01ms.     Time per element: 0,09ms
+[12:01:41] # of elements fetched individually: 100.     Total time: 8,79ms.     Time per element: 0,09ms
+[12:01:41] # of elements fetched individually: 100.     Total time: 8,94ms.     Time per element: 0,09ms
+[12:01:41] # of elements fetched individually: 100.     Total time: 8,83ms.     Time per element: 0,09ms
+[12:01:41] # of elements fetched individually: 100.     Total time: 8,75ms.     Time per element: 0,09ms
+[12:01:41] # of elements fetched individually: 100.     Total time: 8,75ms.     Time per element: 0,09ms
+[12:01:41] # of elements fetched individually: 100.     Total time: 8,73ms.     Time per element: 0,09ms
+
+Raw DbDataReader materializer using object arrays. Change tracking: False. Caching: False.
+--------------------------------------------------------------------------------------------
+First one warm-up run of each bench type to initialize constructs. Results will not be collected.
+[12:01:41] # of elements fetched: 31465.        Fetch took: 88,77ms.    Enumerating result took: 1,93ms.
+[12:01:41] # of elements fetched individually: 100.     Total time: 17,48ms.    Time per element: 0,17ms
+Doing a GC collect...
+Done.
+
+Starting bench runs...
+Set fetches
+-------------------------
+[12:01:41] # of elements fetched: 31465.        Fetch took: 88,88ms.    Enumerating result took: 1,74ms.
+[12:01:41] # of elements fetched: 31465.        Fetch took: 87,54ms.    Enumerating result took: 1,94ms.
+[12:01:41] # of elements fetched: 31465.        Fetch took: 86,51ms.    Enumerating result took: 2,01ms.
+[12:01:41] # of elements fetched: 31465.        Fetch took: 87,43ms.    Enumerating result took: 2,45ms.
+[12:01:41] # of elements fetched: 31465.        Fetch took: 88,09ms.    Enumerating result took: 1,96ms.
+[12:01:41] # of elements fetched: 31465.        Fetch took: 86,20ms.    Enumerating result took: 2,06ms.
+[12:01:42] # of elements fetched: 31465.        Fetch took: 86,51ms.    Enumerating result took: 2,03ms.
+[12:01:42] # of elements fetched: 31465.        Fetch took: 86,55ms.    Enumerating result took: 2,11ms.
+[12:01:42] # of elements fetched: 31465.        Fetch took: 86,66ms.    Enumerating result took: 1,86ms.
+[12:01:42] # of elements fetched: 31465.        Fetch took: 86,94ms.    Enumerating result took: 1,97ms.
+
+Single element fetches
+-------------------------
+[12:01:42] # of elements fetched individually: 100.     Total time: 18,21ms.    Time per element: 0,18ms
+[12:01:42] # of elements fetched individually: 100.     Total time: 16,99ms.    Time per element: 0,17ms
+[12:01:42] # of elements fetched individually: 100.     Total time: 17,18ms.    Time per element: 0,17ms
+[12:01:42] # of elements fetched individually: 100.     Total time: 17,12ms.    Time per element: 0,17ms
+[12:01:42] # of elements fetched individually: 100.     Total time: 16,83ms.    Time per element: 0,17ms
+[12:01:42] # of elements fetched individually: 100.     Total time: 16,86ms.    Time per element: 0,17ms
+[12:01:42] # of elements fetched individually: 100.     Total time: 17,24ms.    Time per element: 0,17ms
+[12:01:42] # of elements fetched individually: 100.     Total time: 16,69ms.    Time per element: 0,17ms
+[12:01:42] # of elements fetched individually: 100.     Total time: 17,20ms.    Time per element: 0,17ms
+[12:01:42] # of elements fetched individually: 100.     Total time: 17,13ms.    Time per element: 0,17ms
+
+NPoco v4.0.2.0 (v4.0.2.0). Change tracking: False. Caching: False.
+--------------------------------------------------------------------------------------------
+First one warm-up run of each bench type to initialize constructs. Results will not be collected.
+[12:01:42] # of elements fetched: 31465.        Fetch took: 207,43ms.   Enumerating result took: 1,23ms.
+[12:01:42] # of elements fetched individually: 100.     Total time: 64,71ms.    Time per element: 0,65ms
+Doing a GC collect...
+Done.
+
+Starting bench runs...
+Set fetches
+-------------------------
+[12:01:42] # of elements fetched: 31465.        Fetch took: 147,84ms.   Enumerating result took: 1,25ms.
+[12:01:43] # of elements fetched: 31465.        Fetch took: 115,92ms.   Enumerating result took: 0,93ms.
+[12:01:43] # of elements fetched: 31465.        Fetch took: 116,20ms.   Enumerating result took: 0,90ms.
+[12:01:43] # of elements fetched: 31465.        Fetch took: 113,96ms.   Enumerating result took: 0,83ms.
+[12:01:43] # of elements fetched: 31465.        Fetch took: 112,45ms.   Enumerating result took: 0,82ms.
+[12:01:43] # of elements fetched: 31465.        Fetch took: 114,28ms.   Enumerating result took: 0,90ms.
+[12:01:43] # of elements fetched: 31465.        Fetch took: 112,58ms.   Enumerating result took: 0,82ms.
+[12:01:43] # of elements fetched: 31465.        Fetch took: 115,88ms.   Enumerating result took: 0,85ms.
+[12:01:43] # of elements fetched: 31465.        Fetch took: 112,97ms.   Enumerating result took: 0,78ms.
+[12:01:43] # of elements fetched: 31465.        Fetch took: 114,27ms.   Enumerating result took: 0,89ms.
+
+Single element fetches
+-------------------------
+[12:01:44] # of elements fetched individually: 100.     Total time: 44,05ms.    Time per element: 0,44ms
+[12:01:44] # of elements fetched individually: 100.     Total time: 42,23ms.    Time per element: 0,42ms
+[12:01:44] # of elements fetched individually: 100.     Total time: 52,09ms.    Time per element: 0,52ms
+[12:01:44] # of elements fetched individually: 100.     Total time: 42,87ms.    Time per element: 0,43ms
+[12:01:44] # of elements fetched individually: 100.     Total time: 43,54ms.    Time per element: 0,44ms
+[12:01:44] # of elements fetched individually: 100.     Total time: 42,31ms.    Time per element: 0,42ms
+[12:01:44] # of elements fetched individually: 100.     Total time: 42,39ms.    Time per element: 0,42ms
+[12:01:44] # of elements fetched individually: 100.     Total time: 42,07ms.    Time per element: 0,42ms
+[12:01:44] # of elements fetched individually: 100.     Total time: 44,77ms.    Time per element: 0,45ms
+[12:01:44] # of elements fetched individually: 100.     Total time: 44,38ms.    Time per element: 0,44ms
+
+LINQ to DB v3.0.1.0 (v3.0.1) (compiled). Change tracking: False. Caching: False.
+--------------------------------------------------------------------------------------------
+First one warm-up run of each bench type to initialize constructs. Results will not be collected.
+[12:01:44] # of elements fetched: 31465.        Fetch took: 467,43ms.   Enumerating result took: 1,23ms.
+[12:01:45] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 284,95ms.
+[12:01:45] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 76,65ms.
+[12:01:45] # of elements fetched individually: 100.     Total time: 30,21ms.    Time per element: 0,30ms
+[12:01:45] # of elements inserted as set: 0 (batch size: 100).  Set insert took: 43,67ms.
+Doing a GC collect...
+Done.
+
+Starting bench runs...
+Set fetches
+-------------------------
+[12:01:45] # of elements fetched: 31465.        Fetch took: 82,34ms.    Enumerating result took: 0,80ms.
+[12:01:45] # of elements fetched: 31465.        Fetch took: 83,46ms.    Enumerating result took: 0,94ms.
+[12:01:45] # of elements fetched: 31465.        Fetch took: 82,19ms.    Enumerating result took: 0,66ms.
+[12:01:45] # of elements fetched: 31465.        Fetch took: 80,78ms.    Enumerating result took: 0,56ms.
+[12:01:45] # of elements fetched: 31465.        Fetch took: 80,86ms.    Enumerating result took: 0,70ms.
+[12:01:46] # of elements fetched: 31465.        Fetch took: 81,71ms.    Enumerating result took: 0,72ms.
+[12:01:46] # of elements fetched: 31465.        Fetch took: 81,63ms.    Enumerating result took: 0,63ms.
+[12:01:46] # of elements fetched: 31465.        Fetch took: 82,41ms.    Enumerating result took: 0,96ms.
+[12:01:46] # of elements fetched: 31465.        Fetch took: 82,38ms.    Enumerating result took: 0,74ms.
+[12:01:46] # of elements fetched: 31465.        Fetch took: 81,04ms.    Enumerating result took: 0,73ms.
+
+Single element fetches
+-------------------------
+[12:01:46] # of elements fetched individually: 100.     Total time: 11,81ms.    Time per element: 0,12ms
+[12:01:46] # of elements fetched individually: 100.     Total time: 10,67ms.    Time per element: 0,11ms
+[12:01:46] # of elements fetched individually: 100.     Total time: 9,84ms.     Time per element: 0,10ms
+[12:01:46] # of elements fetched individually: 100.     Total time: 10,87ms.    Time per element: 0,11ms
+[12:01:46] # of elements fetched individually: 100.     Total time: 10,66ms.    Time per element: 0,11ms
+[12:01:46] # of elements fetched individually: 100.     Total time: 10,57ms.    Time per element: 0,11ms
+[12:01:46] # of elements fetched individually: 100.     Total time: 9,80ms.     Time per element: 0,10ms
+[12:01:46] # of elements fetched individually: 100.     Total time: 9,65ms.     Time per element: 0,10ms
+[12:01:46] # of elements fetched individually: 100.     Total time: 10,67ms.    Time per element: 0,11ms
+[12:01:46] # of elements fetched individually: 100.     Total time: 10,40ms.    Time per element: 0,10ms
+
+Eager Load fetches
+-------------------------
+[12:01:46] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 17,31ms.
+[12:01:46] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 16,85ms.
+[12:01:46] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 16,48ms.
+[12:01:46] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 16,23ms.
+[12:01:46] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 15,73ms.
+[12:01:46] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 15,87ms.
+[12:01:46] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 16,63ms.
+[12:01:46] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 16,25ms.
+[12:01:46] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 16,78ms.
+[12:01:46] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 15,98ms.
+
+Async eager Load fetches
+-------------------------
+[12:01:46] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 20,36ms.
+[12:01:46] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 19,86ms.
+[12:01:46] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 20,02ms.
+[12:01:46] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 19,43ms.
+[12:01:46] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 19,43ms.
+[12:01:46] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 19,46ms.
+[12:01:46] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 19,73ms.
+[12:01:46] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 19,75ms.
+[12:01:46] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 19,59ms.
+[12:01:46] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 21,83ms.
+
+Set Inserts
+-------------------------
+[12:01:47] # of elements inserted as set: 0 (batch size: 100).  Set insert took: 17,34ms.
+[12:01:47] # of elements inserted as set: 0 (batch size: 100).  Set insert took: 16,28ms.
+[12:01:47] # of elements inserted as set: 0 (batch size: 100).  Set insert took: 16,98ms.
+[12:01:47] # of elements inserted as set: 0 (batch size: 100).  Set insert took: 16,41ms.
+[12:01:47] # of elements inserted as set: 0 (batch size: 100).  Set insert took: 16,95ms.
+[12:01:47] # of elements inserted as set: 0 (batch size: 100).  Set insert took: 17,12ms.
+[12:01:47] # of elements inserted as set: 0 (batch size: 100).  Set insert took: 16,96ms.
+[12:01:47] # of elements inserted as set: 0 (batch size: 100).  Set insert took: 16,77ms.
+[12:01:47] # of elements inserted as set: 0 (batch size: 100).  Set insert took: 17,37ms.
+[12:01:48] # of elements inserted as set: 0 (batch size: 100).  Set insert took: 16,35ms.
+
+LINQ to DB v3.0.1.0 (v3.0.1) (normal). Change tracking: False. Caching: False.
+--------------------------------------------------------------------------------------------
+First one warm-up run of each bench type to initialize constructs. Results will not be collected.
+[12:01:48] # of elements fetched: 31465.        Fetch took: 85,74ms.    Enumerating result took: 0,59ms.
+[12:01:48] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 31,20ms.
+[12:01:48] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 31,62ms.
+[12:01:48] # of elements fetched individually: 100.     Total time: 21,31ms.    Time per element: 0,21ms
+[12:01:48] # of elements inserted as set: 0 (batch size: 100).  Set insert took: 16,42ms.
+Doing a GC collect...
+Done.
+
+Starting bench runs...
+Set fetches
+-------------------------
+[12:01:48] # of elements fetched: 31465.        Fetch took: 82,05ms.    Enumerating result took: 0,69ms.
+[12:01:48] # of elements fetched: 31465.        Fetch took: 82,14ms.    Enumerating result took: 0,62ms.
+[12:01:48] # of elements fetched: 31465.        Fetch took: 81,78ms.    Enumerating result took: 0,63ms.
+[12:01:48] # of elements fetched: 31465.        Fetch took: 81,54ms.    Enumerating result took: 0,71ms.
+[12:01:48] # of elements fetched: 31465.        Fetch took: 82,08ms.    Enumerating result took: 0,67ms.
+[12:01:48] # of elements fetched: 31465.        Fetch took: 82,09ms.    Enumerating result took: 0,70ms.
+[12:01:48] # of elements fetched: 31465.        Fetch took: 81,64ms.    Enumerating result took: 0,87ms.
+[12:01:49] # of elements fetched: 31465.        Fetch took: 83,31ms.    Enumerating result took: 0,73ms.
+[12:01:49] # of elements fetched: 31465.        Fetch took: 81,86ms.    Enumerating result took: 0,63ms.
+[12:01:49] # of elements fetched: 31465.        Fetch took: 81,67ms.    Enumerating result took: 0,72ms.
+
+Single element fetches
+-------------------------
+[12:01:49] # of elements fetched individually: 100.     Total time: 15,75ms.    Time per element: 0,16ms
+[12:01:49] # of elements fetched individually: 100.     Total time: 13,95ms.    Time per element: 0,14ms
+[12:01:49] # of elements fetched individually: 100.     Total time: 13,89ms.    Time per element: 0,14ms
+[12:01:49] # of elements fetched individually: 100.     Total time: 12,45ms.    Time per element: 0,12ms
+[12:01:49] # of elements fetched individually: 100.     Total time: 12,69ms.    Time per element: 0,13ms
+[12:01:49] # of elements fetched individually: 100.     Total time: 13,48ms.    Time per element: 0,13ms
+[12:01:49] # of elements fetched individually: 100.     Total time: 12,66ms.    Time per element: 0,13ms
+[12:01:49] # of elements fetched individually: 100.     Total time: 12,48ms.    Time per element: 0,12ms
+[12:01:49] # of elements fetched individually: 100.     Total time: 12,67ms.    Time per element: 0,13ms
+[12:01:49] # of elements fetched individually: 100.     Total time: 12,51ms.    Time per element: 0,13ms
+
+Eager Load fetches
+-------------------------
+[12:01:49] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 18,23ms.
+[12:01:49] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 15,82ms.
+[12:01:49] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 16,23ms.
+[12:01:49] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 16,13ms.
+[12:01:49] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 15,44ms.
+[12:01:49] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 15,54ms.
+[12:01:49] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 15,98ms.
+[12:01:49] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 15,81ms.
+[12:01:49] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 15,73ms.
+[12:01:49] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 16,12ms.
+
+Async eager Load fetches
+-------------------------
+[12:01:49] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 20,23ms.
+[12:01:49] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 19,46ms.
+[12:01:49] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 19,03ms.
+[12:01:49] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 19,17ms.
+[12:01:49] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 19,02ms.
+[12:01:49] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 18,39ms.
+[12:01:49] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 19,10ms.
+[12:01:49] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 18,83ms.
+[12:01:49] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 18,21ms.
+[12:01:49] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 19,30ms.
+
+Set Inserts
+-------------------------
+[12:01:49] # of elements inserted as set: 0 (batch size: 100).  Set insert took: 17,76ms.
+[12:01:50] # of elements inserted as set: 0 (batch size: 100).  Set insert took: 16,10ms.
+[12:01:50] # of elements inserted as set: 0 (batch size: 100).  Set insert took: 16,60ms.
+[12:01:50] # of elements inserted as set: 0 (batch size: 100).  Set insert took: 16,66ms.
+[12:01:50] # of elements inserted as set: 0 (batch size: 100).  Set insert took: 16,79ms.
+[12:01:50] # of elements inserted as set: 0 (batch size: 100).  Set insert took: 16,68ms.
+[12:01:50] # of elements inserted as set: 0 (batch size: 100).  Set insert took: 16,55ms.
+[12:01:50] # of elements inserted as set: 0 (batch size: 100).  Set insert took: 16,13ms.
+[12:01:50] # of elements inserted as set: 0 (batch size: 100).  Set insert took: 15,95ms.
+[12:01:50] # of elements inserted as set: 0 (batch size: 100).  Set insert took: 16,25ms.
+
+LLBLGen Pro v5.7.0.0 (v5.7.0), Poco with Raw SQL. Change tracking: False. Caching: False.
+--------------------------------------------------------------------------------------------
+First one warm-up run of each bench type to initialize constructs. Results will not be collected.
+[12:01:50] # of elements fetched: 31465.        Fetch took: 128,28ms.   Enumerating result took: 0,93ms.
+[12:01:51] # of elements fetched individually: 100.     Total time: 14,67ms.    Time per element: 0,15ms
+Doing a GC collect...
+Done.
+
+Starting bench runs...
+Set fetches
+-------------------------
+[12:01:51] # of elements fetched: 31465.        Fetch took: 85,33ms.    Enumerating result took: 0,74ms.
+[12:01:51] # of elements fetched: 31465.        Fetch took: 84,93ms.    Enumerating result took: 0,78ms.
+[12:01:51] # of elements fetched: 31465.        Fetch took: 84,74ms.    Enumerating result took: 0,60ms.
+[12:01:51] # of elements fetched: 31465.        Fetch took: 84,80ms.    Enumerating result took: 0,67ms.
+[12:01:51] # of elements fetched: 31465.        Fetch took: 85,85ms.    Enumerating result took: 0,59ms.
+[12:01:51] # of elements fetched: 31465.        Fetch took: 85,71ms.    Enumerating result took: 0,85ms.
+[12:01:51] # of elements fetched: 31465.        Fetch took: 85,91ms.    Enumerating result took: 0,58ms.
+[12:01:51] # of elements fetched: 31465.        Fetch took: 84,92ms.    Enumerating result took: 0,61ms.
+[12:01:51] # of elements fetched: 31465.        Fetch took: 87,44ms.    Enumerating result took: 0,67ms.
+[12:01:51] # of elements fetched: 31465.        Fetch took: 86,51ms.    Enumerating result took: 0,59ms.
+
+Single element fetches
+-------------------------
+[12:01:51] # of elements fetched individually: 100.     Total time: 12,63ms.    Time per element: 0,13ms
+[12:01:51] # of elements fetched individually: 100.     Total time: 10,36ms.    Time per element: 0,10ms
+[12:01:51] # of elements fetched individually: 100.     Total time: 10,41ms.    Time per element: 0,10ms
+[12:01:52] # of elements fetched individually: 100.     Total time: 10,04ms.    Time per element: 0,10ms
+[12:01:52] # of elements fetched individually: 100.     Total time: 10,01ms.    Time per element: 0,10ms
+[12:01:52] # of elements fetched individually: 100.     Total time: 10,39ms.    Time per element: 0,10ms
+[12:01:52] # of elements fetched individually: 100.     Total time: 10,09ms.    Time per element: 0,10ms
+[12:01:52] # of elements fetched individually: 100.     Total time: 10,00ms.    Time per element: 0,10ms
+[12:01:52] # of elements fetched individually: 100.     Total time: 10,51ms.    Time per element: 0,11ms
+[12:01:52] # of elements fetched individually: 100.     Total time: 10,18ms.    Time per element: 0,10ms
+
+LLBLGen Pro v5.7.0.0 (v5.7.0), Poco typed view with QuerySpec. Change tracking: False. Caching: False.
+--------------------------------------------------------------------------------------------
+First one warm-up run of each bench type to initialize constructs. Results will not be collected.
+[12:01:52] # of elements fetched: 31465.        Fetch took: 211,94ms.   Enumerating result took: 1,61ms.
+[12:01:52] # of elements fetched individually: 100.     Total time: 47,97ms.    Time per element: 0,48ms
+Doing a GC collect...
+Done.
+
+Starting bench runs...
+Set fetches
+-------------------------
+[12:01:52] # of elements fetched: 31465.        Fetch took: 94,31ms.    Enumerating result took: 1,05ms.
+[12:01:52] # of elements fetched: 31465.        Fetch took: 95,33ms.    Enumerating result took: 1,08ms.
+[12:01:52] # of elements fetched: 31465.        Fetch took: 95,03ms.    Enumerating result took: 0,96ms.
+[12:01:52] # of elements fetched: 31465.        Fetch took: 93,41ms.    Enumerating result took: 0,81ms.
+[12:01:52] # of elements fetched: 31465.        Fetch took: 93,55ms.    Enumerating result took: 0,83ms.
+[12:01:52] # of elements fetched: 31465.        Fetch took: 93,31ms.    Enumerating result took: 0,90ms.
+[12:01:53] # of elements fetched: 31465.        Fetch took: 93,52ms.    Enumerating result took: 0,93ms.
+[12:01:53] # of elements fetched: 31465.        Fetch took: 93,30ms.    Enumerating result took: 0,85ms.
+[12:01:53] # of elements fetched: 31465.        Fetch took: 94,06ms.    Enumerating result took: 0,90ms.
+[12:01:53] # of elements fetched: 31465.        Fetch took: 94,44ms.    Enumerating result took: 0,97ms.
+
+Single element fetches
+-------------------------
+[12:01:53] # of elements fetched individually: 100.     Total time: 23,28ms.    Time per element: 0,23ms
+[12:01:53] # of elements fetched individually: 100.     Total time: 19,23ms.    Time per element: 0,19ms
+[12:01:53] # of elements fetched individually: 100.     Total time: 16,93ms.    Time per element: 0,17ms
+[12:01:53] # of elements fetched individually: 100.     Total time: 17,68ms.    Time per element: 0,18ms
+[12:01:53] # of elements fetched individually: 100.     Total time: 17,20ms.    Time per element: 0,17ms
+[12:01:53] # of elements fetched individually: 100.     Total time: 17,29ms.    Time per element: 0,17ms
+[12:01:53] # of elements fetched individually: 100.     Total time: 17,51ms.    Time per element: 0,18ms
+[12:01:53] # of elements fetched individually: 100.     Total time: 17,16ms.    Time per element: 0,17ms
+[12:01:53] # of elements fetched individually: 100.     Total time: 17,24ms.    Time per element: 0,17ms
+[12:01:53] # of elements fetched individually: 100.     Total time: 17,32ms.    Time per element: 0,17ms
+
+LLBLGen Pro v5.7.0.0 (v5.7.0), Poco typed view with Linq. Change tracking: False. Caching: False.
+--------------------------------------------------------------------------------------------
+First one warm-up run of each bench type to initialize constructs. Results will not be collected.
+[12:01:53] # of elements fetched: 31465.        Fetch took: 164,13ms.   Enumerating result took: 1,26ms.
+[12:01:53] # of elements fetched individually: 100.     Total time: 120,96ms.   Time per element: 1,21ms
+Doing a GC collect...
+Done.
+
+Starting bench runs...
+Set fetches
+-------------------------
+[12:01:54] # of elements fetched: 31465.        Fetch took: 98,65ms.    Enumerating result took: 0,98ms.
+[12:01:54] # of elements fetched: 31465.        Fetch took: 96,19ms.    Enumerating result took: 0,93ms.
+[12:01:54] # of elements fetched: 31465.        Fetch took: 98,43ms.    Enumerating result took: 0,83ms.
+[12:01:54] # of elements fetched: 31465.        Fetch took: 96,74ms.    Enumerating result took: 0,87ms.
+[12:01:54] # of elements fetched: 31465.        Fetch took: 96,35ms.    Enumerating result took: 0,81ms.
+[12:01:54] # of elements fetched: 31465.        Fetch took: 97,16ms.    Enumerating result took: 1,00ms.
+[12:01:54] # of elements fetched: 31465.        Fetch took: 97,51ms.    Enumerating result took: 1,03ms.
+[12:01:54] # of elements fetched: 31465.        Fetch took: 97,11ms.    Enumerating result took: 0,92ms.
+[12:01:54] # of elements fetched: 31465.        Fetch took: 97,31ms.    Enumerating result took: 0,91ms.
+[12:01:55] # of elements fetched: 31465.        Fetch took: 97,23ms.    Enumerating result took: 0,81ms.
+
+Single element fetches
+-------------------------
+[12:01:55] # of elements fetched individually: 100.     Total time: 57,33ms.    Time per element: 0,57ms
+[12:01:55] # of elements fetched individually: 100.     Total time: 56,09ms.    Time per element: 0,56ms
+[12:01:55] # of elements fetched individually: 100.     Total time: 56,07ms.    Time per element: 0,56ms
+[12:01:55] # of elements fetched individually: 100.     Total time: 62,69ms.    Time per element: 0,63ms
+[12:01:55] # of elements fetched individually: 100.     Total time: 65,95ms.    Time per element: 0,66ms
+[12:01:55] # of elements fetched individually: 100.     Total time: 54,75ms.    Time per element: 0,55ms
+[12:01:55] # of elements fetched individually: 100.     Total time: 55,14ms.    Time per element: 0,55ms
+[12:01:55] # of elements fetched individually: 100.     Total time: 62,56ms.    Time per element: 0,63ms
+[12:01:55] # of elements fetched individually: 100.     Total time: 54,40ms.    Time per element: 0,54ms
+[12:01:55] # of elements fetched individually: 100.     Total time: 53,21ms.    Time per element: 0,53ms
+
+LLBLGen Pro v5.7.0.0 (v5.7.0), DataTable based TypedView. Change tracking: False. Caching: False.
+--------------------------------------------------------------------------------------------
+First one warm-up run of each bench type to initialize constructs. Results will not be collected.
+[12:01:55] # of elements fetched: 31465.        Fetch took: 176,33ms.   Enumerating result took: 14,02ms.
+[12:01:55] # of elements fetched individually: 100.     Total time: 33,46ms.    Time per element: 0,33ms
+Doing a GC collect...
+Done.
+
+Starting bench runs...
+Set fetches
+-------------------------
+[12:01:56] # of elements fetched: 31465.        Fetch took: 167,41ms.   Enumerating result took: 2,82ms.
+[12:01:56] # of elements fetched: 31465.        Fetch took: 161,16ms.   Enumerating result took: 2,85ms.
+[12:01:56] # of elements fetched: 31465.        Fetch took: 160,15ms.   Enumerating result took: 2,30ms.
+[12:01:56] # of elements fetched: 31465.        Fetch took: 159,77ms.   Enumerating result took: 2,59ms.
+[12:01:56] # of elements fetched: 31465.        Fetch took: 164,01ms.   Enumerating result took: 2,43ms.
+[12:01:56] # of elements fetched: 31465.        Fetch took: 159,50ms.   Enumerating result took: 2,28ms.
+[12:01:57] # of elements fetched: 31465.        Fetch took: 159,51ms.   Enumerating result took: 2,22ms.
+[12:01:57] # of elements fetched: 31465.        Fetch took: 159,36ms.   Enumerating result took: 2,43ms.
+[12:01:57] # of elements fetched: 31465.        Fetch took: 160,50ms.   Enumerating result took: 2,13ms.
+[12:01:57] # of elements fetched: 31465.        Fetch took: 159,67ms.   Enumerating result took: 2,31ms.
+
+Single element fetches
+-------------------------
+[12:01:57] # of elements fetched individually: 100.     Total time: 30,44ms.    Time per element: 0,30ms
+[12:01:57] # of elements fetched individually: 100.     Total time: 28,58ms.    Time per element: 0,29ms
+[12:01:57] # of elements fetched individually: 100.     Total time: 28,48ms.    Time per element: 0,28ms
+[12:01:57] # of elements fetched individually: 100.     Total time: 28,46ms.    Time per element: 0,28ms
+[12:01:57] # of elements fetched individually: 100.     Total time: 28,33ms.    Time per element: 0,28ms
+[12:01:57] # of elements fetched individually: 100.     Total time: 29,09ms.    Time per element: 0,29ms
+[12:01:57] # of elements fetched individually: 100.     Total time: 28,32ms.    Time per element: 0,28ms
+[12:01:57] # of elements fetched individually: 100.     Total time: 29,01ms.    Time per element: 0,29ms
+[12:01:57] # of elements fetched individually: 100.     Total time: 28,67ms.    Time per element: 0,29ms
+[12:01:57] # of elements fetched individually: 100.     Total time: 29,48ms.    Time per element: 0,29ms
+
+LLBLGen Pro v5.7.0.0 (v5.7.0). Change tracking: True. Caching: True.
+--------------------------------------------------------------------------------------------
+First one warm-up run of each bench type to initialize constructs. Results will not be collected.
+[12:01:58] # of elements fetched: 31465.        Fetch took: 257,37ms.   Enumerating result took: 10,98ms.
+[12:01:58] # of elements fetched individually: 100.     Total time: 57,56ms.    Time per element: 0,58ms
+Doing a GC collect...
+Done.
+
+Starting bench runs...
+Set fetches
+-------------------------
+[12:01:58] # of elements fetched: 31465.        Fetch took: 49,26ms.    Enumerating result took: 5,53ms.
+[12:01:58] # of elements fetched: 31465.        Fetch took: 47,00ms.    Enumerating result took: 5,25ms.
+[12:01:58] # of elements fetched: 31465.        Fetch took: 47,32ms.    Enumerating result took: 4,44ms.
+[12:01:58] # of elements fetched: 31465.        Fetch took: 47,78ms.    Enumerating result took: 3,92ms.
+[12:01:58] # of elements fetched: 31465.        Fetch took: 47,73ms.    Enumerating result took: 3,70ms.
+[12:01:58] # of elements fetched: 31465.        Fetch took: 45,80ms.    Enumerating result took: 3,54ms.
+[12:01:58] # of elements fetched: 31465.        Fetch took: 47,13ms.    Enumerating result took: 3,84ms.
+[12:01:59] # of elements fetched: 31465.        Fetch took: 47,43ms.    Enumerating result took: 3,62ms.
+[12:01:59] # of elements fetched: 31465.        Fetch took: 45,72ms.    Enumerating result took: 3,65ms.
+[12:01:59] # of elements fetched: 31465.        Fetch took: 45,87ms.    Enumerating result took: 3,52ms.
+
+Single element fetches
+-------------------------
+[12:01:59] # of elements fetched individually: 100.     Total time: 7,42ms.     Time per element: 0,07ms
+[12:01:59] # of elements fetched individually: 100.     Total time: 6,87ms.     Time per element: 0,07ms
+[12:01:59] # of elements fetched individually: 100.     Total time: 7,99ms.     Time per element: 0,08ms
+[12:01:59] # of elements fetched individually: 100.     Total time: 8,12ms.     Time per element: 0,08ms
+[12:01:59] # of elements fetched individually: 100.     Total time: 7,77ms.     Time per element: 0,08ms
+[12:01:59] # of elements fetched individually: 100.     Total time: 8,11ms.     Time per element: 0,08ms
+[12:01:59] # of elements fetched individually: 100.     Total time: 9,51ms.     Time per element: 0,10ms
+[12:01:59] # of elements fetched individually: 100.     Total time: 8,04ms.     Time per element: 0,08ms
+[12:01:59] # of elements fetched individually: 100.     Total time: 7,68ms.     Time per element: 0,08ms
+[12:01:59] # of elements fetched individually: 100.     Total time: 7,85ms.     Time per element: 0,08ms
+
+LLBLGen Pro v5.7.0.0 (v5.7.0). Change tracking: True. Caching: False.
+--------------------------------------------------------------------------------------------
+First one warm-up run of each bench type to initialize constructs. Results will not be collected.
+[12:01:59] # of elements fetched: 31465.        Fetch took: 152,93ms.   Enumerating result took: 5,81ms.
+[12:01:59] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 126,52ms.
+[12:02:00] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 106,84ms.
+[12:02:00] # of elements fetched individually: 100.     Total time: 33,47ms.    Time per element: 0,33ms
+[12:02:00] # of elements inserted as set: 1000 (batch size: 100).       Set insert took: 687,18ms.
+Doing a GC collect...
+Done.
+
+Starting bench runs...
+Set fetches
+-------------------------
+[12:02:01] # of elements fetched: 31465.        Fetch took: 143,61ms.   Enumerating result took: 5,71ms.
+[12:02:01] # of elements fetched: 31465.        Fetch took: 147,40ms.   Enumerating result took: 5,74ms.
+[12:02:01] # of elements fetched: 31465.        Fetch took: 164,19ms.   Enumerating result took: 5,69ms.
+[12:02:01] # of elements fetched: 31465.        Fetch took: 165,25ms.   Enumerating result took: 5,73ms.
+[12:02:01] # of elements fetched: 31465.        Fetch took: 172,62ms.   Enumerating result took: 5,74ms.
+[12:02:02] # of elements fetched: 31465.        Fetch took: 164,35ms.   Enumerating result took: 5,43ms.
+[12:02:02] # of elements fetched: 31465.        Fetch took: 165,15ms.   Enumerating result took: 5,50ms.
+[12:02:02] # of elements fetched: 31465.        Fetch took: 163,59ms.   Enumerating result took: 5,58ms.
+[12:02:02] # of elements fetched: 31465.        Fetch took: 164,07ms.   Enumerating result took: 5,68ms.
+[12:02:03] # of elements fetched: 31465.        Fetch took: 165,73ms.   Enumerating result took: 5,67ms.
+
+Single element fetches
+-------------------------
+[12:02:03] # of elements fetched individually: 100.     Total time: 17,20ms.    Time per element: 0,17ms
+[12:02:03] # of elements fetched individually: 100.     Total time: 15,39ms.    Time per element: 0,15ms
+[12:02:03] # of elements fetched individually: 100.     Total time: 16,53ms.    Time per element: 0,17ms
+[12:02:03] # of elements fetched individually: 100.     Total time: 15,92ms.    Time per element: 0,16ms
+[12:02:03] # of elements fetched individually: 100.     Total time: 15,88ms.    Time per element: 0,16ms
+[12:02:03] # of elements fetched individually: 100.     Total time: 15,95ms.    Time per element: 0,16ms
+[12:02:03] # of elements fetched individually: 100.     Total time: 15,63ms.    Time per element: 0,16ms
+[12:02:03] # of elements fetched individually: 100.     Total time: 16,10ms.    Time per element: 0,16ms
+[12:02:03] # of elements fetched individually: 100.     Total time: 16,51ms.    Time per element: 0,17ms
+[12:02:03] # of elements fetched individually: 100.     Total time: 16,01ms.    Time per element: 0,16ms
+
+Eager Load fetches
+-------------------------
+[12:02:03] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 49,67ms.
+[12:02:03] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 41,93ms.
+[12:02:03] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 41,60ms.
+[12:02:03] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 42,64ms.
+[12:02:03] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 42,98ms.
+[12:02:04] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 42,64ms.
+[12:02:04] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 40,94ms.
+[12:02:04] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 41,64ms.
+[12:02:04] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 41,76ms.
+[12:02:04] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 41,32ms.
+
+Async eager Load fetches
+-------------------------
+[12:02:04] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 45,67ms.
+[12:02:04] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 45,40ms.
+[12:02:04] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 43,30ms.
+[12:02:04] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 43,21ms.
+[12:02:04] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 43,56ms.
+[12:02:04] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 43,48ms.
+[12:02:04] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 44,44ms.
+[12:02:05] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 43,80ms.
+[12:02:05] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 39,55ms.
+[12:02:05] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 37,48ms.
+
+Set Inserts
+-------------------------
+[12:02:05] # of elements inserted as set: 1000 (batch size: 100).       Set insert took: 70,47ms.
+[12:02:05] # of elements inserted as set: 1000 (batch size: 100).       Set insert took: 71,11ms.
+[12:02:05] # of elements inserted as set: 1000 (batch size: 100).       Set insert took: 66,98ms.
+[12:02:05] # of elements inserted as set: 1000 (batch size: 100).       Set insert took: 70,38ms.
+[12:02:06] # of elements inserted as set: 1000 (batch size: 100).       Set insert took: 66,46ms.
+[12:02:06] # of elements inserted as set: 1000 (batch size: 100).       Set insert took: 65,65ms.
+[12:02:06] # of elements inserted as set: 1000 (batch size: 100).       Set insert took: 65,81ms.
+[12:02:06] # of elements inserted as set: 1000 (batch size: 100).       Set insert took: 66,02ms.
+[12:02:06] # of elements inserted as set: 1000 (batch size: 100).       Set insert took: 65,99ms.
+[12:02:07] # of elements inserted as set: 1000 (batch size: 100).       Set insert took: 71,15ms.
+
+LLBLGen Pro v5.7.0.0 (v5.7.0), Poco DTO graph. Change tracking: False. Caching: False.
+--------------------------------------------------------------------------------------------
+First one warm-up run of each bench type to initialize constructs. Results will not be collected.
+[12:02:07] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 72,08ms.
+[12:02:07] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 46,94ms.
+Doing a GC collect...
+Done.
+
+Starting bench runs...
+
+Eager Load fetches
+-------------------------
+[12:02:07] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 17,45ms.
+[12:02:07] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 18,64ms.
+[12:02:07] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 19,48ms.
+[12:02:07] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 19,09ms.
+[12:02:07] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 18,74ms.
+[12:02:07] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 19,40ms.
+[12:02:07] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 18,62ms.
+[12:02:07] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 18,42ms.
+[12:02:07] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 18,48ms.
+[12:02:07] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 18,71ms.
+
+Async eager Load fetches
+-------------------------
+[12:02:07] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 19,57ms.
+[12:02:07] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 19,54ms.
+[12:02:07] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 19,18ms.
+[12:02:07] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 19,39ms.
+[12:02:07] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 19,30ms.
+[12:02:08] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 19,22ms.
+[12:02:08] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 19,54ms.
+[12:02:08] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 18,93ms.
+[12:02:08] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 19,93ms.
+[12:02:08] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 20,54ms.
+
+Dapper v2.0.0.0. Change tracking: False. Caching: False.
+--------------------------------------------------------------------------------------------
+First one warm-up run of each bench type to initialize constructs. Results will not be collected.
+[12:02:08] # of elements fetched: 31465.        Fetch took: 124,53ms.   Enumerating result took: 1,23ms.
+[12:02:08] # of elements fetched individually: 100.     Total time: 16,57ms.    Time per element: 0,17ms
+Doing a GC collect...
+Done.
+
+Starting bench runs...
+Set fetches
+-------------------------
+[12:02:08] # of elements fetched: 31465.        Fetch took: 106,39ms.   Enumerating result took: 1,23ms.
+[12:02:08] # of elements fetched: 31465.        Fetch took: 103,91ms.   Enumerating result took: 0,93ms.
+[12:02:08] # of elements fetched: 31465.        Fetch took: 103,10ms.   Enumerating result took: 1,12ms.
+[12:02:08] # of elements fetched: 31465.        Fetch took: 102,43ms.   Enumerating result took: 0,78ms.
+[12:02:09] # of elements fetched: 31465.        Fetch took: 102,97ms.   Enumerating result took: 0,77ms.
+[12:02:09] # of elements fetched: 31465.        Fetch took: 102,01ms.   Enumerating result took: 0,73ms.
+[12:02:09] # of elements fetched: 31465.        Fetch took: 102,37ms.   Enumerating result took: 0,89ms.
+[12:02:09] # of elements fetched: 31465.        Fetch took: 102,40ms.   Enumerating result took: 1,09ms.
+[12:02:09] # of elements fetched: 31465.        Fetch took: 102,83ms.   Enumerating result took: 0,85ms.
+[12:02:09] # of elements fetched: 31465.        Fetch took: 103,16ms.   Enumerating result took: 0,94ms.
+
+Single element fetches
+-------------------------
+[12:02:09] # of elements fetched individually: 100.     Total time: 9,92ms.     Time per element: 0,10ms
+[12:02:09] # of elements fetched individually: 100.     Total time: 9,64ms.     Time per element: 0,10ms
+[12:02:09] # of elements fetched individually: 100.     Total time: 10,03ms.    Time per element: 0,10ms
+[12:02:10] # of elements fetched individually: 100.     Total time: 9,81ms.     Time per element: 0,10ms
+[12:02:10] # of elements fetched individually: 100.     Total time: 9,30ms.     Time per element: 0,09ms
+[12:02:10] # of elements fetched individually: 100.     Total time: 9,54ms.     Time per element: 0,10ms
+[12:02:10] # of elements fetched individually: 100.     Total time: 9,68ms.     Time per element: 0,10ms
+[12:02:10] # of elements fetched individually: 100.     Total time: 10,02ms.    Time per element: 0,10ms
+[12:02:10] # of elements fetched individually: 100.     Total time: 9,68ms.     Time per element: 0,10ms
+[12:02:10] # of elements fetched individually: 100.     Total time: 9,92ms.     Time per element: 0,10ms
+
+Tortuga Chain v3.3.2.0. Change tracking: False. Caching: False.
+--------------------------------------------------------------------------------------------
+First one warm-up run of each bench type to initialize constructs. Results will not be collected.
+[12:02:10] # of elements fetched: 31465.        Fetch took: 344,99ms.   Enumerating result took: 1,11ms.
+[12:02:10] # of elements fetched individually: 100.     Total time: 24,62ms.    Time per element: 0,25ms
+Doing a GC collect...
+Done.
+
+Starting bench runs...
+Set fetches
+-------------------------
+[12:02:10] # of elements fetched: 31465.        Fetch took: 194,47ms.   Enumerating result took: 0,95ms.
+[12:02:11] # of elements fetched: 31465.        Fetch took: 191,53ms.   Enumerating result took: 0,85ms.
+[12:02:11] # of elements fetched: 31465.        Fetch took: 186,70ms.   Enumerating result took: 0,90ms.
+[12:02:11] # of elements fetched: 31465.        Fetch took: 188,68ms.   Enumerating result took: 1,00ms.
+[12:02:11] # of elements fetched: 31465.        Fetch took: 184,16ms.   Enumerating result took: 0,93ms.
+[12:02:11] # of elements fetched: 31465.        Fetch took: 183,59ms.   Enumerating result took: 0,99ms.
+[12:02:12] # of elements fetched: 31465.        Fetch took: 182,70ms.   Enumerating result took: 0,83ms.
+[12:02:12] # of elements fetched: 31465.        Fetch took: 182,96ms.   Enumerating result took: 0,90ms.
+[12:02:12] # of elements fetched: 31465.        Fetch took: 183,36ms.   Enumerating result took: 0,82ms.
+[12:02:12] # of elements fetched: 31465.        Fetch took: 182,71ms.   Enumerating result took: 0,99ms.
+
+Single element fetches
+-------------------------
+[12:02:12] # of elements fetched individually: 100.     Total time: 14,95ms.    Time per element: 0,15ms
+[12:02:12] # of elements fetched individually: 100.     Total time: 14,62ms.    Time per element: 0,15ms
+[12:02:12] # of elements fetched individually: 100.     Total time: 20,58ms.    Time per element: 0,21ms
+[12:02:12] # of elements fetched individually: 100.     Total time: 13,26ms.    Time per element: 0,13ms
+[12:02:12] # of elements fetched individually: 100.     Total time: 12,89ms.    Time per element: 0,13ms
+[12:02:12] # of elements fetched individually: 100.     Total time: 13,60ms.    Time per element: 0,14ms
+[12:02:12] # of elements fetched individually: 100.     Total time: 13,22ms.    Time per element: 0,13ms
+[12:02:12] # of elements fetched individually: 100.     Total time: 13,03ms.    Time per element: 0,13ms
+[12:02:12] # of elements fetched individually: 100.     Total time: 13,31ms.    Time per element: 0,13ms
+[12:02:12] # of elements fetched individually: 100.     Total time: 13,47ms.    Time per element: 0,13ms
+
+ServiceStack OrmLite v5.0.0.0 (v5.0.0.0). Change tracking: False. Caching: False.
+--------------------------------------------------------------------------------------------
+First one warm-up run of each bench type to initialize constructs. Results will not be collected.
+[12:02:13] # of elements fetched: 31465.        Fetch took: 177,91ms.   Enumerating result took: 1,21ms.
+[12:02:13] # of elements fetched individually: 100.     Total time: 24,74ms.    Time per element: 0,25ms
+Doing a GC collect...
+Done.
+
+Starting bench runs...
+Set fetches
+-------------------------
+[12:02:13] # of elements fetched: 31465.        Fetch took: 132,44ms.   Enumerating result took: 1,16ms.
+[12:02:13] # of elements fetched: 31465.        Fetch took: 111,69ms.   Enumerating result took: 1,11ms.
+[12:02:13] # of elements fetched: 31465.        Fetch took: 112,18ms.   Enumerating result took: 1,06ms.
+[12:02:13] # of elements fetched: 31465.        Fetch took: 112,42ms.   Enumerating result took: 1,07ms.
+[12:02:13] # of elements fetched: 31465.        Fetch took: 112,66ms.   Enumerating result took: 1,07ms.
+[12:02:13] # of elements fetched: 31465.        Fetch took: 113,37ms.   Enumerating result took: 1,04ms.
+[12:02:14] # of elements fetched: 31465.        Fetch took: 113,50ms.   Enumerating result took: 1,01ms.
+[12:02:14] # of elements fetched: 31465.        Fetch took: 112,04ms.   Enumerating result took: 1,14ms.
+[12:02:14] # of elements fetched: 31465.        Fetch took: 113,42ms.   Enumerating result took: 1,03ms.
+[12:02:14] # of elements fetched: 31465.        Fetch took: 112,87ms.   Enumerating result took: 1,07ms.
+
+Single element fetches
+-------------------------
+[12:02:14] # of elements fetched individually: 100.     Total time: 12,36ms.    Time per element: 0,12ms
+[12:02:14] # of elements fetched individually: 100.     Total time: 10,61ms.    Time per element: 0,11ms
+[12:02:14] # of elements fetched individually: 100.     Total time: 10,47ms.    Time per element: 0,10ms
+[12:02:14] # of elements fetched individually: 100.     Total time: 10,29ms.    Time per element: 0,10ms
+[12:02:14] # of elements fetched individually: 100.     Total time: 10,98ms.    Time per element: 0,11ms
+[12:02:14] # of elements fetched individually: 100.     Total time: 10,05ms.    Time per element: 0,10ms
+[12:02:14] # of elements fetched individually: 100.     Total time: 10,28ms.    Time per element: 0,10ms
+[12:02:14] # of elements fetched individually: 100.     Total time: 10,41ms.    Time per element: 0,10ms
+[12:02:14] # of elements fetched individually: 100.     Total time: 10,47ms.    Time per element: 0,10ms
+[12:02:14] # of elements fetched individually: 100.     Total time: 10,01ms.    Time per element: 0,10ms
+
+DataTable, using DbDataAdapter. Change tracking: True. Caching: False.
+--------------------------------------------------------------------------------------------
+First one warm-up run of each bench type to initialize constructs. Results will not be collected.
+[12:02:14] # of elements fetched: 31465.        Fetch took: 134,89ms.   Enumerating result took: 20,64ms.
+[12:02:14] # of elements fetched individually: 100.     Total time: 20,61ms.    Time per element: 0,21ms
+Doing a GC collect...
+Done.
+
+Starting bench runs...
+Set fetches
+-------------------------
+[12:02:14] # of elements fetched: 31465.        Fetch took: 134,66ms.   Enumerating result took: 19,85ms.
+[12:02:15] # of elements fetched: 31465.        Fetch took: 134,59ms.   Enumerating result took: 19,93ms.
+[12:02:15] # of elements fetched: 31465.        Fetch took: 136,21ms.   Enumerating result took: 20,52ms.
+[12:02:15] # of elements fetched: 31465.        Fetch took: 135,31ms.   Enumerating result took: 21,43ms.
+[12:02:15] # of elements fetched: 31465.        Fetch took: 135,64ms.   Enumerating result took: 20,58ms.
+[12:02:15] # of elements fetched: 31465.        Fetch took: 134,68ms.   Enumerating result took: 20,53ms.
+[12:02:15] # of elements fetched: 31465.        Fetch took: 135,05ms.   Enumerating result took: 20,08ms.
+[12:02:16] # of elements fetched: 31465.        Fetch took: 134,78ms.   Enumerating result took: 19,92ms.
+[12:02:16] # of elements fetched: 31465.        Fetch took: 134,75ms.   Enumerating result took: 20,20ms.
+[12:02:16] # of elements fetched: 31465.        Fetch took: 135,57ms.   Enumerating result took: 20,06ms.
+
+Single element fetches
+-------------------------
+[12:02:16] # of elements fetched individually: 100.     Total time: 13,99ms.    Time per element: 0,14ms
+[12:02:16] # of elements fetched individually: 100.     Total time: 13,16ms.    Time per element: 0,13ms
+[12:02:16] # of elements fetched individually: 100.     Total time: 12,96ms.    Time per element: 0,13ms
+[12:02:16] # of elements fetched individually: 100.     Total time: 12,82ms.    Time per element: 0,13ms
+[12:02:16] # of elements fetched individually: 100.     Total time: 12,92ms.    Time per element: 0,13ms
+[12:02:16] # of elements fetched individually: 100.     Total time: 12,86ms.    Time per element: 0,13ms
+[12:02:16] # of elements fetched individually: 100.     Total time: 12,68ms.    Time per element: 0,13ms
+[12:02:16] # of elements fetched individually: 100.     Total time: 12,88ms.    Time per element: 0,13ms
+[12:02:16] # of elements fetched individually: 100.     Total time: 13,85ms.    Time per element: 0,14ms
+[12:02:16] # of elements fetched individually: 100.     Total time: 13,02ms.    Time per element: 0,13ms
+
+Tortuga Chain, Compiled v3.3.2.0. Change tracking: False. Caching: False.
+--------------------------------------------------------------------------------------------
+First one warm-up run of each bench type to initialize constructs. Results will not be collected.
+[12:02:18] # of elements fetched: 31465.        Fetch took: 1.794,20ms. Enumerating result took: 1,05ms.
+[12:02:18] # of elements fetched individually: 100.     Total time: 153,58ms.   Time per element: 1,54ms
+Doing a GC collect...
+Done.
+
+Starting bench runs...
+Set fetches
+-------------------------
+[12:02:18] # of elements fetched: 31465.        Fetch took: 89,41ms.    Enumerating result took: 0,79ms.
+[12:02:18] # of elements fetched: 31465.        Fetch took: 89,51ms.    Enumerating result took: 1,15ms.
+[12:02:18] # of elements fetched: 31465.        Fetch took: 88,87ms.    Enumerating result took: 0,86ms.
+[12:02:19] # of elements fetched: 31465.        Fetch took: 89,27ms.    Enumerating result took: 0,77ms.
+[12:02:19] # of elements fetched: 31465.        Fetch took: 90,14ms.    Enumerating result took: 0,71ms.
+[12:02:19] # of elements fetched: 31465.        Fetch took: 88,72ms.    Enumerating result took: 0,65ms.
+[12:02:19] # of elements fetched: 31465.        Fetch took: 88,50ms.    Enumerating result took: 0,80ms.
+[12:02:19] # of elements fetched: 31465.        Fetch took: 88,54ms.    Enumerating result took: 0,72ms.
+[12:02:19] # of elements fetched: 31465.        Fetch took: 88,58ms.    Enumerating result took: 1,14ms.
+[12:02:19] # of elements fetched: 31465.        Fetch took: 89,02ms.    Enumerating result took: 0,70ms.
+
+Single element fetches
+-------------------------
+[12:02:19] # of elements fetched individually: 100.     Total time: 12,42ms.    Time per element: 0,12ms
+[12:02:19] # of elements fetched individually: 100.     Total time: 12,29ms.    Time per element: 0,12ms
+[12:02:19] # of elements fetched individually: 100.     Total time: 40,05ms.    Time per element: 0,40ms
+[12:02:19] # of elements fetched individually: 100.     Total time: 11,98ms.    Time per element: 0,12ms
+[12:02:19] # of elements fetched individually: 100.     Total time: 11,97ms.    Time per element: 0,12ms
+[12:02:19] # of elements fetched individually: 100.     Total time: 11,98ms.    Time per element: 0,12ms
+[12:02:19] # of elements fetched individually: 100.     Total time: 11,97ms.    Time per element: 0,12ms
+[12:02:19] # of elements fetched individually: 100.     Total time: 11,96ms.    Time per element: 0,12ms
+[12:02:19] # of elements fetched individually: 100.     Total time: 11,87ms.    Time per element: 0,12ms
+[12:02:19] # of elements fetched individually: 100.     Total time: 11,90ms.    Time per element: 0,12ms
+
+Entity Framework Core v3.1.6.0 (v3.100.620.31702). Change tracking: False. Caching: False.
+--------------------------------------------------------------------------------------------
+First one warm-up run of each bench type to initialize constructs. Results will not be collected.
+[12:02:21] # of elements fetched: 31465.        Fetch took: 1.226,89ms. Enumerating result took: 1,61ms.
+[12:02:21] # of elements fetched individually: 100.     Total time: 148,23ms.   Time per element: 1,48ms
+Doing a GC collect...
+Done.
+
+Starting bench runs...
+Set fetches
+-------------------------
+[12:02:21] # of elements fetched: 31465.        Fetch took: 149,46ms.   Enumerating result took: 1,41ms.
+[12:02:21] # of elements fetched: 31465.        Fetch took: 102,13ms.   Enumerating result took: 1,24ms.
+[12:02:21] # of elements fetched: 31465.        Fetch took: 99,82ms.    Enumerating result took: 1,05ms.
+[12:02:21] # of elements fetched: 31465.        Fetch took: 100,62ms.   Enumerating result took: 1,12ms.
+[12:02:21] # of elements fetched: 31465.        Fetch took: 101,23ms.   Enumerating result took: 1,12ms.
+[12:02:22] # of elements fetched: 31465.        Fetch took: 100,24ms.   Enumerating result took: 1,13ms.
+[12:02:22] # of elements fetched: 31465.        Fetch took: 101,41ms.   Enumerating result took: 1,13ms.
+[12:02:22] # of elements fetched: 31465.        Fetch took: 101,31ms.   Enumerating result took: 1,20ms.
+[12:02:22] # of elements fetched: 31465.        Fetch took: 106,41ms.   Enumerating result took: 2,45ms.
+[12:02:22] # of elements fetched: 31465.        Fetch took: 98,62ms.    Enumerating result took: 1,14ms.
+
+Single element fetches
+-------------------------
+[12:02:22] # of elements fetched individually: 100.     Total time: 34,82ms.    Time per element: 0,35ms
+[12:02:22] # of elements fetched individually: 100.     Total time: 25,48ms.    Time per element: 0,25ms
+[12:02:22] # of elements fetched individually: 100.     Total time: 25,66ms.    Time per element: 0,26ms
+[12:02:22] # of elements fetched individually: 100.     Total time: 24,39ms.    Time per element: 0,24ms
+[12:02:22] # of elements fetched individually: 100.     Total time: 24,27ms.    Time per element: 0,24ms
+[12:02:22] # of elements fetched individually: 100.     Total time: 24,00ms.    Time per element: 0,24ms
+[12:02:22] # of elements fetched individually: 100.     Total time: 27,37ms.    Time per element: 0,27ms
+[12:02:22] # of elements fetched individually: 100.     Total time: 23,82ms.    Time per element: 0,24ms
+[12:02:22] # of elements fetched individually: 100.     Total time: 23,89ms.    Time per element: 0,24ms
+[12:02:23] # of elements fetched individually: 100.     Total time: 24,06ms.    Time per element: 0,24ms
+
+Entity Framework Core v3.1.6.0 (v3.100.620.31702). Change tracking: True. Caching: False.
+--------------------------------------------------------------------------------------------
+First one warm-up run of each bench type to initialize constructs. Results will not be collected.
+[12:02:23] # of elements fetched: 31465.        Fetch took: 420,70ms.   Enumerating result took: 2,10ms.
+[12:02:23] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 258,09ms.
+[12:02:23] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 188,44ms.
+[12:02:23] # of elements fetched individually: 100.     Total time: 29,06ms.    Time per element: 0,29ms
+[12:02:27] # of elements inserted as set: 1000 (batch size: 100).       Set insert took: 276,48ms.
+Doing a GC collect...
+Done.
+
+Starting bench runs...
+Set fetches
+-------------------------
+[12:02:27] # of elements fetched: 31465.        Fetch took: 300,65ms.   Enumerating result took: 1,63ms.
+[12:02:27] # of elements fetched: 31465.        Fetch took: 319,02ms.   Enumerating result took: 1,55ms.
+[12:02:28] # of elements fetched: 31465.        Fetch took: 315,97ms.   Enumerating result took: 1,48ms.
+[12:02:28] # of elements fetched: 31465.        Fetch took: 320,13ms.   Enumerating result took: 1,50ms.
+[12:02:29] # of elements fetched: 31465.        Fetch took: 316,75ms.   Enumerating result took: 1,57ms.
+[12:02:29] # of elements fetched: 31465.        Fetch took: 319,08ms.   Enumerating result took: 1,51ms.
+[12:02:29] # of elements fetched: 31465.        Fetch took: 318,57ms.   Enumerating result took: 1,50ms.
+[12:02:30] # of elements fetched: 31465.        Fetch took: 316,62ms.   Enumerating result took: 1,51ms.
+[12:02:30] # of elements fetched: 31465.        Fetch took: 319,81ms.   Enumerating result took: 1,44ms.
+[12:02:30] # of elements fetched: 31465.        Fetch took: 317,99ms.   Enumerating result took: 1,52ms.
+
+Single element fetches
+-------------------------
+[12:02:30] # of elements fetched individually: 100.     Total time: 26,15ms.    Time per element: 0,26ms
+[12:02:30] # of elements fetched individually: 100.     Total time: 25,49ms.    Time per element: 0,25ms
+[12:02:30] # of elements fetched individually: 100.     Total time: 26,65ms.    Time per element: 0,27ms
+[12:02:31] # of elements fetched individually: 100.     Total time: 25,27ms.    Time per element: 0,25ms
+[12:02:31] # of elements fetched individually: 100.     Total time: 25,94ms.    Time per element: 0,26ms
+[12:02:31] # of elements fetched individually: 100.     Total time: 25,30ms.    Time per element: 0,25ms
+[12:02:31] # of elements fetched individually: 100.     Total time: 25,05ms.    Time per element: 0,25ms
+[12:02:31] # of elements fetched individually: 100.     Total time: 25,53ms.    Time per element: 0,26ms
+[12:02:31] # of elements fetched individually: 100.     Total time: 25,20ms.    Time per element: 0,25ms
+[12:02:31] # of elements fetched individually: 100.     Total time: 25,69ms.    Time per element: 0,26ms
+
+Eager Load fetches
+-------------------------
+[12:02:31] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 93,39ms.
+[12:02:31] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 91,90ms.
+[12:02:31] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 92,44ms.
+[12:02:31] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 92,73ms.
+[12:02:31] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 95,14ms.
+[12:02:31] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 92,36ms.
+[12:02:32] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 92,78ms.
+[12:02:32] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 92,67ms.
+[12:02:32] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 104,65ms.
+[12:02:32] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 92,16ms.
+
+Async eager Load fetches
+-------------------------
+[12:02:32] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 113,19ms.
+[12:02:32] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 111,35ms.
+[12:02:32] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 110,13ms.
+[12:02:32] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 111,04ms.
+[12:02:33] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 109,90ms.
+[12:02:33] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 110,83ms.
+[12:02:33] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 110,62ms.
+[12:02:33] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 110,07ms.
+[12:02:33] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 110,28ms.
+[12:02:33] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 111,97ms.
+
+Set Inserts
+-------------------------
+[12:02:36] # of elements inserted as set: 1000 (batch size: 100).       Set insert took: 111,27ms.
+[12:02:40] # of elements inserted as set: 1000 (batch size: 100).       Set insert took: 97,58ms.
+[12:02:43] # of elements inserted as set: 1000 (batch size: 100).       Set insert took: 102,35ms.
+[12:02:46] # of elements inserted as set: 1000 (batch size: 100).       Set insert took: 99,10ms.
+[12:02:49] # of elements inserted as set: 1000 (batch size: 100).       Set insert took: 99,55ms.
+[12:02:53] # of elements inserted as set: 1000 (batch size: 100).       Set insert took: 99,70ms.
+[12:02:56] # of elements inserted as set: 1000 (batch size: 100).       Set insert took: 100,51ms.
+[12:02:59] # of elements inserted as set: 1000 (batch size: 100).       Set insert took: 100,48ms.
+[12:03:03] # of elements inserted as set: 1000 (batch size: 100).       Set insert took: 99,63ms.
+[12:03:06] # of elements inserted as set: 1000 (batch size: 100).       Set insert took: 98,05ms.
+
+Entity Framework Core v3.1.6.0 (v3.100.620.31702) Poco DTO Graph. Change tracking: False. Caching: False.
+--------------------------------------------------------------------------------------------
+First one warm-up run of each bench type to initialize constructs. Results will not be collected.
+[12:03:06] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 72,28ms.
+[12:03:06] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 68,44ms.
+Doing a GC collect...
+Done.
+
+Starting bench runs...
+
+Eager Load fetches
+-------------------------
+[12:03:06] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 42,91ms.
+[12:03:06] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 41,31ms.
+[12:03:06] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 41,59ms.
+[12:03:06] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 43,53ms.
+[12:03:06] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 41,62ms.
+[12:03:06] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 41,59ms.
+[12:03:06] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 42,30ms.
+[12:03:06] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 42,18ms.
+[12:03:07] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 41,93ms.
+[12:03:07] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 41,00ms.
+
+Async eager Load fetches
+-------------------------
+[12:03:07] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 55,78ms.
+[12:03:07] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 52,49ms.
+[12:03:07] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 52,77ms.
+[12:03:07] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 52,93ms.
+[12:03:07] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 52,13ms.
+[12:03:07] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 52,63ms.
+[12:03:07] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 52,53ms.
+[12:03:07] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 52,16ms.
+[12:03:07] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 52,51ms.
+[12:03:07] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 52,20ms.
+
+Performing memory measurement runs.
+====================================================================
+
+Handcoded materializer using DbDataReader. Change tracking: False. Caching: False.
+--------------------------------------------------------------------------------------------
+
+Starting bench runs...
+Set fetches
+-------------------------
+[12:03:07] # of elements fetched: 31465.        Fetch took: 77,34ms.    Allocated bytes: 12146448.
+
+Single element fetches
+-------------------------
+[12:03:07] # of elements fetched individually: 100.     Total time: 10,16ms.    Allocated bytes per element: 11792.
+
+Handcoded materializer using DbDataReader and GetFieldValue<T>. Change tracking: False. Caching: False.
+--------------------------------------------------------------------------------------------
+
+Starting bench runs...
+Set fetches
+-------------------------
+[12:03:08] # of elements fetched: 31465.        Fetch took: 107,83ms.   Allocated bytes: 17077032.
+
+Single element fetches
+-------------------------
+[12:03:08] # of elements fetched individually: 100.     Total time: 11,24ms.    Allocated bytes per element: 11960.
+
+RepoDb (RawSql) v1.10.11.4. Change tracking: False. Caching: False.
+--------------------------------------------------------------------------------------------
+
+Starting bench runs...
+Set fetches
+-------------------------
+[12:03:08] # of elements fetched: 31465.        Fetch took: 79,65ms.    Allocated bytes: 12148680.
+
+Single element fetches
+-------------------------
+[12:03:08] # of elements fetched individually: 100.     Total time: 12,02ms.    Allocated bytes per element: 15408.
+
+RepoDb (Poco) v1.10.11.4. Change tracking: False. Caching: False.
+--------------------------------------------------------------------------------------------
+
+Starting bench runs...
+Set fetches
+-------------------------
+[12:03:08] # of elements fetched: 31465.        Fetch took: 80,85ms.    Allocated bytes: 12153632.
+
+Single element fetches
+-------------------------
+[12:03:08] # of elements fetched individually: 100.     Total time: 13,22ms.    Allocated bytes per element: 21264.
+
+Handcoded materializer using DbDataReader (GetValues(array), boxing). Change tracking: False. Caching: False.
+--------------------------------------------------------------------------------------------
+
+Starting bench runs...
+Set fetches
+-------------------------
+[12:03:08] # of elements fetched: 31465.        Fetch took: 90,61ms.    Allocated bytes: 27397784.
+
+Single element fetches
+-------------------------
+[12:03:08] # of elements fetched individually: 100.     Total time: 10,52ms.    Allocated bytes per element: 12520.
+
+Handcoded materializer using DbDataReader (GetValue(Ordinal), boxing). Change tracking: False. Caching: False.
+--------------------------------------------------------------------------------------------
+
+Starting bench runs...
+Set fetches
+-------------------------
+[12:03:08] # of elements fetched: 31465.        Fetch took: 98,55ms.    Allocated bytes: 27397552.
+
+Single element fetches
+-------------------------
+[12:03:08] # of elements fetched individually: 100.     Total time: 9,96ms.     Allocated bytes per element: 12288.
+
+Raw DbDataReader materializer using object arrays. Change tracking: False. Caching: False.
+--------------------------------------------------------------------------------------------
+
+Starting bench runs...
+Set fetches
+-------------------------
+[12:03:08] # of elements fetched: 31465.        Fetch took: 89,77ms.    Allocated bytes: 27266312.
+
+Single element fetches
+-------------------------
+[12:03:08] # of elements fetched individually: 100.     Total time: 14,75ms.    Allocated bytes per element: 12440.
+
+NPoco v4.0.2.0 (v4.0.2.0). Change tracking: False. Caching: False.
+--------------------------------------------------------------------------------------------
+
+Starting bench runs...
+Set fetches
+-------------------------
+[12:03:08] # of elements fetched: 31465.        Fetch took: 115,76ms.   Allocated bytes: 37838392.
+
+Single element fetches
+-------------------------
+[12:03:08] # of elements fetched individually: 100.     Total time: 47,27ms.    Allocated bytes per element: 134576.
+
+LINQ to DB v3.0.1.0 (v3.0.1) (compiled). Change tracking: False. Caching: False.
+--------------------------------------------------------------------------------------------
+
+Starting bench runs...
+Set fetches
+-------------------------
+[12:03:09] # of elements fetched: 31465.        Fetch took: 84,02ms.    Allocated bytes: 12651456.
+
+Single element fetches
+-------------------------
+[12:03:09] # of elements fetched individually: 100.     Total time: 11,62ms.    Allocated bytes per element: 12536.
+
+Eager Load fetches
+-------------------------
+[12:03:09] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 2.010.784,00ms. Allocated bytes: 2010784.
+
+Async eager Load fetches
+-------------------------
+[12:03:09] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 360,00ms. Allocated bytes: 360.
+
+Set inserts
+-------------------------
+[12:03:09] # of elements inserted as set: 0.    Set insert took: 31,08ms.       Allocated bytes: 690104.
+
+LINQ to DB v3.0.1.0 (v3.0.1) (normal). Change tracking: False. Caching: False.
+--------------------------------------------------------------------------------------------
+
+Starting bench runs...
+Set fetches
+-------------------------
+[12:03:09] # of elements fetched: 31465.        Fetch took: 86,26ms.    Allocated bytes: 12652752.
+
+Single element fetches
+-------------------------
+[12:03:09] # of elements fetched individually: 100.     Total time: 14,22ms.    Allocated bytes per element: 21000.
+
+Eager Load fetches
+-------------------------
+[12:03:09] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 2.024.728,00ms. Allocated bytes: 2024728.
+
+Async eager Load fetches
+-------------------------
+[12:03:09] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 360,00ms. Allocated bytes: 360.
+
+Set inserts
+-------------------------
+[12:03:09] # of elements inserted as set: 0.    Set insert took: 16,39ms.       Allocated bytes: 690272.
+
+LLBLGen Pro v5.7.0.0 (v5.7.0), Poco with Raw SQL. Change tracking: False. Caching: False.
+--------------------------------------------------------------------------------------------
+
+Starting bench runs...
+Set fetches
+-------------------------
+[12:03:09] # of elements fetched: 31465.        Fetch took: 88,80ms.    Allocated bytes: 12150416.
+
+Single element fetches
+-------------------------
+[12:03:09] # of elements fetched individually: 100.     Total time: 11,34ms.    Allocated bytes per element: 16880.
+
+LLBLGen Pro v5.7.0.0 (v5.7.0), Poco typed view with QuerySpec. Change tracking: False. Caching: False.
+--------------------------------------------------------------------------------------------
+
+Starting bench runs...
+Set fetches
+-------------------------
+[12:03:09] # of elements fetched: 31465.        Fetch took: 96,58ms.    Allocated bytes: 28449240.
+
+Single element fetches
+-------------------------
+[12:03:09] # of elements fetched individually: 100.     Total time: 19,50ms.    Allocated bytes per element: 62328.
+
+LLBLGen Pro v5.7.0.0 (v5.7.0), Poco typed view with Linq. Change tracking: False. Caching: False.
+--------------------------------------------------------------------------------------------
+
+Starting bench runs...
+Set fetches
+-------------------------
+[12:03:09] # of elements fetched: 31465.        Fetch took: 99,07ms.    Allocated bytes: 28680320.
+
+Single element fetches
+-------------------------
+[12:03:10] # of elements fetched individually: 100.     Total time: 57,24ms.    Allocated bytes per element: 243968.
+
+LLBLGen Pro v5.7.0.0 (v5.7.0), DataTable based TypedView. Change tracking: False. Caching: False.
+--------------------------------------------------------------------------------------------
+
+Starting bench runs...
+Set fetches
+-------------------------
+[12:03:10] # of elements fetched: 31465.        Fetch took: 156,79ms.   Allocated bytes: 44732144.
+
+Single element fetches
+-------------------------
+[12:03:10] # of elements fetched individually: 100.     Total time: 32,90ms.    Allocated bytes per element: 145424.
+
+LLBLGen Pro v5.7.0.0 (v5.7.0). Change tracking: True. Caching: True.
+--------------------------------------------------------------------------------------------
+
+Starting bench runs...
+Set fetches
+-------------------------
+[12:03:10] # of elements fetched: 31465.        Fetch took: 216,13ms.   Allocated bytes: 72067888.
+
+Single element fetches
+-------------------------
+[12:03:10] # of elements fetched individually: 100.     Total time: 37,67ms.    Allocated bytes per element: 106056.
+
+LLBLGen Pro v5.7.0.0 (v5.7.0). Change tracking: True. Caching: False.
+--------------------------------------------------------------------------------------------
+
+Starting bench runs...
+Set fetches
+-------------------------
+[12:03:10] # of elements fetched: 31465.        Fetch took: 149,93ms.   Allocated bytes: 49333192.
+
+Single element fetches
+-------------------------
+[12:03:10] # of elements fetched individually: 100.     Total time: 17,05ms.    Allocated bytes per element: 49744.
+
+Eager Load fetches
+-------------------------
+[12:03:11] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 18.480.632,00ms. Allocated bytes: 18480632.
+
+Async eager Load fetches
+-------------------------
+[12:03:11] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 360,00ms. Allocated bytes: 360.
+
+Set inserts
+-------------------------
+[12:03:11] # of elements inserted as set: 1000. Set insert took: 74,34ms.       Allocated bytes: 10348304.
+
+LLBLGen Pro v5.7.0.0 (v5.7.0), Poco DTO graph. Change tracking: False. Caching: False.
+--------------------------------------------------------------------------------------------
+
+Starting bench runs...
+
+Eager Load fetches
+-------------------------
+[12:03:11] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 7.970.216,00ms. Allocated bytes: 7970216.
+
+Async eager Load fetches
+-------------------------
+[12:03:11] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 360,00ms. Allocated bytes: 360.
+
+Dapper v2.0.0.0. Change tracking: False. Caching: False.
+--------------------------------------------------------------------------------------------
+
+Starting bench runs...
+Set fetches
+-------------------------
+[12:03:11] # of elements fetched: 31465.        Fetch took: 108,97ms.   Allocated bytes: 27397888.
+
+Single element fetches
+-------------------------
+[12:03:11] # of elements fetched individually: 100.     Total time: 10,59ms.    Allocated bytes per element: 12376.
+
+Tortuga Chain v3.3.2.0. Change tracking: False. Caching: False.
+--------------------------------------------------------------------------------------------
+
+Starting bench runs...
+Set fetches
+-------------------------
+[12:03:11] # of elements fetched: 31465.        Fetch took: 190,40ms.   Allocated bytes: 40560704.
+
+Single element fetches
+-------------------------
+[12:03:11] # of elements fetched individually: 100.     Total time: 15,17ms.    Allocated bytes per element: 30624.
+
+ServiceStack OrmLite v5.0.0.0 (v5.0.0.0). Change tracking: False. Caching: False.
+--------------------------------------------------------------------------------------------
+
+Starting bench runs...
+Set fetches
+-------------------------
+[12:03:12] # of elements fetched: 31465.        Fetch took: 121,79ms.   Allocated bytes: 30418984.
+
+Single element fetches
+-------------------------
+[12:03:12] # of elements fetched individually: 100.     Total time: 11,48ms.    Allocated bytes per element: 13808.
+
+DataTable, using DbDataAdapter. Change tracking: True. Caching: False.
+--------------------------------------------------------------------------------------------
+
+Starting bench runs...
+Set fetches
+-------------------------
+[12:03:12] # of elements fetched: 31465.        Fetch took: 141,98ms.   Allocated bytes: 27780616.
+
+Single element fetches
+-------------------------
+[12:03:12] # of elements fetched individually: 100.     Total time: 14,58ms.    Allocated bytes per element: 57704.
+
+Tortuga Chain, Compiled v3.3.2.0. Change tracking: False. Caching: False.
+--------------------------------------------------------------------------------------------
+
+Starting bench runs...
+Set fetches
+-------------------------
+[12:03:12] # of elements fetched: 31465.        Fetch took: 96,88ms.    Allocated bytes: 14176208.
+
+Single element fetches
+-------------------------
+[12:03:12] # of elements fetched individually: 100.     Total time: 13,96ms.    Allocated bytes per element: 27304.
+
+Entity Framework Core v3.1.6.0 (v3.100.620.31702). Change tracking: False. Caching: False.
+--------------------------------------------------------------------------------------------
+
+Starting bench runs...
+Set fetches
+-------------------------
+[12:03:12] # of elements fetched: 31465.        Fetch took: 111,53ms.   Allocated bytes: 27794632.
+
+Single element fetches
+-------------------------
+[12:03:12] # of elements fetched individually: 100.     Total time: 26,34ms.    Allocated bytes per element: 61160.
+
+Entity Framework Core v3.1.6.0 (v3.100.620.31702). Change tracking: True. Caching: False.
+--------------------------------------------------------------------------------------------
+
+Starting bench runs...
+Set fetches
+-------------------------
+[12:03:13] # of elements fetched: 31465.        Fetch took: 310,40ms.   Allocated bytes: 76064304.
+
+Single element fetches
+-------------------------
+[12:03:13] # of elements fetched individually: 100.     Total time: 28,53ms.    Allocated bytes per element: 62320.
+
+Eager Load fetches
+-------------------------
+[12:03:13] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 15.191.896,00ms. Allocated bytes: 15191896.
+
+Async eager Load fetches
+-------------------------
+[12:03:13] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 360,00ms. Allocated bytes: 360.
+
+Set inserts
+-------------------------
+[12:03:16] # of elements inserted as set: 1000. Set insert took: 108,10ms.      Allocated bytes: 20103736.
+
+Entity Framework Core v3.1.6.0 (v3.100.620.31702) Poco DTO Graph. Change tracking: False. Caching: False.
+--------------------------------------------------------------------------------------------
+
+Starting bench runs...
+
+Eager Load fetches
+-------------------------
+[12:03:17] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 5.190.320,00ms. Allocated bytes: 5190320.
+
+Async eager Load fetches
+-------------------------
+[12:03:17] # of elements fetched: 6768 (4768 + 1000 + 1000).    Fetch took: 360,00ms. Allocated bytes: 360.
+
+Complete. Press enter to exit.
+
