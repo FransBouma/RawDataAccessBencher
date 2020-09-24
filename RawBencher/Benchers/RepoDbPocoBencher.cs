@@ -38,7 +38,7 @@ namespace RawBencher.Benchers
         {
             using (var connection = new SqlConnection(ConnectionStringToUse))
             {
-                return connection.Query<SalesOrderHeader>(new { SalesOrderId = key }).First();
+                return connection.Query<SalesOrderHeader>(new QueryField(nameof(SalesOrderHeader.SalesOrderId), key)).First();
             }
         }
 
@@ -61,7 +61,7 @@ namespace RawBencher.Benchers
         /// <returns>the framework name.</returns>
         protected override string CreateFrameworkNameImpl()
         {
-            return "RepoDb (Poco) v" + BencherUtils.GetVersion(typeof(TypeMapper));
+            return "RepoDB (POCO) v" + BencherUtils.GetVersion(typeof(TypeMapper));
         }
 
         #region Properties

@@ -61,7 +61,7 @@ namespace RawBencher.Benchers
         /// <returns>the framework name.</returns>
         protected override string CreateFrameworkNameImpl()
         {
-            return "RepoDb (RawSql) v" + BencherUtils.GetVersion(typeof(TypeMapper));
+            return "RepoDB (Raw-SQL) v" + BencherUtils.GetVersion(typeof(TypeMapper));
         }
 
         #region Properties
