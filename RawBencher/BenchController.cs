@@ -712,7 +712,7 @@ namespace RawBencher
 										  bencher.MemoryEagerLoadBenchmarks);
 					}
 				}
-				benchersToList = RegisteredBenchers.Where(b => b.SupportsEagerLoading && b.SupportsAsync && b.UsesChangeTracking && !b.UsesCaching).OrderBy(b => b.EagerLoadFetchMean).ToList();
+				benchersToList = RegisteredBenchers.Where(b => b.SupportsEagerLoading && b.SupportsAsync && b.UsesChangeTracking && !b.UsesCaching).OrderBy(b => b.AsyncEagerLoadFetchMean).ToList();
 				if(benchersToList.Count > 0)
 				{
 					Console.WriteLine("\nAsync change tracking fetches, eager load fetches, 3-node split graph, 1000 root elements ({0} runs), no caching", LoopAmount);
@@ -730,7 +730,7 @@ namespace RawBencher
 										  bencher.MemoryAsyncEagerLoadBenchmarks);
 					}
 				}
-				benchersToList = RegisteredBenchers.Where(b => b.SupportsEagerLoading && b.SupportsAsync && !b.UsesChangeTracking && !b.UsesCaching).OrderBy(b => b.EagerLoadFetchMean).ToList();
+				benchersToList = RegisteredBenchers.Where(b => b.SupportsEagerLoading && b.SupportsAsync && !b.UsesChangeTracking && !b.UsesCaching).OrderBy(b => b.AsyncEagerLoadFetchMean).ToList();
 				if(benchersToList.Count > 0)
 				{
 					Console.WriteLine("\nAsync Non-change tracking fetches, eager load fetches, 3-node split graph, 1000 root elements ({0} runs), no caching", LoopAmount);
