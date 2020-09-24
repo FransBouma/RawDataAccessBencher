@@ -10,7 +10,7 @@ namespace RawBencher.Benchers
 	/// <summary>
 	/// Specific bencher for the DbDataReader using object array bencher, it can't get much more raw than this, doing no-change tracking fetch
 	/// </summary>
-	public class RawDbDataReaderBencher : BencherBase<object[]>
+	public class RawDbDataReaderBencher : FetchOnlyBencherBase<object[]>
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="RawDbDataReaderBencher"/> class.

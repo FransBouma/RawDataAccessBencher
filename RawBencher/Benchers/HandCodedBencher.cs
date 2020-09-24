@@ -11,7 +11,7 @@ namespace RawBencher.Benchers
 	/// <summary>
 	/// Specific bencher for the DbDataReader using hand-coded materializer, doing no-change tracking fetch
 	/// </summary>
-	public class HandCodedBencher : BencherBase<SalesOrderHeader>
+	public class HandCodedBencher : FetchOnlyBencherBase<SalesOrderHeader>
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="HandCodedBencher"/> class.
@@ -79,6 +79,7 @@ namespace RawBencher.Benchers
 					var soh = new SalesOrderHeader();
 					// using IsDBNull(ordinal) is slow, however it allows the usage of the typed Get<type>(ordinal) methods. This avoids
 					// boxing / unboxing of the value again, which enhances performance more than IsDBNull can slow it down. 
+					soh.ModifiedDate = reader.GetDateTime(25);
 					soh.SalesOrderId = reader.GetInt32(0);
 					soh.RevisionNumber = reader.GetByte(1);
 					soh.OrderDate = reader.GetDateTime(2);
@@ -131,7 +132,6 @@ namespace RawBencher.Benchers
 						soh.Comment = reader.GetString(23);
 					}
 					soh.Rowguid = reader.GetGuid(24);
-					soh.ModifiedDate = reader.GetDateTime(25);
 					headers.Add(soh);
 				}
 				reader.Close();

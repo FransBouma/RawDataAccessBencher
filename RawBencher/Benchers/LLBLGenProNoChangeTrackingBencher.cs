@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AdventureWorks.Dal.Adapter.v53.DatabaseSpecific;
-using AdventureWorks.Dal.Adapter.v53.TypedViewClasses;
-using AdventureWorks.Dal.Adapter.v53.HelperClasses;
+using AdventureWorks.Dal.Adapter.DatabaseSpecific;
+using AdventureWorks.Dal.Adapter.TypedViewClasses;
+using AdventureWorks.Dal.Adapter.HelperClasses;
+using SD.LLBLGen.Pro.DQE.SqlServer;
 using SD.LLBLGen.Pro.ORMSupportClasses;
 
 namespace RawBencher.Benchers
@@ -13,14 +14,16 @@ namespace RawBencher.Benchers
 	/// <summary>
 	/// Specific bencher for LLBLGen Pro, doing no-change tracking fetch
 	/// </summary>bg
-	public class LLBLGenProNoChangeTrackingBencher : BencherBase<SohRow>
+	public class LLBLGenProNoChangeTrackingBencher : FetchOnlyBencherBase<SohRow>
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="LLBLGenProNoChangeTrackingBencher"/> class.
 		/// </summary>
-		public LLBLGenProNoChangeTrackingBencher()
+		public LLBLGenProNoChangeTrackingBencher(string connectionString)
 			: base(r => r.SalesOrderId, usesChangeTracking:false, usesCaching:false)
 		{
+			RuntimeConfiguration.AddConnectionString("AdventureWorks.ConnectionString.SQL Server (SqlClient)", connectionString);
+			RuntimeConfiguration.ConfigureDQE<SQLServerDQEConfiguration>(c=>c.AddDbProviderFactory(typeof(System.Data.SqlClient.SqlClientFactory)));
 		}
 
 

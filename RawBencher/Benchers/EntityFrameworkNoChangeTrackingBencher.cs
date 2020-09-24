@@ -10,7 +10,7 @@ namespace RawBencher.Benchers
 	/// <summary>
 	/// Specific bencher for Entity Framework, doing no change tracking fetch
 	/// </summary>
-	public class EntityFrameworkNoChangeTrackingBencher : BencherBase<EF6.Bencher.EntityClasses.SalesOrderHeader>
+	public class EntityFrameworkNoChangeTrackingBencher : FetchOnlyBencherBase<EF6.Bencher.EntityClasses.SalesOrderHeader>
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="EntityFrameworkNoChangeTrackingBencher"/> class.

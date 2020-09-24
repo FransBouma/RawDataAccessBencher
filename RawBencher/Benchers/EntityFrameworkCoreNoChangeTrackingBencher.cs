@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using EFCore20.Bencher;
+using EFCore.Bencher;
 using Microsoft.EntityFrameworkCore;
 
 namespace RawBencher.Benchers
@@ -11,7 +11,7 @@ namespace RawBencher.Benchers
 	/// <summary>
 	/// Specific bencher for Entity Framework, doing no change tracking fetch
 	/// </summary>
-	public class EntityFrameworkCoreNoChangeTrackingBencher : BencherBase<EFCore20.Bencher.EntityClasses.SalesOrderHeader>
+	public class EntityFrameworkCoreNoChangeTrackingBencher : FetchOnlyBencherBase<EFCore.Bencher.EntityClasses.SalesOrderHeader>
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="EntityFrameworkCoreNoChangeTrackingBencher"/> class.
@@ -27,7 +27,7 @@ namespace RawBencher.Benchers
 		/// </summary>
 		/// <param name="key">The key of the element to fetch.</param>
 		/// <returns>The fetched element, or null if not found</returns>
-		public override EFCore20.Bencher.EntityClasses.SalesOrderHeader FetchIndividual(int key)
+		public override EFCore.Bencher.EntityClasses.SalesOrderHeader FetchIndividual(int key)
 		{
 			using(var ctx = new AWDataContext(this.ConnectionStringToUse))
 			{
@@ -40,7 +40,7 @@ namespace RawBencher.Benchers
 		/// Fetches the complete set of elements and returns this set as an IEnumerable.
 		/// </summary>
 		/// <returns>the set fetched</returns>
-		public override IEnumerable<EFCore20.Bencher.EntityClasses.SalesOrderHeader> FetchSet()
+		public override IEnumerable<EFCore.Bencher.EntityClasses.SalesOrderHeader> FetchSet()
 		{
 			using(var ctx = new AWDataContext(this.ConnectionStringToUse))
 			{

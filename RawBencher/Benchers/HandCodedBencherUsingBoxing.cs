@@ -10,9 +10,9 @@ namespace RawBencher.Benchers
 {
 	/// <summary>
 	/// Specific bencher for the DbDataReader using hand-coded materializer, doing no-change tracking fetch. It uses boxing to show the performance
-	/// loss for when using GetValue(ordinal) vs. the typed methods on the datareader.
+	/// loss for when using GetValues vs. the typed methods on the datareader.
 	/// </summary>
-	public class HandCodedBencherUsingBoxing : BencherBase<SalesOrderHeader>
+	public class HandCodedBencherUsingBoxing : FetchOnlyBencherBase<SalesOrderHeader>
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="HandCodedBencherUsingBoxing"/> class.
@@ -76,8 +76,8 @@ namespace RawBencher.Benchers
 				object[] values = new object[26];
 				while(reader.Read())
 				{
-					var soh = new SalesOrderHeader();
 					reader.GetValues(values);
+					var soh = new SalesOrderHeader();
 					soh.SalesOrderId = (int)values[0];
 					soh.RevisionNumber = (byte)values[1];
 					soh.OrderDate = (DateTime)values[2];

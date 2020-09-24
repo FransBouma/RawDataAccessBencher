@@ -13,37 +13,38 @@ namespace RawBencher
 	{
 		public BenchResult()
 		{
-			this.NumberOfRowsFetchedPerType = new Dictionary<Type, int>();
+			this.NumberOfRowsAffectedPerType = new Dictionary<Type, int>();
 		}
 
 
 		public void IncNumberOfRowsForType(Type t, int amount)
 		{
 			int currentValue = 0;
-			if(!this.NumberOfRowsFetchedPerType.TryGetValue(t, out currentValue))
+			if(!this.NumberOfRowsAffectedPerType.TryGetValue(t, out currentValue))
 			{
 				currentValue = 0;
 			}
 			currentValue += amount;
-			this.NumberOfRowsFetchedPerType[t] = currentValue;
+			this.NumberOfRowsAffectedPerType[t] = currentValue;
 		}
 
-		#region Properties
-		public double FetchTimeInMilliseconds { get; set; }
+        #region Properties
+        public int InsertBatchSize { get; set; }
+        public double ActionTimeInMilliseconds { get; set; }
 		public double EnumerationTimeInMilliseconds { get; set; }
 		public long NumberOfBytesAllocated { get; set; }
 
 		/// <summary>
-		/// Gets the number of rows fetched in total. This is the aggregate of all values in NumberOfRowsFetchedPerType
+		/// Gets the number of rows affected by the action, e.g. a fetch, in total. This is the aggregate of all values in NumberOfRowsAffectedPerType
 		/// </summary>
-		public int TotalNumberOfRowsFetched
+		public int TotalNumberOfRowsAffected
 		{
-			get { return this.NumberOfRowsFetchedPerType.Sum(kvp=>kvp.Value); }
+			get { return this.NumberOfRowsAffectedPerType.Sum(kvp=>kvp.Value); }
 		}
 		/// <summary>
-		/// Gets or sets the the number of rows fetched per type in an eager load graph
+		/// Gets or sets the the number of rows affected by the action per type in an eager load graph
 		/// </summary>
-		public Dictionary<Type, int> NumberOfRowsFetchedPerType { get; private set; }
+		public Dictionary<Type, int> NumberOfRowsAffectedPerType { get; private set; }
 		#endregion
 	}
 }

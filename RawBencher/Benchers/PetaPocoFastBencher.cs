@@ -10,7 +10,7 @@ namespace RawBencher.Benchers
 	/// <summary>
 	/// Specific bencher for PetaPocoBencher , doing no-change tracking fetch
 	/// </summary>
-	public class PetaPocoFastBencher : BencherBase<SalesOrderHeader>
+	public class PetaPocoFastBencher : FetchOnlyBencherBase<SalesOrderHeader>
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="PetaPocoBencher" /> class.

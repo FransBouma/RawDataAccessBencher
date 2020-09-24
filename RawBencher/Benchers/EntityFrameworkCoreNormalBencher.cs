@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using EFCore20.Bencher;
+using EFCore.Bencher;
+using EFCore.Bencher.EntityClasses;
 using Microsoft.EntityFrameworkCore;
 
 namespace RawBencher.Benchers
@@ -11,13 +12,13 @@ namespace RawBencher.Benchers
 	/// <summary>
 	/// Specific bencher for Entity Framework Core, doing normal fetch
 	/// </summary>
-	public class EntityFrameworkCoreNormalBencher : BencherBase<EFCore20.Bencher.EntityClasses.SalesOrderHeader>
+	public class EntityFrameworkCoreNormalBencher : BencherBase<EFCore.Bencher.EntityClasses.SalesOrderHeader, EFCore.Bencher.EntityClasses.CreditCard>
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="EntityFrameworkCoreNormalBencher"/> class.
 		/// </summary>
 		public EntityFrameworkCoreNormalBencher()
-			: base(e => e.SalesOrderId, usesChangeTracking: true, usesCaching: false, supportsEagerLoading:true, supportsAsync:true)
+			: base(e => e.SalesOrderId, l=>l.CreditCardId, usesChangeTracking: true, usesCaching: false, supportsEagerLoading:true, supportsAsync:true, supportsInserts:true)
 		{
 		}
 
@@ -27,7 +28,7 @@ namespace RawBencher.Benchers
 		/// </summary>
 		/// <param name="key">The key of the element to fetch.</param>
 		/// <returns>The fetched element, or null if not found</returns>
-		public override EFCore20.Bencher.EntityClasses.SalesOrderHeader FetchIndividual(int key)
+		public override EFCore.Bencher.EntityClasses.SalesOrderHeader FetchIndividual(int key)
 		{
 			using(var ctx = new AWDataContext(this.ConnectionStringToUse))
 			{
@@ -40,7 +41,7 @@ namespace RawBencher.Benchers
 		/// Fetches the complete set of elements and returns this set as an IEnumerable.
 		/// </summary>
 		/// <returns>the set fetched</returns>
-		public override IEnumerable<EFCore20.Bencher.EntityClasses.SalesOrderHeader> FetchSet()
+		public override IEnumerable<EFCore.Bencher.EntityClasses.SalesOrderHeader> FetchSet()
 		{
 			using (var ctx = new AWDataContext(this.ConnectionStringToUse))
 			{
@@ -54,7 +55,7 @@ namespace RawBencher.Benchers
 		/// Fetches the complete graph using eager loading and returns this as an IEnumerable.
 		/// </summary>
 		/// <returns>the graph fetched</returns>
-		public override IEnumerable<EFCore20.Bencher.EntityClasses.SalesOrderHeader> FetchGraph()
+		public override IEnumerable<EFCore.Bencher.EntityClasses.SalesOrderHeader> FetchGraph()
 		{
 			using(var ctx = new AWDataContext(this.ConnectionStringToUse))
 			{
@@ -72,7 +73,7 @@ namespace RawBencher.Benchers
 		/// Async variant of FetchGraph(). Fetches the complete graph using eager loading and returns this as an IEnumerable.
 		/// </summary>
 		/// <returns>the graph fetched</returns>
-		public override async Task<IEnumerable<EFCore20.Bencher.EntityClasses.SalesOrderHeader>> FetchGraphAsync()
+		public override async Task<IEnumerable<EFCore.Bencher.EntityClasses.SalesOrderHeader>> FetchGraphAsync()
 		{
 			using(var ctx = new AWDataContext(this.ConnectionStringToUse))
 			{
@@ -92,7 +93,7 @@ namespace RawBencher.Benchers
 		/// </summary>
 		/// <param name="parent">The parent.</param>
 		/// <param name="resultContainer">The result container.</param>
-		public override void VerifyGraphElementChildren(EFCore20.Bencher.EntityClasses.SalesOrderHeader parent, BenchResult resultContainer)
+		public override void VerifyGraphElementChildren(EFCore.Bencher.EntityClasses.SalesOrderHeader parent, BenchResult resultContainer)
 		{
 			int amount = 0;
 			foreach(var sod in parent.SalesOrderDetails)
@@ -106,12 +107,69 @@ namespace RawBencher.Benchers
 					return;
 				}
 			}
-			resultContainer.IncNumberOfRowsForType(typeof(EFCore20.Bencher.EntityClasses.SalesOrderDetail), amount);
+			resultContainer.IncNumberOfRowsForType(typeof(EFCore.Bencher.EntityClasses.SalesOrderDetail), amount);
 			if((parent.Customer == null) || (parent.Customer.CustomerId <= 0))
 			{
 				return;
 			}
-			resultContainer.IncNumberOfRowsForType(typeof(EFCore20.Bencher.EntityClasses.Customer), 1);
+			resultContainer.IncNumberOfRowsForType(typeof(EFCore.Bencher.EntityClasses.Customer), 1);
+		}
+
+
+		public override IEnumerable<CreditCard> CreateSetForInserts(int amountToInsert)
+		{
+			var toReturn = new List<CreditCard>();
+			for(int i = 0; i < amountToInsert; i++)
+			{
+				toReturn.Add(new CreditCard()
+							 {
+								 CardNumber = Guid.NewGuid().ToString("N").Substring(0, 24), // we need a unique string, as there's a unique index on this field. This is semi unique... 
+								 CardType = "Vista",
+								 ExpMonth = 11,
+								 ExpYear=2018,
+								 ModifiedDate = DateTime.Now
+							 });
+			}
+			return toReturn;
+		}
+
+
+		protected override IEnumerable<CreditCard> FetchInserted(int amountInserted)
+		{
+			using(var ctx = new AWDataContext(this.ConnectionStringToUse))
+			{
+				return ctx.CreditCards.Where(c => c.CreditCardId > 19237).ToList();
+			}
+		}
+
+
+		protected override void DeleteInserted(IEnumerable<CreditCard> toDelete)
+		{
+			//using(var ctx = new AWDataContext(this.ConnectionStringToUse))
+			//{
+			//	ctx.CreditCards.RemoveRange(toDelete);
+			//	ctx.SaveChanges();
+			//}
+
+			// the above code is terribly slow, so we'll issue a direct SQL statement using SqlClient here, it otherwise takes multiple seconds for EF to delete the 1000 entities.
+			using(var con = new System.Data.SqlClient.SqlConnection(this.ConnectionStringToUse))
+			{
+				var cmd = con.CreateCommand();
+				cmd.CommandText = "DELETE FROM Sales.CreditCard WHERE CreditCardId > 19237";
+				con.Open();
+				cmd.ExecuteNonQuery();
+				con.Close();
+			}
+		}
+
+
+		public override void InsertSet(IEnumerable<CreditCard> toInsert, int batchSize)
+		{
+			using(var ctx = new AWDataContext(this.ConnectionStringToUse, batchSize))
+			{
+				ctx.CreditCards.AddRange(toInsert);
+				ctx.SaveChanges();
+			}
 		}
 
 

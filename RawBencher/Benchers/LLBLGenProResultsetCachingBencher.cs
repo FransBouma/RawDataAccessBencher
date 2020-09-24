@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AdventureWorks.Dal.Adapter.v53.DatabaseSpecific;
-using AdventureWorks.Dal.Adapter.v53.EntityClasses;
-using AdventureWorks.Dal.Adapter.v53.FactoryClasses;
-using AdventureWorks.Dal.Adapter.v53.HelperClasses;
+using AdventureWorks.Dal.Adapter.DatabaseSpecific;
+using AdventureWorks.Dal.Adapter.EntityClasses;
+using AdventureWorks.Dal.Adapter.FactoryClasses;
+using AdventureWorks.Dal.Adapter.HelperClasses;
+using SD.LLBLGen.Pro.DQE.SqlServer;
 using SD.LLBLGen.Pro.ORMSupportClasses;
 using SD.LLBLGen.Pro.QuerySpec;
 using SD.LLBLGen.Pro.QuerySpec.Adapter;
@@ -16,14 +17,16 @@ namespace RawBencher.Benchers
 	/// <summary>
 	/// Specific bencher for LLBLGen Pro, doing a resultset caching backed fetch
 	/// </summary>
-	public class LLBLGenProResultsetCachingBencher : BencherBase<SalesOrderHeaderEntity>
+	public class LLBLGenProResultsetCachingBencher : FetchOnlyBencherBase<SalesOrderHeaderEntity>
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="LLBLGenProResultsetCachingBencher"/> class.
 		/// </summary>
-		public LLBLGenProResultsetCachingBencher()
+		public LLBLGenProResultsetCachingBencher(string connectionString)
 			: base(e => e.SalesOrderId, usesChangeTracking: true, usesCaching: true)
 		{
+			RuntimeConfiguration.AddConnectionString("AdventureWorks.ConnectionString.SQL Server (SqlClient)", connectionString);
+			RuntimeConfiguration.ConfigureDQE<SQLServerDQEConfiguration>(c=>c.AddDbProviderFactory(typeof(System.Data.SqlClient.SqlClientFactory)));
 		}
 
 

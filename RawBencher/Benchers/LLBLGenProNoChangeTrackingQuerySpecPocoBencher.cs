@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AdventureWorks.Dal.Adapter.v53.DatabaseSpecific;
-using AdventureWorks.Dal.Adapter.v53.TypedViewClasses;
-using AdventureWorks.Dal.Adapter.v53.HelperClasses;
-using AdventureWorks.Dal.Adapter.v53.FactoryClasses;
+using AdventureWorks.Dal.Adapter.DatabaseSpecific;
+using AdventureWorks.Dal.Adapter.TypedViewClasses;
+using AdventureWorks.Dal.Adapter.HelperClasses;
+using AdventureWorks.Dal.Adapter.FactoryClasses;
+using SD.LLBLGen.Pro.DQE.SqlServer;
 using SD.LLBLGen.Pro.ORMSupportClasses;
 using SD.LLBLGen.Pro.QuerySpec;
 using SD.LLBLGen.Pro.QuerySpec.Adapter;
@@ -16,14 +17,16 @@ namespace RawBencher.Benchers
 	/// <summary>
 	/// Specific bencher for LLBLGen Pro, doing no-change tracking fetch, using a Typed View poco with a queryspec query.
 	/// </summary>
-	public class LLBLGenProNoChangeTrackingQuerySpecPocoBencher : BencherBase<SohQuerySpecPocoRow>
+	public class LLBLGenProNoChangeTrackingQuerySpecPocoBencher : FetchOnlyBencherBase<SohQuerySpecPocoRow>
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="LLBLGenProNoChangeTrackingQuerySpecPocoBencher"/> class.
 		/// </summary>
-		public LLBLGenProNoChangeTrackingQuerySpecPocoBencher()
+		public LLBLGenProNoChangeTrackingQuerySpecPocoBencher(string connectionString)
 			: base(r => r.SalesOrderId, usesChangeTracking:false, usesCaching:false)
 		{
+			RuntimeConfiguration.AddConnectionString("AdventureWorks.ConnectionString.SQL Server (SqlClient)", connectionString);
+			RuntimeConfiguration.ConfigureDQE<SQLServerDQEConfiguration>(c=>c.AddDbProviderFactory(typeof(System.Data.SqlClient.SqlClientFactory)));
 		}
 
 
