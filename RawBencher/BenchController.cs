@@ -40,8 +40,7 @@ namespace RawBencher
 
 		private static string ConnectionString = ConfigurationManager.ConnectionStrings["AdventureWorks.ConnectionString.SQL Server (SqlClient)"].ConnectionString;
         private static string ConnectionStringEF6 = ConfigurationManager.ConnectionStrings["EF.ConnectionString.SQL Server (SqlClient)"].ConnectionString;
-
-
+		
 		private static string SqlSelectCommandText = @"SELECT [SalesOrderID],[RevisionNumber],[OrderDate],[DueDate],[ShipDate],[Status],[OnlineOrderFlag],[SalesOrderNumber],[PurchaseOrderNumber],[AccountNumber],[CustomerID],[SalesPersonID],[TerritoryID],[BillToAddressID],[ShipToAddressID],[ShipMethodID],[CreditCardID],[CreditCardApprovalCode],[CurrencyRateID],[SubTotal],[TaxAmt],[Freight],[TotalDue],[Comment],[rowguid],[ModifiedDate] FROM [Sales].[SalesOrderHeader]";
 		private static List<IBencher> RegisteredBenchers = new List<IBencher>();
 		private static List<int> KeysForIndividualFetches = new List<int>();
@@ -77,8 +76,6 @@ namespace RawBencher
 			RegisteredBenchers.Add(new OrmLiteBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new DataTableBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new ChainCompiledBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
-
-			// EF Core 3.x does support netstandard 2.0 but the benchers fail to build on .NET 4.8 so we'll skip them on netfx
 			RegisteredBenchers.Add(new EntityFrameworkCoreNoChangeTrackingBencher() { ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new EntityFrameworkCoreNormalBencher() { ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new EntityFrameworkCoreDTOBencher() { ConnectionStringToUse = ConnectionString });
