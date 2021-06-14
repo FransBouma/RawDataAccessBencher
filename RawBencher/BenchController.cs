@@ -83,10 +83,10 @@ namespace RawBencher
             RegisteredBenchers.Add(new EntityFrameworkNormalBencher(){ConnectionStringToUse = ConnectionStringEF6});
             RegisteredBenchers.Add(new PetaPocoBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
             RegisteredBenchers.Add(new PetaPocoFastBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+            RegisteredBenchers.Add(new NHibernateNormalBencher());
 
 #if !NETCOREAPP
 			RegisteredBenchers.Add(new MassiveBencher());
-			RegisteredBenchers.Add(new NHibernateNormalBencher());
 			RegisteredBenchers.Add(new LinqToSqlNoChangeTrackingBencher());
 			RegisteredBenchers.Add(new LinqToSqlNormalBencher());
 #endif
