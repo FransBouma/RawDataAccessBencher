@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using EFCore.Bencher;
 using EFCore.Bencher.EntityClasses;
@@ -59,11 +58,14 @@ namespace RawBencher.Benchers
 		{
 			using(var ctx = new AWDataContext(this.ConnectionStringToUse))
 			{
-				return (from soh in ctx.SalesOrderHeaders
+				return (from soh in ctx.SalesOrderHeaders.AsQueryable()
 						where soh.SalesOrderId > 50000 && soh.SalesOrderId <= 51000
 						select soh)
 							.Include(x => x.SalesOrderDetails)
 							.Include(x => x.Customer)
+#if NET5_0_OR_GREATER
+                            .AsSplitQuery()
+#endif
 							.ToList();
 			}
 		}
@@ -77,11 +79,14 @@ namespace RawBencher.Benchers
 		{
 			using(var ctx = new AWDataContext(this.ConnectionStringToUse))
 			{
-				return await (from soh in ctx.SalesOrderHeaders
+				return await (from soh in ctx.SalesOrderHeaders.AsQueryable()
 							  where soh.SalesOrderId > 50000 && soh.SalesOrderId <= 51000
 							  select soh)
 					.Include(x=>x.SalesOrderDetails)
 					.Include(x=>x.Customer)
+#if NET5_0_OR_GREATER
+                    .AsSplitQuery()
+#endif
 					.ToListAsync();
 			}
 		}
@@ -138,7 +143,7 @@ namespace RawBencher.Benchers
 		{
 			using(var ctx = new AWDataContext(this.ConnectionStringToUse))
 			{
-				return ctx.CreditCards.Where(c => c.CreditCardId > 19237).ToList();
+				return ctx.CreditCards.AsQueryable().Where(c => c.CreditCardId > 19237).ToList();
 			}
 		}
 

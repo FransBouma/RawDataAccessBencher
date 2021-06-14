@@ -34,7 +34,7 @@ namespace RawBencher.Benchers
 		{
 			using(var ctx = new AWDataContext(this.ConnectionStringToUse))
 			{
-				return (from soh in ctx.SalesOrderHeaders
+				return (from soh in ctx.SalesOrderHeaders.AsQueryable()
 						where soh.SalesOrderId > 50000 && soh.SalesOrderId <= 51000
 						select soh)
 					   .ProjectToSalesOrderHeaderDto().ToList();
@@ -50,7 +50,7 @@ namespace RawBencher.Benchers
 		{
 			using(var ctx = new AWDataContext(this.ConnectionStringToUse))
 			{
-				return await (from soh in ctx.SalesOrderHeaders
+				return await (from soh in ctx.SalesOrderHeaders.AsQueryable()
 							  where soh.SalesOrderId > 50000 && soh.SalesOrderId <= 51000
 							  select soh).ProjectToSalesOrderHeaderDto().ToListAsync();
 			}

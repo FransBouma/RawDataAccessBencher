@@ -78,18 +78,18 @@ namespace RawBencher
 			RegisteredBenchers.Add(new DataTableBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new ChainCompiledBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 
-#if NETCOREAPP
 			// EF Core 3.x does support netstandard 2.0 but the benchers fail to build on .NET 4.8 so we'll skip them on netfx
 			RegisteredBenchers.Add(new EntityFrameworkCoreNoChangeTrackingBencher() { ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new EntityFrameworkCoreNormalBencher() { ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new EntityFrameworkCoreDTOBencher() { ConnectionStringToUse = ConnectionString });
-#else
+            RegisteredBenchers.Add(new EntityFrameworkNoChangeTrackingBencher(){ConnectionStringToUse = ConnectionStringEF6});
+            RegisteredBenchers.Add(new EntityFrameworkNormalBencher(){ConnectionStringToUse = ConnectionStringEF6});
+
+#if !NETCOREAPP
 			RegisteredBenchers.Add(new MassiveBencher());
 			RegisteredBenchers.Add(new NHibernateNormalBencher());
 			RegisteredBenchers.Add(new LinqToSqlNoChangeTrackingBencher());
 			RegisteredBenchers.Add(new LinqToSqlNormalBencher());
-			RegisteredBenchers.Add(new EntityFrameworkNoChangeTrackingBencher());
-			RegisteredBenchers.Add(new EntityFrameworkNormalBencher());
 			RegisteredBenchers.Add(new PetaPocoBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new PetaPocoFastBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 #endif
