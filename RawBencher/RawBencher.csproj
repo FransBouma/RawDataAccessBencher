@@ -1,14 +1,44 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\Microsoft.CodeAnalysis.Analyzers.3.3.0\build\Microsoft.CodeAnalysis.Analyzers.props" Condition="Exists('..\packages\Microsoft.CodeAnalysis.Analyzers.3.3.0\build\Microsoft.CodeAnalysis.Analyzers.props')" />
   <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
-    <TargetFramework>net4.8</TargetFramework>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A4AA317A-6958-4D0C-B2EE-026005FD2C2E}</ProjectGuid>
     <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RawBencher</RootNamespace>
+    <AssemblyName>RawBencher</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <UseWindowsForms>true</UseWindowsForms>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
     <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup>
@@ -28,52 +58,162 @@
     <Reference Include="System.Transactions" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EF6\Model\EF6.Bencher.Model.csproj" />
-    <ProjectReference Include="..\EF6\Persistence\EF6.Bencher.Persistence.csproj" />
-    <ProjectReference Include="..\EFCore\EFCore.Dtos.Persistence\EFCore.Dtos.Persistence.csproj" />
-    <ProjectReference Include="..\EFCore\EFCore.Dtos\EFCore.Dtos.csproj" />
-    <ProjectReference Include="..\EFCore\Model\EFCore.Bencher.Model.csproj" />
-    <ProjectReference Include="..\EFCore\Persistence\EFCore.Bencher.Persistence.csproj" />
-    <ProjectReference Include="..\L2S\DAL\L2S.Bencher.csproj" />
-    <ProjectReference Include="..\LINQ2DB\DAL\LINQ2DB.Bencher.csproj" />
-    <ProjectReference Include="..\LLBLGenPro\DatabaseGeneric\AdventureWorks.Dal.Adapter.csproj" />
-    <ProjectReference Include="..\LLBLGenPro\DatabaseSpecific\AdventureWorks.Dal.AdapterDBSpecific.csproj" />
-    <ProjectReference Include="..\LLBLGenPro\LLBLGenPro.Dtos.Persistence\LLBLGenPro.Dtos.Persistence.csproj" />
-    <ProjectReference Include="..\LLBLGenPro\LLBLGenPro.Dtos\LLBLGenPro.Dtos.csproj" />
-    <ProjectReference Include="..\NH\DAL\Model\NH.Bencher.Model.csproj" />
-    <ProjectReference Include="..\NH\DAL\Persistence\NH.Bencher.Persistence.csproj" />
+    <PackageReference Include="Dapper" Version="2.0.90" />
+    <PackageReference Include="linq2db" Version="3.1.6" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="3.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.16" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="3.7.0" />
+    <PackageReference Include="EntityFramework" Version="6.4.4" />
+    <PackageReference Include="Microsoft.Extensions.PlatformAbstractions" Version="1.1.0" />
+    <PackageReference Include="NPoco" Version="4.0.3" />
+    <PackageReference Include="PetaPoco.Compiled" Version="6.0.480" />
+    <PackageReference Include="RepoDb" Version="1.12.4" />
+    <PackageReference Include="RepoDb.SqlServer" Version="1.1.1" />
+    <PackageReference Include="SD.LLBLGen.Pro.DQE.SqlServer" Version="5.7.1" />
+    <PackageReference Include="ServiceStack.OrmLite.SqlServer" Version="5.10.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="Tortuga.Anchor" Version="3.3.0" />
+    <PackageReference Include="Tortuga.Chain.CompiledMaterializers" Version="3.3.3" />
+    <PackageReference Include="Tortuga.Chain.Core" Version="3.3.2" />
+    <PackageReference Include="Tortuga.Chain.SqlServer" Version="3.3.2" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
+    <PackageReference Include="NHibernate" Version="5.3.8" />
+    <PackageReference Include="System.Reflection.Metadata" Version="1.8.1" />
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.3.3.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
-    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.3.3.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
+    <Compile Include="Benchers\BencherBase.cs" />
+    <Compile Include="Benchers\ChainCompiledBencher.cs" />
+    <Compile Include="Benchers\ChainBencher.cs" />
+    <Compile Include="Benchers\EntityFrameworkCoreDTOBencher.cs" />
+    <Compile Include="Benchers\EntityFrameworkCoreNoChangeTrackingBencher.cs" />
+    <Compile Include="Benchers\EntityFrameworkCoreNormalBencher.cs" />
+    <Compile Include="Benchers\FetchOnlyBencherBase.cs" />
+    <Compile Include="Benchers\HandCodedBencherUsingBoxingGetValue.cs" />
+    <Compile Include="Benchers\HandCodedBencherUsingGetFieldValue.cs" />
+    <Compile Include="Benchers\LINQ2DBNormalBencher.cs" />
+    <Compile Include="Benchers\LLBLGenProDTOBencher.cs" />
+    <Compile Include="Benchers\LLBLGenProNoChangeTrackingQuerySpecPocoBencher.cs" />
+    <Compile Include="Benchers\MassiveBencher.cs" />
+    <Compile Include="Benchers\HandCodedBencherUsingBoxing.cs" />
+    <Compile Include="Benchers\LLBLGenProNoChangeTrackingRawSQLPocoBencher.cs" />
+    <Compile Include="Benchers\LLBLGenProNoChangeTrackingLinqPocoBencher.cs" />
+    <Compile Include="Benchers\NPocoBencher.cs" />
+    <Compile Include="Benchers\PetaPocoFastBencher.cs" />
+    <Compile Include="Benchers\RawDbDataReaderBencher.cs" />
+    <Compile Include="Benchers\IBencher.cs" />
+    <Compile Include="Benchers\OrmLiteBencher.cs" />
+    <Compile Include="Benchers\NHibernateNormalBencher.cs" />
+    <Compile Include="Benchers\LinqToSqlNoChangeTrackingBencher.cs" />
+    <Compile Include="Benchers\LinqToSqlNormalBencher.cs" />
+    <Compile Include="Benchers\EntityFrameworkNoChangeTrackingBencher.cs" />
+    <Compile Include="Benchers\EntityFrameworkNormalBencher.cs" />
+    <Compile Include="Benchers\DapperBencher.cs" />
+    <Compile Include="Benchers\DataTableBencher.cs" />
+    <Compile Include="Benchers\HandCodedBencher.cs" />
+    <Compile Include="Benchers\LLBLGenProResultsetCachingBencher.cs" />
+    <Compile Include="Benchers\LLBLGenProNoChangeTrackingBencher.cs" />
+    <Compile Include="Benchers\LLBLGenProNormalBencher.cs" />
+    <Compile Include="Benchers\RepoDbPocoBencher.cs" />
+    <Compile Include="Benchers\RepoDbRawSqlBencher.cs" />
+    <Compile Include="BencherUtils.cs" />
+    <Compile Include="BenchResult.cs" />
+    <Compile Include="Benchers\PetaPocoBencher.cs" />
+    <Compile Include="Massive.cs" />
+    <Compile Include="BenchController.cs" />
+    <Compile Include="Product.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SalesOrderHeaderChangeTracking.cs" />
+    <Compile Include="SalesOrderHeader.cs" />
   </ItemGroup>
   <ItemGroup>
-	  <PackageReference Include="Dapper" Version="2.0.90" />
-	  <PackageReference Include="linq2db" Version="3.1.6" />
-	  <PackageReference Include="Microsoft.Data.SqlClient" Version="3.0.0" />
-	  <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.16" />
-	  <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="3.7.0" />
-
-	  <PackageReference Include="EntityFramework" Version="6.4.4" />
-	  <PackageReference Include="Microsoft.Extensions.PlatformAbstractions" Version="1.1.0" />
-	  <PackageReference Include="NPoco" Version="4.0.3" />
-	  <PackageReference Include="PetaPoco.Compiled" Version="6.0.480" />
-	  <PackageReference Include="RepoDb" Version="1.12.4" />
-	  <PackageReference Include="RepoDb.SqlServer" Version="1.1.1" />
-	  <PackageReference Include="SD.LLBLGen.Pro.DQE.SqlServer" Version="5.7.1" />
-	  <PackageReference Include="ServiceStack.OrmLite.SqlServer" Version="5.10.0" />
-	  <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
-	  <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
-	  <PackageReference Include="Tortuga.Anchor" Version="3.3.0" />
-	  <PackageReference Include="Tortuga.Chain.CompiledMaterializers" Version="3.3.3" />
-	  <PackageReference Include="Tortuga.Chain.Core" Version="3.3.2" />
-	  <PackageReference Include="Tortuga.Chain.SqlServer" Version="3.3.2" />
-	  <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
-	  <PackageReference Include="NHibernate" Version="5.3.8" />
-	  <PackageReference Include="System.Reflection.Metadata" Version="1.8.1" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EF6\Model\EF6.Bencher.Model.csproj">
+      <Project>{6524b78a-ca15-41a8-80fa-216a5c99a369}</Project>
+      <Name>EF6.Bencher.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EF6\Persistence\EF6.Bencher.Persistence.csproj">
+      <Project>{ac909e22-26d0-47cf-98bc-dd07309d3a77}</Project>
+      <Name>EF6.Bencher.Persistence</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EFCore\EFCore.Dtos.Persistence\EFCore.Dtos.Persistence.csproj">
+      <Project>{cb888809-1c36-460c-8f0c-55929653bc92}</Project>
+      <Name>EFCore.Dtos.Persistence</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EFCore\EFCore.Dtos\EFCore.Dtos.csproj">
+      <Project>{cd87ceb1-0038-48c4-ab2b-ec3c39f9f56b}</Project>
+      <Name>EFCore.Dtos</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EFCore\Model\EFCore.Bencher.Model.csproj">
+      <Project>{28a31c35-2bd2-4b82-9a61-8a11f5d3ecf1}</Project>
+      <Name>EFCore.Bencher.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EFCore\Persistence\EFCore.Bencher.Persistence.csproj">
+      <Project>{8740c7bd-7007-4adb-877c-df1469df6e2a}</Project>
+      <Name>EFCore.Bencher.Persistence</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\L2S\DAL\L2S.Bencher.csproj">
+      <Project>{59322c25-fcc6-4635-a7ad-dc811f2fd1e0}</Project>
+      <Name>L2S.Bencher</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LINQ2DB\DAL\LINQ2DB.Bencher.csproj">
+      <Project>{06c162e5-0476-40f4-a705-8b5c265bfb68}</Project>
+      <Name>LINQ2DB.Bencher</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LLBLGenPro\DatabaseGeneric\AdventureWorks.Dal.Adapter.csproj">
+      <Project>{e293317e-71f0-41c0-b004-bb30d5e04b47}</Project>
+      <Name>AdventureWorks.Dal.Adapter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LLBLGenPro\DatabaseSpecific\AdventureWorks.Dal.AdapterDBSpecific.csproj">
+      <Project>{3af5906a-7f38-4d12-893b-bff557acd27a}</Project>
+      <Name>AdventureWorks.Dal.AdapterDBSpecific</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LLBLGenPro\LLBLGenPro.Dtos.Persistence\LLBLGenPro.Dtos.Persistence.csproj">
+      <Project>{67f5a619-bfc8-481c-8376-27daef66075b}</Project>
+      <Name>LLBLGenPro.Dtos.Persistence</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LLBLGenPro\LLBLGenPro.Dtos\LLBLGenPro.Dtos.csproj">
+      <Project>{6912a2db-01c3-476c-93d2-d4792edf1893}</Project>
+      <Name>LLBLGenPro.Dtos</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NH\DAL\Model\NH.Bencher.Model.csproj">
+      <Project>{45daeb56-b84d-4d7a-bf22-293f1ce07dbb}</Project>
+      <Name>NH.Bencher.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NH\DAL\Persistence\NH.Bencher.Persistence.csproj">
+      <Project>{3e9ca88c-03ec-445a-960a-242511b6ef55}</Project>
+      <Name>NH.Bencher.Persistence</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeAnalysis.Analyzers.3.3.0\build\Microsoft.CodeAnalysis.Analyzers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeAnalysis.Analyzers.3.3.0\build\Microsoft.CodeAnalysis.Analyzers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeAnalysis.Analyzers.3.3.0\build\Microsoft.CodeAnalysis.Analyzers.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeAnalysis.Analyzers.3.3.0\build\Microsoft.CodeAnalysis.Analyzers.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Data.SqlClient.SNI.2.1.0\build\net46\Microsoft.Data.SqlClient.SNI.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Data.SqlClient.SNI.2.1.0\build\net46\Microsoft.Data.SqlClient.SNI.targets'))" />
+  </Target>
   <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
   <Import Project="..\packages\Microsoft.CodeAnalysis.Analyzers.3.3.0\build\Microsoft.CodeAnalysis.Analyzers.targets" Condition="Exists('..\packages\Microsoft.CodeAnalysis.Analyzers.3.3.0\build\Microsoft.CodeAnalysis.Analyzers.targets')" />
-  <Import Project="..\packages\Microsoft.Data.SqlClient.SNI.3.0.0\build\net46\Microsoft.Data.SqlClient.SNI.targets" Condition="Exists('..\packages\Microsoft.Data.SqlClient.SNI.3.0.0\build\net46\Microsoft.Data.SqlClient.SNI.targets')" />
+  <Import Project="..\packages\Microsoft.Data.SqlClient.SNI.2.1.0\build\net46\Microsoft.Data.SqlClient.SNI.targets" Condition="Exists('..\packages\Microsoft.Data.SqlClient.SNI.2.1.0\build\net46\Microsoft.Data.SqlClient.SNI.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
 </Project>
