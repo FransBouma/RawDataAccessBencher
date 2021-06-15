@@ -4,6 +4,7 @@ using LinqToDB.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace RawBencher.Benchers
@@ -24,7 +25,7 @@ namespace RawBencher.Benchers
         {
             // needed for EagerLoad tests
             // should be removed after https://github.com/linq2db/linq2db/pull/1756 release
-            LinqToDB.Common.Configuration.Linq.AllowMultipleQuery = true;
+            //LinqToDB.Common.Configuration.Linq.AllowMultipleQuery = true;
             ConnectionString = connectionString;
         }
 
@@ -54,26 +55,24 @@ namespace RawBencher.Benchers
         public override IEnumerable<LINQ2DB.Bencher.SalesOrderHeader> FetchGraph()
         {
             using (var db = new Db(ConnectionString))
-            {
-                return (from soh in db.SalesOrderHeaders
-                               .LoadWith(x => x.SalesOrderDetails)
-                               .LoadWith(x => x.Customer)
-                        where soh.SalesOrderID > 50000 && soh.SalesOrderID <= 51000
-                        select soh)
-                             .ToList();
-            }
+			{
+				return (from soh in db.SalesOrderHeaders
+						where soh.SalesOrderID > 50000 && soh.SalesOrderID <= 51000
+						select soh).LoadWith(x => x.SalesOrderDetails)
+								   .LoadWith(x => x.Customer)
+								   .ToList();
+			}
 
         }
         public override async Task<IEnumerable<LINQ2DB.Bencher.SalesOrderHeader>> FetchGraphAsync()
         {
             using (var db = new Db(ConnectionString))
             {
-                return await (from soh in db.SalesOrderHeaders
-                                .LoadWith(x => x.SalesOrderDetails)
-                                .LoadWith(x => x.Customer)
+                return await AsyncExtensions.ToListAsync((from soh in db.SalesOrderHeaders
                               where soh.SalesOrderID > 50000 && soh.SalesOrderID <= 51000
                               select soh)
-                    .ToListAsync();
+							 .LoadWith(x => x.SalesOrderDetails)
+							 .LoadWith(x => x.Customer));
             }
         }
 
