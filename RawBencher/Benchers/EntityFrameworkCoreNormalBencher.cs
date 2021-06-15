@@ -58,13 +58,13 @@ namespace RawBencher.Benchers
 		{
 			using(var ctx = new AWDataContext(this.ConnectionStringToUse))
 			{
-				return (from soh in ctx.SalesOrderHeaders.AsQueryable()
+				return (from soh in ctx.SalesOrderHeaders.AsQueryable()      // Added AsQueryable() to help compiler choose extension method 
 						where soh.SalesOrderId > 50000 && soh.SalesOrderId <= 51000
 						select soh)
 							.Include(x => x.SalesOrderDetails)
 							.Include(x => x.Customer)
 #if NET5_0_OR_GREATER
-                            .AsSplitQuery()
+                            .AsSplitQuery()  // EF Core 5 recommends AsSplitQuery() when having more than 1 Include to avoid cartesian product in select 
 #endif
 							.ToList();
 			}
@@ -79,13 +79,13 @@ namespace RawBencher.Benchers
 		{
 			using(var ctx = new AWDataContext(this.ConnectionStringToUse))
 			{
-				return await (from soh in ctx.SalesOrderHeaders.AsQueryable()
+				return await (from soh in ctx.SalesOrderHeaders.AsQueryable()  // Added AsQueryable() to help compiler choose extension method 
 							  where soh.SalesOrderId > 50000 && soh.SalesOrderId <= 51000
 							  select soh)
 					.Include(x=>x.SalesOrderDetails)
 					.Include(x=>x.Customer)
 #if NET5_0_OR_GREATER
-                    .AsSplitQuery()
+                    .AsSplitQuery()   // EF Core 5 recommends AsSplitQuery() when having more than 1 Include to avoid cartesian product in select 
 #endif
 					.ToListAsync();
 			}
@@ -143,6 +143,7 @@ namespace RawBencher.Benchers
 		{
 			using(var ctx = new AWDataContext(this.ConnectionStringToUse))
 			{
+                // Added AsQueryable() to help compiler choose extension method 
 				return ctx.CreditCards.AsQueryable().Where(c => c.CreditCardId > 19237).ToList();
 			}
 		}

@@ -38,6 +38,7 @@ namespace RawBencher
 		private const bool PerformAsyncBenchmarks = true; // flag to signal whether the async fetch benchmarks have to be run. Not every bencher will perform this benchmark.
 		private const bool ApplyAntiFloodForVMUsage = false; // set to true if your target DB server is hosted on a VM, otherwise set it to false. Used in individual fetch bench.
 
+		// read connection strings from ConfigurationManager, in Core this uses System.Configuration.ConfigurationManager NuGet package and app.config file. 
 		private static string ConnectionString = ConfigurationManager.ConnectionStrings["AdventureWorks.ConnectionString.SQL Server (SqlClient)"].ConnectionString;
         private static string ConnectionStringEF6 = ConfigurationManager.ConnectionStrings["EF.ConnectionString.SQL Server (SqlClient)"].ConnectionString;
 		
