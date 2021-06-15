@@ -15,13 +15,13 @@
       <Compile Include="..\RawBencher\Benchers\EntityFrameworkCoreNoChangeTrackingBencher.cs" Link="Benchers\EntityFrameworkCoreNoChangeTrackingBencher.cs" />
       <Compile Include="..\RawBencher\Benchers\EntityFrameworkCoreNormalBencher.cs" Link="Benchers\EntityFrameworkCoreNormalBencher.cs" />
       <Compile Include="..\RawBencher\Benchers\EntityFrameworkCoreDTOBencher.cs" Link="Benchers\EntityFrameworkCoreDTOBencher.cs" />
+      <Compile Include="..\RawBencher\Benchers\EntityFrameworkNoChangeTrackingBencher.cs" Link="Benchers\EntityFrameworkNoChangeTrackingBencher.cs" />
+      <Compile Include="..\RawBencher\Benchers\EntityFrameworkNormalBencher.cs" Link="Benchers\EntityFrameworkNormalBencher.cs" />
       <Compile Include="..\RawBencher\Benchers\FetchOnlyBencherBase.cs" Link="Benchers\FetchOnlyBencherBase.cs" />
       <Compile Include="..\RawBencher\Benchers\HandCodedBencher.cs" Link="Benchers\HandCodedBencher.cs" />
       <Compile Include="..\RawBencher\Benchers\HandCodedBencherUsingBoxing.cs" Link="Benchers\HandCodedBencherUsingBoxing.cs" />
       <Compile Include="..\RawBencher\Benchers\HandCodedBencherUsingBoxingGetValue.cs" Link="Benchers\HandCodedBencherUsingBoxingGetValue.cs" />
-      <Compile Include="..\RawBencher\Benchers\HandCodedBencherUsingGetFieldValue.cs">
-        <Link>Benchers\HandCodedBencherUsingGetFieldValue.cs</Link>
-      </Compile>
+      <Compile Include="..\RawBencher\Benchers\HandCodedBencherUsingGetFieldValue.cs" Link="Benchers\HandCodedBencherUsingGetFieldValue.cs" />
       <Compile Include="..\RawBencher\Benchers\IBencher.cs" Link="Benchers\IBencher.cs" />
       <Compile Include="..\RawBencher\Benchers\LINQ2DBNormalBencher.cs" Link="Benchers\LINQ2DBNormalBencher.cs" />
       <Compile Include="..\RawBencher\Benchers\LLBLGenProNoChangeTrackingBencher.cs" Link="Benchers\LLBLGenProNoChangeTrackingBencher.cs" />
@@ -31,8 +31,11 @@
       <Compile Include="..\RawBencher\Benchers\LLBLGenProNormalBencher.cs" Link="Benchers\LLBLGenProNormalBencher.cs" />
       <Compile Include="..\RawBencher\Benchers\LLBLGenProDTOBencher.cs" Link="Benchers\LLBLGenProDTOBencher.cs" />
       <Compile Include="..\RawBencher\Benchers\LLBLGenProResultsetCachingBencher.cs" Link="Benchers\LLBLGenProResultsetCachingBencher.cs" />
+      <Compile Include="..\RawBencher\Benchers\NHibernateNormalBencher.cs" Link="Benchers\NHibernateNormalBencher.cs" />
       <Compile Include="..\RawBencher\Benchers\NPocoBencher.cs" Link="Benchers\NPocoBencher.cs" />
       <Compile Include="..\RawBencher\Benchers\OrmLiteBencher.cs" Link="Benchers\OrmLiteBencher.cs" />
+      <Compile Include="..\RawBencher\Benchers\PetaPocoBencher.cs" Link="Benchers\PetaPocoBencher.cs" />
+      <Compile Include="..\RawBencher\Benchers\PetaPocoFastBencher.cs" Link="Benchers\PetaPocoFastBencher.cs" />
       <Compile Include="..\RawBencher\Benchers\RawDbDataReaderBencher.cs" Link="Benchers\RawDbDataReaderBencher.cs" />
       <Compile Include="..\RawBencher\Benchers\RepoDbPocoBencher.cs" Link="Benchers\RepoDbPocoBencher.cs" />
       <Compile Include="..\RawBencher\Benchers\RepoDbRawSqlBencher.cs" Link="Benchers\RepoDbRawSqlBencher.cs" />
@@ -44,6 +47,8 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\EF6\Model\EF6.Bencher.Model.csproj" />
+      <ProjectReference Include="..\EF6\Persistence\EF6.Bencher.Persistence.csproj" />
       <ProjectReference Include="..\EFCore\EFCore.Dtos.Persistence\EFCore.Dtos.Persistence.csproj" />
       <ProjectReference Include="..\EFCore\EFCore.Dtos\EFCore.Dtos.csproj" />
       <ProjectReference Include="..\EFCore\Model\EFCore.Bencher.Model.csproj" />
@@ -53,24 +58,37 @@
       <ProjectReference Include="..\LLBLGenPro\DatabaseSpecific\AdventureWorks.Dal.AdapterDBSpecific.csproj" />
       <ProjectReference Include="..\LLBLGenPro\LLBLGenPro.Dtos.Persistence\LLBLGenPro.Dtos.Persistence.csproj" />
       <ProjectReference Include="..\LLBLGenPro\LLBLGenPro.Dtos\LLBLGenPro.Dtos.csproj" />
+      <ProjectReference Include="..\NH\DAL\Model\NH.Bencher.Model.csproj" />
+      <ProjectReference Include="..\NH\DAL\Persistence\NH.Bencher.Persistence.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Dapper" Version="2.0.35" />
+      <PackageReference Include="Dapper" Version="2.0.90" />
       <PackageReference Include="linq2db" Version="3.1.6" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.0" />
+      <PackageReference Include="Microsoft.Data.SqlClient" Version="3.0.0" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.7" />
+      <PackageReference Include="EntityFramework" Version="6.4.4" />
       <PackageReference Include="Microsoft.Extensions.PlatformAbstractions" Version="1.1.0" />
+      <PackageReference Include="NHibernate" Version="5.3.8" />
       <PackageReference Include="NPoco" Version="4.0.3" />
+      <PackageReference Include="PetaPoco.Compiled" Version="6.0.480" />
       <PackageReference Include="RepoDb" Version="1.12.4" />
       <PackageReference Include="RepoDb.SqlServer" Version="1.1.1" />
       <PackageReference Include="SD.LLBLGen.Pro.DQE.SqlServer" Version="5.7.1" />
       <PackageReference Include="ServiceStack.OrmLite.SqlServer" Version="5.10.0" />
+      <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
       <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
       <PackageReference Include="Tortuga.Anchor" Version="3.3.0" />
       <PackageReference Include="Tortuga.Chain.CompiledMaterializers" Version="3.3.3" />
       <PackageReference Include="Tortuga.Chain.Core" Version="3.3.2" />
       <PackageReference Include="Tortuga.Chain.SqlServer" Version="3.3.2" />
       <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="App.config">
+        <SubType>Designer</SubType>
+      </None>
     </ItemGroup>
 
 </Project>

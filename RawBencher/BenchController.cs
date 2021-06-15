@@ -4,8 +4,8 @@
 
 using System;
 using System.Collections.Generic;
-#if !NETCOREAPP
 using System.Configuration;
+#if !NETCOREAPP
 using AdventureWorks.Dal.Adapter.DatabaseSpecific;
 #endif
 using System.Data.SqlClient;
@@ -38,11 +38,10 @@ namespace RawBencher
 		private const bool PerformAsyncBenchmarks = true; // flag to signal whether the async fetch benchmarks have to be run. Not every bencher will perform this benchmark.
 		private const bool ApplyAntiFloodForVMUsage = false; // set to true if your target DB server is hosted on a VM, otherwise set it to false. Used in individual fetch bench.
 
-#if NETCOREAPP
-		private static string ConnectionString = @"data source=ATHENA\SQLEXPRESS2017;initial catalog=AdventureWorks;integrated security=SSPI;persist security info=False;packet size=4096";
-#else
+		// read connection strings from ConfigurationManager, in Core this uses System.Configuration.ConfigurationManager NuGet package and app.config file. 
 		private static string ConnectionString = ConfigurationManager.ConnectionStrings["AdventureWorks.ConnectionString.SQL Server (SqlClient)"].ConnectionString;
-#endif
+        private static string ConnectionStringEF6 = ConfigurationManager.ConnectionStrings["EF.ConnectionString.SQL Server (SqlClient)"].ConnectionString;
+		
 		private static string SqlSelectCommandText = @"SELECT [SalesOrderID],[RevisionNumber],[OrderDate],[DueDate],[ShipDate],[Status],[OnlineOrderFlag],[SalesOrderNumber],[PurchaseOrderNumber],[AccountNumber],[CustomerID],[SalesPersonID],[TerritoryID],[BillToAddressID],[ShipToAddressID],[ShipMethodID],[CreditCardID],[CreditCardApprovalCode],[CurrencyRateID],[SubTotal],[TaxAmt],[Freight],[TotalDue],[Comment],[rowguid],[ModifiedDate] FROM [Sales].[SalesOrderHeader]";
 		private static List<IBencher> RegisteredBenchers = new List<IBencher>();
 		private static List<int> KeysForIndividualFetches = new List<int>();
@@ -55,7 +54,6 @@ namespace RawBencher
 			{
 				autoExit = args[0] == "/a";
 			}
-			BenchController.InitConnectionString();
 
 			CacheController.RegisterCache(ConnectionString, new ResultsetCache());
 			RegisteredBenchers.Add(new HandCodedBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
@@ -79,21 +77,19 @@ namespace RawBencher
 			RegisteredBenchers.Add(new OrmLiteBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new DataTableBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new ChainCompiledBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
-
-#if NETCOREAPP
-			// EF Core 3.x does support netstandard 2.0 but the benchers fail to build on .NET 4.8 so we'll skip them on netfx
 			RegisteredBenchers.Add(new EntityFrameworkCoreNoChangeTrackingBencher() { ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new EntityFrameworkCoreNormalBencher() { ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new EntityFrameworkCoreDTOBencher() { ConnectionStringToUse = ConnectionString });
-#else
+            RegisteredBenchers.Add(new EntityFrameworkNoChangeTrackingBencher(){ConnectionStringToUse = ConnectionStringEF6});
+            RegisteredBenchers.Add(new EntityFrameworkNormalBencher(){ConnectionStringToUse = ConnectionStringEF6});
+            RegisteredBenchers.Add(new PetaPocoBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+            RegisteredBenchers.Add(new PetaPocoFastBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+            RegisteredBenchers.Add(new NHibernateNormalBencher());
+
+#if !NETCOREAPP
 			RegisteredBenchers.Add(new MassiveBencher());
-			RegisteredBenchers.Add(new NHibernateNormalBencher());
 			RegisteredBenchers.Add(new LinqToSqlNoChangeTrackingBencher());
 			RegisteredBenchers.Add(new LinqToSqlNormalBencher());
-			RegisteredBenchers.Add(new EntityFrameworkNoChangeTrackingBencher());
-			RegisteredBenchers.Add(new EntityFrameworkNormalBencher());
-			RegisteredBenchers.Add(new PetaPocoBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
-			RegisteredBenchers.Add(new PetaPocoFastBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 #endif
 			BenchController.DisplayHeader();
 			BenchController.WarmupDB();
@@ -221,20 +217,6 @@ namespace RawBencher
 			Console.WriteLine("Done. Grab snapshot and stop profiler. Press ENTER to continue.");
 			Console.ReadLine();
 		}
-
-
-		private static void InitConnectionString()
-		{
-#if !NETCOREAPP
-			// Use the connection string from app.config instead of the static variable if the connection string exists
-			var connectionStringFromConfig = ConfigurationManager.ConnectionStrings[DataAccessAdapter.ConnectionStringKeyName];
-			if(connectionStringFromConfig != null)
-			{
-				ConnectionString = string.IsNullOrEmpty(connectionStringFromConfig.ConnectionString) ? ConnectionString : connectionStringFromConfig.ConnectionString;
-			}
-#endif
-		}
-
 
 		private static void FetchKeysForIndividualFetches()
 		{

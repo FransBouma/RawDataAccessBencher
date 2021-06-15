@@ -8,7 +8,7 @@ The results of various runs of the benchmark are available as files in the repos
 
 ### Requirements ###
 
-.NET 4.6.2, SQL Server with AdventureWorks example database (2008 version, available on [Github](https://github.com/Microsoft/sql-server-samples/releases/tag/adventureworks)). See below how to install/configure it. The mappings supplied are for the 2008 version of the example database. 
+.NET 4.8.0 and .NET 5.0, SQL Server with AdventureWorks example database (2008 version, available on [Github](https://github.com/Microsoft/sql-server-samples/releases/tag/adventureworks)). See below how to install/configure it. The mappings supplied are for the 2008 version of the example database. 
 
 ### How to attach / install the database ###
 
