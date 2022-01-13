@@ -28,7 +28,7 @@ namespace RawBencher.Benchers
 			: base(r => r.SalesOrderId, usesChangeTracking:false, usesCaching:false, supportsAsync:true, supportsEagerLoading:true, supportsIndividualFetch:false, supportsSetFetch:false)
 		{
 			RuntimeConfiguration.AddConnectionString("AdventureWorks.ConnectionString.SQL Server (SqlClient)", connectionString);
-			RuntimeConfiguration.ConfigureDQE<SQLServerDQEConfiguration>(c=>c.AddDbProviderFactory(typeof(System.Data.SqlClient.SqlClientFactory)));
+			RuntimeConfiguration.ConfigureDQE<SQLServerDQEConfiguration>(c=>c.AddDbProviderFactory(typeof(Microsoft.Data.SqlClient.SqlClientFactory)));
 		}
 
 

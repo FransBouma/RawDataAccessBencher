@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Data.SqlClient;
 
-
 namespace RawBencher.Benchers
 {
 	/// <summary>
@@ -62,7 +61,7 @@ namespace RawBencher.Benchers
 
 
 
-		#region Properties
+#region Properties
 		/// <summary>
 		/// Gets or sets the connection string to use
 		/// </summary>
@@ -71,7 +70,7 @@ namespace RawBencher.Benchers
 		/// Gets or sets the command text.
 		/// </summary>
 		public string CommandText { get; set; }
-		#endregion
+#endregion
 	}
 
 }

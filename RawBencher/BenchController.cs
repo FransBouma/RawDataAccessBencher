@@ -56,6 +56,8 @@ namespace RawBencher
 			}
 
 			CacheController.RegisterCache(ConnectionString, new ResultsetCache());
+			RegisteredBenchers.Add(new PetaPocoBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+			RegisteredBenchers.Add(new PetaPocoFastBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new HandCodedBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new HandCodedBencherUsingGetFieldValue() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new RepoDbRawSqlBencher() { ConnectionStringToUse = ConnectionString, CommandText = SqlSelectCommandText });
@@ -77,16 +79,15 @@ namespace RawBencher
 			RegisteredBenchers.Add(new OrmLiteBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new DataTableBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new ChainCompiledBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
+            RegisteredBenchers.Add(new EntityFrameworkNoChangeTrackingBencher(){ConnectionStringToUse = ConnectionStringEF6});
+            RegisteredBenchers.Add(new EntityFrameworkNormalBencher(){ConnectionStringToUse = ConnectionStringEF6});
+            RegisteredBenchers.Add(new NHibernateNormalBencher());
+
+#if NETCOREAPP
 			RegisteredBenchers.Add(new EntityFrameworkCoreNoChangeTrackingBencher() { ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new EntityFrameworkCoreNormalBencher() { ConnectionStringToUse = ConnectionString });
 			RegisteredBenchers.Add(new EntityFrameworkCoreDTOBencher() { ConnectionStringToUse = ConnectionString });
-            RegisteredBenchers.Add(new EntityFrameworkNoChangeTrackingBencher(){ConnectionStringToUse = ConnectionStringEF6});
-            RegisteredBenchers.Add(new EntityFrameworkNormalBencher(){ConnectionStringToUse = ConnectionStringEF6});
-            RegisteredBenchers.Add(new PetaPocoBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
-            RegisteredBenchers.Add(new PetaPocoFastBencher() { CommandText = SqlSelectCommandText, ConnectionStringToUse = ConnectionString });
-            RegisteredBenchers.Add(new NHibernateNormalBencher());
-
-#if !NETCOREAPP
+#else
 			RegisteredBenchers.Add(new MassiveBencher());
 			RegisteredBenchers.Add(new LinqToSqlNoChangeTrackingBencher());
 			RegisteredBenchers.Add(new LinqToSqlNormalBencher());
