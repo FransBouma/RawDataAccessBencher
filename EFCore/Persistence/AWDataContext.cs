@@ -20,9 +20,6 @@ namespace EFCore.Bencher
 		/// <param name="options">The DbContextOptions object to use</param>
 		public AWDataContext(DbContextOptions<AWDataContext> options) : base(options) {}
 		
-		/// <summary>Empty constructor which relies on OnConfiguring being overriden</summary>
-		public AWDataContext() : base() {}
-		
 		/// <inheritdoc/>
 		public override int SaveChanges(bool acceptAllChangesOnSuccess)
 		{
