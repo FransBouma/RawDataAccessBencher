@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using EFCore.Bencher;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace RawBencher.Benchers
 {
@@ -13,12 +11,19 @@ namespace RawBencher.Benchers
 	/// </summary>
 	public class EntityFrameworkCoreNoChangeTrackingBencher : FetchOnlyBencherBase<EFCore.Bencher.EntityClasses.SalesOrderHeader>
 	{
+		private readonly PooledDbContextFactory<AWDataContext> pooledDbContextFactory;
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="EntityFrameworkCoreNoChangeTrackingBencher"/> class.
 		/// </summary>
-		public EntityFrameworkCoreNoChangeTrackingBencher()
+		public EntityFrameworkCoreNoChangeTrackingBencher(string connectionString)
 			: base(e => e.SalesOrderId, usesChangeTracking: false, usesCaching: false)
 		{
+			var options = new DbContextOptionsBuilder<AWDataContext>()
+				.UseSqlServer(connectionString)
+				.Options;
+
+			pooledDbContextFactory = new PooledDbContextFactory<AWDataContext>(options);
 		}
 
 
@@ -29,20 +34,20 @@ namespace RawBencher.Benchers
 		/// <returns>The fetched element, or null if not found</returns>
 		public override EFCore.Bencher.EntityClasses.SalesOrderHeader FetchIndividual(int key)
 		{
-			using(var ctx = new AWDataContext(this.ConnectionStringToUse))
+			using (var ctx = pooledDbContextFactory.CreateDbContext())
 			{
 				return ctx.SalesOrderHeaders.AsNoTracking().Single(e => e.SalesOrderId == key);
 			}
 		}
 
-
+		
 		/// <summary>
 		/// Fetches the complete set of elements and returns this set as an IEnumerable.
 		/// </summary>
 		/// <returns>the set fetched</returns>
 		public override IEnumerable<EFCore.Bencher.EntityClasses.SalesOrderHeader> FetchSet()
 		{
-			using(var ctx = new AWDataContext(this.ConnectionStringToUse))
+			using (var ctx = pooledDbContextFactory.CreateDbContext())
 			{
 				return ctx.SalesOrderHeaders.AsNoTracking().ToList();
 			}
@@ -58,12 +63,5 @@ namespace RawBencher.Benchers
 		{
 			return CreateFrameworkName("Entity Framework Core v{0} (v{1})", typeof(Microsoft.EntityFrameworkCore.DbContext));
 		}
-
-		#region Properties
-		/// <summary>
-		/// Gets or sets the connection string to use
-		/// </summary>
-		public string ConnectionStringToUse { get; set; }
-		#endregion
 	}
 }

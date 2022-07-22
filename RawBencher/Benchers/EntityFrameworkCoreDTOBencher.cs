@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using EFCore.Bencher;
-using EFCore.Bencher.EntityClasses;
 using EFCore.Dtos.DtoClasses;
 using EFCore.Dtos.DtoClasses.SalesOrderHeaderDtoTypes;
 using EFCore.Dtos.Persistence;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace RawBencher.Benchers
 {
@@ -17,12 +15,19 @@ namespace RawBencher.Benchers
 	/// </summary>
 	public class EntityFrameworkCoreDTOBencher : FetchOnlyBencherBase<SalesOrderHeaderDto>
 	{
+		private readonly PooledDbContextFactory<AWDataContext> pooledDbContextFactory;
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="EntityFrameworkCoreDTOBencher"/> class.
 		/// </summary>
-		public EntityFrameworkCoreDTOBencher()
+		public EntityFrameworkCoreDTOBencher(string connectionString)
 			: base(e => e.SalesOrderId, usesChangeTracking:false, usesCaching:false, supportsAsync:true, supportsEagerLoading:true, supportsIndividualFetch:false, supportsSetFetch:false)
 		{
+			var options = new DbContextOptionsBuilder<AWDataContext>()
+				.UseSqlServer(connectionString)
+				.Options;
+
+			pooledDbContextFactory = new PooledDbContextFactory<AWDataContext>(options);
 		}
 
 		
@@ -32,7 +37,7 @@ namespace RawBencher.Benchers
 		/// <returns>the graph fetched</returns>
 		public override IEnumerable<SalesOrderHeaderDto> FetchGraph()
 		{
-			using(var ctx = new AWDataContext(this.ConnectionStringToUse))
+			using (var ctx = pooledDbContextFactory.CreateDbContext())
 			{
 				return (from soh in ctx.SalesOrderHeaders.AsQueryable() // Added AsQueryable() to help compiler choose extension method 
 						where soh.SalesOrderId > 50000 && soh.SalesOrderId <= 51000
@@ -48,7 +53,7 @@ namespace RawBencher.Benchers
 		/// <returns>the graph fetched</returns>
 		public override async Task<IEnumerable<SalesOrderHeaderDto>> FetchGraphAsync()
 		{
-			using(var ctx = new AWDataContext(this.ConnectionStringToUse))
+			using (var ctx = pooledDbContextFactory.CreateDbContext())
 			{
 				return await (from soh in ctx.SalesOrderHeaders.AsQueryable() // Added AsQueryable() to help compiler choose extension method 
 							  where soh.SalesOrderId > 50000 && soh.SalesOrderId <= 51000
@@ -94,14 +99,5 @@ namespace RawBencher.Benchers
 		{
 			return CreateFrameworkName("Entity Framework Core v{0} (v{1}) Poco DTO Graph", typeof(Microsoft.EntityFrameworkCore.DbContext));
 		}
-
-
-		#region Properties
-		/// <summary>
-		/// Gets or sets the connection string to use
-		/// </summary>
-		public string ConnectionStringToUse { get; set; }
-		#endregion
-
 	}
 }

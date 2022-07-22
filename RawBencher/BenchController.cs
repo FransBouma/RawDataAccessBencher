@@ -84,9 +84,9 @@ namespace RawBencher
             RegisteredBenchers.Add(new NHibernateNormalBencher());
 
 #if NETCOREAPP
-			RegisteredBenchers.Add(new EntityFrameworkCoreNoChangeTrackingBencher() { ConnectionStringToUse = ConnectionString });
-			RegisteredBenchers.Add(new EntityFrameworkCoreNormalBencher() { ConnectionStringToUse = ConnectionString });
-			RegisteredBenchers.Add(new EntityFrameworkCoreDTOBencher() { ConnectionStringToUse = ConnectionString });
+			RegisteredBenchers.Add(new EntityFrameworkCoreNoChangeTrackingBencher(ConnectionString));
+			RegisteredBenchers.Add(new EntityFrameworkCoreNormalBencher(ConnectionString));
+			RegisteredBenchers.Add(new EntityFrameworkCoreDTOBencher(ConnectionString));
 #else
 			RegisteredBenchers.Add(new MassiveBencher());
 			RegisteredBenchers.Add(new LinqToSqlNoChangeTrackingBencher());
