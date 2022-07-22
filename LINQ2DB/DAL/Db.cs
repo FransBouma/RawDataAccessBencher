@@ -8,10 +8,10 @@ namespace LINQ2DB.Bencher
         {
         }
 
-        public ITable<SalesOrderHeader> SalesOrderHeader  => GetTable<SalesOrderHeader>();
+        public ITable<SalesOrderHeader> SalesOrderHeader  => this.GetTable<SalesOrderHeader>();
 
-        public ITable<CreditCard>       CreditCards       => GetTable<CreditCard>();
+        public ITable<CreditCard>       CreditCards       => this.GetTable<CreditCard>();
 
-        public ITable<SalesOrderHeader> SalesOrderHeaders => GetTable<SalesOrderHeader>();
+        public ITable<SalesOrderHeader> SalesOrderHeaders => this.GetTable<SalesOrderHeader>();
     }
 }
