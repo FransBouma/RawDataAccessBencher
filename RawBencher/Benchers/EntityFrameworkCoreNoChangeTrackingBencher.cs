@@ -16,15 +16,16 @@ namespace RawBencher.Benchers
 		/// <summary>
 		/// Initializes a new instance of the <see cref="EntityFrameworkCoreNoChangeTrackingBencher"/> class.
 		/// </summary>
-		public EntityFrameworkCoreNoChangeTrackingBencher(string connectionString)
-			: base(e => e.SalesOrderId, usesChangeTracking: false, usesCaching: false)
-		{
-			var options = new DbContextOptionsBuilder<AWDataContext>()
-				.UseSqlServer(connectionString)
-				.Options;
+public EntityFrameworkCoreNoChangeTrackingBencher(string connectionString)
+	: base(e => e.SalesOrderId, usesChangeTracking: false, usesCaching: false)
+{
+	var options = new DbContextOptionsBuilder<AWDataContext>()
+		.UseSqlServer(connectionString)
+		.EnableThreadSafetyChecks(false)
+		.Options;
 
-			pooledDbContextFactory = new PooledDbContextFactory<AWDataContext>(options);
-		}
+	pooledDbContextFactory = new PooledDbContextFactory<AWDataContext>(options);
+}
 
 
 		/// <summary>
@@ -53,7 +54,7 @@ namespace RawBencher.Benchers
 			}
 		}
 
-
+		
 		/// <summary>
 		/// Creates the name of the framework this bencher is for. Use the overload which accepts a format string and a type to create a name based on a
 		/// specific version
