@@ -27,6 +27,7 @@ namespace RawBencher.Benchers
 
 			var options = new DbContextOptionsBuilder<AWDataContext>()
 				.UseSqlServer(connectionString)
+				.EnableThreadSafetyChecks(false)
 				.Options;
 
 			pooledDbContextFactory = new PooledDbContextFactory<AWDataContext>(options);

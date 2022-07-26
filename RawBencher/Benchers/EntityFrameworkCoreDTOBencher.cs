@@ -25,6 +25,7 @@ namespace RawBencher.Benchers
 		{
 			var options = new DbContextOptionsBuilder<AWDataContext>()
 				.UseSqlServer(connectionString)
+				.EnableThreadSafetyChecks(false)
 				.Options;
 
 			pooledDbContextFactory = new PooledDbContextFactory<AWDataContext>(options);
@@ -41,8 +42,7 @@ namespace RawBencher.Benchers
 			{
 				return (from soh in ctx.SalesOrderHeaders.AsQueryable() // Added AsQueryable() to help compiler choose extension method 
 						where soh.SalesOrderId > 50000 && soh.SalesOrderId <= 51000
-						select soh)
-					   .ProjectToSalesOrderHeaderDto().ToList();
+						select soh).ProjectToSalesOrderHeaderDto().ToList();
 			}
 		}
 
