@@ -27,6 +27,18 @@ If you want to export the results to a file directly, run the RawBencher.exe fro
 * CodeFluent Entities was part of the code base, but has been removed, as they kept the connection open during individual fetches, which gave them an unfair advantage. 
 * In previous versions the Telerik Open Access ORM was present, however compiling the code is impossible without the 'enhancer' tool of Telerik present on the system. To make it easier for people to download and compile the code, we therefore removed the Telerik bencher. If you want them, browse to a previous commit and pull the bencher classes and model from there. 
 
+### Remarks about the benchmark results
+
+I've included some optimizations for Entity Framework Core, which can be used in production but one should be careful. I fully understand these optimizations could be seen as 'ways to win in a benchmark', as it's recommended only to enable these features if you're sure you're not running into the side effects of it. The main reason I included them is that there's already corner cutting
+going on by some frameworks: relying on the datareader.GetSchemaTable for which columns could contain NULL values. 
+
+The way this works is that if you can determine a result set column which according to the mappings could have NULL values but in *this* particular set doesn't contain NULL values, you can skip
+the NULL check on each value for that column in each row, which can result in faster set fetches. The downside is that this setup can fail when you fetch a query from a SQL Server View which 
+is formed by a query on tables which have been changed. Because of this my own framework, LLBLGen Pro, doesn't implement this optimization, but some others do. 
+
+As with all benchmarks, you have to do your own testing on your hardware with your usage profile to see if the framework you've chosen is indeed fast enough. The tests in this project give a 
+good overview of the performance characteristics of the various frameworks *relative to each other* but it's not said in your project they perform the same. 
+
 ### Remarks per used framework ###
 
 NHibernate uses .hbm mappings, as this is of no relevance to the fetch speed and it avoids a dependency on FluentNHibernate.
