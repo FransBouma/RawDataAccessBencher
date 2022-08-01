@@ -85,6 +85,7 @@ namespace RawBencher
 
 #if NETCOREAPP
 			RegisteredBenchers.Add(new EntityFrameworkCoreNoChangeTrackingBencher(ConnectionString));
+			RegisteredBenchers.Add(new EntityFrameworkCoreNoChangeTrackingCompiledQueryBencher(ConnectionString));
 			RegisteredBenchers.Add(new EntityFrameworkCoreNormalBencher(ConnectionString));
 			RegisteredBenchers.Add(new EntityFrameworkCoreDTOBencher(ConnectionString));
 #else
