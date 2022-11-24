@@ -163,9 +163,9 @@ namespace RawBencher.Benchers
 
 		protected override void DeleteInserted(IEnumerable<CreditCard> toDelete)
 		{
-            var options = new DbContextOptionsBuilder<AWDataContext>()
-                .UseSqlServer(connectionString)
-                .Options;
+			var options = new DbContextOptionsBuilder<AWDataContext>()
+				.UseSqlServer(connectionString)
+				.Options;
 
 			using (var ctx = new AWDataContext(options))
 			{
