@@ -163,20 +163,13 @@ namespace RawBencher.Benchers
 
 		protected override void DeleteInserted(IEnumerable<CreditCard> toDelete)
 		{
-			//using(var ctx = new AWDataContext(this.ConnectionStringToUse))
-			//{
-			//	ctx.CreditCards.RemoveRange(toDelete);
-			//	ctx.SaveChanges();
-			//}
+            var options = new DbContextOptionsBuilder<AWDataContext>()
+                .UseSqlServer(connectionString)
+                .Options;
 
-			// the above code is terribly slow, so we'll issue a direct SQL statement using SqlClient here, it otherwise takes multiple seconds for EF to delete the 1000 entities.
-			using(var con = new System.Data.SqlClient.SqlConnection(connectionString))
+			using (var ctx = new AWDataContext(options))
 			{
-				var cmd = con.CreateCommand();
-				cmd.CommandText = "DELETE FROM Sales.CreditCard WHERE CreditCardId > 19237";
-				con.Open();
-				cmd.ExecuteNonQuery();
-				con.Close();
+				ctx.CreditCards.Where(cc => cc.CreditCardId > 19237).ExecuteDelete();
 			}
 		}
 

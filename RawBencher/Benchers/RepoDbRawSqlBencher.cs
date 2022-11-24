@@ -26,7 +26,7 @@ namespace RawBencher.Benchers
         public override void Initialize()
         {
             base.Initialize();
-            SqlServerBootstrap.Initialize();
+            GlobalConfiguration.Setup().UseSqlServer();
         }
 
         /// <summary>
