@@ -4,13 +4,15 @@ using LinqToDB.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace RawBencher.Benchers
 {
     public class LINQ2DBNormalBencher : BencherBase<LINQ2DB.Bencher.SalesOrderHeader, CreditCard>
     {
+        private static readonly BulkCopyOptions _insertSetBaseOptions = new BulkCopyOptions()
+            .WithBulkCopyType(BulkCopyType.MultipleRows);
+
         protected readonly string ConnectionString;
 
         public LINQ2DBNormalBencher(string connectionString)
@@ -23,9 +25,6 @@ namespace RawBencher.Benchers
                   supportsAsync: true,
                   supportsInserts: true)
         {
-            // needed for EagerLoad tests
-            // should be removed after https://github.com/linq2db/linq2db/pull/1756 release
-            //LinqToDB.Common.Configuration.Linq.AllowMultipleQuery = true;
             ConnectionString = connectionString;
         }
 
@@ -55,13 +54,13 @@ namespace RawBencher.Benchers
         public override IEnumerable<LINQ2DB.Bencher.SalesOrderHeader> FetchGraph()
         {
             using (var db = new Db(ConnectionString))
-			{
-				return (from soh in db.SalesOrderHeaders
-						where soh.SalesOrderID > 50000 && soh.SalesOrderID <= 51000
-						select soh).LoadWith(x => x.SalesOrderDetails)
-								   .LoadWith(x => x.Customer)
-								   .ToList();
-			}
+            {
+                return (from soh in db.SalesOrderHeaders
+                        where soh.SalesOrderID > 50000 && soh.SalesOrderID <= 51000
+                        select soh).LoadWith(x => x.SalesOrderDetails)
+                                   .LoadWith(x => x.Customer)
+                                   .ToList();
+            }
 
         }
         public override async Task<IEnumerable<LINQ2DB.Bencher.SalesOrderHeader>> FetchGraphAsync()
@@ -71,8 +70,8 @@ namespace RawBencher.Benchers
                 return await AsyncExtensions.ToListAsync((from soh in db.SalesOrderHeaders
                               where soh.SalesOrderID > 50000 && soh.SalesOrderID <= 51000
                               select soh)
-							 .LoadWith(x => x.SalesOrderDetails)
-							 .LoadWith(x => x.Customer));
+                             .LoadWith(x => x.SalesOrderDetails)
+                             .LoadWith(x => x.Customer));
             }
         }
 
@@ -142,7 +141,7 @@ namespace RawBencher.Benchers
         {
             using (var db = new Db(ConnectionString))
             {
-                db.BulkCopy(new BulkCopyOptions { BulkCopyType = BulkCopyType.MultipleRows, MaxBatchSize = batchSize }, toInsert);
+                db.BulkCopy(_insertSetBaseOptions.WithMaxBatchSize(batchSize), toInsert);
             }
         }
     }
